@@ -1,0 +1,96 @@
+﻿namespace RightRule.Interpreter;
+
+public sealed class Parser
+{
+    private readonly Tokenizer _tokenizer;
+    private Token _current;
+
+    public Parser(Tokenizer tokenizer)
+    {
+        _tokenizer = tokenizer;
+        _current = _tokenizer.NextToken();
+    }
+
+    private void Eat(TokenType type)
+    {
+        if (_current.Type != type)
+            throw new Exception($"Expected {type} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
+        _current = _tokenizer.NextToken();
+    }
+
+    public Node Parse() => ParseOr();
+
+    private Node ParseOr()
+    {
+        Node node = ParseAnd();
+        while (_current.Type == TokenType.Or)
+        {
+            Eat(TokenType.Or);
+            node = new BinaryNode { LogicOp = "OR", Left = node, Right = ParseAnd() };
+        }
+        return node;
+    }
+
+    private Node ParseAnd()
+    {
+        Node node = ParseNot();
+        while (_current.Type == TokenType.And)
+        {
+            Eat(TokenType.And);
+            node = new BinaryNode { LogicOp = "AND", Left = node, Right = ParseNot() };
+        }
+        return node;
+    }
+
+    private Node ParseNot()
+    {
+        if (_current.Type == TokenType.Not)
+        {
+            Eat(TokenType.Not);
+            return new NotNode { Inner = ParseNot() }; // right-associative
+        }
+        return ParsePrimary();
+    }
+
+    private Node ParsePrimary()
+    {
+        if (_current.Type == TokenType.LParen)
+        {
+            Eat(TokenType.LParen);
+            var node = Parse();
+            Eat(TokenType.RParen);
+            return node;
+        }
+        return ParseCondition();
+    }
+
+    private Node ParseCondition()
+    {
+        if (_current.Type != TokenType.Identifier)
+            throw new Exception($"Expected identifier at pos {_current.Position}");
+
+        string leftIdent = _current.Value;
+        Eat(TokenType.Identifier);
+
+        if (_current.Type != TokenType.Operator)
+            throw new Exception($"Expected operator at pos {_current.Position}");
+        string op = _current.Value; // keep original casing; resolve case-insensitively
+        Eat(TokenType.Operator);
+
+        Operand rhs = _current.Type switch
+        {
+            TokenType.String => new Operand(OperandKind.String, _current.Value),
+            TokenType.Number => new Operand(OperandKind.Number, _current.Value),
+            TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
+            _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
+        };
+        Eat(_current.Type);
+
+        return new ConditionNode
+        {
+            LeftIdentifier = leftIdent,
+            Operator = op,
+            Right = rhs
+        };
+    }
+}

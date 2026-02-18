@@ -1,0 +1,15 @@
+﻿<expr>       ::= <or>
+
+<or>         ::= <and> ( "OR" <and> )*
+
+<and>        ::= <not> ( "AND" <not> )*
+
+<not>        ::= "NOT" <not> 
+               | <primary>
+
+<primary>    ::= "(" <expr> ")"
+               | <condition>
+
+<condition>  ::= <variable> <operator> <value>
+
+<operator>   ::= "contains", "equals", "notequals"
