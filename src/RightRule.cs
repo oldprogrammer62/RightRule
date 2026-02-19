@@ -8,22 +8,22 @@ namespace RightRule;
 public class RightRule
 {
     private readonly List<IOperator> _operators;
-    private readonly Rules.Rules _rules;
+    private readonly Rules.ParsedRules _rules;
 
     public RightRule()
     {
-        _rules = new Rules.Rules();
+        _rules = new Rules.ParsedRules();
         _operators = GetOperators();
     }
 
-    public Rule RegisterRule(RawRule rawRule)
+    public ParsedRule RegisterRule(Rule rule)
     {
-        var rule = CreateRule(rawRule);
-        _rules.AddRule(rule);
-        return rule;
+        var pRule = CreateRule(rule);
+        _rules.AddRule(pRule);
+        return pRule;
     }
 
-    public Rule ApplyRules(string Context, Dictionary<string, object> Data)
+    public ParsedRule ApplyRules(string Context, Dictionary<string, object> Data)
     {
         var rulesToApply = Helpers.FilterRules(Context, _rules.RightRules);
 
@@ -31,22 +31,22 @@ public class RightRule
         return evaluator.Evaluate(rulesToApply);
     }
 
-    private Rule CreateRule(RawRule rawRule)
+    private ParsedRule CreateRule(Rule rule)
     {
         var operatorNames = _operators.Select(o => o.Name);
-        var statement = rawRule.Statement;
+        var statement = rule.Statement;
 
         Node node = GenerateTree(statement, operatorNames);
-        Rule rule = new Rule()
+        ParsedRule pRule = new ParsedRule()
         {
-            Number = rawRule.Number,
-            Name = rawRule.Name,
-            Context = rawRule.Context,
+            Number = rule.Number,
+            Name = rule.Name,
+            Context = rule.Context,
             Node = node,
-            Decision= rawRule.Decision,
-            DecisionData = rawRule.DecisionData
+            Decision= rule.Decision,
+            DecisionData = rule.DecisionData
         };
-        return rule;
+        return pRule;
     }
 
     private Node GenerateTree(string Statement, IEnumerable<string> OperatorNames)

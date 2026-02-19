@@ -22,7 +22,7 @@ namespace BSoftTests
         public void TestItWorks_NoDecision()
         {
             // Rule
-            RawRule rawRule = new()
+            Rule rule = new()
             {
                 Number = 1,
                 Name = "Age Rule",
@@ -32,18 +32,18 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule = rr.RegisterRule(rawRule);
+            var newRule = rr.RegisterRule(rule);
 
             var appliedRule = rr.ApplyRules("AgeContext1", _Data);
 
-            Assert.Equal(Rule.DefaultRule().Decision, appliedRule.Decision);
+            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
         }
 
         [Fact]
         public void TestItWorks_Number_Equals()
         {
             // Rule
-            RawRule rawRule = new()
+            Rule rule = new()
             {
                 Number = 1,
                 Name = "Age Rule",
@@ -53,7 +53,7 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule = rr.RegisterRule(rawRule);
+            var newRule = rr.RegisterRule(rule);
 
             var appliedRule = rr.ApplyRules("AgeContext", _Data);
 
@@ -64,7 +64,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals()
         {
             // Rule
-            RawRule rawRule = new()
+            Rule rule = new()
             {
                 Number = 2,
                 Name = "Name Rule",
@@ -74,7 +74,7 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule = rr.RegisterRule(rawRule);
+            var newRule = rr.RegisterRule(rule);
 
             var appliedRule = rr.ApplyRules("NameContext", _Data);
 
@@ -85,7 +85,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals_String()
         {
             // Rule
-            RawRule rawRule = new()
+            Rule rule = new()
             {
                 Number = 3,
                 Name = "Name Rule",
@@ -95,18 +95,18 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule = rr.RegisterRule(rawRule);
+            var newRule = rr.RegisterRule(rule);
 
             var appliedRule = rr.ApplyRules("NameContext", _Data);
 
-            Assert.Equal(Rule.DefaultRule().Decision, appliedRule.Decision);
+            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
         }
 
         [Fact]
         public void TestItWorks_String_Equals_MultipleContext1()
         {
             // Rule
-            RawRule rawRule1 = new()
+            Rule rule1 = new()
             {
                 Number = 1,
                 Name = "Name Rule",
@@ -115,7 +115,7 @@ namespace BSoftTests
                 Decision = "FOUND1",
             };
 
-            RawRule rawRule2 = new()
+            Rule rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
@@ -125,8 +125,8 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule1 = rr.RegisterRule(rawRule1);
-            var newRule2 = rr.RegisterRule(rawRule2);
+            var newRule1 = rr.RegisterRule(rule1);
+            var newRule2 = rr.RegisterRule(rule2);
 
             var appliedRule = rr.ApplyRules("Context1", _Data);
 
@@ -138,7 +138,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals_MultipleContext2()
         {
             // Rule
-            RawRule rawRule1 = new()
+            Rule rule1 = new()
             {
                 Number = 1,
                 Name = "Name Rule",
@@ -147,7 +147,7 @@ namespace BSoftTests
                 Decision = "FOUND1",
             };
 
-            RawRule rawRule2 = new()
+            Rule rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
@@ -157,8 +157,8 @@ namespace BSoftTests
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
-            var newRule1 = rr.RegisterRule(rawRule1);
-            var newRule2 = rr.RegisterRule(rawRule2);
+            var newRule1 = rr.RegisterRule(rule1);
+            var newRule2 = rr.RegisterRule(rule2);
 
             var appliedRule = rr.ApplyRules("Context2", _Data);
 
