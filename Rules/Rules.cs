@@ -3,7 +3,7 @@
 public class Rules
 {
     private List<Rule> _rules;
-    public List<Rule> Ruless { get { return _rules; } }
+    public List<Rule> RightRules { get { return _rules; } }
 
     public Rules()
     {

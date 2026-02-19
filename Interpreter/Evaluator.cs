@@ -14,7 +14,7 @@ public sealed class Evaluator
         IEnumerable<IOperator> operators)
     {
         _context = context ?? new Dictionary<string, object>();
-        // build case-insensitive registry
+
         var dict = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
         {
@@ -25,10 +25,15 @@ public sealed class Evaluator
         _operators = dict;
     }
 
-    public Rule? Evaluate(Rules.Rules rules)
+    public Rule Evaluate(Rules.Rules rules)
     {
-        Rule? resultRule = default;
-        foreach (var rule in rules.Ruless)
+        return Evaluate(rules.RightRules);
+    }
+
+    public Rule Evaluate(List<Rule> rules)
+    {
+        Rule? resultRule = Rule.DefaultRule();
+        foreach (var rule in rules)
         {
             var result = Evaluate(rule.Node);
             if (result)
@@ -40,7 +45,7 @@ public sealed class Evaluator
         return resultRule;
     }
 
-    public bool Evaluate(Node node) => node switch
+    public bool Evaluate(Node? node) => node switch
     {
         ConditionNode c => EvaluateCondition(c),
         BinaryNode b => EvaluateBinary(b),
