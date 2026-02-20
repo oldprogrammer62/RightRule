@@ -6,7 +6,12 @@ internal static class Helpers
 {
     internal static List<ParsedRule> FilterRules(string Context, List<ParsedRule> Rules)
     {
-        var filteredRules = Rules.Where(x => x.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        var filteredRules = Rules.Where
+            (
+            x => x.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
+            )
+            .OrderBy( x => x.Number )
+            .ToList();
         return filteredRules;
     }
 }
