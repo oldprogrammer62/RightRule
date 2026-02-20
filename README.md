@@ -88,3 +88,27 @@ new AppliedRule()
   Decision = "NODECISION",
   DecisionData = null
 };
+```
+
+## The RightRule grammar
+expr       = or_expr ;
+
+or_expr    = and_expr { "OR" and_expr } ;
+
+and_expr   = not_expr { "AND" not_expr } ;
+
+not_expr   = [ "NOT" ] primary ;
+
+primary    = "(" expr ")"
+           | condition ;
+
+condition  = variable operator value ;
+
+operator   = "contains"
+           | "equals"
+           | "notequals" ;
+
+value      = number
+           | string
+           | boolean ;
+
