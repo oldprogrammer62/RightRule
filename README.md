@@ -5,6 +5,7 @@ C# Rules Engine with a simple Rule grammar and extensible operator library.
 It consists of the following parts:
 - Data in the form of Dictionary<string, object>
 - Rules that define the statement used to evaluate a condition in the Data.
+- A set of Operators that can be used in the Rule Statement (Default: Equals, NotEquals, Contains)
 - An Interpreter responsible for evaluating a rule statement.
 - An Evaluator responsible for applying the interpreted rules over the Data.
 
@@ -28,7 +29,7 @@ Rules can be registered late.
 This allows a subset of rules to be registered when needed.
 
 ### The Rule Statement
-This follows thre RightRule grammar.  
+A Rule Statement must follow the RightRule grammar (See below).  
 Examples of syntactically correct statements are as follows:
 - age equals 20
 - age = 20
