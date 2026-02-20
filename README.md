@@ -56,8 +56,6 @@ new RuleDefinition()
 };
 
 ### Example implementation of RightRule
-`code`
-```csharp
 {
   var rightRule = new RightRule.RightRule();
   Dictionary<string, object> data = MakeData();
@@ -70,8 +68,6 @@ new RuleDefinition()
 }
 
 ### Definition of the Default Rule
-`code`
-```csharp
 new AppliedRule()
 {
   Number = -1,
@@ -81,4 +77,3 @@ new AppliedRule()
   Decision = "NODECISION",
   DecisionData = null
 };
-
