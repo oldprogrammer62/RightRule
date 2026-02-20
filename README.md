@@ -44,6 +44,7 @@ If no rules exists for the specified Context, or no Rule evaluates to true, a de
 
 ### Example Rule
 `code`
+```csharp
 new RuleDefinition()
 {
   Number = 1,
@@ -56,6 +57,7 @@ new RuleDefinition()
 
 ### Example implementation of RightRule
 `code`
+```csharp
 {
   var rightRule = new RightRule.RightRule();
   Dictionary<string, object> data = MakeData();
@@ -69,6 +71,7 @@ new RuleDefinition()
 
 ### Definition of the Default Rule
 `code`
+```csharp
 new AppliedRule()
 {
   Number = -1,
