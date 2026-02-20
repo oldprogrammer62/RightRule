@@ -1,5 +1,5 @@
-## RightRule
-# Overview
+# RightRule
+### Overview
 C# Rules Engine with a simple Rule grammar and extensible operator library.
 
 It consists of the following parts:
@@ -8,12 +8,12 @@ It consists of the following parts:
 - An Interpreter responsible for evaluating a rule statement.
 - An Evaluator responsible for applying the interpreted rules over the Data.
 
-# How to use
+### How to use
 There are 2 main steps to implement RightRule in your application:
 1. Register your Rule(s)
 2. Apply the rules to some Data
 
-# A Rule is defined as follows
+### A Rule is defined as follows
 Number: Used to order the set of rules to be applied
 Name: Description of the Rule
 Context: A word that indicates when this Rule will be applied.
@@ -27,22 +27,22 @@ This allows for Rule registration at startup, potentially with multiple Context 
 Rules can be registered late.
 This allows a subset of rules to be registered when needed.
 
-# Applying Rules
+### Applying Rules
 The Data upon which the rules will be applied must be declared as Dictionary<string, object>
 This data can then be sent to RightRule for rules to be applied.
 The rules will be selected for the specified Context.
 
-# Specifying a Context
+### Specifying a Context
 At the point in your logic where the rules need to be applied, you will define a Context word.
 The Context word will be passed to RightRule so it can select the correct set of rules to apply.
 
-# The RightRule process
+### The RightRule process
 When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement.
 If the Rule statement evaluates to false, the next Rule will be applied.
 If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.
 If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
 
-# Example Rule
+### Example Rule
 new RuleDefinition()
 {
   Number = 1,
@@ -53,7 +53,7 @@ new RuleDefinition()
   DecisionData = null
 };
 
-# Example implementation of RightRule
+### Example implementation of RightRule
 {
   var rightRule = new RightRule.RightRule();
   Dictionary<string, object> data = MakeData();
@@ -65,7 +65,7 @@ new RuleDefinition()
   var appliedRule = rightRule.ApplyRules(context, data);
 }
 
-# Definition of the Default Rule
+### Definition of the Default Rule
 new AppliedRule()
 {
   Number = -1,
