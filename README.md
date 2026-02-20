@@ -54,8 +54,11 @@ new RuleDefinition()
   Statement = @"name == ""Harry"" and surname equals ""Potter"" and age = 28",
   DecisionData = null
 };
+```
 
+`code`
 ### Example implementation of RightRule
+```csharp
 {
   var rightRule = new RightRule.RightRule();
   Dictionary<string, object> data = MakeData();
@@ -66,8 +69,11 @@ new RuleDefinition()
   string context = "FindPerson";
   var appliedRule = rightRule.ApplyRules(context, data);
 }
+```
 
+`code`
 ### Definition of the Default Rule
+```csharp
 new AppliedRule()
 {
   Number = -1,
