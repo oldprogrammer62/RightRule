@@ -42,8 +42,8 @@ If the Rule statement evaluates to false, the next Rule will be applied.
 If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.
 If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
 
-### Example Rule
 `code`
+### Example Rule
 ```csharp
 new RuleDefinition()
 {
