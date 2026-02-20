@@ -43,6 +43,7 @@ If the Rule statement evaluates to true, the details of that Rule will be return
 If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
 
 ### Example Rule
+`code`
 new RuleDefinition()
 {
   Number = 1,
@@ -54,6 +55,7 @@ new RuleDefinition()
 };
 
 ### Example implementation of RightRule
+`code`
 {
   var rightRule = new RightRule.RightRule();
   Dictionary<string, object> data = MakeData();
@@ -66,6 +68,7 @@ new RuleDefinition()
 }
 
 ### Definition of the Default Rule
+`code`
 new AppliedRule()
 {
   Number = -1,
