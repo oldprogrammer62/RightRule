@@ -14,32 +14,40 @@ There are 2 main steps to implement RightRule in your application:
 2. Apply the rules to some Data
 
 ### A Rule is defined as follows
-Number: Used to order the set of rules to be applied
-Name: Description of the Rule
-Context: A word that indicates when this Rule will be applied.
-Statement: A syntactically correct statement that defines the Rule criteria to be evaluated.
-Decision: A string that will be returned when the Rule statement evaluates to true.
+Number: Used to order the set of rules to be applied.  
+Name: Description of the Rule.  
+Context: A word that indicates when this Rule will be applied.  
+Statement: A syntactically correct statement that defines the Rule criteria to be evaluated.  
+Decision: A string that will be returned when the Rule statement evaluates to true.  
 DecisionData: Additional details that will be returned when the Rule statement evaluates to true.
 
-Rules can be registered early.
+Rules can be registered early.  
 This allows for Rule registration at startup, potentially with multiple Context words.
 
-Rules can be registered late.
+Rules can be registered late.  
 This allows a subset of rules to be registered when needed.
 
+### The Rule Statement
+This follows thre RightRule grammar.  
+Examples of syntactically correct statements are as follows:
+- age equals 20
+- age = 20
+- age = 20 AND name = "Harry"
+- age = 20 OR name = "Harry"
+
 ### Applying Rules
-The Data upon which the rules will be applied must be declared as Dictionary<string, object>
-This data can then be sent to RightRule for rules to be applied.
+The Data upon which the rules will be applied must be declared as Dictionary<string, object>  
+This data can then be sent to RightRule for rules to be applied.  
 The rules will be selected for the specified Context.
 
 ### Specifying a Context
-At the point in your logic where the rules need to be applied, you will define a Context word.
+At the point in your logic where the rules need to be applied, you will define a Context word.  
 The Context word will be passed to RightRule so it can select the correct set of rules to apply.
 
 ### The RightRule process
-When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement.
-If the Rule statement evaluates to false, the next Rule will be applied.
-If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.
+When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement.  
+If the Rule statement evaluates to false, the next Rule will be applied.  
+If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.  
 If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
 
 ### Example Rule
