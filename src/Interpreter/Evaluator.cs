@@ -26,20 +26,20 @@ public sealed class Evaluator
         _operators = dict;
     }
 
-    public ParsedRule Evaluate(Rules.ParsedRules rules)
+    public AppliedRule Evaluate(ParsedRules rules)
     {
         return Evaluate(rules.RightRules);
     }
 
-    public ParsedRule Evaluate(List<ParsedRule> rules)
+    public AppliedRule Evaluate(List<ParsedRule> rules)
     {
-        ParsedRule? resultRule = ParsedRule.DefaultRule();
+        AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
         {
             var result = Evaluate(rule.Node);
             if (result)
             {
-                resultRule = rule;
+                resultRule = new AppliedRule(rule);
                 break;
             }
         }

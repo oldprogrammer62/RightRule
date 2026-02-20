@@ -13,3 +13,5 @@
 <condition>  ::= <variable> <operator> <value>
 
 <operator>   ::= "contains", "equals", "notequals"
+
+<value>      ::= number, string, boolean

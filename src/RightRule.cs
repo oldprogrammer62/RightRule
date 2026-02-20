@@ -16,14 +16,15 @@ public class RightRule
         _operators = GetOperators();
     }
 
-    public ParsedRule RegisterRule(Rule rule)
+    public RegisteredRule RegisterRule(IRule rule)
     {
         var pRule = CreateRule(rule);
         _rules.AddRule(pRule);
-        return pRule;
+
+        return new RegisteredRule(pRule);
     }
 
-    public ParsedRule ApplyRules(string Context, Dictionary<string, object> Data)
+    public AppliedRule ApplyRules(string Context, Dictionary<string, object> Data)
     {
         var rulesToApply = Helpers.FilterRules(Context, _rules.RightRules);
 
@@ -31,7 +32,7 @@ public class RightRule
         return evaluator.Evaluate(rulesToApply);
     }
 
-    private ParsedRule CreateRule(Rule rule)
+    private ParsedRule CreateRule(IRule rule)
     {
         var operatorNames = _operators.Select(o => o.Name);
         var statement = rule.Statement;
@@ -41,6 +42,7 @@ public class RightRule
         {
             Number = rule.Number,
             Name = rule.Name,
+            Statement = rule.Statement,
             Context = rule.Context,
             Node = node,
             Decision= rule.Decision,

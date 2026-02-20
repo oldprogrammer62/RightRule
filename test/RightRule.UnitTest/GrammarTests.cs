@@ -37,7 +37,7 @@ namespace BSoftTests
 
             var appliedRule = rr.ApplyRules("AgeContext1", _Data);
 
-            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
+            Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
         }
 
         [Fact]
@@ -100,7 +100,7 @@ namespace BSoftTests
 
             var appliedRule = rr.ApplyRules("NameContext", _Data);
 
-            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
+            Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace BSoftTests
 
             var appliedRule = rr.ApplyRules("HasIdContext", _Data);
 
-            Assert.Equal(newRule, appliedRule);
+            Assert.Equal(newRule.Decision, appliedRule.Decision);
         }
 
         [Fact]
@@ -142,7 +142,7 @@ namespace BSoftTests
 
             var appliedRule = rr.ApplyRules("HasIdContext", _Data);
 
-            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
+            Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace BSoftTests
             var appliedRule = rr.ApplyRules("Context1", _Data);
 
             Assert.NotNull(appliedRule);
-            Assert.Equal(newRule1, appliedRule);
+            Assert.Equal(newRule1.Decision, appliedRule.Decision);
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace BSoftTests
             var appliedRule = rr.ApplyRules("Context2", _Data);
 
             Assert.NotNull(appliedRule);
-            Assert.Equal(newRule2, appliedRule);
+            Assert.Equal(newRule2.Decision, appliedRule.Decision);
         }
     }
 }

@@ -3,14 +3,14 @@
 public class ParsedRules
 {
     private List<ParsedRule> _rules;
-    public List<ParsedRule> RightRules { get { return _rules; } }
+    internal List<ParsedRule> RightRules { get { return _rules; } }
 
-    public ParsedRules()
+    internal ParsedRules()
     {
         _rules = [];
     }
 
-    public void AddRule(ParsedRule rule)
+    internal void AddRule(ParsedRule rule)
     {
         _rules.Add(rule);
     }
