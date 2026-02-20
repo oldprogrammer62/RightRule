@@ -82,6 +82,7 @@ public sealed class Parser
             TokenType.String => new Operand(OperandKind.String, _current.Value),
             TokenType.Number => new Operand(OperandKind.Number, _current.Value),
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
+            TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
             _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
         };
         Eat(_current.Type);

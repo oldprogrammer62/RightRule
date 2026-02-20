@@ -59,6 +59,12 @@ public sealed class Tokenizer
             if (value.Equals("NOT", StringComparison.OrdinalIgnoreCase))
                 return new Token(TokenType.Not, value, start);
 
+            // boolean
+            if (value.Equals("TRUE", StringComparison.OrdinalIgnoreCase))
+                return new Token(TokenType.Boolean, value, start);
+            if (value.Equals("FALSE", StringComparison.OrdinalIgnoreCase))
+                return new Token(TokenType.Boolean, value, start);
+
             // External operator names
             if (_operators.Contains(value))
                 return new Token(TokenType.Operator, value, start);

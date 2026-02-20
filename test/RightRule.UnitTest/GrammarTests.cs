@@ -2,11 +2,11 @@ using RightRule.Rules;
 
 namespace BSoftTests
 {
-    public class UnitTest1
+    public class GrammarTests
     {
         private readonly Dictionary<string, object> _Data;
 
-        public UnitTest1()
+        public GrammarTests()
         {
             // Data
             _Data = new Dictionary<string, object>(StringComparer.Ordinal)
@@ -14,7 +14,8 @@ namespace BSoftTests
                 { "name", "Johnathan" },
                 { "fullname", "Johnathan Cassar" },
                 { "age", 28 },
-                { "role", "nuser" }
+                { "role", "nuser" },
+                { "hasid", true }
             };
         }
 
@@ -98,6 +99,48 @@ namespace BSoftTests
             var newRule = rr.RegisterRule(rule);
 
             var appliedRule = rr.ApplyRules("NameContext", _Data);
+
+            Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
+        }
+
+        [Fact]
+        public void TestItWorks_Equals_Boolean_True()
+        {
+            // Rule
+            Rule rule = new()
+            {
+                Number = 4,
+                Name = "HasId Rule",
+                Statement = "hasid equals true",
+                Context = "hasidContext",
+                Decision = "HASID",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("HasIdContext", _Data);
+
+            Assert.Equal(newRule, appliedRule);
+        }
+
+        [Fact]
+        public void TestItWorks_Equals_Boolean_False()
+        {
+            // Rule
+            Rule rule = new()
+            {
+                Number = 4,
+                Name = "HasId Rule",
+                Statement = "hasid equals false",
+                Context = "hasidContext",
+                Decision = "HASID",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("HasIdContext", _Data);
 
             Assert.Equal(ParsedRule.DefaultRule().Decision, appliedRule.Decision);
         }

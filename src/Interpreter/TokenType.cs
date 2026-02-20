@@ -11,5 +11,6 @@ public enum TokenType
     Not,          // NOT
     LParen,       // (
     RParen,       // )
+    Boolean,      // true, false
     End
 }

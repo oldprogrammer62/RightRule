@@ -1,6 +1,7 @@
 ﻿using RightRule.Operators;
 using RightRule.Rules;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace RightRule.Interpreter;
 
@@ -92,9 +93,17 @@ public sealed class Evaluator
         {
             OperandKind.Identifier => ResolveIdentifier(op.Raw),
             OperandKind.Number => ParseNumber(op.Raw),
+            OperandKind.Boolean => ParseBoolean(op.Raw),
             OperandKind.String => op.Raw,
             _ => op.Raw
         };
+    }
+
+    private static object ParseBoolean(string raw)
+    {
+        if (bool.TryParse(raw, out var value))
+            return value;
+        return raw;
     }
 
     private static object ParseNumber(string raw)
