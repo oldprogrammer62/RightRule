@@ -103,6 +103,7 @@ primary    = "(" expr ")"
            | condition ;
 
 condition  = variable operator value ;
+condition  = variable operator variable ;
 
 operator   = "contains"
            | "equals"
