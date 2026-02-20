@@ -34,7 +34,7 @@ public class RightRule
 
     private ParsedRule CreateRule(Rule rule)
     {
-        var operatorNames = _operators.Select(o => o.Name);
+        var operatorNames = _operators.Select(o => o.Names);
         var statement = rule.Statement;
 
         Node node = GenerateTree(statement, operatorNames);
@@ -51,7 +51,7 @@ public class RightRule
         return pRule;
     }
 
-    private Node GenerateTree(string Statement, IEnumerable<string> OperatorNames)
+    private Node GenerateTree(string Statement, IEnumerable<List<string>> OperatorNames)
     {
         var tokenizer = new Tokenizer(Statement, OperatorNames);
         var parser = new Parser(tokenizer);

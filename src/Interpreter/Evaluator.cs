@@ -1,7 +1,6 @@
 ﻿using RightRule.Operators;
 using RightRule.Rules;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace RightRule.Interpreter;
 
@@ -19,9 +18,12 @@ public sealed class Evaluator
         var dict = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
         {
-            if (string.IsNullOrWhiteSpace(op.Name))
-                throw new ArgumentException("Operator has empty name.");
-            dict[op.Name] = op;
+            foreach (var name in op.Names)
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                    continue;
+                dict[name] = op;
+            }
         }
         _operators = dict;
     }

@@ -4,6 +4,8 @@ namespace RightRule.Rules;
 
 public sealed class AppliedRule : Rule
 {
+    public static readonly string NoDecision = "NODECISION";
+
     internal AppliedRule()
     {
     }

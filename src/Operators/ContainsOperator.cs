@@ -2,7 +2,7 @@
 
 public sealed class ContainsOperator : IOperator
 {
-    public string Name => "contains";
+    public List<string> Names => ["contains"];
 
     public bool Process(object left, object right)
     {

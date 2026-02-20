@@ -8,12 +8,12 @@ public sealed class Tokenizer
 {
     private readonly string _input;
     private int _pos;
-
     private readonly HashSet<string> _operators; // case-insensitive
-    public Tokenizer(string input, IEnumerable<string> operatorNames)
+
+    public Tokenizer(string input, IEnumerable<List<string>> operatorNames)
     {
         _input = input ?? string.Empty;
-        _operators = new HashSet<string>(operatorNames ?? Array.Empty<string>(), StringComparer.OrdinalIgnoreCase);
+        _operators = new HashSet<string>(operatorNames.SelectMany(list => list), StringComparer.OrdinalIgnoreCase);
     }
 
     public Token NextToken()
@@ -30,6 +30,7 @@ public sealed class Tokenizer
         if (c == ')') { _pos++; return new Token(TokenType.RParen, ")", _pos - 1); }
 
         // Number (simple integer support)
+        // Must start with a digit, and can contain digits
         if (char.IsDigit(c))
         {
             int start = _pos;
@@ -40,6 +41,7 @@ public sealed class Tokenizer
         }
 
         // Identifier / Operator / Logical keywords
+        // Must start with a letter or underscore, and can contain letters/digits/underscore
         if (char.IsLetter(c) || c == '_')
         {
             int start = _pos;
@@ -74,6 +76,7 @@ public sealed class Tokenizer
         }
 
         // String literal "..."
+        // Supports basic escaping of \" and \\ (optional)
         if (c == '"')
         {
             int start = _pos;
@@ -103,6 +106,29 @@ public sealed class Tokenizer
             return new Token(TokenType.String, sb.ToString(), start);
         }
 
+        // Symbolised Operator
+        // Must start with a symbol or punctuation character, and can contain letters/digits/symbols/punctuation/underscore
+        if (char.IsSymbol(c) || char.IsPunctuation(c))
+        {
+            int start = _pos;
+            var sb = new StringBuilder();
+            sb.Append(_input[_pos++]);
+
+            while (_pos < _input.Length &&
+                (
+                char.IsLetterOrDigit(_input[_pos]) ||
+                char.IsSymbol(_input[_pos]) ||
+                char.IsPunctuation(_input[_pos]) ||
+                _input[_pos] == '_')
+                )
+                sb.Append(_input[_pos++]);
+
+            var value = sb.ToString();
+
+            // External operator names
+            if (_operators.Contains(value))
+                return new Token(TokenType.Operator, value, start);
+        }
         throw new Exception($"Unexpected character '{c}' at position {_pos}.");
     }
 

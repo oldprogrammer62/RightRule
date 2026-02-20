@@ -2,6 +2,6 @@
 
 public sealed class EqualsOperator : IOperator
 {
-    public string Name => "equals";
+    public List<string> Names => ["equals", "eq", "=", "=="];
     public bool Process(object left, object right) => Equals(left, right);
 }

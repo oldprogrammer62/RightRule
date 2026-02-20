@@ -5,7 +5,7 @@ public interface IOperator
     /// <summary>
     /// The textual name used in the DSL, e.g., "equals", "notequals", "contains".
     /// </summary>
-    string Name { get; }
+    List<string> Names { get; }
 
     /// <summary>
     /// Process the condition with resolved left/right operands.

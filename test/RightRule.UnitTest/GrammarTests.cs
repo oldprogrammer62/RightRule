@@ -62,6 +62,90 @@ namespace BSoftTests
         }
 
         [Fact]
+        public void TestItWorks_Number_NotEquals()
+        {
+            // Rule
+            RuleDefinition rule = new()
+            {
+                Number = 1,
+                Name = "Age Rule",
+                Statement = "age notequals 18",
+                Context = "AgeContext",
+                Decision = "OLDENOUGH",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("AgeContext", _Data);
+
+            Assert.Equal(appliedRule.Decision, rule.Decision);
+        }
+
+        [Fact]
+        public void TestItWorks_Number_NotEqualsSymbol1()
+        {
+            // Rule
+            RuleDefinition rule = new()
+            {
+                Number = 1,
+                Name = "Age Rule",
+                Statement = "age != 18",
+                Context = "AgeContext",
+                Decision = "OLDENOUGH",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("AgeContext", _Data);
+
+            Assert.Equal(appliedRule.Decision, rule.Decision);
+        }
+
+        [Fact]
+        public void TestItWorks_Number_NotEqualsSymbol2()
+        {
+            // Rule
+            RuleDefinition rule = new()
+            {
+                Number = 1,
+                Name = "Age Rule",
+                Statement = "age <> 18",
+                Context = "AgeContext",
+                Decision = "OLDENOUGH",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("AgeContext", _Data);
+
+            Assert.Equal(appliedRule.Decision, rule.Decision);
+        }
+
+        [Fact]
+        public void TestItWorks_Number_EqualsSymbol()
+        {
+            // Rule
+            RuleDefinition rule = new()
+            {
+                Number = 1,
+                Name = "Age Rule",
+                Statement = "age = 28",
+                Context = "AgeContext",
+                Decision = "OLDENOUGH",
+            };
+
+            RightRule.RightRule rr = new RightRule.RightRule();
+            var newRule = rr.RegisterRule(rule);
+
+            var appliedRule = rr.ApplyRules("AgeContext", _Data);
+
+            Assert.NotNull(appliedRule);
+        }
+
+        [Fact]
         public void TestItWorks_String_Equals()
         {
             // Rule
