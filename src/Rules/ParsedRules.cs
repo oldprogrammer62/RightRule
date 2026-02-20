@@ -2,7 +2,7 @@
 
 public class ParsedRules
 {
-    private List<ParsedRule> _rules;
+    private readonly List<ParsedRule> _rules;
     internal List<ParsedRule> RightRules { get { return _rules; } }
 
     internal ParsedRules()

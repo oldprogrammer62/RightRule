@@ -1,6 +1,6 @@
 ﻿namespace RightRule.Rules;
 
-public class Rule : IRule
+public abstract class Rule
 {
     public required int Number { get; init; }
     public required string Name { get; init; }

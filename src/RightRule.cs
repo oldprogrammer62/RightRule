@@ -16,7 +16,7 @@ public class RightRule
         _operators = GetOperators();
     }
 
-    public RegisteredRule RegisterRule(IRule rule)
+    public RegisteredRule RegisterRule(Rule rule)
     {
         var pRule = CreateRule(rule);
         _rules.AddRule(pRule);
@@ -32,7 +32,7 @@ public class RightRule
         return evaluator.Evaluate(rulesToApply);
     }
 
-    private ParsedRule CreateRule(IRule rule)
+    private ParsedRule CreateRule(Rule rule)
     {
         var operatorNames = _operators.Select(o => o.Name);
         var statement = rule.Statement;

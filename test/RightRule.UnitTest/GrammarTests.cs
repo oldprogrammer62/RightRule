@@ -23,7 +23,7 @@ namespace BSoftTests
         public void TestItWorks_NoDecision()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 1,
                 Name = "Age Rule",
@@ -44,7 +44,7 @@ namespace BSoftTests
         public void TestItWorks_Number_Equals()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 1,
                 Name = "Age Rule",
@@ -65,7 +65,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 2,
                 Name = "Name Rule",
@@ -86,7 +86,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals_String()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 3,
                 Name = "Name Rule",
@@ -107,7 +107,7 @@ namespace BSoftTests
         public void TestItWorks_Equals_Boolean_True()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 4,
                 Name = "HasId Rule",
@@ -128,7 +128,7 @@ namespace BSoftTests
         public void TestItWorks_Equals_Boolean_False()
         {
             // Rule
-            Rule rule = new()
+            RuleDefinition rule = new()
             {
                 Number = 4,
                 Name = "HasId Rule",
@@ -149,7 +149,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals_MultipleContext1()
         {
             // Rule
-            Rule rule1 = new()
+            RuleDefinition rule1 = new()
             {
                 Number = 1,
                 Name = "Name Rule",
@@ -158,7 +158,7 @@ namespace BSoftTests
                 Decision = "FOUND1",
             };
 
-            Rule rule2 = new()
+            RuleDefinition rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
@@ -181,7 +181,7 @@ namespace BSoftTests
         public void TestItWorks_String_Equals_MultipleContext2()
         {
             // Rule
-            Rule rule1 = new()
+            RuleDefinition rule1 = new()
             {
                 Number = 1,
                 Name = "Name Rule",
@@ -190,7 +190,7 @@ namespace BSoftTests
                 Decision = "FOUND1",
             };
 
-            Rule rule2 = new()
+            RuleDefinition rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
