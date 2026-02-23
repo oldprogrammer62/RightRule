@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\operator.loader\Operator.Loader.csproj" />
     <ProjectReference Include="..\..\src\RightRule.csproj" />
   </ItemGroup>
 

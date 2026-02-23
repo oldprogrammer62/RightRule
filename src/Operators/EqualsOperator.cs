@@ -1,4 +1,6 @@
-﻿namespace RightRule.Operators;
+﻿using System.Common;
+
+namespace RightRule.Operators;
 
 public sealed class EqualsOperator : IOperator
 {

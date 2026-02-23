@@ -1,6 +1,6 @@
 ﻿namespace RightRule.Operators;
 
-public interface IOperator
+public interface xxxxIOperator
 {
     /// <summary>
     /// The textual name used in the DSL, e.g., "equals", "notequals", "contains".
