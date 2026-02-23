@@ -11,11 +11,13 @@ namespace BSoftTests
             // Data
             _Data = new Dictionary<string, object>(StringComparer.Ordinal)
             {
-                { "name", "Johnathan" },
-                { "fullname", "Johnathan Cassar" },
+                { "name", "John" },
+                { "surname", "Doe" },
+                { "fullname", "John D. Doe" },
                 { "age", 28 },
-                { "role", "nuser" },
-                { "hasid", true }
+                { "numberoforders", 10 },
+                { "goodpayer", true },
+                { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
             };
         }
 
@@ -153,9 +155,9 @@ namespace BSoftTests
             {
                 Number = 2,
                 Name = "Name Rule",
-                Statement = @"name equals ""Johnathan""",
+                Statement = @"name equals ""John""",
                 Context = "NameContext",
-                Decision = "OLDENOUGH",
+                Decision = "NAMEFOUND",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
@@ -176,7 +178,7 @@ namespace BSoftTests
                 Name = "Name Rule",
                 Statement = "name equals fullname",
                 Context = "NameContext",
-                Decision = "OLDENOUGH",
+                Decision = "NAMESAMEASFULLNAME",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
@@ -194,16 +196,16 @@ namespace BSoftTests
             RuleDefinition rule = new()
             {
                 Number = 4,
-                Name = "HasId Rule",
-                Statement = "hasid equals true",
-                Context = "hasidContext",
-                Decision = "HASID",
+                Name = "Good Payer Rule",
+                Statement = "goodpayer equals true",
+                Context = "GoodPayerContext",
+                Decision = "GOODPAYER",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
             var newRule = rr.RegisterRule(rule);
 
-            var appliedRule = rr.ApplyRules("HasIdContext", _Data);
+            var appliedRule = rr.ApplyRules("GoodPayerContext", _Data);
 
             Assert.Equal(newRule.Decision, appliedRule.Decision);
         }
@@ -215,16 +217,16 @@ namespace BSoftTests
             RuleDefinition rule = new()
             {
                 Number = 4,
-                Name = "HasId Rule",
-                Statement = "hasid equals false",
-                Context = "hasidContext",
-                Decision = "HASID",
+                Name = "Good Payer Rule",
+                Statement = "goodpayer equals false",
+                Context = "NotGoodPayerContext",
+                Decision = "NOTGOODPAYER",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
             var newRule = rr.RegisterRule(rule);
 
-            var appliedRule = rr.ApplyRules("HasIdContext", _Data);
+            var appliedRule = rr.ApplyRules("NotGoodPayerContext", _Data);
 
             Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
         }
@@ -237,25 +239,25 @@ namespace BSoftTests
             {
                 Number = 1,
                 Name = "Name Rule",
-                Statement = @"name equals ""Johnathan""",
-                Context = "Context1",
-                Decision = "FOUND1",
+                Statement = @"name equals ""John""",
+                Context = "NAMECONTEXT1",
+                Decision = "NAMEFOUND",
             };
 
             RuleDefinition rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
-                Statement = @"name equals ""Johnathan""",
-                Context = "Context2",
-                Decision = "FOUND2",
+                Statement = @"name equals ""John""",
+                Context = "NAMECONTEXT2",
+                Decision = "NAMEF2OUND",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
             var newRule1 = rr.RegisterRule(rule1);
             var newRule2 = rr.RegisterRule(rule2);
 
-            var appliedRule = rr.ApplyRules("Context1", _Data);
+            var appliedRule = rr.ApplyRules("NAMECONTEXT1", _Data);
 
             Assert.NotNull(appliedRule);
             Assert.Equal(newRule1.Decision, appliedRule.Decision);
@@ -269,25 +271,25 @@ namespace BSoftTests
             {
                 Number = 1,
                 Name = "Name Rule",
-                Statement = @"name equals ""Johnathan""",
-                Context = "Context1",
-                Decision = "FOUND1",
+                Statement = @"name equals ""John""",
+                Context = "NAMECONTEXT1",
+                Decision = "NAMEFOUND",
             };
 
             RuleDefinition rule2 = new()
             {
                 Number = 2,
                 Name = "Name Rule",
-                Statement = @"name equals ""Johnathan""",
-                Context = "Context2",
-                Decision = "FOUND2",
+                Statement = @"name equals ""John""",
+                Context = "NAMECONTEXT2",
+                Decision = "NAMEFOUND2",
             };
 
             RightRule.RightRule rr = new RightRule.RightRule();
             var newRule1 = rr.RegisterRule(rule1);
             var newRule2 = rr.RegisterRule(rule2);
 
-            var appliedRule = rr.ApplyRules("Context2", _Data);
+            var appliedRule = rr.ApplyRules("NAMECONTEXT2", _Data);
 
             Assert.NotNull(appliedRule);
             Assert.Equal(newRule2.Decision, appliedRule.Decision);
