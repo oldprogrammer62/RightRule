@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\operator.loader\Operator.Loader.csproj" />
-    <ProjectReference Include="..\system.common\System.Common.csproj" />
+    <ProjectReference Include="..\rightrule.operator.loader\RightRule.Operator.Loader.csproj" />
+    <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
   </ItemGroup>
 
 </Project>

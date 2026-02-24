@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\System.Common\System.Common.csproj" />
+    <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿namespace RightRuleTests;
+﻿using RightRule.Operator.Loader;
+
+namespace RightRuleTests;
 
 public class OperatorLoaderTests
 {
@@ -6,7 +8,7 @@ public class OperatorLoaderTests
     public void TestItWorks_LoadOperator()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\Operator.doesnotcontain.dll";
-        var op = Operator.Loader.Loader.Load(path);
+        var op = Loader.Load(path);
         Assert.NotNull(op);
     }
 }

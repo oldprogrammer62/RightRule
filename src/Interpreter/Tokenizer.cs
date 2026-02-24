@@ -1,8 +1,6 @@
-﻿namespace RightRule.Interpreter;
+﻿using System.Text;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
+namespace RightRule.Interpreter;
 
 public sealed class Tokenizer
 {

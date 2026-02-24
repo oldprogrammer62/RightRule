@@ -1,4 +1,4 @@
-﻿namespace System.Common;
+﻿namespace RightRule.System.Common;
 
 public interface IOperator
 {

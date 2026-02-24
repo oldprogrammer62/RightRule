@@ -1,7 +1,7 @@
 ﻿using RightRule.HelperFunctions;
 using RightRule.Interpreter;
 using RightRule.Rules;
-using System.Common;
+using RightRule.System.Common;
 
 namespace RightRule;
 

@@ -1,4 +1,4 @@
-﻿using System.Common;
+﻿using RightRule.System.Common;
 
 namespace Operator.doesnotcontain;
 

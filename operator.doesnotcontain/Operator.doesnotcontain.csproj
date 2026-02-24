@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\system.common\System.Common.csproj" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetDir)\Operator.doesnotcontain.dll C:\Development\BSoft\RightRule\src\Operators /Y /I /E" />
   </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
+  </ItemGroup>
 
 </Project>

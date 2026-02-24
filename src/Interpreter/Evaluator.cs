@@ -1,5 +1,5 @@
 ﻿using RightRule.Rules;
-using System.Common;
+using RightRule.System.Common;
 using System.Globalization;
 
 namespace RightRule.Interpreter;

@@ -1,5 +1,5 @@
-﻿using Operator.Loader;
-using System.Common;
+﻿using RightRule.System.Common;
+using RightRule.Operator.Loader;
 
 namespace RightRule.Operators;
 
@@ -27,7 +27,7 @@ internal class Operators
     private static void LoadOperators()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\Operator.doesnotcontain.dll";
-        var op = Operator.Loader.Loader.Load(path);
+        var op = Loader.Load(path);
 
         _operators.Add(op);
     }

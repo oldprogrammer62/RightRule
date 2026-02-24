@@ -1,8 +1,8 @@
-﻿using System.Common;
+﻿using RightRule.System.Common;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace Operator.Loader;
+namespace RightRule.Operator.Loader;
 
 public class OperatorLoader : AssemblyLoadContext
 {

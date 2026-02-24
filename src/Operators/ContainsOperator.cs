@@ -1,4 +1,5 @@
-﻿using System.Common;
+﻿using System.Collections;
+using RightRule.System.Common;
 
 namespace RightRule.Operators;
 
@@ -15,7 +16,7 @@ public sealed class ContainsOperator : IOperator
             return ls.IndexOf(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0;
 
         // IEnumerable contains (non-string)
-        if (left is System.Collections.IEnumerable seq && left is not string)
+        if (left is IEnumerable seq && left is not string)
         {
             foreach (var item in seq)
             {
