@@ -29,7 +29,7 @@ public class DoesNotContainTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"fullname doesnotcontain ""Dxxoe""",
+            Statement = @"fullname doesnotcontain ""XXDoeXX""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
         };
@@ -39,7 +39,7 @@ public class DoesNotContainTests
 
         var appliedRule = rr.ApplyRules("NameContext", _Data);
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]

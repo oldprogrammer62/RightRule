@@ -34,7 +34,7 @@ public class RightRule
 
     private ParsedRule CreateRule(Rule rule)
     {
-        var operatorNames = _operators.Select(o => o.Names);
+        var operatorNames = _operators.Select(o => o.Identifiers);
         var statement = rule.Statement;
 
         Node node = GenerateTree(statement, operatorNames);

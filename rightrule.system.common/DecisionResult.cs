@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace System.Common;
+namespace RightRule.System.Common;
 
 public class DecisionResult
 {

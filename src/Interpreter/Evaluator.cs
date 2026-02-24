@@ -18,7 +18,7 @@ public sealed class Evaluator
         var dict = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
         {
-            foreach (var name in op.Names)
+            foreach (var name in op.Identifiers)
             {
                 if (string.IsNullOrWhiteSpace(name))
                     continue;

@@ -1,5 +1,6 @@
 ﻿using RightRule.System.Common;
 using RightRule.Operator.Loader;
+using RightRule.Models;
 
 namespace RightRule.Operators;
 
@@ -26,9 +27,36 @@ internal class Operators
 
     private static void LoadOperators()
     {
-        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\Operator.doesnotcontain.dll";
-        var op = Loader.Load(path);
+        var opConfigs = GetOperatorConfigs();
 
-        _operators.Add(op);
+        if (opConfigs.Operators == null || opConfigs.Operators.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var opConfig in opConfigs.Operators)
+        {
+            var op = Loader.Load(opConfig.Path);
+            _operators.Add(op);
+        }
+    }
+
+    private static OperatorConfigs GetOperatorConfigs()
+    {
+        // Load config from file
+        string configPath = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\operatorconfig.json";
+
+        var config = File.ReadAllText(configPath);
+
+        var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
+
+        using (var jsonReader = new Newtonsoft.Json.JsonTextReader(new StringReader(config)))
+        {
+            var operatorConfigs = jsonSerializer.Deserialize<OperatorConfigs>(jsonReader);
+            if (operatorConfigs == null)
+                throw new Exception("Failed to load operator configs.");
+
+            return operatorConfigs;
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace Operator.doesnotcontain;
 
 public sealed class DoesNotContains : IOperator
 {
-    public List<string> Names => ["doesnotcontain", "notc"];
+    public List<string> Identifiers => ["doesnotcontain", "notc", "notni"];
 
     public bool Process(object left, object right)
     {
@@ -13,16 +13,6 @@ public sealed class DoesNotContains : IOperator
         // String contains (case-insensitive)
         if (left is string ls)
             return ls.IndexOf(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase) < 0;
-
-        // IEnumerable contains (non-string)
-        if (left is System.Collections.IEnumerable seq && left is not string)
-        {
-            foreach (var item in seq)
-            {
-                if (!Equals(item, right)) return true;
-            }
-            return false;
-        }
 
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;

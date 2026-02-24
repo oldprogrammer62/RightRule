@@ -1,6 +1,6 @@
-﻿namespace System.Common;
+﻿namespace RightRule.System.Common;
 
 public interface IDecide
 {
-    public DecisionResult MakeDecision();
+    public DecisionResult Decision();
 }

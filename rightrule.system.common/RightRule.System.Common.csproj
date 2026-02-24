@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.doesnotcontain\RightRule.Operator.Common\ /Y /I /E" />
+  </Target>
+
 </Project>

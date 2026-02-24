@@ -5,7 +5,7 @@ namespace RightRule.Operators;
 
 public sealed class ContainsOperator : IOperator
 {
-    public List<string> Names => ["contains"];
+    public List<string> Identifiers => ["contains"];
 
     public bool Process(object left, object right)
     {

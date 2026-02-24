@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\rightrule.operator.loader\RightRule.Operator.Loader.csproj" />
     <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
   </ItemGroup>
