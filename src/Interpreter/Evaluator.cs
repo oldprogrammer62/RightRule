@@ -30,10 +30,30 @@ public sealed class Evaluator
 
     public AppliedRule Evaluate(ParsedRules rules)
     {
-        return Evaluate(rules.RightRules);
+        return Evaluate(rules, RulesToApply.First);
     }
 
-    public AppliedRule Evaluate(List<ParsedRule> rules)
+    public AppliedRule Evaluate(ParsedRules rules, RulesToApply rulesToApply)
+    {
+        return Evaluate(rules.RightRules, rulesToApply);
+    }
+
+    private AppliedRule Evaluate(List<ParsedRule> rules, RulesToApply rulesToApply)
+    {
+        switch (rulesToApply)
+        {
+            case RulesToApply.First:
+                return EvaluateFirst(rules);
+
+            case RulesToApply.All:
+                return EvaluateAll(rules);
+
+            default:
+                throw new Exception($"Unknown RulesToApply value: {rulesToApply}");
+        }
+    }
+
+    private AppliedRule EvaluateFirst(List<ParsedRule> rules)
     {
         AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
@@ -48,7 +68,26 @@ public sealed class Evaluator
         return resultRule;
     }
 
-    public bool Evaluate(Node? node) => node switch
+    private AppliedRule EvaluateAll(List<ParsedRule> rules)
+    {
+        AppliedRule resultRule = AppliedRule.DefaultRule();
+        foreach (var rule in rules)
+        {
+            var result = Evaluate(rule.Node);
+            if (!result)
+            {
+                resultRule = AppliedRule.DefaultRule();
+                break;
+            }
+            if (result)
+            {
+                resultRule = new AppliedRule(rule);
+            }
+        }
+        return resultRule;
+    }
+
+    private bool Evaluate(Node? node) => node switch
     {
         ConditionNode c => EvaluateCondition(c),
         BinaryNode b => EvaluateBinary(b),

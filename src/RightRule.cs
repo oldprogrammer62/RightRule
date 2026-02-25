@@ -26,10 +26,15 @@ public class RightRule
 
     public AppliedRule ApplyRules(string Context, Dictionary<string, object> Data)
     {
-        var rulesToApply = Helpers.FilterRules(Context, _rules.RightRules);
+        return ApplyRules(Context, Data, RulesToApply.First);
+    }
+
+    public AppliedRule ApplyRules(string Context, Dictionary<string, object> Data, RulesToApply rulesToApply)
+    {
+        var rules = Helpers.FilterRules(Context, _rules.RightRules);
 
         var evaluator = new Evaluator(Data, _operators);
-        return evaluator.Evaluate(rulesToApply);
+        return evaluator.Evaluate(rules, rulesToApply);
     }
 
     private ParsedRule CreateRule(Rule rule)

@@ -10,6 +10,11 @@ public class ParsedRules
         _rules = [];
     }
 
+    internal ParsedRules(List<ParsedRule> rules)
+    {
+        _rules = rules;
+    }
+
     internal void AddRule(ParsedRule rule)
     {
         _rules.Add(rule);
