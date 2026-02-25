@@ -13,7 +13,7 @@ public sealed class ContainsOperator : IOperator
 
         // String contains (case-insensitive)
         if (left is string ls)
-            return ls.IndexOf(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0;
+            return ls.Contains(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
 
         // IEnumerable contains (non-string)
         if (left is IEnumerable seq && left is not string)
@@ -28,6 +28,6 @@ public sealed class ContainsOperator : IOperator
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;
         var rstr = right.ToString() ?? string.Empty;
-        return lstr.IndexOf(rstr, StringComparison.OrdinalIgnoreCase) >= 0;
+        return lstr.Contains(rstr, StringComparison.OrdinalIgnoreCase);
     }
 }

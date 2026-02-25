@@ -64,7 +64,7 @@ public class RightRule
         return node;
     }
 
-    private List<IOperator> GetOperators()
+    private static List<IOperator> GetOperators()
     {
         return Operators.Operators.GetOperators();
     }
