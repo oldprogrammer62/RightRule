@@ -1,14 +1,12 @@
-﻿using RightRule.Models;
-using RightRule.Operator.Loader;
-using RightRule.System.Common;
+﻿using RightRule.System.Common;
 
 namespace RightRule.Operators;
 
 internal class Operators
 {
-    internal static List<IOperator> GetOperators()
+    internal static List<IOperator> RegisterOperators()
     {
-        var operators = FetchOperators();
+        var operators = LoadOperators();
         if (operators == null || operators.Count == 0)
             throw new Exception("No operators found.");
 
@@ -34,60 +32,22 @@ internal class Operators
         return !hasDuplicates;
     }
 
-    private static List<IOperator> FetchOperators()
+    private static List<IOperator> LoadOperators()
     {
-        List<IOperator> operators = new List<IOperator>();
-
-        operators.AddRange(GetDefaultOperators());
-        operators.AddRange(RegisterConfiguredOperators());
-
-        return operators;
+        return
+            [
+            .. GetDefaultOperators(),
+            .. RegisterCustomOperators()
+            ];
     }
 
     private static List<IOperator> GetDefaultOperators()
     {
-        return new List<IOperator>
-        {
-            new EqualsOperator(),
-            new NotEqualsOperator(),
-            new ContainsOperator()
-        };
+        return DefaultOperatorLoader.Load();
     }
 
-    private static List<IOperator> RegisterConfiguredOperators()
+    private static List<IOperator> RegisterCustomOperators()
     {
-        List<IOperator> operators = new List<IOperator>();
-        var opConfigs = GetOperatorConfigs();
-
-        if (opConfigs.Operators == null || opConfigs.Operators.Count == 0)
-        {
-            return operators;
-        }
-
-        foreach (var opConfig in opConfigs.Operators)
-        {
-            var op = Loader.Load(opConfig.Path);
-            operators.Add(op);
-        }
-        return operators;
-    }
-
-    private static OperatorConfigs GetOperatorConfigs()
-    {
-        // Load config from file
-        string configPath = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\operatorconfig.json";
-
-        var config = File.ReadAllText(configPath);
-
-        var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
-
-        using (var jsonReader = new Newtonsoft.Json.JsonTextReader(new StringReader(config)))
-        {
-            var operatorConfigs = jsonSerializer.Deserialize<OperatorConfigs>(jsonReader);
-            if (operatorConfigs == null)
-                throw new Exception("Failed to load operator configs.");
-
-            return operatorConfigs;
-        }
+        return CustomOperatorLoader.Load();
     }
 }

@@ -66,6 +66,6 @@ public class RightRule
 
     private static List<IOperator> GetOperators()
     {
-        return Operators.Operators.GetOperators();
+        return Operators.Operators.RegisterOperators();
     }
 }

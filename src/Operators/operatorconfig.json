@@ -1,8 +1,0 @@
-{
-  "operators": [
-    {
-      "name": "DoesNotContain",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\Operator.doesnotcontain.dll"
-    }
-  ]
-}

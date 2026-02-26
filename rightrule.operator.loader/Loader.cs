@@ -5,18 +5,18 @@ namespace RightRule.Operator.Loader;
 
 public class Loader
 {
-    public static IOperator Load(string pathToFunction)
+    public static IOperator? Load(string pathToFunction)
     {
         var _operator = Load(pathToFunction, true);
         return _operator;
     }
 
-    internal static IOperator Load(string pathToFunction, bool b)
+    internal static IOperator? Load(string pathToFunction, bool collectible)
     {
         if (string.IsNullOrWhiteSpace(pathToFunction) || !File.Exists(pathToFunction))
             throw new FileNotFoundException("Operator assembly not found", pathToFunction);
 
-        var opLoader = new OperatorLoader(pathToFunction, true);
+        var opLoader = new OperatorLoader(pathToFunction, collectible);
 
         try
         {

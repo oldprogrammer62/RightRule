@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(TargetDir)\Operator.doesnotcontain.dll C:\Development\BSoft\RightRule\src\Operators /Y /I /E" />
+    <Exec Command="xcopy $(TargetDir)\Operator.doesnotcontain.dll C:\Development\BSoft\RightRule\src\Operators\CustomOperators /Y /I /E" />
   </Target>
 
   <ItemGroup>

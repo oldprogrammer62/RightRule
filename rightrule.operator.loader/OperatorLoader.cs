@@ -6,9 +6,9 @@ namespace RightRule.Operator.Loader;
 
 public class OperatorLoader : AssemblyLoadContext
 {
-    AssemblyDependencyResolver _resolver;
+    readonly AssemblyDependencyResolver _resolver;
 
-    public OperatorLoader(string functionPath, bool collectible)
+    internal OperatorLoader(string functionPath, bool collectible)
         : base(name: Path.GetFileName(functionPath), collectible)
     {
         if (string.IsNullOrWhiteSpace(functionPath) || !File.Exists(functionPath))

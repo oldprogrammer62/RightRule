@@ -1,6 +1,6 @@
 ﻿using RightRule.System.Common;
 
-namespace RightRule.Operators;
+namespace RightRule.Operators.DefaultOperators;
 
 public sealed class NotEqualsOperator : IOperator
 {
