@@ -41,6 +41,7 @@ Examples of syntactically correct statements are as follows:
 The Data upon which the rules will be applied must be declared as Dictionary<string, object>  
 This data can then be sent to RightRule for rules to be applied.  
 The rules will be selected for the specified Context.
+When applying Rules, it is also possible to specify if the first successful rules provides the result, or if all rules need to be successful to provide a result
 
 ### Specifying a Context
 At the point in your logic where the rules need to be applied, you will define a Context word.  
@@ -75,7 +76,7 @@ new RuleDefinition()
   var registeredRule = rightRule.RegisterRule(rule);
 
   string context = "FindPerson";
-  var appliedRule = rightRule.ApplyRules(context, data);
+  var appliedRule = rightRule.ApplyRules(context, data, RulesToApply.First);
 }
 ```
 
