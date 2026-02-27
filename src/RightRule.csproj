@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <!-- optional: suppress missing XML warnings -->
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="Interpreter\" />
   </ItemGroup>
@@ -21,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="rightrule.dll.config">
+    <None Update="RightRule.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

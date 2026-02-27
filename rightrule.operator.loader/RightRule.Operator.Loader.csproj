@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <!-- optional: suppress missing XML warnings -->
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
   </ItemGroup>

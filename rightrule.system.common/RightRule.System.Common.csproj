@@ -6,6 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <!-- optional: suppress missing XML warnings -->
+  </PropertyGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.doesnotcontain\RightRule.Operator.Common\ /Y /I /E" />
   </Target>
