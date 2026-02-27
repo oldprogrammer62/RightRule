@@ -13,7 +13,7 @@ It consists of the following parts:
 ### How to use
 There are 2 main steps to implement RightRule in your application:
 1. Register your Rule(s)
-2. Apply the rules to some Data
+2. Apply the specified rules to your Data
 
 ### A Rule is defined as follows
 Number: Used to order the set of rules to be applied.  
@@ -40,15 +40,16 @@ Examples of syntactically correct statements are as follows:
 ### Applying Rules
 The Data upon which the rules will be applied must be declared as Dictionary<string, object>  
 This data can then be sent to RightRule for rules to be applied.  
-The rules will be selected for the specified Context.
-When applying Rules, it is also possible to specify if the first successful rules provides the result, or if all rules need to be successful to provide a result
+The rules will be selected for the specified Context and applied in order of the Rule number.
+When applying Rules, it is also possible to specify if the first successful Rule provides the result, or if all rules need to be successful to provide a result
 
 ### Specifying a Context
 At the point in your logic where the rules need to be applied, you will define a Context word.  
 The Context word will be passed to RightRule so it can select the correct set of rules to apply.
 
 ### The RightRule process
-When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement.  
+When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement
+(Note: Some dependency on RulesToApply needs to be considered).  
 If the Rule statement evaluates to false, the next Rule will be applied.  
 If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.  
 If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
