@@ -9,11 +9,34 @@ public class RightRule
 {
     private readonly List<IOperator> _operators;
     private readonly Rules.ParsedRules _rules;
+    private Dictionary<string, object> _data;
 
     public RightRule()
     {
         _rules = new Rules.ParsedRules();
         _operators = GetOperators();
+        _data = new Dictionary<string, object>(StringComparer.Ordinal);
+    }
+
+    /// <summary>
+    /// Takes a set of Rule Definitions and registers them for use.
+    /// </summary>
+    /// <remarks>
+    /// The process of registering rule includes parsing the rule statement
+    /// </remarks>
+    /// <param name="rules"></param>
+    /// <returns>A List of RegisteredRule objects</returns>
+    public List<RegisteredRule> RegisterRules(IEnumerable<RuleDefinition> rules)
+    {
+        ArgumentNullException.ThrowIfNull(rules);
+     
+        var registeredRules = new List<RegisteredRule>();
+        foreach (var rule in rules)
+        {
+            var registeredRule = RegisterRule(rule);
+            registeredRules.Add(registeredRule);
+        }
+        return registeredRules;
     }
 
     /// <summary>
@@ -32,6 +55,36 @@ public class RightRule
         _rules.AddRule(pRule);
 
         return new RegisteredRule(pRule);
+    }
+
+    /// <summary>
+    /// Registers Data for use in rule evaluation.
+    /// </summary>
+    /// <typeparam name="T">The type of the data being registered.</typeparam>
+    /// <param name="Data">The data to be registered. Can be of any type that can be converted to a dictionary.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    public bool RegisterData<T>(T Data) 
+    {
+        var convertedData = DataConverters.DataConverter.ConvertToDictionary(Data);
+        _data = convertedData;
+        return true;
+    }
+
+    /// <summary>
+    /// Registers Data for use in rule evaluation.
+    /// </summary>
+    /// <param name="Data">The data to be registered.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    public bool RegisterData(Dictionary<string, object> Data)
+    {
+        ArgumentNullException.ThrowIfNull(Data);
+        _data = Data;
+        return true;
+    }
+
+    public AppliedRule ApplyRules(string Context)
+    {
+        return ApplyRules(Context, _data, RulesToApply.First);
     }
 
     /// <summary>
@@ -58,8 +111,25 @@ public class RightRule
     /// applied and their results.</returns>
     public AppliedRule ApplyRules(string Context, Dictionary<string, object> Data, RulesToApply RulesToApply)
     {
-        var rules = Helpers.FilterRules(Context, _rules.RightRules);
+        if (string.IsNullOrEmpty(Context))
+        {
+            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
+        }
+        if (Data == null || Data.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(Data), "Data cannot be null or empty.");
+        }
+        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(RulesToApply), "RulesToApply cannot be null or empty.");
+        }
 
+        var rules = Helpers.FilterRules(Context, _rules.RightRules);
+        return ApplyRules(Context, Data, RulesToApply, rules);
+    }
+
+    private AppliedRule ApplyRules(string Context, Dictionary<string, object> Data, RulesToApply RulesToApply, ParsedRules rules)
+    {
         var evaluator = new Evaluator(Data, _operators);
         return evaluator.Evaluate(rules, RulesToApply);
     }

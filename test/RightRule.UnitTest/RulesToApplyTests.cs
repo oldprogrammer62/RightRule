@@ -54,6 +54,39 @@ public class RulesToApplyTests
     }
 
     [Fact]
+    public void TestItWorks_FirstWithMultiRuleRegistration()
+    {
+        // Rule
+        RuleDefinition rule1 = new()
+        {
+            Number = 1,
+            Name = "Age Rule",
+            Statement = @"age equals 28",
+            Context = "AllContext",
+            Decision = "OLDENOUGH",
+        };
+
+        // Rule
+        RuleDefinition rule2 = new()
+        {
+            Number = 2,
+            Name = "Name Rule",
+            Statement = @"surname equals ""Doe""",
+            Context = "AllContext",
+            Decision = "NAMEFOUND",
+        };
+
+        var rules = new List<RuleDefinition>() { rule1, rule2 };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRules = rr.RegisterRules(rules);
+
+        var appliedRule = rr.ApplyRules("AllContext", _Data, RightRule.System.Common.RulesToApply.First);
+
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
     public void TestItWorks_All()
     {
         // Rule
