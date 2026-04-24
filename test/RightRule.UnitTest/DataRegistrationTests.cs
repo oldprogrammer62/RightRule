@@ -35,7 +35,7 @@ public class DataRegistrationTests
 
         var rr = new RightRule.RightRule();
 
-        rr.RegisterData(_Data);
+        rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -55,7 +55,7 @@ public class DataRegistrationTests
 
         var rr = new RightRule.RightRule();
 
-        rr.RegisterData<Dictionary<string, object>>(_Data);
+        rr.RegisterData<Dictionary<string, object>>("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -76,10 +76,10 @@ public class DataRegistrationTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData(_Data);
+        rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
-        var appliedRule = rr.ApplyRules("AllContext", _Data, RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

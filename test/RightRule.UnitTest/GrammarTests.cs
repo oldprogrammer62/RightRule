@@ -36,8 +36,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);  
 
-        var appliedRule = rr.ApplyRules("AgeContext1", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext1", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
     }
@@ -57,8 +58,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
     }
@@ -78,8 +80,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);   
 
-        var appliedRule = rr.ApplyRules("AgeContext", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -99,8 +102,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -120,8 +124,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -141,8 +146,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", _Data);
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
     }
@@ -162,8 +168,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext", _Data);
+        var appliedRule = rr.ApplyRules("NameContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
     }
@@ -183,8 +190,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext", _Data);
+        var appliedRule = rr.ApplyRules("NameContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
     }
@@ -204,8 +212,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("GoodPayerContext", _Data);
+        var appliedRule = rr.ApplyRules("GoodPayerContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(newRule.Decision, appliedRule.Decision);
     }
@@ -225,8 +234,9 @@ public class GrammarTests
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NotGoodPayerContext", _Data);
+        var appliedRule = rr.ApplyRules("NotGoodPayerContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
     }
@@ -256,8 +266,9 @@ public class GrammarTests
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NAMECONTEXT1", _Data);
+        var appliedRule = rr.ApplyRules("NAMECONTEXT1", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
         Assert.Equal(newRule1.Decision, appliedRule.Decision);
@@ -288,8 +299,9 @@ public class GrammarTests
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NAMECONTEXT2", _Data);
+        var appliedRule = rr.ApplyRules("NAMECONTEXT2", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
         Assert.Equal(newRule2.Decision, appliedRule.Decision);

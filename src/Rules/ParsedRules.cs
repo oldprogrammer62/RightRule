@@ -19,4 +19,12 @@ public class ParsedRules
     {
         _rules.Add(rule);
     }
+
+    internal void AddRules(List<ParsedRule> rules)
+    {
+        foreach (ParsedRule rule in rules)
+        {
+            _rules.Add(rule);
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using RightRule.Rules;
+﻿using RightRule.Data;
+using RightRule.Rules;
 using RightRule.System.Common;
 using System.Globalization;
 
@@ -6,26 +7,47 @@ namespace RightRule.Interpreter;
 
 public sealed class Evaluator
 {
-    private readonly IReadOnlyDictionary<string, object> _context;
-    private readonly IReadOnlyDictionary<string, IOperator> _operators;
+    private readonly RegisteredDatasets _registeredDatasets;
+    private readonly IReadOnlyDictionary<string, object> _data;
+    private readonly Dictionary<string, IOperator> _operatorNames;
+
 
     public Evaluator(
-        IReadOnlyDictionary<string, object> context,
-        IEnumerable<IOperator> operators)
+    RegisteredDatasets data,
+    IEnumerable<IOperator> operators)
     {
-        _context = context ?? new Dictionary<string, object>();
+        _registeredDatasets = data ?? new RegisteredDatasets();
 
-        var dict = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
         {
             foreach (var name in op.Identifiers)
             {
                 if (string.IsNullOrWhiteSpace(name))
                     continue;
-                dict[name] = op;
+                operatorNames[name] = op;
             }
         }
-        _operators = dict;
+        _operatorNames = operatorNames;
+    }
+
+    public Evaluator(
+        IReadOnlyDictionary<string, object> data,
+        IEnumerable<IOperator> operators)
+    {
+        _data = data ?? new Dictionary<string, object>();
+
+        var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        foreach (var op in operators)
+        {
+            foreach (var name in op.Identifiers)
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                    continue;
+                operatorNames[name] = op;
+            }
+        }
+        _operatorNames = operatorNames;
     }
 
     public AppliedRule Evaluate(ParsedRules rules)
@@ -113,7 +135,7 @@ public sealed class Evaluator
 
     private bool EvaluateCondition(ConditionNode c)
     {
-        if (!_operators.TryGetValue(c.Operator, out var op))
+        if (!_operatorNames.TryGetValue(c.Operator, out var op))
             throw new Exception($"Unknown operator: {c.Operator}");
 
         var left = ResolveIdentifier(c.LeftIdentifier);
@@ -123,9 +145,9 @@ public sealed class Evaluator
 
     private object ResolveIdentifier(string name)
     {
-        if (_context.TryGetValue(name, out var value))
+        if (_data.TryGetValue(name, out var value))
             return value;
-        throw new KeyNotFoundException($"Unknown variable '{name}' in context.");
+        throw new KeyNotFoundException($"Unknown variable '{name}' in data.");
     }
 
     private object ResolveOperand(Operand op)

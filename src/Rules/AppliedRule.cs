@@ -6,9 +6,7 @@ public sealed class AppliedRule : Rule
 {
     internal static readonly string NoDecision = "NODECISION";
 
-    internal AppliedRule()
-    {
-    }
+    public AppliedRule() {}
 
     [SetsRequiredMembers]
     internal AppliedRule(ParsedRule parsedRule)
