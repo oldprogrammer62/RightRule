@@ -62,7 +62,7 @@ public class RightRule
     /// <param name="Context"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool RemoveRules(string Context)
+    public bool DeRegisterRules(string Context)
     {
         ArgumentNullException.ThrowIfNull(Context);
         if (string.IsNullOrWhiteSpace(Context))
@@ -70,6 +70,16 @@ public class RightRule
             throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
         }
         return _rules.RemoveRules(Context);
+    }
+
+    public void DeRegisterData(string DatasetName)
+    {
+        ArgumentNullException.ThrowIfNull(DatasetName);
+        if (string.IsNullOrWhiteSpace(DatasetName))
+        {
+            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
+        }
+        _registeredData.RemoveDataset(DatasetName);
     }
 
     /// <summary>
@@ -121,6 +131,23 @@ public class RightRule
     public AppliedRule ApplyRules(string Context)
     {
         return ApplyRules(Context, RulesToApply.First);
+    }
+
+    public AppliedRule ApplyRules<T>(string Context, string DatasetName, T Data)
+    {
+        return ApplyRules(Context, DatasetName, Data, RulesToApply.First);
+    }
+
+    public AppliedRule ApplyRules<T>(string Context, string DatasetName, T Data, RulesToApply RulesToApply)
+    {
+        RegisterData(DatasetName, Data);
+
+        // Apply rules
+        AppliedRule result = ApplyRules(Context, RulesToApply);
+
+        // Unregister the Data after rule evaluation to prevent unintended reuse in subsequent evaluations
+        DeRegisterData(DatasetName);
+        return result;
     }
 
     /// <summary>
