@@ -57,6 +57,22 @@ public class RightRule
     }
 
     /// <summary>
+    /// Remove registered rules based on the provided context. All rules associated with the specified context will be removed from the system.
+    /// </summary>
+    /// <param name="Context"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public bool RemoveRules(string Context)
+    {
+        ArgumentNullException.ThrowIfNull(Context);
+        if (string.IsNullOrWhiteSpace(Context))
+        {
+            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
+        }
+        return _rules.RemoveRules(Context);
+    }
+
+    /// <summary>
     /// Registers Data for use in rule evaluation.
     /// </summary>
     /// <typeparam name="T">The type of the data being registered.</typeparam>

@@ -27,4 +27,10 @@ public class ParsedRules
             _rules.Add(rule);
         }
     }
+
+    internal bool RemoveRules(string Context)
+    {
+        _rules.RemoveAll(r => r.Context == Context);
+        return true;
+    }
 }
