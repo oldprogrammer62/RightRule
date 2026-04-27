@@ -44,7 +44,7 @@ public class RegisteredDatasets
         return true;
     }
 
-    private RegisteredDataset? GetDataset(string name)
+    internal RegisteredDataset? GetDataset(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
