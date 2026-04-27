@@ -143,9 +143,7 @@ internal class RightRuleService
         {
             throw new ArgumentNullException(nameof(RulesToApply), "RulesToApply cannot be null or empty.");
         }
-
-        var rules = Helpers.FilterRules(Context, _rules.RightRules);
-        return RuleApplicationService.ApplyRules(Context, _registeredData, rules, RulesToApply, _operators);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators);
     }
 
     private static List<IOperator> GetOperators()

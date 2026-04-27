@@ -8,9 +8,8 @@ namespace RightRule.Interpreter;
 public sealed class Evaluator
 {
     private readonly RegisteredDatasets _registeredDatasets;
-    private readonly IReadOnlyDictionary<string, object> _data;
+    // private readonly IReadOnlyDictionary<string, object> _data;
     private readonly Dictionary<string, IOperator> _operatorNames;
-
 
     public Evaluator(
     RegisteredDatasets data,
@@ -31,24 +30,24 @@ public sealed class Evaluator
         _operatorNames = operatorNames;
     }
 
-    public Evaluator(
-        IReadOnlyDictionary<string, object> data,
-        IEnumerable<IOperator> operators)
-    {
-        _data = data ?? new Dictionary<string, object>();
+    //public Evaluator(
+    //    IReadOnlyDictionary<string, object> data,
+    //    IEnumerable<IOperator> operators)
+    //{
+    //    _data = data ?? new Dictionary<string, object>();
 
-        var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
-        foreach (var op in operators)
-        {
-            foreach (var name in op.Identifiers)
-            {
-                if (string.IsNullOrWhiteSpace(name))
-                    continue;
-                operatorNames[name] = op;
-            }
-        }
-        _operatorNames = operatorNames;
-    }
+    //    var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+    //    foreach (var op in operators)
+    //    {
+    //        foreach (var name in op.Identifiers)
+    //        {
+    //            if (string.IsNullOrWhiteSpace(name))
+    //                continue;
+    //            operatorNames[name] = op;
+    //        }
+    //    }
+    //    _operatorNames = operatorNames;
+    //}
 
     public AppliedRule Evaluate(ParsedRules rules)
     {
@@ -145,9 +144,26 @@ public sealed class Evaluator
 
     private object ResolveIdentifier(string name)
     {
-        if (_data.TryGetValue(name, out var value))
-            return value;
+        if (_registeredDatasets != null)
+        {
+            for (var i = 0; i < _registeredDatasets.Count; i++)
+            {
+                if (_registeredDatasets[i] == null)
+                    continue;
+                if (_registeredDatasets[i]!.Data.TryGetValue(name, out var value))
+                    return value;
+            }
+        }
         throw new KeyNotFoundException($"Unknown variable '{name}' in data.");
+    }
+
+    private object ResolveIdentifier(Operand op, IReadOnlyDictionary<string, object> data)
+    {
+        if (op.Kind != OperandKind.Identifier)
+            throw new Exception($"Expected identifier operand, got {op.Kind}");
+        if (data.TryGetValue(op.Raw, out var value))
+            return value;
+        throw new KeyNotFoundException($"Unknown variable '{op.Raw}' in data.");
     }
 
     private object ResolveOperand(Operand op)

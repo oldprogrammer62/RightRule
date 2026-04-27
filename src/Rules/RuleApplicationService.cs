@@ -9,14 +9,14 @@ internal class RuleApplicationService
 {
     internal static AppliedRule ApplyRules(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToApply rulesToApply, List<IOperator> Operators)
     {
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
-        return ApplyRulesToData(Context, Data, filteredRules, rulesToApply, Operators);
+        return ApplyRulesToData(Context, Data, rules, rulesToApply, Operators);
     }
 
     private static AppliedRule ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToApply RulesToApply, List<IOperator> Operators)
     {
-        var data = Data[0];
-        var evaluator = new Evaluator(data.Data, Operators);
-        return evaluator.Evaluate(rules, RulesToApply);
+        var evaluator = new Evaluator(Data, Operators);
+        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
+
+        return evaluator.Evaluate(filteredRules, RulesToApply);
     }
 }
