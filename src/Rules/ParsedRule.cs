@@ -10,6 +10,7 @@ public class ParsedRule : Rule
     [SetsRequiredMembers]
     internal ParsedRule(RuleDefinition rule, Node? node)
     {
+        Arguments = rule.Arguments;
         Number = rule.Number;
         Name = rule.Name;
         Statement = rule.Statement;

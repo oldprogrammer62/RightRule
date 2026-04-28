@@ -6,7 +6,7 @@ public sealed class DoesNotContains : IOperator
 {
     public List<string> Identifiers => ["doesnotcontain", "notc", "notni"];
 
-    public bool Process(object left, object right)
+    public bool Process(object left, object right, object? arguments)
     {
         if (left is null || right is null) return false;
 

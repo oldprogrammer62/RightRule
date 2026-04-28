@@ -1,5 +1,4 @@
 ﻿using RightRule.Data;
-using RightRule.HelperFunctions;
 using RightRule.Rules;
 using RightRule.System.Common;
 
@@ -8,12 +7,15 @@ namespace RightRule;
 internal class RightRuleService
 {
     private readonly List<IOperator> _operators;
+    private readonly Dictionary<string, IOperator> _operatorNames;
+
     private readonly ParsedRules _rules;
     private readonly RegisteredDatasets _registeredData;
 
     public RightRuleService()
     {
         _operators = GetOperators();
+        _operatorNames = GetOperatorNames(_operators);
         _rules = new ParsedRules();
         _registeredData = new RegisteredDatasets();
     }
@@ -143,11 +145,26 @@ internal class RightRuleService
         {
             throw new ArgumentNullException(nameof(RulesToApply), "RulesToApply cannot be null or empty.");
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators, _operatorNames);
     }
 
     private static List<IOperator> GetOperators()
     {
         return Operators.Operators.RegisterOperators();
+    }
+
+    private static Dictionary<string, IOperator> GetOperatorNames(List<IOperator> operators)
+    {
+        var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        foreach (var op in operators)
+        {
+            foreach (var name in op.Identifiers)
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                    continue;
+                operatorNames[name] = op;
+            }
+        }
+        return operatorNames;
     }
 }

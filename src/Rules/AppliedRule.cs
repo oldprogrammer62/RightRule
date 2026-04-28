@@ -11,6 +11,7 @@ public sealed class AppliedRule : Rule
     [SetsRequiredMembers]
     internal AppliedRule(ParsedRule parsedRule)
     {
+        Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
@@ -23,6 +24,7 @@ public sealed class AppliedRule : Rule
     {
         return new AppliedRule()
         {
+            Arguments = null,
             Number = -1,
             Name = "DefaultRule",
             Statement = string.Empty,

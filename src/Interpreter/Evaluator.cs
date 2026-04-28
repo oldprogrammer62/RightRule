@@ -2,6 +2,7 @@
 using RightRule.Rules;
 using RightRule.System.Common;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace RightRule.Interpreter;
 
@@ -12,21 +13,23 @@ public sealed class Evaluator
 
     public Evaluator(
     RegisteredDatasets data,
-    IEnumerable<IOperator> operators)
+    IEnumerable<IOperator> operators,
+    Dictionary<string, IOperator> operatorNames)
     {
         _registeredDatasets = data ?? new RegisteredDatasets();
+        _operatorNames = operatorNames ?? new Dictionary<string, IOperator> { };
 
-        var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
-        foreach (var op in operators)
-        {
-            foreach (var name in op.Identifiers)
-            {
-                if (string.IsNullOrWhiteSpace(name))
-                    continue;
-                operatorNames[name] = op;
-            }
-        }
-        _operatorNames = operatorNames;
+        //var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        //foreach (var op in operators)
+        //{
+        //    foreach (var name in op.Identifiers)
+        //    {
+        //        if (string.IsNullOrWhiteSpace(name))
+        //            continue;
+        //        operatorNames[name] = op;
+        //    }
+        //}
+        //_operatorNames = operatorNames;
     }
 
     public AppliedRule Evaluate(ParsedRules rules)
@@ -59,7 +62,7 @@ public sealed class Evaluator
         AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
         {
-            var result = Evaluate(rule.Node);
+            var result = Evaluate(rule.Node, rule.Arguments);
             if (result)
             {
                 resultRule = new AppliedRule(rule);
@@ -88,37 +91,37 @@ public sealed class Evaluator
         return resultRule;
     }
 
-    private bool Evaluate(Node? node) => node switch
+    private bool Evaluate(Node? node, object? arguments = null) => node switch
     {
-        ConditionNode c => EvaluateCondition(c),
-        BinaryNode b => EvaluateBinary(b),
-        NotNode n => !Evaluate(n.Inner),
+        ConditionNode c => EvaluateCondition(c, arguments),
+        BinaryNode b => EvaluateBinary(b, arguments),
+        NotNode n => !Evaluate(n.Inner, arguments),
         _ => throw new Exception("Unknown AST node.")
     };
 
-    private bool EvaluateBinary(BinaryNode b)
+    private bool EvaluateBinary(BinaryNode b, object? arguments = null)
     {
         if (b.LogicOp == "AND")
         {
-            var left = Evaluate(b.Left);
-            return left && Evaluate(b.Right);
+            var left = Evaluate(b.Left, arguments);
+            return left && Evaluate(b.Right, arguments);
         }
         if (b.LogicOp == "OR")
         {
-            var left = Evaluate(b.Left);
-            return left || Evaluate(b.Right);
+            var left = Evaluate(b.Left, arguments);
+            return left || Evaluate(b.Right, arguments);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private bool EvaluateCondition(ConditionNode c)
+    private bool EvaluateCondition(ConditionNode c, object? arguments = null)
     {
         if (!_operatorNames.TryGetValue(c.Operator, out var op))
             throw new Exception($"Unknown operator: {c.Operator}");
 
         var left = ResolveIdentifier(c.LeftIdentifier);
         var right = ResolveOperand(c.Right);
-        return op.Process(left, right);
+        return op.Process(left, right, arguments);
     }
 
     private object ResolveIdentifier(string name)
