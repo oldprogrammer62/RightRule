@@ -4,16 +4,16 @@ namespace RightRule.Operators;
 
 internal class Operators
 {
-    internal static List<IOperator> RegisterOperators()
+    internal static List<IOperator> RegisterOperatorNames()
     {
-        var operators = LoadOperators();
-        if (operators == null || operators.Count == 0)
+        var operatorNamess = LoadOperators();
+        if (operatorNamess == null || operatorNamess.Count == 0)
             throw new Exception("No operators found.");
 
-        if (OperatorIdentifiersUnique(operators) == false)
+        if (OperatorIdentifiersUnique(operatorNamess) == false)
             throw new Exception("Operator identifiers must be unique.");
 
-        return operators;
+        return operatorNamess;
     }
 
     private static bool OperatorIdentifiersUnique(List<IOperator> operators)

@@ -6,16 +6,15 @@ namespace RightRule;
 
 internal class RightRuleService
 {
-    private readonly List<IOperator> _operators;
-    private readonly Dictionary<string, IOperator> _operatorNames;
+    private readonly Dictionary<string, IOperator> _operators;
 
     private readonly ParsedRules _rules;
     private readonly RegisteredDatasets _registeredData;
 
     public RightRuleService()
     {
-        _operators = GetOperators();
-        _operatorNames = GetOperatorNames(_operators);
+        var _operatorNames = GetOperatorNames();
+        _operators = GetOperators(_operatorNames);
         _rules = new ParsedRules();
         _registeredData = new RegisteredDatasets();
     }
@@ -35,7 +34,8 @@ internal class RightRuleService
     {
         ArgumentNullException.ThrowIfNull(rules);
 
-        var operatorNames = _operators.Select(o => o.Identifiers);
+        var operatorNames = _operators.Select(o => o.Value.Identifiers);
+
         var parsedRules = RuleRegistrationService.ParseRules(rules, operatorNames);
         _rules.AddRules(parsedRules);
         return parsedRules;
@@ -45,7 +45,8 @@ internal class RightRuleService
     {
         ArgumentNullException.ThrowIfNull(rule);
 
-        var operatorNames = _operators.Select(o => o.Identifiers);
+        var operatorNames = _operators.Select(o => o.Value.Identifiers);
+
         var parsedRule = RuleRegistrationService.ParseRule(rule, operatorNames);
         _rules.AddRule(parsedRule);
         return parsedRule;
@@ -145,15 +146,15 @@ internal class RightRuleService
         {
             throw new ArgumentNullException(nameof(RulesToApply), "RulesToApply cannot be null or empty.");
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators, _operatorNames);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators);
     }
 
-    private static List<IOperator> GetOperators()
+    private static List<IOperator> GetOperatorNames()
     {
-        return Operators.Operators.RegisterOperators();
+        return Operators.Operators.RegisterOperatorNames();
     }
 
-    private static Dictionary<string, IOperator> GetOperatorNames(List<IOperator> operators)
+    private static Dictionary<string, IOperator> GetOperators(List<IOperator> operators)
     {
         var operatorNames = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
