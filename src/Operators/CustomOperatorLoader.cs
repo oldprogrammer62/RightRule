@@ -9,7 +9,7 @@ internal class CustomOperatorLoader
 {
     internal static List<IOperator> Load()
     {
-        string configPath = ConfigurationHelper.GetSetting("CustomOperatorConfigPath") ?? string.Empty;
+        string configPath = GetConfigPath();
         if (string.IsNullOrEmpty(configPath) || !File.Exists(configPath))
         {
             return new List<IOperator>();
@@ -17,7 +17,6 @@ internal class CustomOperatorLoader
 
         List<IOperator> operators = new List<IOperator>();
         var opConfigs = GetOperatorConfigs(configPath);
-
         if (opConfigs.Operators == null || opConfigs.Operators.Count == 0)
         {
             return operators;
@@ -34,9 +33,28 @@ internal class CustomOperatorLoader
         return operators;
     }
 
+    private static string GetConfigPath()
+    {
+        try
+        {
+            return ConfigurationHelper.GetSetting("CustomOperatorConfigPath") ?? string.Empty;
+        }
+        catch
+        {
+            return string.Empty;
+        }
+    }
+
     private static OperatorConfigs GetOperatorConfigs(string ConfigPath)
     {
-        var configData = File.ReadAllText(ConfigPath);
-        return Helpers.DeserialiseJson<OperatorConfigs>(configData);
+        try
+        {
+            var configData = File.ReadAllText(ConfigPath);
+            return Helpers.DeserialiseJson<OperatorConfigs>(configData);
+        }
+        catch
+        {
+            return new OperatorConfigs { Operators = new List<OperatorConfig>() };
+        }
     }
 }
