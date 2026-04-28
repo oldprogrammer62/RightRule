@@ -44,6 +44,75 @@ public class GrammarTests
     }
 
     [Fact]
+    public void TestItWorks_ThisAndThis()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Age Rule",
+            Statement = @"age equals 28 and goodpayer equals true",
+            Context = "AgeContext",
+            Decision = "OK",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+
+        Assert.NotNull(appliedRule);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void TestItWorks_ThisOrThis()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Age Rule",
+            Statement = @"age equals 29 or goodpayer equals true",
+            Context = "AgeContext",
+            Decision = "OK",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+
+        Assert.NotNull(appliedRule);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void TestItWorks_ThisAndThisOrThis()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Age Rule",
+            Statement = @"(age equals 28 and goodpayer equals true) or (numberoforders equals 10 and goodpayer equals true)",
+            Context = "AgeContext",
+            Decision = "OK",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+
+        Assert.NotNull(appliedRule);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
     public void TestItWorks_Number_Equals()
     {
         // Rule
