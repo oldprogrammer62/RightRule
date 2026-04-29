@@ -159,4 +159,26 @@ public class MultiStepTests
         var rule2result = rr.ApplyRules("Step2", RightRule.System.Common.RulesToApply.First);
         Assert.Equal("NAMEFOUND", rule2result.Decision);
     }
+
+    [Fact]
+    public void TestWithMultipleStep2_WithDeRegistration()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+
+        rr.RegisterData("Step1Data", _Step1Data1);
+        var rule1 = rr.RegisterRule(_Step1Rule1);
+        var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
+        Assert.Equal("OLDENOUGH", rule1result.Decision);
+
+        rr.DeRegisterData("Step1Data");
+        rr.DeRegisterRules("Step1");
+
+        var rule1result_v2 = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
+        Assert.Equal(AppliedRule.DefaultRule().Decision, rule1result_v2.Decision);
+
+        rr.RegisterData("Step2Data", _Step2Data1);
+        var rule2 = rr.RegisterRule(_Step2Rule);
+        var rule2result = rr.ApplyRules("Step2", RightRule.System.Common.RulesToApply.First);
+        Assert.Equal("NAMEFOUND", rule2result.Decision);
+    }
 }

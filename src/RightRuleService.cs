@@ -136,15 +136,15 @@ internal class RightRuleService
     {
         if (string.IsNullOrEmpty(Context))
         {
-            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
+            return AppliedRule.DefaultRule("Error: Context cannot be null or empty.");
         }
         if (_registeredData == null || _registeredData.Count == 0)
         {
-            throw new ArgumentNullException(nameof(_registeredData), "RegisteredData cannot be null or empty.");
+            return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
         }
         if (_rules.RightRules == null || _rules.RightRules.Count == 0)
         {
-            throw new ArgumentNullException(nameof(RulesToApply), "RulesToApply cannot be null or empty.");
+            return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
         return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators);
     }

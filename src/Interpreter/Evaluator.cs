@@ -37,7 +37,7 @@ public sealed class Evaluator
                 return EvaluateAll(rules);
 
             default:
-                throw new Exception($"Unknown RulesToApply value: {rulesToApply}");
+                return AppliedRule.DefaultRule($"Unknown RulesToApply value: {rulesToApply}");
         }
     }
 

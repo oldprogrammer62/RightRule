@@ -113,7 +113,7 @@ public class RightRule
     {
         if (string.IsNullOrEmpty(Context))
         {
-            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
+            return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
         }
         return _service.ApplyRules(Context, RulesToApply);
     }

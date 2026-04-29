@@ -7,6 +7,7 @@ public sealed class AppliedRule : Rule
     public required string DatasetMatched { get; init; }
 
     internal static readonly string NoDecision = "NODECISION";
+    internal static readonly string NoDatasetMatched = "NO_DATASET_MATCHED";
 
     public AppliedRule() {}
 
@@ -25,16 +26,21 @@ public sealed class AppliedRule : Rule
 
     public static AppliedRule DefaultRule()
     {
+        return DefaultRule(string.Empty);
+    }
+
+    public static AppliedRule DefaultRule(string decisionData)
+    {
         return new AppliedRule()
         {
             Arguments = null,
             Number = -1,
-            Name = "DefaultRule",
+            Name = "DEFAULTRULE",
             Statement = string.Empty,
             Context = string.Empty,
             Decision = NoDecision,
-            DecisionData = null,
-            DatasetMatched = NoDecision
+            DecisionData = decisionData,
+            DatasetMatched = NoDatasetMatched
         };
     }
 }
