@@ -4,12 +4,14 @@ namespace RightRule.Rules;
 
 public sealed class AppliedRule : Rule
 {
+    public required string DatasetMatched { get; init; }
+
     internal static readonly string NoDecision = "NODECISION";
 
     public AppliedRule() {}
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule)
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched)
     {
         Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
@@ -18,6 +20,7 @@ public sealed class AppliedRule : Rule
         Context = parsedRule.Context;
         Decision = parsedRule.Decision;
         DecisionData = parsedRule.DecisionData;
+        DatasetMatched = datasetMatched;
     }
 
     public static AppliedRule DefaultRule()
@@ -29,8 +32,9 @@ public sealed class AppliedRule : Rule
             Name = "DefaultRule",
             Statement = string.Empty,
             Context = string.Empty,
-            Decision = "NODECISION",
-            DecisionData = null
+            Decision = NoDecision,
+            DecisionData = null,
+            DatasetMatched = NoDecision
         };
     }
 }

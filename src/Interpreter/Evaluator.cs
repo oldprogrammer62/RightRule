@@ -43,13 +43,29 @@ public sealed class Evaluator
 
     private AppliedRule EvaluateFirst(List<ParsedRule> rules)
     {
+        bool success = false;
+
         AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
         {
-            var result = Evaluate(rule.Node, rule.Arguments);
-            if (result)
+            for (var i = 0; i < _registeredDatasets.Count; i++)
             {
-                resultRule = new AppliedRule(rule);
+                var data = _registeredDatasets[i];
+                if (data == null)
+                {
+                    continue;
+                }
+
+                var result = Evaluate(data, rule.Node, rule.Arguments);
+                if (result)
+                {
+                    resultRule = new AppliedRule(rule, data.Name);
+                    success = true;
+                    break;
+                }
+            }
+            if (success)
+            {
                 break;
             }
         }
@@ -61,73 +77,74 @@ public sealed class Evaluator
         AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
         {
-            var result = Evaluate(rule.Node, rule.Arguments);
-            if (!result)
+            for (var i = 0; i < _registeredDatasets.Count; i++)
             {
-                resultRule = AppliedRule.DefaultRule();
-                break;
-            }
-            if (result)
-            {
-                resultRule = new AppliedRule(rule);
+                var data = _registeredDatasets[i];
+                if (data == null)
+                {
+                    continue;
+                }
+
+                var result = Evaluate(data, rule.Node, rule.Arguments);
+                if (!result)
+                {
+                    resultRule = AppliedRule.DefaultRule();
+                    break;
+                }
+                if (result)
+                {
+                    resultRule = new AppliedRule(rule, data.Name);
+                }
             }
         }
         return resultRule;
     }
 
-    private bool Evaluate(Node? node, object? arguments) => node switch
+    private bool Evaluate(RegisteredDataset data, Node? node, object? arguments) => node switch
     {
-        ConditionNode c => EvaluateCondition(c, arguments),
-        BinaryNode b => EvaluateBinary(b, arguments),
-        NotNode n => !Evaluate(n.Inner, arguments),
+        ConditionNode c => EvaluateCondition(data, c, arguments),
+        BinaryNode b => EvaluateBinary(data, b, arguments),
+        NotNode n => !Evaluate(data, n.Inner, arguments),
         _ => throw new Exception("Unknown Node type.")
     };
 
-    private bool EvaluateBinary(BinaryNode b, object? arguments)
+    private bool EvaluateBinary(RegisteredDataset data, BinaryNode b, object? arguments)
     {
         if (b.LogicOp == "AND")
         {
-            var left = Evaluate(b.Left, arguments);
-            return left && Evaluate(b.Right, arguments);
+            var left = Evaluate(data, b.Left, arguments);
+            return left && Evaluate(data, b.Right, arguments);
         }
         if (b.LogicOp == "OR")
         {
-            var left = Evaluate(b.Left, arguments);
-            return left || Evaluate(b.Right, arguments);
+            var left = Evaluate(data, b.Left, arguments);
+            return left || Evaluate(data, b.Right, arguments);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private bool EvaluateCondition(ConditionNode c, object? arguments)
+    private bool EvaluateCondition(RegisteredDataset data, ConditionNode c, object? arguments)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new Exception($"Unknown operator: {c.Operator}");
 
-        var left = ResolveIdentifier(c.LeftIdentifier);
-        var right = ResolveOperand(c.Right);
+        var left = ResolveIdentifier(data, c.LeftIdentifier);
+        var right = ResolveOperand(data, c.Right);
         return op.Process(left, right, arguments);
     }
 
-    private object ResolveIdentifier(string name)
+    private object ResolveIdentifier(RegisteredDataset data, string name)
     {
-        if (_registeredDatasets != null)
-        {
-            for (var i = 0; i < _registeredDatasets.Count; i++)
-            {
-                if (_registeredDatasets[i] == null)
-                    continue;
-                if (_registeredDatasets[i]!.Data.TryGetValue(name, out var value))
-                    return value;
-            }
-        }
+        if (data.Data.TryGetValue(name, out var value))
+            return value;
         throw new KeyNotFoundException($"Unknown variable '{name}' in data.");
     }
 
-    private object ResolveOperand(Operand op)
+    private object ResolveOperand(RegisteredDataset data, Operand op)
     {
         return op.Kind switch
         {
-            OperandKind.Identifier => ResolveIdentifier(op.Raw),
+            OperandKind.Identifier => ResolveIdentifier(data, op.Raw),
             OperandKind.Number => ParseNumber(op.Raw),
             OperandKind.Boolean => ParseBoolean(op.Raw),
             OperandKind.String => op.Raw,
