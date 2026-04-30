@@ -5,6 +5,7 @@ namespace RightRule.Rules;
 public sealed class AppliedRule : Rule
 {
     public required string DatasetMatched { get; init; }
+    public required List<ParsedRule> RulesMatched { get; init; }
 
     internal static readonly string NoDecision = "NODECISION";
     internal static readonly string NoDatasetMatched = "NO_DATASET_MATCHED";
@@ -22,6 +23,21 @@ public sealed class AppliedRule : Rule
         Decision = parsedRule.Decision;
         DecisionData = parsedRule.DecisionData;
         DatasetMatched = datasetMatched;
+        RulesMatched = [parsedRule];
+    }
+
+    [SetsRequiredMembers]
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched)
+    {
+        Arguments = parsedRule.Arguments;
+        Number = parsedRule.Number;
+        Name = parsedRule.Name;
+        Statement = parsedRule.Statement;
+        Context = parsedRule.Context;
+        Decision = parsedRule.Decision;
+        DecisionData = parsedRule.DecisionData;
+        DatasetMatched = datasetMatched;
+        RulesMatched = rulesMatched;
     }
 
     public static AppliedRule DefaultRule()
@@ -40,7 +56,8 @@ public sealed class AppliedRule : Rule
             Context = string.Empty,
             Decision = NoDecision,
             DecisionData = decisionData,
-            DatasetMatched = NoDatasetMatched
+            DatasetMatched = NoDatasetMatched,
+            RulesMatched = new List<ParsedRule>()
         };
     }
 }

@@ -75,6 +75,8 @@ public sealed class Evaluator
     private AppliedRule EvaluateAll(List<ParsedRule> rules)
     {
         AppliedRule resultRule = AppliedRule.DefaultRule();
+        List<ParsedRule> matchedRules = [];
+
         foreach (var rule in rules)
         {
             for (var i = 0; i < _registeredDatasets.Count; i++)
@@ -93,7 +95,8 @@ public sealed class Evaluator
                 }
                 if (result)
                 {
-                    resultRule = new AppliedRule(rule, data.Name);
+                    matchedRules.Add(rule);
+                    resultRule = new AppliedRule(rule, data.Name, matchedRules);
                 }
             }
         }
