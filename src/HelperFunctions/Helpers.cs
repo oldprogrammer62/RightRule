@@ -1,4 +1,9 @@
-﻿using RightRule.Rules;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using RightRule.Rules;
 
 namespace RightRule.HelperFunctions;
 
@@ -25,5 +30,58 @@ public static class Helpers
                 throw new Exception("Failed to deserialize JSON.");
             return deserializedObject;
         }
+    }
+
+    public static string GetValueFromSettings(string key)
+    {
+        string? val = ConfigurationManager.AppSettings[key];
+        return val ?? throw new Exception($"Key '{key}' not found in app settings.");
+    }
+
+    /// <summary>
+    /// Determines whether <paramref name="type"/> is an enumerable of T (IEnumerable&lt;T&gt; or T[]).
+    /// Excludes <see cref="string"/>.
+    /// </summary>
+    /// <param name="type">Type to inspect.</param>
+    /// <param name="elementType">The element type T when true; otherwise null.</param>
+    /// <returns>True if <paramref name="type"/> represents an IEnumerable&lt;T&gt; or array; otherwise false.</returns>
+    public static bool IsTEnumerable(Type type, out Type? elementType)
+    {
+        if (type == null) throw new ArgumentNullException(nameof(type));
+
+        // Exclude string which is IEnumerable<char> but usually not intended as a collection type here.
+        if (type == typeof(string))
+        {
+            elementType = null;
+            return false;
+        }
+
+        // Arrays -> element type is the array element
+        if (type.IsArray)
+        {
+            elementType = type.GetElementType();
+            return elementType != null;
+        }
+
+        // If the type itself is IEnumerable<T>
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+        {
+            elementType = type.GetGenericArguments()[0];
+            return true;
+        }
+
+        // Check implemented interfaces for IEnumerable<T>
+        var ie = type.GetInterfaces()
+                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                     .FirstOrDefault();
+
+        if (ie != null)
+        {
+            elementType = ie.GetGenericArguments()[0];
+            return true;
+        }
+
+        elementType = null;
+        return false;
     }
 }
