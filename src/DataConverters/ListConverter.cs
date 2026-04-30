@@ -1,5 +1,4 @@
-﻿using RightRule.System.Common;
-using System.Collections;
+﻿using System.Collections;
 
 namespace RightRule.DataConverters;
 

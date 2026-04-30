@@ -2,5 +2,5 @@
 
 public interface IConvertToDictionary
 {
-        Dictionary<string, object> ConvertToDictionary<T>(T data);
+    Dictionary<string, object> ConvertToDictionary<T>(T data);
 }

@@ -1,6 +1,4 @@
-﻿using RightRule.System.Common;
-
-namespace RightRule.DataConverters;
+﻿namespace RightRule.DataConverters;
 
 public class ObjectConverter : IConvertToDictionary
 {
