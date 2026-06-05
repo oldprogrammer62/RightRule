@@ -68,8 +68,7 @@ public class RightRule
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-        _service.RegisterData(DatasetName, Data);
-        return true;
+        return _service.RegisterData(DatasetName, Data);
     }
 
     public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
@@ -80,8 +79,7 @@ public class RightRule
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-        _service.RegisterData(DatasetName, Data);
-        return true;
+        return _service.RegisterData(DatasetName, Data);
     }
 
     public void DeRegisterData(string DatasetName)

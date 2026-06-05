@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using RightRule.Rules;
+﻿using RightRule.Rules;
 
 namespace RightRule.HelperFunctions;
 
@@ -11,17 +6,29 @@ public static class Helpers
 {
     internal static ParsedRules FilterRules(string Context, List<ParsedRule> Rules)
     {
-        var filteredRules = Rules.Where
-            (
-            x => x.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
-            )
-            .OrderBy( x => x.Number )
-            .ToList();
-        return new ParsedRules(filteredRules);
+        try
+        {
+            var filteredRules = Rules.Where
+                (
+                x => x.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
+                )
+                .OrderBy(x => x.Number)
+                .ToList();
+            return new ParsedRules(filteredRules);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error filtering rules for context '{Context}': {ex.Message}", ex);
+        }
     }
 
     internal static T DeserialiseJson<T>(string Json)
     {
+        if (string.IsNullOrWhiteSpace(Json))
+        {
+            throw new ArgumentException("JSON string cannot be null or whitespace.", nameof(Json));
+        }
+
         var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
         using (var jsonReader = new Newtonsoft.Json.JsonTextReader(new StringReader(Json)))
         {
@@ -32,28 +39,22 @@ public static class Helpers
         }
     }
 
-    public static string GetValueFromSettings(string key)
-    {
-        string? val = ConfigurationManager.AppSettings[key];
-        return val ?? throw new Exception($"Key '{key}' not found in app settings.");
-    }
-
     public static bool IsDictionary(Type type, out Type? keyType, out Type? valueType)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
-        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>))
+        ArgumentNullException.ThrowIfNull(type);
+
+        if (IsIDictionaryType(type))
         {
-            var genericArgs = type.GetGenericArguments();
+            var genericArgs = GetGenericArguments(type);
             keyType = genericArgs[0];
             valueType = genericArgs[1];
             return true;
         }
-        var dictInterface = type.GetInterfaces()
-                                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>))
-                                .FirstOrDefault();
+        var dictInterface = GetDictInterface(type);
+
         if (dictInterface != null)
         {
-            var genericArgs = dictInterface.GetGenericArguments();
+            var genericArgs = GetGenericIDictionaryArgs(dictInterface);
             keyType = genericArgs[0];
             valueType = genericArgs[1];
             return true;
@@ -72,7 +73,7 @@ public static class Helpers
     /// <returns>True if <paramref name="type"/> represents an IEnumerable&lt;T&gt; or array; otherwise false.</returns>
     public static bool IsTEnumerable(Type type, out Type? elementType)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        ArgumentNullException.ThrowIfNull(type);
 
         // Exclude string which is IEnumerable<char> but usually not intended as a collection type here.
         if (type == typeof(string))
@@ -88,25 +89,109 @@ public static class Helpers
             return elementType != null;
         }
 
-        // If the type itself is IEnumerable<T>
-        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+        if (IsIEnumerableType(type))
         {
-            elementType = type.GetGenericArguments()[0];
+            elementType = GetGenericArguments(type, 0);
             return true;
         }
+        var enumerableInterface = GetEnumerableInterface(type);
 
-        // Check implemented interfaces for IEnumerable<T>
-        var ie = type.GetInterfaces()
-                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                     .FirstOrDefault();
-
-        if (ie != null)
+        if (enumerableInterface != null)
         {
-            elementType = ie.GetGenericArguments()[0];
+            elementType = GetGenericArguments(enumerableInterface, 0);
             return true;
         }
 
         elementType = null;
         return false;
+    }
+
+    private static Type? GetEnumerableInterface(Type type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+
+        try { 
+            return type.GetInterfaces()
+                     .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                     .FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error retrieving IEnumerable interface from type '{type.FullName}': {ex.Message}", ex);
+        }
+    }
+
+    private static Type GetGenericArguments(Type type, int Index)
+    {
+        try
+        {
+            return GetGenericArguments(type)[Index];
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error retrieving generic argument at index {Index} from type '{type.FullName}': {ex.Message}", ex);
+        }
+    }
+
+    private static Type[] GetGenericArguments(Type type)
+    {
+        try
+        {
+            return type.GetGenericArguments();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error retrieving generic arguments from type '{type.FullName}': {ex.Message}", ex);
+        }
+    }
+
+    private static bool IsIDictionaryType(Type type)
+    {
+        try 
+        { 
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IDictionary<,>);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error checking if type '{type.FullName}' is IDictionary: {ex.Message}", ex);
+        }
+    }
+
+    private static bool IsIEnumerableType(Type type)
+    {
+        try
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error checking if type '{type.FullName}' is IEnumerable: {ex.Message}", ex);
+        }
+    }
+
+    private static Type? GetDictInterface(Type type)
+    {
+        try
+        {
+            return type.GetInterfaces()
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>))
+                    .FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error retrieving IDictionary interface from type '{type.FullName}': {ex.Message}", ex);
+        }
+    }
+
+    private static Type[] GetGenericIDictionaryArgs(Type dictInterface)
+    {
+        try
+        {
+            return dictInterface.GetGenericArguments();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error retrieving generic arguments from IDictionary interface '{dictInterface.FullName}': {ex.Message}", ex);
+        }
     }
 }

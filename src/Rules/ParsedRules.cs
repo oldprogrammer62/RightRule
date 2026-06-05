@@ -30,7 +30,14 @@ public class ParsedRules
 
     internal bool RemoveRules(string Context)
     {
-        _rules.RemoveAll(r => r.Context == Context);
-        return true;
+        try
+        {
+            _rules.RemoveAll(r => r.Context == Context);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

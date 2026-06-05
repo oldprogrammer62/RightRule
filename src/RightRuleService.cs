@@ -86,8 +86,7 @@ internal class RightRuleService
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
         var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
-        _registeredData.AddDataset(data);
-        return true;
+        return _registeredData.AddDataset(data);
     }
 
     internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
@@ -100,8 +99,7 @@ internal class RightRuleService
         }
 
         var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data);
-        _registeredData.AddDataset(data);
-        return true;
+        return _registeredData.AddDataset(data);
     }
 
     internal void DeRegisterData(string DatasetName)
