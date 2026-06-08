@@ -40,6 +40,12 @@ namespace RightRule_Demo
 
         private static void DisplayAppliedRule(AppliedRule appliedRule)
         {
+            if (appliedRule == null)
+            {
+                Console.WriteLine("No rule applied.");
+                return;
+            }
+
             Console.WriteLine("Rule applied...");
             Console.WriteLine($"\tNumber: {appliedRule.Number}");
             Console.WriteLine($"\tName: {appliedRule.Name}");
