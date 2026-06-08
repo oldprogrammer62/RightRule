@@ -4,45 +4,57 @@ namespace RightRule_Demo.CustomerManager
 {
     internal class CustomerManager
     {
-        internal static Dictionary<string, object> GetCustomerData()
+        internal static Dictionary<string, object>? GetCustomerData()
         {
-            var customer = GetCustomerRecord();
-            return CreateCustomerSet(customer);
+            var customerCode = GetCustomerCode() ?? string.Empty;
+            if (string.IsNullOrEmpty(customerCode))
+            {
+                Console.WriteLine();
+                return default;
+            }
+
+            var customer = GetCustomerRecord(customerCode);
+            return CreateCustomerData(customer, customerCode);
         }
 
-        private static Customer? GetCustomerRecord()
+        private static string? GetCustomerCode()
         {
             Console.WriteLine("Please enter a Customer Code...");
 
             var customerCode = Console.ReadLine();
             if (string.IsNullOrEmpty(customerCode))
             {
-                Console.WriteLine("Customer Code cannot be empty. Exiting.");
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadLine();
+                Console.WriteLine("Customer Code cannot be empty.");
                 return default;
             }
-
             Console.WriteLine();
+            return customerCode;
+        }
+
+        private static Customer? GetCustomerRecord(string? customerCode)
+        {
+            if (string.IsNullOrEmpty(customerCode))
+            {
+                return default;
+            }
 
             var customer = DataLoader.CustomerLoader.Load(customerCode);
             if (customer != null)
             {
-                Console.WriteLine($"Customer found: {customer.Name} (ID: {customer.Id})");
+                Console.WriteLine($"Customer found: {customerCode.ToUpper()} {customer.Name} (ID: {customer.Id})");
             }
             else
             {
-                Console.WriteLine("Customer not found.");
+                Console.WriteLine($"Customer not found: {customerCode.ToUpper()}");
             }
-
             return customer;
         }
 
-        private static Dictionary<string, object> CreateCustomerSet(Customer? customer)
+        private static Dictionary<string, object> CreateCustomerData(Customer? customer, string code)
         {
             if (customer == null)
             {
-                return CreateCustomerSet();
+                return CreateCustomerData(code);
             }
 
             var data = new Dictionary<string, object>();
@@ -53,10 +65,10 @@ namespace RightRule_Demo.CustomerManager
             return data;
         }
 
-        private static Dictionary<string, object> CreateCustomerSet()
+        private static Dictionary<string, object> CreateCustomerData(string code)
         {
             var data = new Dictionary<string, object>();
-            data["CustomerCode"] = string.Empty;
+            data["CustomerCode"] = code;
             data["CustomerName"] = string.Empty;
             data["NewCust"] = true;
 

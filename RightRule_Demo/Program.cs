@@ -6,10 +6,19 @@ namespace RightRule_Demo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the RightRule Demo!");
+            Welcome();
 
-            var Data = GetCustomerData();
-            var rule = ApplyRules(Data);
+            var CustomerData = GetCustomerData();
+            if (CustomerData == null)
+            {
+                Console.WriteLine("No customer data available.");
+                Console.WriteLine();
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadLine();
+                return;
+            }
+
+            var rule = ApplyRules(CustomerData);
 
             Console.WriteLine();
             DisplayAppliedRule(rule);
@@ -19,7 +28,7 @@ namespace RightRule_Demo
             Console.ReadLine();
         }
 
-        private static Dictionary<string, object> GetCustomerData()
+        private static Dictionary<string, object>? GetCustomerData()
         {
             return CustomerManager.CustomerManager.GetCustomerData();
         }
@@ -37,6 +46,16 @@ namespace RightRule_Demo
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
             Console.WriteLine($"\tDataset Matched: {appliedRule.DatasetMatched}");
+        }
+
+        private static void Welcome()
+        {
+            string WelcomeMessage = "* Welcome to the RightRule Demo! *";
+            Console.WriteLine(new string('*', WelcomeMessage.Length));
+            Console.WriteLine(WelcomeMessage);
+            Console.WriteLine(new string('*', WelcomeMessage.Length));
+
+            Console.WriteLine();
         }
     }
 }

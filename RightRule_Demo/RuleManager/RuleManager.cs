@@ -6,10 +6,11 @@ namespace RightRule_Demo.RuleManager
     {
         internal static AppliedRule ApplyRules(Dictionary<string, object> Data)
         {
-            string Context = "Demo";
-
             RightRule.RightRule rr = new RightRule.RightRule();
+
+            string Context = "Demo";
             var rules = LoadRules(Context);
+
             rr.RegisterRules(rules);
             rr.RegisterData(Context, Data);
 
