@@ -6,7 +6,7 @@ public sealed class GreaterThanOrEquals : IOperator
 {
     public List<string> Identifiers => ["greaterthanorequals", ">="];
 
-    public bool Process(object left, object right, object? arguments)
+    public bool Process(object left, object right)
     {
         if (!IsNumber(left))
         {

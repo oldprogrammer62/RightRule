@@ -11,5 +11,5 @@ public interface IOperator
     /// Process the condition with resolved left/right operands.
     /// Return true/false.
     /// </summary>
-    bool Process(object left, object right, object? arguments );
+    bool Process(object left, object right);
 }

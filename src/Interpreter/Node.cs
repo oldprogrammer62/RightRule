@@ -2,7 +2,7 @@
 
 public abstract class Node { }
 
-public enum OperandKind { Identifier, Number, String, Boolean }
+public enum OperandKind { Identifier, Number, String, Boolean, Variable }
 
 public sealed class Operand
 {

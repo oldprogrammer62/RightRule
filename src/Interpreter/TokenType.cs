@@ -12,5 +12,6 @@ public enum TokenType
     Not,          // NOT
     LParen,       // (
     RParen,       // )
+    Variable,     // {VarName}
     End
 }

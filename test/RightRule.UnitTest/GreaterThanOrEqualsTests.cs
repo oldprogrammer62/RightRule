@@ -16,13 +16,13 @@ public class GreaterThanOrEqualsTests
     }
 
     [Fact]
-    public void LessThan()
+    public void GreaterThan()
     {
         // Rule
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Less ThanValue Rule",
+            Name = "Greater Than Value Rule",
             Statement = @"value greaterthanorequals 10",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
@@ -38,13 +38,13 @@ public class GreaterThanOrEqualsTests
     }
 
     [Fact]
-    public void NotLessThan()
+    public void NotGreaterThan()
     {
         // Rule
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Less ThanValue Rule",
+            Name = "Not Greater Than Value Rule",
             Statement = @"value greaterthanorequals 101",
             Context = "Context",
             Decision = "NOT_GREATERTHAN",

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RightRule.Interpreter;
 
@@ -26,6 +27,36 @@ public sealed class Tokenizer
         // Parentheses
         if (c == '(') { _pos++; return new Token(TokenType.LParen, "(", _pos - 1); }
         if (c == ')') { _pos++; return new Token(TokenType.RParen, ")", _pos - 1); }
+
+        if (c == '{')
+        {
+            int start = _pos;
+            var sb = new StringBuilder();
+            sb.Append(_input[_pos++]);
+
+            while (_pos < _input.Length && _input[_pos] != '}')
+            {
+                // basic escape support for \" and \\ (optional)
+                if (_input[_pos] == '\\' && _pos + 1 < _input.Length)
+                {
+                    char next = _input[_pos + 1];
+                    if (next == '\\')
+                    {
+                        sb.Append(next);
+                        _pos += 2;
+                        continue;
+                    }
+                }
+                sb.Append(_input[_pos++]);
+            }
+            if (_input[_pos] == '}') sb.Append(_input[_pos]); // Closing Brace
+
+            if (_pos >= _input.Length || _input[_pos] != '}')
+                throw new Exception($"Unterminated Variable at position {start}.");
+
+            _pos++; // closing brace
+            return new Token(TokenType.Variable, sb.ToString(), start);
+        }
 
         // Number (simple integer support)
         // Must start with a digit, and can contain digits

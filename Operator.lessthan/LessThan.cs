@@ -6,7 +6,7 @@ public sealed class LessThan : IOperator
 {
     public List<string> Identifiers => ["lessthan", "<"];
 
-    public bool Process(object left, object right, object? arguments)
+    public bool Process(object left, object right)
     {
         if (!IsNumber(left))
         {

@@ -7,7 +7,7 @@ public sealed class ContainsOperator : IOperator
 {
     public List<string> Identifiers => ["contains"];
 
-    public bool Process(object left, object right, object? arguments)
+    public bool Process(object left, object right)
     {
         if (left is null || right is null) return false;
 

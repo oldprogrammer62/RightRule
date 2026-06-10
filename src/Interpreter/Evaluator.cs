@@ -1,4 +1,5 @@
-﻿using RightRule.Data;
+﻿using Newtonsoft.Json.Linq;
+using RightRule.Data;
 using RightRule.Rules;
 using RightRule.System.Common;
 using System.Globalization;
@@ -103,7 +104,7 @@ public sealed class Evaluator
         return resultRule;
     }
 
-    private bool Evaluate(RegisteredDataset data, Node? node, object? arguments) => node switch
+    private bool Evaluate(RegisteredDataset data, Node? node, Dictionary<string, object>? arguments) => node switch
     {
         ConditionNode c => EvaluateCondition(data, c, arguments),
         BinaryNode b => EvaluateBinary(data, b, arguments),
@@ -111,7 +112,7 @@ public sealed class Evaluator
         _ => throw new Exception("Unknown Node type.")
     };
 
-    private bool EvaluateBinary(RegisteredDataset data, BinaryNode b, object? arguments)
+    private bool EvaluateBinary(RegisteredDataset data, BinaryNode b, Dictionary<string, object>? arguments)
     {
         if (b.LogicOp == "AND")
         {
@@ -126,14 +127,14 @@ public sealed class Evaluator
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private bool EvaluateCondition(RegisteredDataset data, ConditionNode c, object? arguments)
+    private bool EvaluateCondition(RegisteredDataset data, ConditionNode c, Dictionary<string, object>? arguments)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new Exception($"Unknown operator: {c.Operator}");
 
         var left = ResolveIdentifier(data, c.LeftIdentifier);
-        var right = ResolveOperand(data, c.Right);
-        return op.Process(left, right, arguments);
+        var right = ResolveOperandValue(data, c.Right, arguments);
+        return op.Process(left, right);
     }
 
     private object ResolveIdentifier(RegisteredDataset data, string name)
@@ -141,6 +142,15 @@ public sealed class Evaluator
         if (data.Data.TryGetValue(name, out var value))
             return value;
         throw new KeyNotFoundException($"Unknown variable '{name}' in data.");
+    }
+
+    private object ResolveOperandValue(RegisteredDataset data, Operand op, Dictionary<string, object>? arguments)
+    {
+        if (arguments == null)
+        {
+            return ResolveOperand(data, op);
+        }
+        return ResolveOperand(data, op, arguments);
     }
 
     private object ResolveOperand(RegisteredDataset data, Operand op)
@@ -153,6 +163,65 @@ public sealed class Evaluator
             OperandKind.String => op.Raw,
             _ => op.Raw
         };
+    }
+
+    private object ResolveOperand(RegisteredDataset data, Operand op, Dictionary<string, object>? arguments)
+    {
+        string opValue = ResolveOperatorValue(op, arguments!);
+
+        return op.Kind switch
+        {
+            OperandKind.Identifier => ResolveIdentifier(data, opValue),
+            OperandKind.Number => ParseNumber(opValue),
+            OperandKind.Boolean => ParseBoolean(opValue),
+            OperandKind.Variable => ParseVariable(opValue),
+            OperandKind.String => opValue,
+            _ => opValue
+        };
+    }
+
+    private string ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
+    {
+        char brace = '{';
+        if (operand.Raw.Contains(brace))
+        {
+            return GetOperatorValue(operand.Raw, Arguments);
+        }
+        return operand.Raw;
+    }
+
+    private string GetOperatorValue(string Op, Dictionary<string, object> Arguments)
+    {
+        var operatorName = GetOperatorName(Op);
+
+        if (Arguments.TryGetValue(operatorName, out var value))
+        {
+            return value.ToString() ?? string.Empty;
+        }
+        return string.Empty;
+    }
+
+    private string GetOperatorName(string Op)
+    {
+        char[] StartChar = { '{' };
+        char[] EndChar = { '}' };
+
+        return Op.TrimStart(StartChar).TrimEnd(EndChar);
+    }
+
+    private static object ParseVariable(string raw)
+    {
+        if (bool.TryParse(raw, out var value))
+            return value;
+
+        // Prefer int, fall back to double
+        if (int.TryParse(raw, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i))
+            return i;
+        if (double.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out var d))
+            return d;
+
+        // Assume string
+        return raw;
     }
 
     private static object ParseBoolean(string raw)

@@ -2,7 +2,8 @@
 
 public abstract class Rule
 {
-    public object? Arguments { get; init; }
+    public Dictionary<string, object>? Arguments { get; init; }
+
     public required string Context { get; init; }
     public required int Number { get; init; }
     public required string Name { get; init; }
