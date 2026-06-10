@@ -5,9 +5,25 @@ namespace RightRuleTests;
 public class OperatorLoaderTests
 {
     [Fact]
-    public void TestItWorks_LoadOperator()
+    public void TestItWorks_LoadOperator_DoesNotContain()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.doesnotcontain.dll";
+        var op = Loader.Load(path);
+        Assert.NotNull(op);
+    }
+
+    [Fact]
+    public void TestItWorks_LoadOperator_GreaterThanOrEquals()
+    {
+        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.greaterthanorequals.dll";
+        var op = Loader.Load(path);
+        Assert.NotNull(op);
+    }
+
+    [Fact]
+    public void TestItWorks_LoadOperator_LessThan()
+    {
+        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.lessthan.dll";
         var op = Loader.Load(path);
         Assert.NotNull(op);
     }

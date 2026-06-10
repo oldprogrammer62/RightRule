@@ -1,4 +1,5 @@
 ﻿using RightRule.Rules;
+using RightRule_Demo.DataManager;
 
 namespace RightRule_Demo
 {
@@ -8,17 +9,29 @@ namespace RightRule_Demo
         {
             Welcome();
 
-            var CustomerData = GetCustomerData();
-            if (CustomerData == null)
-            {
-                Console.WriteLine("No customer data available.");
-                Console.WriteLine();
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadLine();
-                return;
-            }
+            //var CustomerData = GetCustomerData();
+            //if (CustomerData == null)
+            //{
+            //    Console.WriteLine("No customer data available.");
+            //    Console.WriteLine();
+            //    Console.WriteLine("Press any key to exit...");
+            //    Console.ReadLine();
+            //    return;
+            //}
 
-            var rule = ApplyRules(CustomerData);
+            //var OrderData = GetOrderValue();
+            //if (OrderData <= 0)
+            //{
+            //    Console.WriteLine("Invalid order value.");
+            //    Console.WriteLine();
+            //    Console.WriteLine("Press any key to exit...");
+            //    Console.ReadLine();
+            //    return;
+            //}
+
+            var data = GetData();
+
+            var rule = ApplyRules(data);
 
             Console.WriteLine();
             DisplayAppliedRule(rule);
@@ -28,9 +41,30 @@ namespace RightRule_Demo
             Console.ReadLine();
         }
 
+        private static Dictionary<string, object> GetData()
+        {
+            var data = new Dictionary<string, object>();
+            var customerData = GetCustomerData();
+            if (customerData != null)
+            {
+                foreach (var kvp in customerData)
+                {
+                    data[kvp.Key] = kvp.Value;
+                }
+            }
+            var orderValue = GetOrderValue();
+            data["OrderValue"] = orderValue;
+            return data;
+        }
+
         private static Dictionary<string, object>? GetCustomerData()
         {
             return CustomerManager.CustomerManager.GetCustomerData();
+        }
+
+        private static decimal GetOrderValue()
+        {
+            return OrderManager.GetOrderValue();
         }
 
         private static AppliedRule ApplyRules(Dictionary<string, object> data)
