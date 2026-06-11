@@ -49,7 +49,7 @@ public sealed class Tokenizer
         {
             int start = _pos;
             var sb = new StringBuilder();
-            while (_pos < _input.Length && char.IsDigit(_input[_pos]))
+            while (_pos < _input.Length && (char.IsDigit(_input[_pos]) || _input[_pos] == '.'))
                 sb.Append(_input[_pos++]);
             return new Token(TokenType.Number, sb.ToString(), start);
         }
