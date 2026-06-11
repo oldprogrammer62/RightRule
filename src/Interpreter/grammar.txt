@@ -12,6 +12,9 @@
 
 <condition>  ::= <variable> <operator> <value>
 
-<operator>   ::= "contains", "equals", "notequals"
+<operator>   ::= "contains", "equals", "notequals", etc
 
-<value>      ::= number, string, boolean
+<value>      ::= number, string, boolean, placeholder
+
+<placeholder> ::= "{" identifier "}"
+

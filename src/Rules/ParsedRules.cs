@@ -1,5 +1,12 @@
 ﻿namespace RightRule.Rules;
 
+/// <summary>
+/// A Class used to hold a list of ParsedRule objects.
+/// It provides methods to add and remove rules from the list.
+/// It is used during the evaluation process to evaluate the rules against the provided data.
+/// The RightRules property allows the interpreter to access the list of parsed rules and evaluate them accordingly.
+/// This class is internal
+/// </summary>
 public class ParsedRules
 {
     private readonly List<ParsedRule> _rules;

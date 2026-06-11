@@ -2,9 +2,20 @@
 
 namespace RightRule.Rules;
 
+/// <summary>
+/// Represents a rule that has been applied and evaluated as true against a dataset.
+/// </summary>
 public sealed class AppliedRule : Rule
 {
+    /// <summary>
+    /// The name of the dataset that was matched when evaluating the rule.
+    /// This is useful for logging and debugging purposes, as it allows the calling application to know which dataset was used to evaluate the rule and make the decision. It can also be used to provide additional context when taking action based on the decision, such as including the dataset name in a notification or report.
+    /// </summary>
     public required string DatasetMatched { get; init; }
+
+    /// <summary>
+    /// Provides a list of all the rules that were evaluated and matched when evaluating the rule. This is useful for logging and debugging purposes, as it allows the calling application to know which rules were evaluated and matched when making the decision. It can also be used to provide additional context when taking action based on the decision, such as including the names of the matched rules in a notification or report.
+    /// </summary>
     public required List<ParsedRule> RulesMatched { get; init; }
 
     internal static readonly string NoDecision = "NODECISION";

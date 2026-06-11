@@ -174,7 +174,7 @@ public sealed class Evaluator
             OperandKind.Identifier => ResolveIdentifier(data, opValue),
             OperandKind.Number => ParseNumber(opValue),
             OperandKind.Boolean => ParseBoolean(opValue),
-            OperandKind.Variable => ParseVariable(opValue),
+            OperandKind.Placeholder => ParsePlaceholder(opValue),
             OperandKind.String => opValue,
             _ => opValue
         };
@@ -209,7 +209,7 @@ public sealed class Evaluator
         return Op.TrimStart(StartChar).TrimEnd(EndChar);
     }
 
-    private static object ParseVariable(string raw)
+    private static object ParsePlaceholder(string raw)
     {
         if (bool.TryParse(raw, out var value))
             return value;
