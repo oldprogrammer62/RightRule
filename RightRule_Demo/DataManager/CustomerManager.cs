@@ -6,6 +6,11 @@ namespace RightRule_Demo.CustomerManager
     {
         internal static Dictionary<string, object>? GetCustomerData()
         {
+            Console.WriteLine("Existing Customer Codes: ");
+            Console.WriteLine("\tC001 = Tom");
+            Console.WriteLine("\tC002 = Dick");
+            Console.WriteLine("\tC003 = Harry");
+
             var customerCode = GetCustomerCode() ?? string.Empty;
             if (string.IsNullOrEmpty(customerCode))
             {

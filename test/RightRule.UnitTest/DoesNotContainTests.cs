@@ -14,7 +14,6 @@ public class DoesNotContainTests
             { "name", "John" },
             { "surname", "Doe" },
             { "fullname", "John D. Doe" },
-            { "age", 28 },
             { "numberoforders", 10 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd

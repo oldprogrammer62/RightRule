@@ -14,7 +14,6 @@ public class RulesToApplyTests
             { "name", "John" },
             { "surname", "Doe" },
             { "fullname", "John D. Doe" },
-            { "age", 28 },
             { "numberoforders", 10 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
@@ -28,10 +27,10 @@ public class RulesToApplyTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -41,7 +40,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -61,10 +60,10 @@ public class RulesToApplyTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -74,7 +73,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
 
         var rules = new List<RuleDefinition>() { rule1, rule2 };
@@ -95,10 +94,10 @@ public class RulesToApplyTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -108,7 +107,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -128,10 +127,10 @@ public class RulesToApplyTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 30",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -141,7 +140,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doexx""",
             Context = "AllContext",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -161,10 +160,10 @@ public class RulesToApplyTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -174,7 +173,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doexx""",
             Context = "AllContext",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();

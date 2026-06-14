@@ -14,7 +14,6 @@ public class GrammarTests
             { "name", "John" },
             { "surname", "Doe" },
             { "fullname", "John D. Doe" },
-            { "age", 28 },
             { "numberoforders", 10 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
@@ -28,17 +27,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 11",
+            Context = "NumberOfOrdersContext",
+            Decision = "ENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);  
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext1", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
     }
@@ -50,9 +49,9 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28 and goodpayer equals true",
-            Context = "AgeContext",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10 and goodpayer equals true",
+            Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
 
@@ -60,7 +59,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -73,9 +72,9 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 29 or goodpayer equals true",
-            Context = "AgeContext",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10 or goodpayer equals true",
+            Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
 
@@ -83,7 +82,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -96,9 +95,9 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"(age equals 28 and goodpayer equals true) or (numberoforders equals 10 and goodpayer equals true)",
-            Context = "AgeContext",
+            Name = "Number of orders Rule",
+            Statement = @"(numberoforders equals 10 and goodpayer equals true) or (numberoforders equals 10 and goodpayer equals true)",
+            Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
 
@@ -106,7 +105,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -119,17 +118,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
+            Context = "NumberOfOrdersContext",
+            Decision = "ENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.NotNull(appliedRule);
     }
@@ -141,17 +140,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = "age notequals 18",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = "numberoforders notequals 11",
+            Context = "NumberOfOrdersContext",
+            Decision = "NOTENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);   
+        rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -163,17 +162,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = "age != 18",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = "numberoforders != 18",
+            Context = "NumberOfOrdersContext",
+            Decision = "INCORRECTORDERCOUNT",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -185,17 +184,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = "age <> 18",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = "numberoforders <> 11",
+            Context = "NumberOfOrdersContext",
+            Decision = "NOTENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -207,18 +206,17 @@ public class GrammarTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = "age = 28",
-            Context = "AgeContext",
-            Decision = "OLDENOUGH",
+            Name = "Number of orders Rule",
+            Statement = "numberoforders = 10",
+            Context = "NumberOfOrdersContext",
+            Decision = "ENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AgeContext", RightRule.System.Common.RulesToApply.First);
-
+        var appliedRule = rr.ApplyRules("NumberOfOrdersContext", RightRule.System.Common.RulesToApply.First);
         Assert.NotNull(appliedRule);
     }
 
@@ -329,7 +327,7 @@ public class GrammarTests
             Name = "Name Rule",
             Statement = @"name equals ""John""",
             Context = "NAMECONTEXT2",
-            Decision = "NAMEF2OUND",
+            Decision = "NAMEFOUND2",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();

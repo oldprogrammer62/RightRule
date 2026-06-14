@@ -28,16 +28,16 @@ public class DataConverterTests
     [Fact]
     public void ObjectConverterViaDataConverterTest()
     {
-        var data = new TestObject { Name = "John", Age = 30 };
+        var data = new TestObject { Fruit = "Apple", Colour = "green" };
         var dict = RightRule.DataConverters.DataConverter.ConvertToDictionary<TestObject>(data);
         Assert.Equal(2, dict.Count);
-        Assert.Equal("John", dict["Name"]);
-        Assert.Equal(30, dict["Age"]);
+        Assert.Equal("Apple", dict["Fruit"]);
+        Assert.Equal("green", dict["Colour"]);
     }
 }
 
 internal class TestObject
 {
-    public string Name { get; set; }
-    public int Age { get; set; }
+    public required string Fruit { get; set; }
+    public required string Colour { get; set; }
 }

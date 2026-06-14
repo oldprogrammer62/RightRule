@@ -23,7 +23,6 @@ public class MultiStepTests
             { "name", "Step1_1" },
             { "surname", "One" },
             { "fullname", "Step One" },
-            { "age", 28 },
             { "numberoforders", 10 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
@@ -33,8 +32,7 @@ public class MultiStepTests
             { "name", "Step1_2" },
             { "surname", "One" },
             { "fullname", "Step One" },
-            { "age", 29 },
-            { "numberoforders", 10 },
+            { "numberoforders", 11 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
         };
@@ -43,8 +41,7 @@ public class MultiStepTests
             { "name", "Step1_3" },
             { "surname", "One" },
             { "fullname", "Step One" },
-            { "age", 30 },
-            { "numberoforders", 10 },
+            { "numberoforders", 12 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
         };
@@ -54,9 +51,9 @@ public class MultiStepTests
         {
             Number = 1,
             Name = "Step 1 Rule 1",
-            Statement = @"surname = ""One"" and age equals 28",
+            Statement = @"surname = ""One"" and numberoforders equals 10",
             Context = "Step1",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -64,9 +61,9 @@ public class MultiStepTests
         {
             Number = 2,
             Name = "Step 1 Rule 2",
-            Statement = @"surname = ""One"" and age equals 29",
+            Statement = @"surname = ""One"" and numberoforders equals 11",
             Context = "Step1",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Rule
@@ -74,18 +71,17 @@ public class MultiStepTests
         {
             Number = 3,
             Name = "Step 1 Rule 3",
-            Statement = @"surname = ""One"" and age equals 30",
+            Statement = @"surname = ""One"" and numberoforders equals 12",
             Context = "Step1",
-            Decision = "OLDENOUGH",
+            Decision = "GOOD",
         };
 
         // Data
         _Step2Data1 = new Dictionary<string, object>(StringComparer.Ordinal)
         {
-            { "name", "Step" },
+            { "name", "Step2_1" },
             { "surname", "Two" },
             { "fullname", "Step Two" },
-            { "age", 60 },
             { "numberoforders", 100 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
@@ -96,9 +92,9 @@ public class MultiStepTests
         {
             Number = 2,
             Name = "Step 2 Rule",
-            Statement = @"surname equals ""Two"" and age equals 60",
+            Statement = @"surname equals ""Two"" and numberoforders equals 100",
             Context = "Step2",
-            Decision = "NAMEFOUND",
+            Decision = "GOOD",
         };
     }
 
@@ -112,7 +108,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("OLDENOUGH", rule1result.Decision);
+        Assert.Equal("GOOD", rule1result.Decision);
         Assert.Equal("Step1Data1", rule1result.DatasetMatched);
     }
 
@@ -126,7 +122,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule2);
         var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("OLDENOUGH", rule1result.Decision);
+        Assert.Equal("GOOD", rule1result.Decision);
         Assert.Equal("Step1Data2", rule1result.DatasetMatched);
     }
 
@@ -140,7 +136,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule3);
         var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("OLDENOUGH", rule1result.Decision);
+        Assert.Equal("GOOD", rule1result.Decision);
         Assert.Equal("Step1Data3", rule1result.DatasetMatched);
     }
 
@@ -152,12 +148,12 @@ public class MultiStepTests
         rr.RegisterData("Step1Data", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("OLDENOUGH", rule1result.Decision);
+        Assert.Equal("GOOD", rule1result.Decision);
 
         rr.RegisterData("Step2Data", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRules("Step2", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("NAMEFOUND", rule2result.Decision);
+        Assert.Equal("GOOD", rule2result.Decision);
     }
 
     [Fact]
@@ -168,7 +164,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRules("Step1", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("OLDENOUGH", rule1result.Decision);
+        Assert.Equal("GOOD", rule1result.Decision);
 
         rr.DeRegisterData("Step1Data");
         rr.DeRegisterRules("Step1");
@@ -179,6 +175,6 @@ public class MultiStepTests
         rr.RegisterData("Step2Data", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRules("Step2", RightRule.System.Common.RulesToApply.First);
-        Assert.Equal("NAMEFOUND", rule2result.Decision);
+        Assert.Equal("GOOD", rule2result.Decision);
     }
 }

@@ -9,28 +9,7 @@ namespace RightRule_Demo
         {
             Welcome();
 
-            //var CustomerData = GetCustomerData();
-            //if (CustomerData == null)
-            //{
-            //    Console.WriteLine("No customer data available.");
-            //    Console.WriteLine();
-            //    Console.WriteLine("Press any key to exit...");
-            //    Console.ReadLine();
-            //    return;
-            //}
-
-            //var OrderData = GetOrderValue();
-            //if (OrderData <= 0)
-            //{
-            //    Console.WriteLine("Invalid order value.");
-            //    Console.WriteLine();
-            //    Console.WriteLine("Press any key to exit...");
-            //    Console.ReadLine();
-            //    return;
-            //}
-
             var data = GetData();
-
             var rule = ApplyRules(data);
 
             Console.WriteLine();

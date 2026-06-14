@@ -14,7 +14,6 @@ public class DataRegistrationTests
             { "name", "John" },
             { "surname", "Doe" },
             { "fullname", "John D. Doe" },
-            { "age", 28 },
             { "numberoforders", 10 },
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
@@ -27,10 +26,10 @@ public class DataRegistrationTests
         RuleDefinition rule1 = new RuleDefinition
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule();
@@ -47,10 +46,10 @@ public class DataRegistrationTests
         RuleDefinition rule1 = new RuleDefinition
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule();
@@ -68,10 +67,10 @@ public class DataRegistrationTests
         RuleDefinition rule1 = new RuleDefinition
         {
             Number = 1,
-            Name = "Age Rule",
-            Statement = @"age equals 28",
+            Name = "Number of orders Rule",
+            Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "OLDENOUGH",
+            Decision = "ENOUGHORDERS",
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
