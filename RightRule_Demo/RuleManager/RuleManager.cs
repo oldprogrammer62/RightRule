@@ -4,23 +4,23 @@ namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static AppliedRule ApplyRules(Dictionary<string, object> Data)
+        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue)
         {
             RightRule.RightRule rr = new RightRule.RightRule();
 
             string Context = "Demo";
-            var rules = LoadRules(Context);
+            var rules = LoadRules(Context, HighValue);
 
             rr.RegisterRules(rules);
             rr.RegisterData(Context, Data);
 
-            var appliedRule = rr.ApplyRules(Context, RightRule.System.Common.RulesToApply.First);
-            return appliedRule; ;
+            var appliedRules = rr.ApplyRules(Context);
+            return appliedRules;
         }
 
-        private static List<RuleDefinition> LoadRules(string Context)
+        private static List<RuleDefinition> LoadRules(string Context, object HighValue)
         {
-            return RuleLoader.RuleLoader.Load(Context);
+            return RuleLoader.RuleLoader.Load(Context, HighValue);
         }
     }
 }

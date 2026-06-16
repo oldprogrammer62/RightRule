@@ -4,6 +4,36 @@ namespace RightRule.Interpreter;
 
 internal class Helper
 {
+    internal static string ResolveStatement(string RuleStatement, Dictionary<string, object> Arguments)
+    {
+        if (Arguments == null || Arguments.Count == 0)
+        {
+            return RuleStatement;
+        }
+
+        char brace = '{';
+        if (!RuleStatement.Contains(brace))
+        {
+            return RuleStatement;
+        }
+
+        int start = RuleStatement.IndexOf('{');
+        int end = RuleStatement.IndexOf('}');
+
+        // Extract the key name inside the braces
+        string key = RuleStatement.Substring(start + 1, end - start - 1);
+        string placeholder = RuleStatement.Substring(start, end - start + 1);
+
+        // Get the replacement value or keep the placeholder if key is missing
+        string replacement = Arguments.TryGetValue(key, out object? value) ? value.ToString() : placeholder;
+
+        // Replace only the first occurrence
+        string updatedInput = RuleStatement.Substring(0, start) + replacement + RuleStatement.Substring(end + 1);
+
+        // Recursive call for the rest of the string
+        return ResolveStatement(updatedInput, Arguments);
+    }
+
     internal static string ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
     {
         char brace = '{';

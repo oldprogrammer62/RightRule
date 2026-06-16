@@ -37,7 +37,7 @@ public class DoesNotContainTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("NameContext");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -59,7 +59,7 @@ public class DoesNotContainTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("NameContext");
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
     }

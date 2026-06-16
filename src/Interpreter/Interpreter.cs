@@ -17,34 +17,39 @@ public sealed class Interpreter
         _evaluator = new Evaluator(_operators);
     }
 
-    public AppliedRule ProcessRules(ParsedRules rules)
+    public AppliedRule ProcessRule(ParsedRules rules)
     {
-        return ProcessRules(rules, RulesToApply.First);
+        return EvaluateFirst(rules.RightRules);
     }
 
-    public AppliedRule ProcessRules(ParsedRules rules, RulesToApply rulesToApply)
+    public List<AppliedRule> ProcessRules(ParsedRules rules)
+    {
+        return Evaluate(rules.RightRules, RulesToApply.All);
+    }
+
+    public List<AppliedRule> ProcessRules(ParsedRules rules, RulesToApply rulesToApply)
     {
         return Evaluate(rules.RightRules, rulesToApply);
     }
 
-    private AppliedRule Evaluate(List<ParsedRule> rules, RulesToApply rulesToApply)
+    private List<AppliedRule> Evaluate(List<ParsedRule> rules, RulesToApply rulesToApply)
     {
         switch (rulesToApply)
         {
             case RulesToApply.First:
-                return EvaluateFirst(rules);
+                return [EvaluateFirst(rules)];
 
             case RulesToApply.All:
                 return EvaluateAll(rules);
 
             default:
-                return AppliedRule.DefaultRule($"Unknown RulesToApply value: {rulesToApply}");
+                return [AppliedRule.DefaultRule($"Unknown RulesToApply value: {rulesToApply}")];
         }
     }
 
     private AppliedRule EvaluateFirst(List<ParsedRule> rules)
     {
-        bool success = false;
+        bool result = false;
 
         AppliedRule resultRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
@@ -57,15 +62,12 @@ public sealed class Interpreter
                     continue;
                 }
 
-                var result = _evaluator.Evaluate(data, rule.Node, rule.Arguments);
-                if (result)
-                {
-                    resultRule = new AppliedRule(rule, data.Name, "Statement", result);
-                    success = true;
-                    break;
-                }
+                result = _evaluator.Evaluate(data, rule.Node, rule.Arguments);
+                var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
+                resultRule = new AppliedRule(rule, data.Name, statement, result);
+                break;
             }
-            if (success)
+            if (result)
             {
                 break;
             }
@@ -73,10 +75,10 @@ public sealed class Interpreter
         return resultRule;
     }
 
-    private AppliedRule EvaluateAll(List<ParsedRule> rules)
+    private List<AppliedRule> EvaluateAll(List<ParsedRule> rules)
     {
         AppliedRule resultRule = AppliedRule.DefaultRule();
-        List<ParsedRule> matchedRules = [];
+        List<AppliedRule> appliedRules = [];
 
         foreach (var rule in rules)
         {
@@ -89,18 +91,11 @@ public sealed class Interpreter
                 }
 
                 var result = _evaluator.Evaluate(data, rule.Node, rule.Arguments);
-                if (!result)
-                {
-                    resultRule = AppliedRule.DefaultRule();
-                    break;
-                }
-                if (result)
-                {
-                    matchedRules.Add(rule);
-                    resultRule = new AppliedRule(rule, data.Name, "statement", result);
-                }
+                var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
+                var appliedRule = new AppliedRule(rule, data.Name, statement, result);
+                appliedRules.Add(appliedRule);
             }
         }
-        return resultRule;
+        return appliedRules;
     }
 }

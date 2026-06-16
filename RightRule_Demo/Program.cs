@@ -10,14 +10,21 @@ namespace RightRule_Demo
             Welcome();
 
             var data = GetData();
-            var rule = ApplyRules(data);
+            var highValue = GetHighValue();
+            var rules = ApplyRules(data, highValue);
 
             Console.WriteLine();
-            DisplayAppliedRule(rule);
+            DisplayAppliedRules(rules);
             Console.WriteLine();
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();
+        }
+
+        private static decimal GetHighValue()
+        {
+            var highValue = HighValueManager.GetHighValue();
+            return highValue ?? 100m;
         }
 
         private static Dictionary<string, object> GetData()
@@ -38,7 +45,7 @@ namespace RightRule_Demo
 
         private static Dictionary<string, object>? GetCustomerData()
         {
-            return CustomerManager.CustomerManager.GetCustomerData();
+            return CustomerManager.GetCustomerData();
         }
 
         private static decimal GetOrderValue()
@@ -46,9 +53,24 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static AppliedRule ApplyRules(Dictionary<string, object> data)
+        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue)
         {
-            return RuleManager.RuleManager.ApplyRules(data);
+            return RuleManager.RuleManager.ApplyRules(data, HighValue);
+        }
+
+        private static void DisplayAppliedRules(List<AppliedRule> appliedRules)
+        {
+            if (appliedRules == null || appliedRules.Count == 0)
+            {
+                Console.WriteLine("No rules applied.");
+                return;
+            }
+            Console.WriteLine("Applied Rules:");
+            foreach (var appliedRule in appliedRules)
+            {
+                DisplayAppliedRule(appliedRule);
+                Console.WriteLine();
+            }
         }
 
         private static void DisplayAppliedRule(AppliedRule appliedRule)
@@ -60,11 +82,14 @@ namespace RightRule_Demo
             }
 
             Console.WriteLine("Rule applied...");
+            Console.WriteLine($"\tResult: {appliedRule.Result}");
             Console.WriteLine($"\tNumber: {appliedRule.Number}");
             Console.WriteLine($"\tName: {appliedRule.Name}");
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
             Console.WriteLine($"\tDataset Matched: {appliedRule.DatasetMatched}");
+            Console.WriteLine($"\tStatement: {appliedRule.Statement}");
+            Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
         }
 
         private static void Welcome()

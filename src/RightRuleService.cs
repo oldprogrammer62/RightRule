@@ -112,25 +112,20 @@ internal class RightRuleService
         _registeredData.RemoveDataset(DatasetName);
     }
 
-    internal AppliedRule ApplyRules(string Context)
+    internal AppliedRule ApplyRule(string Context)
     {
-        return ApplyRules(Context, RulesToApply.First);
+        return ApplySingleRule(Context);
     }
 
-    internal AppliedRule ApplyRules<T>(string Context, string DatasetName, T Data)
-    {
-        return ApplyRules(Context, DatasetName, Data, RulesToApply.First);
-    }
-
-    internal AppliedRule ApplyRules<T>(string Context, string DatasetName, T Data, RulesToApply RulesToApply)
+    internal AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
         RegisterData(DatasetName, Data);
-        AppliedRule result = ApplyRules(Context, RulesToApply);
+        AppliedRule result = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
         return result;
     }
 
-    internal AppliedRule ApplyRules(string Context, RulesToApply RulesToApply)
+    private AppliedRule ApplySingleRule(string Context)
     {
         if (string.IsNullOrEmpty(Context))
         {
@@ -143,6 +138,46 @@ internal class RightRuleService
         if (_rules.RightRules == null || _rules.RightRules.Count == 0)
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
+        }
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operators);
+    }
+
+    internal List<AppliedRule> ApplyRules(string Context)
+    {
+        return ApplyRules(Context, RulesToApply.All);
+    }
+
+    internal List<AppliedRule> ApplyRules(string Context, RulesToApply rulesToApply)
+    {
+        return ApplySpecifiedRules(Context, rulesToApply);
+    }
+
+    internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
+    {
+        return ApplyRules(Context, DatasetName, Data, RulesToApply.All);
+    }
+
+    internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToApply RulesToApply)
+    {
+        RegisterData(DatasetName, Data);
+        List<AppliedRule> result = ApplySpecifiedRules(Context, RulesToApply);
+        DeRegisterData(DatasetName);
+        return result;
+    }
+
+    private List<AppliedRule> ApplySpecifiedRules(string Context, RulesToApply RulesToApply)
+    {
+        if (string.IsNullOrEmpty(Context))
+        {
+            return [AppliedRule.DefaultRule("Error: Context cannot be null or empty.")];
+        }
+        if (_registeredData == null || _registeredData.Count == 0)
+        {
+            return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
+        }
+        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        {
+            return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
         return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, RulesToApply, _operators);
     }

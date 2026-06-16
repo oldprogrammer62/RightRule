@@ -5,6 +5,8 @@ namespace RightRuleTests;
 public class RulesToApplyTests
 {
     private readonly Dictionary<string, object> _Data;
+    private readonly RightRule.Rules.RuleDefinition rule1;
+    private readonly RightRule.Rules.RuleDefinition rule2;
 
     public RulesToApplyTests()
     {
@@ -18,13 +20,9 @@ public class RulesToApplyTests
             { "goodpayer", true },
             { "joined", new DateTime(2020, 1, 1) } // yyyy mm dd
         };
-    }
 
-    [Fact]
-    public void TestItWorks_First()
-    {
         // Rule
-        RuleDefinition rule1 = new()
+        rule1 = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -34,7 +32,7 @@ public class RulesToApplyTests
         };
 
         // Rule
-        RuleDefinition rule2 = new()
+        rule2 = new()
         {
             Number = 2,
             Name = "Name Rule",
@@ -42,47 +40,116 @@ public class RulesToApplyTests
             Context = "AllContext",
             Decision = "GOOD",
         };
+    }
 
+    [Fact]
+    public void OneRule_First_Unspecified()
+    {
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
 
     [Fact]
-    public void TestItWorks_FirstWithMultiRuleRegistration()
+    public void OneRule_All_Unspecified()
     {
-        // Rule
-        RuleDefinition rule1 = new()
-        {
-            Number = 1,
-            Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        rr.RegisterData("Test", _Data);
 
-        // Rule
-        RuleDefinition rule2 = new()
-        {
-            Number = 2,
-            Name = "Name Rule",
-            Statement = @"surname equals ""Doe""",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
+        var appliedRules = rr.ApplyRules("AllContext");
+        var appliedRule = appliedRules.FirstOrDefault();
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
 
+    [Fact]
+    public void TwoRules_First_Unspecified()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("AllContext");
+
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_All_Unspecified()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRules = rr.ApplyRules("AllContext");
+        var appliedRule = appliedRules.FirstOrDefault();
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_First_Unspecified_WithDataSet()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+
+        var appliedRule = rr.ApplyRule("AllContext", "Test", _Data);
+
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_All_Unspecified_WithDataSet()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data);
+        var appliedRule = appliedRules.FirstOrDefault();
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_FirstSpecified_WithDataSet()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToApply.First);
+        var appliedRule = appliedRules.FirstOrDefault();
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_AllSpecified_WithDataSet()
+    {
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToApply.All);
+        var appliedRule = appliedRules.FirstOrDefault();
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
+    }
+
+    [Fact]
+    public void TwoRules_First_WithMultiRuleRegistration()
+    {
         var rules = new List<RuleDefinition>() { rule1, rule2 };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRules = rr.RegisterRules(rules);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -90,65 +157,26 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All()
     {
-        // Rule
-        RuleDefinition rule1 = new()
-        {
-            Number = 1,
-            Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
-        // Rule
-        RuleDefinition rule2 = new()
-        {
-            Number = 2,
-            Name = "Name Rule",
-            Statement = @"surname equals ""Doe""",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data); 
 
-        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
-
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRule = appliedRules.LastOrDefault();
         Assert.Equal(appliedRule.Decision, rule2.Decision);
     }
 
     [Fact]
     public void TestItWorks_All_None_First()
     {
-        // Rule
-        RuleDefinition rule1 = new()
-        {
-            Number = 1,
-            Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
-        // Rule
-        RuleDefinition rule2 = new()
-        {
-            Number = 2,
-            Name = "Name Rule",
-            Statement = @"surname equals ""Doexx""",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRule = appliedRules.FirstOrDefault();
 
         Assert.Equal(appliedRule.Decision, AppliedRule.DefaultRule().Decision);
     }
@@ -156,32 +184,13 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All_None_Last()
     {
-        // Rule
-        RuleDefinition rule1 = new()
-        {
-            Number = 1,
-            Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
-        // Rule
-        RuleDefinition rule2 = new()
-        {
-            Number = 2,
-            Name = "Name Rule",
-            Statement = @"surname equals ""Doexx""",
-            Context = "AllContext",
-            Decision = "GOOD",
-        };
-
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRule = appliedRules.LastOrDefault();
 
         Assert.Equal(appliedRule.Decision, AppliedRule.DefaultRule().Decision);
     }

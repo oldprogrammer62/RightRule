@@ -40,7 +40,7 @@ public class RulesWithArgumentsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -68,7 +68,7 @@ public class RulesWithArgumentsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context", RightRule.System.Common.RulesToApply.First);
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -97,8 +97,7 @@ public class RulesWithArgumentsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context", RightRule.System.Common.RulesToApply.First);
-
+        var appliedRule = rr.ApplyRule("Context");
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }
