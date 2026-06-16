@@ -8,6 +8,11 @@ namespace RightRule.Rules;
 public sealed class AppliedRule : Rule
 {
     /// <summary>
+    /// Indicates whether the rule was evaluated as true or false against the dataset. This is useful for logging and debugging purposes, as it allows the calling application to know whether the rule was successfully applied or not. It can also be used to provide additional context when taking action based on the decision.
+    /// </summary>
+    public required bool Result { get; init; }
+
+    /// <summary>
     /// The name of the dataset that was matched when evaluating the rule.
     /// This is useful for logging and debugging purposes, as it allows the calling application to know which dataset was used to evaluate the rule and make the decision. It can also be used to provide additional context when taking action based on the decision, such as including the dataset name in a notification or report.
     /// </summary>
@@ -18,14 +23,20 @@ public sealed class AppliedRule : Rule
     /// </summary>
     public required List<ParsedRule> RulesMatched { get; init; }
 
+    /// <summary>
+    /// Provides a list of all the statements that were applied when evaluating the rule. This is useful for logging and debugging purposes, as it allows the calling application to know which statements were applied when making the decision. It can also be used to provide additional context when taking action based on the decision, such as including the statements in a notification or report.
+    /// </summary>
+    public required List<string> StatementApplied { get; init; }
+
     internal static readonly string NoDecision = "NODECISION";
     internal static readonly string NoDatasetMatched = "NO_DATASET_MATCHED";
 
     public AppliedRule() {}
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, string datasetMatched)
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, string statementApplied, bool result)
     {
+        Result = result;
         Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
         Name = parsedRule.Name;
@@ -35,11 +46,13 @@ public sealed class AppliedRule : Rule
         DecisionData = parsedRule.DecisionData;
         DatasetMatched = datasetMatched;
         RulesMatched = [parsedRule];
+        StatementApplied = [statementApplied];
     }
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched)
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched, List<string> statementsApplied, bool result)
     {
+        Result = result;
         Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
         Name = parsedRule.Name;
@@ -49,6 +62,7 @@ public sealed class AppliedRule : Rule
         DecisionData = parsedRule.DecisionData;
         DatasetMatched = datasetMatched;
         RulesMatched = rulesMatched;
+        StatementApplied = statementsApplied;
     }
 
     public static AppliedRule DefaultRule()
@@ -60,6 +74,7 @@ public sealed class AppliedRule : Rule
     {
         return new AppliedRule()
         {
+            Result = true,
             Arguments = null,
             Number = -1,
             Name = "DEFAULTRULE",
@@ -68,7 +83,8 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = decisionData,
             DatasetMatched = NoDatasetMatched,
-            RulesMatched = new List<ParsedRule>()
+            RulesMatched = new List<ParsedRule>(),
+            StatementApplied = new List<string>()
         };
     }
 }
