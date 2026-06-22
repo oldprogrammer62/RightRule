@@ -1,4 +1,4 @@
-﻿namespace RightRule.Interpreter;
+﻿namespace RightRule.StatementProcessor;
 
 /// <summary>
 /// Node is the base class for all nodes in the abstract syntax tree (AST)

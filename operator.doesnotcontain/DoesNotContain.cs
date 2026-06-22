@@ -12,11 +12,11 @@ public sealed class DoesNotContains : IOperator
 
         // String contains (case-insensitive)
         if (left is string ls)
-            return ls.IndexOf(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase) < 0;
+            return !ls.Contains(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
 
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;
         var rstr = right.ToString() ?? string.Empty;
-        return lstr.IndexOf(rstr, StringComparison.OrdinalIgnoreCase) < 0;
+        return !lstr.Contains(rstr, StringComparison.OrdinalIgnoreCase);
     }
 }

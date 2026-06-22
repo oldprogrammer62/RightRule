@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RightRule.Interpreter;
+namespace RightRule.StatementProcessor;
 
 public sealed class Tokenizer
 {

@@ -1,4 +1,5 @@
 ﻿using RightRule.Rules;
+using RightRule.System.Common;
 using RightRule_Demo.DataManager;
 
 namespace RightRule_Demo
@@ -11,7 +12,8 @@ namespace RightRule_Demo
 
             var data = GetData();
             var highValue = GetHighValue();
-            var rules = ApplyRules(data, highValue);
+            var rulesToReturn = GetRulesToReturn();
+            var rules = ApplyRules(data, highValue, rulesToReturn);
 
             Console.WriteLine();
             DisplayAppliedRules(rules);
@@ -19,6 +21,25 @@ namespace RightRule_Demo
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadLine();
+        }
+
+        private static RulesToReturn GetRulesToReturn()
+        {
+            var choice = RTRManager.GetRuleResultType();
+
+            if (string.IsNullOrEmpty(choice))
+            {
+                return RulesToReturn.First;
+            }
+            if (choice.Equals("s", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return RulesToReturn.First;
+            }
+            if (choice.Equals("a", StringComparison.CurrentCultureIgnoreCase))
+            {
+                return RulesToReturn.All;
+            }
+            return RulesToReturn.All;
         }
 
         private static decimal GetHighValue()
@@ -53,9 +74,9 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue)
+        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn rulesToReturn)
         {
-            return RuleManager.RuleManager.ApplyRules(data, HighValue);
+            return RuleManager.RuleManager.ApplyRules(data, HighValue, rulesToReturn);
         }
 
         private static void DisplayAppliedRules(List<AppliedRule> appliedRules)

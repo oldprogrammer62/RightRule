@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using RightRule.System.Common;
+﻿using RightRule.System.Common;
 
 namespace RightRule.Operators.DefaultOperators;
 
@@ -14,16 +13,6 @@ public sealed class ContainsOperator : IOperator
         // String contains (case-insensitive)
         if (left is string ls)
             return ls.Contains(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
-
-        // IEnumerable contains (non-string)
-        if (left is IEnumerable seq && left is not string)
-        {
-            foreach (var item in seq)
-            {
-                if (Equals(item, right)) return true;
-            }
-            return false;
-        }
 
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;

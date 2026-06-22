@@ -1,4 +1,4 @@
-﻿using RightRule.Interpreter;
+﻿using RightRule.StatementProcessor;
 
 namespace RightRule.Rules;
 

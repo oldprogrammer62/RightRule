@@ -92,6 +92,15 @@ public sealed class RightRule
         _rightRuleService.DeRegisterData(DatasetName);
     }
 
+    /// <summary>
+    /// Apply all registered rules for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
     public AppliedRule ApplyRule(string Context)
     {
         if (string.IsNullOrEmpty(Context))
@@ -101,15 +110,63 @@ public sealed class RightRule
         return _rightRuleService.ApplyRule(Context);
     }
 
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    public AppliedRule ApplyRule(string Context, string DatasetName)
+    {
+        if (string.IsNullOrEmpty(Context))
+        {
+            return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
+        }
+        if (string.IsNullOrEmpty(DatasetName))
+        {
+            return AppliedRule.DefaultRule("Dataset name cannot be null or empty.");
+        }
+        return _rightRuleService.ApplyRule(Context, DatasetName);
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the data set provided.
+    /// </summary>
+    /// <typeparam name="T">Valid types are: Dictionary, Enumerable, object with name/value pairs</typeparam>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
     public AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
         if (string.IsNullOrEmpty(Context))
         {
             return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
         }
+        if (string.IsNullOrEmpty(DatasetName))
+        {
+            return AppliedRule.DefaultRule("Dataset name cannot be null or empty.");
+        }
         return _rightRuleService.ApplyRule<T>(Context, DatasetName, Data);
     }
 
+    /// <summary>
+    /// Apply all registered rules for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// All Rules applied are returned in a list.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     public List<AppliedRule> ApplyRules(string Context)
     {
         if (string.IsNullOrEmpty(Context))
@@ -119,15 +176,59 @@ public sealed class RightRule
         return _rightRuleService.ApplyRules(Context);
     }
 
-    public List<AppliedRule> ApplyRules(string Context, RulesToApply RulesToApply)
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// All Rules applied are returned in a list.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
+    public List<AppliedRule> ApplyRules(string Context, string DatasetName)
     {
         if (string.IsNullOrEmpty(Context))
         {
             return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
         }
-        return _rightRuleService.ApplyRules(Context, RulesToApply);
+        if (string.IsNullOrEmpty(DatasetName))
+        {
+            return [AppliedRule.DefaultRule("Dataset name cannot be null or empty.")];
+        }
+        return _rightRuleService.ApplyRules(Context, DatasetName);
     }
 
+    /// <summary>
+    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
+    {
+        if (string.IsNullOrEmpty(Context))
+        {
+            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
+        }
+        return _rightRuleService.ApplyRules(Context, rulesToReturn);
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
     {
         if (string.IsNullOrEmpty(Context))
@@ -137,12 +238,46 @@ public sealed class RightRule
         return _rightRuleService.ApplyRules(Context, DatasetName, Data);
     }
 
-    public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToApply RulesToApply)
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, RulesToReturn rulesToReturn)
     {
         if (string.IsNullOrEmpty(Context))
         {
             return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
         }
-        return _rightRuleService.ApplyRules(Context, DatasetName, Data, RulesToApply);
+        return _rightRuleService.ApplyRules(Context, DatasetName, rulesToReturn);
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
+    {
+        if (string.IsNullOrEmpty(Context))
+        {
+            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
+        }
+        return _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.System.Common;
 
-namespace RightRule.Interpreter;
+namespace RightRule.StatementProcessor.Evaluator;
 
 public sealed class Evaluator
 {

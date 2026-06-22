@@ -1,4 +1,4 @@
-﻿namespace RightRule.Interpreter;
+﻿namespace RightRule.StatementProcessor;
 
 public sealed class Parser
 {

@@ -28,7 +28,7 @@ public class RulesToApplyTests
             Name = "Number of orders Rule",
             Statement = @"numberoforders equals 10",
             Context = "AllContext",
-            Decision = "GOOD",
+            Decision = "GOODRULE1",
         };
 
         // Rule
@@ -38,7 +38,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "GOOD",
+            Decision = "GOODRULE2",
         };
     }
 
@@ -123,7 +123,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToApply.First);
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToReturn.First);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -135,7 +135,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -162,7 +162,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data); 
 
-        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
         Assert.Equal(appliedRule.Decision, rule2.Decision);
     }
@@ -175,10 +175,10 @@ public class RulesToApplyTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
 
-        Assert.Equal(appliedRule.Decision, AppliedRule.DefaultRule().Decision);
+        Assert.Equal(appliedRule.Decision, newRule1.Decision);
     }
 
     [Fact]
@@ -189,9 +189,9 @@ public class RulesToApplyTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToApply.All);
+        var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
 
-        Assert.Equal(appliedRule.Decision, AppliedRule.DefaultRule().Decision);
+        Assert.Equal(appliedRule.Decision, newRule2.Decision);
     }
 }

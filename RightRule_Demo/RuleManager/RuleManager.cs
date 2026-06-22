@@ -1,10 +1,11 @@
 ﻿using RightRule.Rules;
+using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue)
+        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
         {
             RightRule.RightRule rr = new RightRule.RightRule();
 
@@ -14,7 +15,7 @@ namespace RightRule_Demo.RuleManager
             rr.RegisterRules(rules);
             rr.RegisterData(Context, Data);
 
-            var appliedRules = rr.ApplyRules(Context);
+            var appliedRules = rr.ApplyRules(Context, rulesToReturn);
             return appliedRules;
         }
 
