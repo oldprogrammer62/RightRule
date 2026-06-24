@@ -92,6 +92,16 @@ public sealed class RightRule
         _rightRuleService.DeRegisterData(DatasetName);
     }
 
+    public bool UnloadOperator(string operatorName)
+    {
+        ArgumentNullException.ThrowIfNull(operatorName);
+        if (string.IsNullOrWhiteSpace(operatorName))
+        {
+            throw new ArgumentException("Operator name cannot be null or empty.", nameof(operatorName));
+        }
+        return _rightRuleService.UnloadOperator(operatorName);
+    }
+
     /// <summary>
     /// Apply all registered rules for the given context to the registered data set(s).
     /// </summary>

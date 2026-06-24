@@ -4,7 +4,7 @@ namespace RightRule.Operators;
 
 internal class Operators
 {
-    internal static List<IOperator> RegisterOperatorNames()
+    internal static List<IOperator> RegisterOperators()
     {
         var operatorNamess = LoadOperators();
         if (operatorNamess == null || operatorNamess.Count == 0)
@@ -14,6 +14,15 @@ internal class Operators
             throw new Exception("Operator identifiers must be unique.");
 
         return operatorNamess;
+    }
+
+    internal static bool UnloadOperator(IOperator Operator)
+    {
+        if (Operator == null)
+            return false;
+
+        Operator.Identifiers.Clear(); // Clear identifiers to prevent future matches.
+        return true; // Operator was found and removed.
     }
 
     private static bool OperatorIdentifiersUnique(List<IOperator> operators)
