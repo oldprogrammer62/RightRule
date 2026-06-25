@@ -4,7 +4,7 @@ namespace RightRule.Rules;
 
 internal class RuleRegistrationService
 {
-    internal static List<ParsedRule> ParseRules(IEnumerable<RuleDefinition> rules, IEnumerable<List<string>> OperatorNames)
+    internal static List<ParsedRule> ParseRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
     {
         var parsedRules = new List<ParsedRule>();
         foreach (var rule in rules)
@@ -15,13 +15,13 @@ internal class RuleRegistrationService
         return parsedRules;
     }
 
-    internal static ParsedRule ParseRule(RuleDefinition rule, IEnumerable<List<string>> OperatorNames)
+    internal static ParsedRule ParseRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames);
         return parsedRule;
     }
 
-    private static ParsedRule CreateRule(RuleDefinition rule, IEnumerable<List<string>> OperatorNames)
+    private static ParsedRule CreateRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         var statement = rule.Statement;
 
@@ -30,7 +30,7 @@ internal class RuleRegistrationService
         return pRule;
     }
 
-    private static Node GenerateTree(string Statement, IEnumerable<List<string>> OperatorNames)
+    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames)
     {
         var tokenizer = new Tokenizer(Statement, OperatorNames);
         var parser = new Parser(tokenizer);

@@ -8,10 +8,10 @@ public sealed class Tokenizer
     private int _pos;
     private readonly HashSet<string> _operators; // case-insensitive
 
-    public Tokenizer(string input, IEnumerable<List<string>> operatorNames)
+    public Tokenizer(string input, HashSet<string> operatorNames)
     {
         _input = input ?? string.Empty;
-        _operators = new HashSet<string>(operatorNames.SelectMany(list => list), StringComparer.OrdinalIgnoreCase);
+        _operators = operatorNames;
     }
 
     public Token NextToken()

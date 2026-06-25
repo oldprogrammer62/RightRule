@@ -4,25 +4,74 @@ namespace RightRule.Operators;
 
 internal class Operators
 {
-    internal static List<IOperator> RegisterOperators()
+    private readonly List<IOperator> _operators;
+    public List<IOperator> AllOperators => _operators;
+
+    private readonly Dictionary<string, IOperator> _operatorAliases;
+    public Dictionary<string, IOperator> OperatorAliases => _operatorAliases;
+
+    private readonly HashSet<string> _operatorNames;
+    public HashSet<string> OperatorNames => _operatorNames;
+
+    internal Operators()
     {
-        var operatorNamess = LoadOperators();
-        if (operatorNamess == null || operatorNamess.Count == 0)
-            throw new Exception("No operators found.");
-
-        if (OperatorIdentifiersUnique(operatorNamess) == false)
-            throw new Exception("Operator identifiers must be unique.");
-
-        return operatorNamess;
+        _operators = RegisterOperators();
+        _operatorAliases = RegisterOperatorAliases(_operators);
+        _operatorNames = RegisterOperatorNames(_operatorAliases);
     }
 
-    internal static bool UnloadOperator(IOperator Operator)
+    internal  bool DeRegisterOperator(string OperatorName)
+    {
+        var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
+        if (opToRemove != null)
+        {
+            return DeRegisterOperator(opToRemove);
+        }
+        return false;
+    }
+
+    internal bool DeRegisterOperator(IOperator Operator)
+    {
+        if (Operator != null)
+        {
+            RemoveOperatorIdentifiers(Operator);
+            RemoveOperatorAliases(Operator);
+            _operators.Remove(Operator);
+            return true;
+        }
+        return false;
+    }
+
+    private static bool RemoveOperatorIdentifiers(IOperator Operator)
     {
         if (Operator == null)
             return false;
 
         Operator.Identifiers.Clear(); // Clear identifiers to prevent future matches.
         return true; // Operator was found and removed.
+    }
+
+    private void RemoveOperatorAliases(IOperator op)
+    {
+        foreach (var opp in _operatorAliases.ToList())
+        {
+            if (opp.Value.Equals(op))
+            {
+                _operatorAliases.Remove(opp.Key);
+            }
+        }
+    }
+
+    private static List<IOperator> RegisterOperators()
+    {
+        var operatorNames = LoadAllOperators();
+        if (operatorNames == null || operatorNames.Count == 0)
+            throw new Exception("No operators found.");
+
+        if (OperatorIdentifiersUnique(operatorNames) == false)
+            throw new Exception("Operator identifiers must be unique.");
+
+        return operatorNames;
     }
 
     private static bool OperatorIdentifiersUnique(List<IOperator> operators)
@@ -41,7 +90,7 @@ internal class Operators
         return !hasDuplicates;
     }
 
-    private static List<IOperator> LoadOperators()
+    private static List<IOperator> LoadAllOperators()
     {
         return
             [
@@ -58,5 +107,26 @@ internal class Operators
     private static List<IOperator> RegisterCustomOperators()
     {
         return CustomOperatorLoader.Load();
+    }
+
+    private static Dictionary<string, IOperator> RegisterOperatorAliases(List<IOperator> operators)
+    {
+        var operatorAliases = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        foreach (var op in operators)
+        {
+            foreach (var alias in op.Identifiers)
+            {
+                if (string.IsNullOrWhiteSpace(alias))
+                    continue;
+                operatorAliases[alias] = op;
+            }
+        }
+        return operatorAliases;
+    }
+
+    private static HashSet<string> RegisterOperatorNames(Dictionary<string, IOperator> OperatorAliases)
+    {
+        var operatorNames = new HashSet<string>(OperatorAliases.Values.SelectMany(op => op.Identifiers).Distinct(StringComparer.OrdinalIgnoreCase));
+        return operatorNames;
     }
 }

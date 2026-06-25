@@ -6,28 +6,27 @@ namespace RightRule;
 
 internal class RightRuleService
 {
-    private readonly List<IOperator> _operators;
-    private readonly Dictionary<string, IOperator> _operatorAliases;
+    private readonly Operators.Operators _operators;
 
     private readonly ParsedRules _rules;
     private readonly RegisteredDatasets _registeredData;
 
     public RightRuleService()
     {
-        _operators = RegisterOperators();
-        _operatorAliases = GetOperatorAliases(_operators);
+        _operators = new Operators.Operators();
+
         _rules = new ParsedRules();
         _registeredData = new RegisteredDatasets();
     }
 
-    internal bool UnloadOperator(string operatorName)
+    internal bool UnloadOperator(string OperatorName)
     {
-        ArgumentNullException.ThrowIfNull(operatorName);
-        if (string.IsNullOrWhiteSpace(operatorName))
+        ArgumentNullException.ThrowIfNull(OperatorName);
+        if (string.IsNullOrWhiteSpace(OperatorName))
         {
-            throw new ArgumentException("Operator name cannot be null or empty.", nameof(operatorName));
+            throw new ArgumentException("Operator name cannot be null or empty.", nameof(OperatorName));
         }
-        return DeregisterOperator(operatorName);
+        return _operators.DeRegisterOperator(OperatorName);
     }
 
     internal List<ParsedRule> GetRules()
@@ -45,9 +44,9 @@ internal class RightRuleService
     {
         ArgumentNullException.ThrowIfNull(rules);
 
-        var operatorNames = _operatorAliases.Select(o => o.Value.Identifiers);
-
+        var operatorNames = _operators.OperatorNames;
         var parsedRules = RuleRegistrationService.ParseRules(rules, operatorNames);
+
         _rules.AddRules(parsedRules);
         return parsedRules;
     }
@@ -56,9 +55,9 @@ internal class RightRuleService
     {
         ArgumentNullException.ThrowIfNull(rule);
 
-        var operatorNames = _operatorAliases.Select(o => o.Value.Identifiers);
-
+        var operatorNames = _operators.OperatorNames;
         var parsedRule = RuleRegistrationService.ParseRule(rule, operatorNames);
+
         _rules.AddRule(parsedRule);
         return parsedRule;
     }
@@ -66,6 +65,7 @@ internal class RightRuleService
     internal bool DeRegisterRules(string Context)
     {
         ArgumentNullException.ThrowIfNull(Context);
+
         if (string.IsNullOrWhiteSpace(Context))
         {
             throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
@@ -85,6 +85,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
+
         return _registeredData.GetDataset(DatasetName);
     }
 
@@ -96,6 +97,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
+
         var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
         return _registeredData.AddDataset(data);
     }
@@ -120,6 +122,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
+
         _registeredData.RemoveDataset(DatasetName);
     }
 
@@ -155,7 +158,7 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operatorAliases);
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operators.OperatorAliases);
     }
 
     private AppliedRule ApplySingleRule(string Context, string DatasetName)
@@ -172,7 +175,7 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operatorAliases, DatasetName);
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operators.OperatorAliases, DatasetName);
     }
 
     internal List<AppliedRule> ApplyRules(string Context)
@@ -219,7 +222,7 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operatorAliases);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operators.OperatorAliases);
     }
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, RulesToReturn rulesToReturn)
@@ -236,7 +239,7 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operatorAliases, DatasetName);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operators.OperatorAliases, DatasetName);
     }
 
     private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
@@ -245,49 +248,5 @@ internal class RightRuleService
         List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
         DeRegisterData(DatasetName);
         return result;
-    }
-
-    private static List<IOperator> RegisterOperators()
-    {
-        return Operators.Operators.RegisterOperators();
-    }
-
-    private bool DeregisterOperator(string operatorName)
-    {
-        var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(operatorName, StringComparer.OrdinalIgnoreCase));
-        if (opToRemove != null)
-        {
-            Operators.Operators.UnloadOperator(opToRemove);
-            RemoveOperatorAliases(opToRemove);
-            _operators.Remove(opToRemove);
-            return true;
-        }
-        return false;
-    }
-
-    private void RemoveOperatorAliases(IOperator op)
-    {
-        foreach(var opp in _operatorAliases)
-        {
-            if (opp.Value.Equals(op))
-            {
-                _operatorAliases.Remove(opp.Key);
-            }
-        }
-    }
-
-    private static Dictionary<string, IOperator> GetOperatorAliases(List<IOperator> operators)
-    {
-        var operatorAliases = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
-        foreach (var op in operators)
-        {
-            foreach (var alias in op.Identifiers)
-            {
-                if (string.IsNullOrWhiteSpace(alias))
-                    continue;
-                operatorAliases[alias] = op;
-            }
-        }
-        return operatorAliases;
     }
 }
