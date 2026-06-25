@@ -2,10 +2,10 @@
 
 namespace RightRule.Operators;
 
-internal class Operators
+internal class OperatorsService
 {
     private readonly List<IOperator> _operators;
-    public List<IOperator> AllOperators => _operators;
+    public List<IOperator> Operators => _operators;
 
     private readonly Dictionary<string, IOperator> _operatorAliases;
     public Dictionary<string, IOperator> OperatorAliases => _operatorAliases;
@@ -13,7 +13,7 @@ internal class Operators
     private readonly HashSet<string> _operatorNames;
     public HashSet<string> OperatorNames => _operatorNames;
 
-    internal Operators()
+    internal OperatorsService()
     {
         _operators = RegisterOperators();
         _operatorAliases = RegisterOperatorAliases(_operators);

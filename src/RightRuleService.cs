@@ -6,14 +6,14 @@ namespace RightRule;
 
 internal class RightRuleService
 {
-    private readonly Operators.Operators _operators;
+    private readonly Operators.OperatorsService _operators;
 
     private readonly ParsedRules _rules;
     private readonly RegisteredDatasets _registeredData;
 
     public RightRuleService()
     {
-        _operators = new Operators.Operators();
+        _operators = new Operators.OperatorsService();
 
         _rules = new ParsedRules();
         _registeredData = new RegisteredDatasets();
