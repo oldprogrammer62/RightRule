@@ -30,7 +30,10 @@ public class Loader
 
             throw new InvalidOperationException("Failed to create operator instance from assembly.");
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
 
         return null;
     }

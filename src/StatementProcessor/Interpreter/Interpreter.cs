@@ -24,7 +24,7 @@ public sealed class Interpreter
 
     private AppliedRule Evaluate(ParsedRules rules)
     {
-        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.RightRules, _registeredDatasets);
+        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.Rules, _registeredDatasets);
     }
 
     internal AppliedRule ProcessRule(ParsedRules rules, string datasetName)
@@ -34,17 +34,17 @@ public sealed class Interpreter
 
     private AppliedRule Evaluate(ParsedRules rules, string datasetName)
     {
-        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.RightRules, _registeredDatasets, datasetName);
+        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.Rules, _registeredDatasets, datasetName);
     }
 
     internal List<AppliedRule> ProcessRules(ParsedRules rules)
     {
-        return Evaluate(rules.RightRules, RulesToReturn.All);
+        return Evaluate(rules.Rules, RulesToReturn.All);
     }
 
     internal List<AppliedRule> ProcessRules(ParsedRules rules, RulesToReturn rulesToReturn)
     {
-        return Evaluate(rules.RightRules, rulesToReturn);
+        return Evaluate(rules.Rules, rulesToReturn);
     }
 
     private List<AppliedRule> Evaluate(List<ParsedRule> rules, RulesToReturn rulesToReturn)
@@ -64,12 +64,12 @@ public sealed class Interpreter
 
     internal List<AppliedRule> ProcessRules(ParsedRules rules, string datasetName)
     {
-        return Evaluate(rules.RightRules, datasetName, RulesToReturn.All);
+        return Evaluate(rules.Rules, datasetName, RulesToReturn.All);
     }
 
     internal List<AppliedRule> ProcessRules(ParsedRules rules, string datasetName, RulesToReturn rulesToReturn)
     {
-        return Evaluate(rules.RightRules, datasetName, rulesToReturn);
+        return Evaluate(rules.Rules, datasetName, rulesToReturn);
     }
 
     private List<AppliedRule> Evaluate(List<ParsedRule> rules, string datasetName, RulesToReturn rulesToReturn)

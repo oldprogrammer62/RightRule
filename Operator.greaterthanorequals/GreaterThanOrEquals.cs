@@ -57,4 +57,9 @@ public sealed class GreaterThanOrEquals : IOperator
                 || value is double
                 || value is decimal;
     }
+
+    public void Dispose()
+    {
+        // Nothing to dispose
+    }
 }

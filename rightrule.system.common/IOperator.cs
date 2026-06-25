@@ -1,6 +1,6 @@
 ﻿namespace RightRule.System.Common;
 
-public interface IOperator
+public interface IOperator : IDisposable
 {
     /// <summary>
     /// The textual name used in the DSL, e.g., "equals", "notequals", "contains".

@@ -19,4 +19,9 @@ public sealed class ContainsOperator : IOperator
         var rstr = right.ToString() ?? string.Empty;
         return lstr.Contains(rstr, StringComparison.OrdinalIgnoreCase);
     }
+
+    public void Dispose()
+    {
+        // Nothing to dispose
+    }
 }

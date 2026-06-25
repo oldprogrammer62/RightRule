@@ -1,21 +1,22 @@
 ﻿using RightRule.Data;
 using RightRule.Rules;
+using RightRule.Operators;
 using RightRule.System.Common;
 
 namespace RightRule;
 
 internal class RightRuleService
 {
-    private readonly Operators.OperatorsService _operators;
+    private readonly OperatorsService _operatorsService;
+    private readonly ParsedRuleService _rulesService;
 
-    private readonly ParsedRules _rules;
     private readonly RegisteredDatasets _registeredData;
 
     public RightRuleService()
     {
-        _operators = new Operators.OperatorsService();
+        _operatorsService = new OperatorsService();
+        _rulesService = new ParsedRuleService();
 
-        _rules = new ParsedRules();
         _registeredData = new RegisteredDatasets();
     }
 
@@ -26,51 +27,46 @@ internal class RightRuleService
         {
             throw new ArgumentException("Operator name cannot be null or empty.", nameof(OperatorName));
         }
-        return _operators.DeRegisterOperator(OperatorName);
+        return _operatorsService.DeRegisterOperator(OperatorName);
     }
 
-    internal List<ParsedRule> GetRules()
+    internal List<ParsedRule> GetParsedRules()
     {
-        return _rules.RightRules;
+        return _rulesService.ParsedRules.Rules;
     }
 
     internal List<ParsedRule> GetRules(string Context)
     {
-        var rules = _rules.RightRules.Where(r => r.Context == Context).ToList();
-        return rules;
+        return _rulesService.GetRules(Context);
+        //var rules = _rules.Rules.Where(r => r.Context == Context).ToList();
+        //return rules;
     }
 
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules);
 
-        var operatorNames = _operators.OperatorNames;
-        var parsedRules = RuleRegistrationService.ParseRules(rules, operatorNames);
-
-        _rules.AddRules(parsedRules);
-        return parsedRules;
+        var operatorNames = _operatorsService.OperatorNames;
+        return _rulesService.RegisterRules(rules, operatorNames);
     }
 
     internal ParsedRule RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule);
 
-        var operatorNames = _operators.OperatorNames;
-        var parsedRule = RuleRegistrationService.ParseRule(rule, operatorNames);
-
-        _rules.AddRule(parsedRule);
-        return parsedRule;
+        var operatorNames = _operatorsService.OperatorNames;
+        return _rulesService.RegisterRule(rule, operatorNames);
     }
 
     internal bool DeRegisterRules(string Context)
     {
         ArgumentNullException.ThrowIfNull(Context);
-
         if (string.IsNullOrWhiteSpace(Context))
         {
             throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
         }
-        return _rules.RemoveRules(Context);
+
+        return _rulesService.DeRegisterRules(Context);
     }
 
     internal RegisteredDatasets GetDataSets()
@@ -154,11 +150,11 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
         }
-        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operators.OperatorAliases);
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rulesService.ParsedRules, _operatorsService.OperatorAliases);
     }
 
     private AppliedRule ApplySingleRule(string Context, string DatasetName)
@@ -171,11 +167,11 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
         }
-        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredData, _rules, _operators.OperatorAliases, DatasetName);
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rulesService.ParsedRules, _operatorsService.OperatorAliases, DatasetName);
     }
 
     internal List<AppliedRule> ApplyRules(string Context)
@@ -208,6 +204,14 @@ internal class RightRuleService
         return ApplySpecifiedRules(Context, DatasetName, Data, rulesToReturn);
     }
 
+    private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
+    {
+        RegisterData(DatasetName, Data);
+        List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
+        DeRegisterData(DatasetName);
+        return result;
+    }
+
     private List<AppliedRule> ApplySpecifiedRules(string Context, RulesToReturn rulesToReturn)
     {
         if (string.IsNullOrEmpty(Context))
@@ -218,11 +222,11 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
         }
-        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operators.OperatorAliases);
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases);
     }
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, RulesToReturn rulesToReturn)
@@ -235,18 +239,10 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
         }
-        if (_rules.RightRules == null || _rules.RightRules.Count == 0)
+        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredData, _rules, rulesToReturn, _operators.OperatorAliases, DatasetName);
-    }
-
-    private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
-    {
-        RegisterData(DatasetName, Data);
-        List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
-        DeRegisterData(DatasetName);
-        return result;
+        return RuleApplicationService.ApplyRules(Context, _registeredData, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases, DatasetName);
     }
 }

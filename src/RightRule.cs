@@ -15,7 +15,7 @@ public sealed class RightRule
 
     public List<ParsedRule> GetRules()
     {
-        return _rightRuleService.GetRules();
+        return _rightRuleService.GetParsedRules();
     }
 
     public List<ParsedRule> GetRules(string Context)

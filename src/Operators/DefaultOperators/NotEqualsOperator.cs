@@ -10,4 +10,9 @@ public sealed class NotEqualsOperator : IOperator
     {
         return !Equals(left, right);
     }
+
+    public void Dispose()
+    {
+        // Nothing to dispose
+    }
 }

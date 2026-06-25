@@ -7,69 +7,43 @@ namespace RightRule.Rules;
 
 internal class RuleApplicationService
 {
-    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators)
+    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators)
     {
-        return ApplyRuleToData(Context, Data, rules, Operators);
+        return ApplyRuleToData(Context, Data, parsedRules, Operators);
     }
 
-    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators)
+    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators)
     {
         var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
+        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRule(filteredRules);
     }
 
-    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules Rules, Dictionary<string, IOperator> Operators, string DatasetName)
+    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, string DatasetName)
     {
-        return ApplyRuleToData(Context, Data, Rules, Operators, DatasetName);
+        return ApplyRuleToData(Context, Data, parsedRules, Operators, DatasetName);
     }
 
-    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules Rules, Dictionary<string, IOperator> Operators, string DatasetName)
+    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, string DatasetName)
     {
         var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, Rules.RightRules);
+        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRule(filteredRules, DatasetName);
     }
 
-    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators)
+    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Data, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
     {
-        return ApplyRulesToData(Context, Data, rules, Operators);
+        return ApplyRulesToData(Context, Data, parsedRules, rulesToReturn, Operators);
     }
 
-    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators)
+    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
     {
         var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
-
-        return interpreter.ProcessRules(filteredRules);
-    }
-
-    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
-    {
-        return ApplyRulesToData(Context, Data, rules, rulesToReturn, Operators);
-    }
-
-    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
-    {
-        var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
+        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRules(filteredRules, rulesToReturn);
-    }
-
-    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        return ApplyRulesToData(Context, Data, rules, Operators, DatasetName);
-    }
-
-    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules rules, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
-
-        return interpreter.ProcessRules(filteredRules, DatasetName);
     }
 
     internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, string DatasetName)
@@ -80,7 +54,7 @@ internal class RuleApplicationService
     private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Data, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, string DatasetName)
     {
         var interpreter = new Interpreter(Data, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.RightRules);
+        var filteredRules = Helpers.FilterRules(Context, rules.Rules);
 
         return interpreter.ProcessRules(filteredRules, DatasetName, rulesToReturn);
     }

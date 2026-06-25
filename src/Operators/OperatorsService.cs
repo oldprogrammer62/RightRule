@@ -36,6 +36,8 @@ internal class OperatorsService
         {
             RemoveOperatorIdentifiers(Operator);
             RemoveOperatorAliases(Operator);
+
+            Operator.Dispose();
             _operators.Remove(Operator);
             return true;
         }
