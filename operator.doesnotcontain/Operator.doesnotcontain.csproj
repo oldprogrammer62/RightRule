@@ -24,5 +24,4 @@
       <HintPath>RightRule.Operator.Common\RightRule.System.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
-
 </Project>

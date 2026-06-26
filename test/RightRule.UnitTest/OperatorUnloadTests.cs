@@ -9,7 +9,7 @@ public class OperatorUnloadTests
         RightRule.RightRule rr = new RightRule.RightRule();
 
         // Unload the "Contains" operator
-        bool result = rr.UnloadOperator("Contains");
+        bool result = rr.UnloadOperator("DoesNotContain");
         Assert.True(result);
     }
 

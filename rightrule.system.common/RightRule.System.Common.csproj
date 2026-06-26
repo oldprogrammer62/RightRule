@@ -14,6 +14,8 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.doesnotcontain\RightRule.Operator.Common\ /Y /I /E" />
+    <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.greaterthanorequals\RightRule.Operator.Common\ /Y /I /E" />
+    <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.lessthan\RightRule.Operator.Common\ /Y /I /E" />
   </Target>
 
 </Project>

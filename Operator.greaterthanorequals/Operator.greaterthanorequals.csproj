@@ -6,14 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="RightRule.System.Common">
-      <HintPath>RightRule.Operator.Common\RightRule.System.Common.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn> <!-- optional: suppress missing XML warnings -->
+  </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy $(TargetDir)\Operator.greaterthanorequals.dll C:\Development\BSoft\RightRule\src\Operators\CustomOperators /Y /I /E" />
   </Target>
 
+  <ItemGroup>
+    <Folder Include="RightRule.Operator.Common\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="RightRule.System.Common">
+      <HintPath>RightRule.Operator.Common\RightRule.System.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

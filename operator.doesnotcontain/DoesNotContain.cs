@@ -2,7 +2,7 @@
 
 namespace Operator.doesnotcontain;
 
-public sealed class DoesNotContains : IOperator
+public sealed class DoesNotContain : IOperator
 {
     public List<string> Identifiers => ["doesnotcontain", "notc", "notni"];
 

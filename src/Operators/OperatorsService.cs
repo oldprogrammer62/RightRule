@@ -25,41 +25,50 @@ internal class OperatorsService
         var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
         if (opToRemove != null)
         {
-            return DeRegisterOperator(opToRemove);
+            return DeRegisterOperator(OperatorName, opToRemove);
         }
         return false;
     }
 
-    internal bool DeRegisterOperator(IOperator Operator)
+    internal bool DeRegisterOperator(string OperatorName, IOperator Operator)
     {
         if (Operator != null)
         {
-            RemoveOperatorIdentifiers(Operator);
             RemoveOperatorAliases(Operator);
+            RemoveOperatorNames(OperatorName);
 
             Operator.Dispose();
-            _operators.Remove(Operator);
+
+            RemoveOperator(Operator);
             return true;
         }
         return false;
     }
 
-    private static bool RemoveOperatorIdentifiers(IOperator Operator)
+    private void RemoveOperator(IOperator Operator)
     {
-        if (Operator == null)
-            return false;
-
-        Operator.Identifiers.Clear(); // Clear identifiers to prevent future matches.
-        return true; // Operator was found and removed.
+        _operators.Remove(Operator);
     }
 
-    private void RemoveOperatorAliases(IOperator op)
+    private void RemoveOperatorAliases(IOperator Operator)
     {
         foreach (var opp in _operatorAliases.ToList())
         {
-            if (opp.Value.Equals(op))
+            if (opp.Value.Equals(Operator))
             {
                 _operatorAliases.Remove(opp.Key);
+            }
+        }
+    }
+
+    private void RemoveOperatorNames(string OperatorName)
+    {
+        foreach (var opp in _operatorNames.ToList())
+        {
+            if (opp.Equals(OperatorName, StringComparison.OrdinalIgnoreCase))
+            {
+                _operatorNames.Remove(opp);
+                break;
             }
         }
     }
