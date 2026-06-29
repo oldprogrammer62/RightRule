@@ -1,4 +1,5 @@
 ﻿using RightRule.Data;
+using RightRule.Models;
 using RightRule.Rules;
 
 namespace RightRule.StatementProcessor.Interpreter;
@@ -48,12 +49,24 @@ internal class ProcessAllRules
         return appliedRules;
     }
 
-    private static bool Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDataset data)
+    private static EvalResult Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDataset data)
     {
-        return evaluator.Evaluate(data, rule.Node, rule.Arguments);
+        try
+        {
+            var result = evaluator.Evaluate(data, rule.Node, rule.Arguments);
+            return new EvalResult(result, string.Empty);
+        }
+        catch (Exception ex)
+        {
+            return new EvalResult()
+            {
+                Result = EvalResult.ResultType.ResultError,
+                Message = ex.Message
+            };
+        }
     }
 
-    private static AppliedRule CreateAppliedRule(bool result, ParsedRule rule, RegisteredDataset data)
+    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset data)
     {
         var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
         return new AppliedRule(rule, data.Name, statement, result);

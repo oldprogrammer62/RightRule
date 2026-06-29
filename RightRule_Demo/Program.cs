@@ -111,6 +111,7 @@ namespace RightRule_Demo
             Console.WriteLine($"\tDataset Matched: {appliedRule.DatasetMatched}");
             Console.WriteLine($"\tStatement: {appliedRule.Statement}");
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
+            Console.WriteLine($"\tError Message: {appliedRule.ErrorMessage}");
         }
 
         private static void Welcome()

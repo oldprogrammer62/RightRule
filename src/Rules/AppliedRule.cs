@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using RightRule.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RightRule.Rules;
 
@@ -24,28 +25,55 @@ public sealed class AppliedRule : Rule
     /// </summary>
     public required string StatementApplied { get; init; }
 
+    /// <summary>
+    /// Provides the error message, if the application of a rule throws an exception
+    /// </summary>
+    public required string ErrorMessage { get; init; }
+
     internal static readonly string NoDecision = "NODECISION";
     internal static readonly string NoDatasetMatched = "NO_DATASET_MATCHED";
 
     public AppliedRule() {}
 
-    [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, string statementApplied, bool result)
+    private bool IsError(EvalResult ruleResult)
     {
-        Result = result;
-        Arguments = parsedRule.Arguments;
-        Number = parsedRule.Number;
-        Name = parsedRule.Name;
-        Statement = parsedRule.Statement;
-        Context = parsedRule.Context;
-        Decision = parsedRule.Decision;
-        DecisionData = parsedRule.DecisionData;
-        DatasetMatched = datasetMatched;
-        StatementApplied = statementApplied;
+        return ruleResult.Result.Equals(EvalResult.ResultType.ResultError);
     }
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched, string statementApplied, bool result)
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, string statementApplied, EvalResult result)
+    {
+        if (IsError(result))
+        {
+            Result = false;
+            Arguments = null;
+            Number = -1;
+            Name = "DEFAULTRULE";
+            Statement = string.Empty;
+            Context = string.Empty;
+            Decision = NoDecision;
+            DecisionData = string.Empty;
+            DatasetMatched = NoDatasetMatched;
+            StatementApplied = string.Empty;
+            ErrorMessage = result.Message;
+            return;
+        }
+
+        Result = result.Result.Equals(EvalResult.ResultType.ResultTrue);
+        Arguments = parsedRule.Arguments;
+        Number = parsedRule.Number;
+        Name = parsedRule.Name;
+        Statement = parsedRule.Statement;
+        Context = parsedRule.Context;
+        Decision = parsedRule.Decision;
+        DecisionData = parsedRule.DecisionData;
+        DatasetMatched = datasetMatched;
+        StatementApplied = statementApplied;
+        ErrorMessage = result.Message;
+    }
+
+    [SetsRequiredMembers]
+    internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched, string statementApplied, bool result, string message)
     {
         Result = result;
         Arguments = parsedRule.Arguments;
@@ -57,6 +85,7 @@ public sealed class AppliedRule : Rule
         DecisionData = parsedRule.DecisionData;
         DatasetMatched = datasetMatched;
         StatementApplied = statementApplied;
+        ErrorMessage = message;
     }
 
     public static AppliedRule DefaultRule()
@@ -77,7 +106,8 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = decisionData,
             DatasetMatched = NoDatasetMatched,
-            StatementApplied = string.Empty
+            StatementApplied = string.Empty,
+            ErrorMessage = string.Empty
         };
     }
 }
