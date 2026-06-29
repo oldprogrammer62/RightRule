@@ -52,25 +52,22 @@ internal class OperatorsService
 
     private void RemoveOperatorAliases(IOperator Operator)
     {
-        foreach (var opp in _operatorAliases.ToList())
-        {
-            if (opp.Value.Equals(Operator))
-            {
-                _operatorAliases.Remove(opp.Key);
-            }
-        }
+        var keysToRemove = _operatorAliases
+            .Where(opp => opp.Value.Equals(Operator))
+            .Select(opp => opp.Key)
+            .ToList();
+
+        keysToRemove.ForEach(key => _operatorAliases.Remove(key));
     }
 
     private void RemoveOperatorNames(string OperatorName)
     {
-        foreach (var opp in _operatorNames.ToList())
-        {
-            if (opp.Equals(OperatorName, StringComparison.OrdinalIgnoreCase))
-            {
-                _operatorNames.Remove(opp);
-                break;
-            }
-        }
+        var keysToRemove = _operatorNames
+            .Where(opp => opp.Equals(OperatorName, StringComparison.InvariantCultureIgnoreCase))
+            .Select(opp => opp)
+            .ToList();
+
+        keysToRemove.ForEach(key => _operatorNames.Remove(key));
     }
 
     private static List<IOperator> RegisterOperators()

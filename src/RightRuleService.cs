@@ -38,8 +38,6 @@ internal class RightRuleService
     internal List<ParsedRule> GetRules(string Context)
     {
         return _rulesService.GetRules(Context);
-        //var rules = _rules.Rules.Where(r => r.Context == Context).ToList();
-        //return rules;
     }
 
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
