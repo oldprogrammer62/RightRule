@@ -19,12 +19,4 @@ public class OperatorLoaderTests
         var op = Loader.Load(path);
         Assert.NotNull(op);
     }
-
-    [Fact]
-    public void TestItWorks_LoadOperator_LessThan()
-    {
-        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.lessthan.dll";
-        var op = Loader.Load(path);
-        Assert.NotNull(op);
-    }
 }

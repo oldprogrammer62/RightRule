@@ -1,8 +1,8 @@
 ﻿using RightRule.System.Common;
 
-namespace Operator.lessthan;
+namespace RightRule.Operators.DefaultOperators;
 
-public sealed class LessThan : IOperator
+public sealed class LessThanOperator : IOperator
 {
     public List<string> Identifiers => ["lessthan", "<"];
 
