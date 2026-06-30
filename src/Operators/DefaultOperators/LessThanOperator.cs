@@ -8,54 +8,158 @@ public sealed class LessThanOperator : IOperator
 
     public bool Process(object left, object right)
     {
-        if (!IsNumber(left))
+        if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
+        if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
+
+        return LessThan(left, right);
+    }
+
+    public bool LessThan(dynamic left, dynamic right)
+    {
+        dynamic x = left < right;
+        return x;
+    }
+
+    private bool ProcessAsDateOnly(object left, object right)
+    {
+        var dtLeft = ConvertToDateOnly(left);
+        var dtRight = ConvertToDateOnly(right);
+        if (dtLeft != null && dtRight != null)
+        {
+            return LessThan(dtLeft, dtRight);
+        }
+        return false;
+    }
+
+    private bool ProcessAsDateTime(object left, object right)
+    {
+        var dtLeft = ConvertToDateTime(left);
+        var dtRight = ConvertToDateTime(right);
+        if (dtLeft != null && dtRight != null)
+        {
+            return LessThan(dtLeft, dtRight);
+        }
+        return false;
+    }
+
+    private static DateOnly? ConvertToDateOnly(object input)
+    {
+        if (input == null)
+        {
+            return null;
+        }
+
+        // Direct match
+        if (input is DateOnly dateOnly)
+        {
+            return dateOnly;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (DateOnly.TryParse(stringInput, out DateOnly parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        // Try ultimate fallback for other convertible types (like long timestamps)
+        try
+        {
+            return (DateOnly)input;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static DateTime? ConvertToDateTime(object input)
+    {
+        if (input == null)
+        {
+            return null;
+        }
+
+        // Direct match
+        if (input is DateTime dateTime)
+        {
+            return dateTime;
+        }
+
+        // Safe extraction for DateOnly (presents as midnight)
+        if (input is DateOnly dateOnly)
+        {
+            return dateOnly.ToDateTime(TimeOnly.MinValue);
+        }
+
+        // Safe conversion for DateTimeOffset
+        if (input is DateTimeOffset dateTimeOffset)
+        {
+            return dateTimeOffset.DateTime;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (DateTime.TryParse(stringInput, out DateTime parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        // Try ultimate fallback for other convertible types (like long timestamps)
+        try
+        {
+            return Convert.ToDateTime(input);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static bool IsDateOnly(object value)
+    {
+        if (value is DateOnly) return true;
+
+        // Safe parsing for text strings
+        if (value is string stringInput)
+        {
+            return DateOnly.TryParse(stringInput, out _);
+        }
+
+        try
+        {
+            var result = Convert.ToDateTime(value);
+            return true;
+        }
+        catch
         {
             return false;
         }
+    }
 
-        if (!IsNumber(right))
+    private static bool IsDateTime(object value)
+    {
+        if (value is DateTime) return true;
+
+        // Safe parsing for text strings
+        if (value is string stringInput)
+        {
+            return DateTime.TryParse(stringInput, out _);
+        }
+
+        try
+        {
+            var result = Convert.ToDateTime(value);
+            return true;
+        }
+        catch
         {
             return false;
         }
-        var leftNumber = ConvertToNumber(left);
-        var rightNumber = ConvertToNumber(right);
-
-        return leftNumber < rightNumber;
-    }
-
-    private static decimal ConvertToNumber(object value)
-    {
-        if (value is null) return default;
-
-        if (value is sbyte sb) return sb;
-        if (value is byte b) return b;
-        if (value is short s) return s;
-        if (value is ushort us) return us;
-        if (value is int i) return i;
-        if (value is uint ui) return ui;
-        if (value is long l) return l;
-        if (value is ulong ul) return ul;
-        if (value is float f) return Convert.ToDecimal(f);
-        if (value is double d) return Convert.ToDecimal(d);
-        if (value is decimal dec) return dec;
-        return default;
-    }
-
-    private static bool IsNumber(object value)
-    {
-        if (value is null) return false;
-
-        return value is sbyte
-                || value is byte
-                || value is short
-                || value is ushort
-                || value is int
-                || value is uint
-                || value is long
-                || value is ulong
-                || value is float
-                || value is double
-                || value is decimal;
     }
 
     public void Dispose()

@@ -23,14 +23,22 @@ public sealed class EqualsOperator : IOperator
     {
         var dtLeft = ConvertToDateOnly(left);
         var dtRight = ConvertToDateOnly(right);
-        return Equals(dtLeft, dtRight);
+        if (dtLeft != null && dtRight != null)
+        {
+            return Equals(dtLeft, dtRight);
+        }
+        return false;
     }
 
     private bool ProcessAsDateTime(object left, object right)
     {
         var dtLeft = ConvertToDateTime(left);
         var dtRight = ConvertToDateTime(right);
-        return Equals(dtLeft, dtRight);
+        if (dtLeft != null && dtRight != null)
+        {
+            return Equals(dtLeft, dtRight);
+        }
+        return false;
     }
 
     private static DateOnly? ConvertToDateOnly(object input)
@@ -100,7 +108,6 @@ public sealed class EqualsOperator : IOperator
             }
         }
 
-        // Try ultimate fallback for other convertible types (like long timestamps)
         try
         {
             return Convert.ToDateTime(input);

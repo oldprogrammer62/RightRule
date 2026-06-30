@@ -11,19 +11,22 @@ public class LessThanTests
         // Data
         _Data = new Dictionary<string, object>(StringComparer.Ordinal)
         {
-            { "value", 10 }
+            { "intvalue", 100 },
+            { "floatvalue", 100.01 },
+            { "datevalue", new DateOnly(1970, 01, 01) },
+            { "datetimevalue", new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30)) }
         };
     }
 
     [Fact]
-    public void LessThan()
+    public void LessThan_Int()
     {
         // Rule
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Less ThanValue Rule",
-            Statement = @"value lessthan 100",
+            Name = "Less Than Int Value Rule",
+            Statement = @"intvalue lessthan 1000",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -44,8 +47,8 @@ public class LessThanTests
         RuleDefinition rule = new()
         {
             Number = 1,
-            Name = "Less ThanValue Rule",
-            Statement = @"value lessthan 5",
+            Name = "Not Less Than Int Value Rule",
+            Statement = @"intvalue lessthan 5",
             Context = "Context",
             Decision = "NOT_LESSTHAN",
         };
@@ -57,5 +60,99 @@ public class LessThanTests
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void LessThan_Float()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Float Value Rule",
+            Statement = @"floatvalue lessthan 1000.001",
+            Context = "Context",
+            Decision = "LESSTHAN",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void LessThan_DateOnly()
+    {
+        var date = new DateOnly(1971, 01, 01);
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Date Only Value Rule",
+            Statement = @$"datevalue lessthan ""{date}""",
+            Context = "Context",
+            Decision = "LESSTHAN",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void LessThan_DateTime_DateDiff()
+    {
+        var date = new DateTime(new DateOnly(1971, 01, 01), new TimeOnly(12, 30, 30));
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Datetime Value Rule",
+            Statement = @$"datetimevalue lessthan ""{date}""",
+            Context = "Context",
+            Decision = "LESSTHAN",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void LessThan_DateTime_TimeDiff()
+    {
+        var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 35, 30));
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Datetime Value Rule",
+            Statement = @$"datetimevalue lessthan ""{date}""",
+            Context = "Context",
+            Decision = "LESSTHAN",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }
