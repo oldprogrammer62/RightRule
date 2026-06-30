@@ -8,10 +8,24 @@ public sealed class LessThanOperator : IOperator
 
     public bool Process(object left, object right)
     {
+        if (left == null && right == null)
+        {
+            return true;
+        }
+        if (left == null || right == null)
+        {
+            return false;
+        }
+
         if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
         if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
 
         return LessThan(left, right);
+    }
+
+    public void Dispose()
+    {
+        // Nothing to dispose
     }
 
     public bool LessThan(dynamic left, dynamic right)
@@ -44,11 +58,6 @@ public sealed class LessThanOperator : IOperator
 
     private static DateOnly? ConvertToDateOnly(object input)
     {
-        if (input == null)
-        {
-            return null;
-        }
-
         // Direct match
         if (input is DateOnly dateOnly)
         {
@@ -77,11 +86,6 @@ public sealed class LessThanOperator : IOperator
 
     private static DateTime? ConvertToDateTime(object input)
     {
-        if (input == null)
-        {
-            return null;
-        }
-
         // Direct match
         if (input is DateTime dateTime)
         {
@@ -160,10 +164,5 @@ public sealed class LessThanOperator : IOperator
         {
             return false;
         }
-    }
-
-    public void Dispose()
-    {
-        // Nothing to dispose
     }
 }

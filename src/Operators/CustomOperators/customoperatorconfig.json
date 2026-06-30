@@ -3,10 +3,6 @@
     {
       "name": "DoesNotContain",
       "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.doesnotcontain.dll"
-    },
-    {
-      "name": "GreaterThanOrEquals",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.greaterthanorequals.dll"
     }
   ]
 }

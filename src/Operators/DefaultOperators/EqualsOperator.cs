@@ -8,6 +8,15 @@ public sealed class EqualsOperator : IOperator
 
     public bool Process(object left, object right)
     {
+        if (left == null && right == null)
+        {
+            return true;
+        }
+        if (left == null || right == null)
+        {
+            return false;
+        }
+
         if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
         if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
 
@@ -43,11 +52,6 @@ public sealed class EqualsOperator : IOperator
 
     private static DateOnly? ConvertToDateOnly(object input)
     {
-        if (input == null)
-        {
-            return null;
-        }
-
         // Direct match
         if (input is DateOnly dateOnly)
         {
@@ -76,11 +80,6 @@ public sealed class EqualsOperator : IOperator
 
     private static DateTime? ConvertToDateTime(object input)
     {
-        if (input == null)
-        {
-            return null;
-        }
-
         // Direct match
         if (input is DateTime dateTime)
         {
