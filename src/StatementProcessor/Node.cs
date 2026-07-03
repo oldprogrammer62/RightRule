@@ -1,9 +1,5 @@
 ﻿namespace RightRule.StatementProcessor;
 
-/// <summary>
-/// Node is the base class for all nodes in the abstract syntax tree (AST)
-/// A Node represents the parsed rule statement.
-/// </summary>
 public abstract class Node { }
 
 public enum OperandKind { Identifier, Number, String, Boolean, Placeholder }
@@ -19,25 +15,15 @@ public sealed class Operand
     }
 }
 
-/// <summary>
-/// Represents a simple condition in the rule statement.
-/// Left is an Operand (can be identifier, string literal, number, boolean or placeholder).
-/// </summary>
 public sealed class ConditionNode : Node
 {
-    /// <summary>
-    /// Left-hand operand
-    /// </summary>
+    // Left-hand operand (can be identifier, string literal, number, boolean or placeholder)
     public Operand Left { get; set; } = new Operand(OperandKind.String, "");
 
-    /// <summary>
-    /// The operator name (as parsed)
-    /// </summary>
+    // Operator name (as parsed)
     public string Operator { get; set; } = "";
 
-    /// <summary>
-    /// The right-hand operand of the condition.
-    /// </summary>
+    // Right-hand operand
     public Operand Right { get; set; } = new Operand(OperandKind.String, "");
 }
 
