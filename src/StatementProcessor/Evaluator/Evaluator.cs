@@ -75,20 +75,20 @@ public sealed class Evaluator
 
     private object ResolveOperand(RegisteredDataset data, Operand op, Dictionary<string, object>? arguments)
     {
-        string opValue = ResolveOperatorValue(op, arguments!);
+        object opValue = ResolveOperatorValue(op, arguments!);
 
         return op.Kind switch
         {
-            OperandKind.Identifier => ResolveIdentifier(data, opValue),
-            OperandKind.Number => ParseNumber(opValue),
-            OperandKind.Boolean => ParseBoolean(opValue),
-            OperandKind.Placeholder => ParsePlaceholder(opValue),
-            OperandKind.String => opValue,
+            OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(data, sId) : ResolveIdentifier(data, op.Raw),
+            OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
+            OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
+            OperandKind.Placeholder => opValue is string sPlace ? ParsePlaceholder(sPlace) : opValue,
+            OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
             _ => opValue
         };
     }
 
-    private string ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
+    private object ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
     {
         return Helper.ResolveOperatorValue(operand, Arguments);
     }

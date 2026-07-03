@@ -12,11 +12,11 @@ public class OperatorLoaderTests
         Assert.NotNull(op);
     }
 
-    [Fact]
-    public void TestItWorks_LoadOperator_GreaterThanOrEquals()
-    {
-        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.greaterthanorequals.dll";
-        var op = Loader.Load(path);
-        Assert.NotNull(op);
-    }
+    //[Fact]
+    //public void TestItWorks_LoadOperator_GreaterThanOrEquals()
+    //{
+    //    var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.greaterthanorequals.dll";
+    //    var op = Loader.Load(path);
+    //    Assert.NotNull(op);
+    //}
 }

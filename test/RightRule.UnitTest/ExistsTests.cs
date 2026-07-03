@@ -1,0 +1,232 @@
+﻿using RightRule.Rules;
+
+namespace RightRuleTests;
+
+public class ExistsTests
+{
+    private readonly Dictionary<string, object> _Data;
+
+    public ExistsTests()
+    {
+        // Data
+        _Data = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "boolvalue", true },
+            { "bools", new List<bool>() { true, false } },
+            { "intvalue", 100 },
+            { "ints", new List<int>() { 100, 200 } },
+            { "floatvalue", 100.01 },
+            { "floats", new List<double>() { 100.01, 200.02 } },
+            { "stringvalue", "Hello World" },
+            { "strings", new List<string>() { "Hello World", "Goodbye World" } },
+            { "datevalue", new DateOnly(1970, 01, 01) },
+            { "dates", new List<DateOnly>() { new DateOnly(1970, 01, 01), new DateOnly(2000, 12, 31) } },
+            { "datetimevalue", new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30)) },
+            { "datetimes", new List<DateTime>() { new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30)), new DateTime(new DateOnly(2000, 12, 31), new TimeOnly(23, 59, 59)) } }
+        };
+    }
+
+    [Fact]
+    public void Exists_int_in_csv()
+    {
+        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        {
+            { "numbers", "1,2,3,100,4,5" }
+        };
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Int Value Rule",
+            Statement = @"intvalue in {numbers}",
+            Context = "Context",
+            Decision = "EXISTS",
+            Arguments = _Arguments
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_int_in()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Int Value Rule",
+            Statement = @"intvalue in ints",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_int_foundin()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Int Value Rule",
+            Statement = @"intvalue foundin ints",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_bool()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Bool Value Rule",
+            Statement = @"boolvalue exists bools",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_int()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Int Value Rule",
+            Statement = @"intvalue exists ints",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_float()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists Float Value Rule",
+            Statement = @"floatvalue exists floats",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_string()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists String Value Rule",
+            Statement = @"stringvalue exists strings",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_dateonly()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists DateOnly Value Rule",
+            Statement = @"datevalue exists dates",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_datetime()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists DateTime Value Rule",
+            Statement = @"datetimevalue exists datetimes",
+            Context = "Context",
+            Decision = "EXISTS"
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+}

@@ -34,7 +34,7 @@ internal class Helper
         return ResolveStatement(updatedInput, Arguments);
     }
 
-    internal static string ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
+    internal static object ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
     {
         char brace = '{';
         if (operand.Raw.Contains(brace))
@@ -44,13 +44,13 @@ internal class Helper
         return operand.Raw;
     }
 
-    private static string GetOperatorValue(string Op, Dictionary<string, object> Arguments)
+    private static object GetOperatorValue(string Op, Dictionary<string, object> Arguments)
     {
         var operatorName = GetOperatorName(Op);
 
         if (Arguments.TryGetValue(operatorName, out var value))
         {
-            return value.ToString() ?? string.Empty;
+            return value ?? string.Empty;
         }
         return string.Empty;
     }
