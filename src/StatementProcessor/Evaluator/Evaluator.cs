@@ -40,7 +40,7 @@ public sealed class Evaluator
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new Exception($"Unknown operator: {c.Operator}");
 
-        var left = ResolveIdentifier(data, c.LeftIdentifier);
+        var left = ResolveOperandValue(data, c.Left, arguments);
         var right = ResolveOperandValue(data, c.Right, arguments);
         return op.Process(left, right);
     }

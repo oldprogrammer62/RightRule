@@ -21,13 +21,23 @@ public class Exists : IOperator
         }
         if (left == null || right == null)
         {
-            return true;
+            return false;
         }
 
-        // Check if right is a List
         if (right is IList list)
         {
             return list.Contains(left);
+        }
+
+        if (right is ArrayList array)
+        {
+            foreach (var item in array)
+            {
+                if (Equals(item, left))
+                {
+                    return true;
+                }
+            }
         }
 
         if (right is IEnumerable enumerable)
@@ -36,7 +46,7 @@ public class Exists : IOperator
             {
                 var sLeft = left.ToString();
                 var sItem = item.ToString();
-                if (Equals(item, left))
+                if (Equals(sItem, sLeft))
                 {
                     return true;
                 }

@@ -10,11 +10,14 @@
 <primary>    ::= "(" <expr> ")"
                | <condition>
 
-<condition>  ::= <variable> <operator> <value>
+<condition>  ::= <left_operand> <operator> <right_operand>
+
+<left_operand>    ::= <variable> | <value>
+<right_operand>   ::= <variable> | <value> | <placeholder>
 
 <operator>   ::= "contains", "equals", "notequals", etc
 
-<value>      ::= number, string, boolean, placeholder
+<value>      ::= number, string, boolean
 
 <placeholder> ::= "{" identifier "}"
 

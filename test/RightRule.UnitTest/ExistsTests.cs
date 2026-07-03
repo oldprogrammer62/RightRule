@@ -1,4 +1,5 @@
 ﻿using RightRule.Rules;
+using System.Collections;
 
 namespace RightRuleTests;
 
@@ -27,11 +28,11 @@ public class ExistsTests
     }
 
     [Fact]
-    public void Exists_int_in_csv()
+    public void Exists_int_in_Array()
     {
         Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
         {
-            { "numbers", "1,2,3,100,4,5" }
+            { "numbers", new ArrayList() { 1, 2, 3, 100, 4, 5 } }
         };
 
         // Rule
@@ -40,6 +41,35 @@ public class ExistsTests
             Number = 1,
             Name = "Exists Int Value Rule",
             Statement = @"intvalue in {numbers}",
+            Context = "Context",
+            Decision = "EXISTS",
+            Arguments = _Arguments
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Exists_string_in_Array()
+    {
+        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        {
+            { "strings", new ArrayList() { "aa", "bb", "cc", "dd" } },
+            { "dd_string", "dd" }
+        };
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Exists String Value Rule",
+            Statement = @"""dd"" in {strings}",
             Context = "Context",
             Decision = "EXISTS",
             Arguments = _Arguments

@@ -66,11 +66,17 @@ public sealed class Parser
 
     private Node ParseCondition()
     {
-        if (_current.Type != TokenType.Identifier)
-            throw new Exception($"Expected identifier at pos {_current.Position}");
-
-        string leftIdent = _current.Value;
-        Eat(TokenType.Identifier);
+        // Left operand: allow Identifier or literal (String/Number/Boolean/PlaceHolder)
+        Operand left = _current.Type switch
+        {
+            TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
+            TokenType.String => new Operand(OperandKind.String, _current.Value),
+            TokenType.Number => new Operand(OperandKind.Number, _current.Value),
+            TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
+            TokenType.PlaceHolder => new Operand(OperandKind.Placeholder, _current.Value),
+            _ => throw new Exception($"Expected left-hand identifier or literal at pos {_current.Position}")
+        };
+        Eat(_current.Type);
 
         if (_current.Type != TokenType.Operator)
             throw new Exception($"Expected operator at pos {_current.Position}");
@@ -90,7 +96,7 @@ public sealed class Parser
 
         return new ConditionNode
         {
-            LeftIdentifier = leftIdent,
+            Left = left,
             Operator = op,
             Right = rhs
         };
