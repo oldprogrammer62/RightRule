@@ -41,6 +41,29 @@ public class LessThanTests
     }
 
     [Fact]
+    public void LessThan_Int_And_Decimal()
+    {
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Int Value Rule",
+            Statement = @"intvalue lessthan 1000.00",
+            Context = "Context",
+            Decision = "LESSTHAN",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
     public void NotLessThan()
     {
         // Rule

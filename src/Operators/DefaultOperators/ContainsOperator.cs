@@ -17,11 +17,16 @@ public sealed class ContainsOperator : IOperator
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;
         var rstr = right.ToString() ?? string.Empty;
-        return lstr.Contains(rstr, StringComparison.OrdinalIgnoreCase);
+        return Contains(lstr, rstr);
     }
 
     public void Dispose()
     {
         // Nothing to dispose
+    }
+
+    private static bool Contains(string left, string right)
+    {
+        return left.Contains(right, StringComparison.OrdinalIgnoreCase);
     }
 }

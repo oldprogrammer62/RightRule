@@ -43,6 +43,28 @@ public class EqualsTests
     }
 
     [Fact]
+    public void Equals_Int_And_Decimal()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Equals Int Value Rule",
+            Statement = @"intvalue equals 100.00",
+            Context = "Context",
+            Decision = "EQUALS",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("Test", _Data);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
     public void Equals_Int()
     {
         // Rule
