@@ -1,8 +1,8 @@
 ﻿using RightRule.System.Common;
 
-namespace Operator.doesnotcontain;
+namespace RightRule.Operators.DefaultOperators;
 
-public sealed class DoesNotContain : IOperator
+public sealed class DoesNotContainOperator : IOperator
 {
     public List<string> Identifiers => ["doesnotcontain", "notc", "notni"];
 

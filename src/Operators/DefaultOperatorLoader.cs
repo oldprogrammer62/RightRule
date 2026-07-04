@@ -12,6 +12,7 @@ internal class DefaultOperatorLoader
             new EqualsOperator(),
             new NotEqualsOperator(),
             new ContainsOperator(),
+            new DoesNotContainOperator(),
             new LessThanOperator(),
             new GreaterThanOrEqualsOperator()
         };

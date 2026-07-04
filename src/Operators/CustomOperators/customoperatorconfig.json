@@ -1,10 +1,6 @@
 {
   "operators": [
     {
-      "name": "DoesNotContain",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.doesnotcontain.dll"
-    },
-    {
       "name": "Exists",
       "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll"
     }
