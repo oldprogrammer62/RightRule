@@ -9,7 +9,7 @@ public class SyntaxCheckTests
     public void ValidStatement_ReturnsValid()
     {
         var rr = new RightRule.RightRule();
-        var result = rr.CheckStatement("name equals \"John\" AND numberoforders equals 10");
+        var result = rr.CheckStatement("name equals \"John\" and numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.Error);

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace RightRule.StatementProcessor;
 
@@ -67,12 +69,12 @@ public sealed class Tokenizer
 
             var value = sb.ToString();
 
-            // Logical keywords
-            if (value.Equals("AND", StringComparison.OrdinalIgnoreCase))
+            // Logical keywords - case sensitive: valid only as lower-case
+            if (value == "and")
                 return new Token(TokenType.And, value, start);
-            if (value.Equals("OR", StringComparison.OrdinalIgnoreCase))
+            if (value == "or")
                 return new Token(TokenType.Or, value, start);
-            if (value.Equals("NOT", StringComparison.OrdinalIgnoreCase))
+            if (value == "not")
                 return new Token(TokenType.Not, value, start);
 
             // boolean

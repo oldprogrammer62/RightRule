@@ -50,6 +50,33 @@ internal sealed class StatementSyntaxChecker
                 var tok = scanner.NextToken();
                 if (tok.Type == TokenType.End) break;
 
+                // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
+                // After tokenizer change, uppercase/mixed-case logical words will be tokenized as Identifier.
+                if (tok.Type == TokenType.Identifier)
+                {
+                    var v = tok.Value ?? string.Empty;
+                    if (string.Equals(v, "AND", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(v, "OR", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(v, "NOT", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // if not exactly lower-case, report diagnostic
+                        if (v != v.ToLowerInvariant())
+                        {
+                            var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
+                            diagnostics.Add(new Diagnostic
+                            {
+                                Severity = DiagnosticSeverity.Error,
+                                Message = $"Logical operator '{v}' must be lowercase ('and', 'or', 'not').",
+                                Position = tok.Position,
+                                Length = tok.Value?.Length ?? 1,
+                                Snippet = s,
+                                Suggestion = $"Replace '{v}' with '{v.ToLowerInvariant()}'.",
+                                Code = "LOGIC_OPERATOR_CASE"
+                            });
+                        }
+                    }
+                }
+
                 if (tok.Type == TokenType.LParen)
                 {
                     parenBalance++;
