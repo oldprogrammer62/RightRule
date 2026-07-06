@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-
-namespace RightRule.StatementProcessor;
+namespace RightRule.SyntaxChecker;
 
 public sealed class CheckStatementResult
 {

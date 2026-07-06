@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using RightRule.Operators;
+using RightRule.StatementProcessor;
+using System.Text.RegularExpressions;
 
-namespace RightRule.StatementProcessor;
+namespace RightRule.SyntaxChecker;
 
 internal sealed class StatementSyntaxChecker
 {

@@ -1,4 +1,5 @@
-﻿using RightRule.Rules;
+﻿using RightRule.Extensions;
+using RightRule.Rules;
 using System.Collections;
 
 namespace RightRuleTests;
