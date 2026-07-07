@@ -1,7 +1,7 @@
 ﻿using RightRule.System.Common;
 using System.Reflection;
 
-namespace RightRule.Operator.Loader;
+namespace RightRule.OperatorLoader;
 
 public class Loader
 {

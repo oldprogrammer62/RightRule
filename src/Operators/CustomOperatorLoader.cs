@@ -1,6 +1,6 @@
 ﻿using RightRule.HelperFunctions;
 using RightRule.Models;
-using RightRule.Operator.Loader;
+using RightRule.OperatorLoader;
 using RightRule.System.Common;
 
 namespace RightRule.Operators;

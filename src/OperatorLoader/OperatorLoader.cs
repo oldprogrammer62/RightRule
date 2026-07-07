@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace RightRule.Operator.Loader;
+namespace RightRule.OperatorLoader;
 
 public class OperatorLoader : AssemblyLoadContext
 {

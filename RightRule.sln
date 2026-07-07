@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightRule", "src\RightRule.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightRule.System.Common", "rightrule.system.common\RightRule.System.Common.csproj", "{D67E1682-7816-796B-9A7D-44D6C7F730F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightRule.Operator.Loader", "rightrule.operator.loader\RightRule.Operator.Loader.csproj", "{CF3BCB34-CFD8-2C5E-4412-2D6C54C05F83}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightRule_Demo", "RightRule_Demo\RightRule_Demo.csproj", "{DC8B879C-D43C-4428-B036-AE10FAA4FC8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator.exists", "operator.exists\Operator.exists.csproj", "{650E78AB-4433-8305-813C-AAD0AE8CCC09}"
@@ -35,10 +33,6 @@ Global
 		{D67E1682-7816-796B-9A7D-44D6C7F730F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D67E1682-7816-796B-9A7D-44D6C7F730F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D67E1682-7816-796B-9A7D-44D6C7F730F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF3BCB34-CFD8-2C5E-4412-2D6C54C05F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF3BCB34-CFD8-2C5E-4412-2D6C54C05F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF3BCB34-CFD8-2C5E-4412-2D6C54C05F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF3BCB34-CFD8-2C5E-4412-2D6C54C05F83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC8B879C-D43C-4428-B036-AE10FAA4FC8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC8B879C-D43C-4428-B036-AE10FAA4FC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC8B879C-D43C-4428-B036-AE10FAA4FC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
