@@ -10,31 +10,46 @@ internal class RuleRegistrationService
         foreach (var rule in rules)
         {
             var registeredRule = ParseRule(rule, OperatorNames);
-            parsedRules.Add(registeredRule);
+            if (registeredRule != null)
+            {
+                parsedRules.Add(registeredRule);
+            }
         }
         return parsedRules;
     }
 
-    internal static ParsedRule ParseRule(RuleDefinition rule, HashSet<string> OperatorNames)
+    internal static ParsedRule? ParseRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames);
         return parsedRule;
     }
 
-    private static ParsedRule CreateRule(RuleDefinition rule, HashSet<string> OperatorNames)
+    private static ParsedRule? CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames)
     {
-        var statement = rule.Statement;
+        var statement = ruleDefinition.Statement;
 
-        Node node = GenerateTree(statement, OperatorNames);
-        ParsedRule pRule = new ParsedRule(rule, node);
-        return pRule;
+        Node? node = GenerateTree(statement, OperatorNames);
+        if (node == null)
+        {
+            return default;
+        }
+        ParsedRule rule = new ParsedRule(ruleDefinition, node);
+        return rule;
     }
 
-    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames)
+    private static Node? GenerateTree(string Statement, HashSet<string> OperatorNames)
     {
         var tokenizer = new Tokenizer(Statement, OperatorNames);
         var parser = new Parser(tokenizer);
-        Node node = parser.Parse();
-        return node;
+
+        try
+        {
+            Node node = parser.Parse();
+            return node;
+        }
+        catch
+        {
+            return default;
+        }
     }
 }

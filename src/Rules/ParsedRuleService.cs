@@ -44,4 +44,9 @@ internal class ParsedRuleService
         }
         return ParsedRules.RemoveRules(Context);
     }
+
+    internal bool DeRegisterRules()
+    {
+        return ParsedRules.RemoveRules();
+    }
 }

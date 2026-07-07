@@ -78,7 +78,7 @@ public class ComplexStatementTests
         };
 
         // Arrange
-        var statement = "A equals E and A = 1";
+        var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5)";
         var rightRule = new RightRule.RightRule();
 
         // Rule

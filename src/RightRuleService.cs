@@ -67,6 +67,11 @@ internal class RightRuleService
         return _rulesService.DeRegisterRules(Context);
     }
 
+    internal bool DeRegisterRules()
+    {
+        return _rulesService.DeRegisterRules();
+    }
+
     internal RegisteredDatasets GetDataSets()
     {
         return _registeredData;

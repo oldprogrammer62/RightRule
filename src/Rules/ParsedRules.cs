@@ -47,4 +47,17 @@ public class ParsedRules
             return false;
         }
     }
+
+    internal bool RemoveRules()
+    {
+        try
+        {
+            _rules.Clear();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }

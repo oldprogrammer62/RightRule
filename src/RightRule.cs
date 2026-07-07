@@ -45,6 +45,11 @@ public sealed class RightRule
         return _rightRuleService.DeRegisterRules(Context);
     }
 
+    public bool DeRegisterRules()
+    {
+        return _rightRuleService.DeRegisterRules();
+    }
+
     public RegisteredDatasets GetRegisteredDatasets()
     {
         return _rightRuleService.GetDataSets();
