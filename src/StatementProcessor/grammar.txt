@@ -1,10 +1,10 @@
 ﻿<expr>       ::= <or>
 
-<or>         ::= <and> ( "OR" <and> )*
+<or>         ::= <and> ( "or" <and> )*
 
-<and>        ::= <not> ( "AND" <not> )*
+<and>        ::= <not> ( "and" <not> )*
 
-<not>        ::= "NOT" <not> 
+<not>        ::= "not" <not> 
                | <primary>
 
 <primary>    ::= "(" <expr> ")"
@@ -22,7 +22,7 @@
 // operator as evaluation command is case sensitive
 
 <operator>   ::= "and", "or", "not"
-// operator as logical command is case sensitive
+// operator as logical command is lower case sensitive
 
 <placeholder> ::= "{" identifier "}"
 // identifier is case sensitive - discovery in arguments
