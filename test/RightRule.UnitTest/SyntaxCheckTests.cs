@@ -1,10 +1,27 @@
 using RightRule.Extensions;
+using RightRule.Rules;
 using RightRule.SyntaxChecker;
+using RightRule.System.Common.Exceptions;
 
 namespace RightRuleTests;
 
 public class SyntaxCheckTests
 {
+    private readonly Dictionary<string, object> _Data;
+
+    public SyntaxCheckTests()
+    {
+        // Data
+        _Data = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "A", 1 },
+            { "B", 2 },
+            { "C", 3 },
+            { "D", 4 },
+            { "E", 1 }
+        };
+    }
+
     [Fact]
     public void ValidStatement_ReturnsValid()
     {
@@ -62,5 +79,37 @@ public class SyntaxCheckTests
         Assert.True(diag.Position >= 0);
         Assert.True(diag.Length >= 0);
         Assert.NotNull(diag.Snippet);
+    }
+
+    [Fact]
+    public void SyntaxError_Exception()
+    {
+        var _arguments = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "X", 1 },
+        };
+
+        // Arrange
+        var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5";
+        var rightRule = new RightRule.RightRule();
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Rule 1",
+            Statement = statement,
+            Context = "Context",
+            Decision = "EQUALS",
+            Arguments = _arguments,
+        };
+
+        // Register the data
+        rightRule.RegisterData("TestDataset", _Data);
+        Action test = () => rightRule.RegisterRule(rule);
+        var exception = Record.Exception(test);
+        
+        Assert.NotNull(exception);
+        Assert.IsType<SyntaxErrorException>(exception);
     }
 }

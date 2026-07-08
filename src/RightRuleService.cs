@@ -2,6 +2,8 @@
 using RightRule.Rules;
 using RightRule.Operators;
 using RightRule.System.Common;
+using RightRule.System.Common.Exceptions;
+using RightRule.HelperFunctions;
 
 namespace RightRule;
 
@@ -9,24 +11,23 @@ internal class RightRuleService
 {
     private readonly OperatorsService _operatorsService;
     private readonly ParsedRuleService _rulesService;
-
     private readonly RegisteredDatasets _registeredData;
+
+    private bool _silentErrors = false;
+    public bool SilentErrors => _silentErrors;
 
     public RightRuleService()
     {
         _operatorsService = new OperatorsService();
         _rulesService = new ParsedRuleService();
-
         _registeredData = new RegisteredDatasets();
+
+        _silentErrors = ConfigurationHelper.GetSetting("SilentEvaluatorExceptions")?.ToLower() == "true";
     }
 
     internal bool UnloadOperator(string OperatorName)
     {
-        ArgumentNullException.ThrowIfNull(OperatorName);
-        if (string.IsNullOrWhiteSpace(OperatorName))
-        {
-            throw new ArgumentException("Operator name cannot be null or empty.", nameof(OperatorName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(OperatorName, nameof(OperatorName));
         return _operatorsService.DeRegisterOperator(OperatorName);
     }
 
@@ -40,6 +41,12 @@ internal class RightRuleService
         return _rulesService.GetRules(Context);
     }
 
+    /// <summary>
+    /// Registers a collection of rules with the service, parsing them and making them available for application.
+    /// </summary>
+    /// <param name="rules">The rule definitions to register.</param>
+    /// <returns>The parsed rules.</returns>
+    /// <exception cref="SyntaxErrorException">Thrown when any of the rules contain a syntax error.</exception>
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules);
@@ -48,6 +55,12 @@ internal class RightRuleService
         return _rulesService.RegisterRules(rules, operatorNames);
     }
 
+    /// <summary>
+    /// Registers a single rule with the service, parsing it and making it available for application.
+    /// </summary>
+    /// <param name="rule">The rule definition to register.</param>
+    /// <returns>The parsed rule.</returns>
+    /// <exception cref="SyntaxErrorException">Thrown when the rule contains a syntax error.</exception>
     internal ParsedRule RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule);
@@ -58,12 +71,7 @@ internal class RightRuleService
 
     internal bool DeRegisterRules(string Context)
     {
-        ArgumentNullException.ThrowIfNull(Context);
-        if (string.IsNullOrWhiteSpace(Context))
-        {
-            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
-        }
-
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rulesService.DeRegisterRules(Context);
     }
 
@@ -90,12 +98,8 @@ internal class RightRuleService
 
     internal bool RegisterData<T>(string DatasetName, T Data)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         ArgumentNullException.ThrowIfNull(Data);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
 
         var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
         return _registeredData.AddDataset(data);
@@ -145,10 +149,7 @@ internal class RightRuleService
 
     private AppliedRule ApplySingleRule(string Context)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return AppliedRule.DefaultRule("Error: Context cannot be null or empty.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         if (_registeredData == null || _registeredData.Count == 0)
         {
             return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
@@ -157,15 +158,12 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredData, _rulesService.ParsedRules, _operatorsService.OperatorAliases);
+        return RuleApplicationService.ApplyRule(Context, _registeredData, _rulesService.ParsedRules, _operatorsService.OperatorAliases, _silentErrors);
     }
 
     private AppliedRule ApplySingleRule(string Context, string DatasetName)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return AppliedRule.DefaultRule("Error: Context cannot be null or empty.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         if (_registeredData == null || _registeredData.Count == 0)
         {
             return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
@@ -217,10 +215,7 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, RulesToReturn rulesToReturn)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Error: Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         if (_registeredData == null || _registeredData.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
@@ -234,10 +229,7 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, RulesToReturn rulesToReturn)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Error: Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         if (_registeredData == null || _registeredData.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];

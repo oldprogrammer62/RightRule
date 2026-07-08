@@ -1,4 +1,5 @@
 ﻿using RightRule.StatementProcessor;
+using RightRule.System.Common.Exceptions;
 
 namespace RightRule.Rules;
 
@@ -18,26 +19,22 @@ internal class RuleRegistrationService
         return parsedRules;
     }
 
-    internal static ParsedRule? ParseRule(RuleDefinition rule, HashSet<string> OperatorNames)
+    internal static ParsedRule ParseRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames);
         return parsedRule;
     }
 
-    private static ParsedRule? CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames)
+    private static ParsedRule CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames)
     {
         var statement = ruleDefinition.Statement;
 
-        Node? node = GenerateTree(statement, OperatorNames);
-        if (node == null)
-        {
-            return default;
-        }
+        Node node = GenerateTree(statement, OperatorNames);
         ParsedRule rule = new ParsedRule(ruleDefinition, node);
         return rule;
     }
 
-    private static Node? GenerateTree(string Statement, HashSet<string> OperatorNames)
+    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames)
     {
         var tokenizer = new Tokenizer(Statement, OperatorNames);
         var parser = new Parser(tokenizer);
@@ -47,9 +44,9 @@ internal class RuleRegistrationService
             Node node = parser.Parse();
             return node;
         }
-        catch
+        catch (Exception ex)
         {
-            return default;
+            throw new SyntaxErrorException(Statement, ex.Message, ex);
         }
     }
 }

@@ -18,7 +18,7 @@ public class DataConverterTests
     public void ListConverterViaDataConverterTest()
     {
         var data = new List<string> { "apple", "banana", "cherry" };
-        var dict = RightRule.DataConverters.DataConverter.ConvertToDictionary<List<string>>(data);
+        var dict = RightRule.DataConverters.DataConverter.ConvertToDictionary<List<string>>("fruits", data);
         Assert.Equal(3, dict.Count);
         Assert.Equal("apple", dict["0"]);
         Assert.Equal("banana", dict["1"]);
@@ -29,10 +29,21 @@ public class DataConverterTests
     public void ObjectConverterViaDataConverterTest()
     {
         var data = new TestObject { Fruit = "Apple", Colour = "green" };
-        var dict = RightRule.DataConverters.DataConverter.ConvertToDictionary<TestObject>(data);
+        var dict = RightRule.DataConverters.DataConverter.ConvertToDictionary<TestObject>("fruits", data);
         Assert.Equal(2, dict.Count);
         Assert.Equal("Apple", dict["Fruit"]);
         Assert.Equal("green", dict["Colour"]);
+    }
+
+    [Fact]
+    public void InvalidDataConverterTest_ThrowsConvertDataException()
+    {
+        var invalidData = "This is not a list";
+
+        var exception = Assert.Throws<RightRule.System.Common.Exceptions.ConvertDataException>(() =>
+            RightRule.DataConverters.DataConverter.ConvertToDictionary<string>("fruits", invalidData));
+
+        Assert.Contains("Error converting data to dictionary", exception.Message);
     }
 }
 

@@ -29,7 +29,6 @@ internal class ParsedRuleService
     internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rule);
-
         var parsedRule = RuleRegistrationService.ParseRule(rule, OperatorNames);
         ParsedRules.AddRule(parsedRule);
         return parsedRule;
@@ -37,11 +36,7 @@ internal class ParsedRuleService
 
     internal bool DeRegisterRules(string Context)
     {
-        ArgumentNullException.ThrowIfNull(Context);
-        if (string.IsNullOrWhiteSpace(Context))
-        {
-            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return ParsedRules.RemoveRules(Context);
     }
 

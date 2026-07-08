@@ -2,18 +2,32 @@
 
 internal class DataRegistrationService
 {
-    internal static RegisteredDataset CreateRegisteredDataObject(string datasetName, Dictionary<string, object> data)
+    /// <summary>
+    /// Creates a registered dataset object with the specified name and data. The data is provided as a dictionary of key-value pairs.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="Data">The data to register.</param>
+    /// <returns>The registered dataset.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    internal static RegisteredDataset CreateRegisteredDataObject(string DatasetName, Dictionary<string, object> Data)
     {
-        if (string.IsNullOrWhiteSpace(datasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(datasetName));
-        }
-        return new RegisteredDataset(datasetName, data);
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data);
+        return new RegisteredDataset(DatasetName, Data);
     }
 
-    internal static RegisteredDataset CreateRegisteredDataObject<T>(string datasetName, T data)
+    /// <summary>
+    /// Registers a dataset with the specified name and data of type T. The data is converted to a dictionary format before registration.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to register.</typeparam>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="Data">The data to register.</param>
+    /// <returns>The registered dataset.</returns>
+    internal static RegisteredDataset CreateRegisteredDataObject<T>(string DatasetName, T Data)
     {
-        var convertedData = DataConverters.DataConverter.ConvertToDictionary(data);
-        return new RegisteredDataset(datasetName, convertedData);
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data);
+        var convertedData = DataConverters.DataConverter.ConvertToDictionary(DatasetName, Data);
+        return new RegisteredDataset(DatasetName, convertedData);
     }
 }

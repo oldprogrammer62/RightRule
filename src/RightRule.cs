@@ -1,12 +1,15 @@
 ﻿using RightRule.Data;
 using RightRule.Rules;
 using RightRule.System.Common;
+using RightRule.System.Common.Exceptions;
 
 namespace RightRule;
 
 public sealed class RightRule
 {
     private readonly RightRuleService _rightRuleService;
+
+    public bool SilentErrors => _rightRuleService.SilentErrors;
 
     public RightRule()
     {
@@ -20,31 +23,63 @@ public sealed class RightRule
 
     public List<ParsedRule> GetRules(string Context)
     {
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rightRuleService.GetRules(Context);
     }
 
+    /// <summary>
+    /// Registers a set of rules with the RightRule engine.
+    /// </summary>
+    /// <param name="rules">The rule definitions to register.</param>
+    /// <returns>The parsed rules.</returns>
+    /// <exception cref="SyntaxErrorException">Thrown when any of the rules contain a syntax error.</exception>
     public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules);
-        return _rightRuleService.RegisterRules(rules);
+        try
+        {
+            return _rightRuleService.RegisterRules(rules);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
+    /// <summary>
+    /// Registers a single rule with the RightRule engine.
+    /// </summary>
+    /// <param name="rule">The rule definition to register.</param>
+    /// <returns>The parsed rule.</returns>
+    /// <exception cref="SyntaxErrorException">Thrown when the rule contains a syntax error.</exception>
     public ParsedRule RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule);
-        return _rightRuleService.RegisterRule(rule);
+        try
+        {
+            return _rightRuleService.RegisterRule(rule);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
+    /// <summary>
+    /// Deregisters all rules associated with the specified context from the RightRule engine.
+    /// </summary>
+    /// <param name="Context">The context for which to deregister rules.</param>
+    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
     public bool DeRegisterRules(string Context)
     {
-        ArgumentNullException.ThrowIfNull(Context);
-        if (string.IsNullOrWhiteSpace(Context))
-        {
-            throw new ArgumentException("Context cannot be null or empty.", nameof(Context));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rightRuleService.DeRegisterRules(Context);
     }
 
+    /// <summary>
+    /// Deregisters all rules from the RightRule engine, regardless of context.
+    /// </summary>
+    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
     public bool DeRegisterRules()
     {
         return _rightRuleService.DeRegisterRules();
@@ -57,53 +92,62 @@ public sealed class RightRule
 
     public RegisteredDataset? GetRegisteredDataset(string DatasetName)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.GetDataSet(DatasetName);
     }
 
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <typeparam name="T">The type of the data to register.</typeparam>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="Data">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
+    /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
     public bool RegisterData<T>(string DatasetName, T Data)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
         ArgumentNullException.ThrowIfNull(Data);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        try { 
+            return _rightRuleService.RegisterData<T>(DatasetName, Data);
         }
-        return _rightRuleService.RegisterData(DatasetName, Data);
+        catch
+        {
+            throw;
+        }
     }
 
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="Data">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
+    /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
     public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
         ArgumentNullException.ThrowIfNull(Data);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        try { 
+            return _rightRuleService.RegisterData(DatasetName, Data);
         }
-        return _rightRuleService.RegisterData(DatasetName, Data);
+        catch
+        {
+            throw;
+        }
     }
 
     public void DeRegisterData(string DatasetName)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         _rightRuleService.DeRegisterData(DatasetName);
     }
 
     public bool UnloadOperator(string operatorName)
     {
-        ArgumentNullException.ThrowIfNull(operatorName);
-        if (string.IsNullOrWhiteSpace(operatorName))
-        {
-            throw new ArgumentException("Operator name cannot be null or empty.", nameof(operatorName));
-        }
+        ArgumentException.ThrowIfNullOrEmpty(operatorName, nameof(operatorName));
         return _rightRuleService.UnloadOperator(operatorName);
     }
 
@@ -118,10 +162,7 @@ public sealed class RightRule
     /// </returns>
     public AppliedRule ApplyRule(string Context)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rightRuleService.ApplyRule(Context);
     }
 
@@ -137,14 +178,8 @@ public sealed class RightRule
     /// </returns>
     public AppliedRule ApplyRule(string Context, string DatasetName)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
-        }
-        if (string.IsNullOrEmpty(DatasetName))
-        {
-            return AppliedRule.DefaultRule("Dataset name cannot be null or empty.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRule(Context, DatasetName);
     }
 
@@ -162,14 +197,8 @@ public sealed class RightRule
     /// </returns>
     public AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return AppliedRule.DefaultRule("Rule Context cannot be null or empty.");
-        }
-        if (string.IsNullOrEmpty(DatasetName))
-        {
-            return AppliedRule.DefaultRule("Dataset name cannot be null or empty.");
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRule<T>(Context, DatasetName, Data);
     }
 
@@ -184,10 +213,7 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rightRuleService.ApplyRules(Context);
     }
 
@@ -203,14 +229,8 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, string DatasetName)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
-        if (string.IsNullOrEmpty(DatasetName))
-        {
-            return [AppliedRule.DefaultRule("Dataset name cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRules(Context, DatasetName);
     }
 
@@ -226,10 +246,7 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         return _rightRuleService.ApplyRules(Context, rulesToReturn);
     }
 
@@ -246,10 +263,8 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRules(Context, DatasetName, Data);
     }
 
@@ -267,10 +282,8 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, RulesToReturn rulesToReturn)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRules(Context, DatasetName, rulesToReturn);
     }
 
@@ -289,10 +302,8 @@ public sealed class RightRule
     /// </returns>
     public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
     {
-        if (string.IsNullOrEmpty(Context))
-        {
-            return [AppliedRule.DefaultRule("Rule Context cannot be null or empty.")];
-        }
+        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         return _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
     }
 }

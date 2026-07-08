@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.Rules;
+using System.Reflection;
 
 namespace RightRule.StatementProcessor.Interpreter;
 
@@ -75,13 +76,29 @@ internal class ProcessFirstRule
             var result = evaluator.Evaluate(data, rule.Node, rule.Arguments);
             return new EvalResult(result, string.Empty);
         }
+        catch (KeyNotFoundException knf)
+        {
+            if (evaluator.SilentErrors)
+            {
+                return new EvalResult()
+                {
+                    Result = EvalResult.ResultType.ResultError,
+                    Message = knf.Message
+                };
+            }
+            throw;
+        }
         catch (Exception ex)
         {
-            return new EvalResult()
+            if (evaluator.SilentErrors)
             {
-                Result = EvalResult.ResultType.ResultError,
-                Message = ex.Message
-            };
+                return new EvalResult()
+                {
+                    Result = EvalResult.ResultType.ResultError,
+                    Message = ex.Message
+                };
+            }
+            throw;
         }
     }
 

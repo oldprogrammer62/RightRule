@@ -7,14 +7,14 @@ namespace RightRule.Rules;
 
 internal class RuleApplicationService
 {
-    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators)
+    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, bool SilentErrors)
     {
-        return ApplyRuleToData(Context, Data, parsedRules, Operators);
+        return ApplyRuleToData(Context, Data, parsedRules, Operators, SilentErrors);
     }
 
-    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators)
+    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Data, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, bool SilentErrors)
     {
-        var interpreter = new Interpreter(Data, Operators);
+        var interpreter = new Interpreter(Data, Operators, SilentErrors);
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRule(filteredRules);

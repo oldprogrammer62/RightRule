@@ -7,9 +7,13 @@ public sealed class Evaluator
 {
     private readonly Dictionary<string, IOperator> _operators;
 
-    public Evaluator(Dictionary<string, IOperator> Operators)
+    private readonly bool _silentErrors;
+    public bool SilentErrors => _silentErrors;
+
+    public Evaluator(Dictionary<string, IOperator> Operators, bool SilentErrors = false)
     {
         _operators = Operators ?? new Dictionary<string, IOperator> { };
+        _silentErrors = SilentErrors;
     }
 
     internal bool Evaluate(RegisteredDataset data, Node? node, Dictionary<string, object>? arguments) => node switch
@@ -38,7 +42,7 @@ public sealed class Evaluator
     private bool EvaluateCondition(RegisteredDataset data, ConditionNode c, Dictionary<string, object>? arguments)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
-            throw new Exception($"Unknown operator: {c.Operator}");
+            throw new KeyNotFoundException($"Unknown operator: {c.Operator}");
 
         var left = ResolveOperandValue(data, c.Left, arguments);
         var right = ResolveOperandValue(data, c.Right, arguments);
@@ -47,9 +51,11 @@ public sealed class Evaluator
 
     private object ResolveIdentifier(RegisteredDataset data, string name)
     {
-        if (data.Data.TryGetValue(name, out var value))
-            return value;
-        throw new KeyNotFoundException($"Unknown variable '{name}' in data.");
+        if (!data.Data.TryGetValue(name, out _))
+            throw new KeyNotFoundException($"Unknown variable '{name}' in Registered Dataset {data.Name}.");
+
+        data.Data.TryGetValue(name, out var result);
+        return result!;
     }
 
     private object ResolveOperandValue(RegisteredDataset data, Operand op, Dictionary<string, object>? arguments)
