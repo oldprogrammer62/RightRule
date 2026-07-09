@@ -8,13 +8,13 @@ public sealed class Tokenizer
     private int _pos;
     private readonly HashSet<string> _operators; // case-insensitive
 
-    public Tokenizer(string input, HashSet<string> operatorNames)
+    internal Tokenizer(string input, HashSet<string> operatorNames)
     {
         _input = input ?? string.Empty;
         _operators = operatorNames;
     }
 
-    public Token NextToken()
+    internal Token NextToken()
     {
         SkipWhitespace();
 

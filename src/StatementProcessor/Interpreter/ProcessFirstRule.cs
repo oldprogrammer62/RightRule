@@ -20,6 +20,12 @@ internal class ProcessFirstRule
                 {
                     continue;
                 }
+                if (dataset.StaticData) // Do not process rules against static datasets
+                {
+                    // ISSUE
+                    // What happens if NO dataset is found that is not static?
+                    continue;
+                }
 
                 result = Evaluate(evaluator, rule, registeredDatasets, dataset);
                 if (result.Result.Equals(EvalResult.ResultType.ResultTrue))

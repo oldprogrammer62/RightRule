@@ -11,18 +11,30 @@ namespace RightRule_Demo.RuleManager
             RightRule.RightRule rr = new RightRule.RightRule();
 
             string Context = "Demo";
-            var rules = LoadRules(Context, HighValue);
+            var rules = LoadRules(Context);
 
             rr.RegisterRules(rules);
-            rr.RegisterData(Context, Data);
+            rr.RegisterData(Context, Data, StaticData: false);
+
+            var hvData = MakeHvData(HighValue);
+            rr.RegisterData("hv", hvData, StaticData: true);
 
             var appliedRules = rr.ApplyRules(Context, rulesToReturn);
             return appliedRules;
         }
 
-        private static List<RuleDefinition> LoadRules(string Context, object HighValue)
+        private static List<RuleDefinition> LoadRules(string Context)
         {
-            return RuleLoader.RuleLoader.Load(Context, HighValue);
+            return RuleLoader.RuleLoader.Load(Context);
+        }
+
+        private static Dictionary<string, object> MakeHvData(decimal HighValue)
+        {
+            var hvData = new Dictionary<string, object>
+            {
+                { "value", HighValue }
+            };
+            return hvData;
         }
     }
 }

@@ -26,7 +26,6 @@ public abstract class Rule
     /// <summary>
     /// The statement of the rule is a string that can be evaluated to determine if the rule is true or false.
     /// It must conform to the RightRule statement syntax.
-    /// 
     /// </summary>
     public required string Statement { get; init; }
 

@@ -5,7 +5,7 @@ public sealed class Parser
     private readonly Tokenizer _tokenizer;
     private Token _current;
 
-    public Parser(Tokenizer tokenizer)
+    internal Parser(Tokenizer tokenizer)
     {
         _tokenizer = tokenizer;
         _current = _tokenizer.NextToken();

@@ -29,7 +29,7 @@ public sealed class ConditionNode : Node
 
 public sealed class BinaryNode : Node
 {
-    public string LogicOp { get; set; } = ""; // "AND" | "OR"
+    public string LogicOp { get; set; } = ""; // "and" | "or"
     public Node Left { get; set; } = default!;
     public Node Right { get; set; } = default!;
 }

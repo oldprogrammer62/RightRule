@@ -20,6 +20,12 @@ internal class ProcessAllRules
                 {
                     continue;
                 }
+                if (dataset.StaticData) // Do not process rules against static datasets
+                {
+                    // ISSUE
+                    // What happens if NO dataset is found that is not static?
+                    continue;
+                }
 
                 var result = Evaluate(evaluator, rule, registeredDatasets, dataset);
                 var appliedRule = CreateAppliedRule(result, rule, dataset);

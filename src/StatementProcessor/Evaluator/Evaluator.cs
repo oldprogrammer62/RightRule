@@ -8,9 +8,9 @@ public sealed class Evaluator
     private readonly Dictionary<string, IOperator> _operators;
 
     private readonly bool _silentErrors;
-    public bool SilentErrors => _silentErrors;
+    internal bool SilentErrors => _silentErrors;
 
-    public Evaluator(Dictionary<string, IOperator> Operators, bool SilentErrors = false)
+    internal Evaluator(Dictionary<string, IOperator> Operators, bool SilentErrors = false)
     {
         _operators = Operators ?? new Dictionary<string, IOperator> { };
         _silentErrors = SilentErrors;
@@ -26,12 +26,12 @@ public sealed class Evaluator
 
     private bool EvaluateBinary(RegisteredDatasets datasets, RegisteredDataset dataset, BinaryNode b)
     {
-        if (b.LogicOp == "AND")
+        if (b.LogicOp.ToLower() == "and")
         {
             var left = Evaluate(datasets, dataset, b.Left);
             return left && Evaluate(datasets, dataset, b.Right);
         }
-        if (b.LogicOp == "OR")
+        if (b.LogicOp.ToLower() == "or")
         {
             var left = Evaluate(datasets, dataset, b.Left);
             return left || Evaluate(datasets, dataset, b.Right);
@@ -46,19 +46,20 @@ public sealed class Evaluator
 
         var left = ResolveOperandValue(datasets, dataset, c.Left);
         var right = ResolveOperandValue(datasets, dataset, c.Right);
-        return op.Process(left, right);
+        return op.Process(left!, right!);
     }
 
-    private object ResolveIdentifier(RegisteredDataset dataset, string name)
+    private static object? ResolveIdentifier(RegisteredDataset dataset, string name)
     {
         if (!dataset.Data.TryGetValue(name, out _))
-            throw new KeyNotFoundException($"Unknown variable '{name}' in Registered Dataset {dataset.Name}.");
-
+        {
+            return null;
+        }
         dataset.Data.TryGetValue(name, out var result);
         return result!;
     }
 
-    private object ResolveIdentifierWithDot(RegisteredDatasets datasets, string name)
+    private static object ResolveIdentifierWithDot(RegisteredDatasets datasets, string name)
     {
         var split = name.Split('.');
         var datasetname = split[0];
@@ -78,12 +79,12 @@ public sealed class Evaluator
         return result!;
     }
 
-    private object ResolveOperandValue(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
+    private object? ResolveOperandValue(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
     {
         return ResolveOperand(datasets, dataset, op);
     }
 
-    private object ResolveOperand(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
+    private static object? ResolveOperand(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
     {
         object opValue = ResolveOperatorValue(op);
 
@@ -98,7 +99,7 @@ public sealed class Evaluator
         };
     }
 
-    private static object ResolveOperatorValue(Operand operand)
+    private static string ResolveOperatorValue(Operand operand)
     {
         return operand.Raw;
     }

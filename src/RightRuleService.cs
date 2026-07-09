@@ -96,16 +96,16 @@ internal class RightRuleService
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
-    internal bool RegisterData<T>(string DatasetName, T Data)
+    internal bool RegisterData<T>(string DatasetName, T Data, bool StaticData)
     {
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         ArgumentNullException.ThrowIfNull(Data);
 
-        var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
+        var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data, StaticData);
         return _registeredDatasets.AddDataset(data);
     }
 
-    internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
+    internal bool RegisterData(string DatasetName, Dictionary<string, object> Data, bool StaticData)
     {
         ArgumentNullException.ThrowIfNull(DatasetName);
         ArgumentNullException.ThrowIfNull(Data);
@@ -113,8 +113,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-
-        var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data);
+        var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data, StaticData);
         return _registeredDatasets.AddDataset(data);
     }
 
@@ -125,7 +124,6 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-
         _registeredDatasets.RemoveDataset(DatasetName);
     }
 
@@ -141,7 +139,7 @@ internal class RightRuleService
 
     internal AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
-        RegisterData<T>(DatasetName, Data);
+        RegisterData<T>(DatasetName, Data, StaticData: false);
         AppliedRule result = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
         return result;
@@ -207,7 +205,7 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
     {
-        RegisterData(DatasetName, Data);
+        RegisterData(DatasetName, Data, StaticData: false);
         List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
         DeRegisterData(DatasetName);
         return result;
