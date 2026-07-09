@@ -15,14 +15,14 @@ internal class ProcessAllRules
         {
             for (var i = 0; i < registeredDatasets.Count; i++)
             {
-                var data = registeredDatasets[i];
-                if (data == null)
+                var dataset = registeredDatasets[i];
+                if (dataset == null)
                 {
                     continue;
                 }
 
-                var result = Evaluate(evaluator, rule, data);
-                var appliedRule = CreateAppliedRule(result, rule, data);
+                var result = Evaluate(evaluator, rule, registeredDatasets, dataset);
+                var appliedRule = CreateAppliedRule(result, rule, dataset);
                 appliedRules.Add(appliedRule);
             }
         }
@@ -42,18 +42,18 @@ internal class ProcessAllRules
 
         foreach (var rule in rules)
         {
-            var result = Evaluate(evaluator, rule, data);
+            var result = Evaluate(evaluator, rule, registeredDatasets, data);
             var appliedRule = CreateAppliedRule(result, rule, data);
             appliedRules.Add(appliedRule);
         }
         return appliedRules;
     }
 
-    private static EvalResult Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDataset data)
+    private static EvalResult Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets, RegisteredDataset dataset)
     {
         try
         {
-            var result = evaluator.Evaluate(data, rule.Node, rule.Arguments);
+            var result = evaluator.Evaluate(datasets, dataset, rule.Node, rule.Arguments);
             return new EvalResult(result, string.Empty);
         }
         catch (KeyNotFoundException knf)
@@ -82,9 +82,9 @@ internal class ProcessAllRules
         }
     }
 
-    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset data)
+    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset dataset)
     {
         var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
-        return new AppliedRule(rule, data.Name, statement, result);
+        return new AppliedRule(rule, dataset.Name, statement, result);
     }
 }

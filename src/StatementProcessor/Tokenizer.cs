@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace RightRule.StatementProcessor;
 
@@ -57,16 +55,19 @@ public sealed class Tokenizer
         }
 
         // Identifier / Operator / Logical keywords
-        // Must start with a letter or underscore, and can contain letters/digits/underscore
+        // Must start with a letter or underscore, and can contain letters/digits/underscore/dot
         if (char.IsLetter(c) || c == '_')
         {
+            bool foundDot = false;
             int start = _pos;
             var sb = new StringBuilder();
             sb.Append(_input[_pos++]);
 
-            while (_pos < _input.Length && (char.IsLetterOrDigit(_input[_pos]) || _input[_pos] == '_'))
+            while (_pos < _input.Length && (char.IsLetterOrDigit(_input[_pos]) || _input[_pos] == '_' || _input[_pos] == '.'))
+            {
+                if (!foundDot && _input[_pos] == '.') foundDot = true;
                 sb.Append(_input[_pos++]);
-
+            }
             var value = sb.ToString();
 
             // Logical keywords - case sensitive: valid only as lower-case
@@ -86,6 +87,10 @@ public sealed class Tokenizer
             // External operator names
             if (_operators.Contains(value))
                 return new Token(TokenType.Operator, value, start);
+
+            // Otherwise it's a variable identifier with dataset reference (dot notation)
+            if (foundDot)
+                return new Token(TokenType.IdentifierWithDot, value, start);
 
             // Otherwise it's a variable identifier
             return new Token(TokenType.Identifier, value, start);

@@ -1,7 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.Rules;
-using System.Reflection;
 
 namespace RightRule.StatementProcessor.Interpreter;
 
@@ -16,21 +15,21 @@ internal class ProcessFirstRule
         {
             for (var i = 0; i < registeredDatasets.Count; i++)
             {
-                var data = registeredDatasets[i];
-                if (data == null)
+                var dataset = registeredDatasets[i];
+                if (dataset == null)
                 {
                     continue;
                 }
 
-                result = Evaluate(evaluator, rule, data);
+                result = Evaluate(evaluator, rule, registeredDatasets, dataset);
                 if (result.Result.Equals(EvalResult.ResultType.ResultTrue))
                 {
-                    appliedRule = CreateAppliedRule(result, rule, data);
+                    appliedRule = CreateAppliedRule(result, rule, dataset);
                     break;
                 }
                 if (result.Result.Equals(EvalResult.ResultType.ResultError))
                 {
-                    appliedRule = CreateAppliedRule(result, rule, data);
+                    appliedRule = CreateAppliedRule(result, rule, dataset);
                     break;
                 }
             }
@@ -44,8 +43,8 @@ internal class ProcessFirstRule
 
     internal static AppliedRule EvaluateFirst(Evaluator.Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets, string datasetName)
     {
-        var data = registeredDatasets.GetDataset(datasetName);
-        if (data == null)
+        var dataset = registeredDatasets.GetDataset(datasetName);
+        if (dataset == null)
         {
             return AppliedRule.DefaultRule($"Dataset '{datasetName}' not found.");
         }
@@ -53,8 +52,8 @@ internal class ProcessFirstRule
         AppliedRule appliedRule = AppliedRule.DefaultRule();
         foreach (var rule in rules)
         {
-            var result = Evaluate(evaluator, rule, data);
-            appliedRule = CreateAppliedRule(result, rule, data);
+            var result = Evaluate(evaluator, rule, registeredDatasets, dataset);
+            appliedRule = CreateAppliedRule(result, rule, dataset);
 
             if (result.Result.Equals(EvalResult.ResultType.ResultTrue))
             {
@@ -62,18 +61,18 @@ internal class ProcessFirstRule
             }
             if (result.Result.Equals(EvalResult.ResultType.ResultError))
             {
-                appliedRule = CreateAppliedRule(result, rule, data);
+                appliedRule = CreateAppliedRule(result, rule, dataset);
                 break;
             }
         }
         return appliedRule;
     }
 
-    private static EvalResult Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDataset data)
+    private static EvalResult Evaluate(Evaluator.Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets, RegisteredDataset dataset)
     {
         try
         {
-            var result = evaluator.Evaluate(data, rule.Node, rule.Arguments);
+            var result = evaluator.Evaluate(datasets, dataset, rule.Node, rule.Arguments);
             return new EvalResult(result, string.Empty);
         }
         catch (KeyNotFoundException knf)
@@ -102,9 +101,9 @@ internal class ProcessFirstRule
         }
     }
 
-    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset data)
+    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset dataset)
     {
         var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
-        return new AppliedRule(rule, data.Name, statement, result);
+        return new AppliedRule(rule, dataset.Name, statement, result);
     }
 }

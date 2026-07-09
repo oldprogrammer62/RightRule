@@ -9,3 +9,4 @@ not (A = 1 and B = 2)
 (A = 1 and B = 2) or (C = 3 and D = 4)
 A = {x}
 not A = {x}
+A.B = C.D

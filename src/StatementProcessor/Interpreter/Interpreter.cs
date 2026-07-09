@@ -10,9 +10,9 @@ public sealed class Interpreter
     private readonly Dictionary<string, IOperator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
 
-    public Interpreter(RegisteredDatasets data, Dictionary<string, IOperator> operators, bool SilentErrors = false)
+    public Interpreter(RegisteredDatasets datasets, Dictionary<string, IOperator> operators, bool SilentErrors = false)
     {
-        _registeredDatasets = data ?? new RegisteredDatasets();
+        _registeredDatasets = datasets ?? new RegisteredDatasets();
         _operators = operators ?? new Dictionary<string, IOperator> { };
         _evaluator = new Evaluator.Evaluator(_operators, SilentErrors);
     }
