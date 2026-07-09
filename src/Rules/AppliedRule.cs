@@ -46,7 +46,6 @@ public sealed class AppliedRule : Rule
         if (IsError(result))
         {
             Result = false;
-            Arguments = null;
             Number = -1;
             Name = "DEFAULTRULE";
             Statement = string.Empty;
@@ -60,7 +59,6 @@ public sealed class AppliedRule : Rule
         }
 
         Result = result.Result.Equals(EvalResult.ResultType.ResultTrue);
-        Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
@@ -76,7 +74,6 @@ public sealed class AppliedRule : Rule
     internal AppliedRule(ParsedRule parsedRule, string datasetMatched, List<ParsedRule> rulesMatched, string statementApplied, bool result, string message)
     {
         Result = result;
-        Arguments = parsedRule.Arguments;
         Number = parsedRule.Number;
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
@@ -98,7 +95,6 @@ public sealed class AppliedRule : Rule
         return new AppliedRule()
         {
             Result = true,
-            Arguments = null,
             Number = -1,
             Name = "DEFAULTRULE",
             Statement = string.Empty,

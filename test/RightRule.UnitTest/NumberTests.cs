@@ -26,8 +26,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"value greaterthanorequals 10",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
-            Arguments = null
+            Decision = "GREATERTHANOREQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -49,8 +48,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"value greaterthanorequals 10.1",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
-            Arguments = null
+            Decision = "GREATERTHANOREQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -72,8 +70,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"value greaterthanorequals 99.99",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
-            Arguments = null
+            Decision = "GREATERTHANOREQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -95,8 +92,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"value greaterthanorequals 100.00001",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
-            Arguments = null
+            Decision = "GREATERTHANOREQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
@@ -118,8 +114,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"value >= 99.9999 and value < 200.001",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
-            Arguments = null
+            Decision = "GREATERTHANOREQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();

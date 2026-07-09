@@ -27,22 +27,6 @@ public sealed class Tokenizer
         if (c == '(') { _pos++; return new Token(TokenType.LParen, "(", _pos - 1); }
         if (c == ')') { _pos++; return new Token(TokenType.RParen, ")", _pos - 1); }
 
-        // Placeholder Variable "{" identifier "}"
-        if (c == '{') // Open Brace
-        {
-            int start = _pos;
-            var sb = new StringBuilder();
-            while (_pos < _input.Length && _input[_pos] != '}')
-                sb.Append(_input[_pos++]);
-            if (_input[_pos] == '}') sb.Append(_input[_pos]); // Closing Brace
-
-            if (_pos >= _input.Length || _input[_pos] != '}')
-                throw new Exception($"Unterminated Variable at position {start}.");
-
-            _pos++; // closing brace
-            return new Token(TokenType.PlaceHolder, sb.ToString(), start);
-        }
-
         // Number (simple integer support)
         // Must start with a digit, and can contain digits
         if (char.IsDigit(c))

@@ -88,8 +88,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
-            Arguments = _arguments,
+            Decision = "EQUALS"
         };
 
         // Register the data

@@ -31,8 +31,9 @@ public class ExistsTests
     [Fact]
     public void Exists_int_in_Array()
     {
-        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        Dictionary<string, object> Arguments = new(StringComparer.Ordinal)
         {
+            { "number" , 4 },
             { "numbers", new ArrayList() { 1, 2, 3, 100, 4, 5 } }
         };
 
@@ -41,15 +42,15 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"intvalue in {numbers}",
+            Statement = @"Arguments.number in Arguments.numbers",
             Context = "Context",
-            Decision = "EXISTS",
-            Arguments = _Arguments
+            Decision = "EXISTS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
+        rr.RegisterData("Arguments", Arguments);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -59,7 +60,7 @@ public class ExistsTests
     [Fact]
     public void Exists_string_in_Array()
     {
-        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        Dictionary<string, object> Arguments = new(StringComparer.Ordinal)
         {
             { "strings", new ArrayList() { "aa", "bb", "cc", "dd" } },
             { "dd_string", "dd" }
@@ -70,15 +71,15 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists String Value Rule",
-            Statement = @"""dd"" in {strings}",
+            Statement = @"""dd"" in Arguments.strings",
             Context = "Context",
-            Decision = "EXISTS",
-            Arguments = _Arguments
+            Decision = "EXISTS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
+        rr.RegisterData("Arguments", Arguments);
 
         var appliedRule = rr.ApplyRule("Context");
 

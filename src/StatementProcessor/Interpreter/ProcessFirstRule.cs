@@ -72,7 +72,7 @@ internal class ProcessFirstRule
     {
         try
         {
-            var result = evaluator.Evaluate(datasets, dataset, rule.Node, rule.Arguments);
+            var result = evaluator.Evaluate(datasets, dataset, rule.Node);
             return new EvalResult(result, string.Empty);
         }
         catch (KeyNotFoundException knf)
@@ -103,7 +103,6 @@ internal class ProcessFirstRule
 
     private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule, RegisteredDataset dataset)
     {
-        var statement = Helper.ResolveStatement(rule.Statement, rule.Arguments);
-        return new AppliedRule(rule, dataset.Name, statement, result);
+        return new AppliedRule(rule, dataset.Name, rule.Statement, result);
     }
 }

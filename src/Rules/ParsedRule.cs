@@ -21,7 +21,6 @@ public class ParsedRule : Rule
     [SetsRequiredMembers]
     internal ParsedRule(RuleDefinition rule, Node? node)
     {
-        Arguments = rule.Arguments;
         Number = rule.Number;
         Name = rule.Name;
         Statement = rule.Statement;
@@ -97,10 +96,10 @@ public class ParsedRule : Rule
             return op.Kind switch
             {
                 OperandKind.Identifier => $"Identifier({op.Raw})",
+                OperandKind.IdentifierWithDot => $"Dataset.Identifier({op.Raw})",
                 OperandKind.Number => $"Number({op.Raw})",
                 OperandKind.String => $"String(\"{EscapeForDisplay(op.Raw)}\")",
                 OperandKind.Boolean => $"Boolean({op.Raw})",
-                OperandKind.Placeholder => $"Placeholder({op.Raw})",
                 _ => $"Operand({op.Raw})"
             };
         }

@@ -15,11 +15,7 @@ namespace RightRule_Demo.RuleLoader
                     Name = "New Customer Rule - Exact Prize Value Order",
                     Statement = "NewCust = true and OrderValue equals 750",
                     Decision = "NEWCUST_EXACT_PRIZEVALUE",
-                    DecisionData = "{discount: 50, unit: '%'}",
-                    Arguments = new Dictionary<string, object>
-                    {
-                        { "hv", HighValue }
-                    }
+                    DecisionData = "{discount: 50, unit: '%'}"
                 },
                 new RuleDefinition
                 {
@@ -28,11 +24,7 @@ namespace RightRule_Demo.RuleLoader
                     Name = "New Customer Rule - Low Value Order",
                     Statement = "NewCust = true and OrderValue >= 0 and OrderValue < {hv}",
                     Decision = "NEWCUST_LOWVALUE",
-                    DecisionData = "{discount: 5, unit: '%'}",
-                    Arguments = new Dictionary<string, object>
-                    {
-                        { "hv", HighValue }
-                    }
+                    DecisionData = "{discount: 5, unit: '%'}"
                 },
                 new RuleDefinition
                 {
@@ -41,11 +33,7 @@ namespace RightRule_Demo.RuleLoader
                     Name = "New Customer Rule - High Value Order",
                     Statement = "NewCust = true and OrderValue >= {hv}",
                     Decision = "NEWCUST_HIGHVALUE",
-                    DecisionData = "{discount: 20, unit: '%'}",
-                    Arguments = new Dictionary<string, object>
-                    {
-                        { "hv", HighValue }
-                    }
+                    DecisionData = "{discount: 20, unit: '%'}"
                 },
                 new RuleDefinition
                 {
@@ -54,11 +42,7 @@ namespace RightRule_Demo.RuleLoader
                     Name = "Existing Customer Rule - Low Value Order",
                     Statement = "NewCust = false and OrderValue >= 0 and OrderValue < {hv}",
                     Decision = "EXISTINGCUST_LOWVALUE",
-                    DecisionData = "{discount: 15, unit: '%'}",
-                    Arguments = new Dictionary<string, object>
-                    {
-                        { "hv", HighValue }
-                    }
+                    DecisionData = "{discount: 15, unit: '%'}"
                 },
                 new RuleDefinition
                 {
@@ -67,11 +51,7 @@ namespace RightRule_Demo.RuleLoader
                     Name = "Existing Customer Rule - High Value Order",
                     Statement = "NewCust = false and OrderValue >= {hv}",
                     Decision = "EXISTINGCUST_HIGHVALUE",
-                    DecisionData = "{discount: 25, unit: '%'}",
-                    Arguments = new Dictionary<string, object>
-                    {
-                        { "hv", HighValue }
-                    }
+                    DecisionData = "{discount: 25, unit: '%'}"
                 }
             };
         }

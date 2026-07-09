@@ -84,11 +84,6 @@ public class SyntaxCheckTests
     [Fact]
     public void SyntaxError_Exception()
     {
-        var _arguments = new Dictionary<string, object>(StringComparer.Ordinal)
-        {
-            { "X", 1 },
-        };
-
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5";
         var rightRule = new RightRule.RightRule();
@@ -100,8 +95,7 @@ public class SyntaxCheckTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
-            Arguments = _arguments,
+            Decision = "EQUALS"
         };
 
         // Register the data

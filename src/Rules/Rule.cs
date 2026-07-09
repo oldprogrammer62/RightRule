@@ -6,13 +6,6 @@
 public abstract class Rule
 {
     /// <summary>
-    /// Optional set of name value pairs that can be used to replace placeholders in the rule statement.
-    /// This allows for more dynamic rules that can be reused with different arguments.
-    /// Placeholders are identified as {placeholderName}. Open Brace - Name - Close Brace
-    /// </summary>
-    public Dictionary<string, object>? Arguments { get; init; }
-
-    /// <summary>
     /// Provides a context for the rule.
     /// This can be used to group rules together.
     /// For example, rules with the context "Customer" would be used to evaluate rules that apply to customers with data that relates to customers

@@ -16,36 +16,36 @@ public sealed class Evaluator
         _silentErrors = SilentErrors;
     }
 
-    internal bool Evaluate(RegisteredDatasets datasets, RegisteredDataset dataset, Node? node, Dictionary<string, object>? arguments) => node switch
+    internal bool Evaluate(RegisteredDatasets datasets, RegisteredDataset dataset, Node? node) => node switch
     {
-        ConditionNode c => EvaluateCondition(datasets, dataset, c, arguments),
-        BinaryNode b => EvaluateBinary(datasets, dataset, b, arguments),
-        NotNode n => !Evaluate(datasets, dataset, n.Inner, arguments),
+        ConditionNode c => EvaluateCondition(datasets, dataset, c),
+        BinaryNode b => EvaluateBinary(datasets, dataset, b),
+        NotNode n => !Evaluate(datasets, dataset, n.Inner),
         _ => throw new Exception("Unknown Node type.")
     };
 
-    private bool EvaluateBinary(RegisteredDatasets datasets, RegisteredDataset dataset, BinaryNode b, Dictionary<string, object>? arguments)
+    private bool EvaluateBinary(RegisteredDatasets datasets, RegisteredDataset dataset, BinaryNode b)
     {
         if (b.LogicOp == "AND")
         {
-            var left = Evaluate(datasets, dataset, b.Left, arguments);
-            return left && Evaluate(datasets, dataset, b.Right, arguments);
+            var left = Evaluate(datasets, dataset, b.Left);
+            return left && Evaluate(datasets, dataset, b.Right);
         }
         if (b.LogicOp == "OR")
         {
-            var left = Evaluate(datasets, dataset, b.Left, arguments);
-            return left || Evaluate(datasets, dataset, b.Right, arguments);
+            var left = Evaluate(datasets, dataset, b.Left);
+            return left || Evaluate(datasets, dataset, b.Right);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private bool EvaluateCondition(RegisteredDatasets datasets, RegisteredDataset dataset, ConditionNode c, Dictionary<string, object>? arguments)
+    private bool EvaluateCondition(RegisteredDatasets datasets, RegisteredDataset dataset, ConditionNode c)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {c.Operator}");
 
-        var left = ResolveOperandValue(datasets, dataset, c.Left, arguments);
-        var right = ResolveOperandValue(datasets, dataset, c.Right, arguments);
+        var left = ResolveOperandValue(datasets, dataset, c.Left);
+        var right = ResolveOperandValue(datasets, dataset, c.Right);
         return op.Process(left, right);
     }
 
@@ -78,52 +78,29 @@ public sealed class Evaluator
         return result!;
     }
 
-    private object ResolveOperandValue(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op, Dictionary<string, object>? arguments)
+    private object ResolveOperandValue(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
     {
-        if (arguments == null)
-        {
-            return ResolveOperand(datasets, dataset, op);
-        }
-        return ResolveOperand(datasets, dataset, op, arguments);
+        return ResolveOperand(datasets, dataset, op);
     }
 
     private object ResolveOperand(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
     {
-        return op.Kind switch
-        {
-            OperandKind.IdentifierWithDot => ResolveIdentifierWithDot(datasets, op.Raw),
-            OperandKind.Identifier => ResolveIdentifier(dataset, op.Raw),
-            OperandKind.Number => ParseNumber(op.Raw),
-            OperandKind.Boolean => ParseBoolean(op.Raw),
-            OperandKind.String => op.Raw,
-            _ => op.Raw
-        };
-    }
-
-    private object ResolveOperand(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op, Dictionary<string, object>? arguments)
-    {
-        object opValue = ResolveOperatorValue(op, arguments!);
+        object opValue = ResolveOperatorValue(op);
 
         return op.Kind switch
         {
-            OperandKind.IdentifierWithDot => opValue is string sId ? ResolveIdentifierWithDot(datasets, sId) : ResolveIdentifierWithDot(datasets, op.Raw),
             OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(dataset, sId) : ResolveIdentifier(dataset, op.Raw),
+            OperandKind.IdentifierWithDot => opValue is string sId ? ResolveIdentifierWithDot(datasets, sId) : ResolveIdentifierWithDot(datasets, op.Raw),
             OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
             OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
             OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
-            OperandKind.Placeholder => opValue is string sPlace ? ParsePlaceholder(sPlace) : opValue,
             _ => opValue
         };
     }
 
-    private object ResolveOperatorValue(Operand operand, Dictionary<string, object> Arguments)
+    private static object ResolveOperatorValue(Operand operand)
     {
-        return Helper.ResolveOperatorValue(operand, Arguments);
-    }
-
-    private static object ParsePlaceholder(string raw)
-    {
-        return Helper.ParsePlaceholder(raw);
+        return operand.Raw;
     }
 
     private static object ParseBoolean(string raw)

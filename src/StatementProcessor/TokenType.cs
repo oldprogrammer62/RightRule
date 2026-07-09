@@ -13,6 +13,5 @@ public enum TokenType
     Not,          // NOT
     LParen,       // (
     RParen,       // )
-    PlaceHolder,  // "{" identifier "}"
     End
 }

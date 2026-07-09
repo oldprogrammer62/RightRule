@@ -64,9 +64,9 @@ public class LiteralTests
     [Fact]
     public void Equals_Left_Literal_String()
     {
-        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        Dictionary<string, object> Arguments = new(StringComparer.Ordinal)
         {
-            { "AString", "A_String" }
+            { "string", "a_string" }
         };
 
         // Rule
@@ -74,15 +74,15 @@ public class LiteralTests
         {
             Number = 1,
             Name = "Equals Literal String Rule",
-            Statement = @"""A_String"" equals {AString}",
+            Statement = @"""A_String"" equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS",
-            Arguments = _Arguments
+            Decision = "EQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
+        rr.RegisterData("Arguments", Arguments);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -114,9 +114,9 @@ public class LiteralTests
     [Fact]
     public void Equals_Both_Literal_String()
     {
-        Dictionary<string, object> _Arguments = new(StringComparer.Ordinal)
+        Dictionary<string, object> Arguments = new(StringComparer.Ordinal)
         {
-            { "AString", "A_String" }
+            { "string", "a_string" }
         };
 
         // Rule
@@ -124,15 +124,15 @@ public class LiteralTests
         {
             Number = 1,
             Name = "Equals Literal String Rule",
-            Statement = @"stringvalue equals {AString}",
+            Statement = @"stringvalue equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS",
-            Arguments = _Arguments
+            Decision = "EQUALS"
         };
 
         RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
+        rr.RegisterData("Arguments", Arguments);
 
         var appliedRule = rr.ApplyRule("Context");
 

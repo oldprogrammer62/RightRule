@@ -19,6 +19,8 @@ public sealed class LessThanOperator : IOperator
 
         if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
 
+        if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
+
         if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
         if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
 
@@ -208,5 +210,19 @@ public sealed class LessThanOperator : IOperator
                 || value is float
                 || value is double
                 || value is decimal;
+    }
+
+    private static bool IsString(object value)
+    {
+        if (value is null) return false;
+
+        return value is string;
+    }
+
+    public static bool ProcessAsString(object left, object right)
+    {
+        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        return LessThan(sLeft, sRight);
     }
 }
