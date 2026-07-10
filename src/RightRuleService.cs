@@ -96,16 +96,16 @@ internal class RightRuleService
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
-    internal bool RegisterData<T>(string DatasetName, T Data, bool StaticData)
+    internal bool RegisterData<T>(string DatasetName, T Data)
     {
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         ArgumentNullException.ThrowIfNull(Data);
 
-        var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data, StaticData);
+        var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
         return _registeredDatasets.AddDataset(data);
     }
 
-    internal bool RegisterData(string DatasetName, Dictionary<string, object> Data, bool StaticData)
+    internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(DatasetName);
         ArgumentNullException.ThrowIfNull(Data);
@@ -113,7 +113,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-        var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data, StaticData);
+        var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data);
         return _registeredDatasets.AddDataset(data);
     }
 
@@ -134,7 +134,7 @@ internal class RightRuleService
 
     internal AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
-        RegisterData<T>(DatasetName, Data, StaticData: false);
+        RegisterData<T>(DatasetName, Data);
         AppliedRule result = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
         return result;
@@ -176,7 +176,7 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
     {
-        RegisterData(DatasetName, Data, StaticData: false);
+        RegisterData(DatasetName, Data);
         List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
         DeRegisterData(DatasetName);
         return result;

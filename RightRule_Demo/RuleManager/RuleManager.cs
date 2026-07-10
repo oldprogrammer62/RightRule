@@ -14,10 +14,10 @@ namespace RightRule_Demo.RuleManager
             var rules = LoadRules(Context);
 
             rr.RegisterRules(rules);
-            rr.RegisterData(Context, Data, StaticData: false);
+            rr.RegisterData(Context, Data);
 
             var hvData = MakeHvData(HighValue);
-            rr.RegisterData("hv", hvData, StaticData: true);
+            rr.RegisterData("hv", hvData);
 
             var appliedRules = rr.ApplyRules(Context, rulesToReturn);
             return appliedRules;

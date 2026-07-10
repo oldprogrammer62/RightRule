@@ -102,16 +102,16 @@ public sealed class RightRule
     /// <typeparam name="T">The type of the data to register.</typeparam>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
-    /// <param name="StaticData">true indicates this dataset will  not be used as a primary source. Only used in dot notation identifiers</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
     /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
-    public bool RegisterData<T>(string DatasetName, T Data, bool StaticData = false)
+    public bool RegisterData<T>(string DatasetName, T Data)
     {
         ArgumentNullException.ThrowIfNull(Data);
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        try { 
-            return _rightRuleService.RegisterData<T>(DatasetName, Data, StaticData);
+        try
+        { 
+            return _rightRuleService.RegisterData<T>(DatasetName, Data);
         }
         catch
         {
@@ -124,16 +124,15 @@ public sealed class RightRule
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
-    /// <param name="StaticData">true indicates this dataset will  not be used as a primary source. Only used in dot notation identifiers</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
     /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
-    public bool RegisterData(string DatasetName, Dictionary<string, object> Data, bool StaticData = false)
+    public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data);
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         try { 
-            return _rightRuleService.RegisterData(DatasetName, Data, StaticData);
+            return _rightRuleService.RegisterData(DatasetName, Data);
         }
         catch
         {

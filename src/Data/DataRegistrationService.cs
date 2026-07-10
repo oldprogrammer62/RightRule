@@ -7,14 +7,13 @@ internal class DataRegistrationService
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
-    /// <param name="StaticData">true indicates this dataset will  not be used as a primary source. Only used in dot notation identifiers</param>
     /// <returns>The registered dataset.</returns>
     /// <exception cref="ArgumentException"></exception>
-    internal static RegisteredDataset CreateRegisteredDataObject(string DatasetName, Dictionary<string, object> Data, bool StaticData)
+    internal static RegisteredDataset CreateRegisteredDataObject(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         ArgumentNullException.ThrowIfNull(Data);
-        return new RegisteredDataset(DatasetName, Data, StaticData);
+        return new RegisteredDataset(DatasetName, Data);
     }
 
     /// <summary>
@@ -23,13 +22,12 @@ internal class DataRegistrationService
     /// <typeparam name="T">The type of the data to register.</typeparam>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
-    /// <param name="StaticData">true indicates this dataset will  not be used as a primary source. Only used in dot notation identifiers</param>
     /// <returns>The registered dataset.</returns>
-    internal static RegisteredDataset CreateRegisteredDataObject<T>(string DatasetName, T Data, bool StaticData)
+    internal static RegisteredDataset CreateRegisteredDataObject<T>(string DatasetName, T Data)
     {
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         ArgumentNullException.ThrowIfNull(Data);
         var convertedData = DataConverters.DataConverter.ConvertToDictionary(DatasetName, Data);
-        return new RegisteredDataset(DatasetName, convertedData, StaticData);
+        return new RegisteredDataset(DatasetName, convertedData);
     }
 }
