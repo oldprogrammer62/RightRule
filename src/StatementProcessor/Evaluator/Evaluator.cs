@@ -16,47 +16,37 @@ public sealed class Evaluator
         _silentErrors = SilentErrors;
     }
 
-    internal bool Evaluate(RegisteredDatasets datasets, RegisteredDataset dataset, Node? node) => node switch
+    internal bool Evaluate(RegisteredDatasets datasets, Node? node) => node switch
     {
-        ConditionNode c => EvaluateCondition(datasets, dataset, c),
-        BinaryNode b => EvaluateBinary(datasets, dataset, b),
-        NotNode n => !Evaluate(datasets, dataset, n.Inner),
+        ConditionNode c => EvaluateCondition(datasets, c),
+        BinaryNode b => EvaluateBinary(datasets, b),
+        NotNode n => !Evaluate(datasets, n.Inner),
         _ => throw new Exception("Unknown Node type.")
     };
 
-    private bool EvaluateBinary(RegisteredDatasets datasets, RegisteredDataset dataset, BinaryNode b)
+    private bool EvaluateBinary(RegisteredDatasets datasets, BinaryNode b)
     {
         if (b.LogicOp.ToLower() == "and")
         {
-            var left = Evaluate(datasets, dataset, b.Left);
-            return left && Evaluate(datasets, dataset, b.Right);
+            var left = Evaluate(datasets, b.Left);
+            return left && Evaluate(datasets, b.Right);
         }
         if (b.LogicOp.ToLower() == "or")
         {
-            var left = Evaluate(datasets, dataset, b.Left);
-            return left || Evaluate(datasets, dataset, b.Right);
+            var left = Evaluate(datasets, b.Left);
+            return left || Evaluate(datasets, b.Right);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private bool EvaluateCondition(RegisteredDatasets datasets, RegisteredDataset dataset, ConditionNode c)
+    private bool EvaluateCondition(RegisteredDatasets datasets, ConditionNode c)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {c.Operator}");
 
-        var left = ResolveOperandValue(datasets, dataset, c.Left);
-        var right = ResolveOperandValue(datasets, dataset, c.Right);
+        var left = ResolveOperandValue(datasets, c.Left);
+        var right = ResolveOperandValue(datasets, c.Right);
         return op.Process(left!, right!);
-    }
-
-    private static object? ResolveIdentifier(RegisteredDataset dataset, string name)
-    {
-        if (!dataset.Data.TryGetValue(name, out _))
-        {
-            return null;
-        }
-        dataset.Data.TryGetValue(name, out var result);
-        return result!;
     }
 
     private static object ResolveIdentifierWithDot(RegisteredDatasets datasets, string name)
@@ -79,19 +69,18 @@ public sealed class Evaluator
         return result!;
     }
 
-    private object? ResolveOperandValue(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
+    private static object? ResolveOperandValue(RegisteredDatasets datasets, Operand op)
     {
-        return ResolveOperand(datasets, dataset, op);
+        return ResolveOperand(datasets, op);
     }
 
-    private static object? ResolveOperand(RegisteredDatasets datasets, RegisteredDataset dataset, Operand op)
+    private static object? ResolveOperand(RegisteredDatasets datasets, Operand op)
     {
         object opValue = ResolveOperatorValue(op);
 
         return op.Kind switch
         {
-            OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(dataset, sId) : ResolveIdentifier(dataset, op.Raw),
-            OperandKind.IdentifierWithDot => opValue is string sId ? ResolveIdentifierWithDot(datasets, sId) : ResolveIdentifierWithDot(datasets, op.Raw),
+            OperandKind.Identifier => opValue is string sId ? ResolveIdentifierWithDot(datasets, sId) : ResolveIdentifierWithDot(datasets, op.Raw),
             OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
             OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
             OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),

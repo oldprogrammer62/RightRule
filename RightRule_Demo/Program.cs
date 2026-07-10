@@ -108,7 +108,6 @@ namespace RightRule_Demo
             Console.WriteLine($"\tName: {appliedRule.Name}");
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
-            Console.WriteLine($"\tDataset Matched: {appliedRule.DatasetMatched}");
             Console.WriteLine($"\tStatement: {appliedRule.Statement}");
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
             Console.WriteLine($"\tError Message: {appliedRule.ErrorMessage}");

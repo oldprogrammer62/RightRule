@@ -110,7 +110,6 @@ public class MultiStepTests
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
-        Assert.Equal("Step1Data1", rule1result.DatasetMatched);
     }
 
     [Fact]
@@ -124,7 +123,6 @@ public class MultiStepTests
         var rule1 = rr.RegisterRule(_Step1Rule2);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
-        Assert.Equal("Step1Data2", rule1result.DatasetMatched);
     }
 
     [Fact]
@@ -138,7 +136,6 @@ public class MultiStepTests
         var rule1 = rr.RegisterRule(_Step1Rule3);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
-        Assert.Equal("Step1Data3", rule1result.DatasetMatched);
     }
 
     [Fact]

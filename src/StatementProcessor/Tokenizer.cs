@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using RightRule.System.Common.Exceptions;
+using System.Text;
 
 namespace RightRule.StatementProcessor;
 
@@ -39,7 +40,8 @@ public sealed class Tokenizer
         }
 
         // Identifier / Operator / Logical keywords
-        // Must start with a letter or underscore, and can contain letters/digits/underscore/dot
+        // Must start with a letter or underscore, and can contain letters/digits/underscore
+        // Must contain one dot (only) to be considered a variable identifier with dataset reference (dot notation)
         if (char.IsLetter(c) || c == '_')
         {
             bool foundDot = false;
@@ -73,11 +75,10 @@ public sealed class Tokenizer
                 return new Token(TokenType.Operator, value, start);
 
             // Otherwise it's a variable identifier with dataset reference (dot notation)
-            if (foundDot)
-                return new Token(TokenType.IdentifierWithDot, value, start);
+            if (foundDot && value.Count(c => c == '.') == 1)
+                return new Token(TokenType.Identifier, value, start);
 
-            // Otherwise it's a variable identifier
-            return new Token(TokenType.Identifier, value, start);
+            throw new InvalidIdentifierException(value, start);
         }
 
         // String literal "..."

@@ -2,12 +2,13 @@
 
 public abstract class Node { }
 
-public enum OperandKind { Identifier, IdentifierWithDot, Number, String, Boolean }
+public enum OperandKind { Identifier, Number, String, Boolean }
 
 public sealed class Operand
 {
     public OperandKind Kind { get; }
     public string Raw { get; }
+
     public Operand(OperandKind kind, string raw)
     {
         Kind = kind;

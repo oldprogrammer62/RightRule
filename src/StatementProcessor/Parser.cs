@@ -70,7 +70,6 @@ public sealed class Parser
         Operand left = _current.Type switch
         {
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
-            TokenType.IdentifierWithDot => new Operand(OperandKind.IdentifierWithDot, _current.Value),
             TokenType.String => new Operand(OperandKind.String, _current.Value),
             TokenType.Number => new Operand(OperandKind.Number, _current.Value),
             TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
@@ -86,7 +85,6 @@ public sealed class Parser
         Operand rhs = _current.Type switch
         {
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
-            TokenType.IdentifierWithDot => new Operand(OperandKind.IdentifierWithDot, _current.Value),
             TokenType.String => new Operand(OperandKind.String, _current.Value),
             TokenType.Number => new Operand(OperandKind.Number, _current.Value),
             TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),

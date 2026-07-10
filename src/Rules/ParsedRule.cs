@@ -95,8 +95,8 @@ public class ParsedRule : Rule
         {
             return op.Kind switch
             {
-                OperandKind.Identifier => $"Identifier({op.Raw})",
-                OperandKind.IdentifierWithDot => $"Dataset.Identifier({op.Raw})",
+                // OperandKind.Identifier => $"Identifier({op.Raw})",
+                OperandKind.Identifier => $"Dataset.Identifier({op.Raw})",
                 OperandKind.Number => $"Number({op.Raw})",
                 OperandKind.String => $"String(\"{EscapeForDisplay(op.Raw)}\")",
                 OperandKind.Boolean => $"Boolean({op.Raw})",

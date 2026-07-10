@@ -12,7 +12,8 @@ public class IdentifierWithDotTests
         // Constants
         _Constants = new Dictionary<string, object>(StringComparer.Ordinal)
         {
-            { "highvalue", 200 }
+            { "highvalue", 200 },
+            { "name", "123" }
         };
 
         // Data
@@ -54,7 +55,7 @@ public class IdentifierWithDotTests
         {
             Number = 1,
             Name = "Equals Int Value Rule",
-            Statement = "NewCust = true and ordervalue = Constants.highvalue",
+            Statement = @"Data.NewCust = true and Data.ordervalue = Constants.highvalue and ""123"" = Constants.name",
             Context = "Context",
             Decision = "EQUALS",
         };

@@ -2,8 +2,7 @@
 
 public enum TokenType
 {
-    Identifier,   // variable names
-    IdentifierWithDot, // variable names with dot notation
+    Identifier,   // variable names with dot notation
     Number,       // 123, 456
     String,       // "hello"
     Boolean,      // true, false
