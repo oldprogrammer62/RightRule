@@ -27,7 +27,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Int Value Rule",
-            Statement = @"intvalue lessthan 1000",
+            Statement = @"Test.intvalue lessthan 1000",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -50,7 +50,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Int Value Rule",
-            Statement = @"intvalue lessthan 1000.00",
+            Statement = @"Test.intvalue lessthan 1000.00",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -72,7 +72,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Not Less Than Int Value Rule",
-            Statement = @"intvalue lessthan 5",
+            Statement = @"Test.intvalue lessthan 5",
             Context = "Context",
             Decision = "NOT_LESSTHAN",
         };
@@ -94,7 +94,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Float Value Rule",
-            Statement = @"floatvalue lessthan 1000.001",
+            Statement = @"Test.floatvalue lessthan 1000.001",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -118,7 +118,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
-            Statement = @$"datevalue lessthan ""{date}""",
+            Statement = @$"Test.datevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -142,7 +142,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Datetime Value Rule",
-            Statement = @$"datetimevalue lessthan ""{date}""",
+            Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
         };
@@ -166,7 +166,7 @@ public class LessThanTests
         {
             Number = 1,
             Name = "Less Than Datetime Value Rule",
-            Statement = @$"datetimevalue lessthan ""{date}""",
+            Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
         };

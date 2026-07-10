@@ -59,7 +59,7 @@ public class ExtensionTests
             Decision = "TestDecision",
             Name = "TestRule",
             Number = 1,
-            Statement = "hello equals \"hello\""
+            Statement = "Test.hello equals \"hello\""
         };
 
         var result = rightRule.RegisterRule(rule);

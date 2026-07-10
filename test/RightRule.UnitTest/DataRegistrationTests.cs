@@ -28,7 +28,7 @@ public class DataRegistrationTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
+            Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
         };
@@ -48,7 +48,7 @@ public class DataRegistrationTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
+            Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
         };
@@ -69,7 +69,7 @@ public class DataRegistrationTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
+            Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
         };

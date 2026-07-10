@@ -29,7 +29,7 @@ public class DoesNotContainTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"fullname doesnotcontain ""XXDoeXX""",
+            Statement = @"Test.fullname doesnotcontain ""XXDoeXX""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
         };
@@ -51,7 +51,7 @@ public class DoesNotContainTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"fullname notc ""Doe""",
+            Statement = @"Test.fullname notc ""Doe""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
         };

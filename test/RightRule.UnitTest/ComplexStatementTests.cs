@@ -23,7 +23,7 @@ public class ComplexStatementTests
     public void AllValid_Equals()
     {
         // Arrange
-        var statement = "(A = 1 and B = 2) and (C = 3 and D = 4)";
+        var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and TestDataset.D = 4)";
         var rightRule = new RightRule.RightRule();
 
         // Rule
@@ -48,7 +48,7 @@ public class ComplexStatementTests
     public void AllValid_NotEquals()
     {
         // Arrange
-        var statement = "(A = 1 and B = 2) and (C = 3 and not D = 44)";
+        var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and not TestDataset.D = 44)";
         var rightRule = new RightRule.RightRule();
 
         // Rule

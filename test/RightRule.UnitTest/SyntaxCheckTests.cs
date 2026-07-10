@@ -26,7 +26,7 @@ public class SyntaxCheckTests
     public void ValidStatement_ReturnsValid()
     {
         var rr = new RightRule.RightRule();
-        var result = rr.CheckStatement("name equals \"John\" and numberoforders equals 10");
+        var result = rr.CheckStatement("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.Error);
@@ -36,7 +36,7 @@ public class SyntaxCheckTests
     public void UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
         var rr = new RightRule.RightRule();
-        var stmt = "name equals \"John";
+        var stmt = "Data.name equals \"John";
         var result = rr.CheckStatement(stmt);
 
         Assert.False(result.IsValid);
@@ -53,7 +53,7 @@ public class SyntaxCheckTests
     public void UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
     {
         var rr = new RightRule.RightRule();
-        var stmt = "(numberoforders equals 10";
+        var stmt = "(Test.numberoforders equals 10";
         var result = rr.CheckStatement(stmt);
 
         Assert.False(result.IsValid);
@@ -69,7 +69,7 @@ public class SyntaxCheckTests
     public void UnexpectedCharacter_ReportsDiagnostic()
     {
         var rr = new RightRule.RightRule();
-        var stmt = "name equals #invalid";
+        var stmt = "Test.name equals #invalid";
         var result = rr.CheckStatement(stmt);
 
         Assert.False(result.IsValid);

@@ -29,7 +29,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 11",
+            Statement = @"Test.numberoforders equals 11",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
         };
@@ -51,7 +51,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10 and goodpayer equals true",
+            Statement = @"Test.numberoforders equals 10 and Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
@@ -74,7 +74,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10 or goodpayer equals true",
+            Statement = @"Test.numberoforders equals 10 or Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
@@ -97,7 +97,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"(numberoforders equals 10 and goodpayer equals true) or (numberoforders equals 10 and goodpayer equals true)",
+            Statement = @"(Test.numberoforders equals 10 and Test.goodpayer equals true) or (Test.numberoforders equals 10 and Test.goodpayer equals true)",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
         };
@@ -120,7 +120,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
+            Statement = @"Test.numberoforders equals 10",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
         };
@@ -142,7 +142,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = "numberoforders notequals 11",
+            Statement = "Test.numberoforders notequals 11",
             Context = "NumberOfOrdersContext",
             Decision = "NOTENOUGHORDERS",
         };
@@ -164,7 +164,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = "numberoforders != 18",
+            Statement = "Test.numberoforders != 18",
             Context = "NumberOfOrdersContext",
             Decision = "INCORRECTORDERCOUNT",
         };
@@ -186,7 +186,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = "numberoforders <> 11",
+            Statement = "Test.numberoforders <> 11",
             Context = "NumberOfOrdersContext",
             Decision = "NOTENOUGHORDERS",
         };
@@ -208,7 +208,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = "numberoforders = 10",
+            Statement = "Test.numberoforders = 10",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
         };
@@ -229,7 +229,7 @@ public class GrammarTests
         {
             Number = 2,
             Name = "Name Rule",
-            Statement = @"name equals ""John""",
+            Statement = @"Test.name equals ""John""",
             Context = "NameContext",
             Decision = "NAMEFOUND",
         };
@@ -251,7 +251,7 @@ public class GrammarTests
         {
             Number = 3,
             Name = "Name Rule",
-            Statement = "name equals fullname",
+            Statement = "Test.name equals Test.fullname",
             Context = "NameContext",
             Decision = "NAMESAMEASFULLNAME",
         };
@@ -273,7 +273,7 @@ public class GrammarTests
         {
             Number = 4,
             Name = "Good Payer Rule",
-            Statement = "goodpayer equals true",
+            Statement = "Test.goodpayer equals true",
             Context = "GoodPayerContext",
             Decision = "GOODPAYER",
         };
@@ -295,7 +295,7 @@ public class GrammarTests
         {
             Number = 4,
             Name = "Good Payer Rule",
-            Statement = "goodpayer equals false",
+            Statement = "Test.goodpayer equals false",
             Context = "NotGoodPayerContext",
             Decision = "NOTGOODPAYER",
         };
@@ -317,7 +317,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"name equals ""John""",
+            Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             Decision = "NAMEFOUND",
         };
@@ -326,7 +326,7 @@ public class GrammarTests
         {
             Number = 2,
             Name = "Name Rule",
-            Statement = @"name equals ""John""",
+            Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             Decision = "NAMEFOUND2",
         };
@@ -350,7 +350,7 @@ public class GrammarTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"name equals ""John""",
+            Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             Decision = "NAMEFOUND",
         };
@@ -359,7 +359,7 @@ public class GrammarTests
         {
             Number = 2,
             Name = "Name Rule",
-            Statement = @"name equals ""John""",
+            Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             Decision = "NAMEFOUND2",
         };

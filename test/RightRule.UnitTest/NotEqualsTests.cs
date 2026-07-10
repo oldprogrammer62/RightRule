@@ -29,7 +29,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals Bool Value Rule",
-            Statement = @"boolvalue notequals true",
+            Statement = @"Test.boolvalue notequals true",
             Context = "Context",
             Decision = "NOTEQUALS",
         };
@@ -51,7 +51,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals Int Value Rule",
-            Statement = @"intvalue notequals 100",
+            Statement = @"Test.intvalue notequals 100",
             Context = "Context",
             Decision = "NOTEQUALS",
         };
@@ -73,7 +73,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals Float Value Rule",
-            Statement = @"floatvalue notequals 100.01",
+            Statement = @"Test.floatvalue notequals 100.01",
             Context = "Context",
             Decision = "NOTEQUALS",
         };
@@ -95,7 +95,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals String Value Rule",
-            Statement = @"stringvalue notequals ""Hello World""",
+            Statement = @"Test.stringvalue notequals ""Hello World""",
             Context = "Context",
             Decision = "NOTEQUALS",
         };
@@ -119,7 +119,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals Date Only Value Rule",
-            Statement = @$"datevalue notequals ""{date}""",
+            Statement = @$"Test.datevalue notequals ""{date}""",
             Context = "Context",
             Decision = "NOTEQUALS",
         };
@@ -143,7 +143,7 @@ public class NotEqualsTests
         {
             Number = 1,
             Name = "NotEquals Date Time Value Rule",
-            Statement = @$"datetimevalue notequals ""{date}""",
+            Statement = @$"Test.datetimevalue notequals ""{date}""",
             Context = "Context",
             Decision = "NOTEQUALS",
         };

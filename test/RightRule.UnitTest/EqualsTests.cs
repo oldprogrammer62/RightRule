@@ -29,7 +29,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
-            Statement = @"boolvalue equals true",
+            Statement = @"Test.boolvalue equals true",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -51,7 +51,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Int Value Rule",
-            Statement = @"intvalue equals 100.00",
+            Statement = @"Test.intvalue equals 100.00",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -73,7 +73,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Int Value Rule",
-            Statement = @"intvalue equals 100",
+            Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -95,7 +95,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Int Value Rule",
-            Statement = "intvalue equals intvalue",
+            Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -117,7 +117,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Float Value Rule",
-            Statement = @"floatvalue equals 100.01",
+            Statement = @"Test.floatvalue equals 100.01",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -139,7 +139,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals String Value Rule",
-            Statement = @"stringvalue equals ""Hello World""",
+            Statement = @"Test.stringvalue equals ""Hello World""",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -163,7 +163,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Date Only Value Rule",
-            Statement = @$"datevalue equals ""{date}""",
+            Statement = @$"Test.datevalue equals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -187,7 +187,7 @@ public class EqualsTests
         {
             Number = 1,
             Name = "Equals Date Time Value Rule",
-            Statement = @$"datetimevalue equals ""{date}""",
+            Statement = @$"Test.datetimevalue equals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
         };

@@ -52,7 +52,7 @@ public class MultiStepTests
         {
             Number = 1,
             Name = "Step 1 Rule 1",
-            Statement = @"surname = ""One"" and numberoforders equals 10",
+            Statement = @"Step1Data1.surname = ""One"" and Step1Data1.numberoforders equals 10",
             Context = "Step1",
             Decision = "GOOD",
         };
@@ -62,7 +62,7 @@ public class MultiStepTests
         {
             Number = 2,
             Name = "Step 1 Rule 2",
-            Statement = @"surname = ""One"" and numberoforders equals 11",
+            Statement = @"Step1Data1.surname = ""One"" and Step1Data2.numberoforders equals 11",
             Context = "Step1",
             Decision = "GOOD",
         };
@@ -72,7 +72,7 @@ public class MultiStepTests
         {
             Number = 3,
             Name = "Step 1 Rule 3",
-            Statement = @"surname = ""One"" and numberoforders equals 12",
+            Statement = @"Step1Data3.surname = ""One"" and Step1Data3.numberoforders equals 12",
             Context = "Step1",
             Decision = "GOOD",
         };
@@ -93,7 +93,7 @@ public class MultiStepTests
         {
             Number = 2,
             Name = "Step 2 Rule",
-            Statement = @"surname equals ""Two"" and numberoforders equals 100",
+            Statement = @"Step2Data1.surname equals ""Two"" and Step2Data1.numberoforders equals 100",
             Context = "Step2",
             Decision = "GOOD",
         };
@@ -143,12 +143,12 @@ public class MultiStepTests
     {
         RightRule.RightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data", _Step1Data1);
+        rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
-        rr.RegisterData("Step2Data", _Step2Data1);
+        rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRule("Step2");
         Assert.Equal("GOOD", rule2result.Decision);
@@ -159,18 +159,18 @@ public class MultiStepTests
     {
         RightRule.RightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data", _Step1Data1);
+        rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
-        rr.DeRegisterData("Step1Data");
+        rr.DeRegisterData("Step1Data1");
         rr.DeRegisterRules("Step1");
 
         var rule1result_v2 = rr.ApplyRule("Step1");
         Assert.Equal(AppliedRule.DefaultRule().Decision, rule1result_v2.Decision);
 
-        rr.RegisterData("Step2Data", _Step2Data1);
+        rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRule("Step2");
         Assert.Equal("GOOD", rule2result.Decision);

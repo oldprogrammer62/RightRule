@@ -46,7 +46,7 @@ public class OperatorUnloadTests
         {
             Number = 1,
             Name = "Equals Value Rule",
-            Statement = @"value = 10",
+            Statement = @"Test.value = 10",
             Context = "Context",
             Decision = "VALUEEQUALS",
         };

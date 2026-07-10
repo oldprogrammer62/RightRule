@@ -29,7 +29,7 @@ public class DoesContainTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"fullname contains ""Doe""",
+            Statement = @"Test.fullname contains ""Doe""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
         };
@@ -51,7 +51,7 @@ public class DoesContainTests
         {
             Number = 1,
             Name = "Name Rule",
-            Statement = @"fullname contains ""XXDoeXX""",
+            Statement = @"Test.fullname contains ""XXDoeXX""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
         };

@@ -94,7 +94,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"intvalue in ints",
+            Statement = @"Test.intvalue in Test.ints",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -116,7 +116,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"intvalue foundin ints",
+            Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -138,7 +138,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Bool Value Rule",
-            Statement = @"boolvalue exists bools",
+            Statement = @"Test.boolvalue exists Test.bools",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -160,7 +160,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"intvalue exists ints",
+            Statement = @"Test.intvalue exists Test.ints",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -182,7 +182,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Float Value Rule",
-            Statement = @"floatvalue exists floats",
+            Statement = @"Test.floatvalue exists Test.floats",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -204,7 +204,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists String Value Rule",
-            Statement = @"stringvalue exists strings",
+            Statement = @"Test.stringvalue exists Test.strings",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -226,7 +226,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists DateOnly Value Rule",
-            Statement = @"datevalue exists dates",
+            Statement = @"Test.datevalue exists Test.dates",
             Context = "Context",
             Decision = "EXISTS"
         };
@@ -248,7 +248,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists DateTime Value Rule",
-            Statement = @"datetimevalue exists datetimes",
+            Statement = @"Test.datetimevalue exists Test.datetimes",
             Context = "Context",
             Decision = "EXISTS"
         };

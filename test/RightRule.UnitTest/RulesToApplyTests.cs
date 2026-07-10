@@ -27,7 +27,7 @@ public class RulesToApplyTests
         {
             Number = 1,
             Name = "Number of orders Rule",
-            Statement = @"numberoforders equals 10",
+            Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "GOODRULE1",
         };
@@ -37,7 +37,7 @@ public class RulesToApplyTests
         {
             Number = 2,
             Name = "Name Rule",
-            Statement = @"surname equals ""Doe""",
+            Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
             Decision = "GOODRULE2",
         };

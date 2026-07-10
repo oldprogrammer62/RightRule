@@ -24,7 +24,7 @@ public class NumberTests
         {
             Number = 1,
             Name = "Greater Than Value Rule",
-            Statement = @"value greaterthanorequals 10",
+            Statement = @"Test.value greaterthanorequals 10",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS"
         };
@@ -46,7 +46,7 @@ public class NumberTests
         {
             Number = 1,
             Name = "Greater Than Value Rule",
-            Statement = @"value greaterthanorequals 10.1",
+            Statement = @"Test.value greaterthanorequals 10.1",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS"
         };
@@ -68,7 +68,7 @@ public class NumberTests
         {
             Number = 1,
             Name = "Greater Than Value Rule",
-            Statement = @"value greaterthanorequals 99.99",
+            Statement = @"Test.value greaterthanorequals 99.99",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS"
         };
@@ -90,7 +90,7 @@ public class NumberTests
         {
             Number = 1,
             Name = "Greater Than Value Rule",
-            Statement = @"value greaterthanorequals 100.00001",
+            Statement = @"Test.value greaterthanorequals 100.00001",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS"
         };
@@ -112,7 +112,7 @@ public class NumberTests
         {
             Number = 1,
             Name = "Greater Than Value Rule",
-            Statement = @"value >= 99.9999 and value < 200.001",
+            Statement = @"Test.value >= 99.9999 and Test.value < 200.001",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS"
         };

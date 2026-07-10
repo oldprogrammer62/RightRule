@@ -26,7 +26,7 @@ public class DataTests
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
-            Statement = @"whatvalue equals 123",
+            Statement = @"Test.whatvalue equals 123",
             Context = "Context",
             Decision = "EQUALS",
         };

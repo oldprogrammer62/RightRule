@@ -25,7 +25,7 @@ public class LiteralTests
         {
             Number = 1,
             Name = "Equals Literal String Rule",
-            Statement = @"stringvalue equals ""A_String""",
+            Statement = @"Test.stringvalue equals ""A_String""",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -47,7 +47,7 @@ public class LiteralTests
         {
             Number = 1,
             Name = "Equals Literal Number Rule",
-            Statement = @"intvalue equals 100",
+            Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -124,7 +124,7 @@ public class LiteralTests
         {
             Number = 1,
             Name = "Equals Literal String Rule",
-            Statement = @"stringvalue equals Arguments.string",
+            Statement = @"Test.stringvalue equals Arguments.string",
             Context = "Context",
             Decision = "EQUALS"
         };

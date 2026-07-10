@@ -28,7 +28,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Int Value Rule",
-            Statement = @"intvalue greaterthanorequals 10.00",
+            Statement = @"Test.intvalue greaterthanorequals 10.00",
             Context = "Context",
             Decision = "GREATERTHAN",
         };
@@ -50,7 +50,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Int Value Rule",
-            Statement = @"intvalue greaterthanorequals 10",
+            Statement = @"Test.intvalue greaterthanorequals 10",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
         };
@@ -72,7 +72,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Equals Int Value Rule",
-            Statement = @"intvalue greaterthanorequals 100",
+            Statement = @"Test.intvalue greaterthanorequals 100",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
         };
@@ -94,7 +94,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Float Value Rule",
-            Statement = @"floatvalue greaterthanorequals 99.9",
+            Statement = @"Test.floatvalue greaterthanorequals 99.9",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
         };
@@ -116,7 +116,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Equals Float Value Rule",
-            Statement = @"floatvalue greaterthanorequals 100.01",
+            Statement = @"Test.floatvalue greaterthanorequals 100.01",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
         };
@@ -140,7 +140,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
-            Statement = @$"datevalue greaterthanorequals ""{date}""",
+            Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
         };
@@ -164,7 +164,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
-            Statement = @$"datevalue greaterthanorequals ""{date}""",
+            Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -188,7 +188,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
-            Statement = @$"datetimevalue greaterthanorequals ""{date}""",
+            Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
         };
@@ -212,7 +212,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
-            Statement = @$"datetimevalue greaterthanorequals ""{date}""",
+            Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
         };
@@ -236,7 +236,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
-            Statement = @$"datetimevalue greaterthanorequals ""{date}""",
+            Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
         };
@@ -258,7 +258,7 @@ public class GreaterThanOrEqualsTests
         {
             Number = 1,
             Name = "Not Greater Than Value Rule",
-            Statement = @"intvalue greaterthanorequals 1010",
+            Statement = @"Test.intvalue greaterthanorequals 1010",
             Context = "Context",
             Decision = "NOT_GREATERTHAN",
         };
