@@ -28,16 +28,6 @@ public sealed class Interpreter
         return ProcessFirstRule.EvaluateFirst(_evaluator, rules.Rules, _registeredDatasets);
     }
 
-    internal AppliedRule ProcessRule(ParsedRules rules, string datasetName)
-    {
-        return Evaluate(rules, datasetName);
-    }
-
-    private AppliedRule Evaluate(ParsedRules rules, string datasetName)
-    {
-        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.Rules, _registeredDatasets, datasetName);
-    }
-
     internal List<AppliedRule> ProcessRules(ParsedRules rules)
     {
         return Evaluate(rules.Rules, RulesToReturn.All);
@@ -57,31 +47,6 @@ public sealed class Interpreter
 
             case RulesToReturn.All:
                 return ProcessAllRules.EvaluateAll(_evaluator, rules, _registeredDatasets);
-
-            default:
-                return [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")];
-        }
-    }
-
-    internal List<AppliedRule> ProcessRules(ParsedRules rules, string datasetName)
-    {
-        return Evaluate(rules.Rules, datasetName, RulesToReturn.All);
-    }
-
-    internal List<AppliedRule> ProcessRules(ParsedRules rules, string datasetName, RulesToReturn rulesToReturn)
-    {
-        return Evaluate(rules.Rules, datasetName, rulesToReturn);
-    }
-
-    private List<AppliedRule> Evaluate(List<ParsedRule> rules, string datasetName, RulesToReturn rulesToReturn)
-    {
-        switch (rulesToReturn)
-        {
-            case RulesToReturn.First:
-                return [ProcessFirstRule.EvaluateFirst(_evaluator, rules, _registeredDatasets, datasetName)];
-
-            case RulesToReturn.All:
-                return ProcessAllRules.EvaluateAll(_evaluator, rules, _registeredDatasets, datasetName);
 
             default:
                 return [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")];

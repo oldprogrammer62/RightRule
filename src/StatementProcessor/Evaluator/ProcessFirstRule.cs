@@ -32,33 +32,6 @@ internal class ProcessFirstRule
         return appliedRule;
     }
 
-    internal static AppliedRule EvaluateFirst(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets, string datasetName)
-    {
-        var dataset = registeredDatasets.GetDataset(datasetName);
-        if (dataset == null)
-        {
-            return AppliedRule.DefaultRule($"Dataset '{datasetName}' not found.");
-        }
-
-        AppliedRule appliedRule = AppliedRule.DefaultRule();
-        foreach (var rule in rules)
-        {
-            var result = Evaluate(evaluator, rule, registeredDatasets);
-            appliedRule = CreateAppliedRule(result, rule);
-
-            if (result.Result.Equals(EvalResult.ResultType.ResultTrue))
-            {
-                break;
-            }
-            if (result.Result.Equals(EvalResult.ResultType.ResultError))
-            {
-                appliedRule = CreateAppliedRule(result, rule);
-                break;
-            }
-        }
-        return appliedRule;
-    }
-
     private static EvalResult Evaluate(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
     {
         try

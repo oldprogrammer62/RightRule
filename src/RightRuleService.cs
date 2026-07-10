@@ -132,11 +132,6 @@ internal class RightRuleService
         return ApplySingleRule(Context);
     }
 
-    internal AppliedRule ApplyRule(string Context, string DatasetName)
-    {
-        return ApplySingleRule(Context, DatasetName);
-    }
-
     internal AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
     {
         RegisterData<T>(DatasetName, Data, StaticData: false);
@@ -159,28 +154,9 @@ internal class RightRuleService
         return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, _silentErrors);
     }
 
-    private AppliedRule ApplySingleRule(string Context, string DatasetName)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        if (_registeredDatasets == null || _registeredDatasets.Count == 0)
-        {
-            return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
-        }
-        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
-        {
-            return AppliedRule.DefaultRule("Error: No rules available for application.");
-        }
-        return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, DatasetName);
-    }
-
     internal List<AppliedRule> ApplyRules(string Context)
     {
         return ApplySpecifiedRules(Context, RulesToReturn.All);
-    }
-
-    internal List<AppliedRule> ApplyRules(string Context, string DatasetName)
-    {
-        return ApplySpecifiedRules(Context, DatasetName, RulesToReturn.All);
     }
 
     internal List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
@@ -191,11 +167,6 @@ internal class RightRuleService
     internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
     {
         return ApplySpecifiedRules(Context, DatasetName, Data, RulesToReturn.All);
-    }
-
-    internal List<AppliedRule> ApplyRules(string Context, string DatasetName, RulesToReturn rulesToReturn)
-    {
-        return ApplySpecifiedRules(Context, DatasetName, rulesToReturn);
     }
 
     internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
@@ -223,19 +194,5 @@ internal class RightRuleService
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
         return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases);
-    }
-
-    private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, RulesToReturn rulesToReturn)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        if (_registeredDatasets == null || _registeredDatasets.Count == 0)
-        {
-            return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
-        }
-        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
-        {
-            return [AppliedRule.DefaultRule("Error: No rules available for application.")];
-        }
-        return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases, DatasetName);
     }
 }

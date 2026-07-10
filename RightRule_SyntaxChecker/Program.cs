@@ -51,11 +51,12 @@ internal class Program
 
         Console.WriteLine("Check another statement? (y/n)");
         var input = Console.ReadLine();
-        if (input?.ToLower() == "y")
+        if (input?.ToLower() == "n")
         {
-            rightRule.DeRegisterRules(); // Clear registered rules before checking another statement
-            DoCheckProcess(rightRule); // Restart the process
+            return;
         }
+        rightRule.DeRegisterRules(); // Clear registered rules before checking another statement
+        DoCheckProcess(rightRule); // Restart the process
     }
 
     private static void ShowResult(string statement, CheckStatementResult result, List<ParsedRule> parsedRules)

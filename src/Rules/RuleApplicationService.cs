@@ -20,19 +20,6 @@ internal class RuleApplicationService
         return interpreter.ProcessRule(filteredRules);
     }
 
-    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        return ApplyRuleToData(Context, Datasets, parsedRules, Operators, DatasetName);
-    }
-
-    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        var interpreter = new Interpreter(Datasets, Operators);
-        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-
-        return interpreter.ProcessRule(filteredRules, DatasetName);
-    }
-
     internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
     {
         return ApplyRulesToData(Context, Datasets, parsedRules, rulesToReturn, Operators);
@@ -44,18 +31,5 @@ internal class RuleApplicationService
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRules(filteredRules, rulesToReturn);
-    }
-
-    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Datasets, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        return ApplyRulesToData(Context, Datasets, rules, rulesToReturn, Operators, DatasetName);
-    }
-
-    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Datasets, ParsedRules rules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, string DatasetName)
-    {
-        var interpreter = new Interpreter(Datasets, Operators);
-        var filteredRules = Helpers.FilterRules(Context, rules.Rules);
-
-        return interpreter.ProcessRules(filteredRules, DatasetName, rulesToReturn);
     }
 }

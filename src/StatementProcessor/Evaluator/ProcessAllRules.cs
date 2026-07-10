@@ -20,26 +20,6 @@ internal class ProcessAllRules
         return appliedRules;
     }
 
-    internal static List<AppliedRule> EvaluateAll(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets, string datasetName)
-    {
-        var data = registeredDatasets.GetDataset(datasetName);
-        if (data == null)
-        {
-            return [AppliedRule.DefaultRule($"Dataset '{datasetName}' not found.")];
-        }
-
-        AppliedRule resultRule = AppliedRule.DefaultRule();
-        List<AppliedRule> appliedRules = [];
-
-        foreach (var rule in rules)
-        {
-            var result = Evaluate(evaluator, rule, registeredDatasets);
-            var appliedRule = CreateAppliedRule(result, rule);
-            appliedRules.Add(appliedRule);
-        }
-        return appliedRules;
-    }
-
     private static EvalResult Evaluate(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
     {
         try
