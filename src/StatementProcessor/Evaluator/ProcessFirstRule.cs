@@ -8,23 +8,31 @@ internal class ProcessFirstRule
 {
     internal static AppliedRule EvaluateFirst(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
     {
-        EvalResult result = new();
-
         AppliedRule appliedRule = AppliedRule.DefaultRule();
+        bool complete = false;
+
         foreach (var rule in rules)
         {
-            result = Evaluate(evaluator, rule, registeredDatasets);
-            if (result.Result.Equals(EvalResult.ResultType.ResultTrue))
+            EvalResult result = Evaluate(evaluator, rule, registeredDatasets);
+            switch (result.Result)
             {
-                appliedRule = CreateAppliedRule(result, rule);
-                break;
+                case EvalResult.ResultType.ResultTrue:
+                    appliedRule = CreateTrueResult(result, rule);
+                    complete = true;
+                    break;
+
+                case EvalResult.ResultType.ResultFalse:
+                    appliedRule = CreateFalseResult(result, rule);
+                    continue;
+
+                case EvalResult.ResultType.ResultError:
+                    appliedRule = CreateErrorResult(result, rule);
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"Unexpected result type: {result.Result}");
             }
-            if (result.Result.Equals(EvalResult.ResultType.ResultError))
-            {
-                appliedRule = CreateAppliedRule(result, rule);
-                break;
-            }
-            if (result.Result.Equals(EvalResult.ResultType.ResultTrue))
+            if (complete)
             {
                 break;
             }
@@ -34,6 +42,16 @@ internal class ProcessFirstRule
 
     private static EvalResult Evaluate(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
     {
+        if (rule.Node == null)
+        {
+            return new EvalResult()
+            {
+                Result = EvalResult.ResultType.ResultError,
+                Message = "Rule statement not interpreted properly.",
+                StatementApplied = rule.Statement
+            };
+        }
+
         try
         {
             EvalResult result = evaluator.Evaluate(rule.Statement, datasets, rule.Node);
@@ -67,8 +85,18 @@ internal class ProcessFirstRule
         }
     }
 
-    private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule)
+    private static AppliedRule CreateTrueResult(EvalResult result, ParsedRule rule)
     {
         return new AppliedRule(rule, result);
+    }
+
+    private static AppliedRule CreateFalseResult(EvalResult result, ParsedRule rule)
+    {
+        return AppliedRule.FalseResult(rule, result);
+    }
+
+    private static AppliedRule CreateErrorResult(EvalResult result, ParsedRule rule)
+    {
+        return AppliedRule.ErrorResult(rule, result);
     }
 }

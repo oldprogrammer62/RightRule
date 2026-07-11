@@ -18,13 +18,13 @@ public sealed class Evaluator
         _silentErrors = SilentErrors;
     }
 
-    internal EvalResult Evaluate(string Statement, RegisteredDatasets datasets, Node? node)
+    internal EvalResult Evaluate(string Statement, RegisteredDatasets Datasets, Node Node)
     {
         try
         {
-            bool result = EvaluateNode(datasets, node);
+            bool result = EvaluateNode(Datasets, Node);
             string message = string.Empty;
-            string statementApplied = string.Empty;
+            string statementApplied = BuildStatement(Statement, Datasets, Node);
             return new EvalResult(result, message, statementApplied);
         }
         catch (InvalidIdentifierException iie)
@@ -162,5 +162,17 @@ public sealed class Evaluator
     private static object ParseNumber(string raw)
     {
         return Helper.ParseNumber(raw);
+    }
+
+    private static string BuildStatement(string Statement, RegisteredDatasets Datasets, Node Node)
+    {
+        try
+        {
+            return StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement);
+        }
+        catch (Exception ex)
+        {
+            return $"Error building statement: {ex.Message}";
+        }
     }
 }

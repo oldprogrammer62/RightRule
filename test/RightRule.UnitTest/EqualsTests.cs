@@ -1,5 +1,6 @@
 ﻿using RightRule.Extensions;
 using RightRule.Rules;
+using System.Data;
 
 namespace RightRuleTests;
 
@@ -199,5 +200,119 @@ public class EqualsTests
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Equals_Int_MultiRules_Rule1()
+    {
+        // Data
+        var _IntData = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "intvalue", 100 }
+        };
+
+        // Rule
+        RuleDefinition rule1 = new()
+        {
+            Number = 1,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 100",
+            Context = "Context",
+            Decision = "EQUALS100",
+        };
+        // Rule
+        RuleDefinition rule2 = new()
+        {
+            Number = 2,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 200",
+            Context = "Context",
+            Decision = "EQUALS200",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _IntData);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule1.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Equals_Int_MultiRules_Rule2()
+    {
+        // Data
+        var _IntData = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "intvalue", 200 }
+        };
+
+        // Rule
+        RuleDefinition rule1 = new()
+        {
+            Number = 1,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 100",
+            Context = "Context",
+            Decision = "EQUALS100",
+        };
+        // Rule
+        RuleDefinition rule2 = new()
+        {
+            Number = 2,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 200",
+            Context = "Context",
+            Decision = "EQUALS200",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _IntData);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule2.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Equals_Int_MultiRules_Rules()
+    {
+        // Data
+        var _IntData = new Dictionary<string, object>(StringComparer.Ordinal)
+        {
+            { "intvalue", 200 }
+        };
+
+        // Rule
+        RuleDefinition rule1 = new()
+        {
+            Number = 1,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 100",
+            Context = "Context",
+            Decision = "EQUALS100",
+        };
+        // Rule
+        RuleDefinition rule2 = new()
+        {
+            Number = 2,
+            Name = "Equals Int Value Rule",
+            Statement = @"Test.intvalue equals 200",
+            Context = "Context",
+            Decision = "EQUALS200",
+        };
+
+        RightRule.RightRule rr = new RightRule.RightRule();
+        var newRule1 = rr.RegisterRule(rule1);
+        var newRule2 = rr.RegisterRule(rule2);
+        rr.RegisterData("Test", _IntData);
+
+        var appliedRule = rr.ApplyRules("Context");
+
+        Assert.NotNull(appliedRule);
     }
 }

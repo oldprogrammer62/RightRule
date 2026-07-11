@@ -39,11 +39,11 @@ public sealed class AppliedRule : Rule
     {
         if (IsError(result))
         {
-            Number = -1;
+            Number = parsedRule.Number;
             Result = false;
-            Name = "DEFAULTRULE";
-            Statement = string.Empty;
-            Context = string.Empty;
+            Name = parsedRule.Name;
+            Statement = parsedRule.Statement;
+            Context = parsedRule.Context;
             Decision = NoDecision;
             DecisionData = string.Empty;
             StatementApplied = result.StatementApplied;
@@ -91,6 +91,38 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
             ErrorMessage = message
+        };
+    }
+
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, EvalResult result)
+    {
+        return new AppliedRule()
+        {
+            Number = parsedRule.Number,
+            Result = false,
+            Name = parsedRule.Name,
+            Statement = parsedRule.Statement,
+            Context = parsedRule.Context,
+            Decision = NoDecision,
+            DecisionData = string.Empty,
+            StatementApplied = result.StatementApplied,
+            ErrorMessage = result.Message
+        };
+    }
+
+    internal static AppliedRule ErrorResult(ParsedRule parsedRule, EvalResult result)
+    {
+        return new AppliedRule()
+        {
+            Number = parsedRule.Number,
+            Result = false,
+            Name = parsedRule.Name,
+            Statement = parsedRule.Statement,
+            Context = parsedRule.Context,
+            Decision = NoDecision,
+            DecisionData = string.Empty,
+            StatementApplied = result.StatementApplied,
+            ErrorMessage = result.Message
         };
     }
 }
