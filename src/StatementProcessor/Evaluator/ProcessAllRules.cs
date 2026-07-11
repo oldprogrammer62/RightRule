@@ -13,8 +13,8 @@ internal class ProcessAllRules
 
         foreach (var rule in rules)
         {
-            var result = Evaluate(evaluator, rule, registeredDatasets);
-            var appliedRule = CreateAppliedRule(result, rule);
+            EvalResult result = Evaluate(evaluator, rule, registeredDatasets);
+            AppliedRule appliedRule = CreateAppliedRule(result, rule);
             appliedRules.Add(appliedRule);
         }
         return appliedRules;
@@ -24,8 +24,8 @@ internal class ProcessAllRules
     {
         try
         {
-            var result = evaluator.Evaluate(datasets, rule.Node);
-            return new EvalResult(result, string.Empty);
+            EvalResult result = evaluator.Evaluate(rule.Statement, datasets, rule.Node);
+            return result;
         }
         catch (KeyNotFoundException knf)
         {
@@ -55,6 +55,6 @@ internal class ProcessAllRules
 
     private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule)
     {
-        return new AppliedRule(rule, rule.Statement, result);
+        return new AppliedRule(rule, result);
     }
 }

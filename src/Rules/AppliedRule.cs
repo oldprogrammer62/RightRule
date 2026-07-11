@@ -34,65 +34,63 @@ public sealed class AppliedRule : Rule
     }
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, string statementApplied, EvalResult result)
+    internal AppliedRule(ParsedRule parsedRule, EvalResult result)
+        : base()
     {
         if (IsError(result))
         {
-            Result = false;
             Number = -1;
+            Result = false;
             Name = "DEFAULTRULE";
             Statement = string.Empty;
             Context = string.Empty;
             Decision = NoDecision;
             DecisionData = string.Empty;
-            StatementApplied = string.Empty;
+            StatementApplied = result.StatementApplied;
             ErrorMessage = result.Message;
             return;
         }
 
+        Number = parsedRule.Number;
         Result = result.Result.Equals(EvalResult.ResultType.ResultTrue);
-        Number = parsedRule.Number;
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
         Context = parsedRule.Context;
         Decision = parsedRule.Decision;
         DecisionData = parsedRule.DecisionData;
-        StatementApplied = statementApplied;
+        StatementApplied = result.StatementApplied;
         ErrorMessage = result.Message;
-    }
-
-    [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, List<ParsedRule> rulesMatched, string statementApplied, bool result, string message)
-    {
-        Result = result;
-        Number = parsedRule.Number;
-        Name = parsedRule.Name;
-        Statement = parsedRule.Statement;
-        Context = parsedRule.Context;
-        Decision = parsedRule.Decision;
-        DecisionData = parsedRule.DecisionData;
-        StatementApplied = statementApplied;
-        ErrorMessage = message;
     }
 
     public static AppliedRule DefaultRule()
     {
-        return DefaultRule(string.Empty);
-    }
-
-    public static AppliedRule DefaultRule(string decisionData)
-    {
         return new AppliedRule()
         {
-            Result = true,
             Number = -1,
+            Result = true,
             Name = "DEFAULTRULE",
             Statement = string.Empty,
             Context = string.Empty,
             Decision = NoDecision,
-            DecisionData = decisionData,
+            DecisionData = string.Empty,
             StatementApplied = string.Empty,
             ErrorMessage = string.Empty
+        };
+    }
+
+    public static AppliedRule DefaultRule(string message)
+    {
+        return new AppliedRule()
+        {
+            Number = -1,
+            Result = true,
+            Name = "DEFAULTRULE",
+            Statement = string.Empty,
+            Context = string.Empty,
+            Decision = NoDecision,
+            DecisionData = string.Empty,
+            StatementApplied = string.Empty,
+            ErrorMessage = message
         };
     }
 }

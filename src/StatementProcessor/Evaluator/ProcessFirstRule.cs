@@ -36,8 +36,8 @@ internal class ProcessFirstRule
     {
         try
         {
-            var result = evaluator.Evaluate(datasets, rule.Node);
-            return new EvalResult(result, string.Empty);
+            EvalResult result = evaluator.Evaluate(rule.Statement, datasets, rule.Node);
+            return result;
         }
         catch (KeyNotFoundException knf)
         {
@@ -46,7 +46,8 @@ internal class ProcessFirstRule
                 return new EvalResult()
                 {
                     Result = EvalResult.ResultType.ResultError,
-                    Message = knf.Message
+                    Message = knf.Message,
+                    StatementApplied = string.Empty
                 };
             }
             throw;
@@ -58,7 +59,8 @@ internal class ProcessFirstRule
                 return new EvalResult()
                 {
                     Result = EvalResult.ResultType.ResultError,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    StatementApplied = string.Empty
                 };
             }
             throw;
@@ -67,6 +69,6 @@ internal class ProcessFirstRule
 
     private static AppliedRule CreateAppliedRule(EvalResult result, ParsedRule rule)
     {
-        return new AppliedRule(rule, rule.Statement, result);
+        return new AppliedRule(rule, result);
     }
 }

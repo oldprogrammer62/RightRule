@@ -1,5 +1,7 @@
 ﻿using RightRule.Data;
+using RightRule.Models;
 using RightRule.System.Common;
+using RightRule.System.Common.Exceptions;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
@@ -16,11 +18,61 @@ public sealed class Evaluator
         _silentErrors = SilentErrors;
     }
 
-    internal bool Evaluate(RegisteredDatasets datasets, Node? node) => node switch
+    internal EvalResult Evaluate(string Statement, RegisteredDatasets datasets, Node? node)
+    {
+        try
+        {
+            bool result = EvaluateNode(datasets, node);
+            string message = string.Empty;
+            string statementApplied = string.Empty;
+            return new EvalResult(result, message, statementApplied);
+        }
+        catch (InvalidIdentifierException iie)
+        {
+            if (SilentErrors)
+            {
+                return new EvalResult()
+                {
+                    Result = EvalResult.ResultType.ResultError,
+                    Message = iie.Message,
+                    StatementApplied = string.Empty
+                };
+            }
+            throw;
+        }
+        catch (KeyNotFoundException knf)
+        {
+            if (SilentErrors)
+            {
+                return new EvalResult()
+                {
+                    Result = EvalResult.ResultType.ResultError,
+                    Message = knf.Message,
+                    StatementApplied = string.Empty
+                };
+            }
+            throw;
+        }
+        catch (Exception ex)
+        {
+            if (SilentErrors)
+            {
+                return new EvalResult()
+                {
+                    Result = EvalResult.ResultType.ResultError,
+                    Message = ex.Message,
+                    StatementApplied = string.Empty
+                };
+            }
+            throw;
+        }
+    }
+
+    private bool EvaluateNode(RegisteredDatasets datasets, Node? node) => node switch
     {
         ConditionNode c => EvaluateCondition(datasets, c),
         BinaryNode b => EvaluateBinary(datasets, b),
-        NotNode n => !Evaluate(datasets, n.Inner),
+        NotNode n => !EvaluateNode(datasets, n.Inner),
         _ => throw new Exception("Unknown Node type.")
     };
 
@@ -28,13 +80,13 @@ public sealed class Evaluator
     {
         if (b.LogicOp.ToLower() == "and")
         {
-            var left = Evaluate(datasets, b.Left);
-            return left && Evaluate(datasets, b.Right);
+            var left = EvaluateNode(datasets, b.Left);
+            return left && EvaluateNode(datasets, b.Right);
         }
         if (b.LogicOp.ToLower() == "or")
         {
-            var left = Evaluate(datasets, b.Left);
-            return left || Evaluate(datasets, b.Right);
+            var left = EvaluateNode(datasets, b.Left);
+            return left || EvaluateNode(datasets, b.Right);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
@@ -49,8 +101,17 @@ public sealed class Evaluator
         return op.Process(left!, right!);
     }
 
-    private static object ResolveIdentifierWithDot(RegisteredDatasets datasets, string name)
+    private static object ResolveIdentifier(RegisteredDatasets datasets, string name)
     {
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' cannot be null or empty.");
+        }
+        if (name.Split('.').Length != 2)
+        {
+            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' must be in the format 'datasetName.identifierName'.");
+        }
+
         var split = name.Split('.');
         var datasetname = split[0];
         var identifiername = split[1];
@@ -80,7 +141,7 @@ public sealed class Evaluator
 
         return op.Kind switch
         {
-            OperandKind.Identifier => opValue is string sId ? ResolveIdentifierWithDot(datasets, sId) : ResolveIdentifierWithDot(datasets, op.Raw),
+            OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, sId) : ResolveIdentifier(datasets, op.Raw),
             OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
             OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
             OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),

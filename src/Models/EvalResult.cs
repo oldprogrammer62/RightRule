@@ -6,19 +6,22 @@ internal class EvalResult
 {
     public required ResultType Result { get; set; }
     public required string Message { get; set; }
+    public required string StatementApplied { get; set; }
 
     [SetsRequiredMembers]
     public EvalResult()
     {
         Result = ResultType.ResultFalse;
         Message = string.Empty;
+        StatementApplied = string.Empty;
     }
 
     [SetsRequiredMembers]
-    public EvalResult(bool ResultResult, string ResultMessage)
+    public EvalResult(bool ResultResult, string ResultMessage, string StatementApplied)
     {
         Result = ResultResult ? ResultType.ResultTrue : ResultType.ResultFalse;
         Message = ResultMessage;
+        this.StatementApplied = StatementApplied;
     }
 
     public enum ResultType
