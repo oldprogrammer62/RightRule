@@ -4,6 +4,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <PackageId>RightRule</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Mark Belton</Authors>
+    <Description>RightRule allows you to externalise and configure business rules.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +34,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Licenses\" />
     <Folder Include="OperatorLoader\" />
   </ItemGroup>
+
+  <!-- Reference the Executable Project -->
+
+  <!-- Target to copy the executable build output into the NuGet tools folder -->
+  <Target Name="CopyExecutableToTools" BeforeTargets="_GetPackageFiles">
+    <ItemGroup>
+      <_ExecutableFiles Include="..\RightRule_SyntaxChecker\bin\$(Configuration)\$(TargetFramework)\publish\**\*.*" />
+      <None Include="@(_ExecutableFiles)">
+        <Pack>true</Pack>
+        <PackagePath>tools/$(TargetFramework)/any/%(RecursiveDir)%(FileName)%(Extension)</PackagePath>
+        <Visible>false</Visible>
+      </None>
+    </ItemGroup>
+  </Target>
 
 </Project>
