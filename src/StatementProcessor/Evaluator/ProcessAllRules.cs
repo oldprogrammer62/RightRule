@@ -51,7 +51,7 @@ internal class ProcessAllRules
 
         try
         {
-            EvalResult result = evaluator.Evaluate(rule.Statement, datasets, rule.Node);
+            EvalResult result = evaluator.Evaluate(rule, datasets);
             return result;
         }
         catch (KeyNotFoundException knf)

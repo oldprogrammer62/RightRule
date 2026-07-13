@@ -14,28 +14,34 @@ public sealed class AppliedRule : Rule
     public required bool Result { get; init; }
 
     /// <summary>
-    /// Provides the actual statement applied when evaluating the rule. This is useful for logging and debugging purposes, as it allows the calling application to know which statements were applied when making the decision. It can also be used to provide additional context when taking action based on the decision, such as including the statements in a notification or report.
-    /// All placeholder arguments will be replaced with their actual values. This allows the calling application to see the exact statement that was evaluated against the dataset, which can be helpful for understanding the decision-making process and for troubleshooting any issues that may arise.
-    /// </summary>
-    public required string StatementApplied { get; init; }
-
-    /// <summary>
     /// Provides the error message, if the application of a rule throws an exception
     /// </summary>
     public required string ErrorMessage { get; init; }
 
+    /// <summary>
+    /// Diagnostics
+    /// Provides the actual statement applied when evaluating the rule. This is useful for logging and debugging purposes, as it allows the calling application to know which statements were applied when making the decision. It can also be used to provide additional context when taking action based on the decision, such as including the statements in a notification or report.
+    /// All placeholder arguments will be replaced with their actual values. This allows the calling application to see the exact statement that was evaluated against the dataset, which can be helpful for understanding the decision-making process and for troubleshooting any issues that may arise.
+    /// </summary>
+    public string StatementApplied { get; init; }
+
+    /// <summary>
+    /// Diagnostics
+    /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
+    /// </summary>
+    public string StatementPath { get; init; }
+
     internal static readonly string NoDecision = "NODECISION";
 
-    public AppliedRule() {}
-
-    private bool IsError(EvalResult ruleResult)
+    public AppliedRule() : base()
     {
-        return ruleResult.Result.Equals(EvalResult.ResultType.ResultError);
+        StatementApplied = string.Empty;
+        StatementPath = string.Empty;
     }
 
     [SetsRequiredMembers]
     internal AppliedRule(ParsedRule parsedRule, EvalResult result)
-        : base()
+        : this()
     {
         if (IsError(result))
         {
@@ -47,6 +53,7 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision;
             DecisionData = string.Empty;
             StatementApplied = result.StatementApplied;
+            StatementPath = result.SyntaxTree;
             ErrorMessage = result.Message;
             return;
         }
@@ -59,7 +66,13 @@ public sealed class AppliedRule : Rule
         Decision = parsedRule.Decision;
         DecisionData = parsedRule.DecisionData;
         StatementApplied = result.StatementApplied;
+        StatementPath = result.SyntaxTree;
         ErrorMessage = result.Message;
+    }
+
+    private static bool IsError(EvalResult ruleResult)
+    {
+        return ruleResult.Result.Equals(EvalResult.ResultType.ResultError);
     }
 
     public static AppliedRule DefaultRule()
@@ -74,6 +87,7 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
+            StatementPath = string.Empty,
             ErrorMessage = string.Empty
         };
     }
@@ -90,6 +104,7 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
+            StatementPath = string.Empty,
             ErrorMessage = message
         };
     }
@@ -106,6 +121,7 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = string.Empty,
             StatementApplied = result.StatementApplied,
+            StatementPath = result.SyntaxTree,
             ErrorMessage = result.Message
         };
     }
@@ -122,6 +138,7 @@ public sealed class AppliedRule : Rule
             Decision = NoDecision,
             DecisionData = string.Empty,
             StatementApplied = result.StatementApplied,
+            StatementPath = result.SyntaxTree,
             ErrorMessage = result.Message
         };
     }

@@ -1,5 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
+using RightRule.Rules;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 
@@ -18,14 +19,18 @@ public sealed class Evaluator
         _silentErrors = SilentErrors;
     }
 
-    internal EvalResult Evaluate(string Statement, RegisteredDatasets Datasets, Node Node)
+    internal EvalResult Evaluate(ParsedRule parsedRule, RegisteredDatasets Datasets)
     {
         try
         {
-            bool result = EvaluateNode(Datasets, Node);
+            var node = parsedRule.Node;
+            var statement = parsedRule.Statement;
+
+            bool result = EvaluateNode(Datasets, node);
             string message = string.Empty;
-            string statementApplied = BuildStatement(Statement, Datasets, Node);
-            return new EvalResult(result, message, statementApplied);
+            string statementApplied = BuildStatement(statement, Datasets, node!);
+            string syntaxTree = BuildSyntaxTree(parsedRule);
+            return new EvalResult(result, message, statementApplied, syntaxTree);
         }
         catch (InvalidIdentifierException iie)
         {
@@ -174,5 +179,10 @@ public sealed class Evaluator
         {
             return $"Error building statement: {ex.Message}";
         }
+    }
+
+    private string BuildSyntaxTree(ParsedRule rule)
+    {
+        return rule.ToTreeText();
     }
 }
