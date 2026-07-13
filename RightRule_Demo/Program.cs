@@ -110,6 +110,8 @@ namespace RightRule_Demo
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
             Console.WriteLine($"\tStatement: {appliedRule.Statement}");
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
+            Console.WriteLine($"\tStatement Path...");
+            Console.WriteLine($"{appliedRule.StatementPath}");
             Console.WriteLine($"\tError Message: {appliedRule.ErrorMessage}");
         }
 
