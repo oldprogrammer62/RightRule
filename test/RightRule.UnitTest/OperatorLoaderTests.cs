@@ -7,7 +7,7 @@ public class OperatorLoaderTests
     [Fact]
     public void TestItWorks_LoadOperator_Exists()
     {
-        var path = @"C:\\Development\\BeSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll";
+        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll";
         var op = Loader.Load(path);
         Assert.NotNull(op);
     }

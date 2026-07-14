@@ -2,7 +2,7 @@
   "operators": [
     {
       "name": "Exists",
-      "path": "C:\\Development\\BeSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll"
+      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll"
     }
   ]
 }

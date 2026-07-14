@@ -14,7 +14,7 @@
 
   <!-- Copy common library to Custom Operators -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BeSoft\RightRule\operator.exists\RightRule.Operator.Common\ /Y /I /E" />
+    <Exec Command="xcopy $(TargetDir)\$(AssemblyName).dll C:\Development\BSoft\RightRule\operator.exists\RightRule.Operator.Common\ /Y /I /E" />
   </Target>
 
 </Project>
