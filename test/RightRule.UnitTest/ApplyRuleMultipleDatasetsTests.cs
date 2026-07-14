@@ -54,35 +54,35 @@ public class ApplyRuleMultipleDatasetsTests
         };
     }
 
-    //[Fact]
-    //public void ApplyRule_Targets_Correct_Dataset_A()
-    //{
-    //    var rr = new RightRule.RightRule();
+    [Fact]
+    public void ApplyRule_Targets_Correct_Dataset_A()
+    {
+        var rr = new BeSoft.RightRule();
 
-    //    rr.RegisterRule(rule1);
-    //    rr.RegisterRule(rule2);
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
 
-    //    rr.RegisterData("TestA", _DataA);
-    //    rr.RegisterData("TestB", _DataB);
+        rr.RegisterData("TestA", _DataA);
+        rr.RegisterData("TestB", _DataB);
 
-    //    var appliedA = rr.ApplyRule("AllContext", "TestA");
+        var appliedA = rr.ApplyRule("AllContext");
 
-    //    Assert.Equal(rule1.Decision, appliedA.Decision);
-    //}
+        Assert.Equal(rule1.Decision, appliedA.Decision);
+    }
 
-    //[Fact]
-    //public void ApplyRule_Targets_Correct_Dataset_B()
-    //{
-    //    var rr = new RightRule.RightRule();
+    [Fact]
+    public void ApplyRule_Targets_Correct_Dataset_B()
+    {
+        var rr = new BeSoft.RightRule();
 
-    //    rr.RegisterRule(rule1);
-    //    rr.RegisterRule(rule2);
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
 
-    //    rr.RegisterData("TestA", _DataA);
-    //    rr.RegisterData("TestB", _DataB);
+        rr.RegisterData("TestA", _DataA);
+        rr.RegisterData("TestB", _DataB);
 
-    //    var appliedB = rr.ApplyRule("AllContext", "TestB");
+        var appliedB = rr.ApplyRule("AllContext");
 
-    //    Assert.Equal(rule1.Decision, appliedB.Decision);
-    //}
+        Assert.Equal(rule1.Decision, appliedB.Decision);
+    }
 }
