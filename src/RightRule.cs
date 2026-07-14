@@ -3,7 +3,7 @@ using RightRule.Rules;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 
-namespace RightRule;
+namespace BeSoft;
 
 public sealed class RightRule
 {

@@ -5,7 +5,7 @@ using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 using RightRule.HelperFunctions;
 
-namespace RightRule;
+namespace BeSoft;
 
 internal class RightRuleService
 {

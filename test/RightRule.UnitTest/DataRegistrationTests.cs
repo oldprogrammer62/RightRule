@@ -1,5 +1,4 @@
-﻿using RightRule.Extensions;
-using RightRule.Rules;
+﻿using RightRule.Rules;
 
 namespace RightRuleTests;
 
@@ -33,7 +32,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
 
         rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -53,7 +52,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
 
         rr.RegisterData<Dictionary<string, object>>("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -74,7 +73,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.RightRule rr = new BeSoft.RightRule();
 
         rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);

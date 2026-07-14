@@ -1,5 +1,4 @@
-﻿using RightRule.Extensions;
-using RightRule.Rules;
+﻿using RightRule.Rules;
 
 namespace RightRuleTests;
 
@@ -8,11 +7,10 @@ public class ExtensionTests
     [Fact]
     public void GetRules_ShouldReturnParsedRules()
     {
-        // Arrange
-        var rightRule = new RightRule.RightRule();
-        // Act
+        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+
         var result = rightRule.GetRules();
-        // Assert
+
         Assert.NotNull(result);
         Assert.IsType<List<ParsedRule>>(result);
     }
@@ -22,11 +20,10 @@ public class ExtensionTests
     {
         string specifiedContext = "TestContext";
 
-        // Arrange
-        var rightRule = new RightRule.RightRule();
-        // Act
+        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+
         var result = rightRule.GetRules(specifiedContext);
-        // Assert
+
         Assert.NotNull(result);
         Assert.IsType<List<ParsedRule>>(result);
     }
@@ -36,7 +33,7 @@ public class ExtensionTests
     public void RegisterRules()
     {
         // Arrange
-        var rightRule = new RightRule.RightRule();
+        BeSoft.RightRule rightRule = new BeSoft.RightRule();
         var rules = new List<RuleDefinition>
         {
         };
@@ -51,8 +48,7 @@ public class ExtensionTests
     [Fact]
     public void RegisterRule()
     {
-        // Arrange
-        var rightRule = new RightRule.RightRule();
+        BeSoft.RightRule rightRule = new BeSoft.RightRule();
         RuleDefinition rule = new RuleDefinition()
         {
             Context = "TestContext",

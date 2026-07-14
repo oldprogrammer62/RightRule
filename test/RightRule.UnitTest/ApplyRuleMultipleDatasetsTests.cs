@@ -1,4 +1,3 @@
-using RightRule.Extensions;
 using RightRule.Rules;
 
 namespace RightRuleTests;

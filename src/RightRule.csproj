@@ -45,19 +45,4 @@
     <Folder Include="Docs\" />
     <Folder Include="OperatorLoader\" />
   </ItemGroup>
-
-  <!-- Reference the Executable Project -->
-
-  <!-- Target to copy the executable build output into the NuGet tools folder -->
-  <Target Name="CopyExecutableToTools" BeforeTargets="_GetPackageFiles">
-    <ItemGroup>
-      <_ExecutableFiles Include="..\RightRule_SyntaxChecker\bin\$(Configuration)\$(TargetFramework)\publish\**\*.*" />
-      <None Include="@(_ExecutableFiles)">
-        <Pack>true</Pack>
-        <PackagePath>tools/$(TargetFramework)/any/%(RecursiveDir)%(FileName)%(Extension)</PackagePath>
-        <Visible>false</Visible>
-      </None>
-    </ItemGroup>
-  </Target>
-
 </Project>

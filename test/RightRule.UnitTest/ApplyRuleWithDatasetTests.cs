@@ -1,4 +1,3 @@
-using RightRule.Extensions;
 using RightRule.Rules;
 
 namespace RightRuleTests;
@@ -6,8 +5,8 @@ namespace RightRuleTests;
 public class ApplyRuleWithDatasetTests
 {
     private readonly Dictionary<string, object> _Data;
-    private readonly RightRule.Rules.RuleDefinition rule1;
-    private readonly RightRule.Rules.RuleDefinition rule2;
+    private readonly RuleDefinition rule1;
+    private readonly RuleDefinition rule2;
 
     public ApplyRuleWithDatasetTests()
     {

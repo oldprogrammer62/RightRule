@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy $(TargetDir)\Operator.exists.dll C:\Development\BSoft\RightRule\src\Operators\CustomOperators /Y /I /E" />
+    <Exec Command="xcopy $(TargetDir)\Operator.exists.dll C:\Development\BeSoft\RightRule\src\Operators\CustomOperators /Y /I /E" />
   </Target>
 
   <ItemGroup>

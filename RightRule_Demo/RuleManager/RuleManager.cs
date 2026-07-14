@@ -1,5 +1,4 @@
-﻿using RightRule.Extensions;
-using RightRule.Rules;
+﻿using RightRule.Rules;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
@@ -8,7 +7,7 @@ namespace RightRule_Demo.RuleManager
     {
         internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
         {
-            RightRule.RightRule rr = new RightRule.RightRule();
+            BeSoft.RightRule rr = new BeSoft.RightRule();
 
             string Context = "Demo";
             var rules = LoadRules(Context);

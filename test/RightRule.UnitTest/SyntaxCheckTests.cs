@@ -25,7 +25,7 @@ public class SyntaxCheckTests
     [Fact]
     public void ValidStatement_ReturnsValid()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
         var result = rr.CheckStatement("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
@@ -35,7 +35,7 @@ public class SyntaxCheckTests
     [Fact]
     public void UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
         var stmt = "Data.name equals \"John";
         var result = rr.CheckStatement(stmt);
 
@@ -52,7 +52,7 @@ public class SyntaxCheckTests
     [Fact]
     public void UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
         var stmt = "(Test.numberoforders equals 10";
         var result = rr.CheckStatement(stmt);
 
@@ -68,7 +68,7 @@ public class SyntaxCheckTests
     [Fact]
     public void UnexpectedCharacter_ReportsDiagnostic()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
         var stmt = "Test.name equals #invalid";
         var result = rr.CheckStatement(stmt);
 
@@ -86,7 +86,7 @@ public class SyntaxCheckTests
     {
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5";
-        var rightRule = new RightRule.RightRule();
+        var rightRule = new BeSoft.RightRule();
 
         // Rule
         RuleDefinition rule = new()
