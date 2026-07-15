@@ -60,7 +60,7 @@ public class StatementBuilderTests
             }
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("OrderData", _OrderData);
         rr.RegisterData("CustomerData", _CustomerData);

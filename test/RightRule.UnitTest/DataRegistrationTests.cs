@@ -32,7 +32,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        var rr = new BeSoft.RightRule();
+        var rr = new RightRule.RightRule();
 
         rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -52,7 +52,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        var rr = new BeSoft.RightRule();
+        var rr = new RightRule.RightRule();
 
         rr.RegisterData<Dictionary<string, object>>("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -73,7 +73,7 @@ public class DataRegistrationTests
             Decision = "ENOUGHORDERS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);

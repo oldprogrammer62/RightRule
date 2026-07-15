@@ -45,7 +45,7 @@ public class RulesToApplyTests
     [Fact]
     public void OneRule_First_Unspecified()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
@@ -57,7 +57,7 @@ public class RulesToApplyTests
     [Fact]
     public void OneRule_All_Unspecified()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
@@ -69,7 +69,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_First_Unspecified()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -82,7 +82,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_All_Unspecified()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -95,7 +95,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_First_Unspecified_WithDataSet()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
@@ -107,7 +107,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_All_Unspecified_WithDataSet()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
@@ -119,7 +119,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_FirstSpecified_WithDataSet()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
@@ -131,7 +131,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_AllSpecified_WithDataSet()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
@@ -145,7 +145,7 @@ public class RulesToApplyTests
     {
         var rules = new List<RuleDefinition>() { rule1, rule2 };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRules = rr.RegisterRules(rules);
         rr.RegisterData("Test", _Data);
 
@@ -157,7 +157,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data); 
@@ -170,7 +170,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All_None_First()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -184,7 +184,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All_None_Last()
     {
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);

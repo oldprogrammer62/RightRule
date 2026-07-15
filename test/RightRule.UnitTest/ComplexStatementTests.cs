@@ -24,7 +24,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and TestDataset.D = 4)";
-        var rightRule = new BeSoft.RightRule();
+        var rightRule = new RightRule.RightRule();
 
         // Rule
         RuleDefinition rule = new()
@@ -49,7 +49,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and not TestDataset.D = 44)";
-        var rightRule = new BeSoft.RightRule();
+        var rightRule = new RightRule.RightRule();
 
         // Rule
         RuleDefinition rule = new()
@@ -79,7 +79,7 @@ public class ComplexStatementTests
 
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5)";
-        var rightRule = new BeSoft.RightRule();
+        var rightRule = new RightRule.RightRule();
 
         // Rule
         RuleDefinition rule = new()

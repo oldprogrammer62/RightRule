@@ -31,7 +31,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -54,7 +54,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -76,7 +76,7 @@ public class LessThanTests
             Decision = "NOT_LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -98,7 +98,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -122,7 +122,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -146,7 +146,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -170,7 +170,7 @@ public class LessThanTests
             Decision = "LESSTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 

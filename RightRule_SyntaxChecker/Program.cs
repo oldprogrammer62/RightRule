@@ -12,14 +12,14 @@ internal class Program
         Console.WriteLine("This tool allows you to check the syntax of RightRule statements.");
         Console.WriteLine();
 
-        var rr = new BeSoft.RightRule();
+        var rr = new RightRule.RightRule();
         DoCheckProcess(rr);
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
     }
 
-    private static void DoCheckProcess(BeSoft.RightRule rightRule)
+    private static void DoCheckProcess(RightRule.RightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
         var result = rightRule.CheckStatement(statement);

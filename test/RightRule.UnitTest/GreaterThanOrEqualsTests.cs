@@ -32,7 +32,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -54,7 +54,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHANOREQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -76,7 +76,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHANOREQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -98,7 +98,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHANOREQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -120,7 +120,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHANOREQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -144,7 +144,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -168,7 +168,7 @@ public class GreaterThanOrEqualsTests
             Decision = "EQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -192,7 +192,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -216,7 +216,7 @@ public class GreaterThanOrEqualsTests
             Decision = "GREATERTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -240,7 +240,7 @@ public class GreaterThanOrEqualsTests
             Decision = "EQUALS",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -262,7 +262,7 @@ public class GreaterThanOrEqualsTests
             Decision = "NOT_GREATERTHAN",
         };
 
-        BeSoft.RightRule rr = new BeSoft.RightRule();
+        RightRule.RightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
