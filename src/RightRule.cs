@@ -5,7 +5,7 @@ using RightRule.System.Common.Exceptions;
 
 namespace RightRule;
 
-public sealed class RightRule
+public sealed class RightRule : IRightRule
 {
     private readonly RightRuleService _rightRuleService;
 
@@ -110,7 +110,7 @@ public sealed class RightRule
         ArgumentNullException.ThrowIfNull(Data);
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
         try
-        { 
+        {
             return _rightRuleService.RegisterData<T>(DatasetName, Data);
         }
         catch
@@ -131,7 +131,8 @@ public sealed class RightRule
     {
         ArgumentNullException.ThrowIfNull(Data);
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        try { 
+        try
+        {
             return _rightRuleService.RegisterData(DatasetName, Data);
         }
         catch
