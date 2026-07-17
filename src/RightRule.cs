@@ -143,7 +143,17 @@ public sealed class RightRule : IRightRule
     public AppliedRule ApplyRule(string Context)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        return _rightRuleService.ApplyRule(Context);
+
+        var appliedRules = _rightRuleService.ApplyRule(Context);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rule not applied");
+        }
+        if (appliedRules.Count == 1)
+        {
+            return appliedRules[0];
+        }
+        return AppliedRule.DefaultRule();
     }
 
     /// <summary>
@@ -161,7 +171,17 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        return _rightRuleService.ApplyRule(Context, DatasetName, Data);
+
+        var appliedRules = _rightRuleService.ApplyRule(Context, DatasetName, Data);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rule not applied");
+        }
+        if (appliedRules.Count == 1)
+        {
+            return appliedRules[0];
+        }
+        return AppliedRule.DefaultRule();
     }
 
     /// <summary>
@@ -176,7 +196,17 @@ public sealed class RightRule : IRightRule
     public List<AppliedRule> ApplyRules(string Context)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        return _rightRuleService.ApplyRules(Context);
+
+        var appliedRules = _rightRuleService.ApplyRules(Context);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rules not applied");
+        }
+        if (appliedRules.Count > 0)
+        {
+            return appliedRules;
+        }
+        return [AppliedRule.DefaultRule()];
     }
 
     /// <summary>
@@ -192,7 +222,17 @@ public sealed class RightRule : IRightRule
     public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        return _rightRuleService.ApplyRules(Context, rulesToReturn);
+
+        var appliedRules = _rightRuleService.ApplyRules(Context, rulesToReturn);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rules not applied");
+        }
+        if (appliedRules.Count > 0)
+        {
+            return appliedRules;
+        }
+        return [AppliedRule.DefaultRule()];
     }
 
     /// <summary>
@@ -209,7 +249,17 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        return _rightRuleService.ApplyRules(Context, DatasetName, Data);
+
+        var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rules not applied");
+        }
+        if (appliedRules.Count > 0)
+        {
+            return appliedRules;
+        }
+        return [AppliedRule.DefaultRule()];
     }
 
     /// <summary>
@@ -228,6 +278,16 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        return _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
+
+        var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
+        if (appliedRules == null)
+        {
+            throw new InvalidOperationException("Rules not applied");
+        }
+        if (appliedRules.Count > 0)
+        {
+            return appliedRules;
+        }
+        return [AppliedRule.DefaultRule()];
     }
 }

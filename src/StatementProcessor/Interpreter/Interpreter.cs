@@ -19,14 +19,14 @@ public sealed class Interpreter
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
 
-    internal AppliedRule ProcessRule(ParsedRules rules)
+    internal List<AppliedRule> ProcessRule(ParsedRules rules)
     {
         return Evaluate(rules);
     }
 
-    private AppliedRule Evaluate(ParsedRules rules)
+    private List<AppliedRule> Evaluate(ParsedRules rules)
     {
-        return ProcessFirstRule.EvaluateFirst(_evaluator, rules.Rules, _registeredDatasets);
+        return ProcessFirstRule.Evaluate(_evaluator, rules.Rules, _registeredDatasets);
     }
 
     internal List<AppliedRule> ProcessRules(ParsedRules rules)
@@ -41,16 +41,11 @@ public sealed class Interpreter
 
     private List<AppliedRule> Evaluate(List<ParsedRule> rules, RulesToReturn rulesToReturn)
     {
-        switch (rulesToReturn)
+        return rulesToReturn switch
         {
-            case RulesToReturn.First:
-                return [ProcessFirstRule.EvaluateFirst(_evaluator, rules, _registeredDatasets)];
-
-            case RulesToReturn.All:
-                return ProcessAllRules.EvaluateAll(_evaluator, rules, _registeredDatasets);
-
-            default:
-                return [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")];
-        }
+            RulesToReturn.First => ProcessFirstRule.Evaluate(_evaluator, rules, _registeredDatasets),
+            RulesToReturn.All   => ProcessAllRules.Evaluate(_evaluator, rules, _registeredDatasets),
+            _                   => [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")]
+        };
     }
 }

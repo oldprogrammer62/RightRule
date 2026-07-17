@@ -123,29 +123,29 @@ internal class RightRuleService
         _registeredDatasets.RemoveDataset(DatasetName);
     }
 
-    internal AppliedRule ApplyRule(string Context)
+    internal List<AppliedRule> ApplyRule(string Context)
     {
         return ApplySingleRule(Context);
     }
 
-    internal AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
+    internal List<AppliedRule> ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         RegisterData(DatasetName, Data);
-        AppliedRule result = ApplySingleRule(Context);
+        List<AppliedRule> appliedRules = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
-        return result;
+        return appliedRules;
     }
 
-    private AppliedRule ApplySingleRule(string Context)
+    private List<AppliedRule> ApplySingleRule(string Context)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         if (_registeredDatasets == null || _registeredDatasets.Count == 0)
         {
-            return AppliedRule.DefaultRule("Error: No registered data available for rule application.");
+            return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
         }
         if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
         {
-            return AppliedRule.DefaultRule("Error: No rules available for application.");
+            return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
         return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, this.RightRuleConfig);
     }
@@ -173,9 +173,9 @@ internal class RightRuleService
     private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         RegisterData(DatasetName, Data);
-        List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
+        List<AppliedRule> appliedRules = ApplySpecifiedRules(Context, rulesToReturn);
         DeRegisterData(DatasetName);
-        return result;
+        return appliedRules;
     }
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, RulesToReturn rulesToReturn)

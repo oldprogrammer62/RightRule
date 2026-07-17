@@ -6,7 +6,7 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class ProcessAllRules
 {
-    internal static List<AppliedRule> EvaluateAll(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
+    internal static List<AppliedRule> Evaluate(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
     {
         List<AppliedRule> appliedRules = [];
 
@@ -61,7 +61,8 @@ internal class ProcessAllRules
                 return new EvalResult()
                 {
                     Result = EvalResult.ResultType.ResultError,
-                    Message = knf.Message
+                    Message = knf.Message,
+                    StatementApplied = rule.Statement
                 };
             }
             throw;
@@ -73,7 +74,8 @@ internal class ProcessAllRules
                 return new EvalResult()
                 {
                     Result = EvalResult.ResultType.ResultError,
-                    Message = ex.Message
+                    Message = ex.Message,
+                    StatementApplied = rule.Statement
                 };
             }
             throw;

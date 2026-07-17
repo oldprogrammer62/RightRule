@@ -6,13 +6,15 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class ProcessFirstRule
 {
-    internal static AppliedRule EvaluateFirst(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
+    internal static List<AppliedRule> Evaluate(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
     {
-        AppliedRule appliedRule = AppliedRule.DefaultRule();
+        List<AppliedRule> appliedRules = [];
         bool complete = false;
 
         foreach (var rule in rules)
         {
+            AppliedRule appliedRule = AppliedRule.DefaultRule();
+
             EvalResult result = Evaluate(evaluator, rule, registeredDatasets);
             switch (result.Result)
             {
@@ -34,10 +36,11 @@ internal class ProcessFirstRule
             }
             if (complete)
             {
+                appliedRules.Add(appliedRule);
                 break;
             }
         }
-        return appliedRule;
+        return appliedRules;
     }
 
     private static EvalResult Evaluate(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
@@ -65,7 +68,7 @@ internal class ProcessFirstRule
                 {
                     Result = EvalResult.ResultType.ResultError,
                     Message = knf.Message,
-                    StatementApplied = string.Empty
+                    StatementApplied = rule.Statement
                 };
             }
             throw;
@@ -78,7 +81,7 @@ internal class ProcessFirstRule
                 {
                     Result = EvalResult.ResultType.ResultError,
                     Message = ex.Message,
-                    StatementApplied = string.Empty
+                    StatementApplied = rule.Statement
                 };
             }
             throw;
