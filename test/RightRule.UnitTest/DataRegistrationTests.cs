@@ -54,7 +54,7 @@ public class DataRegistrationTests
 
         var rr = new RightRule.RightRule();
 
-        rr.RegisterData<Dictionary<string, object>>("Test", _Data);
+        rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);

@@ -99,29 +99,6 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <typeparam name="T">The type of the data to register.</typeparam>
-    /// <param name="DatasetName">The name of the dataset.</param>
-    /// <param name="Data">The data to register.</param>
-    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
-    /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
-    public bool RegisterData<T>(string DatasetName, T Data)
-    {
-        ArgumentNullException.ThrowIfNull(Data);
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        try
-        {
-            return _rightRuleService.RegisterData<T>(DatasetName, Data);
-        }
-        catch
-        {
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// Registers a data set with the RightRule engine for use in rule evaluation.
-    /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
@@ -171,7 +148,6 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// Apply all registered rules for the given context to the data set provided.
     /// </summary>
-    /// <typeparam name="T">Valid types are: Dictionary, Enumerable, object with name/value pairs</typeparam>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DatasetName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
@@ -180,11 +156,11 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
+    public AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        return _rightRuleService.ApplyRule<T>(Context, DatasetName, Data);
+        return _rightRuleService.ApplyRule(Context, DatasetName, Data);
     }
 
     /// <summary>
@@ -221,7 +197,6 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DatasetName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
@@ -229,7 +204,7 @@ public sealed class RightRule : IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
+    public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
@@ -239,7 +214,6 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DatasetName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
@@ -249,7 +223,7 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    public List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
+    public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));

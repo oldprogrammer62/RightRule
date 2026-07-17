@@ -96,15 +96,6 @@ internal class RightRuleService
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
-    internal bool RegisterData<T>(string DatasetName, T Data)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        ArgumentNullException.ThrowIfNull(Data);
-
-        var data = DataRegistrationService.CreateRegisteredDataObject<T>(DatasetName, Data);
-        return _registeredDatasets.AddDataset(data);
-    }
-
     internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(DatasetName);
@@ -113,7 +104,7 @@ internal class RightRuleService
         {
             throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
         }
-        var data = DataRegistrationService.CreateRegisteredDataObject<Dictionary<string, object>>(DatasetName, Data);
+        var data = DataRegistrationService.CreateRegisteredDataObject(DatasetName, Data);
         return _registeredDatasets.AddDataset(data);
     }
 
@@ -132,9 +123,9 @@ internal class RightRuleService
         return ApplySingleRule(Context);
     }
 
-    internal AppliedRule ApplyRule<T>(string Context, string DatasetName, T Data)
+    internal AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        RegisterData<T>(DatasetName, Data);
+        RegisterData(DatasetName, Data);
         AppliedRule result = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
         return result;
@@ -164,17 +155,17 @@ internal class RightRuleService
         return ApplySpecifiedRules(Context, rulesToReturn);
     }
 
-    internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data)
+    internal List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         return ApplySpecifiedRules(Context, DatasetName, Data, RulesToReturn.All);
     }
 
-    internal List<AppliedRule> ApplyRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
+    internal List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         return ApplySpecifiedRules(Context, DatasetName, Data, rulesToReturn);
     }
 
-    private List<AppliedRule> ApplySpecifiedRules<T>(string Context, string DatasetName, T Data, RulesToReturn rulesToReturn)
+    private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         RegisterData(DatasetName, Data);
         List<AppliedRule> result = ApplySpecifiedRules(Context, rulesToReturn);
