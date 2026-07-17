@@ -1,4 +1,5 @@
 ﻿using RightRule.Data;
+using RightRule.Models;
 using RightRule.Rules;
 using RightRule.System.Common;
 
@@ -6,7 +7,7 @@ namespace RightRule
 {
     public interface IRightRule
     {
-        bool SilentErrors { get; }
+        RightRuleConfiguration RightRuleConfiguration { get; }
 
         AppliedRule ApplyRule(string Context);
         AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data);

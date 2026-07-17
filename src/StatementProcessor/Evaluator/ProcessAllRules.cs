@@ -56,7 +56,7 @@ internal class ProcessAllRules
         }
         catch (KeyNotFoundException knf)
         {
-            if (evaluator.SilentErrors)
+            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {
@@ -68,7 +68,7 @@ internal class ProcessAllRules
         }
         catch (Exception ex)
         {
-            if (evaluator.SilentErrors)
+            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {

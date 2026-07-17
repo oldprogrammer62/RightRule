@@ -59,7 +59,7 @@ internal class ProcessFirstRule
         }
         catch (KeyNotFoundException knf)
         {
-            if (evaluator.SilentErrors)
+            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {
@@ -72,7 +72,7 @@ internal class ProcessFirstRule
         }
         catch (Exception ex)
         {
-            if (evaluator.SilentErrors)
+            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {

@@ -10,17 +10,19 @@ public sealed class Evaluator
 {
     private readonly Dictionary<string, IOperator> _operators;
 
-    private readonly bool _silentErrors;
-    internal bool SilentErrors => _silentErrors;
+    private readonly RightRuleConfiguration _rightRuleConfig;
+    internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
 
-    internal Evaluator(Dictionary<string, IOperator> Operators, bool SilentErrors = false)
+    internal Evaluator(Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
     {
         _operators = Operators ?? new Dictionary<string, IOperator> { };
-        _silentErrors = SilentErrors;
+        _rightRuleConfig = rightRuleConfig;
     }
 
     internal EvalResult Evaluate(ParsedRule parsedRule, RegisteredDatasets Datasets)
     {
+        var diagnostics = _rightRuleConfig.DiagnosticsEnabled;
+
         try
         {
             var node = parsedRule.Node;
@@ -28,13 +30,13 @@ public sealed class Evaluator
 
             bool result = EvaluateNode(Datasets, node);
             string message = string.Empty;
-            string statementApplied = BuildStatement(statement, Datasets, node!);
-            string syntaxTree = BuildSyntaxTree(parsedRule);
+            string statementApplied = diagnostics ? BuildStatement(statement, Datasets, node!) : string.Empty;
+            string syntaxTree = diagnostics ? BuildSyntaxTree(parsedRule) : string.Empty;
             return new EvalResult(result, message, statementApplied, syntaxTree);
         }
         catch (InvalidIdentifierException iie)
         {
-            if (SilentErrors)
+            if (_rightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {
@@ -47,7 +49,7 @@ public sealed class Evaluator
         }
         catch (KeyNotFoundException knf)
         {
-            if (SilentErrors)
+            if (_rightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {
@@ -60,7 +62,7 @@ public sealed class Evaluator
         }
         catch (Exception ex)
         {
-            if (SilentErrors)
+            if (_rightRuleConfig.SilentEvaluatorExceptions)
             {
                 return new EvalResult()
                 {
@@ -181,7 +183,7 @@ public sealed class Evaluator
         }
     }
 
-    private string BuildSyntaxTree(ParsedRule rule)
+    private static string BuildSyntaxTree(ParsedRule rule)
     {
         return rule.ToTreeText();
     }

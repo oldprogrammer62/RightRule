@@ -3,7 +3,7 @@ using RightRule.Rules;
 using RightRule.Operators;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
-using RightRule.HelperFunctions;
+using RightRule.Models;
 
 namespace RightRule;
 
@@ -13,8 +13,8 @@ internal class RightRuleService
     private readonly ParsedRuleService _rulesService;
     private readonly RegisteredDatasets _registeredDatasets;
 
-    private bool _silentErrors = false;
-    public bool SilentErrors => _silentErrors;
+    private readonly RightRuleConfiguration _rightRuleConfig;
+    internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
 
     public RightRuleService()
     {
@@ -22,7 +22,12 @@ internal class RightRuleService
         _rulesService = new ParsedRuleService();
         _registeredDatasets = new RegisteredDatasets();
 
-        _silentErrors = ConfigurationHelper.GetSetting("SilentEvaluatorExceptions")?.ToLower() == "true";
+        _rightRuleConfig = GetConfiguration();
+    }
+
+    private static RightRuleConfiguration GetConfiguration()
+    {
+        return RightRuleConfigurationManager.ConfigurationManager.GetConfiguration();
     }
 
     internal bool UnloadOperator(string OperatorName)
@@ -142,7 +147,7 @@ internal class RightRuleService
         {
             return AppliedRule.DefaultRule("Error: No rules available for application.");
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, _silentErrors);
+        return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, this.RightRuleConfig);
     }
 
     internal List<AppliedRule> ApplyRules(string Context)
@@ -184,6 +189,6 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases);
+        return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig);
     }
 }

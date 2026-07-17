@@ -1,5 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.HelperFunctions;
+using RightRule.Models;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
 
@@ -7,27 +8,27 @@ namespace RightRule.Rules;
 
 internal class RuleApplicationService
 {
-    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, bool SilentErrors)
+    internal static AppliedRule ApplyRule(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
     {
-        return ApplyRuleToData(Context, Datasets, parsedRules, Operators, SilentErrors);
+        return ApplyRuleToData(Context, Datasets, parsedRules, Operators, rightRuleConfig);
     }
 
-    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, bool SilentErrors)
+    private static AppliedRule ApplyRuleToData(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
     {
-        var interpreter = new Interpreter(Datasets, Operators, SilentErrors);
+        var interpreter = new Interpreter(Datasets, Operators, rightRuleConfig);
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRule(filteredRules);
     }
 
-    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
+    internal static List<AppliedRule> ApplyRules(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
     {
-        return ApplyRulesToData(Context, Datasets, parsedRules, rulesToReturn, Operators);
+        return ApplyRulesToData(Context, Datasets, parsedRules, rulesToReturn, Operators, rightRuleConfig);
     }
 
-    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators)
+    private static List<AppliedRule> ApplyRulesToData(string Context, RegisteredDatasets Datasets, ParsedRules parsedRules, RulesToReturn rulesToReturn, Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
     {
-        var interpreter = new Interpreter(Datasets, Operators);
+        var interpreter = new Interpreter(Datasets, Operators, rightRuleConfig);
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
 
         return interpreter.ProcessRules(filteredRules, rulesToReturn);

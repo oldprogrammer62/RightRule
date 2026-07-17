@@ -35,7 +35,7 @@ public class DataTests
         rr.RegisterData("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 
-        if (rr.SilentErrors)
+        if (rr.RightRuleConfiguration.SilentEvaluatorExceptions)
         {
             var appliedRule = rr.ApplyRule("Context");
             Assert.NotNull(appliedRule);

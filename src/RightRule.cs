@@ -1,4 +1,5 @@
 ﻿using RightRule.Data;
+using RightRule.Models;
 using RightRule.Rules;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
@@ -9,7 +10,7 @@ public sealed class RightRule : IRightRule
 {
     private readonly RightRuleService _rightRuleService;
 
-    public bool SilentErrors => _rightRuleService.SilentErrors;
+    public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
     public RightRule()
     {
