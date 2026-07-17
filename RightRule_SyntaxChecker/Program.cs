@@ -22,7 +22,7 @@ internal class Program
     private static void DoCheckProcess(RightRule.RightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
-        var result = rightRule.CheckStatement(statement);
+        var result = rightRule.SyntaxCheck(statement);
 
         if (result == null)
         {

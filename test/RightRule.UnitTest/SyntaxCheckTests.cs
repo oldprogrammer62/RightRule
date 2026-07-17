@@ -26,7 +26,7 @@ public class SyntaxCheckTests
     public void ValidStatement_ReturnsValid()
     {
         var rr = new RightRule.RightRule();
-        var result = rr.CheckStatement("Data.name equals \"John\" and Data.numberoforders equals 10");
+        var result = rr.SyntaxCheck("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.Error);
@@ -37,7 +37,7 @@ public class SyntaxCheckTests
     {
         var rr = new RightRule.RightRule();
         var stmt = "Data.name equals \"John";
-        var result = rr.CheckStatement(stmt);
+        var result = rr.SyntaxCheck(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
@@ -54,7 +54,7 @@ public class SyntaxCheckTests
     {
         var rr = new RightRule.RightRule();
         var stmt = "(Test.numberoforders equals 10";
-        var result = rr.CheckStatement(stmt);
+        var result = rr.SyntaxCheck(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault(d => d.Code == "PAR_UNMATCHED_LPAREN");
@@ -70,7 +70,7 @@ public class SyntaxCheckTests
     {
         var rr = new RightRule.RightRule();
         var stmt = "Test.name equals #invalid";
-        var result = rr.CheckStatement(stmt);
+        var result = rr.SyntaxCheck(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
