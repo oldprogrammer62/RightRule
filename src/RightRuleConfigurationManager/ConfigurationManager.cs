@@ -1,7 +1,7 @@
 ﻿using RightRule.HelperFunctions;
 using RightRule.Models;
 
-namespace RightRule.RightRuleConfigurationManager;
+namespace BeSoft.RightRuleConfigurationManager;
 
 internal class ConfigurationManager
 {

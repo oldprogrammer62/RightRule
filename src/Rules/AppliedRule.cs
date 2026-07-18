@@ -1,5 +1,6 @@
 ﻿using RightRule.Models;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 namespace RightRule.Rules;
 
@@ -141,5 +142,24 @@ public sealed class AppliedRule : Rule
             StatementPath = result.SyntaxTree,
             ErrorMessage = result.Message
         };
+    }
+
+    public override string ToString()
+    {
+        var statementApplied = !string.IsNullOrWhiteSpace(StatementApplied) ? StatementApplied : "Enable Diagnostics";
+        var statementPath = !string.IsNullOrWhiteSpace(StatementPath) ? StatementPath : "Enable Diagnostics";
+
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"Number: {this.Number}");
+        sb.AppendLine($"Name: {this.Name}");
+        sb.AppendLine($"Context: {this.Context}");
+        sb.AppendLine($"Statement: {this.Statement}");
+        sb.AppendLine($"Result: {this.Result}");
+        sb.AppendLine($"Decision: {this.Decision}");
+        sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"StatementApplied: {statementApplied}");
+        sb.AppendLine($"StatementPath: {statementPath}");
+        sb.AppendLine($"ErrorMessage: {this.ErrorMessage}");
+        return sb.ToString();
     }
 }

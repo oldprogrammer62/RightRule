@@ -7,7 +7,7 @@ namespace RightRule_Demo.RuleManager
     {
         internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
         {
-            RightRule.RightRule rr = new RightRule.RightRule();
+            BeSoft.RightRule rr = new BeSoft.RightRule();
 
             string Context = "Demo";
             var rules = LoadRules(Context);
@@ -17,6 +17,8 @@ namespace RightRule_Demo.RuleManager
 
             var hvData = MakeHvData(HighValue);
             rr.RegisterData("hv", hvData);
+
+            var x = rr.ApplyRule(Context);
 
             var appliedRules = rr.ApplyRules(Context, rulesToReturn);
             return appliedRules;

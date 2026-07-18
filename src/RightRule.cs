@@ -4,8 +4,12 @@ using RightRule.Rules;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 
-namespace RightRule;
+namespace BeSoft;
 
+/// <summary>
+/// Main RightRule class
+/// Provides all public entry points to the RightRule system
+/// </summary>
 public sealed class RightRule : IRightRule
 {
     private readonly RightRuleService _rightRuleService;
