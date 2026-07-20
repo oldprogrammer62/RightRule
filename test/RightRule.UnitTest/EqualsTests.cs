@@ -35,7 +35,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -57,7 +57,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -79,7 +79,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -101,7 +101,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -123,7 +123,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -145,7 +145,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -169,7 +169,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -193,7 +193,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -231,7 +231,7 @@ public class EqualsTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _IntData);
+        rr.RegisterDataset("Test", _IntData);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -269,7 +269,7 @@ public class EqualsTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _IntData);
+        rr.RegisterDataset("Test", _IntData);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -307,7 +307,7 @@ public class EqualsTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _IntData);
+        rr.RegisterDataset("Test", _IntData);
 
         var appliedRule = rr.ApplyRules("Context");
 

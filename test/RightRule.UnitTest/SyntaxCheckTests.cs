@@ -99,7 +99,7 @@ public class SyntaxCheckTests
         };
 
         // Register the data
-        rightRule.RegisterData("TestDataset", _Data);
+        rightRule.RegisterDataset("TestDataset", _Data);
         Action test = () => rightRule.RegisterRule(rule);
         var exception = Record.Exception(test);
         

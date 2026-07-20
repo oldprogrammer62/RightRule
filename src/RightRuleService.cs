@@ -99,7 +99,7 @@ internal class RightRuleService
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
-    internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
+    internal bool RegisterDataset(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
@@ -108,7 +108,12 @@ internal class RightRuleService
         return _registeredDatasets.AddDataset(data);
     }
 
-    internal void DeRegisterData(string DatasetName)
+    internal void DeRegisterDatasets()
+    {
+        _registeredDatasets.RemoveDatasets();
+    }
+
+    internal void DeRegisterDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
@@ -128,9 +133,9 @@ internal class RightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        RegisterData(DatasetName, Data);
+        RegisterDataset(DatasetName, Data);
         List<AppliedRule> appliedRules = ApplySingleRule(Context);
-        DeRegisterData(DatasetName);
+        DeRegisterDataset(DatasetName);
         return appliedRules;
     }
 
@@ -187,9 +192,9 @@ internal class RightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        RegisterData(DatasetName, Data);
+        RegisterDataset(DatasetName, Data);
         List<AppliedRule> appliedRules = ApplySpecifiedRules(Context, rulesToReturn);
-        DeRegisterData(DatasetName);
+        DeRegisterDataset(DatasetName);
         return appliedRules;
     }
 

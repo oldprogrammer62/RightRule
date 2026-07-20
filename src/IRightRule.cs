@@ -2,6 +2,7 @@
 using RightRule.Models;
 using RightRule.Rules;
 using RightRule.System.Common;
+using RightRule.System.Common.Exceptions;
 
 namespace BeSoft;
 
@@ -9,29 +10,170 @@ public interface IRightRule
 {
     RightRuleConfiguration RightRuleConfiguration { get; }
 
+    /// <summary>
+    /// Apply all registered Rules for the given Context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidIdentifierException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
     AppliedRule ApplyRule(string Context);
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the data set provided.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
     AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data);
 
+    /// <summary>
+    /// Apply all registered rules for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// All Rules applied are returned in a list.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context);
+
+    /// <summary>
+    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn);
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data);
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
-    bool DeRegisterData(string DatasetName);
+    /// <summary>
+    /// DeRegisters all data sets from the RightRule engine.
+    /// </summary>
+    /// <exception cref="ArgumentException"></exception>
+    bool DeRegisterDatasets();
 
+    /// <summary>
+    /// DeRegisters a data set from the RightRule engine.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <exception cref="ArgumentException"></exception>
+    bool DeRegisterDataset(string DatasetName);
+
+    /// <summary>
+    /// Deregisters all Rules from the RightRule engine.
+    /// </summary>
+    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRules();
+
+    /// <summary>
+    /// Deregisters all Rules associated with the specified Context from the RightRule engine.
+    /// </summary>
+    /// <param name="Context">The Context for which to deregister rules.</param>
+    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
     bool DeRegisterRules(string Context);
 
+    /// <summary>
+    /// Returns the specified Dataset.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <returns>Registered Dataset</returns>
+    /// <exception cref="ArgumentException"></exception>
     RegisteredDataset? GetRegisteredDataset(string DatasetName);
+
+    /// <summary>
+    /// Returns the set of Registered Datasets.
+    /// </summary>
+    /// <returns>The Registered Datasets</returns>
     RegisteredDatasets GetRegisteredDatasets();
 
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules.
+    /// </summary>
     List<ParsedRule> GetRules();
+
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules for the specified Context.
+    /// </summary>
+    /// <param name="Context"></param>
+    /// <exception cref="ArgumentException"></exception>
     List<ParsedRule> GetRules(string Context);
 
-    bool RegisterData(string DatasetName, Dictionary<string, object> Data);
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="Data">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    bool RegisterDataset(string DatasetName, Dictionary<string, object> Data);
 
+    /// <summary>
+    /// Registers a single Rule with the RightRule engine.
+    /// </summary>
+    /// <param name="rule">The Rule definition to register.</param>
+    /// <returns>The Parsed Rule.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
     ParsedRule RegisterRule(RuleDefinition rule);
+
+    /// <summary>
+    /// Registers a set of Rules with the RightRule engine.
+    /// </summary>
+    /// <param name="rules">The Rule definitions to register.</param>
+    /// <returns>The set of Parsed Rules.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
     List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
 
-    bool UnloadOperator(string operatorName);
+    /// <summary>
+    /// Unloads an Operator from the RightRule engine.
+    /// The Operator will no longer be valid in a Rule Statement
+    /// </summary>
+    /// <param name="OperatorName">The name of the Operator to unload.</param>
+    /// <exception cref="ArgumentException"></exception>
+    bool UnloadOperator(string OperatorName);
 }

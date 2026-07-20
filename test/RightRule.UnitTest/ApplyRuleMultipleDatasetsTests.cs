@@ -62,8 +62,8 @@ public class ApplyRuleMultipleDatasetsTests
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        rr.RegisterData("TestA", _DataA);
-        rr.RegisterData("TestB", _DataB);
+        rr.RegisterDataset("TestA", _DataA);
+        rr.RegisterDataset("TestB", _DataB);
 
         var appliedA = rr.ApplyRule("AllContext");
 
@@ -78,8 +78,8 @@ public class ApplyRuleMultipleDatasetsTests
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        rr.RegisterData("TestA", _DataA);
-        rr.RegisterData("TestB", _DataB);
+        rr.RegisterDataset("TestA", _DataA);
+        rr.RegisterDataset("TestB", _DataB);
 
         var appliedB = rr.ApplyRule("AllContext");
 

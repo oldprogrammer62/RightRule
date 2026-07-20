@@ -39,8 +39,8 @@ public class IdentifierWithDotTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Data", _Data);
-        rr.RegisterData("Constants", _Constants);
+        rr.RegisterDataset("Data", _Data);
+        rr.RegisterDataset("Constants", _Constants);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -62,8 +62,8 @@ public class IdentifierWithDotTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Data", _Data);
-        rr.RegisterData("Constants", _Constants);
+        rr.RegisterDataset("Data", _Data);
+        rr.RegisterDataset("Constants", _Constants);
 
         var appliedRule = rr.ApplyRule("Context");
 

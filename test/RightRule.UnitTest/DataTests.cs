@@ -32,7 +32,7 @@ public class DataTests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 
         Action test = () => rr.ApplyRule("Context");

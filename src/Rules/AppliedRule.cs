@@ -160,7 +160,7 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
         sb.AppendLine($"StatementPath: {statementPath}");
-        sb.AppendLine($"ErrorMessage: {this.Message}");
+        sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();
     }
 }

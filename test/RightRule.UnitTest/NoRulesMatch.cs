@@ -38,7 +38,7 @@ public class NoRulesMatch
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -69,7 +69,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -91,7 +91,7 @@ public class NoRulesMatch
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -122,7 +122,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -153,7 +153,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
 
@@ -184,7 +184,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
 
@@ -215,7 +215,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
 
@@ -246,7 +246,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
 
@@ -277,7 +277,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
 
@@ -309,7 +309,7 @@ public class NoRulesMatch
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
 

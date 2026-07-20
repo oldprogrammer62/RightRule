@@ -35,7 +35,7 @@ public class DoesContainTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");
 
@@ -57,7 +57,7 @@ public class DoesContainTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");
 

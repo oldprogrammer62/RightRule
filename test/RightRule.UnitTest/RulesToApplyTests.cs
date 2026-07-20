@@ -47,7 +47,7 @@ public class RulesToApplyTests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -59,7 +59,7 @@ public class RulesToApplyTests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext");
         var appliedRule = appliedRules.FirstOrDefault();
@@ -72,7 +72,7 @@ public class RulesToApplyTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -85,7 +85,7 @@ public class RulesToApplyTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext");
         var appliedRule = appliedRules.FirstOrDefault();
@@ -147,7 +147,7 @@ public class RulesToApplyTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRules = rr.RegisterRules(rules);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -160,7 +160,7 @@ public class RulesToApplyTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data); 
+        rr.RegisterDataset("Test", _Data); 
 
         var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
@@ -173,7 +173,7 @@ public class RulesToApplyTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
@@ -187,7 +187,7 @@ public class RulesToApplyTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();

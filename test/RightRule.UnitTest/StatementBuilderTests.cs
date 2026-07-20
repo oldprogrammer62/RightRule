@@ -62,9 +62,9 @@ public class StatementBuilderTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("OrderData", _OrderData);
-        rr.RegisterData("CustomerData", _CustomerData);
-        rr.RegisterData("StaticData", _StaticData);
+        rr.RegisterDataset("OrderData", _OrderData);
+        rr.RegisterDataset("CustomerData", _CustomerData);
+        rr.RegisterDataset("StaticData", _StaticData);
 
         var appliedRule = rr.ApplyRule("DiscountDecision");
 

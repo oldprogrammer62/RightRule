@@ -21,6 +21,9 @@ public sealed class RightRule : IRightRule
         _rightRuleService = new RightRuleService();
     }
 
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules.
+    /// </summary>
     public List<ParsedRule> GetRules()
     {
         return _rightRuleService.GetParsedRules();
@@ -108,7 +111,7 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Returns the specifiwed Dataset.
+    /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <returns>Registered Dataset</returns>
@@ -127,13 +130,13 @@ public sealed class RightRule : IRightRule
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
+    public bool RegisterDataset(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         try
         {
-            return _rightRuleService.RegisterData(DatasetName, Data);
+            return _rightRuleService.RegisterDataset(DatasetName, Data);
         }
         catch
         {
@@ -142,17 +145,34 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
+    /// DeRegisters all data sets from the RightRule engine.
+    /// </summary>
+    /// <exception cref="ArgumentException"></exception>
+    public bool DeRegisterDatasets()
+    {
+        try
+        {
+            _rightRuleService.DeRegisterDatasets();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
     /// DeRegisters a data set from the RightRule engine.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterData(string DatasetName)
+    public bool DeRegisterDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         try
         {
-            _rightRuleService.DeRegisterData(DatasetName);
+            _rightRuleService.DeRegisterDataset(DatasetName);
             return true;
         }
         catch

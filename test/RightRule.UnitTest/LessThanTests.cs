@@ -33,7 +33,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -56,7 +56,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -78,7 +78,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -100,7 +100,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -124,7 +124,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -148,7 +148,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -172,7 +172,7 @@ public class LessThanTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.RegisterDataset("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
