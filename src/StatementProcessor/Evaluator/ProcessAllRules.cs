@@ -54,30 +54,8 @@ internal class ProcessAllRules
             EvalResult result = evaluator.Evaluate(rule, datasets);
             return result;
         }
-        catch (KeyNotFoundException knf)
+        catch
         {
-            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
-            {
-                return new EvalResult()
-                {
-                    Result = EvalResult.ResultType.ResultError,
-                    Message = knf.Message,
-                    StatementApplied = rule.Statement
-                };
-            }
-            throw;
-        }
-        catch (Exception ex)
-        {
-            if (evaluator.RightRuleConfig.SilentEvaluatorExceptions)
-            {
-                return new EvalResult()
-                {
-                    Result = EvalResult.ResultType.ResultError,
-                    Message = ex.Message,
-                    StatementApplied = rule.Statement
-                };
-            }
             throw;
         }
     }

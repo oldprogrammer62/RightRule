@@ -17,7 +17,7 @@ public interface IRightRule
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data);
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
-    void DeRegisterData(string DatasetName);
+    bool DeRegisterData(string DatasetName);
 
     bool DeRegisterRules();
     bool DeRegisterRules(string Context);

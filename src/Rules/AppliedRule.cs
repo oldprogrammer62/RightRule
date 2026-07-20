@@ -15,9 +15,10 @@ public sealed class AppliedRule : Rule
     public required bool Result { get; init; }
 
     /// <summary>
-    /// Provides the error message, if the application of a rule throws an exception
+    /// Used to return a message
+    /// - Exception message if an error is thrown
     /// </summary>
-    public required string ErrorMessage { get; init; }
+    public required string Message { get; init; }
 
     /// <summary>
     /// Diagnostics
@@ -55,7 +56,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty;
             StatementApplied = result.StatementApplied;
             StatementPath = result.SyntaxTree;
-            ErrorMessage = result.Message;
+            Message = result.Message;
             return;
         }
 
@@ -68,7 +69,7 @@ public sealed class AppliedRule : Rule
         DecisionData = parsedRule.DecisionData;
         StatementApplied = result.StatementApplied;
         StatementPath = result.SyntaxTree;
-        ErrorMessage = result.Message;
+        Message = result.Message;
     }
 
     private static bool IsError(EvalResult ruleResult)
@@ -89,7 +90,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
             StatementPath = string.Empty,
-            ErrorMessage = string.Empty
+            Message = string.Empty
         };
     }
 
@@ -106,7 +107,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
             StatementPath = string.Empty,
-            ErrorMessage = message
+            Message = message
         };
     }
 
@@ -123,7 +124,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
-            ErrorMessage = result.Message
+            Message = result.Message
         };
     }
 
@@ -140,7 +141,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
-            ErrorMessage = result.Message
+            Message = result.Message
         };
     }
 
@@ -159,7 +160,7 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
         sb.AppendLine($"StatementPath: {statementPath}");
-        sb.AppendLine($"ErrorMessage: {this.ErrorMessage}");
+        sb.AppendLine($"ErrorMessage: {this.Message}");
         return sb.ToString();
     }
 }

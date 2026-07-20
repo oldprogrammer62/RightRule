@@ -24,10 +24,7 @@ public static class Helpers
 
     internal static T DeserialiseJson<T>(string Json)
     {
-        if (string.IsNullOrWhiteSpace(Json))
-        {
-            throw new ArgumentException("JSON string cannot be null or whitespace.", nameof(Json));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(Json, nameof(Json));
 
         var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
         using (var jsonReader = new Newtonsoft.Json.JsonTextReader(new StringReader(Json)))
@@ -41,7 +38,7 @@ public static class Helpers
 
     public static bool IsDictionary(Type type, out Type? keyType, out Type? valueType)
     {
-        ArgumentNullException.ThrowIfNull(type);
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
 
         if (IsIDictionaryType(type))
         {
@@ -73,7 +70,7 @@ public static class Helpers
     /// <returns>True if <paramref name="type"/> represents an IEnumerable&lt;T&gt; or array; otherwise false.</returns>
     public static bool IsTEnumerable(Type type, out Type? elementType)
     {
-        ArgumentNullException.ThrowIfNull(type);
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
 
         // Exclude string which is IEnumerable<char> but usually not intended as a collection type here.
         if (type == typeof(string))
@@ -108,7 +105,7 @@ public static class Helpers
 
     private static Type? GetEnumerableInterface(Type type)
     {
-        ArgumentNullException.ThrowIfNull(type);
+        ArgumentNullException.ThrowIfNull(type, nameof(type));
 
         try { 
             return type.GetInterfaces()

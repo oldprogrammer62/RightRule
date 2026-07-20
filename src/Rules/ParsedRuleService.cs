@@ -19,7 +19,7 @@ internal class ParsedRuleService
 
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
     {
-        ArgumentNullException.ThrowIfNull(rules);
+        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var parsedRules = RuleRegistrationService.ParseRules(rules, OperatorNames);
         ParsedRules.AddRules(parsedRules);
@@ -28,7 +28,7 @@ internal class ParsedRuleService
 
     internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
-        ArgumentNullException.ThrowIfNull(rule);
+        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         var parsedRule = RuleRegistrationService.ParseRule(rule, OperatorNames);
         ParsedRules.AddRule(parsedRule);
         return parsedRule;
@@ -36,7 +36,7 @@ internal class ParsedRuleService
 
     internal bool DeRegisterRules(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return ParsedRules.RemoveRules(Context);
     }
 

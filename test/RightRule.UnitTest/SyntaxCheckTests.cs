@@ -104,6 +104,6 @@ public class SyntaxCheckTests
         var exception = Record.Exception(test);
         
         Assert.NotNull(exception);
-        Assert.IsType<SyntaxErrorException>(exception);
+        Assert.IsType<FormatException>(exception);
     }
 }

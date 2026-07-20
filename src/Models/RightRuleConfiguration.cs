@@ -3,11 +3,11 @@
 public class RightRuleConfiguration
 {
     public bool DiagnosticsEnabled { get; }
-    public bool SilentEvaluatorExceptions { get; }
+    public bool xSilentEvaluatorExceptions { get; }
 
-    public RightRuleConfiguration(bool EnableDiagnostics, bool SilentEvaluatorExceptions)
+    public RightRuleConfiguration(bool EnableDiagnostics, bool xSilentEvaluatorExceptions)
     {
         DiagnosticsEnabled = EnableDiagnostics;
-        this.SilentEvaluatorExceptions = SilentEvaluatorExceptions;
+        this.xSilentEvaluatorExceptions = xSilentEvaluatorExceptions;
     }
 }

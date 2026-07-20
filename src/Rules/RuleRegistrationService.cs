@@ -46,7 +46,7 @@ internal class RuleRegistrationService
         }
         catch (Exception ex)
         {
-            throw new SyntaxErrorException(Statement, ex.Message, ex);
+            throw new FormatException($"The Statement string is invalid - {Statement}", ex);
         }
     }
 }

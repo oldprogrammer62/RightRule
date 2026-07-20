@@ -32,7 +32,7 @@ internal class RightRuleService
 
     internal bool UnloadOperator(string OperatorName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(OperatorName, nameof(OperatorName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         return _operatorsService.DeRegisterOperator(OperatorName);
     }
 
@@ -51,10 +51,11 @@ internal class RightRuleService
     /// </summary>
     /// <param name="rules">The rule definitions to register.</param>
     /// <returns>The parsed rules.</returns>
-    /// <exception cref="SyntaxErrorException">Thrown when any of the rules contain a syntax error.</exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
-        ArgumentNullException.ThrowIfNull(rules);
+        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
         return _rulesService.RegisterRules(rules, operatorNames);
@@ -65,10 +66,10 @@ internal class RightRuleService
     /// </summary>
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
-    /// <exception cref="SyntaxErrorException">Thrown when the rule contains a syntax error.</exception>
+    /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
     internal ParsedRule RegisterRule(RuleDefinition rule)
     {
-        ArgumentNullException.ThrowIfNull(rule);
+        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = _operatorsService.OperatorNames;
         return _rulesService.RegisterRule(rule, operatorNames);
@@ -76,7 +77,8 @@ internal class RightRuleService
 
     internal bool DeRegisterRules(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return _rulesService.DeRegisterRules(Context);
     }
 
@@ -92,19 +94,15 @@ internal class RightRuleService
 
     internal RegisteredDataset? GetDataSet(string DatasetName)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
     internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentNullException.ThrowIfNullOrWhiteSpace($"{nameof(DatasetName)} cannot be null or empty");
-        ArgumentNullException.ThrowIfNull(Data);
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         var data = DataRegistrationService.CreateRegisteredDataObject(DatasetName, Data);
         return _registeredDatasets.AddDataset(data);
@@ -112,21 +110,24 @@ internal class RightRuleService
 
     internal void DeRegisterData(string DatasetName)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
         _registeredDatasets.RemoveDataset(DatasetName);
     }
 
     internal List<AppliedRule> ApplyRule(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return ApplySingleRule(Context);
     }
 
     internal List<AppliedRule> ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
         RegisterData(DatasetName, Data);
         List<AppliedRule> appliedRules = ApplySingleRule(Context);
         DeRegisterData(DatasetName);
@@ -135,7 +136,8 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySingleRule(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         if (_registeredDatasets == null || _registeredDatasets.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
@@ -149,26 +151,42 @@ internal class RightRuleService
 
     internal List<AppliedRule> ApplyRules(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return ApplySpecifiedRules(Context, RulesToReturn.All);
     }
 
     internal List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return ApplySpecifiedRules(Context, rulesToReturn);
     }
 
     internal List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
         return ApplySpecifiedRules(Context, DatasetName, Data, RulesToReturn.All);
     }
 
     internal List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
         return ApplySpecifiedRules(Context, DatasetName, Data, rulesToReturn);
     }
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
         RegisterData(DatasetName, Data);
         List<AppliedRule> appliedRules = ApplySpecifiedRules(Context, rulesToReturn);
         DeRegisterData(DatasetName);
@@ -177,7 +195,8 @@ internal class RightRuleService
 
     private List<AppliedRule> ApplySpecifiedRules(string Context, RulesToReturn rulesToReturn)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         if (_registeredDatasets == null || _registeredDatasets.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];

@@ -26,21 +26,27 @@ public sealed class RightRule : IRightRule
         return _rightRuleService.GetParsedRules();
     }
 
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules for the specified Context.
+    /// </summary>
+    /// <param name="Context"></param>
+    /// <exception cref="ArgumentException"></exception>
     public List<ParsedRule> GetRules(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return _rightRuleService.GetRules(Context);
     }
 
     /// <summary>
-    /// Registers a set of rules with the RightRule engine.
+    /// Registers a set of Rules with the RightRule engine.
     /// </summary>
-    /// <param name="rules">The rule definitions to register.</param>
-    /// <returns>The parsed rules.</returns>
-    /// <exception cref="SyntaxErrorException">Thrown when any of the rules contain a syntax error.</exception>
+    /// <param name="rules">The Rule definitions to register.</param>
+    /// <returns>The set of Parsed Rules.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
     public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
-        ArgumentNullException.ThrowIfNull(rules);
+        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
         {
             return _rightRuleService.RegisterRules(rules);
@@ -52,14 +58,15 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Registers a single rule with the RightRule engine.
+    /// Registers a single Rule with the RightRule engine.
     /// </summary>
-    /// <param name="rule">The rule definition to register.</param>
-    /// <returns>The parsed rule.</returns>
-    /// <exception cref="SyntaxErrorException">Thrown when the rule contains a syntax error.</exception>
+    /// <param name="rule">The Rule definition to register.</param>
+    /// <returns>The Parsed Rule.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
     public ParsedRule RegisterRule(RuleDefinition rule)
     {
-        ArgumentNullException.ThrowIfNull(rule);
+        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try
         {
             return _rightRuleService.RegisterRule(rule);
@@ -71,18 +78,19 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Deregisters all rules associated with the specified context from the RightRule engine.
+    /// Deregisters all Rules associated with the specified Context from the RightRule engine.
     /// </summary>
-    /// <param name="Context">The context for which to deregister rules.</param>
+    /// <param name="Context">The Context for which to deregister rules.</param>
     /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
     public bool DeRegisterRules(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return _rightRuleService.DeRegisterRules(Context);
     }
 
     /// <summary>
-    /// Deregisters all rules from the RightRule engine, regardless of context.
+    /// Deregisters all Rules from the RightRule engine.
     /// </summary>
     /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
     public bool DeRegisterRules()
@@ -90,14 +98,24 @@ public sealed class RightRule : IRightRule
         return _rightRuleService.DeRegisterRules();
     }
 
+    /// <summary>
+    /// Returns the set of Registered Datasets.
+    /// </summary>
+    /// <returns>The Registered Datasets</returns>
     public RegisteredDatasets GetRegisteredDatasets()
     {
         return _rightRuleService.GetDataSets();
     }
 
+    /// <summary>
+    /// Returns the specifiwed Dataset.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <returns>Registered Dataset</returns>
+    /// <exception cref="ArgumentException"></exception>
     public RegisteredDataset? GetRegisteredDataset(string DatasetName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         return _rightRuleService.GetDataSet(DatasetName);
     }
 
@@ -107,12 +125,12 @@ public sealed class RightRule : IRightRule
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
-    /// <exception cref="ArgumentNullException">Thrown when the data is null.</exception>
-    /// <exception cref="ConvertDataException">Thrown when the data cannot be converted to a dictionary format.</exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentNullException.ThrowIfNull(Data);
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         try
         {
             return _rightRuleService.RegisterData(DatasetName, Data);
@@ -123,41 +141,81 @@ public sealed class RightRule : IRightRule
         }
     }
 
-    public void DeRegisterData(string DatasetName)
+    /// <summary>
+    /// DeRegisters a data set from the RightRule engine.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <exception cref="ArgumentException"></exception>
+    public bool DeRegisterData(string DatasetName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
-        _rightRuleService.DeRegisterData(DatasetName);
-    }
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-    public bool UnloadOperator(string operatorName)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(operatorName, nameof(operatorName));
-        return _rightRuleService.UnloadOperator(operatorName);
+        try
+        {
+            _rightRuleService.DeRegisterData(DatasetName);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the registered data set(s).
+    /// Unloads an Operator from the RightRule engine.
+    /// The Operator will no longer be valid in a Rule Statement
+    /// </summary>
+    /// <param name="OperatorName">The name of the Operator to unload.</param>
+    /// <exception cref="ArgumentException"></exception>
+    public bool UnloadOperator(string OperatorName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
+
+        try
+        {
+            return _rightRuleService.UnloadOperator(OperatorName);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Apply all registered Rules for the given Context to the registered data set(s).
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
-    /// A single rule object is returned.<br />
+    /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidIdentifierException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
     public AppliedRule ApplyRule(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = _rightRuleService.ApplyRule(Context);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rule not applied");
+            var appliedRules = _rightRuleService.ApplyRule(Context);
+            if (appliedRules == null)
+            {
+                throw new InvalidOperationException("Rule not applied");
+            }
+            if (appliedRules.Count == 1)
+            {
+                return appliedRules[0];
+            }
+            return AppliedRule.DefaultRule();
         }
-        if (appliedRules.Count == 1)
+        catch (Exception ex)
         {
-            return appliedRules[0];
+            return AppliedRule.DefaultRule(ex.Message);
         }
-        return AppliedRule.DefaultRule();
     }
 
     /// <summary>
@@ -173,8 +231,8 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         var appliedRules = _rightRuleService.ApplyRule(Context, DatasetName, Data);
         if (appliedRules == null)
@@ -199,7 +257,7 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var appliedRules = _rightRuleService.ApplyRules(Context);
         if (appliedRules == null)
@@ -225,7 +283,7 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var appliedRules = _rightRuleService.ApplyRules(Context, rulesToReturn);
         if (appliedRules == null)
@@ -251,8 +309,8 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data);
         if (appliedRules == null)
@@ -280,8 +338,8 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
-        ArgumentException.ThrowIfNullOrEmpty(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrEmpty(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
         if (appliedRules == null)

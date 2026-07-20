@@ -9,7 +9,7 @@
     <PackageId>RightRule</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
   </PropertyGroup>
@@ -20,12 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="RightRule.dll.config"
-          Pack="true"
-          PackagePath="contentFiles\any\$(TargetFramework);content\any\$(TargetFramework)"
-          BuildAction="None"
-          CopyToOutputDirectory="PreserveNewest"
-          PackageCopyToOutput="true" />
+    <None Include="RightRule.dll.config" Pack="true" PackagePath="contentFiles\any\$(TargetFramework);content\any\$(TargetFramework)" BuildAction="None" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
   </ItemGroup>
   
   <PropertyGroup>

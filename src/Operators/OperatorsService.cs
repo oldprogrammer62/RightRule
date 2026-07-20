@@ -22,7 +22,7 @@ internal class OperatorsService
 
     internal  bool DeRegisterOperator(string OperatorName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(OperatorName, nameof(OperatorName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
         if (opToRemove != null)
         {
@@ -33,7 +33,7 @@ internal class OperatorsService
 
     internal bool DeRegisterOperator(string OperatorName, IOperator Operator)
     {
-        ArgumentException.ThrowIfNullOrEmpty(OperatorName, nameof(OperatorName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         if (Operator != null)
         {
             RemoveOperatorAliases(Operator);
@@ -65,7 +65,7 @@ internal class OperatorsService
 
     private void RemoveOperatorNames(string OperatorName)
     {
-        ArgumentException.ThrowIfNullOrEmpty(OperatorName, nameof(OperatorName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         var keysToRemove = _operatorNames
             .Where(opp => opp.Equals(OperatorName, StringComparison.InvariantCultureIgnoreCase))
             .Select(opp => opp)

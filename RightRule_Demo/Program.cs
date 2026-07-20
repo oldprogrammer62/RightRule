@@ -112,7 +112,7 @@ namespace RightRule_Demo
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
             Console.WriteLine($"\tStatement Path...");
             Console.WriteLine($"{appliedRule.StatementPath}");
-            Console.WriteLine($"\tError Message: {appliedRule.ErrorMessage}");
+            Console.WriteLine($"\tMessage: {appliedRule.Message}");
         }
 
         private static void Welcome()

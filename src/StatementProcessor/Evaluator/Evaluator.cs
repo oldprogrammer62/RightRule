@@ -34,43 +34,8 @@ public sealed class Evaluator
             string syntaxTree = diagnostics ? BuildSyntaxTree(parsedRule) : string.Empty;
             return new EvalResult(result, message, statementApplied, syntaxTree);
         }
-        catch (InvalidIdentifierException iie)
+        catch
         {
-            if (_rightRuleConfig.SilentEvaluatorExceptions)
-            {
-                return new EvalResult()
-                {
-                    Result = EvalResult.ResultType.ResultError,
-                    Message = iie.Message,
-                    StatementApplied = string.Empty
-                };
-            }
-            throw;
-        }
-        catch (KeyNotFoundException knf)
-        {
-            if (_rightRuleConfig.SilentEvaluatorExceptions)
-            {
-                return new EvalResult()
-                {
-                    Result = EvalResult.ResultType.ResultError,
-                    Message = knf.Message,
-                    StatementApplied = string.Empty
-                };
-            }
-            throw;
-        }
-        catch (Exception ex)
-        {
-            if (_rightRuleConfig.SilentEvaluatorExceptions)
-            {
-                return new EvalResult()
-                {
-                    Result = EvalResult.ResultType.ResultError,
-                    Message = ex.Message,
-                    StatementApplied = string.Empty
-                };
-            }
             throw;
         }
     }
