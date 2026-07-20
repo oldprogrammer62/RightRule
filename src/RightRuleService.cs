@@ -103,12 +103,9 @@ internal class RightRuleService
 
     internal bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
-        ArgumentNullException.ThrowIfNull(DatasetName);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace($"{nameof(DatasetName)} cannot be null or empty");
         ArgumentNullException.ThrowIfNull(Data);
-        if (string.IsNullOrWhiteSpace(DatasetName))
-        {
-            throw new ArgumentException("Dataset name cannot be null or empty.", nameof(DatasetName));
-        }
+
         var data = DataRegistrationService.CreateRegisteredDataObject(DatasetName, Data);
         return _registeredDatasets.AddDataset(data);
     }

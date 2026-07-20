@@ -37,7 +37,7 @@ public class IdentifierWithDotTests
             Decision = "EQUALS",
         };
 
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Data", _Data);
         rr.RegisterData("Constants", _Constants);
@@ -60,7 +60,7 @@ public class IdentifierWithDotTests
             Decision = "EQUALS",
         };
 
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Data", _Data);
         rr.RegisterData("Constants", _Constants);

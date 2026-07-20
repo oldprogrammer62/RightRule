@@ -57,7 +57,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_A()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
 
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
@@ -73,7 +73,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_B()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new BeSoft.RightRule();
 
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);

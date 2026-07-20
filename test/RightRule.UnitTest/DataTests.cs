@@ -31,7 +31,7 @@ public class DataTests
             Decision = "EQUALS",
         };
 
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
         rr.RegisterData("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 

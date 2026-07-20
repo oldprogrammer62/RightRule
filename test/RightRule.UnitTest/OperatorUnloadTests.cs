@@ -19,7 +19,7 @@ public class OperatorUnloadTests
     public void TestItWorks_UnloadOperator_DoesNotContain()
     {
         // Force RightRule to load all operators
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
 
         // Unload the "Contains" operator
         bool result = rr.UnloadOperator("DoesNotContain");
@@ -30,7 +30,7 @@ public class OperatorUnloadTests
     public void TestItWorks_UnloadOperator_GreaterThanOrEquals()
     {
         // Force RightRule to load all operators
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
 
         // Unload the "GreaterThanOrEquals" operator
         bool result = rr.UnloadOperator("GreaterThanOrEquals");
@@ -50,7 +50,7 @@ public class OperatorUnloadTests
             Decision = "VALUEEQUALS",
         };
 
-        RightRule.RightRule rr = new RightRule.RightRule();
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
