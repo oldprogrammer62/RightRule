@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.Rules;
+using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 
@@ -8,6 +9,8 @@ namespace BeSoft;
 
 public interface IRightRule
 {
+    CheckStatementResult SyntaxCheck(string Statement);
+
     RightRuleConfiguration RightRuleConfiguration { get; }
 
     /// <summary>

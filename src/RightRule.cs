@@ -1,6 +1,8 @@
 ﻿using RightRule.Data;
+using RightRule.Extensions;
 using RightRule.Models;
 using RightRule.Rules;
+using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 
@@ -19,6 +21,12 @@ public sealed class RightRule : IRightRule
     public RightRule()
     {
         _rightRuleService = new RightRuleService();
+    }
+
+    public CheckStatementResult SyntaxCheck(string Statement)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
+        return this.CheckSyntax(Statement);
     }
 
     /// <summary>

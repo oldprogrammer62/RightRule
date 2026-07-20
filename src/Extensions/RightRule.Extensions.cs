@@ -8,7 +8,7 @@ public static class RightRuleExtensions
     /// Standalone syntax checker for a RightRule statement returning rich diagnostics.
     /// Call as: var result = rightRuleInstance.checkstatement(statement);
     /// </summary>
-    public static CheckStatementResult SyntaxCheck(this BeSoft.RightRule _, string statement)
+    public static CheckStatementResult CheckSyntax(this BeSoft.RightRule _, string statement)
     {
         var checker = new StatementSyntaxChecker();
         return checker.Check(statement);
