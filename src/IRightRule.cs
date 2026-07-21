@@ -16,7 +16,9 @@ public interface IRightRule
     RegisteredRules RegisteredRules { get; }
 
     /// <summary>
-    /// Apply all registered Rules for the given Context to the registered data set(s).
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -32,7 +34,10 @@ public interface IRightRule
     AppliedRule ApplyRule(string Context);
 
     /// <summary>
-    /// Apply all registered rules for the given context to the data set provided.
+    /// Apply all Registered Rules for the given context to the data set provided.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DatasetName">The name of the dataset to use</param>
@@ -45,7 +50,8 @@ public interface IRightRule
     AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
-    /// Apply all registered rules for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results of all applied rules will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -56,7 +62,10 @@ public interface IRightRule
     List<AppliedRule> ApplyRules(string Context);
 
     /// <summary>
-    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
@@ -68,7 +77,9 @@ public interface IRightRule
     List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn);
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results of all applied rules will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DatasetName">The name of the dataset to use</param>
@@ -80,7 +91,11 @@ public interface IRightRule
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DatasetName">The name of the registered dataset to use</param>
@@ -100,7 +115,7 @@ public interface IRightRule
     bool DeRegisterDatasets();
 
     /// <summary>
-    /// DeRegisters a data set from the RightRule engine.
+    /// DeRegisters the specified data set from the RightRule engine.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
