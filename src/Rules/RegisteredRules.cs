@@ -7,19 +7,19 @@
 /// The RightRules property allows the interpreter to access the list of parsed rules and evaluate them accordingly.
 /// This class is internal
 /// </summary>
-public class ParsedRules
+public class RegisteredRules
 {
     private readonly List<ParsedRule> _rules;
-    internal List<ParsedRule> Rules { get { return _rules; } }
+    public List<ParsedRule> Rules { get { return _rules; } }
 
     public int Count {  get { return Rules.Count; } }
 
-    internal ParsedRules()
+    internal RegisteredRules()
     {
         _rules = [];
     }
 
-    internal ParsedRules(List<ParsedRule> rules)
+    internal RegisteredRules(List<ParsedRule> rules)
     {
         _rules = rules;
     }

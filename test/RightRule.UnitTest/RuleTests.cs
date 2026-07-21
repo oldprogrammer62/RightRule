@@ -69,14 +69,14 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules.Count);
 
-        var rules = rr.GetRules();
-        Assert.NotNull(rules);
-        Assert.Equal(2, rules.Count);
+        RegisteredRules? registeredRules = rr.RegisteredRules;
+        Assert.NotNull(registeredRules);
+        Assert.Equal(2, registeredRules.Count);
 
-        var r1 = rules[0];
+        var r1 = registeredRules.Rules[0];
         Assert.Equal("Rule1", r1.Name);
 
-        var r2 = rules[1];
+        var r2 = registeredRules.Rules[1];
         Assert.Equal("Rule2", r2.Name);
     }
 }

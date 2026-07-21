@@ -13,7 +13,7 @@ internal class RightRuleService
 
     private readonly RegisteredRuleService _rulesService;
     // Visibility of Registered Rules
-    internal ParsedRules RegisteredRules => _rulesService.RegisteredRules;
+    internal RegisteredRules RegisteredRules => _rulesService.RegisteredRules;
 
 
     // Visibility of Registered Datasets
@@ -42,11 +42,6 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         return _operatorsService.DeRegisterOperator(OperatorName);
-    }
-
-    internal List<ParsedRule> GetParsedRules()
-    {
-        return _rulesService.RegisteredRules.Rules;
     }
 
     internal List<ParsedRule> GetRules(string Context)
@@ -95,15 +90,14 @@ internal class RightRuleService
         return _rulesService.DeRegisterRules();
     }
 
-    internal RegisteredDatasets GetDataSets()
-    {
-        return _registeredDatasets;
-    }
-
     internal RegisteredDataset? GetDataSet(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
+        if (_registeredDatasets == null)
+        {
+            return null;
+        }
         return _registeredDatasets.GetDataset(DatasetName);
     }
 
@@ -113,11 +107,15 @@ internal class RightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         var data = DataRegistrationService.CreateRegisteredDataObject(DatasetName, Data);
-        return _registeredDatasets.AddDataset(data);
+        return _registeredDatasets!.AddDataset(data);
     }
 
     internal void DeRegisterDatasets()
     {
+        if (_registeredDatasets == null)
+        {
+            return;
+        }
         _registeredDatasets.RemoveDatasets();
     }
 
@@ -125,6 +123,10 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
+        if (_registeredDatasets == null)
+        {
+            return;
+        }
         _registeredDatasets.RemoveDataset(DatasetName);
     }
 

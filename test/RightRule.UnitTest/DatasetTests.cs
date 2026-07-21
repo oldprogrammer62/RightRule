@@ -59,7 +59,7 @@ public class DatasetTests
         rr.RegisterDataset("Data2", Data2);
         Assert.Equal(2, rr.RegisteredDatasets.Count);
 
-        var ds = rr.GetRegisteredDatasets();
+        var ds = rr.RegisteredDatasets;
         Assert.NotNull(ds);
         Assert.Equal(2, ds.Count);
     }

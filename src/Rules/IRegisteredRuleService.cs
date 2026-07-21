@@ -2,6 +2,6 @@
 {
     internal interface IRegisteredRuleService
     {
-        ParsedRules RegisteredRules { get; }
+        RegisteredRules RegisteredRules { get; }
     }
 }

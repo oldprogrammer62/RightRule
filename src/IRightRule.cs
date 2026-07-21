@@ -13,7 +13,7 @@ public interface IRightRule
 
     RightRuleConfiguration RightRuleConfiguration { get; }
     RegisteredDatasets RegisteredDatasets { get; }
-    ParsedRules RegisteredRules { get; }
+    RegisteredRules RegisteredRules { get; }
 
     /// <summary>
     /// Apply all registered Rules for the given Context to the registered data set(s).
@@ -127,17 +127,6 @@ public interface IRightRule
     /// <returns>Registered Dataset</returns>
     /// <exception cref="ArgumentException"></exception>
     RegisteredDataset? GetRegisteredDataset(string DatasetName);
-
-    /// <summary>
-    /// Returns the set of Registered Datasets.
-    /// </summary>
-    /// <returns>The Registered Datasets</returns>
-    RegisteredDatasets GetRegisteredDatasets();
-
-    /// <summary>
-    /// Returns the set of Registered (Parsed) Rules.
-    /// </summary>
-    List<ParsedRule> GetRules();
 
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.

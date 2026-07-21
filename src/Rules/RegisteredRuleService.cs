@@ -4,12 +4,12 @@ namespace RightRule.Rules;
 
 internal class RegisteredRuleService : IRegisteredRuleService
 {
-    private readonly ParsedRules _registeredRules;
-    public ParsedRules RegisteredRules => _registeredRules;
+    private readonly RegisteredRules _registeredRules;
+    public RegisteredRules RegisteredRules => _registeredRules;
 
     internal RegisteredRuleService()
     {
-        _registeredRules = new ParsedRules();
+        _registeredRules = new RegisteredRules();
     }
 
     internal List<ParsedRule> GetRules(string Context)

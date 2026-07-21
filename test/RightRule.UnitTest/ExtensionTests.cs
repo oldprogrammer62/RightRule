@@ -9,10 +9,10 @@ public class ExtensionTests
     {
         BeSoft.RightRule rightRule = new BeSoft.RightRule();
 
-        var result = rightRule.GetRules();
+        var rules = rightRule.RegisteredRules;
 
-        Assert.NotNull(result);
-        Assert.IsType<List<ParsedRule>>(result);
+        Assert.NotNull(rules);
+        Assert.IsType<List<ParsedRule>>(rules.Rules);
     }
 
     [Fact]

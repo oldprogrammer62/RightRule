@@ -4,7 +4,7 @@ namespace RightRule.HelperFunctions;
 
 public static class Helpers
 {
-    internal static ParsedRules FilterRules(string Context, List<ParsedRule> Rules)
+    internal static RegisteredRules FilterRules(string Context, List<ParsedRule> Rules)
     {
         try
         {
@@ -14,7 +14,7 @@ public static class Helpers
                 )
                 .OrderBy(x => x.Number)
                 .ToList();
-            return new ParsedRules(filteredRules);
+            return new RegisteredRules(filteredRules);
         }
         catch (Exception ex)
         {

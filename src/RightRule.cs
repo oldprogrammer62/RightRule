@@ -20,7 +20,7 @@ public sealed class RightRule : IRightRule
 
     public RegisteredDatasets RegisteredDatasets => _rightRuleService.RegisteredDatasets;
 
-    public ParsedRules RegisteredRules => _rightRuleService.RegisteredRules;
+    public RegisteredRules RegisteredRules => _rightRuleService.RegisteredRules;
 
     public RightRule()
     {
@@ -31,14 +31,6 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
         return this.CheckSyntax(Statement);
-    }
-
-    /// <summary>
-    /// Returns the set of Registered (Parsed) Rules.
-    /// </summary>
-    public List<ParsedRule> GetRules()
-    {
-        return _rightRuleService.GetParsedRules();
     }
 
     /// <summary>
@@ -111,15 +103,6 @@ public sealed class RightRule : IRightRule
     public bool DeRegisterRules()
     {
         return _rightRuleService.DeRegisterRules();
-    }
-
-    /// <summary>
-    /// Returns the set of Registered Datasets.
-    /// </summary>
-    /// <returns>The Registered Datasets</returns>
-    public RegisteredDatasets GetRegisteredDatasets()
-    {
-        return _rightRuleService.GetDataSets();
     }
 
     /// <summary>

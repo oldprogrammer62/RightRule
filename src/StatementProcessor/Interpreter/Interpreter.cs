@@ -19,22 +19,22 @@ public sealed class Interpreter
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
 
-    internal List<AppliedRule> ProcessRule(ParsedRules rules)
+    internal List<AppliedRule> ProcessRule(RegisteredRules rules)
     {
         return Evaluate(rules);
     }
 
-    private List<AppliedRule> Evaluate(ParsedRules rules)
+    private List<AppliedRule> Evaluate(RegisteredRules rules)
     {
         return ProcessFirstRule.Evaluate(_evaluator, rules.Rules, _registeredDatasets);
     }
 
-    internal List<AppliedRule> ProcessRules(ParsedRules rules)
+    internal List<AppliedRule> ProcessRules(RegisteredRules rules)
     {
         return Evaluate(rules.Rules, RulesToReturn.All);
     }
 
-    internal List<AppliedRule> ProcessRules(ParsedRules rules, RulesToReturn rulesToReturn)
+    internal List<AppliedRule> ProcessRules(RegisteredRules rules, RulesToReturn rulesToReturn)
     {
         return Evaluate(rules.Rules, rulesToReturn);
     }
