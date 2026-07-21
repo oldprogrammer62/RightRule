@@ -2,19 +2,19 @@
 
 namespace RightRule.Rules;
 
-internal class ParsedRuleService
+internal class RegisteredRuleService : IRegisteredRuleService
 {
-    private readonly ParsedRules _parsedRules;
-    public ParsedRules ParsedRules => _parsedRules;
+    private readonly ParsedRules _registeredRules;
+    public ParsedRules RegisteredRules => _registeredRules;
 
-    internal ParsedRuleService()
+    internal RegisteredRuleService()
     {
-        _parsedRules = new ParsedRules();
+        _registeredRules = new ParsedRules();
     }
 
     internal List<ParsedRule> GetRules(string Context)
     {
-        return _parsedRules.Rules.Where(r => r.Context == Context).ToList();
+        return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
     internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
@@ -22,7 +22,7 @@ internal class ParsedRuleService
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var parsedRules = RuleRegistrationService.ParseRules(rules, OperatorNames);
-        ParsedRules.AddRules(parsedRules);
+        RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
 
@@ -30,18 +30,18 @@ internal class ParsedRuleService
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         var parsedRule = RuleRegistrationService.ParseRule(rule, OperatorNames);
-        ParsedRules.AddRule(parsedRule);
+        RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }
 
     internal bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        return ParsedRules.RemoveRules(Context);
+        return RegisteredRules.RemoveRules(Context);
     }
 
     internal bool DeRegisterRules()
     {
-        return ParsedRules.RemoveRules();
+        return RegisteredRules.RemoveRules();
     }
 }

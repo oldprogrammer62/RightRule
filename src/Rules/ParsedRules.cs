@@ -12,6 +12,8 @@ public class ParsedRules
     private readonly List<ParsedRule> _rules;
     internal List<ParsedRule> Rules { get { return _rules; } }
 
+    public int Count {  get { return Rules.Count; } }
+
     internal ParsedRules()
     {
         _rules = [];

@@ -2,8 +2,8 @@
 
 public class RegisteredDataset
 {
-    internal string Name { get; set; }
-    internal Dictionary<string, object> Data { get; set; }
+    public string Name { get; init; }
+    public Dictionary<string, object> Data { get; init; }
 
     public RegisteredDataset(string DatasetName, Dictionary<string, object> Dataset)
     {

@@ -12,6 +12,8 @@ public interface IRightRule
     CheckStatementResult SyntaxCheck(string Statement);
 
     RightRuleConfiguration RightRuleConfiguration { get; }
+    RegisteredDatasets RegisteredDatasets { get; }
+    ParsedRules RegisteredRules { get; }
 
     /// <summary>
     /// Apply all registered Rules for the given Context to the registered data set(s).

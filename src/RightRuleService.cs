@@ -2,7 +2,6 @@
 using RightRule.Rules;
 using RightRule.Operators;
 using RightRule.System.Common;
-using RightRule.System.Common.Exceptions;
 using RightRule.Models;
 
 namespace BeSoft;
@@ -10,8 +9,17 @@ namespace BeSoft;
 internal class RightRuleService
 {
     private readonly OperatorsService _operatorsService;
-    private readonly ParsedRuleService _rulesService;
-    private readonly RegisteredDatasets _registeredDatasets;
+
+
+    private readonly RegisteredRuleService _rulesService;
+    // Visibility of Registered Rules
+    internal ParsedRules RegisteredRules => _rulesService.RegisteredRules;
+
+
+    // Visibility of Registered Datasets
+    private readonly RegisteredDatasets? _registeredDatasets;
+    internal RegisteredDatasets RegisteredDatasets => _registeredDatasets!;
+
 
     private readonly RightRuleConfiguration _rightRuleConfig;
     internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
@@ -19,7 +27,7 @@ internal class RightRuleService
     public RightRuleService()
     {
         _operatorsService = new OperatorsService();
-        _rulesService = new ParsedRuleService();
+        _rulesService = new RegisteredRuleService();
         _registeredDatasets = new RegisteredDatasets();
 
         _rightRuleConfig = GetConfiguration();
@@ -38,7 +46,7 @@ internal class RightRuleService
 
     internal List<ParsedRule> GetParsedRules()
     {
-        return _rulesService.ParsedRules.Rules;
+        return _rulesService.RegisteredRules.Rules;
     }
 
     internal List<ParsedRule> GetRules(string Context)
@@ -147,11 +155,11 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
         }
-        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
+        if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.ParsedRules, _operatorsService.OperatorAliases, this.RightRuleConfig);
+        return RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig);
     }
 
     internal List<AppliedRule> ApplyRules(string Context)
@@ -206,10 +214,10 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
         }
-        if (_rulesService.ParsedRules.Rules == null || _rulesService.ParsedRules.Rules.Count == 0)
+        if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.ParsedRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig);
+        return RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig);
     }
 }

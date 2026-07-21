@@ -18,6 +18,10 @@ public sealed class RightRule : IRightRule
 
     public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
+    public RegisteredDatasets RegisteredDatasets => _rightRuleService.RegisteredDatasets;
+
+    public ParsedRules RegisteredRules => _rightRuleService.RegisteredRules;
+
     public RightRule()
     {
         _rightRuleService = new RightRuleService();
