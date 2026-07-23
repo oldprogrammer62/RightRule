@@ -1,4 +1,7 @@
-﻿namespace RightRule.Rules;
+﻿using RightRule.Data;
+using System.Data;
+
+namespace RightRule.Rules;
 
 /// <summary>
 /// A Class used to hold a list of ParsedRule objects.
@@ -12,7 +15,9 @@ public class RegisteredRules
     private readonly List<ParsedRule> _rules;
     public List<ParsedRule> Rules { get { return _rules; } }
 
-    public int Count {  get { return Rules.Count; } }
+    public int Count => _rules.Count;
+
+    public ParsedRule? this[int index] => index >= 0 && index < _rules.Count ? _rules[index] : null;
 
     internal RegisteredRules()
     {

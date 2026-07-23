@@ -5,13 +5,14 @@ public class RegisteredDatasets
     private readonly List<RegisteredDataset> _datasets;
     public List<RegisteredDataset> Datasets => _datasets;
 
+    public int Count => _datasets.Count;
+
+    public RegisteredDataset? this[int index] => index >= 0 && index < _datasets.Count ? _datasets[index] : null;
+
     public RegisteredDatasets()
     {
         _datasets = new List<RegisteredDataset>();
     }
-
-    public int Count => _datasets.Count;
-    public RegisteredDataset? this[int index] => index >= 0 && index < _datasets.Count ? _datasets[index] : null;
 
     public bool AddDataset(RegisteredDataset dataset)
     {

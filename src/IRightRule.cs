@@ -13,10 +13,6 @@ public interface IRightRule
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 
-    //RegisteredDatasets RegisteredDatasets { get; }
-
-    RegisteredRules RegisteredRules { get; }
-
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// The first Rule to return a positive (true) result will be returned.<br/>
@@ -152,11 +148,32 @@ public interface IRightRule
     RegisteredDataset? RegisteredDataset(string DatasetName);
 
     /// <summary>
+    /// Returns the Registered (Parsed) Rules with the specified Name.
+    /// </summary>
+    /// <param name="Name"></param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    ParsedRule? RegisteredRule(string Name);
+
+    /// <summary>
+    /// Returns the Registered (Parsed) Rules with the specified Number.
+    /// </summary>
+    /// <param name="Number"></param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    ParsedRule? RegisteredRule(int Number);
+
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules.
+    /// </summary>
+    RegisteredRules RegisteredRules();
+
+    /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
     /// <exception cref="ArgumentException"></exception>
-    List<ParsedRule> GetRules(string Context);
+    List<ParsedRule> RegisteredRules(string Context);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.

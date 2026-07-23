@@ -5,6 +5,7 @@ using RightRule.Rules;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
+using System.Xml.Linq;
 
 namespace BeSoft;
 
@@ -18,8 +19,6 @@ public sealed class RightRule : IRightRule
 
     public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
-    public RegisteredRules RegisteredRules => _rightRuleService.RegisteredRules;
-
     public RightRule()
     {
         _rightRuleService = new RightRuleService();
@@ -32,11 +31,39 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
+    /// Returns the Registered (Parsed) Rules with the specified Name.
+    /// </summary>
+    /// <param name="Name"></param>
+    /// <exception cref="KeyNotFoundException"></exception>
+    public ParsedRule? RegisteredRule(string Name)
+    {
+        return _rightRuleService.GetRegisteredRule(Name);
+    }
+
+    /// <summary>
+    /// Returns the Registered (Parsed) Rules with the specified Number.
+    /// </summary>
+    /// <param name="Number"></param>
+    /// <exception cref="KeyNotFoundException"></exception>
+    public ParsedRule? RegisteredRule(int Number)
+    {
+        return _rightRuleService.GetRegisteredRule(Number);
+    }
+
+    /// <summary>
+    /// Returns the set of Registered (Parsed) Rules.
+    /// </summary>
+    public RegisteredRules RegisteredRules()
+    {
+        return _rightRuleService.RegisteredRules;
+    }
+
+    /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
     /// <exception cref="ArgumentException"></exception>
-    public List<ParsedRule> GetRules(string Context)
+    public List<ParsedRule> RegisteredRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return _rightRuleService.GetRules(Context);

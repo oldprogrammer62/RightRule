@@ -35,9 +35,9 @@ public class RuleTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.RegisteredRules.Count);
+        Assert.Equal(2, rr.RegisteredRules().Count);
 
-        var rules = rr.GetRules("Rule1_Context");
+        var rules = rr.RegisteredRules("Rule1_Context");
         Assert.NotNull(rules);
         Assert.Single(rules);
 
@@ -51,9 +51,9 @@ public class RuleTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.RegisteredRules.Count);
+        Assert.Equal(2, rr.RegisteredRules().Count);
 
-        var rules = rr.GetRules("Rule2_Context");
+        var rules = rr.RegisteredRules("Rule2_Context");
         Assert.NotNull(rules);
         Assert.Single(rules);
 
@@ -67,9 +67,9 @@ public class RuleTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.RegisteredRules.Count);
+        Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules;
+        RegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -78,5 +78,81 @@ public class RuleTests
 
         var r2 = registeredRules.Rules[1];
         Assert.Equal("Rule2", r2.Name);
+    }
+
+    [Fact]
+    public void GetRules_Indexed()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
+        Assert.Equal(2, rr.RegisteredRules().Count);
+
+        RegisteredRules? registeredRules = rr.RegisteredRules();
+        Assert.NotNull(registeredRules);
+        Assert.Equal(2, registeredRules.Count);
+
+        var r1 = registeredRules.Rules[0];
+        Assert.Equal("Rule1", r1.Name);
+
+        var r2 = registeredRules.Rules[1];
+        Assert.Equal("Rule2", r2.Name);
+
+        var indexed_rule1 = registeredRules[0];
+        Assert.NotNull (rule1);
+    }
+
+    [Fact]
+    public void GetRule_ByName()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
+        Assert.Equal(2, rr.RegisteredRules().Count);
+
+        RegisteredRules? registeredRules = rr.RegisteredRules();
+        Assert.NotNull(registeredRules);
+        Assert.Equal(2, registeredRules.Count);
+
+        string RuleName = "Rule1";
+        ParsedRule pr1 = rr.RegisteredRule(RuleName);
+        Assert.NotNull(pr1);
+        Assert.Equal(RuleName, pr1.Name);
+    }
+
+    [Fact]
+    public void GetRule_ByName2()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
+        Assert.Equal(2, rr.RegisteredRules().Count);
+
+        RegisteredRules? registeredRules = rr.RegisteredRules();
+        Assert.NotNull(registeredRules);
+        Assert.Equal(2, registeredRules.Count);
+
+        string RuleName = "RULE1";
+        ParsedRule pr1 = rr.RegisteredRule(RuleName);
+        Assert.NotNull(pr1);
+        Assert.Equal(RuleName, pr1.Name.ToUpper());
+    }
+
+    [Fact]
+    public void GetRule_ByNumber()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterRule(rule1);
+        rr.RegisterRule(rule2);
+        Assert.Equal(2, rr.RegisteredRules().Count);
+
+        RegisteredRules? registeredRules = rr.RegisteredRules();
+        Assert.NotNull(registeredRules);
+        Assert.Equal(2, registeredRules.Count);
+
+        int RuleNumber = 2;
+        ParsedRule pr1 = rr.RegisteredRule(RuleNumber);
+        Assert.NotNull(pr1);
+        Assert.Equal(RuleNumber, pr1.Number);
     }
 }

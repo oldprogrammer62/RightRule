@@ -1,8 +1,8 @@
 ﻿using RightRule.Data;
-using RightRule.Rules;
-using RightRule.Operators;
-using RightRule.System.Common;
 using RightRule.Models;
+using RightRule.Operators;
+using RightRule.Rules;
+using RightRule.System.Common;
 
 namespace BeSoft;
 
@@ -10,16 +10,11 @@ internal class RightRuleService
 {
     private readonly OperatorsService _operatorsService;
 
-
     private readonly RegisteredRuleService _rulesService;
-    // Visibility of Registered Rules
     internal RegisteredRules RegisteredRules => _rulesService.RegisteredRules;
 
-
-    // Visibility of Registered Datasets
     private readonly RegisteredDatasets? _registeredDatasets;
     internal RegisteredDatasets RegisteredDatasets => _registeredDatasets!;
-
 
     private readonly RightRuleConfiguration _rightRuleConfig;
     internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
@@ -42,6 +37,17 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         return _operatorsService.DeRegisterOperator(OperatorName);
+    }
+
+    internal ParsedRule? GetRegisteredRule(string Name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
+        return _rulesService.GetRegisteredRule(Name);
+    }
+
+    internal ParsedRule? GetRegisteredRule(int Number)
+    {
+        return _rulesService.GetRegisteredRule(Number);
     }
 
     internal List<ParsedRule> GetRules(string Context)
