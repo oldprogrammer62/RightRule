@@ -2,7 +2,8 @@
 
 public class RegisteredDatasets
 {
-    public List<RegisteredDataset> _datasets;
+    private readonly List<RegisteredDataset> _datasets;
+    public List<RegisteredDataset> Datasets => _datasets;
 
     public RegisteredDatasets()
     {

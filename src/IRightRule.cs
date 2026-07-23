@@ -12,7 +12,9 @@ public interface IRightRule
     CheckStatementResult SyntaxCheck(string Statement);
 
     RightRuleConfiguration RightRuleConfiguration { get; }
-    RegisteredDatasets RegisteredDatasets { get; }
+
+    //RegisteredDatasets RegisteredDatasets { get; }
+
     RegisteredRules RegisteredRules { get; }
 
     /// <summary>
@@ -136,12 +138,18 @@ public interface IRightRule
     bool DeRegisterRules(string Context);
 
     /// <summary>
+    /// Returns the set of Registered Datasets.
+    /// </summary>
+    /// <returns>RegisteredDatasets object</returns>
+    RegisteredDatasets RegisteredDatasets();
+
+    /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>
-    /// <returns>Registered Dataset</returns>
+    /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
-    RegisteredDataset? GetRegisteredDataset(string DatasetName);
+    RegisteredDataset? RegisteredDataset(string DatasetName);
 
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.

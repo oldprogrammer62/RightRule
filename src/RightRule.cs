@@ -18,8 +18,6 @@ public sealed class RightRule : IRightRule
 
     public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
-    public RegisteredDatasets RegisteredDatasets => _rightRuleService.RegisteredDatasets;
-
     public RegisteredRules RegisteredRules => _rightRuleService.RegisteredRules;
 
     public RightRule()
@@ -111,11 +109,21 @@ public sealed class RightRule : IRightRule
     /// <param name="DatasetName">The name of the dataset.</param>
     /// <returns>Registered Dataset</returns>
     /// <exception cref="ArgumentException"></exception>
-    public RegisteredDataset? GetRegisteredDataset(string DatasetName)
+    public RegisteredDataset? RegisteredDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         return _rightRuleService.GetDataSet(DatasetName);
     }
+
+    /// <summary>
+    /// Returns the set of Registered Datasets.
+    /// </summary>
+    /// <returns>RegisteredDatasets object</returns>
+    public RegisteredDatasets RegisteredDatasets()
+    {
+        return _rightRuleService.RegisteredDatasets;
+    }
+
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.

@@ -25,9 +25,9 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
-        var ds = rr.GetRegisteredDataset("Data1");
+        var ds = rr.RegisteredDataset("Data1");
         Assert.NotNull(ds);
 
         var ds_name = (string)ds.Data["name"];
@@ -41,9 +41,9 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
-        var ds = rr.GetRegisteredDataset("Data2");
+        var ds = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds);
 
         var ds_name = (string)ds.Data["name"];
@@ -57,11 +57,27 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
         var ds = rr.RegisteredDatasets;
         Assert.NotNull(ds);
-        Assert.Equal(2, ds.Count);
+        Assert.Equal(2, ds().Count);
+    }
+
+    [Fact]
+    public void GetRegisteredDatasets_Indexed()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterDataset("Data1", Data1);
+        rr.RegisterDataset("Data2", Data2);
+        Assert.Equal(2, rr.RegisteredDatasets().Datasets.Count);
+
+        var ds = rr.RegisteredDatasets();
+        Assert.NotNull(ds);
+        Assert.Equal(2, ds.Datasets.Count);
+
+        var ds1 = ds[0];
+        Assert.NotNull(ds1);
     }
 
     [Fact]
@@ -70,24 +86,24 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
-        var dsBefore = rr.GetRegisteredDataset("Data1");
+        var dsBefore = rr.RegisteredDataset("Data1");
         Assert.NotNull(dsBefore);
         Assert.Equal("Data1", dsBefore.Name);
 
-        var ds2Before = rr.GetRegisteredDataset("Data2");
+        var ds2Before = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
         var done = rr.DeRegisterDataset("Data1");
         Assert.True(done);
-        Assert.Equal(1, rr.RegisteredDatasets.Count);
+        Assert.Equal(1, rr.RegisteredDatasets().Count);
 
-        var ds1After = rr.GetRegisteredDataset("Data1");
+        var ds1After = rr.RegisteredDataset("Data1");
         Assert.Null(ds1After);
 
-        var ds2After = rr.GetRegisteredDataset("Data2");
+        var ds2After = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds2After);
     }
 
@@ -97,24 +113,24 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
-        var ds1Before = rr.GetRegisteredDataset("Data1");
+        var ds1Before = rr.RegisteredDataset("Data1");
         Assert.NotNull(ds1Before);
         Assert.Equal("Data1", ds1Before.Name);
 
-        var ds2Before = rr.GetRegisteredDataset("Data2");
+        var ds2Before = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
         var done = rr.DeRegisterDataset("Data2");
         Assert.True(done);
-        Assert.Equal(1, rr.RegisteredDatasets.Count);
+        Assert.Equal(1, rr.RegisteredDatasets().Count);
 
-        var ds1After = rr.GetRegisteredDataset("Data1");
+        var ds1After = rr.RegisteredDataset("Data1");
         Assert.NotNull(ds1After);
 
-        var ds2After = rr.GetRegisteredDataset("Data2");
+        var ds2After = rr.RegisteredDataset("Data2");
         Assert.Null(ds2After);
     }
 
@@ -124,24 +140,24 @@ public class DatasetTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("Data1", Data1);
         rr.RegisterDataset("Data2", Data2);
-        Assert.Equal(2, rr.RegisteredDatasets.Count);
+        Assert.Equal(2, rr.RegisteredDatasets().Count);
 
-        var ds1Before = rr.GetRegisteredDataset("Data1");
+        var ds1Before = rr.RegisteredDataset("Data1");
         Assert.NotNull(ds1Before);
         Assert.Equal("Data1", ds1Before.Name);
 
-        var ds2Before = rr.GetRegisteredDataset("Data2");
+        var ds2Before = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
         var done = rr.DeRegisterDatasets();
         Assert.True(done);
-        Assert.Equal(0, rr.RegisteredDatasets.Count);
+        Assert.Equal(0, rr.RegisteredDatasets().Count);
 
-        var ds1After = rr.GetRegisteredDataset("Data1");
+        var ds1After = rr.RegisteredDataset("Data1");
         Assert.Null(ds1After);
 
-        var ds2After = rr.GetRegisteredDataset("Data2");
+        var ds2After = rr.RegisteredDataset("Data2");
         Assert.Null(ds2After);
     }
 }
