@@ -46,7 +46,33 @@ public class RegisteredRules
     {
         try
         {
-            _rules.RemoveAll(r => r.Context == Context);
+            _rules.RemoveAll(r => string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    internal bool RemoveRule(string Name)
+    {
+        try
+        {
+            _rules.RemoveAll(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    internal bool RemoveRule(int Number)
+    {
+        try
+        {
+            _rules.RemoveAll(r => r.Number == Number);
             return true;
         }
         catch

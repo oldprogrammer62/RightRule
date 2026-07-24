@@ -56,4 +56,14 @@ internal class RegisteredRuleService : IRegisteredRuleService
     {
         return RegisteredRules.RemoveRules();
     }
+
+    internal bool DeRegisterRule(string Name)
+    {
+        return RegisteredRules.RemoveRule(Name);
+    }
+
+    internal bool DeRegisterRule(int Number)
+    {
+        return RegisteredRules.RemoveRule(Number);
+    }
 }

@@ -131,6 +131,30 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
+    /// Deregister all specified Rule from the RightRule engine.
+    /// </summary>
+    /// <param name="Name">The Name of the Rule to deregister.</param>
+    /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public bool DeRegisterRule(string Name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
+        return _rightRuleService.DeRegisterRule(Name);
+    }
+
+    /// <summary>
+    /// Deregister all specified Rule from the RightRule engine.
+    /// </summary>
+    /// <param name="Number">The Number of the Rule to deregister.</param>
+    /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public bool DeRegisterRule(int Number)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Number.ToString(), nameof(Number));
+        return _rightRuleService.DeRegisterRule(Number);
+    }
+
+    /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset.</param>

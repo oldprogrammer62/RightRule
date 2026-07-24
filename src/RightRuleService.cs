@@ -96,6 +96,16 @@ internal class RightRuleService
         return _rulesService.DeRegisterRules();
     }
 
+    internal bool DeRegisterRule(string Name)
+    {
+        return _rulesService.DeRegisterRule(Name);
+    }
+
+    internal bool DeRegisterRule(int Number)
+    {
+        return _rulesService.DeRegisterRule(Number);
+    }
+
     internal RegisteredDataset? GetDataSet(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
