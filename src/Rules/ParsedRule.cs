@@ -47,50 +47,53 @@ public class ParsedRule : Rule
     /// Uses ├─ and └─ for branches and │ for vertical lines.
     /// Returns an empty string when <see cref="Node"/> is null.
     /// </summary>
-    public string ToTreeText()
+    public Task<string> ToTreeText()
     {
-        if (Node is null) return string.Empty;
-
-        var sb = new StringBuilder();
-        Build(Node, sb, string.Empty, true);
-        return sb.ToString();
-
-        static void Build(Node node, StringBuilder sb, string prefix, bool isLast)
+        return Task.Run<string>(async () =>
         {
-            var branch = isLast ? "└─ " : "├─ ";
-            sb.Append(prefix);
-            sb.Append(branch);
-            sb.AppendLine(Describe(node));
+            if (Node is null) return string.Empty;
 
-            // Prepare prefix for children
-            var childPrefix = prefix + (isLast ? "   " : "│  ");
+            var sb = new StringBuilder();
+            Build(Node, sb, string.Empty, true);
+            return sb.ToString();
 
-            switch (node)
+            static void Build(Node node, StringBuilder sb, string prefix, bool isLast)
             {
-                case BinaryNode b:
-                    var childrenB = new Node[] { b.Left, b.Right };
-                    for (int i = 0; i < childrenB.Length; i++)
-                    {
-                        var child = childrenB[i];
-                        if (child is null) continue;
-                        Build(child, sb, childPrefix, i == childrenB.Length - 1);
-                    }
-                    break;
+                var branch = isLast ? "└─ " : "├─ ";
+                sb.Append(prefix);
+                sb.Append(branch);
+                sb.AppendLine(Describe(node));
 
-                case NotNode n:
-                    if (n.Inner is not null)
-                        Build(n.Inner, sb, childPrefix, true);
-                    break;
+                // Prepare prefix for children
+                var childPrefix = prefix + (isLast ? "   " : "│  ");
 
-                case ConditionNode:
-                    // leaf
-                    break;
+                switch (node)
+                {
+                    case BinaryNode b:
+                        var childrenB = new Node[] { b.Left, b.Right };
+                        for (int i = 0; i < childrenB.Length; i++)
+                        {
+                            var child = childrenB[i];
+                            if (child is null) continue;
+                            Build(child, sb, childPrefix, i == childrenB.Length - 1);
+                        }
+                        break;
 
-                default:
-                    // unknown node types - nothing further
-                    break;
+                    case NotNode n:
+                        if (n.Inner is not null)
+                            Build(n.Inner, sb, childPrefix, true);
+                        break;
+
+                    case ConditionNode:
+                        // leaf
+                        break;
+
+                    default:
+                        // unknown node types - nothing further
+                        break;
+                }
             }
-        }
+        });
 
         static string Describe(Node node)
         {

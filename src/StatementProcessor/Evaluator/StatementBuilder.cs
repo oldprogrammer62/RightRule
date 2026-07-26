@@ -8,12 +8,15 @@ internal class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    internal static string BuildAppliedStatement(RegisteredDatasets datasets, Node? node, string originalStatement)
+    internal static Task<string> BuildAppliedStatement(RegisteredDatasets datasets, Node? node, string originalStatement)
     {
-        if (node is null)
-            return originalStatement ?? string.Empty;
+        return Task.Run(() =>
+        {
+            if (node is null)
+                return originalStatement ?? string.Empty;
 
-        return RenderNode(node, datasets);
+            return RenderNode(node, datasets);
+        });
     }
 
     private static string RenderNode(Node node, RegisteredDatasets datasets)

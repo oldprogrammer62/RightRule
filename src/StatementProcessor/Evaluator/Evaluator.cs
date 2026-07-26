@@ -30,8 +30,8 @@ public sealed class Evaluator
 
             bool result = await EvaluateNode(Datasets, node);
             string message = string.Empty;
-            string statementApplied = diagnostics ? BuildStatement(statement, Datasets, node!) : string.Empty;
-            string syntaxTree = diagnostics ? BuildSyntaxTree(parsedRule) : string.Empty;
+            string statementApplied = diagnostics ? await BuildStatement(statement, Datasets, node!) : string.Empty;
+            string syntaxTree = diagnostics ? await BuildSyntaxTree(parsedRule) : string.Empty;
             return new EvalResult(result, message, statementApplied, syntaxTree);
         }
         catch
@@ -145,11 +145,11 @@ public sealed class Evaluator
         return Helper.ParseNumber(raw);
     }
 
-    private static string BuildStatement(string Statement, RegisteredDatasets Datasets, Node Node)
+    private async static Task<string> BuildStatement(string Statement, RegisteredDatasets Datasets, Node Node)
     {
         try
         {
-            return StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement);
         }
         catch (Exception ex)
         {
@@ -157,8 +157,8 @@ public sealed class Evaluator
         }
     }
 
-    private static string BuildSyntaxTree(ParsedRule rule)
+    private async static Task<string> BuildSyntaxTree(ParsedRule rule)
     {
-        return rule.ToTreeText();
+        return await rule.ToTreeText();
     }
 }
