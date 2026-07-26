@@ -62,12 +62,12 @@ internal class RightRuleService
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
+    internal async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return _rulesService.RegisterRules(rules, operatorNames);
+        return await _rulesService.RegisterRulesAsync(rules, operatorNames);
     }
 
     /// <summary>
@@ -76,12 +76,12 @@ internal class RightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    internal ParsedRule RegisterRule(RuleDefinition rule)
+    internal async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return _rulesService.RegisterRule(rule, operatorNames);
+        return await _rulesService.RegisterRuleAsync(rule, operatorNames);
     }
 
     internal bool DeRegisterRules(string Context)

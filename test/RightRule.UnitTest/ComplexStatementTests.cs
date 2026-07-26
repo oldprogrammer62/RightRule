@@ -19,6 +19,57 @@ public class ComplexStatementTests
         };
     }
 
+
+    [Fact]
+    public void AllValid_SomeEquals()
+    {
+        // Arrange
+        var statement = "TestDataset.A = 1 and (TestDataset.B = 2 or TestDataset.C = 3)";
+        var rightRule = new BeSoft.RightRule();
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Rule 1",
+            Statement = statement,
+            Context = "Context",
+            Decision = "EQUALS",
+        };
+
+        // Register the data
+        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterRule(rule);
+        var appliedRule = rightRule.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void AllValid_OrSomeEquals()
+    {
+        // Arrange
+        var statement = "TestDataset.A = 10 or TestDataset.B = 2";
+        var rightRule = new BeSoft.RightRule();
+
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Rule 1",
+            Statement = statement,
+            Context = "Context",
+            Decision = "EQUALS",
+        };
+
+        // Register the data
+        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterRule(rule);
+        var appliedRule = rightRule.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
     [Fact]
     public void AllValid_Equals()
     {

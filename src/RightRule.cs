@@ -81,7 +81,27 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
         {
-            return _rightRuleService.RegisterRules(rules);
+            return RegisterRulesAsync(rules).GetAwaiter().GetResult();
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Registers a set of Rules with the RightRule engine.
+    /// </summary>
+    /// <param name="rules">The Rule definitions to register.</param>
+    /// <returns>The set of Parsed Rules.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
+    public async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules)
+    {
+        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
+        try
+        {
+            return await _rightRuleService.RegisterRulesAsync(rules);
         }
         catch
         {
@@ -101,7 +121,27 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try
         {
-            return _rightRuleService.RegisterRule(rule);
+            return RegisterRuleAsync(rule).GetAwaiter().GetResult();
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Registers a single Rule with the RightRule engine.
+    /// </summary>
+    /// <param name="rule">The Rule definition to register.</param>
+    /// <returns>The Parsed Rule.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
+    public async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule)
+    {
+        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
+        try
+        {
+            return await _rightRuleService.RegisterRuleAsync(rule);
         }
         catch
         {

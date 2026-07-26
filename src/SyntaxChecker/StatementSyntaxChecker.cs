@@ -47,7 +47,7 @@ internal sealed class StatementSyntaxChecker
             int lastLParenPos = -1;
             while (true)
             {
-                var tok = scanner.NextToken();
+                var tok = scanner.NextTokenAsync().GetAwaiter().GetResult();
                 if (tok.Type == TokenType.End) break;
 
                 // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
@@ -131,7 +131,7 @@ internal sealed class StatementSyntaxChecker
         {
             var parserTokenizer = new Tokenizer(statement, operatorNames);
             var parser = new Parser(parserTokenizer);
-            _ = parser.Parse();
+            _ = parser.ParseAsync();
 
             // if no diagnostics were collected above, statement is valid
             if (diagnostics.Count == 0) return CheckStatementResult.Success();

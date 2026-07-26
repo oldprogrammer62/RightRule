@@ -15,7 +15,14 @@ public sealed class Tokenizer
         _operators = operatorNames;
     }
 
-    internal Token NextToken()
+    internal Token NextToken() => NextTokenAsync().GetAwaiter().GetResult();
+
+    internal Task<Token> NextTokenAsync()
+    {
+        return Task.Run(() => ReadNextToken());
+    }
+
+    private Token ReadNextToken()
     {
         SkipWhitespace();
 

@@ -13,7 +13,7 @@ namespace RightRule_Demo
             var data = GetData();
             var highValue = GetHighValue();
             var rulesToReturn = GetRulesToReturn();
-            var rules = ApplyRules(data, highValue, rulesToReturn);
+            var rules = ApplyRulesAsync(data, highValue, rulesToReturn).GetAwaiter().GetResult();
 
             Console.WriteLine();
             DisplayAppliedRules(rules);
@@ -74,9 +74,9 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn rulesToReturn)
+        private async static Task<List<AppliedRule>> ApplyRulesAsync(Dictionary<string, object> data, decimal HighValue, RulesToReturn rulesToReturn)
         {
-            return RuleManager.RuleManager.ApplyRules(data, HighValue, rulesToReturn);
+            return await RuleManager.RuleManager.ApplyRulesAsync(data, HighValue, rulesToReturn);
         }
 
         private static void DisplayAppliedRules(List<AppliedRule> appliedRules)

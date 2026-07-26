@@ -44,7 +44,7 @@ internal class Program
                 Context = "Default Context",
                 Decision = "Default Decision"
             };
-            _ = rightRule.RegisterRule(rule);
+            _ = rightRule.RegisterRuleAsync(rule);
 
             ShowResult(statement, result, rightRule.RegisteredRules().Rules);
         }

@@ -29,19 +29,19 @@ internal class RegisteredRuleService : IRegisteredRuleService
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
+    internal async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = RuleRegistrationService.ParseRules(rules, OperatorNames);
+        var parsedRules = await RuleRegistrationService.ParseRulesAsync(rules, OperatorNames);
         RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
 
-    internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames)
+    internal async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = RuleRegistrationService.ParseRule(rule, OperatorNames);
+        var parsedRule = await RuleRegistrationService.ParseRuleAsync(rule, OperatorNames);
         RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }

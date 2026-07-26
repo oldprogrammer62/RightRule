@@ -5,15 +5,15 @@ namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
+        internal async static Task<List<AppliedRule>> ApplyRulesAsync(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
             string Context = "Demo";
             var rules = LoadRules(Context);
 
-            rr.RegisterRules(rules);
-            rr.RegisterDataset(Context, Data);
+            var registeredRules = await rr.RegisterRulesAsync(rules);
+            var done = rr.RegisterDataset(Context, Data);
 
             var hvData = MakeHvData(HighValue);
             rr.RegisterDataset("hv", hvData);
