@@ -9,7 +9,7 @@ namespace BeSoft;
 
 public interface IRightRule
 {
-    CheckStatementResult SyntaxCheck(string Statement);
+    Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 

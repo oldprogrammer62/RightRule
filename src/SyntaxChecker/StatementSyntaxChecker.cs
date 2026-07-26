@@ -9,183 +9,186 @@ internal sealed class StatementSyntaxChecker
     private static readonly Regex PosRegex = new(@"\bposition\s*(\d+)|\bpos\s*(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private const int ContextRadius = 12; // characters either side for snippet
 
-    internal CheckStatementResult Check(string statement)
+    internal Task<CheckStatementResult> CheckAsync(string statement)
     {
-        var diagnostics = new List<Diagnostic>();
-
-        if (string.IsNullOrWhiteSpace(statement))
+        return Task.Run<CheckStatementResult>(() =>
         {
-            diagnostics.Add(new Diagnostic
+            var diagnostics = new List<Diagnostic>();
+
+            if (string.IsNullOrWhiteSpace(statement))
             {
-                Severity = DiagnosticSeverity.Error,
-                Message = "Statement is empty.",
-                Position = 0,
-                Length = 0,
-                Snippet = string.Empty,
-                Suggestion = "Provide a rule statement to validate."
-            });
-            return new CheckStatementResult(diagnostics);
-        }
-
-        // Obtain operator names (fall back to empty set)
-        HashSet<string> operatorNames;
-        try
-        {
-            var ops = new OperatorsService();
-            operatorNames = ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        }
-        catch (Exception)
-        {
-            operatorNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
-        try
-        {
-            var scanner = new Tokenizer(statement, operatorNames);
-            int parenBalance = 0;
-            int lastLParenPos = -1;
-            while (true)
-            {
-                var tok = scanner.NextTokenAsync().GetAwaiter().GetResult();
-                if (tok.Type == TokenType.End) break;
-
-                // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
-                // After tokenizer change, uppercase/mixed-case logical words will be tokenized as Identifier.
-                if (tok.Type == TokenType.Identifier)
+                diagnostics.Add(new Diagnostic
                 {
-                    var v = tok.Value ?? string.Empty;
-                    if (string.Equals(v, "AND", StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(v, "OR", StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(v, "NOT", StringComparison.OrdinalIgnoreCase))
+                    Severity = DiagnosticSeverity.Error,
+                    Message = "Statement is empty.",
+                    Position = 0,
+                    Length = 0,
+                    Snippet = string.Empty,
+                    Suggestion = "Provide a rule statement to validate."
+                });
+                return new CheckStatementResult(diagnostics);
+            }
+
+            // Obtain operator names (fall back to empty set)
+            HashSet<string> operatorNames;
+            try
+            {
+                var ops = new OperatorsService();
+                operatorNames = ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+            catch (Exception)
+            {
+                operatorNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
+            try
+            {
+                var scanner = new Tokenizer(statement, operatorNames);
+                int parenBalance = 0;
+                int lastLParenPos = -1;
+                while (true)
+                {
+                    var tok = scanner.NextTokenAsync().GetAwaiter().GetResult();
+                    if (tok.Type == TokenType.End) break;
+
+                    // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
+                    // After tokenizer change, uppercase/mixed-case logical words will be tokenized as Identifier.
+                    if (tok.Type == TokenType.Identifier)
                     {
-                        // if not exactly lower-case, report diagnostic
-                        if (v != v.ToLowerInvariant())
+                        var v = tok.Value ?? string.Empty;
+                        if (string.Equals(v, "AND", StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(v, "OR", StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(v, "NOT", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // if not exactly lower-case, report diagnostic
+                            if (v != v.ToLowerInvariant())
+                            {
+                                var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
+                                diagnostics.Add(new Diagnostic
+                                {
+                                    Severity = DiagnosticSeverity.Error,
+                                    Message = $"Logical operator '{v}' must be lowercase ('and', 'or', 'not').",
+                                    Position = tok.Position,
+                                    Length = tok.Value?.Length ?? 1,
+                                    Snippet = s,
+                                    Suggestion = $"Replace '{v}' with '{v.ToLowerInvariant()}'.",
+                                    Code = "LOGIC_OPERATOR_CASE"
+                                });
+                            }
+                        }
+                    }
+
+                    if (tok.Type == TokenType.LParen)
+                    {
+                        parenBalance++;
+                        lastLParenPos = tok.Position;
+                    }
+                    else if (tok.Type == TokenType.RParen)
+                    {
+                        parenBalance--;
+                        if (parenBalance < 0)
                         {
                             var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
                             diagnostics.Add(new Diagnostic
                             {
                                 Severity = DiagnosticSeverity.Error,
-                                Message = $"Logical operator '{v}' must be lowercase ('and', 'or', 'not').",
+                                Message = "Unmatched closing parenthesis ')'.",
                                 Position = tok.Position,
                                 Length = tok.Value?.Length ?? 1,
                                 Snippet = s,
-                                Suggestion = $"Replace '{v}' with '{v.ToLowerInvariant()}'.",
-                                Code = "LOGIC_OPERATOR_CASE"
+                                Suggestion = "Remove the extra ')' or add a matching '('.",
+                                Code = "PAR_UNMATCHED_RPAREN"
                             });
+                            parenBalance = 0; // keep scanning
                         }
                     }
                 }
 
-                if (tok.Type == TokenType.LParen)
+                if (parenBalance > 0)
                 {
-                    parenBalance++;
-                    lastLParenPos = tok.Position;
-                }
-                else if (tok.Type == TokenType.RParen)
-                {
-                    parenBalance--;
-                    if (parenBalance < 0)
+                    var s = CreateSnippet(statement, lastLParenPos, 1);
+                    diagnostics.Add(new Diagnostic
                     {
-                        var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
-                        diagnostics.Add(new Diagnostic
-                        {
-                            Severity = DiagnosticSeverity.Error,
-                            Message = "Unmatched closing parenthesis ')'.",
-                            Position = tok.Position,
-                            Length = tok.Value?.Length ?? 1,
-                            Snippet = s,
-                            Suggestion = "Remove the extra ')' or add a matching '('.",
-                            Code = "PAR_UNMATCHED_RPAREN"
-                        });
-                        parenBalance = 0; // keep scanning
-                    }
+                        Severity = DiagnosticSeverity.Error,
+                        Message = "Unmatched opening parenthesis '(' found.",
+                        Position = lastLParenPos,
+                        Length = 1,
+                        Snippet = s,
+                        Suggestion = "Add a closing ')' to match the opening parenthesis.",
+                        Code = "PAR_UNMATCHED_LPAREN"
+                    });
                 }
             }
-
-            if (parenBalance > 0)
+            catch (Exception ex)
             {
-                var s = CreateSnippet(statement, lastLParenPos, 1);
-                diagnostics.Add(new Diagnostic
-                {
-                    Severity = DiagnosticSeverity.Error,
-                    Message = "Unmatched opening parenthesis '(' found.",
-                    Position = lastLParenPos,
-                    Length = 1,
-                    Snippet = s,
-                    Suggestion = "Add a closing ')' to match the opening parenthesis.",
-                    Code = "PAR_UNMATCHED_LPAREN"
-                });
-            }
-        }
-        catch (Exception ex)
-        {
-            // Tokenizer-level errors (unterminated string/variable, unexpected char)
-            var diag = CreateDiagnosticFromException(ex, "TKN", statement);
-            diagnostics.Add(diag);
-            return new CheckStatementResult(diagnostics);
-        }
-
-        // Run full parser to capture grammar errors
-        try
-        {
-            var parserTokenizer = new Tokenizer(statement, operatorNames);
-            var parser = new Parser(parserTokenizer);
-            _ = parser.ParseAsync();
-
-            // if no diagnostics were collected above, statement is valid
-            if (diagnostics.Count == 0) return CheckStatementResult.Success();
-            return new CheckStatementResult(diagnostics);
-        }
-        catch (Exception ex)
-        {
-            var diag = CreateDiagnosticFromException(ex, "PRS", statement);
-            diagnostics.Add(diag);
-
-            // heuristics: add friendly hints based on parser messages
-            var msg = ex.Message ?? string.Empty;
-            if (msg.Contains("Expected operator", StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Add(new Diagnostic
-                {
-                    Severity = DiagnosticSeverity.Info,
-                    Message = "Ensure you used a valid operator name (e.g. equals, contains, notequals) or check operator registration.",
-                    Position = diag.Position,
-                    Length = diag.Length,
-                    Snippet = diag.Snippet,
-                    Suggestion = "Verify operator spelling and that the operator is registered.",
-                    Code = "HINT_OPERATOR"
-                });
-            }
-            else if (msg.Contains("Expected left-hand", StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Add(new Diagnostic
-                {
-                    Severity = DiagnosticSeverity.Info,
-                    Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean/placeholder).",
-                    Position = diag.Position,
-                    Length = diag.Length,
-                    Snippet = diag.Snippet,
-                    Suggestion = "Use an identifier or literal as the left operand, e.g. fieldName or \"text\".",
-                    Code = "HINT_LEFT_OPERAND"
-                });
-            }
-            else if (msg.Contains("Expected right-hand", StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Add(new Diagnostic
-                {
-                    Severity = DiagnosticSeverity.Info,
-                    Message = "Right-hand side must be a variable identifier, literal or placeholder.",
-                    Position = diag.Position,
-                    Length = diag.Length,
-                    Snippet = diag.Snippet,
-                    Suggestion = "Use an identifier, literal, or placeholder as the right operand, e.g. {arg} or 123.",
-                    Code = "HINT_RIGHT_OPERAND"
-                });
+                // Tokenizer-level errors (unterminated string/variable, unexpected char)
+                var diag = CreateDiagnosticFromException(ex, "TKN", statement);
+                diagnostics.Add(diag);
+                return new CheckStatementResult(diagnostics);
             }
 
-            return new CheckStatementResult(diagnostics);
-        }
+            // Run full parser to capture grammar errors
+            try
+            {
+                var parserTokenizer = new Tokenizer(statement, operatorNames);
+                var parser = new Parser(parserTokenizer);
+                _ = parser.ParseAsync();
+
+                // if no diagnostics were collected above, statement is valid
+                if (diagnostics.Count == 0) return CheckStatementResult.Success();
+                return new CheckStatementResult(diagnostics);
+            }
+            catch (Exception ex)
+            {
+                var diag = CreateDiagnosticFromException(ex, "PRS", statement);
+                diagnostics.Add(diag);
+
+                // heuristics: add friendly hints based on parser messages
+                var msg = ex.Message ?? string.Empty;
+                if (msg.Contains("Expected operator", StringComparison.OrdinalIgnoreCase))
+                {
+                    diagnostics.Add(new Diagnostic
+                    {
+                        Severity = DiagnosticSeverity.Info,
+                        Message = "Ensure you used a valid operator name (e.g. equals, contains, notequals) or check operator registration.",
+                        Position = diag.Position,
+                        Length = diag.Length,
+                        Snippet = diag.Snippet,
+                        Suggestion = "Verify operator spelling and that the operator is registered.",
+                        Code = "HINT_OPERATOR"
+                    });
+                }
+                else if (msg.Contains("Expected left-hand", StringComparison.OrdinalIgnoreCase))
+                {
+                    diagnostics.Add(new Diagnostic
+                    {
+                        Severity = DiagnosticSeverity.Info,
+                        Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean/placeholder).",
+                        Position = diag.Position,
+                        Length = diag.Length,
+                        Snippet = diag.Snippet,
+                        Suggestion = "Use an identifier or literal as the left operand, e.g. fieldName or \"text\".",
+                        Code = "HINT_LEFT_OPERAND"
+                    });
+                }
+                else if (msg.Contains("Expected right-hand", StringComparison.OrdinalIgnoreCase))
+                {
+                    diagnostics.Add(new Diagnostic
+                    {
+                        Severity = DiagnosticSeverity.Info,
+                        Message = "Right-hand side must be a variable identifier, literal or placeholder.",
+                        Position = diag.Position,
+                        Length = diag.Length,
+                        Snippet = diag.Snippet,
+                        Suggestion = "Use an identifier, literal, or placeholder as the right operand, e.g. {arg} or 123.",
+                        Code = "HINT_RIGHT_OPERAND"
+                    });
+                }
+
+                return new CheckStatementResult(diagnostics);
+            }
+        });
     }
 
     private static Diagnostic CreateDiagnosticFromException(Exception ex, string code, string statement)

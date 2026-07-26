@@ -24,10 +24,10 @@ public sealed class RightRule : IRightRule
         _rightRuleService = new RightRuleService();
     }
 
-    public CheckStatementResult SyntaxCheck(string Statement)
+    public async Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
-        return this.CheckSyntax(Statement);
+        return await this.CheckSyntaxAsync(Statement);
     }
 
     /// <summary>

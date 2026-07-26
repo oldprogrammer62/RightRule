@@ -13,16 +13,16 @@ internal class Program
         Console.WriteLine();
 
         var rr = new BeSoft.RightRule();
-        DoCheckProcess(rr);
+        DoCheckProcessAsync(rr).GetAwaiter().GetResult();
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
     }
 
-    private static void DoCheckProcess(BeSoft.RightRule rightRule)
+    private async static Task DoCheckProcessAsync(BeSoft.RightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
-        var result = rightRule.SyntaxCheck(statement);
+        var result = await rightRule.SyntaxCheckAsync(statement);
 
         if (result == null)
         {
@@ -56,7 +56,7 @@ internal class Program
             return;
         }
         rightRule.DeRegisterRules(); // Clear registered rules before checking another statement
-        DoCheckProcess(rightRule); // Restart the process
+        await DoCheckProcessAsync(rightRule); // Restart the process
     }
 
     private static void ShowResult(string statement, CheckStatementResult result, List<ParsedRule> parsedRules)
