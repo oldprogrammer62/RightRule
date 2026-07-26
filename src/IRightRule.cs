@@ -29,7 +29,41 @@ public interface IRightRule
     /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
+    Task<AppliedRule> ApplyRuleAsync(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidIdentifierException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
     AppliedRule ApplyRule(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the data set provided.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    Task<AppliedRule> ApplyRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -57,7 +91,34 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    Task<List<AppliedRule>> ApplyRulesAsync(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results of all applied rules will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// All Rules applied are returned in a list.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    Task<List<AppliedRule>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -86,7 +147,39 @@ public interface IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results of all applied rules will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
     List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
