@@ -23,21 +23,21 @@ public class SyntaxCheckTests
     }
 
     [Fact]
-    public void ValidStatement_ReturnsValid()
+    public async Task ValidStatement_ReturnsValid()
     {
         var rr = new BeSoft.RightRule();
-        var result = rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
+        var result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.Error);
     }
 
     [Fact]
-    public void UnterminatedString_ReportsDiagnostic_WithSuggestion()
+    public async Task UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
         var rr = new BeSoft.RightRule();
         var stmt = "Data.name equals \"John";
-        var result = rr.SyntaxCheckAsync(stmt);
+        var result = await rr.SyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
@@ -50,11 +50,11 @@ public class SyntaxCheckTests
     }
 
     [Fact]
-    public void UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
+    public async Task UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
     {
         var rr = new BeSoft.RightRule();
         var stmt = "(Test.numberoforders equals 10";
-        var result = rr.SyntaxCheckAsync(stmt);
+        var result = await rr.SyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault(d => d.Code == "PAR_UNMATCHED_LPAREN");
@@ -66,11 +66,11 @@ public class SyntaxCheckTests
     }
 
     [Fact]
-    public void UnexpectedCharacter_ReportsDiagnostic()
+    public async Task UnexpectedCharacter_ReportsDiagnostic()
     {
         var rr = new BeSoft.RightRule();
         var stmt = "Test.name equals #invalid";
-        var result = rr.SyntaxCheckAsync(stmt);
+        var result = await rr.SyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
