@@ -311,11 +311,30 @@ public sealed class RightRule : IRightRule
     /// <exception cref="Exception"></exception>
     public AppliedRule ApplyRule(string Context)
     {
+        return ApplyRuleAsync(Context).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply all registered Rules for the given Context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidIdentifierException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public async Task<AppliedRule> ApplyRuleAsync(string Context)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = _rightRuleService.ApplyRule(Context);
+            var appliedRules = await _rightRuleService.ApplyRule(Context);
             if (appliedRules == null)
             {
                 throw new InvalidOperationException("Rule not applied");
@@ -345,10 +364,26 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
+        return ApplyRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the data set provided.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    public async Task<AppliedRule> ApplyRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = _rightRuleService.ApplyRule(Context, DatasetName, Data);
+        var appliedRules = await _rightRuleService.ApplyRule(Context, DatasetName, Data);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rule not applied");
@@ -371,9 +406,23 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context)
     {
+        return ApplyRulesAsync(Context).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// All Rules applied are returned in a list.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
+    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = _rightRuleService.ApplyRules(Context);
+        var appliedRules = await _rightRuleService.ApplyRules(Context);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -397,9 +446,24 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
     {
+        return ApplyRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = _rightRuleService.ApplyRules(Context, rulesToReturn);
+        var appliedRules = await _rightRuleService.ApplyRules(Context, rulesToReturn);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -423,10 +487,25 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
+        return ApplyRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// </returns>
+    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data);
+        var appliedRules = await _rightRuleService.ApplyRules(Context, DatasetName, Data);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -452,10 +531,27 @@ public sealed class RightRule : IRightRule
     /// </returns>
     public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
+        return ApplyRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Apply all registered rules for the given context to the specified data set.
+    /// </summary>
+    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <returns>
+    /// A List of AppliedRule objects is returned.<br />
+    /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
+    /// Return is based on specified rulesToReturn parameter.
+    /// </returns>
+    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
+        var appliedRules = await _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");

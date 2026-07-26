@@ -19,32 +19,32 @@ public sealed class Interpreter
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
 
-    internal List<AppliedRule> ProcessRule(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRule(RegisteredRules rules)
     {
-        return Evaluate(rules);
+        return await Evaluate(rules);
     }
 
-    private List<AppliedRule> Evaluate(RegisteredRules rules)
+    private async Task<List<AppliedRule>> Evaluate(RegisteredRules rules)
     {
-        return ProcessFirstRule.Evaluate(_evaluator, rules.Rules, _registeredDatasets);
+        return await ProcessFirstRule.Evaluate(_evaluator, rules.Rules, _registeredDatasets);
     }
 
-    internal List<AppliedRule> ProcessRules(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRules(RegisteredRules rules)
     {
-        return Evaluate(rules.Rules, RulesToReturn.All);
+        return await Evaluate(rules.Rules, RulesToReturn.All);
     }
 
-    internal List<AppliedRule> ProcessRules(RegisteredRules rules, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ProcessRules(RegisteredRules rules, RulesToReturn rulesToReturn)
     {
-        return Evaluate(rules.Rules, rulesToReturn);
+        return await Evaluate(rules.Rules, rulesToReturn);
     }
 
-    private List<AppliedRule> Evaluate(List<ParsedRule> rules, RulesToReturn rulesToReturn)
+    private async Task<List<AppliedRule>> Evaluate(List<ParsedRule> rules, RulesToReturn rulesToReturn)
     {
         return rulesToReturn switch
         {
-            RulesToReturn.First => ProcessFirstRule.Evaluate(_evaluator, rules, _registeredDatasets),
-            RulesToReturn.All   => ProcessAllRules.Evaluate(_evaluator, rules, _registeredDatasets),
+            RulesToReturn.First => await ProcessFirstRule.Evaluate(_evaluator, rules, _registeredDatasets),
+            RulesToReturn.All   => await ProcessAllRules.Evaluate(_evaluator, rules, _registeredDatasets),
             _                   => [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")]
         };
     }
