@@ -10,7 +10,6 @@ public static class RightRuleExtensions
     /// </summary>
     public async static Task<CheckStatementResult> CheckSyntaxAsync(this BeSoft.RightRule _, string statement)
     {
-        var checker = new StatementSyntaxChecker();
-        return await checker.CheckAsync(statement);
+        return await StatementSyntaxChecker.CheckAsync(statement);
     }
 }

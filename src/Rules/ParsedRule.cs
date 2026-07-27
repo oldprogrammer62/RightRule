@@ -54,44 +54,47 @@ public class ParsedRule : Rule
             if (Node is null) return string.Empty;
 
             var sb = new StringBuilder();
-            Build(Node, sb, string.Empty, true);
+            await Build(Node, sb, string.Empty, true);
             return sb.ToString();
 
-            static void Build(Node node, StringBuilder sb, string prefix, bool isLast)
+            static Task Build(Node node, StringBuilder sb, string prefix, bool isLast)
             {
-                var branch = isLast ? "└─ " : "├─ ";
-                sb.Append(prefix);
-                sb.Append(branch);
-                sb.AppendLine(Describe(node));
-
-                // Prepare prefix for children
-                var childPrefix = prefix + (isLast ? "   " : "│  ");
-
-                switch (node)
+                return Task.Run(async () =>
                 {
-                    case BinaryNode b:
-                        var childrenB = new Node[] { b.Left, b.Right };
-                        for (int i = 0; i < childrenB.Length; i++)
-                        {
-                            var child = childrenB[i];
-                            if (child is null) continue;
-                            Build(child, sb, childPrefix, i == childrenB.Length - 1);
-                        }
-                        break;
+                    var branch = isLast ? "└─ " : "├─ ";
+                    sb.Append(prefix);
+                    sb.Append(branch);
+                    sb.AppendLine(Describe(node));
 
-                    case NotNode n:
-                        if (n.Inner is not null)
-                            Build(n.Inner, sb, childPrefix, true);
-                        break;
+                    // Prepare prefix for children
+                    var childPrefix = prefix + (isLast ? "   " : "│  ");
 
-                    case ConditionNode:
-                        // leaf
-                        break;
+                    switch (node)
+                    {
+                        case BinaryNode b:
+                            var childrenB = new Node[] { b.Left, b.Right };
+                            for (int i = 0; i < childrenB.Length; i++)
+                            {
+                                var child = childrenB[i];
+                                if (child is null) continue;
+                                await Build(child, sb, childPrefix, i == childrenB.Length - 1);
+                            }
+                            break;
 
-                    default:
-                        // unknown node types - nothing further
-                        break;
-                }
+                        case NotNode n:
+                            if (n.Inner is not null)
+                                await Build(n.Inner, sb, childPrefix, true);
+                            break;
+
+                        case ConditionNode:
+                            // leaf
+                            break;
+
+                        default:
+                            // unknown node types - nothing further
+                            break;
+                    }
+                });
             }
         });
 

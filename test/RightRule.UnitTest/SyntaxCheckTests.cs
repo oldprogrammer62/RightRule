@@ -26,7 +26,7 @@ public class SyntaxCheckTests
     public async Task ValidStatement_ReturnsValid()
     {
         var rr = new BeSoft.RightRule();
-        var result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
+        CheckStatementResult? result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.Error);

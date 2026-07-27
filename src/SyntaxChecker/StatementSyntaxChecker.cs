@@ -9,7 +9,7 @@ internal sealed class StatementSyntaxChecker
     private static readonly Regex PosRegex = new(@"\bposition\s*(\d+)|\bpos\s*(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private const int ContextRadius = 12; // characters either side for snippet
 
-    internal Task<CheckStatementResult> CheckAsync(string statement)
+    internal static Task<CheckStatementResult> CheckAsync(string statement)
     {
         return Task.Run<CheckStatementResult>(() =>
         {
