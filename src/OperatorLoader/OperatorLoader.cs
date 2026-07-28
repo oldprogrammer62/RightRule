@@ -23,7 +23,7 @@ public class OperatorLoader : AssemblyLoadContext
         {
             return null;
         }
-        if (assemblyName.Name == typeof(IOperator).Assembly.GetName().Name)
+        if (assemblyName.Name == typeof(Operator).Assembly.GetName().Name)
         {
             return null;
         }

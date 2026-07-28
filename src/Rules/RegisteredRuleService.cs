@@ -33,7 +33,7 @@ internal class RegisteredRuleService : IRegisteredRuleService
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = await RuleRegistrationService.ParseRulesAsync(rules, OperatorNames);
+        var parsedRules = await RuleRegistrationService.ParseRulesAsync(rules, OperatorNames).ConfigureAwait(false);
         RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
@@ -41,7 +41,7 @@ internal class RegisteredRuleService : IRegisteredRuleService
     internal async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = await RuleRegistrationService.ParseRuleAsync(rule, OperatorNames);
+        var parsedRule = await RuleRegistrationService.ParseRuleAsync(rule, OperatorNames).ConfigureAwait(false);
         RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }

@@ -67,7 +67,7 @@ internal class RightRuleService
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return await _rulesService.RegisterRulesAsync(rules, operatorNames);
+        return await _rulesService.RegisterRulesAsync(rules, operatorNames).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ internal class RightRuleService
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return await _rulesService.RegisterRuleAsync(rule, operatorNames);
+        return await _rulesService.RegisterRuleAsync(rule, operatorNames).ConfigureAwait(false);
     }
 
     internal bool DeRegisterRules(string Context)
@@ -146,26 +146,26 @@ internal class RightRuleService
         _registeredDatasets.RemoveDataset(DatasetName);
     }
 
-    internal async Task<List<AppliedRule>> ApplyRule(string Context)
+    internal async Task<List<AppliedRule>> ApplyRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return await ApplySingleRule(Context);
+        return await ApplySingleRuleAsync(Context).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
+    internal async Task<List<AppliedRule>> ApplyRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         RegisterDataset(DatasetName, Data);
-        List<AppliedRule> appliedRules = await ApplySingleRule(Context);
+        List<AppliedRule> appliedRules = await ApplySingleRuleAsync(Context).ConfigureAwait(false);
         DeRegisterDataset(DatasetName);
         return appliedRules;
     }
 
-    private async Task<List<AppliedRule>> ApplySingleRule(string Context)
+    private async Task<List<AppliedRule>> ApplySingleRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -177,54 +177,54 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRule(Context, _registeredDatasets, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig);
+        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ApplyRules(string Context)
+    internal async Task<List<AppliedRule>> ApplyRulesAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return await ApplySpecifiedRules(Context, RulesToReturn.All);
+        return await ApplySpecifiedRulesAsync(Context, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ApplyRules(string Context, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return await ApplySpecifiedRules(Context, rulesToReturn);
+        return await ApplySpecifiedRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
-    {
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-
-        return await ApplySpecifiedRules(Context, DatasetName, Data, RulesToReturn.All);
-    }
-
-    internal async Task<List<AppliedRule>> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        return await ApplySpecifiedRules(Context, DatasetName, Data, rulesToReturn);
+        return await ApplySpecifiedRulesAsync(Context, DatasetName, Data, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> ApplySpecifiedRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    {
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
+        return await ApplySpecifiedRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
+    }
+
+    private async Task<List<AppliedRule>> ApplySpecifiedRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         RegisterDataset(DatasetName, Data);
-        List<AppliedRule> appliedRules = await ApplySpecifiedRules(Context, rulesToReturn);
+        List<AppliedRule> appliedRules = await ApplySpecifiedRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
         DeRegisterDataset(DatasetName);
         return appliedRules;
     }
 
-    private async Task<List<AppliedRule>> ApplySpecifiedRules(string Context, RulesToReturn rulesToReturn)
+    private async Task<List<AppliedRule>> ApplySpecifiedRulesAsync(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -236,6 +236,6 @@ internal class RightRuleService
         {
             return [AppliedRule.DefaultRule("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRules(Context, _registeredDatasets, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig);
+        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }
 }

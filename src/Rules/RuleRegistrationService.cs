@@ -10,7 +10,7 @@ internal class RuleRegistrationService
         var parsedRules = new List<ParsedRule>();
         foreach (var rule in rules)
         {
-            var registeredRule = await ParseRuleAsync(rule, OperatorNames);
+            var registeredRule = await ParseRuleAsync(rule, OperatorNames).ConfigureAwait(false);
             if (registeredRule != null)
             {
                 parsedRules.Add(registeredRule);
@@ -21,7 +21,7 @@ internal class RuleRegistrationService
 
     internal async static Task<ParsedRule> ParseRuleAsync(RuleDefinition rule, HashSet<string> OperatorNames)
     {
-        var parsedRule = await CreateRuleAsync(rule, OperatorNames);
+        var parsedRule = await CreateRuleAsync(rule, OperatorNames).ConfigureAwait(false);
         return parsedRule;
     }
 
@@ -29,7 +29,7 @@ internal class RuleRegistrationService
     {
         var statement = ruleDefinition.Statement;
 
-        Node node = await GenerateTreeAsync(statement, OperatorNames);
+        Node node = await GenerateTreeAsync(statement, OperatorNames).ConfigureAwait(false);
         ParsedRule rule = new ParsedRule(ruleDefinition, node);
         return rule;
     }
@@ -41,7 +41,7 @@ internal class RuleRegistrationService
 
         try
         {
-            Node node = await parser.ParseAsync();
+            Node node = await parser.ParseAsync().ConfigureAwait(false);
             return node;
         }
         catch (Exception ex)

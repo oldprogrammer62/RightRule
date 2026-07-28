@@ -12,7 +12,7 @@ namespace RightRule_Demo.RuleManager
             string Context = "Demo";
             var rules = LoadRules(Context);
 
-            var registeredRules = await rr.RegisterRulesAsync(rules);
+            var registeredRules = await rr.RegisterRulesAsync(rules).ConfigureAwait(false);
             var done = rr.RegisterDataset(Context, Data);
 
             var hvData = MakeHvData(HighValue);

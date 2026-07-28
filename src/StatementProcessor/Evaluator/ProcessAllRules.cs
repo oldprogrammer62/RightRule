@@ -6,7 +6,7 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class ProcessAllRules
 {
-    internal async static Task<List<AppliedRule>> Evaluate(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
+    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
     {
         List<AppliedRule> appliedRules = [];
 
@@ -14,7 +14,7 @@ internal class ProcessAllRules
         {
             AppliedRule appliedRule = AppliedRule.DefaultRule();
 
-            EvalResult result = await Evaluate(evaluator, rule, registeredDatasets);
+            EvalResult result = await EvaluateAsync(evaluator, rule, registeredDatasets).ConfigureAwait(false);
             switch (result.Result)
             {
                 case EvalResult.ResultType.ResultTrue:
@@ -37,7 +37,7 @@ internal class ProcessAllRules
         return appliedRules;
     }
 
-    private async static Task<EvalResult> Evaluate(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
+    private async static Task<EvalResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
     {
         if (rule.Node == null)
         {
@@ -51,7 +51,7 @@ internal class ProcessAllRules
 
         try
         {
-            EvalResult result = await evaluator.Evaluate(rule, datasets);
+            EvalResult result = await evaluator.EvaluateAsync(rule, datasets).ConfigureAwait(false);
             return result;
         }
         catch

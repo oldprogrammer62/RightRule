@@ -4,11 +4,11 @@ namespace RightRule.Operators;
 
 internal class OperatorsService
 {
-    private readonly List<IOperator> _operators;
-    public List<IOperator> Operators => _operators;
+    private readonly List<Operator> _operators;
+    public List<Operator> Operators => _operators;
 
-    private readonly Dictionary<string, IOperator> _operatorAliases;
-    public Dictionary<string, IOperator> OperatorAliases => _operatorAliases;
+    private readonly Dictionary<string, Operator> _operatorAliases;
+    public Dictionary<string, Operator> OperatorAliases => _operatorAliases;
 
     private readonly HashSet<string> _operatorNames;
     public HashSet<string> OperatorNames => _operatorNames;
@@ -20,7 +20,7 @@ internal class OperatorsService
         _operatorNames = RegisterOperatorNames(_operatorAliases);
     }
 
-    internal  bool DeRegisterOperator(string OperatorName)
+    internal bool DeRegisterOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
@@ -31,7 +31,7 @@ internal class OperatorsService
         return false;
     }
 
-    internal bool DeRegisterOperator(string OperatorName, IOperator Operator)
+    internal bool DeRegisterOperator(string OperatorName, Operator Operator)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         if (Operator != null)
@@ -47,12 +47,12 @@ internal class OperatorsService
         return false;
     }
 
-    private void RemoveOperator(IOperator Operator)
+    private void RemoveOperator(Operator Operator)
     {
         _operators.Remove(Operator);
     }
 
-    private void RemoveOperatorAliases(IOperator Operator)
+    private void RemoveOperatorAliases(Operator Operator)
     {
         ArgumentNullException.ThrowIfNull(Operator, nameof(Operator));
         var keysToRemove = _operatorAliases
@@ -74,7 +74,7 @@ internal class OperatorsService
         keysToRemove.ForEach(key => _operatorNames.Remove(key));
     }
 
-    private static List<IOperator> RegisterOperators()
+    private static List<Operator> RegisterOperators()
     {
         var operatorNames = LoadAllOperators();
         if (operatorNames == null || operatorNames.Count == 0)
@@ -86,7 +86,7 @@ internal class OperatorsService
         return operatorNames;
     }
 
-    private static bool OperatorIdentifiersUnique(List<IOperator> operators)
+    private static bool OperatorIdentifiersUnique(List<Operator> operators)
     {
         if (operators == null || operators.Count == 0)
             return true;
@@ -102,7 +102,7 @@ internal class OperatorsService
         return !hasDuplicates;
     }
 
-    private static List<IOperator> LoadAllOperators()
+    private static List<Operator> LoadAllOperators()
     {
         return
             [
@@ -111,19 +111,19 @@ internal class OperatorsService
             ];
     }
 
-    private static List<IOperator> GetDefaultOperators()
+    private static List<Operator> GetDefaultOperators()
     {
         return DefaultOperatorLoader.Load();
     }
 
-    private static List<IOperator> RegisterCustomOperators()
+    private static List<Operator> RegisterCustomOperators()
     {
         return CustomOperatorLoader.Load();
     }
 
-    private static Dictionary<string, IOperator> RegisterOperatorAliases(List<IOperator> operators)
+    private static Dictionary<string, Operator> RegisterOperatorAliases(List<Operator> operators)
     {
-        var operatorAliases = new Dictionary<string, IOperator>(StringComparer.OrdinalIgnoreCase);
+        var operatorAliases = new Dictionary<string, Operator>(StringComparer.OrdinalIgnoreCase);
         foreach (var op in operators)
         {
             foreach (var alias in op.Identifiers)
@@ -136,7 +136,7 @@ internal class OperatorsService
         return operatorAliases;
     }
 
-    private static HashSet<string> RegisterOperatorNames(Dictionary<string, IOperator> OperatorAliases)
+    private static HashSet<string> RegisterOperatorNames(Dictionary<string, Operator> OperatorAliases)
     {
         var operatorNames = new HashSet<string>(OperatorAliases.Values.SelectMany(op => op.Identifiers).Distinct(StringComparer.OrdinalIgnoreCase));
         return operatorNames;

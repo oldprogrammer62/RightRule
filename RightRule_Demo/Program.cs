@@ -76,7 +76,7 @@ namespace RightRule_Demo
 
         private async static Task<List<AppliedRule>> ApplyRulesAsync(Dictionary<string, object> data, decimal HighValue, RulesToReturn rulesToReturn)
         {
-            return await RuleManager.RuleManager.ApplyRulesAsync(data, HighValue, rulesToReturn);
+            return await RuleManager.RuleManager.ApplyRulesAsync(data, HighValue, rulesToReturn).ConfigureAwait(false);
         }
 
         private static void DisplayAppliedRules(List<AppliedRule> appliedRules)

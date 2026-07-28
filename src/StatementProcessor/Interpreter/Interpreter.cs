@@ -9,42 +9,42 @@ namespace RightRule.StatementProcessor.Interpreter;
 public sealed class Interpreter
 {
     private readonly RegisteredDatasets _registeredDatasets;
-    private readonly Dictionary<string, IOperator> _operators;
+    private readonly Dictionary<string, Operator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
 
-    public Interpreter(RegisteredDatasets datasets, Dictionary<string, IOperator> operators, RightRuleConfiguration rightRuleConfig)
+    public Interpreter(RegisteredDatasets datasets, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
     {
         _registeredDatasets = datasets ?? new RegisteredDatasets();
-        _operators = operators ?? new Dictionary<string, IOperator> { };
+        _operators = operators ?? new Dictionary<string, Operator> { };
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRule(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRuleAsync(RegisteredRules rules)
     {
-        return await Evaluate(rules);
+        return await EvaluateAsync(rules).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> Evaluate(RegisteredRules rules)
+    private async Task<List<AppliedRule>> EvaluateAsync(RegisteredRules rules)
     {
-        return await ProcessFirstRule.Evaluate(_evaluator, rules.Rules, _registeredDatasets);
+        return await ProcessFirstRule.EvaluateAsync(_evaluator, rules.Rules, _registeredDatasets).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRules(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules)
     {
-        return await Evaluate(rules.Rules, RulesToReturn.All);
+        return await EvaluateAsync(rules.Rules, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRules(RegisteredRules rules, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules, RulesToReturn rulesToReturn)
     {
-        return await Evaluate(rules.Rules, rulesToReturn);
+        return await EvaluateAsync(rules.Rules, rulesToReturn).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> Evaluate(List<ParsedRule> rules, RulesToReturn rulesToReturn)
+    private async Task<List<AppliedRule>> EvaluateAsync(List<ParsedRule> rules, RulesToReturn rulesToReturn)
     {
         return rulesToReturn switch
         {
-            RulesToReturn.First => await ProcessFirstRule.Evaluate(_evaluator, rules, _registeredDatasets),
-            RulesToReturn.All   => await ProcessAllRules.Evaluate(_evaluator, rules, _registeredDatasets),
+            RulesToReturn.First => await ProcessFirstRule.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
+            RulesToReturn.All   => await ProcessAllRules.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
             _                   => [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")]
         };
     }

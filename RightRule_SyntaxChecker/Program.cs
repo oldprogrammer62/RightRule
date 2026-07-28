@@ -22,7 +22,7 @@ internal class Program
     private async static Task DoCheckProcessAsync(BeSoft.RightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
-        var result = await rightRule.SyntaxCheckAsync(statement);
+        var result = await rightRule.SyntaxCheckAsync(statement).ConfigureAwait(false);
 
         if (result == null)
         {
@@ -56,7 +56,7 @@ internal class Program
             return;
         }
         rightRule.DeRegisterRules(); // Clear registered rules before checking another statement
-        await DoCheckProcessAsync(rightRule); // Restart the process
+        await DoCheckProcessAsync(rightRule).ConfigureAwait(false); // Restart the process
     }
 
     private static void ShowResult(string statement, CheckStatementResult result, List<ParsedRule> parsedRules)

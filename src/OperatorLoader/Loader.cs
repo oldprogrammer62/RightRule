@@ -5,13 +5,13 @@ namespace RightRule.OperatorLoader;
 
 public class Loader
 {
-    public static IOperator? Load(string pathToFunction)
+    public static Operator? Load(string pathToFunction)
     {
         var _operator = Load(pathToFunction, true);
         return _operator;
     }
 
-    internal static IOperator? Load(string pathToFunction, bool collectible)
+    internal static Operator? Load(string pathToFunction, bool collectible)
     {
         if (string.IsNullOrWhiteSpace(pathToFunction) || !File.Exists(pathToFunction))
             throw new FileNotFoundException("Operator assembly not found", pathToFunction);
@@ -22,10 +22,10 @@ public class Loader
         {
             Assembly assem = opLoader.LoadFromAssemblyPath(pathToFunction);
             Type functionType = assem.ExportedTypes.Single(t =>
-            typeof(IOperator).IsAssignableFrom(t));
+            typeof(Operator).IsAssignableFrom(t));
 
             var instance = Activator.CreateInstance(functionType);
-            if (instance is IOperator op)
+            if (instance is Operator op)
                 return op;
 
             throw new InvalidOperationException("Failed to create operator instance from assembly.");

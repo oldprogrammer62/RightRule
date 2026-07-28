@@ -8,18 +8,18 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 public sealed class Evaluator
 {
-    private readonly Dictionary<string, IOperator> _operators;
+    private readonly Dictionary<string, Operator> _operators;
 
     private readonly RightRuleConfiguration _rightRuleConfig;
     internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
 
-    internal Evaluator(Dictionary<string, IOperator> Operators, RightRuleConfiguration rightRuleConfig)
+    internal Evaluator(Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
     {
-        _operators = Operators ?? new Dictionary<string, IOperator> { };
+        _operators = Operators ?? new Dictionary<string, Operator> { };
         _rightRuleConfig = rightRuleConfig;
     }
 
-    internal async Task<EvalResult> Evaluate(ParsedRule parsedRule, RegisteredDatasets Datasets)
+    internal async Task<EvalResult> EvaluateAsync(ParsedRule parsedRule, RegisteredDatasets Datasets)
     {
         var diagnostics = _rightRuleConfig.DiagnosticsEnabled;
 
@@ -28,10 +28,10 @@ public sealed class Evaluator
             var node = parsedRule.Node;
             var statement = parsedRule.Statement;
 
-            bool result = await EvaluateNode(Datasets, node);
+            bool result = await EvaluateNode(Datasets, node).ConfigureAwait(false);
             string message = string.Empty;
-            string statementApplied = diagnostics ? await BuildStatement(statement, Datasets, node!) : string.Empty;
-            string syntaxTree = diagnostics ? await BuildSyntaxTree(parsedRule) : string.Empty;
+            string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!).ConfigureAwait(false) : string.Empty;
+            string syntaxTree = diagnostics ? await BuildSyntaxTreeAsync(parsedRule).ConfigureAwait(false) : string.Empty;
             return new EvalResult(result, message, statementApplied, syntaxTree);
         }
         catch
@@ -40,43 +40,44 @@ public sealed class Evaluator
         }
     }
 
+    // TO DO How do we call with ! if we have a Result object ??
     private Task<bool> EvaluateNode(RegisteredDatasets datasets, Node? node)
     {
         return Task.Run<bool>(async () =>
         {
             return node switch
             {
-                ConditionNode c => await EvaluateCondition(datasets, c),
-                BinaryNode b => await EvaluateBinary(datasets, b),
-                NotNode n => ! await EvaluateNode(datasets, n.Inner),
+                ConditionNode c => await EvaluateConditionAsync(datasets, c).ConfigureAwait(false),
+                BinaryNode b => await EvaluateBinaryAsync(datasets, b).ConfigureAwait(false),
+                NotNode n => ! await EvaluateNode(datasets, n.Inner).ConfigureAwait(false),
                 _ => throw new Exception("Unknown Node type.")
             };
         });
     }
 
-    private async Task<bool> EvaluateBinary(RegisteredDatasets datasets, BinaryNode b)
+    private async Task<bool> EvaluateBinaryAsync(RegisteredDatasets datasets, BinaryNode b)
     {
         if (b.LogicOp.ToLower() == "and")
         {
-            var left = await EvaluateNode(datasets, b.Left);
-            return left && await EvaluateNode(datasets, b.Right);
+            var left = await EvaluateNode(datasets, b.Left).ConfigureAwait(false);
+            return left && await EvaluateNode(datasets, b.Right).ConfigureAwait(false);
         }
         if (b.LogicOp.ToLower() == "or")
         {
-            var left = await EvaluateNode(datasets, b.Left);
-            return left || await EvaluateNode(datasets, b.Right);
+            var left = await EvaluateNode(datasets, b.Left).ConfigureAwait(false);
+            return left || await EvaluateNode(datasets, b.Right).ConfigureAwait(false);
         }
         throw new Exception($"Unknown logical operator: {b.LogicOp}");
     }
 
-    private async Task<bool> EvaluateCondition(RegisteredDatasets datasets, ConditionNode c)
+    private async Task<bool> EvaluateConditionAsync(RegisteredDatasets datasets, ConditionNode c)
     {
         if (!_operators.TryGetValue(c.Operator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {c.Operator}");
 
-        var left = await ResolveOperandValue(datasets, c.Left);
-        var right = await ResolveOperandValue(datasets, c.Right);
-        return op.Process(left!, right!);
+        var left = await ResolveOperandValueAsync(datasets, c.Left).ConfigureAwait(false);
+        var right = await ResolveOperandValueAsync(datasets, c.Right).ConfigureAwait(false);
+        return await op.ProcessAsync(left!, right!).ConfigureAwait(false);
     }
 
     private static Task<object> ResolveIdentifier(RegisteredDatasets datasets, string name)
@@ -111,18 +112,18 @@ public sealed class Evaluator
         });
     }
 
-    private async static Task<object?> ResolveOperandValue(RegisteredDatasets datasets, Operand op)
+    private async static Task<object?> ResolveOperandValueAsync(RegisteredDatasets datasets, Operand op)
     {
-        return await ResolveOperand(datasets, op);
+        return await ResolveOperandAsync(datasets, op).ConfigureAwait(false);
     }
 
-    private async static Task<object?> ResolveOperand(RegisteredDatasets datasets, Operand op)
+    private async static Task<object?> ResolveOperandAsync(RegisteredDatasets datasets, Operand op)
     {
         object opValue = ResolveOperatorValue(op);
 
         return op.Kind switch
         {
-            OperandKind.Identifier => opValue is string sId ? await ResolveIdentifier(datasets, sId) : ResolveIdentifier(datasets, op.Raw),
+            OperandKind.Identifier => opValue is string sId ? await ResolveIdentifier(datasets, sId).ConfigureAwait(false) : ResolveIdentifier(datasets, op.Raw).ConfigureAwait(false),
             OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
             OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
             OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
@@ -145,11 +146,11 @@ public sealed class Evaluator
         return Helper.ParseNumber(raw);
     }
 
-    private async static Task<string> BuildStatement(string Statement, RegisteredDatasets Datasets, Node Node)
+    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets Datasets, Node Node)
     {
         try
         {
-            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -157,8 +158,8 @@ public sealed class Evaluator
         }
     }
 
-    private async static Task<string> BuildSyntaxTree(ParsedRule rule)
+    private async static Task<string> BuildSyntaxTreeAsync(ParsedRule rule)
     {
-        return await rule.ToTreeText();
+        return await rule.ToTreeText().ConfigureAwait(false);
     }
 }

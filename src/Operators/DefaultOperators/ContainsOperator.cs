@@ -2,27 +2,25 @@
 
 namespace RightRule.Operators.DefaultOperators;
 
-public sealed class ContainsOperator : IOperator
+public sealed class ContainsOperator : Operator
 {
-    public List<string> Identifiers => ["contains"];
+    public override List<string> Identifiers { get;  } = ["contains"];
 
-    public bool Process(object left, object right)
+    protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
-        if (left is null || right is null) return false;
+        return await Task.Run(() =>
+        {
+            if (left is null || right is null) return false;
 
-        // String contains (case-insensitive)
-        if (left is string ls)
-            return ls.Contains(right.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+            // String contains (case-insensitive)
+            if (left is string ls && right is string rs)
+                return Contains(ls, rs);
 
-        // Fallback to string contains
-        var lstr = left.ToString() ?? string.Empty;
-        var rstr = right.ToString() ?? string.Empty;
-        return Contains(lstr, rstr);
-    }
-
-    public void Dispose()
-    {
-        // Nothing to dispose
+            // Fallback to string contains
+            var lstr = left.ToString() ?? string.Empty;
+            var rstr = right.ToString() ?? string.Empty;
+            return Contains(lstr, rstr);
+        });
     }
 
     private static bool Contains(string left, string right)

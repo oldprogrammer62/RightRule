@@ -7,15 +7,15 @@ namespace RightRule.Operators;
 
 internal class CustomOperatorLoader
 {
-    internal static List<IOperator> Load()
+    internal static List<Operator> Load()
     {
         string configPath = GetConfigPath();
         if (string.IsNullOrEmpty(configPath) || !File.Exists(configPath))
         {
-            return new List<IOperator>();
+            return new List<Operator>();
         }
 
-        List<IOperator> operators = new List<IOperator>();
+        List<Operator> operators = new List<Operator>();
         var opConfigs = GetOperatorConfigs(configPath);
         if (opConfigs.Operators == null || opConfigs.Operators.Count == 0)
         {

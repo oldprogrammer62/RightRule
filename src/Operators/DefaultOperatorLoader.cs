@@ -5,9 +5,9 @@ namespace RightRule.Operators;
 
 internal class DefaultOperatorLoader
 {
-    internal static List<IOperator> Load()
+    internal static List<Operator> Load()
     {
-        return new List<IOperator>
+        return new List<Operator>()
         {
             new EqualsOperator(),
             new NotEqualsOperator(),

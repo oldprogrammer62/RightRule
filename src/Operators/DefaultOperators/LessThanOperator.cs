@@ -2,37 +2,35 @@
 
 namespace RightRule.Operators.DefaultOperators;
 
-public sealed class LessThanOperator : IOperator
+public sealed class LessThanOperator : Operator
 {
-    public List<string> Identifiers => ["lessthan", "<"];
+    public override List<string> Identifiers { get; } = ["lessthan", "<"];
 
-    public bool Process(object left, object right)
+    protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
-        if (left == null && right == null)
+        return await Task.Run(() =>
         {
-            return true;
-        }
-        if (left == null || right == null)
-        {
-            return false;
-        }
+            if (left == null && right == null)
+            {
+                return true;
+            }
+            if (left == null || right == null)
+            {
+                return false;
+            }
 
-        if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
+            if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
 
-        if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
+            if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
 
-        if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
-        if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
+            if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
+            if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
 
-        return LessThan(left, right);
+            return LessThan(left, right);
+        });
     }
 
-    public void Dispose()
-    {
-        // Nothing to dispose
-    }
-
-    public static bool LessThan(dynamic left, dynamic right)
+    private static bool LessThan(dynamic left, dynamic right)
     {
         dynamic x = left < right;
         return x;
@@ -170,7 +168,7 @@ public sealed class LessThanOperator : IOperator
         }
     }
 
-    public static bool ProcessAsNumber(object left, object right)
+    private static bool ProcessAsNumber(object left, object right)
     {
         var decLeft = ConvertToNumber(left);
         var decRight = ConvertToNumber(right);
@@ -219,7 +217,7 @@ public sealed class LessThanOperator : IOperator
         return value is string;
     }
 
-    public static bool ProcessAsString(object left, object right)
+    private static bool ProcessAsString(object left, object right)
     {
         string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
         string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;

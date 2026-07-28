@@ -49,12 +49,12 @@ public class ParsedRule : Rule
     /// </summary>
     public Task<string> ToTreeText()
     {
-        return Task.Run<string>(async () =>
+        return Task.Run(async () =>
         {
             if (Node is null) return string.Empty;
 
             var sb = new StringBuilder();
-            await Build(Node, sb, string.Empty, true);
+            await Build(Node, sb, string.Empty, true).ConfigureAwait(false);
             return sb.ToString();
 
             static Task Build(Node node, StringBuilder sb, string prefix, bool isLast)
@@ -77,13 +77,13 @@ public class ParsedRule : Rule
                             {
                                 var child = childrenB[i];
                                 if (child is null) continue;
-                                await Build(child, sb, childPrefix, i == childrenB.Length - 1);
+                                await Build(child, sb, childPrefix, i == childrenB.Length - 1).ConfigureAwait(false);
                             }
                             break;
 
                         case NotNode n:
                             if (n.Inner is not null)
-                                await Build(n.Inner, sb, childPrefix, true);
+                                await Build(n.Inner, sb, childPrefix, true).ConfigureAwait(false);
                             break;
 
                         case ConditionNode:

@@ -27,7 +27,7 @@ public sealed class RightRule : IRightRule
     public async Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
-        return await this.CheckSyntaxAsync(Statement);
+        return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
         {
-            return await _rightRuleService.RegisterRulesAsync(rules);
+            return await _rightRuleService.RegisterRulesAsync(rules).ConfigureAwait(false);
         }
         catch
         {
@@ -141,7 +141,7 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try
         {
-            return await _rightRuleService.RegisterRuleAsync(rule);
+            return await _rightRuleService.RegisterRuleAsync(rule).ConfigureAwait(false);
         }
         catch
         {
@@ -334,7 +334,7 @@ public sealed class RightRule : IRightRule
 
         try
         {
-            var appliedRules = await _rightRuleService.ApplyRule(Context);
+            var appliedRules = await _rightRuleService.ApplyRuleAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 throw new InvalidOperationException("Rule not applied");
@@ -383,7 +383,7 @@ public sealed class RightRule : IRightRule
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRule(Context, DatasetName, Data);
+        var appliedRules = await _rightRuleService.ApplyRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rule not applied");
@@ -422,7 +422,7 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.ApplyRules(Context);
+        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -463,7 +463,7 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.ApplyRules(Context, rulesToReturn);
+        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -505,7 +505,7 @@ public sealed class RightRule : IRightRule
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRules(Context, DatasetName, Data);
+        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -551,7 +551,7 @@ public sealed class RightRule : IRightRule
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRules(Context, DatasetName, Data, rulesToReturn);
+        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
