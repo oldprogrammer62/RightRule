@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.Rules;
+using RightRule.System.Common;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
@@ -14,22 +15,19 @@ internal class ProcessAllRules
         {
             AppliedRule appliedRule = AppliedRule.DefaultRule();
 
-            EvalResult result = await EvaluateAsync(evaluator, rule, registeredDatasets).ConfigureAwait(false);
-            switch (result.Result)
+            RuleResult result = await EvaluateAsync(evaluator, rule, registeredDatasets).ConfigureAwait(false);
+            switch ((result.Result.IsSuccess, result.Result.Value))
             {
-                case EvalResult.ResultType.ResultTrue:
+                case (true, true):
                     appliedRule = CreateTrueResult(result, rule);
                     break;
 
-                case EvalResult.ResultType.ResultFalse:
+                case (true, false):
                     appliedRule = CreateFalseResult(result, rule);
                     break;
 
-                case EvalResult.ResultType.ResultError:
-                    appliedRule = CreateErrorResult(result, rule);
-                    break;
-
                 default:
+                    appliedRule = CreateErrorResult(result, rule);
                     break;
             }
             appliedRules.Add(appliedRule);
@@ -37,21 +35,21 @@ internal class ProcessAllRules
         return appliedRules;
     }
 
-    private async static Task<EvalResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
+    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
     {
         if (rule.Node == null)
         {
-            return new EvalResult()
-            {
-                Result = EvalResult.ResultType.ResultError,
-                Message = "Rule statement not interpreted properly.",
-                StatementApplied = rule.Statement
-            };
+            return new RuleResult(EvaluationResult.Failure("Rule statement not interpreted properly."));
+            //{
+            //    Result = EvalResult.ResultType.ResultError,
+            //    Message = "Rule statement not interpreted properly.",
+            //    StatementApplied = rule.Statement
+            //};
         }
 
         try
         {
-            EvalResult result = await evaluator.EvaluateAsync(rule, datasets).ConfigureAwait(false);
+            RuleResult result = await evaluator.EvaluateAsync(rule, datasets).ConfigureAwait(false);
             return result;
         }
         catch
@@ -60,17 +58,17 @@ internal class ProcessAllRules
         }
     }
 
-    private static AppliedRule CreateTrueResult(EvalResult result, ParsedRule rule)
+    private static AppliedRule CreateTrueResult(RuleResult result, ParsedRule rule)
     {
         return new AppliedRule(rule, result);
     }
 
-    private static AppliedRule CreateFalseResult(EvalResult result, ParsedRule rule)
+    private static AppliedRule CreateFalseResult(RuleResult result, ParsedRule rule)
     {
         return AppliedRule.FalseResult(rule, result);
     }
 
-    private static AppliedRule CreateErrorResult(EvalResult result, ParsedRule rule)
+    private static AppliedRule CreateErrorResult(RuleResult result, ParsedRule rule)
     {
         return AppliedRule.ErrorResult(rule, result);
     }

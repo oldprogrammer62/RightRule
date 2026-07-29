@@ -42,7 +42,7 @@ public sealed class AppliedRule : Rule
     }
 
     [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, EvalResult result)
+    internal AppliedRule(ParsedRule parsedRule, RuleResult result)
         : this()
     {
         if (IsError(result))
@@ -61,7 +61,7 @@ public sealed class AppliedRule : Rule
         }
 
         Number = parsedRule.Number;
-        Result = result.Result.Equals(EvalResult.ResultType.ResultTrue);
+        Result = result.Result.Value; // Equals(RuleResult.ResultType.ResultTrue);
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
         Context = parsedRule.Context;
@@ -72,9 +72,9 @@ public sealed class AppliedRule : Rule
         Message = result.Message;
     }
 
-    private static bool IsError(EvalResult ruleResult)
+    private static bool IsError(RuleResult ruleResult)
     {
-        return ruleResult.Result.Equals(EvalResult.ResultType.ResultError);
+        return !ruleResult.Result.IsSuccess;
     }
 
     public static AppliedRule DefaultRule()
@@ -111,7 +111,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule FalseResult(ParsedRule parsedRule, EvalResult result)
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
@@ -128,7 +128,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule ErrorResult(ParsedRule parsedRule, EvalResult result)
+    internal static AppliedRule ErrorResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
