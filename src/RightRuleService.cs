@@ -5,6 +5,7 @@ using RightRule.RuleApplication;
 using RightRule.RuleRegistration;
 using RightRule.RuleModels;
 using RightRule.System.Common;
+using RightRule.RuleConfiguration;
 
 namespace BeSoft;
 
@@ -32,7 +33,7 @@ internal class RightRuleService
 
     private static RightRuleConfiguration GetConfiguration()
     {
-        return RightRuleConfigurationManager.ConfigurationManager.GetConfiguration();
+        return ConfigurationManager.GetConfiguration();
     }
 
     internal bool UnloadOperator(string OperatorName)

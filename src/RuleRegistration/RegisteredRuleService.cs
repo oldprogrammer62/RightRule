@@ -1,5 +1,6 @@
 ﻿using RightRule.RuleModels;
 using System.Data;
+
 namespace RightRule.RuleRegistration;
 
 internal class RegisteredRuleService
