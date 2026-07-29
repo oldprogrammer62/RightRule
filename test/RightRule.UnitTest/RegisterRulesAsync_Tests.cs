@@ -1,11 +1,11 @@
-﻿using RightRule.Rules;
+﻿using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
 public class RegisterRulesAsync_Tests
 {
     [Fact]
-    public async Task RegisterRulesAsync()
+    public void RegisterRulesAsync()
     {
         RuleDefinition rule1 = new RuleDefinition()
         {
@@ -30,14 +30,14 @@ public class RegisterRulesAsync_Tests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var registeredRules = await rr.RegisterRulesAsync(rules);
+        var registeredRules = rr.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
     }
 
     [Fact]
-    public async Task RegisterRuleAsync()
+    public void RegisterRuleAsync()
     {
         RuleDefinition rule1 = new RuleDefinition()
         {
@@ -57,8 +57,8 @@ public class RegisterRulesAsync_Tests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var registeredRule1 = await rr.RegisterRuleAsync(rule1);
-        var registeredRule2 = await rr.RegisterRuleAsync(rule2);
+        var registeredRule1 = rr.RegisterRule(rule1);
+        var registeredRule2 = rr.RegisterRule(rule2);
         Assert.NotNull(registeredRule1);
         Assert.NotNull(registeredRule2);
 

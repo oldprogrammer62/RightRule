@@ -1,7 +1,7 @@
 ﻿using RightRule.Data;
 using System.Data;
 
-namespace RightRule.Rules;
+namespace RightRule.RuleModels;
 
 /// <summary>
 /// A Class used to hold a list of ParsedRule objects.

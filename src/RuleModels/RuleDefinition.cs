@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RightRule.Rules;
+namespace RightRule.RuleModels;
 
 /// <summary>
 /// Defines the content of a Rule

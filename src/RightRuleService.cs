@@ -1,7 +1,9 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.Operators;
-using RightRule.Rules;
+using RightRule.RuleApplication;
+using RightRule.RuleRegistration;
+using RightRule.RuleModels;
 using RightRule.System.Common;
 
 namespace BeSoft;
@@ -62,12 +64,12 @@ internal class RightRuleService
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    internal async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules)
+    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return await _rulesService.RegisterRulesAsync(rules, operatorNames).ConfigureAwait(false);
+        return _rulesService.RegisterRules(rules, operatorNames);
     }
 
     /// <summary>
@@ -76,12 +78,12 @@ internal class RightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    internal async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule)
+    internal ParsedRule RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return await _rulesService.RegisterRuleAsync(rule, operatorNames).ConfigureAwait(false);
+        return _rulesService.RegisterRule(rule, operatorNames);
     }
 
     internal bool DeRegisterRules(string Context)

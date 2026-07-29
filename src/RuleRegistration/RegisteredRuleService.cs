@@ -1,8 +1,8 @@
-﻿using System.Data;
-using System.Xml.Linq;
-namespace RightRule.Rules;
+﻿using RightRule.RuleModels;
+using System.Data;
+namespace RightRule.RuleRegistration;
 
-internal class RegisteredRuleService : IRegisteredRuleService
+internal class RegisteredRuleService
 {
     private readonly RegisteredRules _registeredRules;
     public RegisteredRules RegisteredRules => _registeredRules;
@@ -29,19 +29,19 @@ internal class RegisteredRuleService : IRegisteredRuleService
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    internal async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
+    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = await RuleRegistrationService.ParseRulesAsync(rules, OperatorNames).ConfigureAwait(false);
+        var parsedRules = RuleRegistrationService.RegisterRules(rules, OperatorNames);
         RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
 
-    internal async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule, HashSet<string> OperatorNames)
+    internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = await RuleRegistrationService.ParseRuleAsync(rule, OperatorNames).ConfigureAwait(false);
+        var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames);
         RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }

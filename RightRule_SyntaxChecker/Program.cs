@@ -1,5 +1,5 @@
 ﻿using RightRule.Extensions;
-using RightRule.Rules;
+using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 
 namespace RightRule_SyntaxChecker;
@@ -44,7 +44,7 @@ internal class Program
                 Context = "Default Context",
                 Decision = "Default Decision"
             };
-            _ = rightRule.RegisterRuleAsync(rule);
+            _ = rightRule.RegisterRule(rule);
 
             ShowResult(statement, result, rightRule.RegisteredRules().Rules);
         }

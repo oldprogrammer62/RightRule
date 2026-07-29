@@ -1,11 +1,10 @@
 ﻿using RightRule.Data;
 using RightRule.Extensions;
 using RightRule.Models;
-using RightRule.Rules;
+using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
-using System.Xml.Linq;
 
 namespace BeSoft;
 
@@ -81,27 +80,7 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
         {
-            return RegisterRulesAsync(rules).GetAwaiter().GetResult();
-        }
-        catch
-        {
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// Registers a set of Rules with the RightRule engine.
-    /// </summary>
-    /// <param name="rules">The Rule definitions to register.</param>
-    /// <returns>The set of Parsed Rules.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    public async Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules)
-    {
-        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
-        try
-        {
-            return await _rightRuleService.RegisterRulesAsync(rules).ConfigureAwait(false);
+            return _rightRuleService.RegisterRules(rules);
         }
         catch
         {
@@ -121,27 +100,7 @@ public sealed class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try
         {
-            return RegisterRuleAsync(rule).GetAwaiter().GetResult();
-        }
-        catch
-        {
-            throw;
-        }
-    }
-
-    /// <summary>
-    /// Registers a single Rule with the RightRule engine.
-    /// </summary>
-    /// <param name="rule">The Rule definition to register.</param>
-    /// <returns>The Parsed Rule.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    public async Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule)
-    {
-        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        try
-        {
-            return await _rightRuleService.RegisterRuleAsync(rule).ConfigureAwait(false);
+            return _rightRuleService.RegisterRule(rule);
         }
         catch
         {

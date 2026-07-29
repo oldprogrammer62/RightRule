@@ -1,4 +1,4 @@
-﻿using RightRule.Rules;
+﻿using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
@@ -23,7 +23,7 @@ public class ApplyRules_Async
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var dataRegistered = rr.RegisterDataset("Data", data);
-        var ruleRegistered = await rr.RegisterRuleAsync(rule1);
+        var ruleRegistered = rr.RegisterRule(rule1);
 
         var appliedRule = await rr.ApplyRuleAsync("Context");
 

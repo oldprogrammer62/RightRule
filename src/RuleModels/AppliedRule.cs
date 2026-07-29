@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace RightRule.Rules;
+namespace RightRule.RuleModels;
 
 /// <summary>
 /// Represents a rule that has been applied and evaluated as true against a dataset.

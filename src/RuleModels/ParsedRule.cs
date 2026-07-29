@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-namespace RightRule.Rules;
+namespace RightRule.RuleModels;
 
 /// <summary>
 /// A ParsedRule is a Rule that has been parsed and has an associated Node representing the parsed rule statement.

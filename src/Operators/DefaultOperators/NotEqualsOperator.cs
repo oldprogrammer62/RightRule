@@ -8,26 +8,23 @@ public sealed class NotEqualsOperator : Operator
 
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
-        return await Task.Run(() =>
+        if (left == null && right == null)
         {
-            if (left == null && right == null)
-            {
-                return true;
-            }
-            if (left == null || right == null)
-            {
-                return false;
-            }
+            return true;
+        }
+        if (left == null || right == null)
+        {
+            return false;
+        }
 
-            if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
+        if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
 
-            if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
+        if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
 
-            if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
-            if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
+        if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
+        if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
 
-            return !Equals(left, right);
-        });
+        return !Equals(left, right);
     }
 
     private static bool NotEquals(dynamic left, dynamic right)

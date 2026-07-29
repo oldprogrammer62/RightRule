@@ -1,6 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
-using RightRule.Rules;
+using RightRule.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule.StatementProcessor.Evaluator;
@@ -46,12 +46,6 @@ internal class ProcessFirstRule
         if (rule.Node == null)
         {
             return new RuleResult(EvaluationResult.Failure("Rule statement not interpreted properly."));
-            //return new EvalResult()
-            //{
-            //    Result = EvalResult.ResultType.ResultError,
-            //    Message = "Rule statement not interpreted properly.",
-            //    StatementApplied = rule.Statement
-            //};
         }
 
         try

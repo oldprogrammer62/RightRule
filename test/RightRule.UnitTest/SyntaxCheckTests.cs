@@ -1,5 +1,5 @@
 using RightRule.Extensions;
-using RightRule.Rules;
+using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common.Exceptions;
 

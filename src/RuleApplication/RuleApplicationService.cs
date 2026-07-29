@@ -1,10 +1,11 @@
 ﻿using RightRule.Data;
 using RightRule.HelperFunctions;
 using RightRule.Models;
+using RightRule.RuleModels;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
 
-namespace RightRule.Rules;
+namespace RightRule.RuleApplication;
 
 internal class RuleApplicationService
 {

@@ -3,77 +3,98 @@
 public sealed class Parser
 {
     private readonly Tokenizer _tokenizer;
-    private Token _current;
+    private Token? _current;
 
     internal Parser(Tokenizer tokenizer)
     {
         _tokenizer = tokenizer;
     }
 
-    internal async Task<Node> ParseAsync()
+    internal Node Parse()
     {
-        _current = await _tokenizer.NextTokenAsync().ConfigureAwait(false);
-        return await ParseOrAsync().ConfigureAwait(false);
+        _current = _tokenizer.NextToken();
+        return ParseOr();
     }
 
-    private async Task EatAsync(TokenType type)
+    private void Eat(TokenType type)
     {
+        if (_current is null)
+            throw new Exception($"Expected {type} but got no current token");
+
         if (_current.Type != type)
             throw new Exception($"Expected {type} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
-        _current = await _tokenizer.NextTokenAsync().ConfigureAwait(false);
+
+        _current = _tokenizer.NextToken();
     }
 
-    private async Task<Node> ContinueParseAsync()
+    private Node ContinueParse()
     {
-        return await ParseOrAsync().ConfigureAwait(false);
+        return ParseOr();
     }
 
-    private async Task<Node> ParseOrAsync()
+    private Node ParseOr()
     {
-        Node node = await ParseAndAsync().ConfigureAwait(false);
+        Node node = ParseAnd();
+
+        if (_current is null)
+            throw new Exception($"No current token");
+
         while (_current.Type == TokenType.Or)
         {
-            await EatAsync(TokenType.Or).ConfigureAwait(false);
-            node = new BinaryNode { LogicOp = "OR", Left = node, Right = await ParseAndAsync().ConfigureAwait(false) };
+            Eat(TokenType.Or);
+            node = new BinaryNode { LogicOp = "OR", Left = node, Right = ParseAnd() };
         }
         return node;
     }
 
-    private async Task<Node> ParseAndAsync()
+    private Node ParseAnd()
     {
-        Node node = await ParseNotAsync().ConfigureAwait(false);
+        Node node = ParseNot();
+
+        if (_current is null)
+            throw new Exception($"No current token");
+
         while (_current.Type == TokenType.And)
         {
-            await EatAsync(TokenType.And).ConfigureAwait(false);
-            node = new BinaryNode { LogicOp = "AND", Left = node, Right = await ParseNotAsync().ConfigureAwait(false) };
+            Eat(TokenType.And);
+            node = new BinaryNode { LogicOp = "AND", Left = node, Right = ParseNot() };
         }
         return node;
     }
 
-    private async Task<Node> ParseNotAsync()
+    private Node ParseNot()
     {
+        if (_current is null)
+            throw new Exception($"No current token");
+
         if (_current.Type == TokenType.Not)
         {
-            await EatAsync(TokenType.Not).ConfigureAwait(false);
-            return new NotNode { Inner = await ParseNotAsync().ConfigureAwait(false) }; // right-associative
+            Eat(TokenType.Not);
+            return new NotNode { Inner = ParseNot() }; // right-associative
         }
-        return await ParsePrimaryAsync().ConfigureAwait(false);
+        return ParsePrimary();
     }
 
-    private async Task<Node> ParsePrimaryAsync()
+    private Node ParsePrimary()
     {
+        if (_current is null)
+            throw new Exception($"No current token");
+
         if (_current.Type == TokenType.LParen)
         {
-            await EatAsync(TokenType.LParen).ConfigureAwait(false);
-            var node = await ContinueParseAsync().ConfigureAwait(false);
-            await EatAsync(TokenType.RParen).ConfigureAwait(false);
+            Eat(TokenType.LParen);
+            var node = ContinueParse();
+            Eat(TokenType.RParen);
             return node;
         }
-        return await ParseConditionAsync().ConfigureAwait(false);
+        return ParseCondition();
     }
 
-    private async Task<Node> ParseConditionAsync()
+    private Node ParseCondition()
     {
+        if (_current is null)
+            throw new Exception($"No current token");
+
         // Left operand: allow Identifier or literal (String/Number/Boolean/PlaceHolder)
         Operand left = _current.Type switch
         {
@@ -83,12 +104,12 @@ public sealed class Parser
             TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
             _ => throw new Exception($"Expected left-hand identifier or literal at pos {_current.Position}")
         };
-        await EatAsync(_current.Type).ConfigureAwait(false);
+        Eat(_current.Type);
 
         if (_current.Type != TokenType.Operator)
             throw new Exception($"Expected operator at pos {_current.Position}");
         string op = _current.Value; // keep original casing; resolve case-insensitively
-        await EatAsync(TokenType.Operator).ConfigureAwait(false);
+        Eat(TokenType.Operator);
 
         Operand rhs = _current.Type switch
         {
@@ -98,7 +119,7 @@ public sealed class Parser
             TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
             _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
         };
-        await EatAsync(_current.Type).ConfigureAwait(false);
+        Eat(_current.Type);
 
         return new ConditionNode
         {

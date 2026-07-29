@@ -1,6 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
-using RightRule.Rules;
+using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
@@ -303,14 +303,14 @@ public interface IRightRule
     /// <exception cref="FormatException"></exception>
     ParsedRule RegisterRule(RuleDefinition rule);
 
-    /// <summary>
-    /// Registers a single Rule with the RightRule engine.
-    /// </summary>
-    /// <param name="rule">The Rule definition to register.</param>
-    /// <returns>The Parsed Rule.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule);
+    ///// <summary>
+    ///// Registers a single Rule with the RightRule engine.
+    ///// </summary>
+    ///// <param name="rule">The Rule definition to register.</param>
+    ///// <returns>The Parsed Rule.</returns>
+    ///// <exception cref="ArgumentNullException"></exception>
+    ///// <exception cref="FormatException"></exception>
+    //Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
@@ -321,14 +321,14 @@ public interface IRightRule
     /// <exception cref="FormatException"></exception>
     List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
 
-    /// <summary>
-    /// Registers a set of Rules with the RightRule engine.
-    /// </summary>
-    /// <param name="rules">The Rule definitions to register.</param>
-    /// <returns>The set of Parsed Rules.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    Task<List<ParsedRule>> RegisterRulesAsync(IEnumerable<RuleDefinition> rules);
+    ///// <summary>
+    ///// Registers a set of Rules with the RightRule engine.
+    ///// </summary>
+    ///// <param name="rules">The Rule definitions to register.</param>
+    ///// <returns>The set of Parsed Rules.</returns>
+    ///// <exception cref="ArgumentNullException"></exception>
+    ///// <exception cref="FormatException"></exception>
+    //Task<List<ParsedRule>> RegisterRules(IEnumerable<RuleDefinition> rules);
 
     /// <summary>
     /// Unloads an Operator from the RightRule engine.

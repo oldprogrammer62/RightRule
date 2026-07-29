@@ -1,18 +1,18 @@
-﻿using RightRule.Rules;
+﻿using RightRule.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal async static Task<List<AppliedRule>> ApplyRulesAsync(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
+        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
             string Context = "Demo";
             var rules = LoadRules(Context);
 
-            var registeredRules = await rr.RegisterRulesAsync(rules).ConfigureAwait(false);
+            var registeredRules = rr.RegisterRules(rules);
             var done = rr.RegisterDataset(Context, Data);
 
             var hvData = MakeHvData(HighValue);
