@@ -41,6 +41,23 @@ public sealed class AppliedRule : Rule
         StatementPath = string.Empty;
     }
 
+    public static AppliedRule DefaultRule()
+    {
+        return new AppliedRule()
+        {
+            Number = -1,
+            Result = true,
+            Name = "DEFAULTRULE",
+            Statement = string.Empty,
+            Context = string.Empty,
+            Decision = NoDecision,
+            DecisionData = string.Empty,
+            StatementApplied = string.Empty,
+            StatementPath = string.Empty,
+            Message = string.Empty
+        };
+    }
+
     [SetsRequiredMembers]
     internal AppliedRule(ParsedRule parsedRule, RuleResult result)
         : this()
@@ -61,7 +78,7 @@ public sealed class AppliedRule : Rule
         }
 
         Number = parsedRule.Number;
-        Result = result.Result.Value; // Equals(RuleResult.ResultType.ResultTrue);
+        Result = result.Result.Value;
         Name = parsedRule.Name;
         Statement = parsedRule.Statement;
         Context = parsedRule.Context;
@@ -72,29 +89,7 @@ public sealed class AppliedRule : Rule
         Message = result.Message;
     }
 
-    private static bool IsError(RuleResult ruleResult)
-    {
-        return !ruleResult.Result.IsSuccess;
-    }
-
-    public static AppliedRule DefaultRule()
-    {
-        return new AppliedRule()
-        {
-            Number = -1,
-            Result = true,
-            Name = "DEFAULTRULE",
-            Statement = string.Empty,
-            Context = string.Empty,
-            Decision = NoDecision,
-            DecisionData = string.Empty,
-            StatementApplied = string.Empty,
-            StatementPath = string.Empty,
-            Message = string.Empty
-        };
-    }
-
-    public static AppliedRule DefaultRule(string message)
+    internal static AppliedRule DefaultRule(string message)
     {
         return new AppliedRule()
         {
@@ -162,5 +157,10 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"StatementPath: {statementPath}");
         sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();
+    }
+
+    private static bool IsError(RuleResult ruleResult)
+    {
+        return !ruleResult.Result.IsSuccess;
     }
 }

@@ -12,6 +12,14 @@ public class OperatorLoaderTests
         Assert.NotNull(op);
     }
 
+    [Fact]
+    public void TestItWorks_LoadOperator_DayOfWeek()
+    {
+        var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll";
+        var op = Loader.Load(path);
+        Assert.NotNull(op);
+    }
+
     //[Fact]
     //public void TestItWorks_LoadOperator_DoesNotContain()
     //{

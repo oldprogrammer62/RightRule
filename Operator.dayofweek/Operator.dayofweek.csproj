@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy $(TargetDir)\Operator.dayofweek.dll C:\Development\BSoft\RightRule\src\Operators\CustomOperators /Y /I /E" />
+  </Target>
+
+  <ItemGroup>
+    <Folder Include="RightRule.Operator.Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RightRule.System.Common">
+      <HintPath>RightRule.Operator.Common\RightRule.System.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

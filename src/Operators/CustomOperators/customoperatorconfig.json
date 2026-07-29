@@ -3,6 +3,10 @@
     {
       "name": "Exists",
       "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll"
+    },
+    {
+      "name": "DayOfWeek",
+      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll"
     }
   ]
 }
