@@ -61,6 +61,6 @@ public class DoesContainTests
 
         var appliedRule = rr.ApplyRule("NameContext");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 }

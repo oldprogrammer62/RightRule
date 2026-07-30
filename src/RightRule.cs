@@ -302,11 +302,11 @@ public sealed class RightRule : IRightRule
             {
                 return appliedRules[0];
             }
-            return AppliedRule.DefaultRule();
+            return AppliedRule.DefaultResult();
         }
         catch (Exception ex)
         {
-            return AppliedRule.DefaultRule(ex.Message);
+            return AppliedRule.ErrorResult(ex.Message);
         }
     }
 
@@ -351,7 +351,7 @@ public sealed class RightRule : IRightRule
         {
             return appliedRules[0];
         }
-        return AppliedRule.DefaultRule();
+        return AppliedRule.DefaultResult();
     }
 
     /// <summary>
@@ -390,7 +390,7 @@ public sealed class RightRule : IRightRule
         {
             return appliedRules;
         }
-        return [AppliedRule.DefaultRule()];
+        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -431,7 +431,7 @@ public sealed class RightRule : IRightRule
         {
             return appliedRules;
         }
-        return [AppliedRule.DefaultRule()];
+        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -473,7 +473,7 @@ public sealed class RightRule : IRightRule
         {
             return appliedRules;
         }
-        return [AppliedRule.DefaultRule()];
+        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -519,6 +519,6 @@ public sealed class RightRule : IRightRule
         {
             return appliedRules;
         }
-        return [AppliedRule.DefaultRule()];
+        return [AppliedRule.DefaultResult()];
     }
 }

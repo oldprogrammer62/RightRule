@@ -174,11 +174,11 @@ internal class RightRuleService
 
         if (_registeredDatasets == null || _registeredDatasets.Count == 0)
         {
-            return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
+            return [AppliedRule.ErrorResult("Error: No registered data available for rule application.")];
         }
         if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
         {
-            return [AppliedRule.DefaultRule("Error: No rules available for application.")];
+            return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
         return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }
@@ -233,11 +233,11 @@ internal class RightRuleService
 
         if (_registeredDatasets == null || _registeredDatasets.Count == 0)
         {
-            return [AppliedRule.DefaultRule("Error: No registered data available for rule application.")];
+            return [AppliedRule.ErrorResult("Error: No registered data available for rule application.")];
         }
         if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
         {
-            return [AppliedRule.DefaultRule("Error: No rules available for application.")];
+            return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
         return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }

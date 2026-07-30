@@ -39,7 +39,7 @@ public class GrammarTests
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -261,7 +261,7 @@ public class GrammarTests
 
         var appliedRule = rr.ApplyRule("NameContext");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -305,7 +305,7 @@ public class GrammarTests
 
         var appliedRule = rr.ApplyRule("NotGoodPayerContext");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 
     [Fact]

@@ -82,7 +82,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 
     [Fact]

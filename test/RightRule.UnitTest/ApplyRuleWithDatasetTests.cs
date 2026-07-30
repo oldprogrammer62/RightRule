@@ -87,6 +87,6 @@ public class ApplyRuleWithDatasetTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 }

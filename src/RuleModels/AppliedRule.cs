@@ -33,29 +33,13 @@ public sealed class AppliedRule : Rule
     /// </summary>
     public string StatementPath { get; init; }
 
-    internal static readonly string NoDecision = "NODECISION";
+    public static string DefaultDecision { get; } = "NODECISION";
+    public static string ErrorDecision { get; } = "ERROR";
 
     public AppliedRule() : base()
     {
         StatementApplied = string.Empty;
         StatementPath = string.Empty;
-    }
-
-    public static AppliedRule DefaultRule()
-    {
-        return new AppliedRule()
-        {
-            Number = -1,
-            Result = true,
-            Name = "DEFAULTRULE",
-            Statement = string.Empty,
-            Context = string.Empty,
-            Decision = NoDecision,
-            DecisionData = string.Empty,
-            StatementApplied = string.Empty,
-            StatementPath = string.Empty,
-            Message = string.Empty
-        };
     }
 
     [SetsRequiredMembers]
@@ -69,7 +53,7 @@ public sealed class AppliedRule : Rule
             Name = parsedRule.Name;
             Statement = parsedRule.Statement;
             Context = parsedRule.Context;
-            Decision = NoDecision;
+            Decision = ErrorDecision;
             DecisionData = string.Empty;
             StatementApplied = result.StatementApplied;
             StatementPath = result.SyntaxTree;
@@ -89,7 +73,7 @@ public sealed class AppliedRule : Rule
         Message = result.Message;
     }
 
-    internal static AppliedRule DefaultRule(string message)
+    internal static AppliedRule DefaultResult()
     {
         return new AppliedRule()
         {
@@ -98,11 +82,11 @@ public sealed class AppliedRule : Rule
             Name = "DEFAULTRULE",
             Statement = string.Empty,
             Context = string.Empty,
-            Decision = NoDecision,
+            Decision = DefaultDecision,
             DecisionData = string.Empty,
             StatementApplied = string.Empty,
             StatementPath = string.Empty,
-            Message = message
+            Message = string.Empty
         };
     }
 
@@ -115,11 +99,28 @@ public sealed class AppliedRule : Rule
             Name = parsedRule.Name,
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
-            Decision = NoDecision,
-            DecisionData = string.Empty,
+            Decision = DefaultDecision,
+            DecisionData = parsedRule.DecisionData,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message
+        };
+    }
+
+    public static AppliedRule ErrorResult(string message)
+    {
+        return new AppliedRule()
+        {
+            Number = -1,
+            Result = false,
+            Name = "ERRORRULE",
+            Statement = string.Empty,
+            Context = string.Empty,
+            Decision = ErrorDecision,
+            DecisionData = string.Empty,
+            StatementApplied = string.Empty,
+            StatementPath = string.Empty,
+            Message = message
         };
     }
 
@@ -132,8 +133,8 @@ public sealed class AppliedRule : Rule
             Name = parsedRule.Name,
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
-            Decision = NoDecision,
-            DecisionData = string.Empty,
+            Decision = ErrorDecision,
+            DecisionData = parsedRule.DecisionData,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message

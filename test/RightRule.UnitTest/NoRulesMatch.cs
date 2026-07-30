@@ -95,7 +95,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision , appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision , appliedRule.Decision);
     }
 
     [Fact]
@@ -126,7 +126,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRule.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -219,7 +219,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRules[0].Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -313,7 +313,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
 
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRules[0].Decision);
-        Assert.Equal(AppliedRule.DefaultRule().Decision, appliedRules[1].Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRules[0].Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, appliedRules[1].Decision);
     }
 }

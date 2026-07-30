@@ -45,7 +45,7 @@ public sealed class Interpreter
         {
             RulesToReturn.First => await ProcessFirstRule.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
             RulesToReturn.All   => await ProcessAllRules.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
-            _                   => [AppliedRule.DefaultRule($"Unknown RulesToReturn value: {rulesToReturn}")]
+            _                   => [AppliedRule.ErrorResult($"Unknown RulesToReturn value: {rulesToReturn}")]
         };
     }
 }

@@ -14,17 +14,17 @@ internal class ProcessFirstRule
 
         foreach (var rule in rules)
         {
-            AppliedRule appliedRule = AppliedRule.DefaultRule();
+            AppliedRule appliedRule = AppliedRule.DefaultResult();
 
             RuleResult result = await EvaluateAsync(evaluator, rule, registeredDatasets).ConfigureAwait(false);
             switch ((result.Result.IsSuccess, result.Result.Value))
             {
-                case (true, true):
+                case (true, true): // Success and Rule applied
                     appliedRule = CreateTrueResult(result, rule);
                     complete = true;
                     break;
 
-                case (true, false):
+                case (true, false): // Success and Rule not applied
                     appliedRule = CreateFalseResult(result, rule);
                     continue;
 
