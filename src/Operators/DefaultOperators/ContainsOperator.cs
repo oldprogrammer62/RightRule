@@ -4,6 +4,10 @@ namespace RightRule.Operators.DefaultOperators;
 
 public sealed class ContainsOperator : Operator
 {
+    public ContainsOperator() : base(false)
+    {
+    }
+
     public override List<string> Identifiers { get;  } = ["contains"];
 
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)

@@ -6,6 +6,10 @@ public class EqualsOperator : Operator
 {
     public override List<string> Identifiers { get; } = ["equals", "eq", "=", "=="];
 
+    public EqualsOperator() : base(false)
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left == null && right == null)

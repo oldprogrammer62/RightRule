@@ -6,6 +6,10 @@ public sealed class LessThanOperator : Operator
 {
     public override List<string> Identifiers { get; } = ["lessthan", "<"];
 
+    public LessThanOperator() : base(false)
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left == null && right == null)

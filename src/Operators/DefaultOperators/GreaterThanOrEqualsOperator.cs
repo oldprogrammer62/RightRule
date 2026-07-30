@@ -6,6 +6,10 @@ public sealed class GreaterThanOrEqualsOperator : Operator
 {
     public override List<string> Identifiers { get; } = ["greaterthanorequals", ">="];
 
+    public GreaterThanOrEqualsOperator() : base(false)
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left == null && right == null)

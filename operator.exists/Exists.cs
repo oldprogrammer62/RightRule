@@ -6,6 +6,10 @@ public class Exists : RightRule.System.Common.Operator
 {
     public override List<string> Identifiers => ["exists", "in", "foundin"];
 
+    public Exists() : base()
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left == null && right == null)

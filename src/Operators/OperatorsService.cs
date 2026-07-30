@@ -8,7 +8,7 @@ internal class OperatorsService
     public List<Operator> Operators => _operators;
 
     private readonly Dictionary<string, Operator> _operatorAliases;
-    public Dictionary<string, Operator> OperatorAliases => _operatorAliases;
+    public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
     private readonly HashSet<string> _operatorNames;
     public HashSet<string> OperatorNames => _operatorNames;

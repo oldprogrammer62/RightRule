@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Extensions;
 using RightRule.Models;
+using RightRule.Operators;
 using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -27,6 +28,26 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
         return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
+    }
+
+    public List<Operator>? GetOperatorDetails()
+    {
+        var operators = _rightRuleService?.GetOperatorDetails();
+        return operators;
+        //if (operators == null)
+        //{
+        //    return null;
+        //}
+
+        //OperatorAliases oa = new OperatorAliases();
+        //foreach (Operator op in operators)
+        //{
+        //    string opName = op.Name!;
+        //    bool opCustom = op.IsCustom;
+        //    string opAlias = string.Join(", ", op.Identifiers);
+        //    oa.Add(opName, opCustom, opAlias);
+        //}
+        //return oa;
     }
 
     /// <summary>

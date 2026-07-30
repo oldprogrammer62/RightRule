@@ -13,6 +13,8 @@ public interface IRightRule
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 
+    List<Operator>? GetOperatorDetails();
+
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// The first Rule to return a positive (true) result will be returned.<br/>

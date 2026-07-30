@@ -6,6 +6,10 @@ public sealed class NotEqualsOperator : Operator
 {
     public override List<string> Identifiers { get; } = ["notequals", "neq", "!=", "<>"];
 
+    public NotEqualsOperator() : base(false)
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left == null && right == null)

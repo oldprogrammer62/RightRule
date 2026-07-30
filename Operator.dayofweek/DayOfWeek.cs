@@ -8,6 +8,10 @@ public class DayOfWeek : RightRule.System.Common.Operator
     private readonly List<string> ShortDays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     private readonly List<string> LongDays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
+    public DayOfWeek() : base()
+    {
+    }
+
     protected override Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left is null || right is null)

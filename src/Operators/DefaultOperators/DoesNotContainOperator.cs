@@ -6,6 +6,10 @@ public sealed class DoesNotContainOperator : Operator
 {
     public override List<string> Identifiers { get; } = ["doesnotcontain", "notc", "notni"];
 
+    public DoesNotContainOperator() : base(false)
+    {
+    }
+
     protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
     {
         if (left is null || right is null) return false;

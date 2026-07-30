@@ -6,6 +6,20 @@ public abstract class Operator
     
     public abstract List<string> Identifiers { get; }
 
+    public bool IsCustom { get; }
+
+    public string Name => this.GetType().Name;
+
+    protected Operator()
+    {
+        IsCustom = true;
+    }
+
+    internal Operator(bool isCustom)
+    {
+        IsCustom = isCustom;
+    }
+
     public Task<bool> ProcessAsync(object left, object right)
     {
         return Task.Run<bool>(async () =>

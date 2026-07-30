@@ -36,6 +36,16 @@ internal class RightRuleService
         return ConfigurationManager.GetConfiguration();
     }
 
+    internal Dictionary<string, Operator> GetOperatorAliases()
+    {
+        return _operatorsService.OperatorAliases;
+    }
+
+    internal List<Operator> GetOperatorDetails()
+    {
+        return _operatorsService.Operators;
+    }
+
     internal bool UnloadOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
