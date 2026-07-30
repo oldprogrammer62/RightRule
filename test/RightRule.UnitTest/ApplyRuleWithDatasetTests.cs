@@ -60,7 +60,7 @@ public class ApplyRuleWithDatasetTests
         rr.RegisterDataset("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.EvaluateFirstRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -73,7 +73,7 @@ public class ApplyRuleWithDatasetTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.EvaluateFirstRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -85,7 +85,7 @@ public class ApplyRuleWithDatasetTests
         var newRule3 = rr.RegisterRule(rule3);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.EvaluateFirstRule("AllContext");
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }

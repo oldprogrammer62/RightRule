@@ -33,7 +33,7 @@ public class LiteralTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -55,7 +55,7 @@ public class LiteralTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -83,7 +83,7 @@ public class LiteralTests
         rr.RegisterDataset("Test", _Data);
         rr.RegisterDataset("Arguments", Arguments);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -105,7 +105,7 @@ public class LiteralTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -133,7 +133,7 @@ public class LiteralTests
         rr.RegisterDataset("Test", _Data);
         rr.RegisterDataset("Arguments", Arguments);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

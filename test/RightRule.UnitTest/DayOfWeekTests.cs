@@ -25,7 +25,7 @@ public class DayOfWeekTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         rr.RegisterDataset("data", data);
         var parsedRule = rr.RegisterRule(rule1);
-        var appliedRule = rr.ApplyRule("context");
+        var appliedRule = rr.EvaluateFirstRule("context");
 
         Assert.NotNull(appliedRule);
     }

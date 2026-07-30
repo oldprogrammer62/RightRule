@@ -65,7 +65,7 @@ public class ApplyRuleMultipleDatasetsTests
         rr.RegisterDataset("TestA", _DataA);
         rr.RegisterDataset("TestB", _DataB);
 
-        var appliedA = rr.ApplyRule("AllContext");
+        var appliedA = rr.EvaluateFirstRule("AllContext");
 
         Assert.Equal(rule1.Decision, appliedA.Decision);
     }
@@ -81,7 +81,7 @@ public class ApplyRuleMultipleDatasetsTests
         rr.RegisterDataset("TestA", _DataA);
         rr.RegisterDataset("TestB", _DataB);
 
-        var appliedB = rr.ApplyRule("AllContext");
+        var appliedB = rr.EvaluateFirstRule("AllContext");
 
         Assert.Equal(rule1.Decision, appliedB.Decision);
     }

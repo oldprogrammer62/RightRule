@@ -268,9 +268,9 @@ public sealed class RightRule : IRightRule
     /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public AppliedRule ApplyRule(string Context)
+    public AppliedRule EvaluateFirstRule(string Context)
     {
-        return ApplyRuleAsync(Context).GetAwaiter().GetResult();
+        return EvaluateFirstRuleAsync(Context).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -287,7 +287,7 @@ public sealed class RightRule : IRightRule
     /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<AppliedRule> ApplyRuleAsync(string Context)
+    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -321,9 +321,9 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data)
+    public AppliedRule EvaluateFirstRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        return ApplyRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        return EvaluateFirstRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -337,7 +337,7 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<AppliedRule> ApplyRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
@@ -363,9 +363,9 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public List<AppliedRule> ApplyRules(string Context)
+    public List<AppliedRule> EvaluateAllRules(string Context)
     {
-        return ApplyRulesAsync(Context).GetAwaiter().GetResult();
+        return EvaluateAllRulesAsync(Context).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -377,7 +377,7 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -403,9 +403,9 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    public List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn)
+    public List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn rulesToReturn)
     {
-        return ApplyRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+        return EvaluateAllRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -418,7 +418,7 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -444,9 +444,9 @@ public sealed class RightRule : IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data)
+    public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        return ApplyRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        return EvaluateAllRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -459,7 +459,7 @@ public sealed class RightRule : IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));

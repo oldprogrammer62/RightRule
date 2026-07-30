@@ -37,7 +37,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -59,7 +59,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -81,7 +81,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -103,7 +103,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -125,7 +125,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -147,7 +147,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -171,7 +171,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -195,7 +195,7 @@ public class EqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterDataset("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -233,7 +233,7 @@ public class EqualsTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterDataset("Test", _IntData);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule1.Decision, appliedRule.Decision);
     }
@@ -271,7 +271,7 @@ public class EqualsTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterDataset("Test", _IntData);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule2.Decision, appliedRule.Decision);
     }
@@ -309,7 +309,7 @@ public class EqualsTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterDataset("Test", _IntData);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.EvaluateAllRules("Context");
 
         Assert.NotNull(appliedRule);
     }

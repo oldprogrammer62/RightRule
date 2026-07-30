@@ -42,7 +42,7 @@ public class IdentifierWithDotTests
         rr.RegisterDataset("Data", _Data);
         rr.RegisterDataset("Constants", _Constants);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -65,7 +65,7 @@ public class IdentifierWithDotTests
         rr.RegisterDataset("Data", _Data);
         rr.RegisterDataset("Constants", _Constants);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.EvaluateFirstRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

@@ -18,9 +18,9 @@ namespace RightRule_Demo.RuleManager
             var hvData = MakeHvData(HighValue);
             rr.RegisterDataset("hv", hvData);
 
-            var x = rr.ApplyRule(Context);
+            var x = rr.EvaluateFirstRule(Context);
 
-            var appliedRules = rr.ApplyRules(Context, rulesToReturn);
+            var appliedRules = rr.EvaluateAllRules(Context, rulesToReturn);
             return appliedRules;
         }
 

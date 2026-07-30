@@ -25,7 +25,7 @@ public class ApplyRules_Async
         var dataRegistered = rr.RegisterDataset("Data", data);
         var ruleRegistered = rr.RegisterRule(rule1);
 
-        var appliedRule = await rr.ApplyRuleAsync("Context");
+        var appliedRule = await rr.EvaluateFirstRuleAsync("Context");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

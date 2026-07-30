@@ -66,7 +66,7 @@ public class StatementBuilderTests
         rr.RegisterDataset("CustomerData", _CustomerData);
         rr.RegisterDataset("StaticData", _StaticData);
 
-        var appliedRule = rr.ApplyRule("DiscountDecision");
+        var appliedRule = rr.EvaluateFirstRule("DiscountDecision");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

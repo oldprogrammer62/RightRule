@@ -29,7 +29,7 @@ public interface IRightRule
     /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    Task<AppliedRule> ApplyRuleAsync(string Context);
+    Task<AppliedRule> EvaluateFirstRuleAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
@@ -47,7 +47,7 @@ public interface IRightRule
     /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    AppliedRule ApplyRule(string Context);
+    AppliedRule EvaluateFirstRule(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -63,7 +63,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    Task<AppliedRule> ApplyRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+    Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -79,7 +79,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    AppliedRule ApplyRule(string Context, string DatasetName, Dictionary<string, object> Data);
+    AppliedRule EvaluateFirstRule(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -91,7 +91,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    Task<List<AppliedRule>> ApplyRulesAsync(string Context);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -103,7 +103,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    List<AppliedRule> ApplyRules(string Context);
+    List<AppliedRule> EvaluateAllRules(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -118,7 +118,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    Task<List<AppliedRule>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -133,7 +133,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    List<AppliedRule> ApplyRules(string Context, RulesToReturn rulesToReturn);
+    List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -147,7 +147,7 @@ public interface IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -161,7 +161,7 @@ public interface IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data);
+    List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
