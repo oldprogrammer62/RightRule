@@ -107,7 +107,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    public static AppliedRule ErrorResult(string message)
+    internal static AppliedRule ErrorResult(string message)
     {
         return new AppliedRule()
         {

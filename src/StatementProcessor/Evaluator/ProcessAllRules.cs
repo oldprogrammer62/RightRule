@@ -40,11 +40,6 @@ internal class ProcessAllRules
         if (rule.Node == null)
         {
             return new RuleResult(EvaluationResult.Failure("Rule statement not interpreted properly."));
-            //{
-            //    Result = EvalResult.ResultType.ResultError,
-            //    Message = "Rule statement not interpreted properly.",
-            //    StatementApplied = rule.Statement
-            //};
         }
 
         try

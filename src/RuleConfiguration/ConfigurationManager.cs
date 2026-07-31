@@ -5,7 +5,7 @@ namespace RightRule.RuleConfiguration;
 
 internal class ConfigurationManager
 {
-    public static RightRuleConfiguration GetConfiguration()
+    internal static RightRuleConfiguration GetConfiguration()
     {
         var enableDiagnostics = ConfigurationHelper.GetSetting("EnableDiagnostics")?.ToLower() == "true";
 

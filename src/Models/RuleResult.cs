@@ -11,7 +11,7 @@ internal class RuleResult
     public required string SyntaxTree { get; init; }
 
     [SetsRequiredMembers]
-    public RuleResult(EvaluationResult Result)
+    internal RuleResult(EvaluationResult Result)
     {
         this.Result = Result;
         Message = string.Empty;
@@ -20,7 +20,7 @@ internal class RuleResult
     }
 
     [SetsRequiredMembers]
-    public RuleResult(EvaluationResult Result, string ResultMessage, string StatementApplied, string SyntaxTree)
+    internal RuleResult(EvaluationResult Result, string ResultMessage, string StatementApplied, string SyntaxTree)
     {
         this.Result = Result;
         Message = ResultMessage;
@@ -28,7 +28,7 @@ internal class RuleResult
         this.SyntaxTree = SyntaxTree;
     }
 
-    public static RuleResult Failure(string error)
+    internal static RuleResult Failure(string error)
     {
         return new RuleResult(
             Result: EvaluationResult.Failure(error),

@@ -1,6 +1,4 @@
-﻿using RightRule.Data;
-using System.Data;
-
+﻿
 namespace RightRule.RuleModels;
 
 /// <summary>

@@ -6,13 +6,13 @@ using RightRule.System.Common;
 
 namespace RightRule.StatementProcessor.Interpreter;
 
-public sealed class Interpreter
+internal sealed class Interpreter
 {
     private readonly RegisteredDatasets _registeredDatasets;
     private readonly Dictionary<string, Operator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
 
-    public Interpreter(RegisteredDatasets datasets, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
+    internal Interpreter(RegisteredDatasets datasets, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
     {
         _registeredDatasets = datasets ?? new RegisteredDatasets();
         _operators = operators ?? new Dictionary<string, Operator> { };

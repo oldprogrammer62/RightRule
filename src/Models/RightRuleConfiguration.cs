@@ -4,7 +4,7 @@ public class RightRuleConfiguration
 {
     public bool DiagnosticsEnabled { get; }
 
-    public RightRuleConfiguration(bool EnableDiagnostics)
+    internal RightRuleConfiguration(bool EnableDiagnostics)
     {
         DiagnosticsEnabled = EnableDiagnostics;
     }

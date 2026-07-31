@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RightRule.StatementProcessor;
 
-public sealed class Tokenizer
+internal sealed class Tokenizer
 {
     private readonly string _input;
     private int _pos;

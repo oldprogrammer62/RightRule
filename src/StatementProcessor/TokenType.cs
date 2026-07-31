@@ -1,6 +1,6 @@
 ﻿namespace RightRule.StatementProcessor;
 
-public enum TokenType
+internal enum TokenType
 {
     Identifier,   // variable names with dot notation
     Number,       // 123, 456

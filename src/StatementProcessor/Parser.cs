@@ -1,6 +1,6 @@
 ﻿namespace RightRule.StatementProcessor;
 
-public sealed class Parser
+internal sealed class Parser
 {
     private readonly Tokenizer _tokenizer;
     private Token? _current;

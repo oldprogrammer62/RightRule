@@ -42,61 +42,63 @@ public class ParsedRule : Rule
         return sb.ToString();
     }
 
+    public Task<string> ToTreeText()
+    {
+        return Task.Run(BuildTreeText);
+    }
+
     /// <summary>
     /// Produce a user-friendly ASCII tree representation of the AST for this parsed rule.
     /// Uses ├─ and └─ for branches and │ for vertical lines.
     /// Returns an empty string when <see cref="Node"/> is null.
     /// </summary>
-    public Task<string> ToTreeText()
+    private async Task<string> BuildTreeText()
     {
-        return Task.Run(async () =>
+        if (Node is null) return string.Empty;
+
+        var sb = new StringBuilder();
+        await Build(Node, sb, string.Empty, true).ConfigureAwait(false);
+        return sb.ToString();
+
+        static Task Build(Node node, StringBuilder sb, string prefix, bool isLast)
         {
-            if (Node is null) return string.Empty;
-
-            var sb = new StringBuilder();
-            await Build(Node, sb, string.Empty, true).ConfigureAwait(false);
-            return sb.ToString();
-
-            static Task Build(Node node, StringBuilder sb, string prefix, bool isLast)
+            return Task.Run(async () =>
             {
-                return Task.Run(async () =>
+                var branch = isLast ? "└─ " : "├─ ";
+                sb.Append(prefix);
+                sb.Append(branch);
+                sb.AppendLine(Describe(node));
+
+                // Prepare prefix for children
+                var childPrefix = prefix + (isLast ? "   " : "│  ");
+
+                switch (node)
                 {
-                    var branch = isLast ? "└─ " : "├─ ";
-                    sb.Append(prefix);
-                    sb.Append(branch);
-                    sb.AppendLine(Describe(node));
+                    case BinaryNode b:
+                        var childrenB = new Node[] { b.Left, b.Right };
+                        for (int i = 0; i < childrenB.Length; i++)
+                        {
+                            var child = childrenB[i];
+                            if (child is null) continue;
+                            await Build(child, sb, childPrefix, i == childrenB.Length - 1).ConfigureAwait(false);
+                        }
+                        break;
 
-                    // Prepare prefix for children
-                    var childPrefix = prefix + (isLast ? "   " : "│  ");
+                    case NotNode n:
+                        if (n.Inner is not null)
+                            await Build(n.Inner, sb, childPrefix, true).ConfigureAwait(false);
+                        break;
 
-                    switch (node)
-                    {
-                        case BinaryNode b:
-                            var childrenB = new Node[] { b.Left, b.Right };
-                            for (int i = 0; i < childrenB.Length; i++)
-                            {
-                                var child = childrenB[i];
-                                if (child is null) continue;
-                                await Build(child, sb, childPrefix, i == childrenB.Length - 1).ConfigureAwait(false);
-                            }
-                            break;
+                    case ConditionNode:
+                        // leaf
+                        break;
 
-                        case NotNode n:
-                            if (n.Inner is not null)
-                                await Build(n.Inner, sb, childPrefix, true).ConfigureAwait(false);
-                            break;
-
-                        case ConditionNode:
-                            // leaf
-                            break;
-
-                        default:
-                            // unknown node types - nothing further
-                            break;
-                    }
-                });
-            }
-        });
+                    default:
+                        // unknown node types - nothing further
+                        break;
+                }
+            });
+        }
 
         static string Describe(Node node)
         {

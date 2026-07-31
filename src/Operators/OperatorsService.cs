@@ -31,7 +31,7 @@ internal class OperatorsService
         return false;
     }
 
-    internal bool DeRegisterOperator(string OperatorName, Operator Operator)
+    private bool DeRegisterOperator(string OperatorName, Operator Operator)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         if (Operator != null)

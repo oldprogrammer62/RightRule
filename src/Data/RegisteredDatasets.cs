@@ -9,12 +9,12 @@ public class RegisteredDatasets
 
     public RegisteredDataset? this[int index] => index >= 0 && index < _datasets.Count ? _datasets[index] : null;
 
-    public RegisteredDatasets()
+    internal RegisteredDatasets()
     {
         _datasets = new List<RegisteredDataset>();
     }
 
-    public bool AddDataset(RegisteredDataset dataset)
+    internal bool AddDataset(RegisteredDataset dataset)
     {
         if (dataset == null || string.IsNullOrEmpty(dataset.Name))
         {
@@ -25,13 +25,13 @@ public class RegisteredDatasets
         return true;
     }
 
-    public bool RemoveDatasets()
+    internal bool RemoveDatasets()
     {
         _datasets.Clear();
         return true;
     }
 
-    public bool RemoveDataset(string name)
+    internal bool RemoveDataset(string name)
     {
         if (string.IsNullOrEmpty(name))
         {

@@ -1,12 +1,12 @@
 ﻿namespace RightRule.StatementProcessor;
 
-public sealed class Token
+internal sealed class Token
 {
-    public TokenType Type { get; }
-    public string Value { get; }
-    public int Position { get; } // optional for better error messages
+    internal TokenType Type { get; }
+    internal string Value { get; }
+    internal int Position { get; } // optional for better error messages
 
-    public Token(TokenType type, string value, int position = -1)
+    internal Token(TokenType type, string value, int position = -1)
     {
         Type = type;
         Value = value;

@@ -6,7 +6,7 @@ using RightRule.System.Common.Exceptions;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-public sealed class Evaluator
+internal sealed class Evaluator
 {
     private readonly Dictionary<string, Operator> _operators;
 
