@@ -9,7 +9,7 @@
     <PackageId>RightRule</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.16</Version>
+    <Version>1.0.20</Version>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
   </PropertyGroup>

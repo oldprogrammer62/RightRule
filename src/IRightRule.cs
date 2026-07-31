@@ -181,7 +181,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -199,7 +199,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// DeRegisters all data sets from the RightRule engine.

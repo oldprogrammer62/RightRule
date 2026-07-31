@@ -314,7 +314,7 @@ public sealed class RightRule : IRightRule
 
         try
         {
-            var appliedRules = await _rightRuleService.ApplyRuleAsync(Context).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 throw new InvalidOperationException("Rule not applied");
@@ -363,7 +363,7 @@ public sealed class RightRule : IRightRule
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
+        var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rule not applied");
@@ -402,7 +402,7 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context).ConfigureAwait(false);
+        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -443,7 +443,7 @@ public sealed class RightRule : IRightRule
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
+        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -485,7 +485,7 @@ public sealed class RightRule : IRightRule
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
+        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
@@ -509,9 +509,9 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    public List<AppliedRule> ApplyRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
-        return ApplyRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
+        return EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -526,12 +526,12 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    public async Task<List<AppliedRule>> ApplyRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var appliedRules = await _rightRuleService.ApplyRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
+        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
         if (appliedRules == null)
         {
             throw new InvalidOperationException("Rules not applied");
