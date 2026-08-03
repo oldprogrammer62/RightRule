@@ -10,7 +10,7 @@ public class Exists : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
+    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left == null && right == null)
         {

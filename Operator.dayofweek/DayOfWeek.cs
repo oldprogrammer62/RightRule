@@ -12,7 +12,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
     {
     }
 
-    protected override Task<bool> DoOperatorProcessAsync(object left, object right)
+    protected override Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left is null || right is null)
         {

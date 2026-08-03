@@ -6,38 +6,41 @@
 public abstract class Rule
 {
     /// <summary>
-    /// Provides a context for the rule.
-    /// This can be used to group rules together.
-    /// For example, rules with the context "Customer" would be used to evaluate rules that apply to customers with data that relates to customers
+    /// Binds the Rule to a specific event context defined in code.
     /// </summary>
     public required string Context { get; init; }
 
     /// <summary>
-    /// Used by RightRule to order the rules when evaluating them.
-    /// Ordering is low to high.
+    /// Identifies the Rule by number.
+    /// Used when ordering rules for evaluation. Ordering is low to high.
     /// </summary>
     public required int Number { get; init; }
 
     /// <summary>
-    /// A rule name is useful when logging
+    /// Identifies the Rule by name.
     /// </summary>
     public required string Name { get; init; }
 
     /// <summary>
-    /// The statement of the rule is a string that can be evaluated to determine if the rule is true or false.
-    /// It must conform to the RightRule statement syntax.
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
     /// </summary>
     public required string Statement { get; init; }
 
     /// <summary>
-    /// Decision is the string returned when the rule is evaluated to true.
-    /// The calling application should handle all possible decision strings and take the appropriate action based on the decision.
+    /// Optional data that will be passed to the Operator when evaluating the Rule.
+    /// </summary>
+    public object? OperatorConfig { get; init; }
+
+    /// <summary>
+    /// String value returned if the Rule evaluates to True.
+    /// Note: the calling application should handle all possible decision striongs for the specified Context.
     /// </summary>
     public required string Decision { get; init; }
 
     /// <summary>
-    /// Optional data returned when the rule is evaluated to true.
-    /// The calling application should be capable of using this data when taking the appropriate action based on the decision.
+    /// Optional data returned when the Rule is evaluated to true.
+    /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
     public object? DecisionData { get; init; }
 }

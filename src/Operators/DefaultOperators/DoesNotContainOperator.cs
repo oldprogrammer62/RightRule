@@ -10,7 +10,7 @@ public sealed class DoesNotContainOperator : Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
+    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left is null || right is null) return false;
 

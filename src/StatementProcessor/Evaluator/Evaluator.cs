@@ -26,14 +26,14 @@ internal sealed class Evaluator
         {
             try
             {
-                var node = parsedRule.Node;
-                var statement = parsedRule.Statement;
-
-                var evaluationResult = await EvaluateNodeAsync(Datasets, node).ConfigureAwait(false);
+                var evaluationResult = await EvaluateNodeAsync(Datasets, parsedRule).ConfigureAwait(false);
                 if (!evaluationResult.IsSuccess)
                 {
                     return RuleResult.Failure(evaluationResult.ErrorMessage);
                 }
+
+                var node = parsedRule.Node;
+                var statement = parsedRule.Statement;
 
                 string message = string.Empty;
                 string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!).ConfigureAwait(false) : string.Empty;
@@ -47,18 +47,31 @@ internal sealed class Evaluator
         });
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets datasets, Node? node)
+    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets datasets, ParsedRule rule)
+    {
+        if (rule == null)
+        {
+            return EvaluationResult.Failure("Rule is invalid.");
+        }
+
+        var node = rule.Node;
+        var config = rule.OperatorConfig;
+
+        return await EvaluateNodeAsync(datasets, node, config).ConfigureAwait(false);
+    }
+
+    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets datasets, Node? node, object? Config)
     {
         return node switch
         {
-            ConditionNode c => await EvaluateConditionAsync(datasets, c).ConfigureAwait(false),
-            BinaryNode b => await EvaluateBinaryAsync(datasets, b).ConfigureAwait(false),
-            NotNode n => (await EvaluateNodeAsync(datasets, n.Inner).ConfigureAwait(false)).Invert(),
+            ConditionNode c => await EvaluateConditionAsync(datasets, c, Config).ConfigureAwait(false),
+            BinaryNode b => await EvaluateBinaryAsync(datasets, b, Config).ConfigureAwait(false),
+            NotNode n => (await EvaluateNodeAsync(datasets, n.Inner, Config).ConfigureAwait(false)).Invert(),
             _ => EvaluationResult.Failure($"Unknown Node Type: {node}")
         };
     }
 
-    private async Task<EvaluationResult> EvaluateBinaryAsync(RegisteredDatasets datasets, BinaryNode b)
+    private async Task<EvaluationResult> EvaluateBinaryAsync(RegisteredDatasets datasets, BinaryNode b, object? Config)
     {
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
@@ -67,7 +80,7 @@ internal sealed class Evaluator
         }
 
         // 1. Evaluate the left side
-        var leftResult = await EvaluateNodeAsync(datasets, b.Left).ConfigureAwait(false);
+        var leftResult = await EvaluateNodeAsync(datasets, b.Left, Config).ConfigureAwait(false);
         if (!leftResult.IsSuccess) return leftResult; // Bubble up the error immediately
 
         // 2. Perform Short-Circuit Checks
@@ -75,29 +88,41 @@ internal sealed class Evaluator
         if (op == "or" && leftResult.Value) return EvaluationResult.Success(true);
 
         // 3. Evaluate the right side (only if short-circuit didn't trigger)
-        var rightResult = await EvaluateNodeAsync(datasets, b.Right).ConfigureAwait(false);
+        var rightResult = await EvaluateNodeAsync(datasets, b.Right, Config).ConfigureAwait(false);
         if (!rightResult.IsSuccess) return rightResult; // Bubble up the error immediately
 
         // 4. If both succeeded, the final value is just the right side's value
         return EvaluationResult.Success(rightResult.Value);
     }
 
-    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets datasets, ConditionNode c)
+    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets datasets, ConditionNode c, object? OperatorConfig)
     {
-        if (!_operators.TryGetValue(c.Operator, out var op))
-            throw new KeyNotFoundException($"Unknown operator: {c.Operator}");
-
         try
         {
             var left = ResolveOperandValue(datasets, c.Left);
             var right = ResolveOperandValue(datasets, c.Right);
 
-            var result = await op.ProcessAsync(left!, right!).ConfigureAwait(false);
+            var result = await ProcessOperator(c.Operator, left!, right!, OperatorConfig).ConfigureAwait(false);
             return EvaluationResult.Success(result);
         }
         catch (Exception ex)
         {
             return EvaluationResult.Failure(ex.Message);
+        }
+    }
+
+    private async Task<bool> ProcessOperator(string logicOperator, object left, object right, object? OperatorConfig)
+    {
+        if (!_operators.TryGetValue(logicOperator, out var op))
+            throw new KeyNotFoundException($"Unknown operator: {logicOperator}");
+
+        try
+        {
+            return await op.ProcessAsync(left, right, OperatorConfig).ConfigureAwait(false);
+        }
+        catch
+        {
+            throw;
         }
     }
 

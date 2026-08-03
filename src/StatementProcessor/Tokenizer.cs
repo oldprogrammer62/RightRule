@@ -86,6 +86,36 @@ internal sealed class Tokenizer
             throw new InvalidIdentifierException(value, start);
         }
 
+        // String literal '...'
+        if (c == '\'')
+        {
+            int start = _pos;
+            _pos++; // Skip opening quote
+            var sb = new StringBuilder();
+
+            while (_pos < _input.Length && _input[_pos] != '\'')
+            {
+                // basic escape support for \" and \\ (optional)
+                if (_input[_pos] == '\\' && _pos + 1 < _input.Length)
+                {
+                    char next = _input[_pos + 1];
+                    if (next == '"' || next == '\\')
+                    {
+                        sb.Append(next);
+                        _pos += 2;
+                        continue;
+                    }
+                }
+                sb.Append(_input[_pos++]);
+            }
+
+            if (_pos >= _input.Length || _input[_pos] != '\'')
+                throw new Exception($"Unterminated string literal at position {start}.");
+
+            _pos++; // closing quote
+            return new Token(TokenType.String, sb.ToString(), start);
+        }
+
         // String literal "..."
         // Supports basic escaping of \" and \\ (optional)
         if (c == '"')

@@ -6,7 +6,7 @@ namespace RightRule.RuleModels;
 /// Defines the content of a Rule
 /// When a RuleDefinition is registered with RightRule, it becomes available for application
 /// </summary> 
-public class RuleDefinition : Rule
+public sealed class RuleDefinition : Rule
 {
     public override string ToString()
     {
@@ -17,6 +17,7 @@ public class RuleDefinition : Rule
         sb.AppendLine($"Statement: {this.Statement}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"Configuration: {this.OperatorConfig}");
         return sb.ToString();
     }
 }

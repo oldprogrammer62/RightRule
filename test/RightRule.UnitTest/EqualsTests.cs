@@ -30,7 +30,7 @@ public class EqualsTests
             Name = "Equals Bool Value Rule",
             Statement = @"Test.boolvalue equals true",
             Context = "Context",
-            Decision = "EQUALS",
+            Decision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

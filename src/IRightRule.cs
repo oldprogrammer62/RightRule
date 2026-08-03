@@ -152,11 +152,11 @@ public interface IRightRule
     Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
 
     /// <summary>
-    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// Apply all Registered Rules for the given Context to the specified data set.<br/>
     /// The results of all applied rules will be returned.<br/>
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
-    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="Context"></param>
     /// <param name="DatasetName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
@@ -229,7 +229,7 @@ public interface IRightRule
     bool DeRegisterRules(string Context);
 
     /// <summary>
-    /// Deregister all specified Rule from the RightRule engine.
+    /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
     /// <param name="Name">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
@@ -237,7 +237,7 @@ public interface IRightRule
     bool DeRegisterRule(string Name);
 
     /// <summary>
-    /// Deregister all specified Rule from the RightRule engine.
+    /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
     /// <param name="Number">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
@@ -305,15 +305,6 @@ public interface IRightRule
     /// <exception cref="FormatException"></exception>
     ParsedRule RegisterRule(RuleDefinition rule);
 
-    ///// <summary>
-    ///// Registers a single Rule with the RightRule engine.
-    ///// </summary>
-    ///// <param name="rule">The Rule definition to register.</param>
-    ///// <returns>The Parsed Rule.</returns>
-    ///// <exception cref="ArgumentNullException"></exception>
-    ///// <exception cref="FormatException"></exception>
-    //Task<ParsedRule> RegisterRuleAsync(RuleDefinition rule);
-
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
     /// </summary>
@@ -322,15 +313,6 @@ public interface IRightRule
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
     List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
-
-    ///// <summary>
-    ///// Registers a set of Rules with the RightRule engine.
-    ///// </summary>
-    ///// <param name="rules">The Rule definitions to register.</param>
-    ///// <returns>The set of Parsed Rules.</returns>
-    ///// <exception cref="ArgumentNullException"></exception>
-    ///// <exception cref="FormatException"></exception>
-    //Task<List<ParsedRule>> RegisterRules(IEnumerable<RuleDefinition> rules);
 
     /// <summary>
     /// Unloads an Operator from the RightRule engine.

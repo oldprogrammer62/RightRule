@@ -27,6 +27,7 @@ public class ParsedRule : Rule
         Context = rule.Context;
         Decision = rule.Decision;
         DecisionData = rule.DecisionData;
+        OperatorConfig = rule.OperatorConfig;
         Node = node;
     }
 
@@ -37,6 +38,7 @@ public class ParsedRule : Rule
         sb.AppendLine($"Name: {this.Name}");
         sb.AppendLine($"Context: {this.Context}");
         sb.AppendLine($"Statement: {this.Statement}");
+        sb.AppendLine($"Configuration: {this.OperatorConfig}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         return sb.ToString();

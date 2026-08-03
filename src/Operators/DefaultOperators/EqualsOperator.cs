@@ -10,7 +10,7 @@ public class EqualsOperator : Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right)
+    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left == null && right == null)
         {
