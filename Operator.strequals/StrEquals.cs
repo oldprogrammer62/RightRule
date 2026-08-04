@@ -1,19 +1,21 @@
 ﻿
+using RightRule.System.Common;
+
 namespace Operator.strequals
 {
     public class StrEquals : RightRule.System.Common.Operator
     {
         public override List<string> Identifiers => ["strequals", "=str"];
 
-        protected override Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+        protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
         {
             if (left is string leftStr && right is string rightStr)
             {
-                return Task.FromResult(Equals(leftStr, rightStr, OperatorConfig));
+                return EvaluationResult.Success((Equals(leftStr, rightStr, OperatorConfig)));
             }
             else
             {
-                throw new ArgumentException("Both left and right operands must be strings.");
+                return EvaluationResult.Failure("Both left and right operands must be strings.");
             }
         }
 

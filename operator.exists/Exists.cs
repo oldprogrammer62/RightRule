@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RightRule.System.Common;
+using System.Collections;
 
 namespace Operator.Exists;
 
@@ -10,20 +11,20 @@ public class Exists : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left == null && right == null)
         {
-            return true;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return false;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
 
         if (right is IList list)
         {
-            return list.Contains(left);
+            return EvaluationResult.Success(list.Contains(left));
         }
 
         if (right is ArrayList array)
@@ -32,7 +33,7 @@ public class Exists : RightRule.System.Common.Operator
             {
                 if (Equals(item, left))
                 {
-                    return true;
+                    return EvaluationResult.Success(true);
                 }
             }
         }
@@ -45,10 +46,10 @@ public class Exists : RightRule.System.Common.Operator
                 var sItem = item.ToString();
                 if (Equals(sItem, sLeft))
                 {
-                    return true;
+                    return EvaluationResult.Success(true);
                 }
             }
         }
-        return false;
+        return EvaluationResult.Failure("Operand (right) is not a valid collection.");
     }
 }

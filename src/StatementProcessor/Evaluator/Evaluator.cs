@@ -29,7 +29,7 @@ internal sealed class Evaluator
                 var evaluationResult = await EvaluateNodeAsync(Datasets, parsedRule).ConfigureAwait(false);
                 if (!evaluationResult.IsSuccess)
                 {
-                    return RuleResult.Failure(evaluationResult.ErrorMessage);
+                    return RuleResult.Failure(evaluationResult.Message);
                 }
 
                 var node = parsedRule.Node;
@@ -103,7 +103,7 @@ internal sealed class Evaluator
             var right = ResolveOperandValue(datasets, c.Right);
 
             var result = await ProcessOperator(c.Operator, left!, right!, OperatorConfig).ConfigureAwait(false);
-            return EvaluationResult.Success(result);
+            return result;
         }
         catch (Exception ex)
         {
@@ -111,7 +111,7 @@ internal sealed class Evaluator
         }
     }
 
-    private async Task<bool> ProcessOperator(string logicOperator, object left, object right, object? OperatorConfig)
+    private async Task<EvaluationResult> ProcessOperator(string logicOperator, object left, object right, object? OperatorConfig)
     {
         if (!_operators.TryGetValue(logicOperator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {logicOperator}");

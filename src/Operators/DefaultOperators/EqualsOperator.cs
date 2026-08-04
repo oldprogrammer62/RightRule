@@ -10,25 +10,23 @@ public class EqualsOperator : Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left == null && right == null)
         {
-            return true;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return false;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
 
-        if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
+        if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right));
+        if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right));
+        if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right));
+        if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right));
 
-        if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
-
-        if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
-        if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
-
-        return Equals(left, right);
+        return EvaluationResult.Success(Equals(left, right));
     }
 
     private static new bool Equals(dynamic left, dynamic right)

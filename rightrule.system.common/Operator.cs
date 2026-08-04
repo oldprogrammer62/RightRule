@@ -20,9 +20,9 @@ public abstract class Operator
         IsCustom = isCustom;
     }
 
-    public Task<bool> ProcessAsync(object left, object right, object? OperatorConfig)
+    public Task<EvaluationResult> ProcessAsync(object left, object right, object? OperatorConfig)
     {
-        return Task.Run<bool>(async () =>
+        return Task.Run<EvaluationResult>(async () =>
         {
             try
             {
@@ -35,7 +35,7 @@ public abstract class Operator
         });
     }
 
-    protected abstract Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig);
+    protected abstract Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig);
 
     public void Dispose()
     {

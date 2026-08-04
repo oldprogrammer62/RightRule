@@ -10,25 +10,23 @@ public sealed class LessThanOperator : Operator
     {
     }
 
-    protected override async Task<bool> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
     {
         if (left == null && right == null)
         {
-            return true;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return false;
+            return EvaluationResult.Failure("One or both operands are null.");
         }
 
-        if (IsNumber(left) && IsNumber(right)) return ProcessAsNumber(left, right);
+        if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right));
+        if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right));
+        if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right));
+        if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right));
 
-        if (IsString(left) && IsString(right)) return ProcessAsString(left, right);
-
-        if (IsDateTime(left) && IsDateTime(right)) return ProcessAsDateTime(left, right);
-        if (IsDateOnly(left) && IsDateOnly(right)) return ProcessAsDateOnly(left, right);
-
-        return LessThan(left, right);
+        return EvaluationResult.Success(LessThan(left, right));
     }
 
     private static bool LessThan(dynamic left, dynamic right)
