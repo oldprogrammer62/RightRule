@@ -14,7 +14,7 @@ public class ParsedRule : Rule
 {
     /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).
-    /// It allows the interpreter to traverse the AST and evaluate the rule statement accordingly.
+    /// It allows the interpreter to traverse the AST and evaluate the rule statement.
     /// </summary>
     public required Node? Node { get; init; }
 

@@ -10,7 +10,7 @@ namespace RightRule.RuleModels;
 public sealed class AppliedRule : Rule
 {
     /// <summary>
-    /// Indicates whether the rule was evaluated as true or false against the dataset. This is useful for logging and debugging purposes, as it allows the calling application to know whether the rule was successfully applied or not. It can also be used to provide additional context when taking action based on the decision.
+    /// Indicates whether the Rule logic evaluated as true or false against the dataset.
     /// </summary>
     public required bool Result { get; init; }
 
@@ -21,19 +21,26 @@ public sealed class AppliedRule : Rule
     public required string Message { get; init; }
 
     /// <summary>
-    /// Diagnostics
-    /// Provides the actual statement applied when evaluating the rule. This is useful for logging and debugging purposes, as it allows the calling application to know which statements were applied when making the decision. It can also be used to provide additional context when taking action based on the decision, such as including the statements in a notification or report.
-    /// All placeholder arguments will be replaced with their actual values. This allows the calling application to see the exact statement that was evaluated against the dataset, which can be helpful for understanding the decision-making process and for troubleshooting any issues that may arise.
+    /// Diagnostics only
+    /// Provides the actual statement applied when evaluating the rule.
+    /// All placeholder arguments will be replaced with their actual values.
     /// </summary>
     public string StatementApplied { get; init; }
 
     /// <summary>
-    /// Diagnostics
+    /// Diagnostics only
     /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
     /// </summary>
     public string StatementPath { get; init; }
 
+    /// <summary>
+    /// Decision returned when no Rule evaluates to true for the specified Context.
+    /// </summary>
     public static string DefaultDecision { get; } = "NODECISION";
+
+    /// <summary>
+    /// Decision returned when an error occurs during Rule evaluation.
+    /// </summary>
     public static string ErrorDecision { get; } = "ERROR";
 
     public AppliedRule() : base()

@@ -29,6 +29,7 @@ public abstract class Rule
 
     /// <summary>
     /// Optional data that will be passed to the Operator when evaluating the Rule.
+    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
     /// </summary>
     public object? OperatorConfig { get; init; }
 

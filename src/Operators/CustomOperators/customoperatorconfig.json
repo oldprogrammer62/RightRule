@@ -7,6 +7,10 @@
     {
       "name": "DayOfWeek",
       "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll"
+    },
+    {
+      "name": "StrEquals",
+      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.strequals.dll"
     }
   ]
 }
