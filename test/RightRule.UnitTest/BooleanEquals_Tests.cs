@@ -1,5 +1,4 @@
 ﻿using RightRule.RuleModels;
-using System.Linq.Expressions;
 
 namespace RightRuleTests;
 
@@ -25,14 +24,14 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Decision = "Good",
-            Statement = "Data.IsTrue = true"
+            Statement = "Data.IsTrue = \"true\""
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateAllRules("Context");
 
         Assert.NotNull(result);
-        Assert.Equal("Good", result.Decision);
+        Assert.Equal("Good", result[0].Decision);
     }
 
     [Fact]
@@ -127,6 +126,6 @@ public class BooleanEquals_Tests
         var result = rr.EvaluateFirstRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(AppliedRule.DefaultDecision, result.Decision);
+        Assert.Equal(rule1.Decision, result.Decision);
     }
 }

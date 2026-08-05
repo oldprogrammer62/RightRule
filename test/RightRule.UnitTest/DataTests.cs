@@ -37,6 +37,6 @@ public class DataTests
 
         var ap = rr.EvaluateFirstRule("Context");
 
-        Assert.Equal("NODECISION", ap.Decision.ToUpper());
+        Assert.Equal(AppliedRule.ErrorDecision, ap.Decision.ToUpper());
     }
 }

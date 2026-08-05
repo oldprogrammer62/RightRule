@@ -30,6 +30,7 @@ internal class ProcessFirstRule
 
                 default:
                     appliedRule = CreateErrorResult(result, rule);
+                    complete = true;
                     break;
             }
             if (complete)

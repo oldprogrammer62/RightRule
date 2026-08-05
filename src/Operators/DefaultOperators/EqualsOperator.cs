@@ -23,6 +23,7 @@ public class EqualsOperator : Operator
 
         if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right));
         if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right));
+        if (IsBoolean(left) && IsBoolean(right)) return EvaluationResult.Success(ProcessAsBoolean(left, right));
         if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right));
         if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right));
 
@@ -121,6 +122,54 @@ public class EqualsOperator : Operator
         catch
         {
             return null;
+        }
+    }
+
+    private static bool IsBoolean(object value)
+    {
+        if (value is bool) return true;
+
+        // Safe parsing for text strings
+        if (value is string stringInput)
+        {
+            return bool.TryParse(stringInput, out _);
+        }
+        try
+        {
+            var result = Convert.ToBoolean(value);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private static bool ProcessAsBoolean(object left, object right)
+    {
+        var bLeft = ConvertToBoolean(left);
+        var bRight = ConvertToBoolean(right);
+        return Equals(bLeft, bRight);
+    }
+
+    private static bool ConvertToBoolean(object value)
+    {
+        if (value is bool b) return b;
+        // Safe parsing for text strings
+        if (value is string stringInput)
+        {
+            if (bool.TryParse(stringInput, out bool parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+        try
+        {
+            return Convert.ToBoolean(value);
+        }
+        catch
+        {
+            return false;
         }
     }
 

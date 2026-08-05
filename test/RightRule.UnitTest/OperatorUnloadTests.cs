@@ -64,6 +64,6 @@ public class OperatorUnloadTests
 
         // Use EQUALS
         var appliedRuleAfter = rr.EvaluateFirstRule("Context");
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRuleAfter.Decision);
+        Assert.Equal(AppliedRule.ErrorDecision, appliedRuleAfter.Decision);
     }
 }

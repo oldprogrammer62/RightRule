@@ -28,6 +28,10 @@ internal sealed class Evaluator
             try
             {
                 var evaluationResult = await EvaluateNodeAsync(Datasets, parsedRule).ConfigureAwait(false);
+                if (evaluationResult == null)
+                {
+                    return RuleResult.Failure("Evaluation invalid.");
+                }
                 if (!evaluationResult.IsSuccess)
                 {
                     return RuleResult.Failure(evaluationResult.Message);

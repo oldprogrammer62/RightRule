@@ -317,7 +317,7 @@ public sealed class RightRule : IRightRule
             var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
-                throw new InvalidOperationException("Rule not applied");
+                return AppliedRule.ErrorResult("Rule not applied");
             }
             if (appliedRules.Count == 1)
             {
