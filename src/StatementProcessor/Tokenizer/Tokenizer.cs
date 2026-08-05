@@ -169,8 +169,10 @@ internal sealed class Tokenizer
             // External operator names
             if (_operators.Contains(value))
                 return new Token(TokenType.Operator, value, start);
+
+            throw new FormatException($"Unexpected '{sb}' at position {_pos}.");
         }
-        throw new Exception($"Unexpected character '{c}' at position {_pos}.");
+        throw new FormatException($"Unexpected character '{c}' at position {_pos}.");
     }
 
     private void SkipWhitespace()

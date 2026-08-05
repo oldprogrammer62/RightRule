@@ -18,8 +18,13 @@ public class ParsedRule : Rule
     /// </summary>
     public required Node? Node { get; init; }
 
+    /// <summary>
+    /// When parsing fails during registration this holds the parser/tokenizer error message.
+    /// </summary>
+    public string? ParseErrorMessage { get; init; }
+
     [SetsRequiredMembers]
-    internal ParsedRule(RuleDefinition rule, Node? node)
+    internal ParsedRule(RuleDefinition rule, Node? node, string? parseErrorMessage = null)
     {
         Number = rule.Number;
         Name = rule.Name;
@@ -29,6 +34,7 @@ public class ParsedRule : Rule
         DecisionData = rule.DecisionData;
         OperatorConfig = rule.OperatorConfig;
         Node = node;
+        ParseErrorMessage = parseErrorMessage;
     }
 
     public override string ToString()

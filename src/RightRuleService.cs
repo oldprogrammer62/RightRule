@@ -139,24 +139,24 @@ internal class RightRuleService
         return _registeredDatasets!.AddDataset(data);
     }
 
-    internal void DeRegisterDatasets()
+    internal bool DeRegisterDatasets()
     {
         if (_registeredDatasets == null)
         {
-            return;
+            return true;
         }
-        _registeredDatasets.RemoveDatasets();
+        return _registeredDatasets.RemoveDatasets();
     }
 
-    internal void DeRegisterDataset(string DatasetName)
+    internal bool DeRegisterDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         if (_registeredDatasets == null)
         {
-            return;
+            return true;
         }
-        _registeredDatasets.RemoveDataset(DatasetName);
+        return _registeredDatasets.RemoveDataset(DatasetName);
     }
 
     internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)

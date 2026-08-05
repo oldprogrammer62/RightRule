@@ -1,11 +1,9 @@
 ﻿using RightRule.Data;
 using RightRule.Extensions;
 using RightRule.Models;
-using RightRule.Operators;
 using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
-using RightRule.System.Common.Exceptions;
 
 namespace BeSoft;
 
@@ -24,50 +22,62 @@ public sealed class RightRule : IRightRule
         _rightRuleService = new RightRuleService();
     }
 
+    /// <summary>
+    /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
+    /// </summary>
+    /// <param name="Statement">The rule statement to check.</param>
+    /// <returns>The result of the syntax check.</returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
         return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Returns the set of Operators currently loaded in the RightRule engine.
+    /// </summary>
+    /// <returns>The list of Operators.</returns>
     public List<Operator>? GetOperatorDetails()
     {
         var operators = _rightRuleService?.GetOperatorDetails();
         return operators;
-        //if (operators == null)
-        //{
-        //    return null;
-        //}
-
-        //OperatorAliases oa = new OperatorAliases();
-        //foreach (Operator op in operators)
-        //{
-        //    string opName = op.Name!;
-        //    bool opCustom = op.IsCustom;
-        //    string opAlias = string.Join(", ", op.Identifiers);
-        //    oa.Add(opName, opCustom, opAlias);
-        //}
-        //return oa;
     }
 
     /// <summary>
-    /// Returns the Registered (Parsed) Rules with the specified Name.
+    /// Details of the Registered (Parsed) Rule with the specified Name.
     /// </summary>
-    /// <param name="Name"></param>
+    /// <param name="Name">The name of the rule to retrieve.</param>
+    /// <returns>The Registered (Parsed) Rule with the specified Name.</returns>
     /// <exception cref="KeyNotFoundException"></exception>
     public ParsedRule? RegisteredRule(string Name)
     {
-        return _rightRuleService.GetRegisteredRule(Name);
+        try
+        {
+            return _rightRuleService.GetRegisteredRule(Name);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
-    /// Returns the Registered (Parsed) Rules with the specified Number.
+    /// Details of the Registered (Parsed) Rule with the specified Number.
     /// </summary>
     /// <param name="Number"></param>
+    /// <returns>The Registered (Parsed) Rule with the specified Number.</returns>
     /// <exception cref="KeyNotFoundException"></exception>
     public ParsedRule? RegisteredRule(int Number)
     {
-        return _rightRuleService.GetRegisteredRule(Number);
+        try
+        {
+            return _rightRuleService.GetRegisteredRule(Number);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -75,7 +85,14 @@ public sealed class RightRule : IRightRule
     /// </summary>
     public RegisteredRules RegisteredRules()
     {
-        return _rightRuleService.RegisteredRules;
+        try
+        {
+            return _rightRuleService.RegisteredRules;
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -86,7 +103,14 @@ public sealed class RightRule : IRightRule
     public List<ParsedRule> RegisteredRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        return _rightRuleService.GetRules(Context);
+        try
+        {
+            return _rightRuleService.GetRules(Context);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -138,7 +162,14 @@ public sealed class RightRule : IRightRule
     public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        return _rightRuleService.DeRegisterRules(Context);
+        try
+        {
+            return _rightRuleService.DeRegisterRules(Context);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -147,7 +178,14 @@ public sealed class RightRule : IRightRule
     /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
     public bool DeRegisterRules()
     {
-        return _rightRuleService.DeRegisterRules();
+        try
+        {
+            return _rightRuleService.DeRegisterRules();
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -159,7 +197,14 @@ public sealed class RightRule : IRightRule
     public bool DeRegisterRule(string Name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
-        return _rightRuleService.DeRegisterRule(Name);
+        try
+        {
+            return _rightRuleService.DeRegisterRule(Name);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -171,7 +216,14 @@ public sealed class RightRule : IRightRule
     public bool DeRegisterRule(int Number)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Number.ToString(), nameof(Number));
-        return _rightRuleService.DeRegisterRule(Number);
+        try
+        {
+            return _rightRuleService.DeRegisterRule(Number);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -183,7 +235,14 @@ public sealed class RightRule : IRightRule
     public RegisteredDataset? RegisteredDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-        return _rightRuleService.GetDataSet(DatasetName);
+        try
+        {
+            return _rightRuleService.GetDataSet(DatasetName);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     /// <summary>
@@ -192,7 +251,14 @@ public sealed class RightRule : IRightRule
     /// <returns>RegisteredDatasets object</returns>
     public RegisteredDatasets RegisteredDatasets()
     {
-        return _rightRuleService.RegisteredDatasets;
+        try
+        {
+            return _rightRuleService.RegisteredDatasets;
+        }
+        catch
+        {
+            throw;
+        }
     }
 
 
@@ -221,17 +287,15 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// DeRegisters all data sets from the RightRule engine.
     /// </summary>
-    /// <exception cref="ArgumentException"></exception>
     public bool DeRegisterDatasets()
     {
         try
         {
-            _rightRuleService.DeRegisterDatasets();
-            return true;
+            return _rightRuleService.DeRegisterDatasets();
         }
         catch
         {
-            return false;
+            throw;
         }
     }
 
@@ -246,12 +310,11 @@ public sealed class RightRule : IRightRule
 
         try
         {
-            _rightRuleService.DeRegisterDataset(DatasetName);
-            return true;
+            return _rightRuleService.DeRegisterDataset(DatasetName);
         }
         catch
         {
-            return false;
+            throw;
         }
     }
 
@@ -271,7 +334,7 @@ public sealed class RightRule : IRightRule
         }
         catch
         {
-            return false;
+            throw;
         }
     }
 
@@ -285,13 +348,18 @@ public sealed class RightRule : IRightRule
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="InvalidOperationException"></exception>
-    /// <exception cref="InvalidIdentifierException"></exception>
-    /// <exception cref="KeyNotFoundException"></exception>
-    /// <exception cref="Exception"></exception>
     public AppliedRule EvaluateFirstRule(string Context)
     {
-        return EvaluateFirstRuleAsync(Context).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return EvaluateFirstRuleAsync(Context).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return AppliedRule.ErrorResult(ex.Message);
+        }
     }
 
     /// <summary>
@@ -304,10 +372,6 @@ public sealed class RightRule : IRightRule
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="InvalidOperationException"></exception>
-    /// <exception cref="InvalidIdentifierException"></exception>
-    /// <exception cref="KeyNotFoundException"></exception>
-    /// <exception cref="Exception"></exception>
     public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -317,7 +381,7 @@ public sealed class RightRule : IRightRule
             var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
-                return AppliedRule.ErrorResult("Rule not applied");
+                return AppliedRule.DefaultResult();
             }
             if (appliedRules.Count == 1)
             {
@@ -342,9 +406,22 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public AppliedRule EvaluateFirstRule(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        return EvaluateFirstRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+
+        try
+        {
+            return EvaluateFirstRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return AppliedRule.ErrorResult(ex.Message);
+        }
     }
 
     /// <summary>
@@ -358,21 +435,31 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
-        var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rule not applied");
+            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
+            if (appliedRules == null)
+            {
+                return AppliedRule.DefaultResult();
+            }
+            if (appliedRules.Count == 1)
+            {
+                return appliedRules[0];
+            }
+            return AppliedRule.DefaultResult();
         }
-        if (appliedRules.Count == 1)
+        catch (Exception ex)
         {
-            return appliedRules[0];
+            return AppliedRule.ErrorResult(ex.Message);
         }
-        return AppliedRule.DefaultResult();
     }
 
     /// <summary>
@@ -384,9 +471,19 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
     public List<AppliedRule> EvaluateAllRules(string Context)
     {
-        return EvaluateAllRulesAsync(Context).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return EvaluateAllRulesAsync(Context).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return [AppliedRule.ErrorResult(ex.Message)];
+        }
     }
 
     /// <summary>
@@ -398,20 +495,28 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context).ConfigureAwait(false);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rules not applied");
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context).ConfigureAwait(false);
+            if (appliedRules == null)
+            {
+                return [AppliedRule.DefaultResult()];
+            }
+            if (appliedRules.Count > 0)
+            {
+                return appliedRules;
+            }
+            return [AppliedRule.DefaultResult()];
         }
-        if (appliedRules.Count > 0)
+        catch (Exception ex)
         {
-            return appliedRules;
+            return [AppliedRule.ErrorResult(ex.Message)];
         }
-        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -424,9 +529,19 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
     public List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn rulesToReturn)
     {
-        return EvaluateAllRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return EvaluateAllRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return [AppliedRule.ErrorResult(ex.Message)];
+        }
     }
 
     /// <summary>
@@ -439,20 +554,28 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rules not applied");
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
+            if (appliedRules == null)
+            {
+                return [AppliedRule.DefaultResult()];
+            }
+            if (appliedRules.Count > 0)
+            {
+                return appliedRules;
+            }
+            return [AppliedRule.DefaultResult()];
         }
-        if (appliedRules.Count > 0)
+        catch (Exception ex)
         {
-            return appliedRules;
+            return [AppliedRule.ErrorResult(ex.Message)];
         }
-        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -465,9 +588,22 @@ public sealed class RightRule : IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data)
     {
-        return EvaluateAllRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+
+        try
+        {
+            return EvaluateAllRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return [AppliedRule.ErrorResult(ex.Message)];
+        }
     }
 
     /// <summary>
@@ -480,21 +616,31 @@ public sealed class RightRule : IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
-        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rules not applied");
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
+            if (appliedRules == null)
+            {
+                return [AppliedRule.DefaultResult()];
+            }
+            if (appliedRules.Count > 0)
+            {
+                return appliedRules;
+            }
+            return [AppliedRule.DefaultResult()];
         }
-        if (appliedRules.Count > 0)
+        catch (Exception ex)
         {
-            return appliedRules;
+            return [AppliedRule.ErrorResult(ex.Message)];
         }
-        return [AppliedRule.DefaultResult()];
     }
 
     /// <summary>
@@ -509,9 +655,22 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
-        return EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+
+        try
+        {
+            return EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
+        }
+                catch (Exception ex)
+        {
+            return [AppliedRule.ErrorResult(ex.Message)];
+        }
     }
 
     /// <summary>
@@ -526,20 +685,30 @@ public sealed class RightRule : IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
-        var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
-        if (appliedRules == null)
+        try
         {
-            throw new InvalidOperationException("Rules not applied");
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
+            if (appliedRules == null)
+            {
+                return [AppliedRule.DefaultResult()];
+            }
+            if (appliedRules.Count > 0)
+            {
+                return appliedRules;
+            }
+            return [AppliedRule.DefaultResult()];
         }
-        if (appliedRules.Count > 0)
+        catch (Exception ex)
         {
-            return appliedRules;
+            return [AppliedRule.ErrorResult(ex.Message)];
         }
-        return [AppliedRule.DefaultResult()];
     }
 }

@@ -270,4 +270,26 @@ public class GreaterThanOrEqualsTests
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
+
+    [Fact]
+    public void GreaterThan_SyntaxError()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Greater Than Value Rule",
+            Statement = @"Test.intvalue >== 10",
+            Context = "Context",
+            Decision = "GREATERTHAN",
+        };
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterDataset("Test", _Data);
+
+        var appliedRule = rr.EvaluateFirstRule("Context");
+
+        Assert.Equal(AppliedRule.ErrorDecision, appliedRule.Decision);
+    }
 }

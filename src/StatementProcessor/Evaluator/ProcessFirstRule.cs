@@ -46,7 +46,8 @@ internal class ProcessFirstRule
     {
         if (rule.Node == null)
         {
-            return new RuleResult(EvaluationResult.Failure("Rule statement not interpreted properly."));
+            var message = string.IsNullOrEmpty(rule.ParseErrorMessage) ? "Rule statement not interpreted properly." : rule.ParseErrorMessage;
+            return new RuleResult(EvaluationResult.Failure(message));
         }
 
         try

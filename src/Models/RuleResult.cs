@@ -14,7 +14,7 @@ internal class RuleResult
     internal RuleResult(EvaluationResult Result)
     {
         this.Result = Result;
-        Message = string.Empty;
+        Message = Result.Message;
         StatementApplied = string.Empty;
         SyntaxTree = string.Empty;
     }

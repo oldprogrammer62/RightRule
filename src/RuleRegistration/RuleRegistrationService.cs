@@ -41,9 +41,16 @@ internal class RuleRegistrationService
     {
         var statement = ruleDefinition.Statement;
 
-        Node node = GenerateTree(statement, OperatorNames);
-        ParsedRule rule = new ParsedRule(ruleDefinition, node);
-        return rule;
+        try
+        {
+            Node node = GenerateTree(statement, OperatorNames);
+            ParsedRule rule = new ParsedRule(ruleDefinition, node);
+            return rule;
+        }
+        catch (Exception ex)
+        {
+            return new ParsedRule(ruleDefinition, node: null, parseErrorMessage: ex.Message);
+        }
     }
 
     private static Node GenerateTree(string Statement, HashSet<string> OperatorNames)
@@ -51,14 +58,7 @@ internal class RuleRegistrationService
         var tokenizer = new Tokenizer(Statement, OperatorNames);
         var parser = new Parser(tokenizer);
 
-        try
-        {
-            Node node = parser.Parse();
-            return node;
-        }
-        catch (Exception ex)
-        {
-            throw new FormatException($"The Statement string is invalid - {Statement}", ex);
-        }
+        Node node = parser.Parse();
+        return node;
     }
 }
