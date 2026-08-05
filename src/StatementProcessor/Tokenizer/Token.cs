@@ -1,4 +1,4 @@
-﻿namespace RightRule.StatementProcessor;
+﻿namespace RightRule.StatementProcessor.Tokenizer;
 
 internal sealed class Token
 {

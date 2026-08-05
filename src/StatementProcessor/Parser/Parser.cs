@@ -1,11 +1,13 @@
-﻿namespace RightRule.StatementProcessor;
+﻿using RightRule.StatementProcessor.Tokenizer;
+
+namespace RightRule.StatementProcessor.Parser;
 
 internal sealed class Parser
 {
-    private readonly Tokenizer _tokenizer;
+    private readonly Tokenizer.Tokenizer _tokenizer;
     private Token? _current;
 
-    internal Parser(Tokenizer tokenizer)
+    internal Parser(Tokenizer.Tokenizer tokenizer)
     {
         _tokenizer = tokenizer;
     }

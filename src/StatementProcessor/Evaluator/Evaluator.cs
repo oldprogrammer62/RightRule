@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.StatementProcessor.Parser;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
 

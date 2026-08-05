@@ -1,4 +1,4 @@
-﻿using RightRule.StatementProcessor;
+﻿using RightRule.StatementProcessor.Parser;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
