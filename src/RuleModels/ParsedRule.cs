@@ -1,5 +1,4 @@
 ﻿using RightRule.StatementProcessor.Parser;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace RightRule.RuleModels;
@@ -82,9 +81,9 @@ public sealed class ParsedRule : Rule
         return sb.ToString();
     }
 
-    public Task<string> ToTreeText()
+    public async Task<string> ToTreeTextAsync()
     {
-        return Task.Run(BuildTreeText);
+        return await Task.Run(BuildTreeTextAsync).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -92,7 +91,7 @@ public sealed class ParsedRule : Rule
     /// Uses ├─ and └─ for branches and │ for vertical lines.
     /// Returns an empty string when <see cref="Node"/> is null.
     /// </summary>
-    private async Task<string> BuildTreeText()
+    private async Task<string> BuildTreeTextAsync()
     {
         if (Node is null) return string.Empty;
 

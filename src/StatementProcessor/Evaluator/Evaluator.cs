@@ -245,7 +245,7 @@ internal sealed class Evaluator
     {
         try
         {
-            return await rule.ToTreeText().ConfigureAwait(false);
+            return await rule.ToTreeTextAsync().ConfigureAwait(false);
         }
         catch
         {
