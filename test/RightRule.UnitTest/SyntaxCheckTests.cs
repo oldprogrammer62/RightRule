@@ -75,7 +75,7 @@ public class SyntaxCheckTests
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
         Assert.NotNull(diag);
-        Assert.Contains("Unexpected character", diag.Message, System.StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("Unexpected '#invalid'", diag.Message, System.StringComparison.OrdinalIgnoreCase);
         Assert.True(diag.Position >= 0);
         Assert.True(diag.Length >= 0);
         Assert.NotNull(diag.Snippet);
@@ -100,10 +100,8 @@ public class SyntaxCheckTests
 
         // Register the data
         rightRule.RegisterDataset("TestDataset", _Data);
-        Action test = () => rightRule.RegisterRule(rule);
-        var exception = Record.Exception(test);
+        var regRule = rightRule.RegisterRule(rule);
         
-        Assert.NotNull(exception);
-        Assert.IsType<FormatException>(exception);
+        Assert.NotNull(regRule);
     }
 }

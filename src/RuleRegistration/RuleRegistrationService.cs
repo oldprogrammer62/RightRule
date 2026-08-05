@@ -44,12 +44,12 @@ internal class RuleRegistrationService
         try
         {
             Node node = GenerateTree(statement, OperatorNames);
-            ParsedRule rule = new ParsedRule(ruleDefinition, node);
+            ParsedRule rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
         }
         catch (Exception ex)
         {
-            return new ParsedRule(ruleDefinition, node: null, parseErrorMessage: ex.Message);
+            return ParsedRule.FailResult(ruleDefinition, message: ex.Message);
         }
     }
 

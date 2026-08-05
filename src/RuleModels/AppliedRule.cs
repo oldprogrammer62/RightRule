@@ -1,5 +1,4 @@
 ﻿using RightRule.Models;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace RightRule.RuleModels;
@@ -43,60 +42,27 @@ public sealed class AppliedRule : Rule
     /// </summary>
     public static string ErrorDecision { get; } = "ERROR";
 
-    public AppliedRule() : base()
+    private AppliedRule() : base()
     {
         StatementApplied = string.Empty;
         StatementPath = string.Empty;
     }
 
-    [SetsRequiredMembers]
-    internal AppliedRule(ParsedRule parsedRule, RuleResult result)
-        : this()
-    {
-        if (IsError(result))
-        {
-            Number = parsedRule.Number;
-            Result = false;
-            Name = parsedRule.Name;
-            Statement = parsedRule.Statement;
-            Context = parsedRule.Context;
-            Decision = ErrorDecision;
-            DecisionData = string.Empty;
-            OperatorConfig = parsedRule.OperatorConfig;
-            StatementApplied = result.StatementApplied;
-            StatementPath = result.SyntaxTree;
-            Message = result.Message;
-            return;
-        }
-
-        Number = parsedRule.Number;
-        Result = result.Result.Value;
-        Name = parsedRule.Name;
-        Statement = parsedRule.Statement;
-        Context = parsedRule.Context;
-        Decision = parsedRule.Decision;
-        DecisionData = parsedRule.DecisionData;
-        OperatorConfig = parsedRule.OperatorConfig;
-        StatementApplied = result.StatementApplied;
-        StatementPath = result.SyntaxTree;
-        Message = result.Message;
-    }
-
-    internal static AppliedRule DefaultResult()
+    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
-            Number = -1,
+            Number = parsedRule.Number,
             Result = true,
-            Name = "DEFAULTRULE",
-            Statement = string.Empty,
-            Context = string.Empty,
-            Decision = DefaultDecision,
-            DecisionData = string.Empty,
-            OperatorConfig = string.Empty,
-            StatementApplied = string.Empty,
-            StatementPath = string.Empty,
-            Message = string.Empty
+            Name = parsedRule.Name,
+            Statement = parsedRule.Statement,
+            Context = parsedRule.Context,
+            Decision = parsedRule.Decision,
+            DecisionData = parsedRule.DecisionData,
+            OperatorConfig = parsedRule.OperatorConfig,
+            StatementApplied = result.StatementApplied,
+            StatementPath = result.SyntaxTree,
+            Message = result.Message
         };
     }
 
@@ -115,6 +81,24 @@ public sealed class AppliedRule : Rule
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message
+        };
+    }
+
+    internal static AppliedRule DefaultResult()
+    {
+        return new AppliedRule()
+        {
+            Number = -1,
+            Result = true,
+            Name = "DEFAULTRULE",
+            Statement = string.Empty,
+            Context = string.Empty,
+            Decision = DefaultDecision,
+            DecisionData = string.Empty,
+            OperatorConfig = string.Empty,
+            StatementApplied = string.Empty,
+            StatementPath = string.Empty,
+            Message = string.Empty
         };
     }
 
@@ -172,10 +156,5 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"StatementPath: {statementPath}");
         sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();
-    }
-
-    private static bool IsError(RuleResult ruleResult)
-    {
-        return !ruleResult.Result.IsSuccess;
     }
 }

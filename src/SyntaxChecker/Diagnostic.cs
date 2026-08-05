@@ -1,4 +1,3 @@
-using System;
 
 namespace RightRule.SyntaxChecker;
 
@@ -11,6 +10,10 @@ public enum DiagnosticSeverity
 
 public sealed class Diagnostic
 {
+    public Diagnostic()
+    {
+    }
+
     public string Message { get; init; } = string.Empty;
     public DiagnosticSeverity Severity { get; init; } = DiagnosticSeverity.Error;
     public string? Code { get; init; }

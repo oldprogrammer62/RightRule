@@ -1,5 +1,5 @@
 ﻿using RightRule.StatementProcessor.Parser;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace RightRule.RuleModels;
@@ -10,8 +10,13 @@ namespace RightRule.RuleModels;
 /// The Node property allows the interpreter to traverse the abstract syntax tree (AST) of the parsed rule statement and evaluate it accordingly.
 /// This class is internal
 /// </summary>
-public class ParsedRule : Rule
+public sealed class ParsedRule : Rule
 {
+    /// <summary>
+    /// Indicates the outcome of the Parsing process.
+    /// </summary>
+    public required bool Success { get; init; }
+
     /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).
     /// It allows the interpreter to traverse the AST and evaluate the rule statement.
@@ -21,20 +26,47 @@ public class ParsedRule : Rule
     /// <summary>
     /// When parsing fails during registration this holds the parser/tokenizer error message.
     /// </summary>
-    public string? ParseErrorMessage { get; init; }
+    public string? ParserMessage { get; init; }
 
-    [SetsRequiredMembers]
-    internal ParsedRule(RuleDefinition rule, Node? node, string? parseErrorMessage = null)
+    private ParsedRule() : base()
     {
-        Number = rule.Number;
-        Name = rule.Name;
-        Statement = rule.Statement;
-        Context = rule.Context;
-        Decision = rule.Decision;
-        DecisionData = rule.DecisionData;
-        OperatorConfig = rule.OperatorConfig;
-        Node = node;
-        ParseErrorMessage = parseErrorMessage;
+        Success = false;
+        Node = null;
+        ParserMessage = string.Empty;
+    }
+
+    internal static ParsedRule SuccessResult(RuleDefinition ruleDefinition, Node node, string message)
+    {
+        return new ParsedRule()
+        {
+            Success = true,
+            ParserMessage = message,
+            Context = ruleDefinition.Context,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
+            Name = ruleDefinition.Name,
+            Number = ruleDefinition.Number,
+            Statement = ruleDefinition.Statement,
+            OperatorConfig = ruleDefinition.OperatorConfig,
+            Node = node
+        };
+    }
+
+    internal static ParsedRule FailResult(RuleDefinition ruleDefinition, string message)
+    {
+        return new ParsedRule()
+        {
+            Success = false,
+            ParserMessage = message,
+            Context = ruleDefinition.Context,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
+            Name = ruleDefinition.Name,
+            Number = ruleDefinition.Number,
+            Statement = ruleDefinition.Statement,
+            OperatorConfig = ruleDefinition.OperatorConfig,
+            Node = null
+        };
     }
 
     public override string ToString()

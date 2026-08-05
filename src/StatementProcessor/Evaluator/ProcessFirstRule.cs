@@ -46,7 +46,7 @@ internal class ProcessFirstRule
     {
         if (rule.Node == null)
         {
-            var message = string.IsNullOrEmpty(rule.ParseErrorMessage) ? "Rule statement not interpreted properly." : rule.ParseErrorMessage;
+            var message = string.IsNullOrEmpty(rule.ParserMessage) ? "Rule statement not interpreted properly." : rule.ParserMessage;
             return new RuleResult(EvaluationResult.Failure(message));
         }
 
@@ -63,7 +63,7 @@ internal class ProcessFirstRule
 
     private static AppliedRule CreateTrueResult(RuleResult result, ParsedRule rule)
     {
-        return new AppliedRule(rule, result);
+        return AppliedRule.TrueResult(rule, result);
     }
 
     private static AppliedRule CreateFalseResult(RuleResult result, ParsedRule rule)

@@ -14,6 +14,10 @@ namespace RightRule.RuleModels;
 /// </summary> 
 public sealed class RuleDefinition : Rule
 {
+    public RuleDefinition() : base()
+    {
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
