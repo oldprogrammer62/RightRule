@@ -12,4 +12,11 @@ public sealed class CheckStatementResult
     public bool IsValid => !Diagnostics.Any(d => d.Severity == DiagnosticSeverity.Error);
 
     public static CheckStatementResult Success() => new CheckStatementResult(null);
+    public static CheckStatementResult Failure()
+    {
+        return new CheckStatementResult(new List<Diagnostic>
+        {
+            new Diagnostic("Syntax error", DiagnosticSeverity.Error)
+        });
+    }
 }

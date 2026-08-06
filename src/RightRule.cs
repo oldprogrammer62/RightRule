@@ -30,7 +30,10 @@ public sealed class RightRule : IRightRule
     /// <exception cref="ArgumentException"></exception>
     public async Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Statement, nameof(Statement));
+        if (string.IsNullOrWhiteSpace(Statement))
+        {
+            return CheckStatementResult.Failure();
+        }
         return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
     }
 

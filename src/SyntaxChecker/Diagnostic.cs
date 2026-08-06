@@ -14,6 +14,12 @@ public sealed class Diagnostic
     {
     }
 
+    public Diagnostic(string Message, DiagnosticSeverity diagnosticSeverity)
+    {
+        this.Message = Message;
+        this.Severity = diagnosticSeverity;
+    }
+
     public string Message { get; init; } = string.Empty;
     public DiagnosticSeverity Severity { get; init; } = DiagnosticSeverity.Error;
     public string? Code { get; init; }
