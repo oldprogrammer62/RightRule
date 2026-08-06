@@ -1,38 +1,47 @@
 ﻿using RightRule.System.Common;
-using System.Diagnostics.CodeAnalysis;
 
 namespace RightRule.Models;
 
 internal class RuleResult
 {
-    public required EvaluationResult Result { get; init; }
-    public required string Message { get; init; }
-    public required string StatementApplied { get; init; }
-    public required string SyntaxTree { get; init; }
+    public EvaluationResult Result { get; }
+    public string Message { get; }
+    public string StatementApplied { get; }
+    public string SyntaxTree { get; }
 
-    [SetsRequiredMembers]
-    internal RuleResult(EvaluationResult Result)
+    private RuleResult(EvaluationResult Result, string Message, string StatementApplied, string SyntaxTree)
     {
         this.Result = Result;
-        Message = Result.Message;
-        StatementApplied = string.Empty;
-        SyntaxTree = string.Empty;
-    }
-
-    [SetsRequiredMembers]
-    internal RuleResult(EvaluationResult Result, string ResultMessage, string StatementApplied, string SyntaxTree)
-    {
-        this.Result = Result;
-        Message = ResultMessage;
+        this.Message = Message;
         this.StatementApplied = StatementApplied;
         this.SyntaxTree = SyntaxTree;
+    }
+
+    internal static RuleResult Success(EvaluationResult result, string successMessage, string StatementApplied, string SyntaxTree)
+    {
+        return new RuleResult(
+            Result: result,
+            Message: successMessage,
+            StatementApplied: StatementApplied,
+            SyntaxTree: SyntaxTree
+        );
+    }
+
+    internal static RuleResult Failure(EvaluationResult result, string errorMessage)
+    {
+        return new RuleResult(
+            Result: result,
+            Message: errorMessage,
+            StatementApplied: string.Empty,
+            SyntaxTree: string.Empty
+        );
     }
 
     internal static RuleResult Failure(string error)
     {
         return new RuleResult(
             Result: EvaluationResult.Failure(error),
-            ResultMessage: error,
+            Message: error,
             StatementApplied: string.Empty,
             SyntaxTree: string.Empty
         );

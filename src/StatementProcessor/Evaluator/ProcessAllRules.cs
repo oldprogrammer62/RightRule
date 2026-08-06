@@ -40,7 +40,7 @@ internal class ProcessAllRules
         if (rule.Node == null)
         {
             var message = string.IsNullOrEmpty(rule.ParserMessage) ? "Rule statement not interpreted properly." : rule.ParserMessage;
-            return new RuleResult(EvaluationResult.Failure(message));
+            return RuleResult.Failure(message);
         }
 
         try

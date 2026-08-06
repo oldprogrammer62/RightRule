@@ -30,11 +30,11 @@ internal sealed class Evaluator
                 var evaluationResult = await EvaluateNodeAsync(Datasets, parsedRule).ConfigureAwait(false);
                 if (evaluationResult == null)
                 {
-                    return RuleResult.Failure("Evaluation invalid.");
+                    return RuleResult.Failure(evaluationResult!, "Evaluation invalid.");
                 }
                 if (!evaluationResult.IsSuccess)
                 {
-                    return RuleResult.Failure(evaluationResult.Message);
+                    return RuleResult.Failure(evaluationResult, evaluationResult.Message);
                 }
 
                 var node = parsedRule.Node;
@@ -43,7 +43,7 @@ internal sealed class Evaluator
                 string message = string.Empty;
                 string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!).ConfigureAwait(false) : string.Empty;
                 string syntaxTree = diagnostics ? await BuildSyntaxTreeAsync(parsedRule).ConfigureAwait(false) : string.Empty;
-                return new RuleResult(evaluationResult, message, statementApplied, syntaxTree);
+                return RuleResult.Success(evaluationResult, message, statementApplied, syntaxTree);
             }
             catch (Exception ex)
             {
