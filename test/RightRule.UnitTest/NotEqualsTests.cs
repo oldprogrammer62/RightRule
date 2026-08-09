@@ -155,4 +155,46 @@ public class NotEqualsTests
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
+
+    [Fact]
+    public void NotNotEquals_Bool()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "NotNotEquals Bool Value Rule",
+            Statement = @"not Test.boolvalue equals true",
+            Context = "Context",
+            Decision = "NOTNOTEQUALS",
+        };
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterDataset("Test", _Data);
+
+        var appliedRule = rr.EvaluateFirstRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Not_Equals_Bool()
+    {
+        // Rule
+        RuleDefinition rule = new()
+        {
+            Number = 1,
+            Name = "Not Equals Bool Value Rule",
+            Statement = @"Test.boolvalue equals false and not Test.intvalue = 100",
+            Context = "Context",
+            Decision = "NOTNOTEQUALS",
+        };
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterDataset("Test", _Data);
+        rr.RegisterRule(rule);
+
+        var appliedRule = rr.EvaluateFirstRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
 }
