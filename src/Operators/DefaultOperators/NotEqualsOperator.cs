@@ -10,7 +10,7 @@ public sealed class NotEqualsOperator : Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData)
     {
         if (left == null && right == null)
         {

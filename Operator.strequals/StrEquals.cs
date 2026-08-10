@@ -7,11 +7,11 @@ namespace Operator.strequals
     {
         public override List<string> Identifiers => ["strequals", "=str"];
 
-        protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+        protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData)
         {
             if (left is string leftStr && right is string rightStr)
             {
-                return EvaluationResult.Success((Equals(leftStr, rightStr, OperatorConfig)));
+                return EvaluationResult.Success((Equals(leftStr, rightStr, OptionalData)));
             }
             else
             {

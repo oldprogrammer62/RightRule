@@ -1,0 +1,86 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<!-- 1. ADD FORM: Always visible at the top, regardless of data state -->
+<div class="card card-body bg-light mb-4 shadow-sm">
+    <h5 class="card-title text-primary mb-3">Add New Record</h5>
+
+    <EditForm Model="@newItem" OnValidSubmit="HandleAddSubmitted">
+        <DataAnnotationsValidator />
+
+        <div class="row g-3">
+            <div class="col-md-5">
+                <InputText @bind-Value="newItem.Name" class="form-control" placeholder="Full Name" />
+                <ValidationMessage For="() => newItem.Name" class="text-danger small" />
+            </div>
+            <div class="col-md-5">
+                <InputText @bind-Value="newItem.Email" class="form-control" placeholder="Email Address" />
+                <ValidationMessage For="() => newItem.Email" class="text-danger small" />
+            </div>
+            <div class="col-md-2 d-grid">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i> Add
+                </button>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+<!-- 2. DATA TABLE: Renders headers always, only switching out the table rows if empty -->
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th class="text-center" style="width: 150px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Submissions == null || !Submissions.Any())
+            {
+                <!-- If the list is empty, display a placeholder row across all columns -->
+                <tr>
+                    <td colspan="3" class="text-center text-muted py-4">
+                        <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                        No records found. Use the form above to add your first record!
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <!-- If items exist, loop through and render them -->
+                @foreach (var item in Submissions)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary" @onclick="() => OnEditClicked.InvokeAsync(item)">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public List<UserSubmission> Submissions { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<UserSubmission> OnEditClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<UserSubmission> OnAddClicked { get; set; }
+
+    private UserSubmission newItem = new();
+
+    private async Task HandleAddSubmitted()
+    {
+        await OnAddClicked.InvokeAsync(newItem);
+        newItem = new UserSubmission(); // Wipe form inputs clear
+    }
+}

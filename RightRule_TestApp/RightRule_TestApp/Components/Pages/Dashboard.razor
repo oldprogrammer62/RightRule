@@ -1,0 +1,100 @@
+﻿@page "/dashboard"
+@rendermode InteractiveServer
+
+<div class="container mt-5">
+    <h2>Admin Dashboard</h2>
+    <p class="text-muted">Managing active server profiles and directory logs:</p>
+
+    <!-- 1. The List and Add Component -->
+    <Datalist Submissions="masterList" 
+              OnEditClicked="OpenEditor" 
+              OnAddClicked="InsertNewSubmission" />
+
+    <!-- 2. THE EDIT FORM: This block only renders when activeSubmission is NOT null -->
+    @if (activeSubmission != null)
+    {
+        <div class="card border-primary mt-4 shadow">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Edit Record</h5>
+                <button type="button" class="btn-close btn-close-white" @onclick="CloseEditor"></button>
+            </div>
+            <div class="card-body">
+                <EditForm Model="@activeSubmission" OnValidSubmit="SaveChanges">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="text-danger small" />
+
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold">Name</label>
+                            <InputText @bind-Value="activeSubmission.Name" class="form-control" />
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label fw-bold">Email</label>
+                            <InputText @bind-Value="activeSubmission.Email" class="form-control" />
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end gap-2">
+                            <button type="submit" class="btn btn-primary w-100">Save</button>
+                            <button type="button" class="btn btn-secondary w-100" @onclick="CloseEditor">Cancel</button>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<UserSubmission> masterList = new();
+    private UserSubmission? activeSubmission;
+
+    protected override void OnInitialized()
+    {
+        masterList = new List<UserSubmission>
+        {
+            new() { Name = "Alice Smith", Email = "alice@example.com" },
+            new() { Name = "Bob Jones", Email = "bob@example.com" }
+        };
+    }
+
+    private void OpenEditor(UserSubmission selectedItem)
+    {
+        // IMPORTANT: We create a shallow copy of the object.
+        // This ensures changes don't live-update the table row until the user clicks "Save".
+        activeSubmission = new UserSubmission
+        {
+            Name = selectedItem.Name,
+            Email = selectedItem.Email
+        };
+
+        // Keep track of the original reference so we can update it on save
+        _originalItem = selectedItem;
+    }
+
+    private UserSubmission? _originalItem;
+
+    private void SaveChanges()
+    {
+        if (_originalItem != null && activeSubmission != null)
+        {
+            // Apply the changes back to the original item in our masterList
+            _originalItem.Name = activeSubmission.Name;
+            _originalItem.Email = activeSubmission.Email;
+
+            // OPTIONAL: Call your file storage service here to update the file on your server disk
+            // await StorageService.SaveSubmissionAsync(_originalItem);
+        }
+
+        CloseEditor();
+    }
+
+    private void CloseEditor()
+    {
+        activeSubmission = null;
+        _originalItem = null;
+    }
+
+    private void InsertNewSubmission(UserSubmission newlyCreatedItem)
+    {
+        masterList.Add(newlyCreatedItem);
+    }
+}

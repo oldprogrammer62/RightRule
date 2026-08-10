@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator.dayofweek", "Opera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator.strequals", "Operator.strequals\Operator.strequals.csproj", "{8606EF6F-C33F-4BF3-9205-3DB9DD1DCAB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator.objequals", "Operator.objequals\Operator.objequals.csproj", "{AFB32185-5408-47B6-BBA5-922A26F9BA94}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,10 +56,6 @@ Global
 		{8606EF6F-C33F-4BF3-9205-3DB9DD1DCAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8606EF6F-C33F-4BF3-9205-3DB9DD1DCAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8606EF6F-C33F-4BF3-9205-3DB9DD1DCAB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFB32185-5408-47B6-BBA5-922A26F9BA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFB32185-5408-47B6-BBA5-922A26F9BA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFB32185-5408-47B6-BBA5-922A26F9BA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFB32185-5408-47B6-BBA5-922A26F9BA94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

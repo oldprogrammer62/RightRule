@@ -10,7 +10,7 @@ public sealed class ContainsOperator : Operator
 
     public override List<string> Identifiers { get;  } = ["contains"];
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OperatorConfig)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData)
     {
         if (left is null || right is null)
         {

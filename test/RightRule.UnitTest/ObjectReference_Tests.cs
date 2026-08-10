@@ -20,7 +20,7 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "obj1.Name = \"Bob\" and obj1.Age = 31",
             Decision = "Approved",
-            OperatorConfig = obj1
+            OptionalData = obj1
         };
         RuleDefinition rd2 = new RuleDefinition()
         {
@@ -29,7 +29,7 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "obj2.Name = \"Harry\" and obj2.Age = 21",
             Decision = "Good",
-            OperatorConfig = obj2
+            OptionalData = obj2
         };
         rr.RegisterRule(rd1);
         rr.RegisterRule(rd2);

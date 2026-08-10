@@ -31,7 +31,7 @@ public abstract class Rule
     /// Optional data that will be passed to the Operator when evaluating the Rule.
     /// It is the responsibility of the Operator to validate the configuration details and use it as required.
     /// </summary>
-    public object? OperatorConfig { get; init; }
+    public object? OptionalData { get; init; }
 
     /// <summary>
     /// String value returned if the Rule evaluates to True.

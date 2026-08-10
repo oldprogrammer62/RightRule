@@ -11,10 +11,6 @@
     {
       "name": "StrEquals",
       "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.strequals.dll"
-    },
-    {
-      "name": "ObjEquals",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.objequals.dll"
     }
   ]
 }

@@ -46,7 +46,7 @@ public sealed class ParsedRule : Rule
             Name = ruleDefinition.Name,
             Number = ruleDefinition.Number,
             Statement = ruleDefinition.Statement,
-            OperatorConfig = ruleDefinition.OperatorConfig,
+            OptionalData = ruleDefinition.OptionalData,
             Node = node
         };
     }
@@ -63,7 +63,7 @@ public sealed class ParsedRule : Rule
             Name = ruleDefinition.Name,
             Number = ruleDefinition.Number,
             Statement = ruleDefinition.Statement,
-            OperatorConfig = ruleDefinition.OperatorConfig,
+            OptionalData = ruleDefinition.OptionalData,
             Node = null
         };
     }
@@ -75,7 +75,7 @@ public sealed class ParsedRule : Rule
         sb.AppendLine($"Name: {this.Name}");
         sb.AppendLine($"Context: {this.Context}");
         sb.AppendLine($"Statement: {this.Statement}");
-        sb.AppendLine($"Configuration: {this.OperatorConfig}");
+        sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         return sb.ToString();

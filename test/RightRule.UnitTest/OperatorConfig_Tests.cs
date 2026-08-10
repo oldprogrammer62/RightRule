@@ -25,7 +25,7 @@ public class OperatorConfig_Tests
             Number = 1,
             Statement = "Data.key1 = 'value1' and Data.key2 = \'value2\' and Data.key3 = \"value3\"",
             Decision = "Decision",
-            OperatorConfig = OpConfig
+            OptionalData = OpConfig
         };
 
         IRightRule rr = new BeSoft.RightRule();
@@ -35,6 +35,6 @@ public class OperatorConfig_Tests
         var result = rr.EvaluateFirstRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(OpConfig, result.OperatorConfig);
+        Assert.Equal(OpConfig, result.OptionalData);
     }
 }

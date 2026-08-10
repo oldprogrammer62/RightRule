@@ -19,7 +19,7 @@ public class StrEqualsTests
             Number = 1,
             Decision = "GOOD",
             Statement = "Data.value1 strequals \"HELLO World\"",
-            OperatorConfig = StringComparison.OrdinalIgnoreCase
+            OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -47,7 +47,7 @@ public class StrEqualsTests
             Number = 1,
             Decision = "GOOD",
             Statement = "Data.value1 strequals \"HELLO World\"",
-            OperatorConfig = StringComparison.Ordinal
+            OptionalData = StringComparison.Ordinal
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -75,7 +75,7 @@ public class StrEqualsTests
             Number = 1,
             Decision = "GOOD",
             Statement = "Data.value1 =str \"HELLO World\"",
-            OperatorConfig = StringComparison.OrdinalIgnoreCase
+            OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

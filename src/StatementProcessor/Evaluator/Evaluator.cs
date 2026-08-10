@@ -41,7 +41,7 @@ internal sealed class Evaluator
                 var statement = parsedRule.Statement;
 
                 string message = string.Empty;
-                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!, parsedRule.OperatorConfig).ConfigureAwait(false) : string.Empty;
+                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!, parsedRule.OptionalData).ConfigureAwait(false) : string.Empty;
                 string syntaxTree = diagnostics ? await BuildSyntaxTreeAsync(parsedRule).ConfigureAwait(false) : string.Empty;
                 return RuleResult.Success(evaluationResult, message, statementApplied, syntaxTree);
             }
@@ -60,7 +60,7 @@ internal sealed class Evaluator
         }
 
         var node = rule.Node;
-        var config = rule.OperatorConfig;
+        var config = rule.OptionalData;
 
         return await EvaluateNodeAsync(datasets, node, config).ConfigureAwait(false);
     }
@@ -100,14 +100,14 @@ internal sealed class Evaluator
         return EvaluationResult.Success(rightResult.Value);
     }
 
-    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets? datasets, ConditionNode c, object? OperatorConfig)
+    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets? datasets, ConditionNode c, object? OptionalData)
     {
         try
         {
-            var left = ResolveOperandValue(datasets, c.Left, OperatorConfig);
-            var right = ResolveOperandValue(datasets, c.Right, OperatorConfig);
+            var left = ResolveOperandValue(datasets, c.Left, OptionalData);
+            var right = ResolveOperandValue(datasets, c.Right, OptionalData);
 
-            var result = await ProcessOperator(c.Operator, left!, right!, OperatorConfig).ConfigureAwait(false);
+            var result = await ProcessOperator(c.Operator, left!, right!, OptionalData).ConfigureAwait(false);
             return result;
         }
         catch (Exception ex)
@@ -116,14 +116,14 @@ internal sealed class Evaluator
         }
     }
 
-    private async Task<EvaluationResult> ProcessOperator(string logicOperator, object left, object right, object? OperatorConfig)
+    private async Task<EvaluationResult> ProcessOperator(string logicOperator, object left, object right, object? OptionalData)
     {
         if (!_operators.TryGetValue(logicOperator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {logicOperator}");
 
         try
         {
-            return await op.ProcessAsync(left, right, OperatorConfig).ConfigureAwait(false);
+            return await op.ProcessAsync(left, right, OptionalData).ConfigureAwait(false);
         }
         catch
         {
@@ -199,11 +199,11 @@ internal sealed class Evaluator
         return result!;
     }
 
-    private static object? ResolveOperandValue(RegisteredDatasets? datasets, Operand op, object? OperatorConfig)
+    private static object? ResolveOperandValue(RegisteredDatasets? datasets, Operand op, object? OptionalData)
     {
         try
         {
-            return ResolveOperand(datasets, op, OperatorConfig);
+            return ResolveOperand(datasets, op, OptionalData);
         }
         catch
         {
@@ -211,7 +211,7 @@ internal sealed class Evaluator
         }
     }
 
-    private static object? ResolveOperand(RegisteredDatasets? datasets, Operand op, object? OperatorConfig)
+    private static object? ResolveOperand(RegisteredDatasets? datasets, Operand op, object? OptionalData)
     {
         try
         {
@@ -219,7 +219,7 @@ internal sealed class Evaluator
 
             return op.Kind switch
             {
-                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, OperatorConfig, sId) : ResolveIdentifier(datasets, OperatorConfig, op.Raw),
+                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, OptionalData, sId) : ResolveIdentifier(datasets, OptionalData, op.Raw),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
                 OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
@@ -268,11 +268,11 @@ internal sealed class Evaluator
         }
     }
 
-    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, Node Node, object? OperatorConfig)
+    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, Node Node, object? OptionalData)
     {
         try
         {
-            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement, OperatorConfig).ConfigureAwait(false);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement, OptionalData).ConfigureAwait(false);
         }
         catch
         {

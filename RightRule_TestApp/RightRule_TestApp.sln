@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37516.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RightRule_TestApp", "RightRule_TestApp\RightRule_TestApp.csproj", "{C5BC70B8-4AE2-49CB-BED2-4E37587CACFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5BC70B8-4AE2-49CB-BED2-4E37587CACFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BC70B8-4AE2-49CB-BED2-4E37587CACFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BC70B8-4AE2-49CB-BED2-4E37587CACFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BC70B8-4AE2-49CB-BED2-4E37587CACFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A0DADE0-2D6F-4C1A-98BA-2DF96F953F0B}
+	EndGlobalSection
+EndGlobal

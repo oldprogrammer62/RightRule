@@ -59,7 +59,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = parsedRule.Decision,
             DecisionData = parsedRule.DecisionData,
-            OperatorConfig = parsedRule.OperatorConfig,
+            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message
@@ -77,7 +77,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = DefaultDecision,
             DecisionData = parsedRule.DecisionData,
-            OperatorConfig = parsedRule.OperatorConfig,
+            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message
@@ -95,7 +95,7 @@ public sealed class AppliedRule : Rule
             Context = string.Empty,
             Decision = DefaultDecision,
             DecisionData = string.Empty,
-            OperatorConfig = string.Empty,
+            OptionalData = string.Empty,
             StatementApplied = string.Empty,
             StatementPath = string.Empty,
             Message = string.Empty
@@ -113,7 +113,7 @@ public sealed class AppliedRule : Rule
             Context = string.Empty,
             Decision = ErrorDecision,
             DecisionData = string.Empty,
-            OperatorConfig = string.Empty,
+            OptionalData = string.Empty,
             StatementApplied = string.Empty,
             StatementPath = string.Empty,
             Message = message
@@ -131,7 +131,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = ErrorDecision,
             DecisionData = parsedRule.DecisionData,
-            OperatorConfig = parsedRule.OperatorConfig,
+            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             StatementPath = result.SyntaxTree,
             Message = result.Message
@@ -151,7 +151,7 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"Result: {this.Result}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
-        sb.AppendLine($"Configuration: {this.OperatorConfig}");
+        sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
         sb.AppendLine($"StatementPath: {statementPath}");
         sb.AppendLine($"Message: {this.Message}");
