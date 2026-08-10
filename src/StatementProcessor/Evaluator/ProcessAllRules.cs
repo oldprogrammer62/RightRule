@@ -1,13 +1,12 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.RuleModels;
-using RightRule.System.Common;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
 internal class ProcessAllRules
 {
-    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets registeredDatasets)
+    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets? registeredDatasets)
     {
         List<AppliedRule> appliedRules = [];
 
@@ -35,7 +34,7 @@ internal class ProcessAllRules
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets datasets)
+    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets? datasets)
     {
         if (rule.Node == null)
         {

@@ -157,6 +157,7 @@ internal sealed class Tokenizer
 
             while (_pos < _input.Length &&
                 (
+                char.IsLetter(_input[_pos]) ||
                 char.IsLetterOrDigit(_input[_pos]) ||
                 char.IsSymbol(_input[_pos]) ||
                 char.IsPunctuation(_input[_pos]) ||

@@ -9,43 +9,43 @@ internal class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    internal static Task<string> BuildAppliedStatement(RegisteredDatasets datasets, Node? node, string originalStatement)
+    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? datasets, Node? node, string originalStatement, object? OperatorConfig)
     {
         return Task.Run(() =>
         {
             if (node is null)
                 return originalStatement ?? string.Empty;
 
-            return RenderNode(node, datasets);
+            return RenderNode(node, datasets, OperatorConfig);
         });
     }
 
-    private static string RenderNode(Node node, RegisteredDatasets datasets)
+    private static string RenderNode(Node node, RegisteredDatasets? Datasets, object? OperatorConfig)
     {
         return node switch
         {
-            ConditionNode c => RenderCondition(c, datasets),
-            BinaryNode b => $"({RenderNode(b.Left, datasets)} {b.LogicOp.ToUpperInvariant()} {RenderNode(b.Right, datasets)})",
-            NotNode n => $"(NOT {RenderNode(n.Inner, datasets)})",
+            ConditionNode c => RenderCondition(c, Datasets, OperatorConfig),
+            BinaryNode b => $"({RenderNode(b.Left, Datasets, OperatorConfig)} {b.LogicOp.ToUpperInvariant()} {RenderNode(b.Right, Datasets, OperatorConfig)})",
+            NotNode n => $"(NOT {RenderNode(n.Inner, Datasets, OperatorConfig)})",
             _ => string.Empty
         };
     }
 
-    private static string RenderCondition(ConditionNode c, RegisteredDatasets datasets)
+    private static string RenderCondition(ConditionNode c, RegisteredDatasets? Datasets, object? OperatorConfig)
     {
-        var left = RenderOperand(c.Left, datasets);
-        var right = RenderOperand(c.Right, datasets);
+        var left = RenderOperand(c.Left, Datasets, OperatorConfig);
+        var right = RenderOperand(c.Right, Datasets, OperatorConfig);
         return $"{left} {c.Operator} {right}";
     }
 
-    private static string RenderOperand(Operand operand, RegisteredDatasets datasets)
+    private static string RenderOperand(Operand operand, RegisteredDatasets? Datasets, object? OperatorConfig)
     {
         switch (operand.Kind)
         {
             case OperandKind.Identifier:
                 {
                     // operand.Raw is expected to be dataset.element
-                    var value = ResolveIdentifier(datasets, operand.Raw);
+                    var value = ResolveIdentifier(Datasets, OperatorConfig, operand.Raw);
                     return FormatValue(value);
                 }
             case OperandKind.String:
@@ -69,32 +69,71 @@ internal class StatementBuilder
         }
     }
 
-    private static object ResolveIdentifier(RegisteredDatasets datasets, string name)
+    private static object? ResolveIdentifier(RegisteredDatasets? Datasets, object? ObjectReference, string Identifier)
     {
-        if (string.IsNullOrEmpty(name))
+        if (string.IsNullOrEmpty(Identifier))
         {
-            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' cannot be null or empty.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' cannot be null or empty.");
         }
-        if (name.Split('.').Length != 2)
+        if (Identifier.Split('.').Length != 2)
         {
-            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' must be in the format 'datasetName.identifierName'.");
-        }
-
-        var split = name.Split('.');
-        var datasetname = split[0];
-        var identifiername = split[1];
-        var ds = datasets.GetDataset(datasetname);
-        if (ds is null)
-        {
-            throw new KeyNotFoundException($"Unknown dataset name '{datasetname}'.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'datasetName.identifierName'.");
         }
 
-        if (!ds.Data.TryGetValue(identifiername, out _))
+        var split = Identifier.Split('.');
+        var parent = split[0];
+        var child = split[1];
+        var ds = Datasets?.GetDataset(parent);
+        if (ds is not null)
         {
-            throw new KeyNotFoundException($"Unknown variable '{identifiername}' in Registered Dataset {datasetname}.");
+            return ResolveIdentifier(ds, child);
+        }
+        return ResolveIdentifier(ObjectReference, parent, child);
+    }
+
+    private static object? ResolveIdentifier(object? ObjectReference, string ObjectName, string PropertyName)
+    {
+        if (string.IsNullOrEmpty(ObjectName))
+        {
+            throw new KeyNotFoundException($"Unknown Object.");
+        }
+        if (string.IsNullOrEmpty(PropertyName))
+        {
+            throw new KeyNotFoundException($"Unknown Property.");
+        }
+        if (ObjectReference is null)
+        {
+            throw new KeyNotFoundException("Object Reference not set.");
         }
 
-        ds.Data.TryGetValue(identifiername, out var result);
+        var type = ObjectReference.GetType();
+        var property = type.GetProperty(PropertyName);
+        if (property is not null)
+        {
+            return property.GetValue(ObjectReference);
+        }
+        else
+        {
+            throw new KeyNotFoundException($"Unknown Property '{PropertyName}' in {type.Name}.");
+        }
+    }
+
+    private static object? ResolveIdentifier(RegisteredDataset? Dataset, string KeyName)
+    {
+        if (string.IsNullOrEmpty(KeyName))
+        {
+            throw new KeyNotFoundException($"Unknown variable '{KeyName}'.");
+        }
+        if (Dataset is null)
+        {
+            throw new KeyNotFoundException($"Unknown dataset '{Dataset}'");
+        }
+        if (!Dataset.Data.TryGetValue(KeyName, out _))
+        {
+            throw new KeyNotFoundException($"Unknown variable '{KeyName}' in Registered Dataset {Dataset.Name}.");
+        }
+
+        Dataset.Data.TryGetValue(KeyName, out var result);
         return result!;
     }
 

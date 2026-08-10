@@ -19,7 +19,7 @@ internal sealed class Evaluator
         _rightRuleConfig = rightRuleConfig;
     }
 
-    internal Task<RuleResult> EvaluateAsync(ParsedRule parsedRule, RegisteredDatasets Datasets)
+    internal Task<RuleResult> EvaluateAsync(ParsedRule parsedRule, RegisteredDatasets? Datasets)
     {
         var diagnostics = _rightRuleConfig.DiagnosticsEnabled;
 
@@ -41,7 +41,7 @@ internal sealed class Evaluator
                 var statement = parsedRule.Statement;
 
                 string message = string.Empty;
-                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!).ConfigureAwait(false) : string.Empty;
+                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, node!, parsedRule.OperatorConfig).ConfigureAwait(false) : string.Empty;
                 string syntaxTree = diagnostics ? await BuildSyntaxTreeAsync(parsedRule).ConfigureAwait(false) : string.Empty;
                 return RuleResult.Success(evaluationResult, message, statementApplied, syntaxTree);
             }
@@ -52,7 +52,7 @@ internal sealed class Evaluator
         });
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets datasets, ParsedRule rule)
+    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets? datasets, ParsedRule rule)
     {
         if (rule == null)
         {
@@ -65,7 +65,7 @@ internal sealed class Evaluator
         return await EvaluateNodeAsync(datasets, node, config).ConfigureAwait(false);
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets datasets, Node? node, object? Config)
+    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets? datasets, Node? node, object? Config)
     {
         return node switch
         {
@@ -76,7 +76,7 @@ internal sealed class Evaluator
         };
     }
 
-    private async Task<EvaluationResult> EvaluateBinaryAsync(RegisteredDatasets datasets, BinaryNode b, object? Config)
+    private async Task<EvaluationResult> EvaluateBinaryAsync(RegisteredDatasets? datasets, BinaryNode b, object? Config)
     {
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
@@ -100,12 +100,12 @@ internal sealed class Evaluator
         return EvaluationResult.Success(rightResult.Value);
     }
 
-    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets datasets, ConditionNode c, object? OperatorConfig)
+    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets? datasets, ConditionNode c, object? OperatorConfig)
     {
         try
         {
-            var left = ResolveOperandValue(datasets, c.Left);
-            var right = ResolveOperandValue(datasets, c.Right);
+            var left = ResolveOperandValue(datasets, c.Left, OperatorConfig);
+            var right = ResolveOperandValue(datasets, c.Right, OperatorConfig);
 
             var result = await ProcessOperator(c.Operator, left!, right!, OperatorConfig).ConfigureAwait(false);
             return result;
@@ -131,40 +131,79 @@ internal sealed class Evaluator
         }
     }
 
-    private static object ResolveIdentifier(RegisteredDatasets datasets, string name)
+    private static object? ResolveIdentifier(RegisteredDatasets? Datasets, object? ObjectReference, string Identifier)
     {
-        if (string.IsNullOrEmpty(name))
+        if (string.IsNullOrEmpty(Identifier))
         {
-            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' cannot be null or empty.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' cannot be null or empty.");
         }
-        if (name.Split('.').Length != 2)
+        if (Identifier.Split('.').Length != 2)
         {
-            throw new InvalidIdentifierException(name, -1, $"Identifier '{name}' must be in the format 'datasetName.identifierName'.");
-        }
-
-        var split = name.Split('.');
-        var datasetname = split[0];
-        var identifiername = split[1];
-        var ds = datasets.GetDataset(datasetname);
-        if (ds is null)
-        {
-            throw new KeyNotFoundException($"Unknown dataset name '{datasetname}'.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'datasetName.identifierName'.");
         }
 
-        if (!ds.Data.TryGetValue(identifiername, out _))
+        var split = Identifier.Split('.');
+        var parent = split[0];
+        var child = split[1];
+        var ds = Datasets?.GetDataset(parent);
+        if (ds is not null)
         {
-            throw new KeyNotFoundException($"Unknown variable '{identifiername}' in Registered Dataset {datasetname}.");
+            return ResolveIdentifier(ds, child);
+        }
+        return ResolveIdentifier(ObjectReference, parent, child);
+    }
+
+    private static object? ResolveIdentifier(object? ObjectReference, string ObjectName, string PropertyName)
+    {
+        if (string.IsNullOrEmpty(ObjectName))
+        {
+            throw new KeyNotFoundException($"Unknown Object.");
+        }
+        if (string.IsNullOrEmpty(PropertyName))
+        {
+            throw new KeyNotFoundException($"Unknown Property.");
+        }
+        if (ObjectReference is null)
+        {
+            throw new KeyNotFoundException("Object Reference not set.");
         }
 
-        ds.Data.TryGetValue(identifiername, out var result);
+        var type = ObjectReference.GetType();
+        var property = type.GetProperty(PropertyName);
+        if (property is not null)
+        {
+            return property.GetValue(ObjectReference);
+        }
+        else
+        {
+            throw new KeyNotFoundException($"Unknown Property '{PropertyName}' in {type.Name}.");
+        }
+    }
+
+    private static object? ResolveIdentifier(RegisteredDataset? Dataset, string KeyName)
+    {
+        if (string.IsNullOrEmpty(KeyName))
+        {
+            throw new KeyNotFoundException($"Unknown variable '{KeyName}'.");
+        }
+        if (Dataset is null)
+        {
+            throw new KeyNotFoundException($"Unknown dataset '{Dataset}'");
+        }
+        if (!Dataset.Data.TryGetValue(KeyName, out _))
+        {
+            throw new KeyNotFoundException($"Unknown variable '{KeyName}' in Registered Dataset {Dataset.Name}.");
+        }
+
+        Dataset.Data.TryGetValue(KeyName, out var result);
         return result!;
     }
 
-    private static object? ResolveOperandValue(RegisteredDatasets datasets, Operand op)
+    private static object? ResolveOperandValue(RegisteredDatasets? datasets, Operand op, object? OperatorConfig)
     {
         try
         {
-            return ResolveOperand(datasets, op);
+            return ResolveOperand(datasets, op, OperatorConfig);
         }
         catch
         {
@@ -172,7 +211,7 @@ internal sealed class Evaluator
         }
     }
 
-    private static object? ResolveOperand(RegisteredDatasets datasets, Operand op)
+    private static object? ResolveOperand(RegisteredDatasets? datasets, Operand op, object? OperatorConfig)
     {
         try
         {
@@ -180,7 +219,7 @@ internal sealed class Evaluator
 
             return op.Kind switch
             {
-                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, sId) : ResolveIdentifier(datasets, op.Raw),
+                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, OperatorConfig, sId) : ResolveIdentifier(datasets, OperatorConfig, op.Raw),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
                 OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
@@ -229,11 +268,11 @@ internal sealed class Evaluator
         }
     }
 
-    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets Datasets, Node Node)
+    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, Node Node, object? OperatorConfig)
     {
         try
         {
-            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement).ConfigureAwait(false);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, Node, Statement, OperatorConfig).ConfigureAwait(false);
         }
         catch
         {
