@@ -40,7 +40,7 @@ internal sealed class Evaluator
                 var statement = parsedRule.Statement;
 
                 string message = string.Empty;
-                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!, parsedRule.OptionalData).ConfigureAwait(false) : string.Empty;
+                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
                 string syntaxTree = diagnostics ? await BuildSyntaxTreeAsync(parsedRule).ConfigureAwait(false) : string.Empty;
                 return RuleResult.Success(evaluationResult, message, statementApplied, syntaxTree);
             }
@@ -130,11 +130,11 @@ internal sealed class Evaluator
         }
     }
 
-    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, RegisteredDataObjects? dataObjects, Node Node, object? OptionalData)
+    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, RegisteredDataObjects? dataObjects, Node Node)
     {
         try
         {
-            return await StatementBuilder.BuildAppliedStatement(Datasets, dataObjects, Node, Statement, OptionalData).ConfigureAwait(false);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, dataObjects, Node, Statement).ConfigureAwait(false);
         }
         catch
         {

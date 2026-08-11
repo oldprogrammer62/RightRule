@@ -7,36 +7,36 @@ internal class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects, Node? node, string originalStatement, object? OptionalData)
+    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects, Node? node, string originalStatement)
     {
         return Task.Run(() =>
         {
             if (node is null)
                 return originalStatement ?? string.Empty;
 
-            return RenderNode(node, datasets, dataObjects, OptionalData);
+            return RenderNode(node, datasets, dataObjects);
         });
     }
 
-    private static string RenderNode(Node node, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, object? OptionalData)
+    private static string RenderNode(Node node, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
     {
         return node switch
         {
-            ConditionNode c => RenderCondition(c, Datasets, DataObjects, OptionalData),
-            BinaryNode b => $"({RenderNode(b.Left, Datasets, DataObjects, OptionalData)} {b.LogicOp.ToUpperInvariant()} {RenderNode(b.Right, Datasets, DataObjects, OptionalData)})",
-            NotNode n => $"(NOT {RenderNode(n.Inner, Datasets, DataObjects, OptionalData)})",
+            ConditionNode c => RenderCondition(c, Datasets, DataObjects),
+            BinaryNode b => $"({RenderNode(b.Left, Datasets, DataObjects)} {b.LogicOp.ToUpperInvariant()} {RenderNode(b.Right, Datasets, DataObjects)})",
+            NotNode n => $"(NOT {RenderNode(n.Inner, Datasets, DataObjects)})",
             _ => string.Empty
         };
     }
 
-    private static string RenderCondition(ConditionNode c, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, object? OptionalData)
+    private static string RenderCondition(ConditionNode c, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
     {
-        var left = RenderOperand(c.Left, Datasets, DataObjects, OptionalData);
-        var right = RenderOperand(c.Right, Datasets, DataObjects, OptionalData);
+        var left = RenderOperand(c.Left, Datasets, DataObjects);
+        var right = RenderOperand(c.Right, Datasets, DataObjects);
         return $"{left} {c.Operator} {right}";
     }
 
-    private static string RenderOperand(Operand operand, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, object? OptionalData)
+    private static string RenderOperand(Operand operand, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
     {
         switch (operand.Kind)
         {
