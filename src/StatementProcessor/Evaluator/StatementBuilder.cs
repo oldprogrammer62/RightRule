@@ -1,5 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.StatementProcessor.Parser;
+using System.Globalization;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
@@ -7,14 +8,14 @@ internal class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects, Node? node, string originalStatement)
+    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Node? node, string originalStatement)
     {
         return Task.Run(() =>
         {
             if (node is null)
                 return originalStatement ?? string.Empty;
 
-            return RenderNode(node, datasets, dataObjects);
+            return RenderNode(node, Datasets, DataObjects);
         });
     }
 
@@ -44,26 +45,47 @@ internal class StatementBuilder
                 {
                     // operand.Raw is expected to be dataset.element
                     var value = EvaluatorHelper.ResolveIdentifier(Datasets, DataObjects, operand.Raw);
-                    return EvaluatorHelper.FormatValue(value);
+                    return FormatValue(value);
                 }
             case OperandKind.String:
                 {
                     // string literal (raw already unquoted by tokenizer)
-                    return EvaluatorHelper.FormatValue(operand.Raw);
+                    return FormatValue(operand.Raw);
                 }
             case OperandKind.Number:
                 {
                     // keep numeric textual representation, but normalize formatting
                     var parsed = Helper.ParseNumber(operand.Raw);
-                    return EvaluatorHelper.FormatValue(parsed);
+                    return FormatValue(parsed);
                 }
             case OperandKind.Boolean:
                 {
                     var parsed = Helper.ParseBoolean(operand.Raw);
-                    return EvaluatorHelper.FormatValue(parsed);
+                    return FormatValue(parsed);
                 }
             default:
                 return operand.Raw;
         }
+    }
+
+    private static string FormatValue(object? value)
+    {
+        if (value is null)
+            return "null";
+
+        if (value is string s)
+        {
+            // Escape backslashes and quotes
+            var escaped = s.Replace("\\", "\\\\").Replace("\"", "\\\"");
+            return $"\"{escaped}\"";
+        }
+
+        if (value is bool b)
+            return b ? "true" : "false";
+
+        if (value is IFormattable f)
+            return f.ToString(null, CultureInfo.InvariantCulture) ?? value.ToString() ?? string.Empty;
+
+        return value.ToString() ?? string.Empty;
     }
 }

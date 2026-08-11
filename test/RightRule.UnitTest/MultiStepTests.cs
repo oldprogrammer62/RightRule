@@ -163,7 +163,7 @@ public class MultiStepTests
         var rule1result = rr.EvaluateFirstRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
-        rr.DeRegisterDataset("Step1Data1");
+        rr.DeRegisterData("Step1Data1");
         rr.DeRegisterRules("Step1");
 
         var rule1result_v2 = rr.EvaluateFirstRule("Step1");

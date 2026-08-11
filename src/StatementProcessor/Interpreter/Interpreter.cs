@@ -13,10 +13,10 @@ internal sealed class Interpreter
     private readonly Evaluator.Evaluator _evaluator;
     private readonly RegisteredDataObjects? _registeredDataObjects;
 
-    internal Interpreter(RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
+    internal Interpreter(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
     {
-        _registeredDatasets = datasets ?? new RegisteredDatasets();
-        _registeredDataObjects = dataObjects ?? new RegisteredDataObjects();
+        _registeredDatasets = Datasets ?? new RegisteredDatasets();
+        _registeredDataObjects = DataObjects ?? new RegisteredDataObjects();
         _operators = operators ?? new Dictionary<string, Operator> { };
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }

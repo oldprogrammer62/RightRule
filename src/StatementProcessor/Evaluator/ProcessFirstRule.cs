@@ -41,7 +41,7 @@ internal class ProcessFirstRule
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects)
+    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
     {
         if (rule.Node == null)
         {
@@ -51,7 +51,7 @@ internal class ProcessFirstRule
 
         try
         {
-            RuleResult result = await evaluator.EvaluateAsync(rule, datasets, dataObjects).ConfigureAwait(false);
+            RuleResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
             return result;
         }
         catch

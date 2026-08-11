@@ -3,7 +3,7 @@
 public class ExceptionTests
 {
     [Fact]
-    public void Test_RegisterData_NoDatasetName()
+    public void Test_RegisterData_NoDataName()
     {
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -25,7 +25,7 @@ public class ExceptionTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        Assert.Throws<ArgumentNullException>(() => rr.RegisterData("Datasetname", null));
+        Assert.Throws<ArgumentNullException>(() => rr.RegisterData("DataName", null));
     }
 
     [Fact]

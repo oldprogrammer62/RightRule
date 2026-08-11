@@ -1,8 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.StatementProcessor.Parser;
-using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
-using System.Data;
 using System.Globalization;
 
 namespace RightRule.StatementProcessor.Evaluator;
@@ -17,7 +15,7 @@ internal class EvaluatorHelper
         }
         if (Identifier.Split('.').Length != 2)
         {
-            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'datasetName.identifierName'.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'DataName.identifierName'.");
         }
 
         var split = Identifier.Split('.');
@@ -29,6 +27,18 @@ internal class EvaluatorHelper
             return ResolveIdentifier(ds, child);
         }
         return ResolveIdentifier(DataObjects, parent, child);
+    }
+
+    internal static object? ResolveOperandValue(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
+    {
+        try
+        {
+            return ResolveOperand(Datasets, DataObjects, op);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     private static object? ResolveIdentifier(RegisteredDataObjects? DataObjects, string ObjectName, string PropertyName)
@@ -46,7 +56,7 @@ internal class EvaluatorHelper
             throw new KeyNotFoundException($"Unknown dataobject '{ObjectName}'");
         }
 
-        return EvaluatorHelper.GetValue(DataObjects, ObjectName, PropertyName);
+        return GetValue(DataObjects, ObjectName, PropertyName);
     }
 
     private static object? ResolveIdentifier(RegisteredDataset? Dataset, string KeyName)
@@ -68,7 +78,7 @@ internal class EvaluatorHelper
         return result!;
     }
 
-    internal static object? GetValue(RegisteredDataObjects DataObjects, string objectName, string propertyName)
+    private static object? GetValue(RegisteredDataObjects DataObjects, string objectName, string propertyName)
     {
         if (DataObjects is null)
         {
@@ -92,12 +102,6 @@ internal class EvaluatorHelper
             return null;
         }
 
-        //var type = GetType(objectReference, objectName);
-        //if (type == null)
-        //{
-        //    return null;
-        //}
-
         return GetPropertyValue(objectReference.Data, propertyName);
     }
 
@@ -113,37 +117,28 @@ internal class EvaluatorHelper
         }
     }
 
-    private static ObjectReference? GetType(ObjectReferences? objectReferences, string objectName)
+    private static object? GetPropertyValue(object? obj, string propertyName)
     {
-        if (objectReferences == null)
+        if (obj is null)
         {
             return null;
         }
-        var type = objectReferences.Objects.FirstOrDefault(t => t.Name.Equals(objectName, StringComparison.OrdinalIgnoreCase));
-        return type;
-    }
 
-    private static object? GetPropertyValue(object obj, string propertyName)
-    {
         var type = obj.GetType();
-        var propertyInfo = type.GetProperty(propertyName);
-        if (propertyInfo is not null)
-        {
-            return propertyInfo.GetValue(obj);
-        }
-        return null;
-    }
 
-    internal static object? ResolveOperandValue(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
-    {
-        try
+        // Return the object itself if it is a primitive type, enum, string, or decimal
+        if (type.IsPrimitive || type.IsEnum || obj is string || obj is decimal || obj is DateTime)
         {
-            return ResolveOperand(Datasets, DataObjects, op);
+            return obj;
         }
-        catch
+
+        if (string.IsNullOrEmpty(propertyName))
         {
-            throw;
+            return null;
         }
+
+        var propertyInfo = type.GetProperty(propertyName);
+        return propertyInfo?.GetValue(obj);
     }
 
     private static object? ResolveOperand(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
@@ -201,26 +196,5 @@ internal class EvaluatorHelper
         {
             throw;
         }
-    }
-
-    internal static string FormatValue(object? value)
-    {
-        if (value is null)
-            return "null";
-
-        if (value is string s)
-        {
-            // Escape backslashes and quotes
-            var escaped = s.Replace("\\", "\\\\").Replace("\"", "\\\"");
-            return $"\"{escaped}\"";
-        }
-
-        if (value is bool b)
-            return b ? "true" : "false";
-
-        if (value is IFormattable f)
-            return f.ToString(null, CultureInfo.InvariantCulture) ?? value.ToString() ?? string.Empty;
-
-        return value.ToString() ?? string.Empty;
     }
 }

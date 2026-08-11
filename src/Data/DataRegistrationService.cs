@@ -2,17 +2,17 @@
 
 internal class DataRegistrationService
 {
-    internal static RegisteredDataset CreateRegisteredData(string DatasetName, Dictionary<string, object> Data)
+    internal static RegisteredDataset CreateRegisteredData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-        return new RegisteredDataset(DatasetName, Data);
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        return new RegisteredDataset(DataName, Data);
     }
 
-    internal static RegisteredDataObject CreateRegisteredData(string DatasetName, object Data)
+    internal static RegisteredDataObject CreateRegisteredData(string DataName, object Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-        return new RegisteredDataObject(DatasetName, Data);
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        return new RegisteredDataObject(DataName, Data);
     }
 }

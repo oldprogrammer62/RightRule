@@ -20,9 +20,13 @@ public class RegisteredDataObjects
         {
             return false;
         }
-
-        _data.Add(data);
-        return true;
+        var existingData = GetData(data.Name);
+        if (existingData == null)
+        {
+            _data.Add(data);
+            return true;
+        }
+        return false;
     }
 
     internal bool RemoveData()
@@ -38,10 +42,10 @@ public class RegisteredDataObjects
             return false;
         }
 
-        var dataset = GetData(name);
-        if (dataset != null)
+        var dataObject = GetData(name);
+        if (dataObject != null)
         {
-            _data.Remove(dataset);
+            _data.Remove(dataObject);
         }
         return true;
     }

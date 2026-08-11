@@ -93,6 +93,57 @@ public class ObjectReference_Tests
 
         Assert.Equal(rd1.Decision, result[0].Decision);
     }
+
+    [Fact]
+    public void ObjectReference_NotEqual()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        var obj1 = new RefObject() { Name = "Bob", Age = 30 };
+        var obj2 = new RefObject() { Name = "Harry", Age = 20 };
+        rr.RegisterData("obj1", obj1);
+        rr.RegisterData("obj2", obj2);
+
+        RuleDefinition rd1 = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "TestRule",
+            Context = "Test",
+            Statement = "obj1.Name = \"Bob\" and obj1.Age = 31 and obj2.Name = \"Harry\" and obj2.Age = 21",
+            Decision = "Approved",
+            OptionalData = null
+        };
+
+        rr.RegisterRule(rd1);
+        var result = rr.EvaluateAllRules("Test");
+        Assert.NotNull(result);
+        Assert.False(result[0].Result);
+
+        Assert.Equal(AppliedRule.DefaultDecision, result[0].Decision);
+    }
+
+    [Fact]
+    public void ObjectRegisteredAsIntrinsicVariable()
+    {
+        int x = 100;
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var added1 = rr.RegisterData("x", x);
+        Assert.True(added1);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Context = "Context",
+            Name = "Name",
+            Number = 1,
+            Decision = "GOOD",
+            Statement = "x.x = 100"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+        var result = rr.EvaluateFirstRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
 }
 
 public class RefObject

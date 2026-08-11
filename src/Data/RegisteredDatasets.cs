@@ -20,9 +20,13 @@ public class RegisteredDatasets
         {
             return false;
         }
-
-        _data.Add(data);
-        return true;
+        var existingData = GetData(data.Name);
+        if (existingData == null)
+        {
+            _data.Add(data);
+            return true;
+        }
+        return false;
     }
 
     internal bool RemoveData()

@@ -123,15 +123,26 @@ internal class RightRuleService
         return _rulesService.DeRegisterRule(Number);
     }
 
-    internal RegisteredDataset? GetDataSet(string DatasetName)
+    internal RegisteredDataset? GetDataSet(string DataName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
         if (_registeredDataSets == null)
         {
             return null;
         }
-        return _registeredDataSets.GetData(DatasetName);
+        return _registeredDataSets.GetData(DataName);
+    }
+
+    internal RegisteredDataObject? GetDataObject(string DataName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
+        if (_registeredDataObjects == null)
+        {
+            return null;
+        }
+        return _registeredDataObjects.GetData(DataName);
     }
 
     internal bool RegisterData(string DataName, Dictionary<string, object> Data)
@@ -152,24 +163,56 @@ internal class RightRuleService
         return _registeredDataObjects!.AddData(data);
     }
 
-    internal bool DeRegisterDatasets()
+    internal bool DeRegisterData()
     {
-        if (_registeredDataSets == null)
-        {
-            return true;
-        }
-        return _registeredDataSets.RemoveData();
+        DeregisterDataObjects();
+        DergisterDatasets();
+        return true;
     }
 
-    internal bool DeRegisterDataset(string DatasetName)
+    private void DeregisterDataObjects()
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        if (_registeredDataObjects == null)
+        {
+            return;
+        }
+        _registeredDataObjects.RemoveData();
+    }
 
+    private void DergisterDatasets()
+    {
         if (_registeredDataSets == null)
         {
-            return true;
+            return;
         }
-        return _registeredDataSets.RemoveData(DatasetName);
+        _registeredDataSets.RemoveData();
+    }
+
+    internal bool DeRegisterData(string DataName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
+        DeRegisterDataObjects(DataName);
+        DeRegisterDatasets(DataName);
+        return true;
+    }
+
+    private void DeRegisterDataObjects(string DataName)
+    {
+        if (_registeredDataObjects == null)
+        {
+            return;
+        }
+        _registeredDataObjects.RemoveData(DataName);
+    }
+
+    private void DeRegisterDatasets(string DataName)
+    {
+        if (_registeredDataSets == null)
+        {
+            return;
+        }
+        _registeredDataSets.RemoveData(DataName);
     }
 
     internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)
@@ -179,15 +222,15 @@ internal class RightRuleService
         return await EvaluateSingleRuleAsync(Context).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        RegisterData(DatasetName, Data);
+        RegisterData(DataName, Data);
         List<AppliedRule> appliedRules = await EvaluateSingleRuleAsync(Context).ConfigureAwait(false);
-        DeRegisterDataset(DatasetName);
+        DeRegisterData(DataName);
         return appliedRules;
     }
 
@@ -216,33 +259,33 @@ internal class RightRuleService
         return await EvaluateSpecifiedRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        return await EvaluateSpecifiedRulesAsync(Context, DatasetName, Data, RulesToReturn.All).ConfigureAwait(false);
+        return await EvaluateSpecifiedRulesAsync(Context, DataName, Data, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        return await EvaluateSpecifiedRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
+        return await EvaluateSpecifiedRulesAsync(Context, DataName, Data, rulesToReturn).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> EvaluateSpecifiedRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    private async Task<List<AppliedRule>> EvaluateSpecifiedRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        RegisterData(DatasetName, Data);
+        RegisterData(DataName, Data);
         List<AppliedRule> appliedRules = await EvaluateSpecifiedRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
-        DeRegisterDataset(DatasetName);
+        DeRegisterData(DataName);
         return appliedRules;
     }
 

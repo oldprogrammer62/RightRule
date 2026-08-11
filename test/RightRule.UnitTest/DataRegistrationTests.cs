@@ -82,4 +82,18 @@ public class DataRegistrationTests
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
+
+    [Fact]
+    public void UniqueDataObjectRegsitration()
+    {
+        int x = 100;
+        var r = ("r", x);
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var added1 = rr.RegisterData("r", r);
+        Assert.True(added1);
+
+        var added2 = rr.RegisterData("r", r);
+        Assert.False(added2);
+    }
 }

@@ -232,15 +232,34 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <returns>Registered Dataset</returns>
     /// <exception cref="ArgumentException"></exception>
-    public RegisteredDataset? RegisteredDataset(string DatasetName)
+    public RegisteredDataset? RegisteredDataset(string DataName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         try
         {
-            return _rightRuleService.GetDataSet(DatasetName);
+            return _rightRuleService.GetDataSet(DataName);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Returns the specified Dataobject.
+    /// </summary>
+    /// <param name="DataName">The name of the dataobject.</param>
+    /// <returns>Registered Dataobject</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public RegisteredDataObject? RegisteredDataObject(string DataName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        try
+        {
+            return _rightRuleService.GetDataObject(DataName);
         }
         catch
         {
@@ -265,20 +284,36 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
+    /// Returns the set of Registered Dataobjects.
+    /// </summary>
+    /// <returns>RegisteredDataobjects object</returns>
+    public RegisteredDataObjects RegisteredDataObjects()
+    {
+        try
+        {
+            return _rightRuleService.RegisteredDataObjects;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
+    public bool RegisterData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         try
         {
-            return _rightRuleService.RegisterData(DatasetName, Data);
+            return _rightRuleService.RegisterData(DataName, Data);
         }
         catch
         {
@@ -311,11 +346,11 @@ public sealed class RightRule : IRightRule
     /// <summary>
     /// DeRegisters all data sets from the RightRule engine.
     /// </summary>
-    public bool DeRegisterDatasets()
+    public bool DeRegisterData()
     {
         try
         {
-            return _rightRuleService.DeRegisterDatasets();
+            return _rightRuleService.DeRegisterData();
         }
         catch
         {
@@ -324,17 +359,17 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// DeRegisters a data set from the RightRule engine.
+    /// DeRegisters a data from the RightRule engine.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the data.</param>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterDataset(string DatasetName)
+    public bool DeRegisterData(string DataName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
         try
         {
-            return _rightRuleService.DeRegisterDataset(DatasetName);
+            return _rightRuleService.DeRegisterData(DataName);
         }
         catch
         {
@@ -423,7 +458,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the data set provided.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A single rule object is returned.<br />
@@ -432,15 +467,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public AppliedRule EvaluateFirstRule(string Context, string DatasetName, Dictionary<string, object> Data)
+    public AppliedRule EvaluateFirstRule(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            return EvaluateFirstRuleAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+            return EvaluateFirstRuleAsync(Context, DataName, Data).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -452,7 +487,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the data set provided.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A single rule object is returned.<br />
@@ -461,15 +496,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DatasetName, Data).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DataName, Data).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return AppliedRule.DefaultResult();
@@ -606,7 +641,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
@@ -614,15 +649,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data)
+    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            return EvaluateAllRulesAsync(Context, DatasetName, Data).GetAwaiter().GetResult();
+            return EvaluateAllRulesAsync(Context, DataName, Data).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -634,7 +669,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
@@ -642,15 +677,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
@@ -671,7 +706,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
@@ -681,15 +716,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            return EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).GetAwaiter().GetResult();
+            return EvaluateAllRulesAsync(Context, DataName, Data, rulesToReturn).GetAwaiter().GetResult();
         }
                 catch (Exception ex)
         {
@@ -701,7 +736,7 @@ public sealed class RightRule : IRightRule
     /// Apply all registered rules for the given context to the specified data set.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
@@ -711,15 +746,15 @@ public sealed class RightRule : IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DatasetName, Data, rulesToReturn).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data, rulesToReturn).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];

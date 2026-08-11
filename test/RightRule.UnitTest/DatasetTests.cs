@@ -96,7 +96,7 @@ public class DatasetTests
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
-        var done = rr.DeRegisterDataset("Data1");
+        var done = rr.DeRegisterData("Data1");
         Assert.True(done);
         Assert.Equal(1, rr.RegisteredDatasets().Count);
 
@@ -123,7 +123,7 @@ public class DatasetTests
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
-        var done = rr.DeRegisterDataset("Data2");
+        var done = rr.DeRegisterData("Data2");
         Assert.True(done);
         Assert.Equal(1, rr.RegisteredDatasets().Count);
 
@@ -150,7 +150,7 @@ public class DatasetTests
         Assert.NotNull(ds2Before);
         Assert.Equal("Data2", ds2Before.Name);
 
-        var done = rr.DeRegisterDatasets();
+        var done = rr.DeRegisterData();
         Assert.True(done);
         Assert.Equal(0, rr.RegisteredDatasets().Count);
 

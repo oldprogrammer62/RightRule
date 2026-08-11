@@ -202,17 +202,17 @@ public interface IRightRule
     List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
-    /// DeRegisters all data sets from the RightRule engine.
+    /// DeRegisters all data from the RightRule engine.
     /// </summary>
     /// <exception cref="ArgumentException"></exception>
-    bool DeRegisterDatasets();
+    bool DeRegisterData();
 
     /// <summary>
-    /// DeRegisters the specified data set from the RightRule engine.
+    /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
-    bool DeRegisterDataset(string DataName);
+    bool DeRegisterData(string DataName);
 
     /// <summary>
     /// Deregisters all Rules from the RightRule engine.
@@ -251,12 +251,26 @@ public interface IRightRule
     RegisteredDatasets RegisteredDatasets();
 
     /// <summary>
+    /// Returns the set of Registered DataObjects
+    /// </summary>
+    /// <returns>RegisteredDataObjects object</returns>
+    RegisteredDataObjects RegisteredDataObjects();
+
+    /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
     RegisteredDataset? RegisteredDataset(string DataName);
+
+    /// <summary>
+    /// Returns the specified DataObject
+    /// </summary>
+    /// <param name="DataName">The name of the dataobject.</param>
+    /// <returns>RegisteredDataObject</returns>
+    /// <exception cref="ArgumentException"></exception>
+    RegisteredDataObject? RegisteredDataObject(string DataName);
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
