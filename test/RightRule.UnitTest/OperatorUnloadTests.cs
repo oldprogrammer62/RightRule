@@ -52,7 +52,7 @@ public class OperatorUnloadTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         // Use EQUALS
         var appliedRuleBefore = rr.EvaluateFirstRule("Context");

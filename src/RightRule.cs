@@ -264,7 +264,6 @@ public sealed class RightRule : IRightRule
         }
     }
 
-
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
@@ -273,13 +272,35 @@ public sealed class RightRule : IRightRule
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public bool RegisterDataset(string DatasetName, Dictionary<string, object> Data)
+    public bool RegisterData(string DatasetName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         try
         {
-            return _rightRuleService.RegisterDataset(DatasetName, Data);
+            return _rightRuleService.RegisterData(DatasetName, Data);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <param name="DataName">The name of the dataset.</param>
+    /// <param name="DataReference">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    public bool RegisterData(string DataName, object DataReference)
+    {
+        ArgumentNullException.ThrowIfNull(DataReference, nameof(DataReference));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        try
+        {
+            return _rightRuleService.RegisterData(DataName, DataReference);
         }
         catch
         {

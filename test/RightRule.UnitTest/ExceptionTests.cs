@@ -12,7 +12,7 @@ public class ExceptionTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         
-        Assert.Throws<ArgumentException>(() => rr.RegisterDataset("", data));
+        Assert.Throws<ArgumentException>(() => rr.RegisterData("", data));
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class ExceptionTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        Assert.Throws<ArgumentNullException>(() => rr.RegisterDataset("Datasetname", null));
+        Assert.Throws<ArgumentNullException>(() => rr.RegisterData("Datasetname", null));
     }
 
     [Fact]

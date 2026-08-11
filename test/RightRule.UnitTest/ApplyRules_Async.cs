@@ -22,7 +22,7 @@ public class ApplyRules_Async
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var dataRegistered = rr.RegisterDataset("Data", data);
+        var dataRegistered = rr.RegisterData("Data", data);
         var ruleRegistered = rr.RegisterRule(rule1);
 
         var appliedRule = await rr.EvaluateFirstRuleAsync("Context");

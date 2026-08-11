@@ -12,7 +12,7 @@ public class BooleanEquals_Tests
         _data.Add("IsTrue", true);
         _data.Add("IsFalse", false);
 
-        var x = rr.RegisterDataset("Data", _data);
+        var x = rr.RegisterData("Data", _data);
     }
 
     [Fact]

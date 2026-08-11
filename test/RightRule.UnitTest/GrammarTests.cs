@@ -35,7 +35,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -57,7 +57,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -80,7 +80,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -103,7 +103,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -126,7 +126,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -148,7 +148,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -170,7 +170,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -192,7 +192,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
 
@@ -214,7 +214,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NumberOfOrdersContext");
         Assert.NotNull(appliedRule);
@@ -235,7 +235,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NameContext");
 
@@ -257,7 +257,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NameContext");
 
@@ -279,7 +279,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("GoodPayerContext");
 
@@ -301,7 +301,7 @@ public class GrammarTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NotGoodPayerContext");
 
@@ -333,7 +333,7 @@ public class GrammarTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NAMECONTEXT1");
 
@@ -366,7 +366,7 @@ public class GrammarTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("NAMECONTEXT2");
 

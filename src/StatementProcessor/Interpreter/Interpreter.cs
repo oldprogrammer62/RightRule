@@ -11,10 +11,12 @@ internal sealed class Interpreter
     private readonly RegisteredDatasets? _registeredDatasets;
     private readonly Dictionary<string, Operator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
+    private readonly RegisteredDataObjects? _registeredDataObjects;
 
-    internal Interpreter(RegisteredDatasets? datasets, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
+    internal Interpreter(RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
     {
         _registeredDatasets = datasets ?? new RegisteredDatasets();
+        _registeredDataObjects = dataObjects ?? new RegisteredDataObjects();
         _operators = operators ?? new Dictionary<string, Operator> { };
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
@@ -26,7 +28,7 @@ internal sealed class Interpreter
 
     private async Task<List<AppliedRule>> EvaluateAsync(RegisteredRules rules)
     {
-        return await ProcessFirstRule.EvaluateAsync(_evaluator, rules.Rules, _registeredDatasets).ConfigureAwait(false);
+        return await ProcessFirstRule.EvaluateAsync(_evaluator, rules.Rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false);
     }
 
     internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules)
@@ -43,8 +45,8 @@ internal sealed class Interpreter
     {
         return rulesToReturn switch
         {
-            RulesToReturn.First => await ProcessFirstRule.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
-            RulesToReturn.All   => await ProcessAllRules.EvaluateAsync(_evaluator, rules, _registeredDatasets).ConfigureAwait(false),
+            RulesToReturn.First => await ProcessFirstRule.EvaluateAsync(_evaluator, rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false),
+            RulesToReturn.All   => await ProcessAllRules.EvaluateAsync(_evaluator, rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false),
             _                   => [AppliedRule.ErrorResult($"Unknown RulesToReturn value: {rulesToReturn}")]
         };
     }

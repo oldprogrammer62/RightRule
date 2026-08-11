@@ -99,7 +99,7 @@ public class SyntaxCheckTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         var regRule = rightRule.RegisterRule(rule);
         
         Assert.NotNull(regRule);

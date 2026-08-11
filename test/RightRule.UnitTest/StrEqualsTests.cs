@@ -23,7 +23,7 @@ public class StrEqualsTests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var dataset = rr.RegisterDataset("Data", data);
+        var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstRule("TestContext");
@@ -51,7 +51,7 @@ public class StrEqualsTests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var dataset = rr.RegisterDataset("Data", data);
+        var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstRule("TestContext");
@@ -79,7 +79,7 @@ public class StrEqualsTests
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var dataset = rr.RegisterDataset("Data", data);
+        var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstRule("TestContext");

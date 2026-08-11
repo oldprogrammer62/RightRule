@@ -6,7 +6,7 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class ProcessFirstRule
 {
-    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets? registeredDatasets)
+    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, RegisteredDatasets? registeredDatasets, RegisteredDataObjects? registeredDataObjects)
     {
         List<AppliedRule> appliedRules = [];
         bool complete = false;
@@ -15,7 +15,7 @@ internal class ProcessFirstRule
         {
             AppliedRule appliedRule = AppliedRule.DefaultResult();
 
-            RuleResult result = await EvaluateAsync(evaluator, rule, registeredDatasets).ConfigureAwait(false);
+            RuleResult result = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
             switch ((result.Result.IsSuccess, result.Result.Value))
             {
                 case (true, true): // Success and Rule applied
@@ -41,7 +41,7 @@ internal class ProcessFirstRule
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets? datasets)
+    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, RegisteredDatasets? datasets, RegisteredDataObjects? dataObjects)
     {
         if (rule.Node == null)
         {
@@ -51,7 +51,7 @@ internal class ProcessFirstRule
 
         try
         {
-            RuleResult result = await evaluator.EvaluateAsync(rule, datasets).ConfigureAwait(false);
+            RuleResult result = await evaluator.EvaluateAsync(rule, datasets, dataObjects).ConfigureAwait(false);
             return result;
         }
         catch

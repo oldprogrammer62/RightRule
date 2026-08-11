@@ -29,7 +29,7 @@ public class OperatorConfig_Tests
         };
 
         IRightRule rr = new BeSoft.RightRule();
-        var data1Registered = rr.RegisterDataset("Data", data);
+        var data1Registered = rr.RegisterData("Data", data);
         var rule1Registered = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstRule("Context");

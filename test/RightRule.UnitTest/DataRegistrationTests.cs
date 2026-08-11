@@ -34,7 +34,7 @@ public class DataRegistrationTests
 
         var rr = new BeSoft.RightRule();
 
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -54,7 +54,7 @@ public class DataRegistrationTests
 
         var rr = new BeSoft.RightRule();
 
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -75,7 +75,7 @@ public class DataRegistrationTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
         var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.First);

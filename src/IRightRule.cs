@@ -58,14 +58,14 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A single rule object is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+    Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -74,14 +74,14 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A single rule object is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    AppliedRule EvaluateFirstRule(string Context, string DatasetName, Dictionary<string, object> Data);
+    AppliedRule EvaluateFirstRule(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -143,13 +143,13 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the specified data set.<br/>
@@ -157,13 +157,13 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context"></param>
-    /// <param name="DatasetName">The name of the dataset to use</param>
+    /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data);
+    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -173,7 +173,7 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
@@ -181,7 +181,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -191,7 +191,7 @@ public interface IRightRule
     /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
-    /// <param name="DatasetName">The name of the registered dataset to use</param>
+    /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
@@ -199,7 +199,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified rulesToReturn parameter.
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context, string DatasetName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     /// <summary>
     /// DeRegisters all data sets from the RightRule engine.
@@ -210,9 +210,9 @@ public interface IRightRule
     /// <summary>
     /// DeRegisters the specified data set from the RightRule engine.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
-    bool DeRegisterDataset(string DatasetName);
+    bool DeRegisterDataset(string DataName);
 
     /// <summary>
     /// Deregisters all Rules from the RightRule engine.
@@ -253,10 +253,10 @@ public interface IRightRule
     /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
-    RegisteredDataset? RegisteredDataset(string DatasetName);
+    RegisteredDataset? RegisteredDataset(string DataName);
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
@@ -289,12 +289,22 @@ public interface IRightRule
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <param name="Data">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    bool RegisterDataset(string DatasetName, Dictionary<string, object> Data);
+    bool RegisterData(string DataName, Dictionary<string, object> Data);
+
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <param name="DataName">The name of the dataset.</param>
+    /// <param name="DataReference">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    bool RegisterData(string DataName, object DataReference);
 
     /// <summary>
     /// Registers a single Rule with the RightRule engine.

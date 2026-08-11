@@ -38,7 +38,7 @@ public class ComplexStatementTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.EvaluateFirstRule("Context");
 
@@ -63,7 +63,7 @@ public class ComplexStatementTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.EvaluateFirstRule("Context");
 
@@ -88,7 +88,7 @@ public class ComplexStatementTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.EvaluateFirstRule("Context");
 
@@ -113,7 +113,7 @@ public class ComplexStatementTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.EvaluateFirstRule("Context");
 
@@ -143,7 +143,7 @@ public class ComplexStatementTests
         };
 
         // Register the data
-        rightRule.RegisterDataset("TestDataset", _Data);
+        rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.EvaluateFirstRule("Context");
 

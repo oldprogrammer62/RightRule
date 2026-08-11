@@ -16,8 +16,11 @@ internal class RightRuleService
     private readonly RegisteredRuleService _rulesService;
     internal RegisteredRules RegisteredRules => _rulesService.RegisteredRules;
 
-    private readonly RegisteredDatasets? _registeredDatasets;
-    internal RegisteredDatasets RegisteredDatasets => _registeredDatasets!;
+    private readonly RegisteredDatasets? _registeredDataSets;
+    internal RegisteredDatasets RegisteredDatasets => _registeredDataSets!;
+
+    private readonly RegisteredDataObjects? _registeredDataObjects;
+    internal RegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
     private readonly RightRuleConfiguration _rightRuleConfig;
     internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
@@ -26,7 +29,8 @@ internal class RightRuleService
     {
         _operatorsService = new OperatorsService();
         _rulesService = new RegisteredRuleService();
-        _registeredDatasets = new RegisteredDatasets();
+        _registeredDataSets = new RegisteredDatasets();
+        _registeredDataObjects = new RegisteredDataObjects();
 
         _rightRuleConfig = GetConfiguration();
     }
@@ -123,40 +127,49 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        if (_registeredDatasets == null)
+        if (_registeredDataSets == null)
         {
             return null;
         }
-        return _registeredDatasets.GetDataset(DatasetName);
+        return _registeredDataSets.GetData(DatasetName);
     }
 
-    internal bool RegisterDataset(string DatasetName, Dictionary<string, object> Data)
+    internal bool RegisterData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        var data = DataRegistrationService.CreateRegisteredDataObject(DatasetName, Data);
-        return _registeredDatasets!.AddDataset(data);
+        var data = DataRegistrationService.CreateRegisteredData(DataName, Data);
+        return _registeredDataSets!.AddData(data);
+    }
+
+    internal bool RegisterData(string DataName, object DataReference)
+    {
+        ArgumentNullException.ThrowIfNull(DataReference, nameof(DataReference));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
+        var data = DataRegistrationService.CreateRegisteredData(DataName, DataReference);
+        return _registeredDataObjects!.AddData(data);
     }
 
     internal bool DeRegisterDatasets()
     {
-        if (_registeredDatasets == null)
+        if (_registeredDataSets == null)
         {
             return true;
         }
-        return _registeredDatasets.RemoveDatasets();
+        return _registeredDataSets.RemoveData();
     }
 
     internal bool DeRegisterDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        if (_registeredDatasets == null)
+        if (_registeredDataSets == null)
         {
             return true;
         }
-        return _registeredDatasets.RemoveDataset(DatasetName);
+        return _registeredDataSets.RemoveData(DatasetName);
     }
 
     internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)
@@ -172,7 +185,7 @@ internal class RightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        RegisterDataset(DatasetName, Data);
+        RegisterData(DatasetName, Data);
         List<AppliedRule> appliedRules = await EvaluateSingleRuleAsync(Context).ConfigureAwait(false);
         DeRegisterDataset(DatasetName);
         return appliedRules;
@@ -186,7 +199,7 @@ internal class RightRuleService
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }
 
     internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
@@ -227,7 +240,7 @@ internal class RightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        RegisterDataset(DatasetName, Data);
+        RegisterData(DatasetName, Data);
         List<AppliedRule> appliedRules = await EvaluateSpecifiedRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
         DeRegisterDataset(DatasetName);
         return appliedRules;
@@ -241,6 +254,6 @@ internal class RightRuleService
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDatasets, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDataSets, _registeredDataObjects, _rulesService.RegisteredRules, rulesToReturn, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
     }
 }

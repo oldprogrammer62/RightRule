@@ -2,13 +2,14 @@
 using RightRule.StatementProcessor.Parser;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
+using System.Data;
 using System.Globalization;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
 internal class EvaluatorHelper
 {
-    internal static object? ResolveIdentifier(RegisteredDatasets? Datasets, object? ObjectReference, string Identifier)
+    internal static object? ResolveIdentifier(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, string Identifier)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -22,15 +23,15 @@ internal class EvaluatorHelper
         var split = Identifier.Split('.');
         var parent = split[0];
         var child = split[1];
-        var ds = Datasets?.GetDataset(parent);
+        var ds = Datasets?.GetData(parent);
         if (ds is not null)
         {
             return ResolveIdentifier(ds, child);
         }
-        return ResolveIdentifier(ObjectReference, parent, child);
+        return ResolveIdentifier(DataObjects, parent, child);
     }
 
-    private static object? ResolveIdentifier(object? ObjectReferences, string ObjectName, string PropertyName)
+    private static object? ResolveIdentifier(RegisteredDataObjects? DataObjects, string ObjectName, string PropertyName)
     {
         if (string.IsNullOrEmpty(ObjectName))
         {
@@ -40,12 +41,12 @@ internal class EvaluatorHelper
         {
             throw new KeyNotFoundException($"Unknown Property.");
         }
-        if (ObjectReferences is null)
+        if (DataObjects is null)
         {
-            throw new KeyNotFoundException("Object Reference(s) not set.");
+            throw new KeyNotFoundException($"Unknown dataobject '{ObjectName}'");
         }
 
-        return EvaluatorHelper.GetValue(ObjectReferences, ObjectName, PropertyName);
+        return EvaluatorHelper.GetValue(DataObjects, ObjectName, PropertyName);
     }
 
     private static object? ResolveIdentifier(RegisteredDataset? Dataset, string KeyName)
@@ -67,28 +68,44 @@ internal class EvaluatorHelper
         return result!;
     }
 
-    internal static object? GetValue(object? types, string objectName, string propertyName)
+    internal static object? GetValue(RegisteredDataObjects DataObjects, string objectName, string propertyName)
     {
-        var objectReferences = ConvertObject(types);
-        if (objectReferences == null)
+        if (DataObjects is null)
+        {
+            return null;
+        }
+        if (DataObjects.Objects is null || DataObjects.Objects.Count == 0)
         {
             return null;
         }
 
-        var type = GetType(objectReferences, objectName);
-        if (type == null)
+        // Get specified object from RegisteredDataObjects
+        var dataObject = DataObjects.GetData(objectName);
+        if (dataObject is null)
         {
             return null;
         }
 
-        return GetPropertyValue(type.Value, propertyName);
+        var objectReference = ConvertObject(dataObject);
+        if (objectReference == null)
+        {
+            return null;
+        }
+
+        //var type = GetType(objectReference, objectName);
+        //if (type == null)
+        //{
+        //    return null;
+        //}
+
+        return GetPropertyValue(objectReference.Data, propertyName);
     }
 
-    private static ObjectReferences? ConvertObject(object? obj)
+    private static RegisteredDataObject? ConvertObject(object? obj)
     {
         try
         {
-            return obj as ObjectReferences;
+            return obj as RegisteredDataObject;
         }
         catch
         {
@@ -117,11 +134,11 @@ internal class EvaluatorHelper
         return null;
     }
 
-    internal static object? ResolveOperandValue(RegisteredDatasets? datasets, Operand op, object? OptionalData)
+    internal static object? ResolveOperandValue(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
     {
         try
         {
-            return ResolveOperand(datasets, op, OptionalData);
+            return ResolveOperand(Datasets, DataObjects, op);
         }
         catch
         {
@@ -129,7 +146,7 @@ internal class EvaluatorHelper
         }
     }
 
-    private static object? ResolveOperand(RegisteredDatasets? datasets, Operand op, object? OptionalData)
+    private static object? ResolveOperand(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
     {
         try
         {
@@ -137,7 +154,7 @@ internal class EvaluatorHelper
 
             return op.Kind switch
             {
-                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(datasets, OptionalData, sId) : ResolveIdentifier(datasets, OptionalData, op.Raw),
+                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(Datasets, DataObjects, sId) : ResolveIdentifier(Datasets, DataObjects, op.Raw),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
                 OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),

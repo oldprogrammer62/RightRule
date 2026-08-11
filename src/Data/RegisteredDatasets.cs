@@ -2,56 +2,56 @@
 
 public class RegisteredDatasets
 {
-    private readonly List<RegisteredDataset> _datasets;
-    public List<RegisteredDataset> Datasets => _datasets;
+    private readonly List<RegisteredDataset> _data;
+    public List<RegisteredDataset> Datasets => _data;
 
-    public int Count => _datasets.Count;
+    public int Count => _data.Count;
 
-    public RegisteredDataset? this[int index] => index >= 0 && index < _datasets.Count ? _datasets[index] : null;
+    public RegisteredDataset? this[int index] => index >= 0 && index < _data.Count ? _data[index] : null;
 
     internal RegisteredDatasets()
     {
-        _datasets = new List<RegisteredDataset>();
+        _data = new List<RegisteredDataset>();
     }
 
-    internal bool AddDataset(RegisteredDataset dataset)
+    internal bool AddData(RegisteredDataset data)
     {
-        if (dataset == null || string.IsNullOrEmpty(dataset.Name))
+        if (data == null || string.IsNullOrEmpty(data.Name))
         {
             return false;
         }
 
-        _datasets.Add(dataset);
+        _data.Add(data);
         return true;
     }
 
-    internal bool RemoveDatasets()
+    internal bool RemoveData()
     {
-        _datasets.Clear();
+        _data.Clear();
         return true;
     }
 
-    internal bool RemoveDataset(string name)
+    internal bool RemoveData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
             return false;
         }
 
-        var dataset = GetDataset(name);
+        var dataset = GetData(name);
         if (dataset != null)
         {
-            _datasets.Remove(dataset);
+            _data.Remove(dataset);
         }
         return true;
     }
 
-    internal RegisteredDataset? GetDataset(string name)
+    internal RegisteredDataset? GetData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
             return null;
         }
-        return _datasets.FirstOrDefault(d => d.Name.Equals(name, StringComparison.Ordinal));
+        return _data.FirstOrDefault(d => d.Name.Equals(name, StringComparison.Ordinal));
     }
 }

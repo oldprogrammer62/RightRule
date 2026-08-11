@@ -35,7 +35,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -57,7 +57,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -79,7 +79,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -101,7 +101,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -125,7 +125,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -149,7 +149,7 @@ public class NotEqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -170,7 +170,7 @@ public class NotEqualsTests
         };
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 
@@ -190,7 +190,7 @@ public class NotEqualsTests
             Decision = "NOTNOTEQUALS",
         };
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
         rr.RegisterRule(rule);
 
         var appliedRule = rr.EvaluateFirstRule("Context");

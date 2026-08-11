@@ -57,7 +57,7 @@ public class ApplyRuleWithDatasetTests
     public void OneRule_WithDataSet()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
         var appliedRule = rr.EvaluateFirstRule("AllContext");
@@ -71,7 +71,7 @@ public class ApplyRuleWithDatasetTests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("AllContext");
 
@@ -83,7 +83,7 @@ public class ApplyRuleWithDatasetTests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule3 = rr.RegisterRule(rule3);
-        rr.RegisterDataset("Test", _Data);
+        rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("AllContext");
 
