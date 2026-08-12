@@ -1,5 +1,4 @@
 using RightRule.Operators;
-using RightRule.StatementProcessor;
 using RightRule.StatementProcessor.Parser;
 using RightRule.StatementProcessor.Tokenizer;
 using System.Text.RegularExpressions;
@@ -166,7 +165,7 @@ internal sealed class StatementSyntaxChecker
                     diagnostics.Add(new Diagnostic
                     {
                         Severity = DiagnosticSeverity.Info,
-                        Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean/placeholder).",
+                        Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean).",
                         Position = diag.Position,
                         Length = diag.Length,
                         Snippet = diag.Snippet,
@@ -179,11 +178,11 @@ internal sealed class StatementSyntaxChecker
                     diagnostics.Add(new Diagnostic
                     {
                         Severity = DiagnosticSeverity.Info,
-                        Message = "Right-hand side must be a variable identifier, literal or placeholder.",
+                        Message = "Right-hand side must be a variable identifier or literal.",
                         Position = diag.Position,
                         Length = diag.Length,
                         Snippet = diag.Snippet,
-                        Suggestion = "Use an identifier, literal, or placeholder as the right operand, e.g. {arg} or 123.",
+                        Suggestion = "Use an identifier or literal as the right operand, e.g. 123.",
                         Code = "HINT_RIGHT_OPERAND"
                     });
                 }
@@ -293,9 +292,6 @@ internal sealed class StatementSyntaxChecker
         if (message.Contains("Unterminated string", StringComparison.OrdinalIgnoreCase) ||
             message.Contains("Unterminated string literal", StringComparison.OrdinalIgnoreCase))
             return "Close the string with a double-quote '\"'.";
-        if (message.Contains("Unterminated Variable", StringComparison.OrdinalIgnoreCase) ||
-            message.Contains("Unterminated variable", StringComparison.OrdinalIgnoreCase))
-            return "Close the placeholder with a '}' or correct the placeholder syntax like {name}.";
         if (message.Contains("Unexpected character", StringComparison.OrdinalIgnoreCase))
             return "Remove or escape the unexpected character.";
         if (message.Contains("Expected operator", StringComparison.OrdinalIgnoreCase))

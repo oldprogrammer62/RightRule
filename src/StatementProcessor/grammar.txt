@@ -13,7 +13,7 @@
 <condition>  ::= <left_operand> <operator> <right_operand>
 
 <left_operand>    ::= <variable> | <value>
-<right_operand>   ::= <variable> | <value> | <placeholder>
+<right_operand>   ::= <variable> | <value>
 
 <operator>   ::= "contains", "equals", "notequals", etc
 // operator as evaluation command is case sensitive
@@ -21,14 +21,12 @@
 <operator>   ::= "and", "or", "not"
 // operator as logical command is lower case sensitive
 
-<placeholder> ::= "{" <identifier> "}"
-
 <identifier>  ::= <variable> | <variable>.<variable>
 // identifier is case sensitive - discovery in arguments
 
 <variable>   ::= data pointer
-// variable as data pointer is case sensitive - discovery in dataset
-// Before . Dataset name
+// variable as data pointer is case sensitive - discovery in data
+// Before . Data name
 // After  . Data item name
 
 <value>      ::= number, string, boolean

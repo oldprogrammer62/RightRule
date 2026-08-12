@@ -36,18 +36,18 @@ internal sealed class Interpreter
         return await EvaluateAsync(rules.Rules, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules, RulesToReturn rulesToReturn)
+    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules, RulesToReturn ReturnRules)
     {
-        return await EvaluateAsync(rules.Rules, rulesToReturn).ConfigureAwait(false);
+        return await EvaluateAsync(rules.Rules, ReturnRules).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> EvaluateAsync(List<ParsedRule> rules, RulesToReturn rulesToReturn)
+    private async Task<List<AppliedRule>> EvaluateAsync(List<ParsedRule> rules, RulesToReturn ReturnRules)
     {
-        return rulesToReturn switch
+        return ReturnRules switch
         {
             RulesToReturn.First => await ProcessFirstRule.EvaluateAsync(_evaluator, rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false),
             RulesToReturn.All   => await ProcessAllRules.EvaluateAsync(_evaluator, rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false),
-            _                   => [AppliedRule.ErrorResult($"Unknown RulesToReturn value: {rulesToReturn}")]
+            _                   => [AppliedRule.ErrorResult($"Unknown RulesToReturn value: {ReturnRules}")]
         };
     }
 }

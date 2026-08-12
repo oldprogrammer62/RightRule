@@ -22,7 +22,6 @@ public sealed class AppliedRule : Rule
     /// <summary>
     /// Diagnostics only
     /// Provides the actual statement applied when evaluating the rule.
-    /// All placeholder arguments will be replaced with their actual values.
     /// </summary>
     public string StatementApplied { get; init; }
 

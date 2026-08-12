@@ -97,7 +97,7 @@ internal sealed class Parser
         if (_current is null)
             throw new Exception($"No current token");
 
-        // Left operand: allow Identifier or literal (String/Number/Boolean/PlaceHolder)
+        // Left operand: allow Identifier or literal (String/Number/Boolean)
         Operand left = _current.Type switch
         {
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),

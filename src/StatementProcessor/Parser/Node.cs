@@ -18,7 +18,7 @@ internal sealed class Operand
 
 internal sealed class ConditionNode : Node
 {
-    // Left-hand operand (can be identifier, string literal, number, boolean or placeholder)
+    // Left-hand operand (can be identifier, string literal, number, boolean)
     public Operand Left { get; set; } = new Operand(OperandKind.String, "");
 
     // Operator name (as parsed)

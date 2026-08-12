@@ -9,10 +9,20 @@ namespace BeSoft;
 
 public interface IRightRule
 {
+    /// <summary>
+    /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
+    /// </summary>
+    /// <param name="Statement">The rule statement to check.</param>
+    /// <returns>The result of the syntax check.</returns>
+    /// <exception cref="ArgumentException"></exception>
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 
+    /// <summary>
+    /// Returns the set of Operators currently loaded in the RightRule engine.
+    /// </summary>
+    /// <returns>The list of Operators.</returns>
     List<Operator>? GetOperatorDetails();
 
     /// <summary>
@@ -28,7 +38,6 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="InvalidOperationException"></exception>
-    /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
     Task<AppliedRule> EvaluateFirstRuleAsync(string Context);
@@ -46,7 +55,6 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="InvalidOperationException"></exception>
-    /// <exception cref="InvalidIdentifierException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
     AppliedRule EvaluateFirstRule(string Context);
@@ -114,13 +122,13 @@ public interface IRightRule
     /// <b>All</b> will return results of all Rules.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn rulesToReturn);
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -129,13 +137,13 @@ public interface IRightRule
     /// <b>All</b> will return results of all Rules.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn rulesToReturn);
+    List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -149,6 +157,8 @@ public interface IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
@@ -163,6 +173,8 @@ public interface IRightRule
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
@@ -175,13 +187,15 @@ public interface IRightRule
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -193,18 +207,19 @@ public interface IRightRule
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.
     /// </summary>
-    /// <exception cref="ArgumentException"></exception>
     bool DeRegisterData();
 
     /// <summary>
@@ -284,7 +299,6 @@ public interface IRightRule
     /// Returns the Registered (Parsed) Rules with the specified Number.
     /// </summary>
     /// <param name="Number"></param>
-    /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     ParsedRule? RegisteredRule(int Number);
 

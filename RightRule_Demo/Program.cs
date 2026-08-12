@@ -12,8 +12,8 @@ namespace RightRule_Demo
 
             var data = GetData();
             var highValue = GetHighValue();
-            var rulesToReturn = GetRulesToReturn();
-            var rules = ApplyRules(data, highValue, rulesToReturn);
+            var ReturnRules = GetRulesToReturn();
+            var rules = ApplyRules(data, highValue, ReturnRules);
 
             Console.WriteLine();
             DisplayAppliedRules(rules);
@@ -74,9 +74,9 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn rulesToReturn)
+        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn ReturnRules)
         {
-            return RuleManager.RuleManager.ApplyRules(data, HighValue, rulesToReturn);
+            return RuleManager.RuleManager.ApplyRules(data, HighValue, ReturnRules);
         }
 
         private static void DisplayAppliedRules(List<AppliedRule> appliedRules)

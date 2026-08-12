@@ -5,7 +5,7 @@ namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn rulesToReturn)
+        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn ReturnRules)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
@@ -20,7 +20,7 @@ namespace RightRule_Demo.RuleManager
 
             var x = rr.EvaluateFirstRule(Context);
 
-            var appliedRules = rr.EvaluateAllRules(Context, rulesToReturn);
+            var appliedRules = rr.EvaluateAllRules(Context, ReturnRules);
             return appliedRules;
         }
 

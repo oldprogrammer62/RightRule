@@ -48,10 +48,10 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Details of the Registered (Parsed) Rule with the specified Name.
+    /// Returns the Registered (Parsed) Rules with the specified Name.
     /// </summary>
-    /// <param name="Name">The name of the rule to retrieve.</param>
-    /// <returns>The Registered (Parsed) Rule with the specified Name.</returns>
+    /// <param name="Name"></param>
+    /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     public ParsedRule? RegisteredRule(string Name)
     {
@@ -66,10 +66,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Details of the Registered (Parsed) Rule with the specified Number.
+    /// Returns the Registered (Parsed) Rules with the specified Number.
     /// </summary>
     /// <param name="Number"></param>
-    /// <returns>The Registered (Parsed) Rule with the specified Number.</returns>
     /// <exception cref="KeyNotFoundException"></exception>
     public ParsedRule? RegisteredRule(int Number)
     {
@@ -192,7 +191,7 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Deregister all specified Rule from the RightRule engine.
+    /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
     /// <param name="Name">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
@@ -211,7 +210,7 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Deregister all specified Rule from the RightRule engine.
+    /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
     /// <param name="Number">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
@@ -233,7 +232,7 @@ public sealed class RightRule : IRightRule
     /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
-    /// <returns>Registered Dataset</returns>
+    /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
     public RegisteredDataset? RegisteredDataset(string DataName)
     {
@@ -249,10 +248,10 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Returns the specified Dataobject.
+    /// Returns the specified DataObject
     /// </summary>
     /// <param name="DataName">The name of the dataobject.</param>
-    /// <returns>Registered Dataobject</returns>
+    /// <returns>RegisteredDataObject</returns>
     /// <exception cref="ArgumentException"></exception>
     public RegisteredDataObject? RegisteredDataObject(string DataName)
     {
@@ -284,9 +283,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Returns the set of Registered Dataobjects.
+    /// Returns the set of Registered DataObjects
     /// </summary>
-    /// <returns>RegisteredDataobjects object</returns>
+    /// <returns>RegisteredDataObjects object</returns>
     public RegisteredDataObjects RegisteredDataObjects()
     {
         try
@@ -344,7 +343,7 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// DeRegisters all data sets from the RightRule engine.
+    /// DeRegisters all data from the RightRule engine.
     /// </summary>
     public bool DeRegisterData()
     {
@@ -359,9 +358,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// DeRegisters a data from the RightRule engine.
+    /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
-    /// <param name="DataName">The name of the data.</param>
+    /// <param name="DataName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
     public bool DeRegisterData(string DataName)
     {
@@ -398,7 +397,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered Rules for the given Context to the registered data set(s).
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -407,6 +408,9 @@ public sealed class RightRule : IRightRule
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
     public AppliedRule EvaluateFirstRule(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -422,7 +426,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered Rules for the given Context to the registered data set(s).
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -431,6 +437,9 @@ public sealed class RightRule : IRightRule
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
     public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -455,7 +464,10 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the data set provided.
+    /// Apply all Registered Rules for the given context to the data set provided.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DataName">The name of the dataset to use</param>
@@ -465,8 +477,6 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="ArgumentNullException"></exception>
     public AppliedRule EvaluateFirstRule(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -484,7 +494,10 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the data set provided.
+    /// Apply all Registered Rules for the given context to the data set provided.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DataName">The name of the dataset to use</param>
@@ -494,8 +507,6 @@ public sealed class RightRule : IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="ArgumentNullException"></exception>
     public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -522,7 +533,8 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results of all applied rules will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -530,7 +542,6 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
     public List<AppliedRule> EvaluateAllRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -546,7 +557,8 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results of all applied rules will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -554,7 +566,6 @@ public sealed class RightRule : IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -579,23 +590,25 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn rulesToReturn)
+    public List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return EvaluateAllRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+            return EvaluateAllRulesAsync(Context, ReturnRules).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -604,23 +617,25 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply specified registered rules (First, All) for the given context to the registered data set(s).
+    /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn rulesToReturn)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, rulesToReturn).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
@@ -638,9 +653,11 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given Context to the specified data set.<br/>
+    /// The results of all applied rules will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
-    /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
+    /// <param name="Context"></param>
     /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <returns>
@@ -666,7 +683,9 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results of all applied rules will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DataName">The name of the dataset to use</param>
@@ -703,20 +722,24 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -724,7 +747,7 @@ public sealed class RightRule : IRightRule
 
         try
         {
-            return EvaluateAllRulesAsync(Context, DataName, Data, rulesToReturn).GetAwaiter().GetResult();
+            return EvaluateAllRulesAsync(Context, DataName, Data, ReturnRules).GetAwaiter().GetResult();
         }
                 catch (Exception ex)
         {
@@ -733,20 +756,24 @@ public sealed class RightRule : IRightRule
     }
 
     /// <summary>
-    /// Apply all registered rules for the given context to the specified data set.
+    /// Apply all Registered Rules for the given context to the specified data set.<br/>
+    /// The results returned are defined by the setting of RulesToReturn<br/>
+    /// <b>First</b> will return a single Rule result<br/>
+    /// <b>All</b> will return results of all Rules.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
     /// </summary>
     /// <param name="Context">Valid types are: Dictionary, Enumerable, object with name/value pairs</param>
     /// <param name="DataName">The name of the registered dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn">Specifies if all rules applied are returned or the rule that returns true</param>
+    /// <param name="ReturnRules">Specifies if all rules applied are returned or the rule that returns true</param>
     /// <returns>
     /// A List of AppliedRule objects is returned.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
-    /// Return is based on specified rulesToReturn parameter.
+    /// Return is based on specified ReturnRules parameter.
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -754,7 +781,7 @@ public sealed class RightRule : IRightRule
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data, rulesToReturn).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
