@@ -45,7 +45,7 @@ internal class ProcessFirstRule
     {
         if (rule.Node == null)
         {
-            var message = string.IsNullOrEmpty(rule.ParserMessage) ? "Rule statement not interpreted properly." : rule.ParserMessage;
+            var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
             return RuleResult.Failure(message);
         }
 

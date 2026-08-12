@@ -25,13 +25,13 @@ public sealed class ParsedRule : Rule
     /// <summary>
     /// When parsing fails during registration this holds the parser/tokenizer error message.
     /// </summary>
-    public string? ParserMessage { get; init; }
+    public string? Message { get; init; }
 
     private ParsedRule() : base()
     {
         Success = false;
         Node = null;
-        ParserMessage = string.Empty;
+        Message = string.Empty;
     }
 
     internal static ParsedRule SuccessResult(RuleDefinition ruleDefinition, Node node, string message)
@@ -39,7 +39,7 @@ public sealed class ParsedRule : Rule
         return new ParsedRule()
         {
             Success = true,
-            ParserMessage = message,
+            Message = message,
             Context = ruleDefinition.Context,
             Decision = ruleDefinition.Decision,
             DecisionData = ruleDefinition.DecisionData,
@@ -56,7 +56,7 @@ public sealed class ParsedRule : Rule
         return new ParsedRule()
         {
             Success = false,
-            ParserMessage = message,
+            Message = message,
             Context = ruleDefinition.Context,
             Decision = ruleDefinition.Decision,
             DecisionData = ruleDefinition.DecisionData,
