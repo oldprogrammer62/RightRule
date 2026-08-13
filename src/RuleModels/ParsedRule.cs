@@ -23,6 +23,11 @@ public sealed class ParsedRule : Rule
     public required Node? Node { get; init; }
 
     /// <summary>
+    /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
+    /// </summary>
+    public string StatementPath { get; init; }
+
+    /// <summary>
     /// When parsing fails during registration this holds the parser/tokenizer error message.
     /// </summary>
     public string? Message { get; init; }
@@ -31,6 +36,7 @@ public sealed class ParsedRule : Rule
     {
         Success = false;
         Node = null;
+        StatementPath = string.Empty;
         Message = string.Empty;
     }
 
@@ -46,11 +52,13 @@ public sealed class ParsedRule : Rule
             Name = ruleDefinition.Name,
             Number = ruleDefinition.Number,
             Statement = ruleDefinition.Statement,
+            StatementPath = BuildTreeText(node),
             OptionalData = ruleDefinition.OptionalData,
             Node = node
         };
     }
 
+    // TO DO get hold of node to build path
     internal static ParsedRule FailResult(RuleDefinition ruleDefinition, string message)
     {
         return new ParsedRule()
@@ -63,6 +71,7 @@ public sealed class ParsedRule : Rule
             Name = ruleDefinition.Name,
             Number = ruleDefinition.Number,
             Statement = ruleDefinition.Statement,
+            StatementPath = string.Empty,
             OptionalData = ruleDefinition.OptionalData,
             Node = null
         };
@@ -78,12 +87,9 @@ public sealed class ParsedRule : Rule
         sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"OptionalData: {this.OptionalData}");
+        sb.AppendLine($"StatementPath: {this.StatementPath}");
         return sb.ToString();
-    }
-
-    public async Task<string> ToTreeTextAsync()
-    {
-        return await Task.Run(BuildTreeTextAsync).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -91,52 +97,49 @@ public sealed class ParsedRule : Rule
     /// Uses ├─ and └─ for branches and │ for vertical lines.
     /// Returns an empty string when <see cref="Node"/> is null.
     /// </summary>
-    private async Task<string> BuildTreeTextAsync()
+    private static string BuildTreeText(Node node)
     {
-        if (Node is null) return string.Empty;
+        if (node is null) return string.Empty;
 
         var sb = new StringBuilder();
-        await Build(Node, sb, string.Empty, true).ConfigureAwait(false);
+        Build(node, sb, string.Empty, true);
         return sb.ToString();
 
-        static Task Build(Node node, StringBuilder sb, string prefix, bool isLast)
+        static void Build(Node node, StringBuilder sb, string prefix, bool isLast)
         {
-            return Task.Run(async () =>
+            var branch = isLast ? "└─ " : "├─ ";
+            sb.Append(prefix);
+            sb.Append(branch);
+            sb.AppendLine(Describe(node));
+
+            // Prepare prefix for children
+            var childPrefix = prefix + (isLast ? "   " : "│  ");
+
+            switch (node)
             {
-                var branch = isLast ? "└─ " : "├─ ";
-                sb.Append(prefix);
-                sb.Append(branch);
-                sb.AppendLine(Describe(node));
+                case BinaryNode b:
+                    var childrenB = new Node[] { b.Left, b.Right };
+                    for (int i = 0; i < childrenB.Length; i++)
+                    {
+                        var child = childrenB[i];
+                        if (child is null) continue;
+                        Build(child, sb, childPrefix, i == childrenB.Length - 1);
+                    }
+                    break;
 
-                // Prepare prefix for children
-                var childPrefix = prefix + (isLast ? "   " : "│  ");
+                case NotNode n:
+                    if (n.Inner is not null)
+                        Build(n.Inner, sb, childPrefix, true);
+                    break;
 
-                switch (node)
-                {
-                    case BinaryNode b:
-                        var childrenB = new Node[] { b.Left, b.Right };
-                        for (int i = 0; i < childrenB.Length; i++)
-                        {
-                            var child = childrenB[i];
-                            if (child is null) continue;
-                            await Build(child, sb, childPrefix, i == childrenB.Length - 1).ConfigureAwait(false);
-                        }
-                        break;
+                case ConditionNode:
+                    // leaf
+                    break;
 
-                    case NotNode n:
-                        if (n.Inner is not null)
-                            await Build(n.Inner, sb, childPrefix, true).ConfigureAwait(false);
-                        break;
-
-                    case ConditionNode:
-                        // leaf
-                        break;
-
-                    default:
-                        // unknown node types - nothing further
-                        break;
-                }
-            });
+                default:
+                    // unknown node types - nothing further
+                    break;
+            };
         }
 
         static string Describe(Node node)
@@ -154,7 +157,6 @@ public sealed class ParsedRule : Rule
         {
             return op.Kind switch
             {
-                // OperandKind.Identifier => $"Identifier({op.Raw})",
                 OperandKind.Identifier => $"Dataset.Identifier({op.Raw})",
                 OperandKind.Number => $"Number({op.Raw})",
                 OperandKind.String => $"String(\"{EscapeForDisplay(op.Raw)}\")",

@@ -7,23 +7,20 @@ internal class RuleResult
     public EvaluationResult Result { get; }
     public string Message { get; }
     public string StatementApplied { get; }
-    public string SyntaxTree { get; }
 
-    private RuleResult(EvaluationResult Result, string Message, string StatementApplied, string SyntaxTree)
+    private RuleResult(EvaluationResult Result, string Message, string StatementApplied)
     {
         this.Result = Result;
         this.Message = Message;
         this.StatementApplied = StatementApplied;
-        this.SyntaxTree = SyntaxTree;
     }
 
-    internal static RuleResult Success(EvaluationResult result, string successMessage, string StatementApplied, string SyntaxTree)
+    internal static RuleResult Success(EvaluationResult result, string successMessage, string StatementApplied)
     {
         return new RuleResult(
             Result: result,
             Message: successMessage,
-            StatementApplied: StatementApplied,
-            SyntaxTree: SyntaxTree
+            StatementApplied: StatementApplied
         );
     }
 
@@ -32,8 +29,7 @@ internal class RuleResult
         return new RuleResult(
             Result: result,
             Message: errorMessage,
-            StatementApplied: string.Empty,
-            SyntaxTree: string.Empty
+            StatementApplied: string.Empty
         );
     }
 
@@ -42,8 +38,7 @@ internal class RuleResult
         return new RuleResult(
             Result: EvaluationResult.Failure(error),
             Message: error,
-            StatementApplied: string.Empty,
-            SyntaxTree: string.Empty
+            StatementApplied: string.Empty
         );
     }
 }

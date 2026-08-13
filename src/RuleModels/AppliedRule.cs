@@ -26,12 +26,6 @@ public sealed class AppliedRule : Rule
     public string StatementApplied { get; init; }
 
     /// <summary>
-    /// Diagnostics only
-    /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
-    /// </summary>
-    public string StatementPath { get; init; }
-
-    /// <summary>
     /// Decision returned when no Rule evaluates to true for the specified Context.
     /// </summary>
     public static string DefaultDecision { get; } = "NODECISION";
@@ -44,7 +38,6 @@ public sealed class AppliedRule : Rule
     private AppliedRule() : base()
     {
         StatementApplied = string.Empty;
-        StatementPath = string.Empty;
     }
 
     internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleResult result)
@@ -60,7 +53,6 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            StatementPath = result.SyntaxTree,
             Message = result.Message
         };
     }
@@ -78,7 +70,6 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            StatementPath = result.SyntaxTree,
             Message = result.Message
         };
     }
@@ -96,7 +87,6 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             OptionalData = string.Empty,
             StatementApplied = string.Empty,
-            StatementPath = string.Empty,
             Message = string.Empty
         };
     }
@@ -114,7 +104,6 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             OptionalData = string.Empty,
             StatementApplied = string.Empty,
-            StatementPath = string.Empty,
             Message = message
         };
     }
@@ -132,7 +121,6 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            StatementPath = result.SyntaxTree,
             Message = result.Message
         };
     }
@@ -140,7 +128,6 @@ public sealed class AppliedRule : Rule
     public override string ToString()
     {
         var statementApplied = !string.IsNullOrWhiteSpace(StatementApplied) ? StatementApplied : "Enable Diagnostics";
-        var statementPath = !string.IsNullOrWhiteSpace(StatementPath) ? StatementPath : "Enable Diagnostics";
 
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"Number: {this.Number}");
@@ -152,7 +139,6 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
-        sb.AppendLine($"StatementPath: {statementPath}");
         sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();
     }
