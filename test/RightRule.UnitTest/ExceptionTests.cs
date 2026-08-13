@@ -31,10 +31,6 @@ public class ExceptionTests
     [Fact]
     public void Test_RegisterRule_InvalidFormat()
     {
-        // TO DO
-        // This test returns misleading message
-        // And it does not indicate an Error has occurred
-
         var rule = new RightRule.RuleModels.RuleDefinition()
         {
             Context = "Context",

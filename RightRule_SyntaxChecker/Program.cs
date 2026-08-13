@@ -46,7 +46,7 @@ internal class Program
             };
             _ = rightRule.RegisterRule(rule);
 
-            await ShowResult(statement, result, rightRule.RegisteredRules().Rules);
+            ShowResult(statement, result, rightRule.RegisteredRules().Rules);
         }
 
         Console.WriteLine("Check another statement? (y/n)");
@@ -59,7 +59,7 @@ internal class Program
         await DoCheckProcessAsync(rightRule).ConfigureAwait(false); // Restart the process
     }
 
-    private async static Task ShowResult(string statement, CheckStatementResult result, List<ParsedRule> parsedRules)
+    private static void ShowResult(string statement, CheckStatementResult result, List<ParsedRule> parsedRules)
     {
         Console.WriteLine("The statement is valid.");
         Console.WriteLine();
@@ -68,7 +68,7 @@ internal class Program
 
         foreach (var rule in parsedRules)
         {
-            Console.WriteLine(await rule.ToTreeTextAsync().ConfigureAwait(false));
+            Console.WriteLine(rule.StatementPath);
             Console.WriteLine();
         }
     }

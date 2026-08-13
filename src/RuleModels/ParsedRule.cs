@@ -58,7 +58,6 @@ public sealed class ParsedRule : Rule
         };
     }
 
-    // TO DO get hold of node to build path
     internal static ParsedRule FailResult(RuleDefinition ruleDefinition, string message)
     {
         return new ParsedRule()
