@@ -12,21 +12,15 @@
 
 <condition>  ::= <left_operand> <operator> <right_operand>
 
-<left_operand>    ::= <variable> | <value>
-<right_operand>   ::= <variable> | <value>
+<left_operand>    ::= <data_reference> | <value>
+<right_operand>   ::= <data_reference> | <value>
 
-<operator>   ::= "contains", "equals", "notequals", etc
+<data_reference>  ::= <identifier_string> "." <identifier_string>
+
+<identifier_string> ::= [a-zA-Z_][a-zA-Z0-9_]*
+
+<value>           ::= <number> | <string> | <boolean> | <date> | <datetime>
+
+<operator>   ::= "contains", "equals", "notequals"
+// Custom operators can be included
 // operator as evaluation command is case sensitive
-
-<operator>   ::= "and", "or", "not"
-// operator as logical command is lower case sensitive
-
-<identifier>  ::= <variable> | <variable>.<variable>
-// identifier is case sensitive - discovery in arguments
-
-<variable>   ::= data pointer
-// variable as data pointer is case sensitive - discovery in data
-// Before . Data name
-// After  . Data item name
-
-<value>      ::= number, string, boolean
