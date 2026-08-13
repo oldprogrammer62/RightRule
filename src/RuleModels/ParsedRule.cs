@@ -25,7 +25,7 @@ public sealed class ParsedRule : Rule
     /// <summary>
     /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
     /// </summary>
-    public string StatementPath { get; init; }
+    public required string StatementPath { get; init; }
 
     /// <summary>
     /// When parsing fails during registration this holds the parser/tokenizer error message.
