@@ -1,7 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.StatementProcessor.Parser;
 using RightRule.System.Common.Exceptions;
-using System.Globalization;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
@@ -96,40 +95,22 @@ internal class EvaluatorHelper
             return null;
         }
 
-        var objectReference = ConvertObject(dataObject);
-        if (objectReference == null)
-        {
-            return null;
-        }
-
-        return GetPropertyValue(objectReference.Data, propertyName);
+        return GetPropertyValue(propertyName, dataObject.Data);
     }
 
-    private static RegisteredDataObject? ConvertObject(object? obj)
+    private static object? GetPropertyValue(string propertyName, object? propertyValue)
     {
-        try
-        {
-            return obj as RegisteredDataObject;
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    private static object? GetPropertyValue(object? obj, string propertyName)
-    {
-        if (obj is null)
+        if (propertyValue is null)
         {
             return null;
         }
 
-        var type = obj.GetType();
+        var type = propertyValue.GetType();
 
         // Return the object itself if it is a primitive type, enum, string, or decimal
-        if (type.IsPrimitive || type.IsEnum || obj is string || obj is decimal || obj is DateTime)
+        if (type.IsPrimitive || type.IsEnum || propertyValue is string || propertyValue is decimal || propertyValue is DateTime)
         {
-            return obj;
+            return propertyValue;
         }
 
         if (string.IsNullOrEmpty(propertyName))
@@ -138,7 +119,7 @@ internal class EvaluatorHelper
         }
 
         var propertyInfo = type.GetProperty(propertyName);
-        return propertyInfo?.GetValue(obj);
+        return propertyInfo?.GetValue(propertyValue);
     }
 
     private static object? ResolveOperand(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)

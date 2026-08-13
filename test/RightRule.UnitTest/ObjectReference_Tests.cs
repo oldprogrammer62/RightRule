@@ -144,6 +144,68 @@ public class ObjectReference_Tests
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
+
+    [Fact]
+    public void Multi_ObjectRegisteredAsIntrinsicVariable()
+    {
+        int x = 100;
+        int y = 200;
+        string greeting = "Hello";
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var added1 = rr.RegisterData("datax", x);
+        var added2 = rr.RegisterData("datay", y);
+        var added3 = rr.RegisterData("datagreeting", greeting);
+        Assert.True(added1);
+        Assert.True(added2);
+        Assert.True(added3);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Context = "Context",
+            Name = "Name",
+            Number = 1,
+            Decision = "GOOD",
+            Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\""
+        };
+        var registeredRule = rr.RegisterRule(rule);
+        var result = rr.EvaluateFirstRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Multi_ObjectRegistered_Mixed()
+    {
+        int x = 100;
+        int y = 200;
+        string greeting = "Hello";
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var added1 = rr.RegisterData("datax", x);
+        var added2 = rr.RegisterData("datay", y);
+        var added3 = rr.RegisterData("datagreeting", greeting);
+        Assert.True(added1);
+        Assert.True(added2);
+        Assert.True(added3);
+
+        var obj1 = new RefObject() { Name = "Bob", Age = 30 };
+        var added4 = rr.RegisterData("databob", obj1);
+        Assert.True(added4);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Context = "Context",
+            Name = "Name",
+            Number = 1,
+            Decision = "GOOD",
+            Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\" and databob.Age = 30"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+        var result = rr.EvaluateFirstRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
 }
 
 public class RefObject
