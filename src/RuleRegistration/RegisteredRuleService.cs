@@ -31,19 +31,19 @@ internal class RegisteredRuleService
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, RightRuleConfiguration rightRuleConfiguration)
+    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = RuleRegistrationService.RegisterRules(rules, OperatorNames, ObjectNames, DatasetNames, rightRuleConfiguration);
+        var parsedRules = RuleRegistrationService.RegisterRules(rules, OperatorNames, ObjectNames, DatasetNames);
         RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
 
-    internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, RightRuleConfiguration rightRuleConfiguration)
+    internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames, rightRuleConfiguration);
+        var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
         RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }

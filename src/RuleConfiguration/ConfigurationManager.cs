@@ -8,9 +8,8 @@ internal class ConfigurationManager
     internal static RightRuleConfiguration GetConfiguration()
     {
         var enableDiagnostics = GetSetting("EnableDiagnostics");
-        var syntaxCheckWithData = GetSetting("SyntaxCheckWithData");
 
-        var RightRuleConfig = new RightRuleConfiguration(enableDiagnostics, syntaxCheckWithData);
+        var RightRuleConfig = new RightRuleConfiguration(enableDiagnostics);
         return RightRuleConfig;
     }
 

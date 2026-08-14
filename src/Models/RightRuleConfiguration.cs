@@ -3,11 +3,9 @@
 public class RightRuleConfiguration
 {
     public bool DiagnosticsEnabled { get; }
-    public bool SyntaxCheckWithData { get; }
 
-    internal RightRuleConfiguration(bool EnableDiagnostics, bool SyntaxCheckWithData)
+    internal RightRuleConfiguration(bool EnableDiagnostics)
     {
         DiagnosticsEnabled = EnableDiagnostics;
-        this.SyntaxCheckWithData = SyntaxCheckWithData;
     }
 }

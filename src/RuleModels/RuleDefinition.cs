@@ -11,11 +11,20 @@ namespace RightRule.RuleModels;
 /// <para>OptionalData: Optional data that will be passed to the Operator when evaluating the Rule. It is the responsibility of the Operator to validate the configuration details and use it as required.</para>
 /// <para>Decision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
 /// <para>DecisionData: Optional data returned when the Rule is evaluated to true. Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.</para>
+/// <para>DataCheck: Optional true/false (default: false) to include a data check during statement parsing</para>
 /// </summary> 
 public sealed class RuleDefinition : Rule
 {
+    public bool? DataCheck = false;
+
     public RuleDefinition() : base()
     {
+        DataCheck = false;
+    }
+
+    public RuleDefinition(bool DataCheck) : this() 
+    {
+        this.DataCheck = DataCheck;
     }
 
     public override string ToString()

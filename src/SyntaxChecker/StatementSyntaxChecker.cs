@@ -10,13 +10,13 @@ internal sealed class StatementSyntaxChecker
     private static readonly Regex PosRegex = new(@"\bposition\s*(\d+)|\bpos\s*(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private const int ContextRadius = 12; // characters either side for snippet
 
-    internal static Task<CheckStatementResult> CheckAsync(string statement)
+    internal static Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
     {
         return Task.Run<CheckStatementResult>(() =>
         {
             var diagnostics = new List<Diagnostic>();
 
-            if (string.IsNullOrWhiteSpace(statement))
+            if (string.IsNullOrWhiteSpace(Statement))
             {
                 diagnostics.Add(new Diagnostic
                 {
@@ -33,9 +33,10 @@ internal sealed class StatementSyntaxChecker
             // Obtain operator names (fall back to empty set)
             HashSet<string> operatorNames;
 
-            // TO DO ??
+            // TO DO Can we get these objects
             HashSet<string> objectNames = [];
             HashSet<string> datasetNames = [];
+
             try
             {
                 var ops = new OperatorsService();
@@ -49,7 +50,7 @@ internal sealed class StatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var scanner = new Tokenizer(statement, operatorNames, objectNames, datasetNames, null);
+                var scanner = new Tokenizer(Statement, operatorNames, objectNames, datasetNames, DataCheck);
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
@@ -69,7 +70,7 @@ internal sealed class StatementSyntaxChecker
                             // if not exactly lower-case, report diagnostic
                             if (v != v.ToLowerInvariant())
                             {
-                                var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
+                                var s = CreateSnippet(Statement, tok.Position, tok.Value?.Length ?? 1);
                                 diagnostics.Add(new Diagnostic
                                 {
                                     Severity = DiagnosticSeverity.Error,
@@ -94,7 +95,7 @@ internal sealed class StatementSyntaxChecker
                         parenBalance--;
                         if (parenBalance < 0)
                         {
-                            var s = CreateSnippet(statement, tok.Position, tok.Value?.Length ?? 1);
+                            var s = CreateSnippet(Statement, tok.Position, tok.Value?.Length ?? 1);
                             diagnostics.Add(new Diagnostic
                             {
                                 Severity = DiagnosticSeverity.Error,
@@ -112,7 +113,7 @@ internal sealed class StatementSyntaxChecker
 
                 if (parenBalance > 0)
                 {
-                    var s = CreateSnippet(statement, lastLParenPos, 1);
+                    var s = CreateSnippet(Statement, lastLParenPos, 1);
                     diagnostics.Add(new Diagnostic
                     {
                         Severity = DiagnosticSeverity.Error,
@@ -128,7 +129,7 @@ internal sealed class StatementSyntaxChecker
             catch (Exception ex)
             {
                 // Tokenizer-level errors (unterminated string/variable, unexpected char)
-                var diag = CreateDiagnosticFromException(ex, "TKN", statement);
+                var diag = CreateDiagnosticFromException(ex, "TKN", Statement);
                 diagnostics.Add(diag);
                 return new CheckStatementResult(diagnostics);
             }
@@ -136,7 +137,7 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var parserTokenizer = new Tokenizer(statement, operatorNames, objectNames, datasetNames, null);
+                var parserTokenizer = new Tokenizer(Statement, operatorNames, objectNames, datasetNames, DataCheck);
                 var parser = new Parser(parserTokenizer);
                 _ = parser.Parse();
 
@@ -146,7 +147,7 @@ internal sealed class StatementSyntaxChecker
             }
             catch (Exception ex)
             {
-                var diag = CreateDiagnosticFromException(ex, "PRS", statement);
+                var diag = CreateDiagnosticFromException(ex, "PRS", Statement);
                 diagnostics.Add(diag);
 
                 // heuristics: add friendly hints based on parser messages

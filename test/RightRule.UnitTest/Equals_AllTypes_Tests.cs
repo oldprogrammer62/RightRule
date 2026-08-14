@@ -24,6 +24,7 @@ public class Equals_AllTypes_Tests
     public void Test_Int()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
+
         rr.RegisterData(nameof(intVal), intVal);
 
         int intVal1 = 101;
@@ -47,7 +48,8 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Decision = "SAME",
-            Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105"
+            Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105",
+            DataCheck = true
         };
         var rrule = rr.RegisterRule(rule);
         Assert.True(rrule.Success);

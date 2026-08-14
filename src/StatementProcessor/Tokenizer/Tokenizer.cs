@@ -12,16 +12,15 @@ internal sealed class Tokenizer
     private readonly HashSet<string> _operators;
     private readonly HashSet<string> _objectNames;
     private readonly HashSet<string> _datasetNames;
+    private readonly bool _dataCheck;
 
-    private readonly RightRuleConfiguration _rightRuleConfig;
-
-    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, RightRuleConfiguration rightRuleConfig)
+    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, bool DataCheck)
     {
         _input = input ?? string.Empty;
         _operators = OperatorNames;
         _objectNames = ObjectNames;
         _datasetNames = DatasetNames;
-        _rightRuleConfig = rightRuleConfig;
+        _dataCheck = DataCheck;
     }
 
     internal Token NextToken()
@@ -91,20 +90,24 @@ internal sealed class Tokenizer
             // Variable (No dot notation)
             if (!foundDot)
             {
-                if (_rightRuleConfig.SyntaxCheckWithData && _objectNames.Contains(value))
+                if (!_dataCheck)
+                    return new Token(TokenType.Variable, value, start);
+
+                if (_objectNames.Contains(value))
                 {
                     return new Token(TokenType.Variable, value, start);
                 }
-                return new Token(TokenType.Variable, value, start);
             }
             // Dataset identifier (dot notation)
             if (foundDot && value.Count(c => c == '.') == 1)
             {
-                if (_rightRuleConfig.SyntaxCheckWithData && _datasetNames.Contains(value.Split('.')[0]))
+                if (!_dataCheck)
+                    return new Token(TokenType.Identifier, value, start);
+
+                if (_dataCheck && _datasetNames.Contains(value.Split('.')[0]))
                 {
                     return new Token(TokenType.Identifier, value, start);
                 }
-                return new Token(TokenType.Identifier, value, start);
             }
             // Not known - Error
             throw new InvalidIdentifierException(value, start);

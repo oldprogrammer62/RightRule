@@ -85,8 +85,8 @@ internal class RightRuleService
 
         var operatorNames = _operatorsService.OperatorNames;
         var objectNames = _registeredDataObjects.ObjectNames;
-        var datasetNames = _registeredDataObjects.ObjectNames;
-        return _rulesService.RegisterRules(rules, operatorNames, objectNames, datasetNames, _rightRuleConfig);
+        var datasetNames = _registeredDataSets.DatasetNames;
+        return _rulesService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ internal class RightRuleService
         var objectNames = GetObjectNames();
         var datasetNames = GetDatasetNames();
 
-        return _rulesService.RegisterRule(rule, operatorNames, objectNames, datasetNames, this.RightRuleConfig);
+        return _rulesService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
     }
 
     private HashSet<string> GetObjectNames()
