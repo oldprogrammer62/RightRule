@@ -100,6 +100,7 @@ internal sealed class Parser
         // Left operand: allow Identifier or literal (String/Number/Boolean)
         Operand left = _current.Type switch
         {
+            TokenType.Variable => new Operand(OperandKind.Variable, _current.Value),
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
             TokenType.String => new Operand(OperandKind.String, _current.Value),
             TokenType.Number => new Operand(OperandKind.Number, _current.Value),
@@ -115,6 +116,7 @@ internal sealed class Parser
 
         Operand rhs = _current.Type switch
         {
+            TokenType.Variable => new Operand(OperandKind.Variable, _current.Value),
             TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
             TokenType.String => new Operand(OperandKind.String, _current.Value),
             TokenType.Number => new Operand(OperandKind.Number, _current.Value),

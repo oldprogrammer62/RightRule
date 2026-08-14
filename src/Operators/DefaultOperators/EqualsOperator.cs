@@ -219,10 +219,10 @@ public class EqualsOperator : Operator
     {
         var decLeft = ConvertToNumber(left);
         var decRight = ConvertToNumber(right);
-        return Equals(decLeft, decRight);
+        return decLeft.Equals(decRight);
     }
 
-    private static decimal ConvertToNumber(object value)
+    private static double ConvertToNumber(object value)
     {
         if (value is null) return default;
 
@@ -234,9 +234,10 @@ public class EqualsOperator : Operator
         if (value is uint ui) return ui;
         if (value is long l) return l;
         if (value is ulong ul) return ul;
-        if (value is float f) return Convert.ToDecimal(f);
-        if (value is double d) return Convert.ToDecimal(d);
-        if (value is decimal dec) return dec;
+        if (value is float f) return f;
+        if (value is Single si) return si;
+        if (value is double d) return d;
+        if (value is decimal dec) return Convert.ToDouble(dec);
         return default;
     }
 

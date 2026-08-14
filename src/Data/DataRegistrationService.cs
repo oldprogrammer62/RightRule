@@ -6,13 +6,15 @@ internal class DataRegistrationService
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
         return new RegisteredDataset(DataName, Data);
     }
 
-    internal static RegisteredDataObject CreateRegisteredData(string DataName, object Data)
+    internal static RegisteredDataObject CreateRegisteredData(string DataName, object DataValue)
     {
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        return new RegisteredDataObject(DataName, Data);
+        ArgumentNullException.ThrowIfNull(DataValue, nameof(DataValue));
+
+        return new RegisteredDataObject(DataName, DataValue);
     }
 }

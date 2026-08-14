@@ -84,7 +84,9 @@ internal class RightRuleService
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return _rulesService.RegisterRules(rules, operatorNames);
+        var objectNames = _registeredDataObjects.ObjectNames;
+        var datasetNames = _registeredDataObjects.ObjectNames;
+        return _rulesService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
     }
 
     /// <summary>
@@ -98,7 +100,29 @@ internal class RightRuleService
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = _operatorsService.OperatorNames;
-        return _rulesService.RegisterRule(rule, operatorNames);
+
+        var objectNames = GetObjectNames();
+        var datasetNames = GetDatasetNames();
+
+        return _rulesService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
+    }
+
+    private HashSet<string> GetObjectNames()
+    {
+        if (_registeredDataObjects == null)
+        {
+            return [];
+        }
+        return _registeredDataObjects.ObjectNames;
+    }
+
+    private HashSet<string> GetDatasetNames()
+    {
+        if (_registeredDataSets == null)
+        {
+            return [];
+        }
+        return _registeredDataSets.DatasetNames;
     }
 
     internal bool DeRegisterRules(string Context)
@@ -154,12 +178,12 @@ internal class RightRuleService
         return _registeredDataSets!.AddData(data);
     }
 
-    internal bool RegisterData(string DataName, object DataReference)
+    internal bool RegisterData(string DataName, object VariableValue)
     {
-        ArgumentNullException.ThrowIfNull(DataReference, nameof(DataReference));
+        ArgumentNullException.ThrowIfNull(VariableValue, nameof(VariableValue));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
-        var data = DataRegistrationService.CreateRegisteredData(DataName, DataReference);
+        var data = DataRegistrationService.CreateRegisteredData(DataName, VariableValue);
         return _registeredDataObjects!.AddData(data);
     }
 

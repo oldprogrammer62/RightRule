@@ -6,6 +6,22 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class EvaluatorHelper
 {
+    internal static object? ResolveVariable(RegisteredDataObjects? DataObjects, string Identifier)
+    {
+        if (DataObjects is null)
+        {
+            return null;
+        }
+
+        var dataObject = DataObjects.GetData(Identifier);
+        if (dataObject is null)
+        {
+            return null;
+        }
+
+        return GetPropertyValue(Identifier, dataObject.DataValue);
+    }
+
     internal static object? ResolveIdentifier(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, string Identifier)
     {
         if (string.IsNullOrEmpty(Identifier))
@@ -95,7 +111,7 @@ internal class EvaluatorHelper
             return null;
         }
 
-        return GetPropertyValue(propertyName, dataObject.Data);
+        return GetPropertyValue(propertyName, dataObject.DataValue);
     }
 
     private static object? GetPropertyValue(string propertyName, object? propertyValue)
@@ -130,6 +146,7 @@ internal class EvaluatorHelper
 
             return op.Kind switch
             {
+                OperandKind.Variable => opValue is string vVar ? ResolveVariable(DataObjects, vVar) : ResolveVariable(DataObjects, op.Raw),
                 OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(Datasets, DataObjects, sId) : ResolveIdentifier(Datasets, DataObjects, op.Raw),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,

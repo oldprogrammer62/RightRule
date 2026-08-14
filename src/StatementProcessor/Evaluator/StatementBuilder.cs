@@ -41,6 +41,11 @@ internal class StatementBuilder
     {
         switch (operand.Kind)
         {
+            case OperandKind.Variable:
+                {
+                    var variable = EvaluatorHelper.ResolveVariable(DataObjects, operand.Raw);
+                    return FormatValue(variable);
+                }
             case OperandKind.Identifier:
                 {
                     // operand.Raw is expected to be dataset.element

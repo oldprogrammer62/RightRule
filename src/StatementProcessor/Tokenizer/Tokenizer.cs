@@ -1,4 +1,5 @@
 ﻿using RightRule.System.Common.Exceptions;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace RightRule.StatementProcessor.Tokenizer;
@@ -7,12 +8,16 @@ internal sealed class Tokenizer
 {
     private readonly string _input;
     private int _pos;
-    private readonly HashSet<string> _operators; // case-insensitive
+    private readonly HashSet<string> _operators;
+    private readonly HashSet<string> _objectNames;
+    private readonly HashSet<string> _datasetNames;
 
-    internal Tokenizer(string input, HashSet<string> operatorNames)
+    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         _input = input ?? string.Empty;
-        _operators = operatorNames;
+        _operators = OperatorNames;
+        _objectNames = ObjectNames;
+        _datasetNames = DatasetNames;
     }
 
     internal Token NextToken()
@@ -79,10 +84,15 @@ internal sealed class Tokenizer
             if (_operators.Contains(value))
                 return new Token(TokenType.Operator, value, start);
 
-            // Otherwise it's a variable identifier with dataset reference (dot notation)
-            if (foundDot && value.Count(c => c == '.') == 1)
+            // Variable (No dot notation)
+            if (!foundDot && _objectNames.Contains(value))
+                return new Token(TokenType.Variable, value, start);
+
+            // Dataset identifier (dot notation)
+            if (foundDot && value.Count(c => c == '.') == 1 && _datasetNames.Contains(value.Split('.')[0]))
                 return new Token(TokenType.Identifier, value, start);
 
+            // Not known - Error
             throw new InvalidIdentifierException(value, start);
         }
 

@@ -1,13 +1,16 @@
-﻿namespace RightRule.Data;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace RightRule.Data;
 
 public class RegisteredDataObject
 {
-    public string Name { get; init; }
-    public object Data { get; init; }
+    public required string DataName { get; init; }
+    public required object DataValue { get; init; }
 
-    internal RegisteredDataObject(string Name, object Data)
+    [SetsRequiredMembers]
+    internal RegisteredDataObject(string DataName, object DataValue)
     {
-        this.Name = Name;
-        this.Data = Data;
+        this.DataName = DataName;
+        this.DataValue = DataValue;
     }
 }

@@ -1,26 +1,29 @@
-﻿<expr>       ::= <or>
+﻿<expr>            ::= <or>
 
-<or>         ::= <and> ( "or" <and> )*
+<or>              ::= <and> ( "or" <and> )*
 
-<and>        ::= <not> ( "and" <not> )*
+<and>             ::= <not> ( "and" <not> )*
 
-<not>        ::= "not" <not> 
-               | <primary>
+<not>             ::= "not" <not> | <primary>
 
-<primary>    ::= "(" <expr> ")"
-               | <condition>
+<primary>         ::= "(" <expr> ")" | <condition>
 
-<condition>  ::= <left_operand> <operator> <right_operand>
+<condition>       ::= <left_operand> <operator> <right_operand>
 
-<left_operand>    ::= <data_reference> | <value>
-<right_operand>   ::= <data_reference> | <value>
+<operator>        ::= "contains", "equals", "notequals"
 
-<data_reference>  ::= <identifier_string> "." <identifier_string>
+<left_operand>    ::= <data_reference> | <variable> | <value>
+<right_operand>   ::= <data_reference> | <variable> | <value>
 
-<identifier_string> ::= [a-zA-Z_][a-zA-Z0-9_]*
+<data_reference>  ::= <string> "." <string>
+
+<variable>        ::= <string>
 
 <value>           ::= <number> | <string> | <boolean> | <date> | <datetime>
 
-<operator>   ::= "contains", "equals", "notequals"
-// Custom operators can be included
-// operator as evaluation command is case sensitive
+<number>          ::= <digits> ( "." <digits> )?
+<digits>          ::= [0-9]+
+
+<string>          ::= [a-zA-Z_][a-zA-Z0-9_]*
+
+<boolean>         ::= true | false

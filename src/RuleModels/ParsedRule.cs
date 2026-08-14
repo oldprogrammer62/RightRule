@@ -156,6 +156,7 @@ public sealed class ParsedRule : Rule
         {
             return op.Kind switch
             {
+                OperandKind.Variable => $"Variable({op.Raw})",
                 OperandKind.Identifier => $"Dataset.Identifier({op.Raw})",
                 OperandKind.Number => $"Number({op.Raw})",
                 OperandKind.String => $"String(\"{EscapeForDisplay(op.Raw)}\")",

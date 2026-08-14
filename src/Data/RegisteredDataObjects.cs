@@ -1,4 +1,6 @@
-﻿namespace RightRule.Data;
+﻿using System.Linq;
+
+namespace RightRule.Data;
 
 public class RegisteredDataObjects
 {
@@ -9,6 +11,8 @@ public class RegisteredDataObjects
 
     public RegisteredDataObject? this[int index] => index >= 0 && index < _data.Count ? _data[index] : null;
 
+    public HashSet<string> ObjectNames => new HashSet<string>(Objects.Select(ob => ob.DataName).Distinct(StringComparer.OrdinalIgnoreCase));
+
     internal RegisteredDataObjects()
     {
         _data = new List<RegisteredDataObject>();
@@ -16,11 +20,11 @@ public class RegisteredDataObjects
 
     internal bool AddData(RegisteredDataObject data)
     {
-        if (data == null || string.IsNullOrEmpty(data.Name))
+        if (data == null || string.IsNullOrEmpty(data.DataName))
         {
             return false;
         }
-        var existingData = GetData(data.Name);
+        var existingData = GetData(data.DataName);
         if (existingData == null)
         {
             _data.Add(data);
@@ -56,6 +60,6 @@ public class RegisteredDataObjects
         {
             return null;
         }
-        return _data.FirstOrDefault(d => d.Name.Equals(name, StringComparison.Ordinal));
+        return _data.FirstOrDefault(d => d.DataName.Equals(name, StringComparison.Ordinal));
     }
 }

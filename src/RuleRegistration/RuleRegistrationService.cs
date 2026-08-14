@@ -7,22 +7,22 @@ namespace RightRule.RuleRegistration;
 
 internal class RuleRegistrationService
 {
-    internal static List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
+    internal static List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
-        return ParseRulesAndRegister(rules, OperatorNames);
+        return ParseRulesAndRegister(rules, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    internal static ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames)
+    internal static ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
-        return ParseRuleAndRegister(rule, OperatorNames);
+        return ParseRuleAndRegister(rule, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    private static List<ParsedRule> ParseRulesAndRegister(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames)
+    private static List<ParsedRule> ParseRulesAndRegister(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         var parsedRules = new List<ParsedRule>();
         foreach (var rule in rules)
         {
-            var registeredRule = RegisterRule(rule, OperatorNames);
+            var registeredRule = RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
             if (registeredRule != null)
             {
                 parsedRules.Add(registeredRule);
@@ -31,19 +31,19 @@ internal class RuleRegistrationService
         return parsedRules;
     }
 
-    private static ParsedRule ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames)
+    private static ParsedRule ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
-        var parsedRule = CreateRule(rule, OperatorNames);
+        var parsedRule = CreateRule(rule, OperatorNames, ObjectNames, DatasetNames);
         return parsedRule;
     }
 
-    private static ParsedRule CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames)
+    private static ParsedRule CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         var statement = ruleDefinition.Statement;
 
         try
         {
-            Node node = GenerateTree(statement, OperatorNames);
+            Node node = GenerateTree(statement, OperatorNames, ObjectNames, DatasetNames);
             ParsedRule rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
         }
@@ -53,9 +53,9 @@ internal class RuleRegistrationService
         }
     }
 
-    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames)
+    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
-        var tokenizer = new Tokenizer(Statement, OperatorNames);
+        var tokenizer = new Tokenizer(Statement, OperatorNames, ObjectNames, DatasetNames);
         var parser = new Parser(tokenizer);
 
         Node node = parser.Parse();

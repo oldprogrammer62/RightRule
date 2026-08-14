@@ -9,6 +9,8 @@ public class RegisteredDatasets
 
     public RegisteredDataset? this[int index] => index >= 0 && index < _data.Count ? _data[index] : null;
 
+    public HashSet<string> DatasetNames => new HashSet<string>(Datasets.Select(ds => ds.Name).Distinct(StringComparer.OrdinalIgnoreCase));
+
     internal RegisteredDatasets()
     {
         _data = new List<RegisteredDataset>();

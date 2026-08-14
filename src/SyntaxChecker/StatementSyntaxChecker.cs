@@ -32,6 +32,10 @@ internal sealed class StatementSyntaxChecker
 
             // Obtain operator names (fall back to empty set)
             HashSet<string> operatorNames;
+
+            // TO DO ??
+            HashSet<string> objectNames = [];
+            HashSet<string> datasetNames = [];
             try
             {
                 var ops = new OperatorsService();
@@ -45,7 +49,7 @@ internal sealed class StatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var scanner = new Tokenizer(statement, operatorNames);
+                var scanner = new Tokenizer(statement, operatorNames, objectNames, datasetNames);
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
@@ -132,7 +136,7 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var parserTokenizer = new Tokenizer(statement, operatorNames);
+                var parserTokenizer = new Tokenizer(statement, operatorNames, objectNames, datasetNames);
                 var parser = new Parser(parserTokenizer);
                 _ = parser.Parse();
 

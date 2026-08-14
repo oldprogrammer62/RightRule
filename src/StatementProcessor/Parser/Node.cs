@@ -2,7 +2,7 @@
 
 public abstract class Node { }
 
-internal enum OperandKind { Identifier, Number, String, Boolean }
+internal enum OperandKind { Identifier, Variable, Number, String, Boolean }
 
 internal sealed class Operand
 {

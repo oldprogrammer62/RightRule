@@ -2,10 +2,11 @@
 
 internal enum TokenType
 {
-    Identifier,   // variable names with dot notation
+    Identifier,   // Data name with dot notation
     Number,       // 123, 456
     String,       // "hello"
     Boolean,      // true, false
+    Variable,     // Variable name
     Operator,     // equals, contains, notequals (from registry)
     And,          // AND
     Or,           // OR
