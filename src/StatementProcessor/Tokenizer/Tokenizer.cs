@@ -1,4 +1,5 @@
-﻿using RightRule.System.Common.Exceptions;
+﻿using RightRule.Models;
+using RightRule.System.Common.Exceptions;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -12,12 +13,15 @@ internal sealed class Tokenizer
     private readonly HashSet<string> _objectNames;
     private readonly HashSet<string> _datasetNames;
 
-    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    private readonly RightRuleConfiguration _rightRuleConfig;
+
+    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, RightRuleConfiguration rightRuleConfig)
     {
         _input = input ?? string.Empty;
         _operators = OperatorNames;
         _objectNames = ObjectNames;
         _datasetNames = DatasetNames;
+        _rightRuleConfig = rightRuleConfig;
     }
 
     internal Token NextToken()
@@ -85,13 +89,23 @@ internal sealed class Tokenizer
                 return new Token(TokenType.Operator, value, start);
 
             // Variable (No dot notation)
-            if (!foundDot && _objectNames.Contains(value))
+            if (!foundDot)
+            {
+                if (_rightRuleConfig.SyntaxCheckWithData && _objectNames.Contains(value))
+                {
+                    return new Token(TokenType.Variable, value, start);
+                }
                 return new Token(TokenType.Variable, value, start);
-
+            }
             // Dataset identifier (dot notation)
-            if (foundDot && value.Count(c => c == '.') == 1 && _datasetNames.Contains(value.Split('.')[0]))
+            if (foundDot && value.Count(c => c == '.') == 1)
+            {
+                if (_rightRuleConfig.SyntaxCheckWithData && _datasetNames.Contains(value.Split('.')[0]))
+                {
+                    return new Token(TokenType.Identifier, value, start);
+                }
                 return new Token(TokenType.Identifier, value, start);
-
+            }
             // Not known - Error
             throw new InvalidIdentifierException(value, start);
         }
