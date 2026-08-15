@@ -15,16 +15,22 @@ namespace RightRule.RuleModels;
 /// </summary> 
 public sealed class RuleDefinition : Rule
 {
-    public bool? DataCheck = false;
+    private bool? _dataCheck = false;
+    internal bool? DataCheck { get; }
+
+    private bool? _diagnostics = false;
+    internal bool? Diagnostics { get; }
 
     public RuleDefinition() : base()
     {
-        DataCheck = false;
+        _dataCheck = false;
     }
 
-    public RuleDefinition(bool DataCheck) : this() 
+    internal static RuleDefinition Build(RuleDefinition ruleDefinition, bool? dataCheck, bool? diagnostics)
     {
-        this.DataCheck = DataCheck;
+        ruleDefinition._dataCheck = dataCheck;
+        ruleDefinition._diagnostics = diagnostics;
+        return ruleDefinition;
     }
 
     public override string ToString()
@@ -36,6 +42,8 @@ public sealed class RuleDefinition : Rule
         sb.AppendLine($"Statement: {this.Statement}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"DataCheck: {this.DataCheck}");
+        sb.AppendLine($"Diagnostics: {this.Diagnostics}");
         sb.AppendLine($"Configuration: {this.OptionalData}");
         return sb.ToString();
     }

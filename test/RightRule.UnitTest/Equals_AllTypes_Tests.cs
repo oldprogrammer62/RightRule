@@ -48,10 +48,11 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Decision = "SAME",
-            Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105",
-            DataCheck = true
+            Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105"
         };
-        var rrule = rr.RegisterRule(rule);
+
+        var ruleDef = rr.BuildRule(rule).WithDataCheck().Build();
+        var rrule = rr.RegisterRule(ruleDef);
         Assert.True(rrule.Success);
 
         var result = rr.EvaluateFirstRule("Context");

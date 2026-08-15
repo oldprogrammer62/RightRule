@@ -1,5 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
+using RightRule.RuleBuilder;
 using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -16,6 +17,15 @@ public interface IRightRule
     /// <returns>The result of the syntax check.</returns>
     /// <exception cref="ArgumentException"></exception>
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
+
+    /// <summary>
+    /// Build an enhanced Rule Definition
+    /// DataCheck (Default true) - If set the Parser will attempt to validate data references with data reqgistrations
+    /// Diagnostics (Default false) - If set additional data will be returned with the Parsed Rule and Applied Rule objects
+    /// </summary>
+    /// <param name="RuleDefn"></param>
+    /// <returns>RuleBuilder</returns>
+    RuleBuilder BuildRule(RuleDefinition RuleDefn);
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 

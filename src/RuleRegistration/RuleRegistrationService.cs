@@ -41,7 +41,8 @@ internal class RuleRegistrationService
     private static ParsedRule CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         var statement = ruleDefinition.Statement;
-        var dataCheck = ruleDefinition.DataCheck ?? false;
+        var dataCheck = ruleDefinition.DataCheck ?? true;
+        var diagnostics = ruleDefinition.Diagnostics ?? false;
 
         try
         {

@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Extensions;
 using RightRule.Models;
+using RightRule.RuleBuilder;
 using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -20,6 +21,18 @@ public sealed class RightRule : IRightRule
     public RightRule()
     {
         _rightRuleService = new RightRuleService();
+    }
+
+    /// <summary>
+    /// Build an enhanced Rule Definition
+    /// DataCheck - If set the Parser will attempt to validate data references with data reqgistrations
+    /// Diagnostics - If set additional data will be returned with the Parsed Rule and Applied Rule objects
+    /// </summary>
+    /// <param name="RuleDefn"></param>
+    /// <returns>RuleBuilder</returns>
+    public RuleBuilder BuildRule(RuleDefinition RuleDefn)
+    {
+        return RuleBuilder.Create(RuleDefn);
     }
 
     /// <summary>
