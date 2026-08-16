@@ -65,6 +65,7 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
     // Step 5: Enforces that Decision must follow Statement
     public IRuleBuilder Decision(string decision)
     {
+        if (string.IsNullOrWhiteSpace(decision)) throw new ArgumentException("Decision is mandatory.", nameof(decision));
         return new RuleBuilder(_number, _name, _context, _statement, decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
     }
 
@@ -92,8 +93,10 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
     // Terminal step: validates that remaining mandatory variables are populated before finishing
     public RuleDefinition Build()
     {
-        if (string.IsNullOrWhiteSpace(_statement)) throw new InvalidOperationException("Statement is a mandatory field.");
+        if (_number.Equals(0)) throw new InvalidOperationException("Number is a mandatory field.");
+        if (string.IsNullOrWhiteSpace(_name)) throw new InvalidOperationException("Name is a mandatory field.");
         if (string.IsNullOrWhiteSpace(_context)) throw new InvalidOperationException("Context is a mandatory field.");
+        if (string.IsNullOrWhiteSpace(_statement)) throw new InvalidOperationException("Statement is a mandatory field.");
         if (string.IsNullOrWhiteSpace(_decision)) throw new InvalidOperationException("Decision is a mandatory field.");
 
         return RuleDefinition.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
