@@ -4,9 +4,9 @@ namespace RightRule.RuleModels;
 
 /// <summary>
 /// Defines of a Rule for registration with RightRule.
-/// <para>Context: Binds the Rule to a specific event context defined in code.</para>
 /// <para>Number: Identifies the Rule by number. Used when ordering rules for evaluation. Ordering is low to high.</para>
 /// <para>Name: Identifies the Rule by name.</para>
+/// <para>Context: Binds the Rule to a specific event context defined in code.</para>
 /// <para>Statement: The logic of the Rule, evaluated to determine if the rule is true or false. The statement must conform to the RightRule statement syntax.</para>
 /// <para>OptionalData: Optional data that will be passed to the Operator when evaluating the Rule. It is the responsibility of the Operator to validate the configuration details and use it as required.</para>
 /// <para>Decision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
@@ -16,21 +16,30 @@ namespace RightRule.RuleModels;
 public sealed class RuleDefinition : Rule
 {
     private bool? _dataCheck = false;
-    internal bool? DataCheck { get; }
+    internal bool? DataCheck => _dataCheck;
 
     private bool? _diagnostics = false;
-    internal bool? Diagnostics { get; }
+    internal bool? Diagnostics => _diagnostics;
 
     public RuleDefinition() : base()
     {
         _dataCheck = false;
     }
 
-    internal static RuleDefinition Build(RuleDefinition ruleDefinition, bool? dataCheck, bool? diagnostics)
+    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, bool? DataCheck, bool? Diagnostics)
     {
-        ruleDefinition._dataCheck = dataCheck;
-        ruleDefinition._diagnostics = diagnostics;
-        return ruleDefinition;
+        return new RuleDefinition()
+        {
+            Number = Number,
+            Name = Name,
+            Context = Context,
+            Statement = Statement,
+            Decision = Decision,
+            DecisionData = DecisionData,
+            OptionalData = OptionalData,
+            _dataCheck = DataCheck,
+           _diagnostics = Diagnostics
+        };
     }
 
     public override string ToString()

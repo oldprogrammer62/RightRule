@@ -1,6 +1,4 @@
-﻿using RightRule.Models;
-using RightRule.System.Common.Exceptions;
-using System.Runtime.CompilerServices;
+﻿using RightRule.System.Common.Exceptions;
 using System.Text;
 
 namespace RightRule.StatementProcessor.Tokenizer;

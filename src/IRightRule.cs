@@ -20,12 +20,9 @@ public interface IRightRule
 
     /// <summary>
     /// Build an enhanced Rule Definition
-    /// DataCheck (Default true) - If set the Parser will attempt to validate data references with data reqgistrations
-    /// Diagnostics (Default false) - If set additional data will be returned with the Parsed Rule and Applied Rule objects
+    /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// </summary>
-    /// <param name="RuleDefn"></param>
-    /// <returns>RuleBuilder</returns>
-    RuleBuilder BuildRule(RuleDefinition RuleDefn);
+    INumberStep BuildRule();
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 
@@ -34,6 +31,12 @@ public interface IRightRule
     /// </summary>
     /// <returns>The list of Operators.</returns>
     List<Operator>? GetOperatorDetails();
+
+    /// <summary>
+    /// Returns the set of Aliases for logic Operators
+    /// </summary>
+    /// <returns>The list of Operator Aliases.</returns>
+    Dictionary<string, Operator>? GetOperatorAliases();
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>

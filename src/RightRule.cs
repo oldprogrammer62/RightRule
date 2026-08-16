@@ -14,7 +14,8 @@ namespace BeSoft;
 /// </summary>
 public sealed class RightRule : IRightRule
 {
-    private readonly RightRuleService _rightRuleService;
+    private RightRuleService _rightRuleService;
+    internal RightRuleService RightRuleService => _rightRuleService;
 
     public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
@@ -25,16 +26,14 @@ public sealed class RightRule : IRightRule
 
     /// <summary>
     /// Build an enhanced Rule Definition
-    /// DataCheck - If set the Parser will attempt to validate data references with data reqgistrations
-    /// Diagnostics - If set additional data will be returned with the Parsed Rule and Applied Rule objects
+    /// Based on Interface to force fiuelds to be applied to the rule defn in order
+    /// Entry point kicks off the strict compile-time interface chain
     /// </summary>
-    /// <param name="RuleDefn"></param>
-    /// <returns>RuleBuilder</returns>
-    public RuleBuilder BuildRule(RuleDefinition RuleDefn)
+    public INumberStep BuildRule()
     {
-        return RuleBuilder.Create(RuleDefn);
+        return RuleBuilder.Create();
     }
-
+    
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
     /// </summary>
@@ -57,6 +56,16 @@ public sealed class RightRule : IRightRule
     public List<Operator>? GetOperatorDetails()
     {
         var operators = _rightRuleService?.GetOperatorDetails();
+        return operators;
+    }
+
+    /// <summary>
+    /// Returns the set of Aliases for logic Operators
+    /// </summary>
+    /// <returns>The list of Operator Aliases.</returns>
+    public Dictionary<string, Operator>? GetOperatorAliases()
+    {
+        var operators = _rightRuleService?.GetOperatorAliases();
         return operators;
     }
 
