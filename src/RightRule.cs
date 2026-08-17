@@ -6,22 +6,33 @@ using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
+using Microsoft.Extensions.DependencyInjection;
+using RightRule;
+using RightRule.RuleService;
+
 namespace BeSoft;
 
 /// <summary>
 /// Main RightRule class
 /// Provides all public entry points to the RightRule system
 /// </summary>
-public sealed class RightRule : IRightRule
+public sealed class RightRule : IRightRule, IDisposable
 {
-    private RightRuleService _rightRuleService;
-    internal RightRuleService RightRuleService => _rightRuleService;
+    private bool _disposed;
+        
+    private readonly ServiceProvider _serviceProvider;
+
+    private readonly IRightRuleService _rightRuleService;
+    internal IRightRuleService RightRuleService => _rightRuleService;
 
     public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
 
     public RightRule()
     {
-        _rightRuleService = new RightRuleService();
+        var services = ServiceRegistrations.RegisterServices(new ServiceCollection());
+        _serviceProvider = services.BuildServiceProvider();
+
+        _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
     }
 
     /// <summary>
@@ -29,7 +40,7 @@ public sealed class RightRule : IRightRule
     /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// Entry point kicks off the strict compile-time interface chain
     /// </summary>
-    public INumberStep BuildRule()
+    public INumberStep BuildRuleDefinition()
     {
         return RuleBuilder.Create();
     }
@@ -292,7 +303,7 @@ public sealed class RightRule : IRightRule
     /// Returns the set of Registered Datasets.
     /// </summary>
     /// <returns>RegisteredDatasets object</returns>
-    public RegisteredDatasets RegisteredDatasets()
+    public IRegisteredDatasets RegisteredDatasets()
     {
         try
         {
@@ -308,7 +319,7 @@ public sealed class RightRule : IRightRule
     /// Returns the set of Registered DataObjects
     /// </summary>
     /// <returns>RegisteredDataObjects object</returns>
-    public RegisteredDataObjects RegisteredDataObjects()
+    public IRegisteredDataObjects RegisteredDataObjects()
     {
         try
         {
@@ -818,5 +829,14 @@ public sealed class RightRule : IRightRule
         {
             return [AppliedRule.ErrorResult(ex.Message)];
         }
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        // Properly disposes of all internal singletons/scoped services
+        _serviceProvider.Dispose();
+        _disposed = true;
     }
 }

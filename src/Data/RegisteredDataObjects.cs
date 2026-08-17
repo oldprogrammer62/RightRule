@@ -2,7 +2,7 @@
 
 namespace RightRule.Data;
 
-public class RegisteredDataObjects
+internal class RegisteredDataObjects : IRegisteredDataObjects
 {
     private readonly List<RegisteredDataObject> _data;
     public List<RegisteredDataObject> Objects => _data;
@@ -13,12 +13,12 @@ public class RegisteredDataObjects
 
     public HashSet<string> ObjectNames => new HashSet<string>(Objects.Select(ob => ob.DataName).Distinct(StringComparer.OrdinalIgnoreCase));
 
-    internal RegisteredDataObjects()
+    public RegisteredDataObjects()
     {
         _data = new List<RegisteredDataObject>();
     }
 
-    internal bool AddData(RegisteredDataObject data)
+    public bool AddData(RegisteredDataObject data)
     {
         if (data == null || string.IsNullOrEmpty(data.DataName))
         {
@@ -33,13 +33,13 @@ public class RegisteredDataObjects
         return false;
     }
 
-    internal bool RemoveData()
+    public bool RemoveData()
     {
         _data.Clear();
         return true;
     }
 
-    internal bool RemoveData(string name)
+    public bool RemoveData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -54,7 +54,7 @@ public class RegisteredDataObjects
         return true;
     }
 
-    internal RegisteredDataObject? GetData(string name)
+    public RegisteredDataObject? GetData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {

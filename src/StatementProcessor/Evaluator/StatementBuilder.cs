@@ -8,7 +8,7 @@ internal class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    internal static Task<string> BuildAppliedStatement(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Node? node, string originalStatement)
+    internal static Task<string> BuildAppliedStatement(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node? node, string originalStatement)
     {
         return Task.Run(() =>
         {
@@ -19,7 +19,7 @@ internal class StatementBuilder
         });
     }
 
-    private static string RenderNode(Node node, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
+    private static string RenderNode(Node node, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         return node switch
         {
@@ -30,14 +30,14 @@ internal class StatementBuilder
         };
     }
 
-    private static string RenderCondition(ConditionNode c, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
+    private static string RenderCondition(ConditionNode c, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         var left = RenderOperand(c.Left, Datasets, DataObjects);
         var right = RenderOperand(c.Right, Datasets, DataObjects);
         return $"{left} {c.Operator} {right}";
     }
 
-    private static string RenderOperand(Operand operand, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
+    private static string RenderOperand(Operand operand, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         switch (operand.Kind)
         {

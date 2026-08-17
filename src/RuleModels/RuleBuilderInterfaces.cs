@@ -38,8 +38,8 @@ public interface IRuleBuilder
     // IRuleBuilder Decision(string decision);
     IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
-    IRuleBuilder CheckData(bool checkData = true);
-    IRuleBuilder Diagnostics(bool enableDiagnostics = false);
+    IRuleBuilder WithCheckData(bool checkData = true);
+    IRuleBuilder WithDiagnostics(bool enableDiagnostics = false);
 
     RuleDefinition Build();
 }

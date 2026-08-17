@@ -1,37 +1,36 @@
-﻿using RightRule.Models;
-using RightRule.RuleModels;
+﻿using RightRule.RuleModels;
 using System.Data;
 
 namespace RightRule.RuleRegistration;
 
-internal class RegisteredRuleService
+internal class RegisteredRuleService : IRegisteredRuleService
 {
     private readonly RegisteredRules _registeredRules;
     public RegisteredRules RegisteredRules => _registeredRules;
 
-    internal RegisteredRuleService()
+    public RegisteredRuleService()
     {
         _registeredRules = new RegisteredRules();
     }
 
-    internal ParsedRule? GetRegisteredRule(string Name)
+    public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentNullException.ThrowIfNull(Name, nameof(Name));
         return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
     }
 
-    internal ParsedRule? GetRegisteredRule(int Number)
+    public ParsedRule? GetRegisteredRule(int Number)
     {
         ArgumentNullException.ThrowIfNull(Number, nameof(Number));
         return _registeredRules.Rules.FirstOrDefault(r => r.Number == Number);
     }
 
-    internal List<ParsedRule> GetRules(string Context)
+    public List<ParsedRule> GetRules(string Context)
     {
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
@@ -40,7 +39,7 @@ internal class RegisteredRuleService
         return parsedRules;
     }
 
-    internal ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    public ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
@@ -48,23 +47,23 @@ internal class RegisteredRuleService
         return parsedRule;
     }
 
-    internal bool DeRegisterRules(string Context)
+    public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.RemoveRules(Context);
     }
 
-    internal bool DeRegisterRules()
+    public bool DeRegisterRules()
     {
         return RegisteredRules.RemoveRules();
     }
 
-    internal bool DeRegisterRule(string Name)
+    public bool DeRegisterRule(string Name)
     {
         return RegisteredRules.RemoveRule(Name);
     }
 
-    internal bool DeRegisterRule(int Number)
+    public bool DeRegisterRule(int Number)
     {
         return RegisteredRules.RemoveRule(Number);
     }

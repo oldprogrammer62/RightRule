@@ -9,12 +9,12 @@ namespace RightRule.RuleApplication;
 
 internal class RuleApplicationService
 {
-    internal async static Task<List<AppliedRule>> ApplyRuleAsync(string Context, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects,  RegisteredRules parsedRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
+    internal async static Task<List<AppliedRule>> ApplyRuleAsync(string Context, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects,  RegisteredRules parsedRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
     {
         return await ApplyRuleToDataAsync(Context, Datasets, DataObjects, parsedRules, Operators, rightRuleConfig).ConfigureAwait(false);
     }
 
-    private async static Task<List<AppliedRule>> ApplyRuleToDataAsync(string Context, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, RegisteredRules parsedRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
+    private async static Task<List<AppliedRule>> ApplyRuleToDataAsync(string Context, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, RegisteredRules parsedRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
     {
         var interpreter = new Interpreter(Datasets, DataObjects, Operators, rightRuleConfig);
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
@@ -22,12 +22,12 @@ internal class RuleApplicationService
         return await interpreter.ProcessRuleAsync(filteredRules).ConfigureAwait(false);
     }
 
-    internal async static Task<List<AppliedRule>> ApplyRulesAsync(string Context, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, RegisteredRules parsedRules, RulesToReturn ReturnRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
+    internal async static Task<List<AppliedRule>> ApplyRulesAsync(string Context, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, RegisteredRules parsedRules, RulesToReturn ReturnRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
     {
         return await ApplyRulesToDataAsync(Context, Datasets, DataObjects, parsedRules, ReturnRules, Operators, rightRuleConfig).ConfigureAwait(false);
     }
 
-    private async static Task<List<AppliedRule>> ApplyRulesToDataAsync(string Context, RegisteredDatasets? Datasets, RegisteredDataObjects? Dataobjects, RegisteredRules parsedRules, RulesToReturn ReturnRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
+    private async static Task<List<AppliedRule>> ApplyRulesToDataAsync(string Context, IRegisteredDatasets? Datasets, IRegisteredDataObjects? Dataobjects, RegisteredRules parsedRules, RulesToReturn ReturnRules, Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
     {
         var interpreter = new Interpreter(Datasets, Dataobjects, Operators, rightRuleConfig);
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);

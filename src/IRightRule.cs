@@ -1,6 +1,5 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
-using RightRule.RuleBuilder;
 using RightRule.RuleModels;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -22,7 +21,7 @@ public interface IRightRule
     /// Build an enhanced Rule Definition
     /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// </summary>
-    INumberStep BuildRule();
+    INumberStep BuildRuleDefinition();
 
     RightRuleConfiguration RightRuleConfiguration { get; }
 
@@ -276,13 +275,13 @@ public interface IRightRule
     /// Returns the set of Registered Datasets.
     /// </summary>
     /// <returns>RegisteredDatasets object</returns>
-    RegisteredDatasets RegisteredDatasets();
+    IRegisteredDatasets RegisteredDatasets();
 
     /// <summary>
     /// Returns the set of Registered DataObjects
     /// </summary>
     /// <returns>RegisteredDataObjects object</returns>
-    RegisteredDataObjects RegisteredDataObjects();
+    IRegisteredDataObjects RegisteredDataObjects();
 
     /// <summary>
     /// Returns the specified Dataset.

@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels;
+﻿using BeSoft;
+using RightRule.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
@@ -10,7 +11,7 @@ namespace RightRule_Demo.RuleManager
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
             string Context = "Demo";
-            var rules = LoadRules(Context);
+            var rules = LoadRules(rr, Context);
 
             var registeredRules = rr.RegisterRules(rules);
             var done = rr.RegisterData(Context, Data);
@@ -24,9 +25,9 @@ namespace RightRule_Demo.RuleManager
             return appliedRules;
         }
 
-        private static List<RuleDefinition> LoadRules(string Context)
+        private static List<RuleDefinition> LoadRules(IRightRule rightRule, string Context)
         {
-            return RuleLoader.RuleLoader.Load(Context);
+            return RuleLoader.RuleLoader.Load(rightRule, Context);
         }
 
         private static Dictionary<string, object> MakeHvData(decimal HighValue)

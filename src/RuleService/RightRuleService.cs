@@ -7,30 +7,30 @@ using RightRule.RuleModels;
 using RightRule.System.Common;
 using RightRule.RuleConfiguration;
 
-namespace BeSoft;
+namespace RightRule.RuleService;
 
-internal class RightRuleService
+internal class RightRuleService : IRightRuleService
 {
-    private readonly OperatorsService _operatorsService;
+    private readonly IOperatorsService _operatorsService;
 
-    private readonly RegisteredRuleService _rulesService;
-    internal RegisteredRules RegisteredRules => _rulesService.RegisteredRules;
+    private readonly IRegisteredRuleService _registerRuleService;
+    public RegisteredRules RegisteredRules => _registerRuleService.RegisteredRules;
 
-    private readonly RegisteredDatasets? _registeredDataSets;
-    internal RegisteredDatasets RegisteredDatasets => _registeredDataSets!;
+    private readonly IRegisteredDatasets? _registeredDataSets;
+    public IRegisteredDatasets RegisteredDatasets => _registeredDataSets!;
 
-    private readonly RegisteredDataObjects? _registeredDataObjects;
-    internal RegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
+    private readonly IRegisteredDataObjects? _registeredDataObjects;
+    public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
     private readonly RightRuleConfiguration _rightRuleConfig;
-    internal RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
+    public RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
 
-    public RightRuleService()
+    public RightRuleService(IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
-        _operatorsService = new OperatorsService();
-        _rulesService = new RegisteredRuleService();
-        _registeredDataSets = new RegisteredDatasets();
-        _registeredDataObjects = new RegisteredDataObjects();
+        _operatorsService = operatorsService;
+        _registerRuleService = registeredRuleService;
+        _registeredDataSets = registeredDatasets;
+        _registeredDataObjects = registeredDataObjects;
 
         _rightRuleConfig = GetConfiguration();
     }
@@ -40,36 +40,36 @@ internal class RightRuleService
         return ConfigurationManager.GetConfiguration();
     }
 
-    internal Dictionary<string, Operator> GetOperatorAliases()
+    public Dictionary<string, Operator> GetOperatorAliases()
     {
         return _operatorsService.OperatorAliases;
     }
 
-    internal List<Operator> GetOperatorDetails()
+    public List<Operator> GetOperatorDetails()
     {
         return _operatorsService.Operators;
     }
 
-    internal bool UnloadOperator(string OperatorName)
+    public bool UnloadOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         return _operatorsService.DeRegisterOperator(OperatorName);
     }
 
-    internal ParsedRule? GetRegisteredRule(string Name)
+    public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
-        return _rulesService.GetRegisteredRule(Name);
+        return _registerRuleService.GetRegisteredRule(Name);
     }
 
-    internal ParsedRule? GetRegisteredRule(int Number)
+    public ParsedRule? GetRegisteredRule(int Number)
     {
-        return _rulesService.GetRegisteredRule(Number);
+        return _registerRuleService.GetRegisteredRule(Number);
     }
 
-    internal List<ParsedRule> GetRules(string Context)
+    public List<ParsedRule> GetRules(string Context)
     {
-        return _rulesService.GetRules(Context);
+        return _registerRuleService.GetRules(Context);
     }
 
     /// <summary>
@@ -79,14 +79,14 @@ internal class RightRuleService
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    internal List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
+    public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
         var objectNames = _registeredDataObjects.ObjectNames;
         var datasetNames = _registeredDataSets.DatasetNames;
-        return _rulesService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
+        return _registerRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ internal class RightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    internal ParsedRule RegisterRule(RuleDefinition rule)
+    public ParsedRule RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
@@ -104,7 +104,7 @@ internal class RightRuleService
         var objectNames = GetObjectNames();
         var datasetNames = GetDatasetNames();
 
-        return _rulesService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
+        return _registerRuleService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
     }
 
     private HashSet<string> GetObjectNames()
@@ -125,29 +125,29 @@ internal class RightRuleService
         return _registeredDataSets.DatasetNames;
     }
 
-    internal bool DeRegisterRules(string Context)
+    public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return _rulesService.DeRegisterRules(Context);
+        return _registerRuleService.DeRegisterRules(Context);
     }
 
-    internal bool DeRegisterRules()
+    public bool DeRegisterRules()
     {
-        return _rulesService.DeRegisterRules();
+        return _registerRuleService.DeRegisterRules();
     }
 
-    internal bool DeRegisterRule(string Name)
+    public bool DeRegisterRule(string Name)
     {
-        return _rulesService.DeRegisterRule(Name);
+        return _registerRuleService.DeRegisterRule(Name);
     }
 
-    internal bool DeRegisterRule(int Number)
+    public bool DeRegisterRule(int Number)
     {
-        return _rulesService.DeRegisterRule(Number);
+        return _registerRuleService.DeRegisterRule(Number);
     }
 
-    internal RegisteredDataset? GetDataSet(string DataName)
+    public RegisteredDataset? GetDataSet(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
@@ -158,7 +158,7 @@ internal class RightRuleService
         return _registeredDataSets.GetData(DataName);
     }
 
-    internal RegisteredDataObject? GetDataObject(string DataName)
+    public RegisteredDataObject? GetDataObject(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
@@ -169,7 +169,7 @@ internal class RightRuleService
         return _registeredDataObjects.GetData(DataName);
     }
 
-    internal bool RegisterData(string DataName, Dictionary<string, object> Data)
+    public bool RegisterData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -178,7 +178,7 @@ internal class RightRuleService
         return _registeredDataSets!.AddData(data);
     }
 
-    internal bool RegisterData(string DataName, object VariableValue)
+    public bool RegisterData(string DataName, object VariableValue)
     {
         ArgumentNullException.ThrowIfNull(VariableValue, nameof(VariableValue));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -187,7 +187,7 @@ internal class RightRuleService
         return _registeredDataObjects!.AddData(data);
     }
 
-    internal bool DeRegisterData()
+    public bool DeRegisterData()
     {
         DeregisterDataObjects();
         DergisterDatasets();
@@ -212,7 +212,7 @@ internal class RightRuleService
         _registeredDataSets.RemoveData();
     }
 
-    internal bool DeRegisterData(string DataName)
+    public bool DeRegisterData(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
@@ -239,14 +239,14 @@ internal class RightRuleService
         _registeredDataSets.RemoveData(DataName);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSingleRuleAsync(Context).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -262,28 +262,28 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
+        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _rulesService.RegisteredRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, _operatorsService.OperatorAliases, RightRuleConfig).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSpecifiedRulesAsync(Context, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSpecifiedRulesAsync(Context, ReturnRules).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -292,7 +292,7 @@ internal class RightRuleService
         return await EvaluateSpecifiedRulesAsync(Context, DataName, Data, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -317,10 +317,10 @@ internal class RightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_rulesService.RegisteredRules.Rules == null || _rulesService.RegisteredRules.Rules.Count == 0)
+        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDataSets, _registeredDataObjects, _rulesService.RegisteredRules, ReturnRules, _operatorsService.OperatorAliases, this.RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, ReturnRules, _operatorsService.OperatorAliases, RightRuleConfig).ConfigureAwait(false);
     }
 }

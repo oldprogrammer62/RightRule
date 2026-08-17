@@ -18,7 +18,7 @@ internal sealed class Evaluator
         _rightRuleConfig = rightRuleConfig;
     }
 
-    internal Task<RuleResult> EvaluateAsync(ParsedRule parsedRule, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects)
+    internal Task<RuleResult> EvaluateAsync(ParsedRule parsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         var diagnostics = _rightRuleConfig.DiagnosticsEnabled;
 
@@ -50,7 +50,7 @@ internal sealed class Evaluator
         });
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, ParsedRule rule)
+    private async Task<EvaluationResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ParsedRule rule)
     {
         if (rule == null)
         {
@@ -63,7 +63,7 @@ internal sealed class Evaluator
         return await EvaluateNodeAsync(Datasets, DataObjects, node, optionalData).ConfigureAwait(false);
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Node? node, object? OptionalData)
+    private async Task<EvaluationResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node? node, object? OptionalData)
     {
         return node switch
         {
@@ -74,7 +74,7 @@ internal sealed class Evaluator
         };
     }
 
-    private async Task<EvaluationResult> EvaluateBinaryAsync(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, BinaryNode b, object? Config)
+    private async Task<EvaluationResult> EvaluateBinaryAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, BinaryNode b, object? Config)
     {
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
@@ -98,7 +98,7 @@ internal sealed class Evaluator
         return EvaluationResult.Success(rightResult.Value);
     }
 
-    private async Task<EvaluationResult> EvaluateConditionAsync(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, ConditionNode c, object? OptionalData)
+    private async Task<EvaluationResult> EvaluateConditionAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ConditionNode c, object? OptionalData)
     {
         try
         {
@@ -129,7 +129,7 @@ internal sealed class Evaluator
         }
     }
 
-    private async static Task<string> BuildStatementAsync(string Statement, RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Node Node)
+    private async static Task<string> BuildStatementAsync(string Statement, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node Node)
     {
         try
         {

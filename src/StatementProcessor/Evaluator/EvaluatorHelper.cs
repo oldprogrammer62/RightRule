@@ -6,7 +6,7 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal class EvaluatorHelper
 {
-    internal static object? ResolveVariable(RegisteredDataObjects? DataObjects, string Identifier)
+    internal static object? ResolveVariable(IRegisteredDataObjects? DataObjects, string Identifier)
     {
         if (DataObjects is null)
         {
@@ -22,7 +22,7 @@ internal class EvaluatorHelper
         return GetPropertyValue(Identifier, dataObject.DataValue);
     }
 
-    internal static object? ResolveIdentifier(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, string Identifier)
+    internal static object? ResolveIdentifier(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, string Identifier)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -44,7 +44,7 @@ internal class EvaluatorHelper
         return ResolveIdentifier(DataObjects, parent, child);
     }
 
-    internal static object? ResolveOperandValue(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
+    internal static object? ResolveOperandValue(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op)
     {
         try
         {
@@ -56,7 +56,7 @@ internal class EvaluatorHelper
         }
     }
 
-    private static object? ResolveIdentifier(RegisteredDataObjects? DataObjects, string ObjectName, string PropertyName)
+    private static object? ResolveIdentifier(IRegisteredDataObjects? DataObjects, string ObjectName, string PropertyName)
     {
         if (string.IsNullOrEmpty(ObjectName))
         {
@@ -93,7 +93,7 @@ internal class EvaluatorHelper
         return result!;
     }
 
-    private static object? GetValue(RegisteredDataObjects DataObjects, string objectName, string propertyName)
+    private static object? GetValue(IRegisteredDataObjects DataObjects, string objectName, string propertyName)
     {
         if (DataObjects is null)
         {
@@ -138,7 +138,7 @@ internal class EvaluatorHelper
         return propertyInfo?.GetValue(propertyValue);
     }
 
-    private static object? ResolveOperand(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Operand op)
+    private static object? ResolveOperand(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op)
     {
         try
         {

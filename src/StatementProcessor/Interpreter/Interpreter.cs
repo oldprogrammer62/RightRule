@@ -8,12 +8,13 @@ namespace RightRule.StatementProcessor.Interpreter;
 
 internal sealed class Interpreter
 {
-    private readonly RegisteredDatasets? _registeredDatasets;
+    private readonly IRegisteredDatasets? _registeredDatasets;
+    private readonly IRegisteredDataObjects? _registeredDataObjects;
+
     private readonly Dictionary<string, Operator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
-    private readonly RegisteredDataObjects? _registeredDataObjects;
 
-    internal Interpreter(RegisteredDatasets? Datasets, RegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
+    internal Interpreter(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
     {
         _registeredDatasets = Datasets ?? new RegisteredDatasets();
         _registeredDataObjects = DataObjects ?? new RegisteredDataObjects();

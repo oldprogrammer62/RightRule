@@ -9,23 +9,24 @@ public class RuleBuilder_Test
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.BuildRuleDefinition()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
             .Statement("a = b")
             .Decision("GOOD")
-            .CheckData(false)
+            .WithCheckData(false)
+            .WithDiagnostics(false)
             .Build();
         var x1 = rr.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.BuildRuleDefinition()
             .Number(2)
             .Name("Name2")
             .Context("Context")
             .Statement("a = b")
             .Decision("GOOD")
-            .CheckData(false)
+            .WithCheckData(false)
             .Build();
         var x2 = rr.RegisterRule(rule2);
 

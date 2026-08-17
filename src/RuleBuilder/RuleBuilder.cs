@@ -1,5 +1,4 @@
 ﻿using RightRule.RuleModels;
-using System.Xml.Linq;
 
 namespace RightRule.RuleBuilder;
 
@@ -80,12 +79,12 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, optionalData, _checkData, _enableDiagnostics);
     }
 
-    public IRuleBuilder CheckData(bool checkData = true)
+    public IRuleBuilder WithCheckData(bool checkData = true)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, checkData, _enableDiagnostics);
     }
 
-    public IRuleBuilder Diagnostics(bool enableDiagnostics = false)
+    public IRuleBuilder WithDiagnostics(bool enableDiagnostics = false)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _checkData, enableDiagnostics);
     }

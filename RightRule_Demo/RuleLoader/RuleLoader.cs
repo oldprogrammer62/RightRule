@@ -1,13 +1,32 @@
-﻿using RightRule.RuleModels;
+﻿using BeSoft;
+using RightRule.RuleModels;
 
 namespace RightRule_Demo.RuleLoader
 {
     internal class RuleLoader
     {
-        internal static List<RuleDefinition> Load(string Context)
+        internal static List<RuleDefinition> Load(IRightRule rightRule, string Context)
         {
             return new List<RuleDefinition>
             {
+                rightRule.BuildRuleDefinition()
+                .Number(10)
+                .Name("Rule10")
+                .Context("Context")
+                .Statement("a = b")
+                .Decision("GOOD")
+                .WithCheckData(false)
+                .Build(),
+
+                rightRule.BuildRuleDefinition()
+                .Number(11)
+                .Name("Rule11")
+                .Context("Context")
+                .Statement("a = b")
+                .Decision("GOOD")
+                .WithCheckData(false)
+                .Build(),
+
                 new RuleDefinition
                 {
                     Context = Context,

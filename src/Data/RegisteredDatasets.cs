@@ -1,6 +1,6 @@
 ﻿namespace RightRule.Data;
 
-public class RegisteredDatasets
+internal class RegisteredDatasets : IRegisteredDatasets
 {
     private readonly List<RegisteredDataset> _data;
     public List<RegisteredDataset> Datasets => _data;
@@ -11,12 +11,12 @@ public class RegisteredDatasets
 
     public HashSet<string> DatasetNames => new HashSet<string>(Datasets.Select(ds => ds.Name).Distinct(StringComparer.OrdinalIgnoreCase));
 
-    internal RegisteredDatasets()
+    public RegisteredDatasets()
     {
         _data = new List<RegisteredDataset>();
     }
 
-    internal bool AddData(RegisteredDataset data)
+    public bool AddData(RegisteredDataset data)
     {
         if (data == null || string.IsNullOrEmpty(data.Name))
         {
@@ -31,13 +31,13 @@ public class RegisteredDatasets
         return false;
     }
 
-    internal bool RemoveData()
+    public bool RemoveData()
     {
         _data.Clear();
         return true;
     }
 
-    internal bool RemoveData(string name)
+    public bool RemoveData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -52,7 +52,7 @@ public class RegisteredDatasets
         return true;
     }
 
-    internal RegisteredDataset? GetData(string name)
+    public RegisteredDataset? GetData(string name)
     {
         if (string.IsNullOrEmpty(name))
         {

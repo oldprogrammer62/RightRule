@@ -2,7 +2,7 @@
 
 namespace RightRule.Operators;
 
-internal class OperatorsService
+internal class OperatorsService : IOperatorsService
 {
     private readonly List<Operator> _operators;
     public List<Operator> Operators => _operators;
@@ -13,14 +13,14 @@ internal class OperatorsService
     private readonly HashSet<string> _operatorNames;
     public HashSet<string> OperatorNames => _operatorNames;
 
-    internal OperatorsService()
+    public OperatorsService()
     {
         _operators = RegisterOperators();
         _operatorAliases = RegisterOperatorAliases(_operators);
         _operatorNames = RegisterOperatorNames(_operatorAliases);
     }
 
-    internal bool DeRegisterOperator(string OperatorName)
+    public bool DeRegisterOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
         var opToRemove = _operators.FirstOrDefault(op => op.Identifiers.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
