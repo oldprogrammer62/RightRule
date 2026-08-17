@@ -1,10 +1,11 @@
 ﻿using RightRule.RuleModels;
+using RightRule.RuleRegistration;
 
 namespace RightRule.HelperFunctions;
 
 public static class Helpers
 {
-    internal static RegisteredRules FilterRules(string Context, List<ParsedRule> Rules)
+    internal static IRegisteredRules FilterRules(string Context, List<ParsedRule> Rules)
     {
         try
         {

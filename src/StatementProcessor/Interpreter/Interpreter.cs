@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.System.Common;
 
@@ -22,22 +23,22 @@ internal sealed class Interpreter
         _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRuleAsync(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRuleAsync(IRegisteredRules rules)
     {
         return await EvaluateAsync(rules).ConfigureAwait(false);
     }
 
-    private async Task<List<AppliedRule>> EvaluateAsync(RegisteredRules rules)
+    private async Task<List<AppliedRule>> EvaluateAsync(IRegisteredRules rules)
     {
         return await ProcessFirstRule.EvaluateAsync(_evaluator, rules.Rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules)
+    internal async Task<List<AppliedRule>> ProcessRulesAsync(IRegisteredRules rules)
     {
         return await EvaluateAsync(rules.Rules, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    internal async Task<List<AppliedRule>> ProcessRulesAsync(RegisteredRules rules, RulesToReturn ReturnRules)
+    internal async Task<List<AppliedRule>> ProcessRulesAsync(IRegisteredRules rules, RulesToReturn ReturnRules)
     {
         return await EvaluateAsync(rules.Rules, ReturnRules).ConfigureAwait(false);
     }

@@ -5,12 +5,12 @@ namespace RightRule.RuleRegistration;
 
 internal class RegisteredRuleService : IRegisteredRuleService
 {
-    private readonly RegisteredRules _registeredRules;
-    public RegisteredRules RegisteredRules => _registeredRules;
+    private readonly IRegisteredRules _registeredRules;
+    public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RegisteredRuleService()
+    public RegisteredRuleService(IRegisteredRules registeredRules)
     {
-        _registeredRules = new RegisteredRules();
+        _registeredRules = registeredRules;
     }
 
     public ParsedRule? GetRegisteredRule(string Name)

@@ -1,5 +1,6 @@
 ﻿using BeSoft;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -69,7 +70,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules();
+        IRegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -88,7 +89,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules();
+        IRegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -110,7 +111,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules();
+        IRegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -128,7 +129,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules();
+        IRegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -146,7 +147,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.RegisteredRules().Count);
 
-        RegisteredRules? registeredRules = rr.RegisteredRules();
+        IRegisteredRules? registeredRules = rr.RegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 

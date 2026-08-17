@@ -7,8 +7,9 @@ using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
 using Microsoft.Extensions.DependencyInjection;
-using RightRule;
 using RightRule.RuleService;
+using RightRule.RuleRegistration;
+using RightRule.ServiceRegister;
 
 namespace BeSoft;
 
@@ -29,7 +30,7 @@ public sealed class RightRule : IRightRule, IDisposable
 
     public RightRule()
     {
-        var services = ServiceRegistrations.RegisterServices(new ServiceCollection());
+        var services = ServiceRegister.RegisterServices(new ServiceCollection());
         _serviceProvider = services.BuildServiceProvider();
 
         _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
@@ -118,7 +119,7 @@ public sealed class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>
-    public RegisteredRules RegisteredRules()
+    public IRegisteredRules RegisteredRules()
     {
         try
         {

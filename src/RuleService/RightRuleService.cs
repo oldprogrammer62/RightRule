@@ -14,7 +14,7 @@ internal class RightRuleService : IRightRuleService
     private readonly IOperatorsService _operatorsService;
 
     private readonly IRegisteredRuleService _registerRuleService;
-    public RegisteredRules RegisteredRules => _registerRuleService.RegisteredRules;
+    public IRegisteredRules RegisteredRules => _registerRuleService.RegisteredRules;
 
     private readonly IRegisteredDatasets? _registeredDataSets;
     public IRegisteredDatasets RegisteredDatasets => _registeredDataSets!;

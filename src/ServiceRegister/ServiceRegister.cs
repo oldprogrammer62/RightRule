@@ -4,9 +4,9 @@ using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.RuleService;
 
-namespace RightRule;
+namespace RightRule.ServiceRegister;
 
-internal sealed class ServiceRegistrations
+internal sealed class ServiceRegister
 {
     internal static ServiceCollection RegisterServices(ServiceCollection services)
     {
@@ -19,6 +19,7 @@ internal sealed class ServiceRegistrations
         services.AddScoped<IRegisteredRuleService, RegisteredRuleService>();
         services.AddScoped<IRegisteredDatasets, RegisteredDatasets>();
         services.AddScoped<IRegisteredDataObjects, RegisteredDataObjects>();
+        services.AddScoped<IRegisteredRules, RegisteredRules>();
 
         return services;
     }

@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 using RightRule.System.Common.Exceptions;
@@ -317,7 +318,7 @@ public interface IRightRule
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>
-    RegisteredRules RegisteredRules();
+    IRegisteredRules RegisteredRules();
 
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.

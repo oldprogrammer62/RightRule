@@ -4,7 +4,7 @@ namespace RightRule.RuleRegistration;
 
 internal interface IRegisteredRuleService
 {
-    RegisteredRules RegisteredRules { get; }
+    IRegisteredRules RegisteredRules { get; }
     ParsedRule? GetRegisteredRule(string Name);
     ParsedRule? GetRegisteredRule(int Number);
     List<ParsedRule> GetRules(string Context);

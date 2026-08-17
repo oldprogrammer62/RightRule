@@ -1,5 +1,6 @@
-﻿
-namespace RightRule.RuleModels;
+﻿using RightRule.RuleModels;
+
+namespace RightRule.RuleRegistration;
 
 /// <summary>
 /// A Class used to hold a list of ParsedRule objects.
@@ -8,7 +9,7 @@ namespace RightRule.RuleModels;
 /// The RightRules property allows the interpreter to access the list of parsed rules and evaluate them accordingly.
 /// This class is internal
 /// </summary>
-public class RegisteredRules
+public class RegisteredRules : IRegisteredRules
 {
     private readonly List<ParsedRule> _rules;
     public List<ParsedRule> Rules { get { return _rules; } }
@@ -17,7 +18,7 @@ public class RegisteredRules
 
     public ParsedRule? this[int index] => index >= 0 && index < _rules.Count ? _rules[index] : null;
 
-    internal RegisteredRules()
+    public RegisteredRules()
     {
         _rules = [];
     }
@@ -27,12 +28,12 @@ public class RegisteredRules
         _rules = rules;
     }
 
-    internal void AddRule(ParsedRule rule)
+    public void AddRule(ParsedRule rule)
     {
         _rules.Add(rule);
     }
 
-    internal void AddRules(List<ParsedRule> rules)
+    public void AddRules(List<ParsedRule> rules)
     {
         foreach (ParsedRule rule in rules)
         {
@@ -40,7 +41,7 @@ public class RegisteredRules
         }
     }
 
-    internal bool RemoveRules(string Context)
+    public bool RemoveRules(string Context)
     {
         try
         {
@@ -53,7 +54,7 @@ public class RegisteredRules
         }
     }
 
-    internal bool RemoveRule(string Name)
+    public bool RemoveRule(string Name)
     {
         try
         {
@@ -66,7 +67,7 @@ public class RegisteredRules
         }
     }
 
-    internal bool RemoveRule(int Number)
+    public bool RemoveRule(int Number)
     {
         try
         {
@@ -79,7 +80,7 @@ public class RegisteredRules
         }
     }
 
-    internal bool RemoveRules()
+    public bool RemoveRules()
     {
         try
         {

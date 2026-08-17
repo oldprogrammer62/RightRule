@@ -1,13 +1,14 @@
 ﻿using RightRule.Data;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration;
 using RightRule.System.Common;
 
 namespace RightRule.RuleService;
 
 internal interface IRightRuleService
 {
-    RegisteredRules RegisteredRules { get; }
+    IRegisteredRules RegisteredRules { get; }
     IRegisteredDatasets RegisteredDatasets { get; }
     IRegisteredDataObjects RegisteredDataObjects { get; }
     RightRuleConfiguration RightRuleConfig { get; }
