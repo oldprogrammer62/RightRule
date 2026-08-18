@@ -6,11 +6,6 @@
 public abstract class Rule
 {
     /// <summary>
-    /// Binds the Rule to a specific event context defined in code.
-    /// </summary>
-    public required string Context { get; init; }
-
-    /// <summary>
     /// Identifies the Rule by number.
     /// Used when ordering rules for evaluation. Ordering is low to high.
     /// </summary>
@@ -28,15 +23,10 @@ public abstract class Rule
     public required string Statement { get; init; }
 
     /// <summary>
-    /// Optional data that will be passed to the Operator when evaluating the Rule.
-    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
+    /// Binds the Rule to a specific event context defined in code.
     /// </summary>
-    public object? OptionalData { get; init; }
+    public required string Context { get; init; }
 
-    /// <summary>
-    /// String value returned if the Rule evaluates to True.
-    /// Note: the calling application should handle all possible decision striongs for the specified Context.
-    /// </summary>
     public required string Decision { get; init; }
 
     /// <summary>
@@ -47,6 +37,16 @@ public abstract class Rule
 
     /// <summary>
     /// Optional configuration settings during rule processing.
+    /// </summary>
+    /// <summary>
+    /// Optional data that will be passed to the Operator when evaluating the Rule.
+    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
+    /// </summary>
+    public object? OptionalData { get; init; }
+
+    /// <summary>
+    /// String value returned if the Rule evaluates to True.
+    /// Note: the calling application should handle all possible decision striongs for the specified Context.
     /// </summary>
     public RuleConfiguration? RuleConfiguration { get; init; }
 }

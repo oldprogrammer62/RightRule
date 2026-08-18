@@ -49,6 +49,5 @@
     <Folder Include="Licenses\" />
     <Folder Include="Docs\" />
     <Folder Include="OperatorLoader\" />
-    <Folder Include="RuleLoaders\JsonLoader\" />
   </ItemGroup>
 </Project>
