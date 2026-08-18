@@ -51,7 +51,7 @@ internal sealed class Evaluator
 
         string message = string.Empty;
 
-        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? false;
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RuleConfiguration.DEFAULT_DIAGNOSTICS;
         var statement = rule.Statement;
         return diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
     }
@@ -65,7 +65,7 @@ internal sealed class Evaluator
 
         var node = rule.Node;
         var optionalData = rule.OptionalData;
-        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? false;
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RuleConfiguration.DEFAULT_DIAGNOSTICS;
 
         return await EvaluateNodeAsync(Datasets, DataObjects, node, optionalData, diagnostics).ConfigureAwait(false);
     }
@@ -81,7 +81,7 @@ internal sealed class Evaluator
         };
     }
 
-    private async Task<EvaluationResult> EvaluateBinaryAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, BinaryNode b, object? Config, bool Diagnostics)
+    private async Task<EvaluationResult> EvaluateBinaryAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, BinaryNode b, object? OptionalData, bool Diagnostics)
     {
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
@@ -90,7 +90,7 @@ internal sealed class Evaluator
         }
 
         // 1. Evaluate the left side
-        var leftResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Left, Config, Diagnostics).ConfigureAwait(false);
+        var leftResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Left, OptionalData, Diagnostics).ConfigureAwait(false);
         if (!leftResult.IsSuccess) return leftResult; // Bubble up the error immediately
 
         // 2. Perform Short-Circuit Checks
@@ -98,7 +98,7 @@ internal sealed class Evaluator
         if (op == "or" && leftResult.Value) return EvaluationResult.Success(true);
 
         // 3. Evaluate the right side (only if short-circuit didn't trigger)
-        var rightResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Right, Config, Diagnostics).ConfigureAwait(false);
+        var rightResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Right, OptionalData, Diagnostics).ConfigureAwait(false);
         if (!rightResult.IsSuccess) return rightResult; // Bubble up the error immediately
 
         // 4. If both succeeded, the final value is just the right side's value

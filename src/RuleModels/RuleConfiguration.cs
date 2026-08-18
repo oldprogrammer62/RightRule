@@ -6,10 +6,13 @@
 /// </summary>
 public class RuleConfiguration
 {
-    private readonly bool _datacheck = false;
+    public const bool DEFAULT_DATACHECK = false;
+    public const bool DEFAULT_DIAGNOSTICS = false;
+
+    private readonly bool _datacheck = DEFAULT_DATACHECK;
     public bool DataCheck => _datacheck;
 
-    private readonly bool _diagnostics = false;
+    private readonly bool _diagnostics = DEFAULT_DIAGNOSTICS;
     public bool Diagnostics => _diagnostics;
 
     public RuleConfiguration(bool DataCheck, bool Diagnostics)
@@ -20,8 +23,8 @@ public class RuleConfiguration
 
     public static RuleConfiguration DefaultConfig()
     {
-        bool datacheck = false;
-        bool diagnostics = false;
+        bool datacheck = DEFAULT_DATACHECK;
+        bool diagnostics = DEFAULT_DIAGNOSTICS;
 
         return new RuleConfiguration(datacheck, diagnostics);
     }

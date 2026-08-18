@@ -79,14 +79,14 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, optionalData, _dataCheck, _diagnostics);
     }
 
-    public IRuleBuilder WithCheckData(bool checkData = true)
+    public IRuleBuilder WithCheckData(bool checkData = RuleConfiguration.DEFAULT_DATACHECK)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, checkData, _diagnostics);
     }
 
-    public IRuleBuilder WithDiagnostics(bool enableDiagnostics = false)
+    public IRuleBuilder WithDiagnostics(bool diagnostics = RuleConfiguration.DEFAULT_DIAGNOSTICS)
     {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _dataCheck, enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _dataCheck, diagnostics);
     }
 
     // Terminal step: validates that remaining mandatory variables are populated before finishing
