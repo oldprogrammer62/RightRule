@@ -10,7 +10,7 @@ public sealed class DoesNotContainOperator : Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left is null || right is null)
         {

@@ -2,7 +2,10 @@
 using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
+using RightRule.SyntaxChecker;
 using RightRule.System.Common;
+using System.Data;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
@@ -10,23 +13,18 @@ internal sealed class Evaluator
 {
     private readonly Dictionary<string, Operator> _operators;
 
-    private readonly RightRuleConfiguration _rightRuleConfig;
-
-    internal Evaluator(Dictionary<string, Operator> Operators, RightRuleConfiguration rightRuleConfig)
+    internal Evaluator(Dictionary<string, Operator> Operators)
     {
         _operators = Operators ?? new Dictionary<string, Operator> { };
-        _rightRuleConfig = rightRuleConfig;
     }
 
-    internal Task<RuleResult> EvaluateAsync(ParsedRule parsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    internal Task<RuleResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
-        var diagnostics = _rightRuleConfig.DiagnosticsEnabled;
-
         return Task.Run(async () =>
         {
             try
             {
-                var evaluationResult = await EvaluateNodeAsync(Datasets, DataObjects, parsedRule).ConfigureAwait(false);
+                var evaluationResult = await EvaluateNodeAsync(Datasets, DataObjects, ParsedRule).ConfigureAwait(false);
                 if (evaluationResult == null)
                 {
                     return RuleResult.Failure(evaluationResult!, "Evaluation invalid.");
@@ -36,11 +34,8 @@ internal sealed class Evaluator
                     return RuleResult.Failure(evaluationResult, evaluationResult.Message);
                 }
 
-                var node = parsedRule.Node;
-                var statement = parsedRule.Statement;
-
                 string message = string.Empty;
-                string statementApplied = diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
+                string statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
                 return RuleResult.Success(evaluationResult, message, statementApplied);
             }
             catch (Exception ex)
@@ -48,6 +43,17 @@ internal sealed class Evaluator
                 return RuleResult.Failure(ex.Message);
             }
         });
+    }
+
+    private async Task<string> BuildStatementApplied(ParsedRule rule, IRegisteredDatasets Datasets, IRegisteredDataObjects DataObjects)
+    {
+        var node = rule.Node;
+
+        string message = string.Empty;
+
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? false;
+        var statement = rule.Statement;
+        return diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
     }
 
     private async Task<EvaluationResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ParsedRule rule)
@@ -59,22 +65,23 @@ internal sealed class Evaluator
 
         var node = rule.Node;
         var optionalData = rule.OptionalData;
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? false;
 
-        return await EvaluateNodeAsync(Datasets, DataObjects, node, optionalData).ConfigureAwait(false);
+        return await EvaluateNodeAsync(Datasets, DataObjects, node, optionalData, diagnostics).ConfigureAwait(false);
     }
 
-    private async Task<EvaluationResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node? node, object? OptionalData)
+    private async Task<EvaluationResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node? node, object? OptionalData, bool Diagnostics)
     {
         return node switch
         {
-            ConditionNode c => await EvaluateConditionAsync(Datasets, DataObjects, c, OptionalData).ConfigureAwait(false),
-            BinaryNode b => await EvaluateBinaryAsync(Datasets, DataObjects, b, OptionalData).ConfigureAwait(false),
-            NotNode n => (await EvaluateNodeAsync(Datasets, DataObjects, n.Inner, OptionalData).ConfigureAwait(false)).Invert(),
+            ConditionNode c => await EvaluateConditionAsync(Datasets, DataObjects, c, OptionalData, Diagnostics).ConfigureAwait(false),
+            BinaryNode b => await EvaluateBinaryAsync(Datasets, DataObjects, b, OptionalData, Diagnostics).ConfigureAwait(false),
+            NotNode n => (await EvaluateNodeAsync(Datasets, DataObjects, n.Inner, OptionalData, Diagnostics).ConfigureAwait(false)).Invert(),
             _ => EvaluationResult.Failure($"Unknown Node Type: {node}")
         };
     }
 
-    private async Task<EvaluationResult> EvaluateBinaryAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, BinaryNode b, object? Config)
+    private async Task<EvaluationResult> EvaluateBinaryAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, BinaryNode b, object? Config, bool Diagnostics)
     {
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
@@ -83,7 +90,7 @@ internal sealed class Evaluator
         }
 
         // 1. Evaluate the left side
-        var leftResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Left, Config).ConfigureAwait(false);
+        var leftResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Left, Config, Diagnostics).ConfigureAwait(false);
         if (!leftResult.IsSuccess) return leftResult; // Bubble up the error immediately
 
         // 2. Perform Short-Circuit Checks
@@ -91,21 +98,21 @@ internal sealed class Evaluator
         if (op == "or" && leftResult.Value) return EvaluationResult.Success(true);
 
         // 3. Evaluate the right side (only if short-circuit didn't trigger)
-        var rightResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Right, Config).ConfigureAwait(false);
+        var rightResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Right, Config, Diagnostics).ConfigureAwait(false);
         if (!rightResult.IsSuccess) return rightResult; // Bubble up the error immediately
 
         // 4. If both succeeded, the final value is just the right side's value
         return EvaluationResult.Success(rightResult.Value);
     }
 
-    private async Task<EvaluationResult> EvaluateConditionAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ConditionNode c, object? OptionalData)
+    private async Task<EvaluationResult> EvaluateConditionAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ConditionNode c, object? OptionalData, bool Diagnostics)
     {
         try
         {
             var left = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, c.Left);
             var right = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, c.Right);
 
-            var result = await ProcessOperator(c.Operator, left!, right!, OptionalData).ConfigureAwait(false);
+            var result = await ProcessOperator(c.Operator, left!, right!, OptionalData, Diagnostics).ConfigureAwait(false);
             return result;
         }
         catch (Exception ex)
@@ -114,14 +121,14 @@ internal sealed class Evaluator
         }
     }
 
-    private async Task<EvaluationResult> ProcessOperator(string logicOperator, object left, object right, object? OptionalData)
+    private async Task<EvaluationResult> ProcessOperator(string logicOperator, object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (!_operators.TryGetValue(logicOperator, out var op))
             throw new KeyNotFoundException($"Unknown operator: {logicOperator}");
 
         try
         {
-            return await op.ProcessAsync(left, right, OptionalData).ConfigureAwait(false);
+            return await op.ProcessAsync(left, right, OptionalData, Diagnostics).ConfigureAwait(false);
         }
         catch
         {

@@ -11,7 +11,7 @@ internal class RuleRegistrationService
         return ParseRulesAndRegister(rules, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    internal static ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    internal static ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         return ParseRuleAndRegister(rule, OperatorNames, ObjectNames, DatasetNames);
     }
@@ -30,17 +30,16 @@ internal class RuleRegistrationService
         return parsedRules;
     }
 
-    private static ParsedRule ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    private static ParsedRule? ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames, ObjectNames, DatasetNames);
         return parsedRule;
     }
 
-    private static ParsedRule CreateRule(RuleDefinition ruleDefinition, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    private static ParsedRule? CreateRule(RuleDefinition? ruleDefinition, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
-        var statement = ruleDefinition.Statement;
-        var dataCheck = ruleDefinition.DataCheck ?? true;
-        var diagnostics = ruleDefinition.Diagnostics ?? false;
+        var statement = ruleDefinition?.Statement ?? string.Empty;
+        var dataCheck = GetDataCheckSetting(ruleDefinition?.RuleConfiguration);
 
         try
         {
@@ -52,6 +51,11 @@ internal class RuleRegistrationService
         {
             return ParsedRule.FailResult(ruleDefinition, message: ex.Message);
         }
+    }
+
+    private static bool GetDataCheckSetting(RuleConfiguration? ruleConfig)
+    {
+        return Helper.GetDataCheckSetting(ruleConfig);
     }
 
     private static Node GenerateTree(string Statement, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, bool DataCheck)

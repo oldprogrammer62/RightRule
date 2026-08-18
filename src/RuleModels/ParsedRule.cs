@@ -40,8 +40,13 @@ public sealed class ParsedRule : Rule
         Message = string.Empty;
     }
 
-    internal static ParsedRule SuccessResult(RuleDefinition ruleDefinition, Node node, string message)
+    internal static ParsedRule? SuccessResult(RuleDefinition? ruleDefinition, Node node, string message)
     {
+        if (ruleDefinition == null)
+        {
+            return null;
+        }
+
         return new ParsedRule()
         {
             Success = true,
@@ -54,12 +59,18 @@ public sealed class ParsedRule : Rule
             Statement = ruleDefinition.Statement,
             StatementPath = BuildTreeText(node),
             OptionalData = ruleDefinition.OptionalData,
+            RuleConfiguration = ruleDefinition.RuleConfiguration is not null ? ruleDefinition.RuleConfiguration :RuleConfiguration.DefaultConfig(),
             Node = node
         };
     }
 
-    internal static ParsedRule FailResult(RuleDefinition ruleDefinition, string message)
+    internal static ParsedRule? FailResult(RuleDefinition? ruleDefinition, string message)
     {
+        if (ruleDefinition == null)
+        {
+            return null;
+        }
+
         return new ParsedRule()
         {
             Success = false,
@@ -72,6 +83,7 @@ public sealed class ParsedRule : Rule
             Statement = ruleDefinition.Statement,
             StatementPath = string.Empty,
             OptionalData = ruleDefinition.OptionalData,
+            RuleConfiguration = ruleDefinition.RuleConfiguration is not null ? ruleDefinition.RuleConfiguration : RuleConfiguration.DefaultConfig(),
             Node = null
         };
     }

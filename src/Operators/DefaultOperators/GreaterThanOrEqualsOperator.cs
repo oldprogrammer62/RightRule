@@ -10,7 +10,7 @@ public sealed class GreaterThanOrEqualsOperator : Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left == null && right == null)
         {

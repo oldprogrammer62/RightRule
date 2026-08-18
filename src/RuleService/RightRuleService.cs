@@ -1,11 +1,10 @@
 ﻿using RightRule.Data;
-using RightRule.Models;
 using RightRule.Operators;
 using RightRule.RuleApplication;
 using RightRule.RuleRegistration;
 using RightRule.RuleModels;
 using RightRule.System.Common;
-using RightRule.RuleConfiguration;
+// using RightRule.RuleConfiguration;
 
 namespace RightRule.RuleService;
 
@@ -22,22 +21,12 @@ internal class RightRuleService : IRightRuleService
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
-    private readonly RightRuleConfiguration _rightRuleConfig;
-    public RightRuleConfiguration RightRuleConfig => _rightRuleConfig;
-
     public RightRuleService(IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
         _operatorsService = operatorsService;
         _registerRuleService = registeredRuleService;
         _registeredDataSets = registeredDatasets;
         _registeredDataObjects = registeredDataObjects;
-
-        _rightRuleConfig = GetConfiguration();
-    }
-
-    private static RightRuleConfiguration GetConfiguration()
-    {
-        return ConfigurationManager.GetConfiguration();
     }
 
     public Dictionary<string, Operator> GetOperatorAliases()
@@ -84,8 +73,8 @@ internal class RightRuleService : IRightRuleService
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = _operatorsService.OperatorNames;
-        var objectNames = _registeredDataObjects.ObjectNames;
-        var datasetNames = _registeredDataSets.DatasetNames;
+        var objectNames = _registeredDataObjects?.ObjectNames;
+        var datasetNames = _registeredDataSets?.DatasetNames;
         return _registerRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
     }
 
@@ -266,7 +255,7 @@ internal class RightRuleService : IRightRuleService
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, _operatorsService.OperatorAliases, RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, _operatorsService.OperatorAliases).ConfigureAwait(false);
     }
 
     public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
@@ -321,6 +310,6 @@ internal class RightRuleService : IRightRuleService
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, ReturnRules, _operatorsService.OperatorAliases, RightRuleConfig).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRulesAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, ReturnRules, _operatorsService.OperatorAliases).ConfigureAwait(false);
     }
 }

@@ -1,10 +1,8 @@
 ﻿using RightRule.Data;
-using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
-using RightRule.System.Common.Exceptions;
 
 namespace BeSoft;
 
@@ -23,8 +21,6 @@ public interface IRightRule
     /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// </summary>
     INumberStep BuildRuleDefinition();
-
-    RightRuleConfiguration RightRuleConfiguration { get; }
 
     /// <summary>
     /// Returns the set of Operators currently loaded in the RightRule engine.

@@ -27,6 +27,7 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .WithCheckData(false)
+            .WithDiagnostics(true)
             .Build();
         var x2 = rr.RegisterRule(rule2);
 

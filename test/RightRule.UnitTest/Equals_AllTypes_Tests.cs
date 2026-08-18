@@ -88,4 +88,32 @@ public class Equals_AllTypes_Tests
         Assert.True(result.Result);
         Assert.Equal(rule.Decision, result.Decision);
     }
+
+    [Fact]
+    public void Test_Dec2()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", decVal);
+
+        decimal localVal = 100.01M;
+        rr.RegisterData("localVal", localVal);
+
+        var rule = rr.BuildRuleDefinition()
+            .Number(1)
+            .Name("NameOfRule")
+            .Context("Context")
+            .Statement("testVal = localVal")
+            .Decision("GOOD")
+            .WithCheckData(true)
+            .WithDiagnostics(true)
+            .Build();
+            
+        var prule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
 }

@@ -11,12 +11,12 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
     private readonly string _decision;
     private readonly object? _decisionData;
     private readonly object? _optionalData;
-    private readonly bool _checkData;
-    private readonly bool _enableDiagnostics;
+    private readonly bool _dataCheck;
+    private readonly bool _diagnostics;
 
     // Private constructor for state progression
     private RuleBuilder(int number, string name, string context, string statement, string decision,
-                        object? decisionData, object? optionalData, bool checkData, bool enableDiagnostics)
+                        object? decisionData, object? optionalData, bool dataCheck, bool diagnostics)
     {
         _number = number;
         _name = name;
@@ -25,8 +25,8 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
         _decision = decision;
         _decisionData = decisionData;
         _optionalData = optionalData;
-        _checkData = checkData;
-        _enableDiagnostics = enableDiagnostics;
+        _dataCheck = dataCheck;
+        _diagnostics = diagnostics;
     }
 
     internal static INumberStep Create()
@@ -37,56 +37,56 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
     // Step 1: Enforces that Number must be provided first
     public INameStep Number(int number)
     {
-        return new RuleBuilder(number, _name, _context, _decision, _statement, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(number, _name, _context, _decision, _statement, _decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     // Step 2: Enforces that Name must follow Number
     public IContextStep Name(string name)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Name is mandatory.", nameof(name));
-        return new RuleBuilder(_number, name, _context, _statement, _decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, name, _context, _statement, _decision, _decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     // Step 3: Enforces that Context must follow Name
     public IStatementStep Context(string context)
     {
         if (string.IsNullOrWhiteSpace(context)) throw new ArgumentException("Context is mandatory.", nameof(context));
-        return new RuleBuilder(_number, _name, context, _statement, _decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, context, _statement, _decision, _decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     // Step 4: Enforces that Statement must follow Context
     public IDecisionStep Statement(string statement)
     {
         if (string.IsNullOrWhiteSpace(statement)) throw new ArgumentException("Statement is mandatory.", nameof(statement));
-        return new RuleBuilder(_number, _name, _context, statement, _decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, statement, _decision, _decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     // Step 5: Enforces that Decision must follow Statement
     public IRuleBuilder Decision(string decision)
     {
         if (string.IsNullOrWhiteSpace(decision)) throw new ArgumentException("Decision is mandatory.", nameof(decision));
-        return new RuleBuilder(_number, _name, _context, _statement, decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, decision, _decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     // Unordered Mandatory / Optional Methods
     public IRuleBuilder DecisionData(object? decisionData)
     {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, decisionData, _optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, decisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     public IRuleBuilder OptionalData(object? optionalData)
     {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, optionalData, _checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, optionalData, _dataCheck, _diagnostics);
     }
 
     public IRuleBuilder WithCheckData(bool checkData = true)
     {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, checkData, _enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, checkData, _diagnostics);
     }
 
     public IRuleBuilder WithDiagnostics(bool enableDiagnostics = false)
     {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _checkData, enableDiagnostics);
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _dataCheck, enableDiagnostics);
     }
 
     // Terminal step: validates that remaining mandatory variables are populated before finishing
@@ -98,6 +98,8 @@ public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStateme
         if (string.IsNullOrWhiteSpace(_statement)) throw new InvalidOperationException("Statement is a mandatory field.");
         if (string.IsNullOrWhiteSpace(_decision)) throw new InvalidOperationException("Decision is a mandatory field.");
 
-        return RuleDefinition.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _checkData, _enableDiagnostics);
+        RuleConfiguration ruleConfiguration = new RuleConfiguration(_dataCheck, _diagnostics);
+
+        return RuleDefinition.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, ruleConfiguration);
     }
 }

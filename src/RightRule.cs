@@ -26,8 +26,6 @@ public sealed class RightRule : IRightRule, IDisposable
     private readonly IRightRuleService _rightRuleService;
     internal IRightRuleService RightRuleService => _rightRuleService;
 
-    public RightRuleConfiguration RightRuleConfiguration => _rightRuleService.RightRuleConfig;
-
     public RightRule()
     {
         var services = ServiceRegister.RegisterServices(new ServiceCollection());

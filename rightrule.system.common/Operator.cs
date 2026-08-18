@@ -20,11 +20,11 @@ public abstract class Operator
         IsCustom = isCustom;
     }
 
-    public async Task<EvaluationResult> ProcessAsync(object left, object right, object? OptionalData)
+    public async Task<EvaluationResult> ProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         try
         {
-            return await DoOperatorProcessAsync(left, right, OptionalData).ConfigureAwait(false);
+            return await DoOperatorProcessAsync(left, right, OptionalData, Diagnostics).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -32,7 +32,7 @@ public abstract class Operator
         }
     }
 
-    protected abstract Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData);
+    protected abstract Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics);
 
     public void Dispose()
     {

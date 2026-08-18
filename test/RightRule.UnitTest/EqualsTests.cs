@@ -67,6 +67,8 @@ public class EqualsTests
     [Fact]
     public void Equals_Int()
     {
+        RuleConfiguration rc = new RuleConfiguration(false, false);
+
         // Rule
         RuleDefinition rule = new()
         {
@@ -75,6 +77,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
+            RuleConfiguration = rc
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

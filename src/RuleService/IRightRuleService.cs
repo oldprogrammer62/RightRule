@@ -11,7 +11,6 @@ internal interface IRightRuleService
     IRegisteredRules RegisteredRules { get; }
     IRegisteredDatasets RegisteredDatasets { get; }
     IRegisteredDataObjects RegisteredDataObjects { get; }
-    RightRuleConfiguration RightRuleConfig { get; }
 
     Dictionary<string, Operator> GetOperatorAliases();
     List<Operator> GetOperatorDetails();

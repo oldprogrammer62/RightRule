@@ -11,22 +11,14 @@ namespace RightRule.RuleModels;
 /// <para>OptionalData: Optional data that will be passed to the Operator when evaluating the Rule. It is the responsibility of the Operator to validate the configuration details and use it as required.</para>
 /// <para>Decision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
 /// <para>DecisionData: Optional data returned when the Rule is evaluated to true. Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.</para>
-/// <para>DataCheck: Optional true/false (default: false) to include a data check during statement parsing</para>
 /// </summary> 
 public sealed class RuleDefinition : Rule
 {
-    private bool? _dataCheck = false;
-    internal bool? DataCheck => _dataCheck;
-
-    private bool? _diagnostics = false;
-    internal bool? Diagnostics => _diagnostics;
-
     public RuleDefinition() : base()
     {
-        _dataCheck = false;
     }
 
-    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, bool? DataCheck, bool? Diagnostics)
+    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RuleConfiguration ruleConfiguration)
     {
         return new RuleDefinition()
         {
@@ -37,8 +29,7 @@ public sealed class RuleDefinition : Rule
             Decision = Decision,
             DecisionData = DecisionData,
             OptionalData = OptionalData,
-            _dataCheck = DataCheck,
-           _diagnostics = Diagnostics
+            RuleConfiguration = ruleConfiguration
         };
     }
 
@@ -51,9 +42,9 @@ public sealed class RuleDefinition : Rule
         sb.AppendLine($"Statement: {this.Statement}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
-        sb.AppendLine($"DataCheck: {this.DataCheck}");
-        sb.AppendLine($"Diagnostics: {this.Diagnostics}");
         sb.AppendLine($"Configuration: {this.OptionalData}");
+        sb.AppendLine($"DataCheck: {this.RuleConfiguration?.DataCheck}");
+        sb.AppendLine($"Diagnostics: {this.RuleConfiguration?.Diagnostics}");
         return sb.ToString();
     }
 }

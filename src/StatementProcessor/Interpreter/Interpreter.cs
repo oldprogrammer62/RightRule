@@ -15,12 +15,12 @@ internal sealed class Interpreter
     private readonly Dictionary<string, Operator> _operators;
     private readonly Evaluator.Evaluator _evaluator;
 
-    internal Interpreter(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, RightRuleConfiguration rightRuleConfig)
+    internal Interpreter(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators)
     {
         _registeredDatasets = Datasets ?? new RegisteredDatasets();
         _registeredDataObjects = DataObjects ?? new RegisteredDataObjects();
         _operators = operators ?? new Dictionary<string, Operator> { };
-        _evaluator = new Evaluator.Evaluator(_operators, rightRuleConfig);
+        _evaluator = new Evaluator.Evaluator(_operators);
     }
 
     internal async Task<List<AppliedRule>> ProcessRuleAsync(IRegisteredRules rules)

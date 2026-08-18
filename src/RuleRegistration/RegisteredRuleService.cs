@@ -39,10 +39,14 @@ internal class RegisteredRuleService : IRegisteredRuleService
         return parsedRules;
     }
 
-    public ParsedRule RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    public ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
+        if (parsedRule == null)
+        {
+            return null;
+        }
         RegisteredRules.AddRule(parsedRule);
         return parsedRule;
     }

@@ -44,4 +44,9 @@ public abstract class Rule
     /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
     public object? DecisionData { get; init; }
+
+    /// <summary>
+    /// Optional configuration settings during rule processing.
+    /// </summary>
+    public RuleConfiguration? RuleConfiguration { get; init; }
 }
