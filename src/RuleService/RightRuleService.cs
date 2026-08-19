@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using RightRule.Data;
+﻿using RightRule.Data;
+using RightRule.Factories.RightFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Evaluator;
@@ -10,7 +10,8 @@ namespace RightRule.RuleService;
 internal partial class RightRuleService : IRightRuleService
 {
     private readonly IServiceProvider _serviceProvider;
-    private IEvaluator _evaluator;
+    private readonly IRightRuleFactory _factory;
+    private readonly IEvaluator _evaluator;
 
 
     private readonly IOperatorsService _operatorsService;
@@ -24,9 +25,10 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
-    public RightRuleService(IServiceProvider ServiceProvider, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
+    public RightRuleService(IServiceProvider ServiceProvider, IRightRuleFactory factory, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
         _serviceProvider = ServiceProvider;
+        _factory = factory;
 
         _operatorsService = operatorsService;
         _registerRuleService = registeredRuleService;
@@ -38,6 +40,6 @@ internal partial class RightRuleService : IRightRuleService
 
     private IEvaluator CreateEvaluator(Dictionary<string, Operator> Operators)
     {
-        return ActivatorUtilities.CreateInstance<Evaluator>(_serviceProvider, Operators);
+        return _factory.CreateEvaluator(_serviceProvider, Operators);
     }
 }

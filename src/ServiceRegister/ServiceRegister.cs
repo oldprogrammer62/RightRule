@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule.Data;
+using RightRule.Factories.RightFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.RuleService;
@@ -22,6 +23,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredDataObjects, RegisteredDataObjects>();
         services.AddScoped<IRegisteredRules, RegisteredRules>();
 
+        services.AddScoped<IRightRuleFactory, RightRuleFactory>();
         services.AddSingleton<IEvaluator, Evaluator>();
 
         return services;
