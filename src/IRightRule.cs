@@ -1,6 +1,7 @@
 ﻿using RightRule.Data;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
+using RightRule.StatementProcessor.Evaluator;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 

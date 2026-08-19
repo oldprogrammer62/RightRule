@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-internal class StatementBuilder
+internal static class StatementBuilder
 {
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.

@@ -4,9 +4,9 @@ using RightRule.RuleModels;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-internal class ProcessFirstRule
+internal static class ProcessFirstRule
 {
-    internal async static Task<List<AppliedRule>> EvaluateAsync(Evaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
+    internal async static Task<List<AppliedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
     {
         List<AppliedRule> appliedRules = [];
         bool complete = false;
@@ -41,7 +41,7 @@ internal class ProcessFirstRule
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(Evaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async static Task<RuleResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         if (rule.Node == null)
         {

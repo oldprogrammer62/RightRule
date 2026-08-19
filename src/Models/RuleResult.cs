@@ -2,7 +2,7 @@
 
 namespace RightRule.Models;
 
-internal class RuleResult
+public class RuleResult
 {
     public EvaluationResult Result { get; }
     public string Message { get; }

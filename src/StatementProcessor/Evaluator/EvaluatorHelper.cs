@@ -4,7 +4,7 @@ using RightRule.System.Common.Exceptions;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-internal class EvaluatorHelper
+internal static class EvaluatorHelper
 {
     internal static object? ResolveVariable(IRegisteredDataObjects? DataObjects, string Identifier)
     {

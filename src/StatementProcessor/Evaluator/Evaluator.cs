@@ -2,23 +2,20 @@
 using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
-using RightRule.SyntaxChecker;
 using RightRule.System.Common;
-using System.Data;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-internal sealed class Evaluator
+public sealed class Evaluator : IEvaluator
 {
     private readonly Dictionary<string, Operator> _operators;
 
-    internal Evaluator(Dictionary<string, Operator> Operators)
+    public Evaluator(Dictionary<string, Operator> Operators)
     {
         _operators = Operators ?? new Dictionary<string, Operator> { };
     }
 
-    internal Task<RuleResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    public Task<RuleResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         return Task.Run(async () =>
         {
@@ -45,7 +42,7 @@ internal sealed class Evaluator
         });
     }
 
-    private async Task<string> BuildStatementApplied(ParsedRule rule, IRegisteredDatasets Datasets, IRegisteredDataObjects DataObjects)
+    private async Task<string> BuildStatementApplied(ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         var node = rule.Node;
 

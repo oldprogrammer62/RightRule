@@ -32,6 +32,6 @@ internal partial class RightRuleService : IRightRuleService
         {
             return [AppliedRule.ErrorResult("Error: No rules available for application.")];
         }
-        return await RuleApplicationService.ApplyRuleAsync(Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, _operatorsService.OperatorAliases).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyRuleAsync(_evaluator, Context, _registeredDataSets, _registeredDataObjects, _registerRuleService.RegisteredRules, _operatorsService.OperatorAliases).ConfigureAwait(false);
     }
 }

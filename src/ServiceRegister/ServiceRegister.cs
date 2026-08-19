@@ -3,6 +3,7 @@ using RightRule.Data;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.RuleService;
+using RightRule.StatementProcessor.Evaluator;
 
 namespace RightRule.ServiceRegister;
 
@@ -20,6 +21,8 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredDatasets, RegisteredDatasets>();
         services.AddScoped<IRegisteredDataObjects, RegisteredDataObjects>();
         services.AddScoped<IRegisteredRules, RegisteredRules>();
+
+        services.AddSingleton<IEvaluator, Evaluator>();
 
         return services;
     }

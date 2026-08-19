@@ -1,6 +1,5 @@
 ﻿using BeSoft;
 using RightRule.Data;
-using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.System.Common;
