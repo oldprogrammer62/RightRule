@@ -8,11 +8,11 @@ internal sealed class Tokenizer
     private readonly string _input;
     private int _pos;
     private readonly HashSet<string> _operators;
-    private readonly HashSet<string> _objectNames;
-    private readonly HashSet<string> _datasetNames;
+    private readonly HashSet<string>? _objectNames;
+    private readonly HashSet<string>? _datasetNames;
     private readonly bool _dataCheck;
 
-    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, bool DataCheck)
+    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames, bool DataCheck)
     {
         _input = input ?? string.Empty;
         _operators = OperatorNames;
@@ -91,7 +91,7 @@ internal sealed class Tokenizer
                 if (!_dataCheck)
                     return new Token(TokenType.Variable, value, start);
 
-                if (_objectNames.Contains(value))
+                if (_objectNames is not null && _objectNames.Contains(value))
                 {
                     return new Token(TokenType.Variable, value, start);
                 }
@@ -102,7 +102,7 @@ internal sealed class Tokenizer
                 if (!_dataCheck)
                     return new Token(TokenType.Identifier, value, start);
 
-                if (_dataCheck && _datasetNames.Contains(value.Split('.')[0]))
+                if (_dataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
                 {
                     return new Token(TokenType.Identifier, value, start);
                 }

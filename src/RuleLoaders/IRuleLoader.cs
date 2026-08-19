@@ -4,7 +4,5 @@ namespace RightRule.RuleLoaders;
 
 public interface IRuleLoader
 {
-    List<ParsedRule> Load();
-
-    List<ParsedRule> Load(string Data);
+    List<RuleDefinition> Load(string Data);
 }

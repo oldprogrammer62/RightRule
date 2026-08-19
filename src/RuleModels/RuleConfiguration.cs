@@ -7,7 +7,7 @@
 public class RuleConfiguration
 {
     public const bool DEFAULT_DATACHECK = false;
-    public const bool DEFAULT_DIAGNOSTICS = false;
+    public const bool DEFAULT_DIAGNOSTICS = true;
 
     private readonly bool _datacheck = DEFAULT_DATACHECK;
     public bool DataCheck => _datacheck;

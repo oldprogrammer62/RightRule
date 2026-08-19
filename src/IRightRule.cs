@@ -361,6 +361,8 @@ public interface IRightRule
     /// <exception cref="FormatException"></exception>
     List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
 
+    List<ParsedRule>? RegisterRulesJson(string Data);
+
     /// <summary>
     /// Unloads an Operator from the RightRule engine.
     /// The Operator will no longer be valid in a Rule Statement

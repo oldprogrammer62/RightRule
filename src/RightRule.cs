@@ -166,6 +166,20 @@ public sealed class RightRule : IRightRule, IDisposable
         }
     }
 
+    public List<ParsedRule>? RegisterRulesJson(string Data)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(Data, nameof(Data));
+
+        try
+        {
+            return _rightRuleService.RegisterRulesJson(this, Data);  
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
     /// <summary>
     /// Registers a single Rule with the RightRule engine.
     /// </summary>

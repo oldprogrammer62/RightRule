@@ -53,6 +53,7 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
+            RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }
@@ -70,6 +71,7 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
+            RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }
@@ -87,6 +89,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             OptionalData = string.Empty,
             StatementApplied = string.Empty,
+            RuleConfiguration = RuleConfiguration.DefaultConfig(),
             Message = string.Empty
         };
     }
@@ -104,6 +107,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             OptionalData = string.Empty,
             StatementApplied = string.Empty,
+            RuleConfiguration = null,
             Message = message
         };
     }
@@ -121,6 +125,7 @@ public sealed class AppliedRule : Rule
             DecisionData = parsedRule.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
+            RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }

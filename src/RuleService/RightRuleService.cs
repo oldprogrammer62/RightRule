@@ -4,6 +4,8 @@ using RightRule.RuleApplication;
 using RightRule.RuleRegistration;
 using RightRule.RuleModels;
 using RightRule.System.Common;
+using BeSoft;
+using RightRule.RuleLoaders;
 // using RightRule.RuleConfiguration;
 
 namespace RightRule.RuleService;
@@ -59,6 +61,16 @@ internal class RightRuleService : IRightRuleService
     public List<ParsedRule> GetRules(string Context)
     {
         return _registerRuleService.GetRules(Context);
+    }
+
+    public List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string Data)
+    {
+        var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, Data);
+        if (ruleDefn == null)
+        {
+            return default(List<ParsedRule>);
+        }
+        return rightRule.RegisterRules(ruleDefn);
     }
 
     /// <summary>
