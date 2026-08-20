@@ -2,19 +2,21 @@
 
 namespace RightRule.StatementProcessor.Parser;
 
-internal sealed class Parser
+internal sealed class Parser : IParser
 {
     private readonly Tokenizer.Tokenizer _tokenizer;
+    private readonly bool _dataCheck;
     private Token? _current;
 
-    internal Parser(Tokenizer.Tokenizer tokenizer)
+    public Parser(Tokenizer.Tokenizer tokenizer, bool dataCheck)
     {
         _tokenizer = tokenizer;
+        _dataCheck = dataCheck;
     }
 
-    internal Node Parse()
+    public Node Parse()
     {
-        _current = _tokenizer.NextToken();
+        _current = _tokenizer.NextToken(_dataCheck);
         return ParseOr();
     }
 
@@ -26,7 +28,7 @@ internal sealed class Parser
         if (_current.Type != type)
             throw new Exception($"Expected {type} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
 
-        _current = _tokenizer.NextToken();
+        _current = _tokenizer.NextToken(_dataCheck);
     }
 
     private Node ContinueParse()

@@ -1,22 +1,31 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.Factories.RightFactory;
+using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
-using RightRule.StatementProcessor.Tokenizer;
 
 namespace RightRule.RuleRegistration;
 
-internal class RuleRegistrationService
+internal class RuleRegistrationService : IRuleRegistrationService
 {
-    internal static List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IRightRuleFactory _factory;
+
+    public RuleRegistrationService(IServiceProvider ServiceProvider, IRightRuleFactory factory)
+    {
+        _serviceProvider = ServiceProvider;
+        _factory = factory;
+    }
+
+    public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         return ParseRulesAndRegister(rules, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    internal static ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         return ParseRuleAndRegister(rule, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    private static List<ParsedRule> ParseRulesAndRegister(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private List<ParsedRule> ParseRulesAndRegister(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         var parsedRules = new List<ParsedRule>();
         foreach (var rule in rules)
@@ -30,20 +39,23 @@ internal class RuleRegistrationService
         return parsedRules;
     }
 
-    private static ParsedRule? ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private ParsedRule? ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames, ObjectNames, DatasetNames);
         return parsedRule;
     }
 
-    private static ParsedRule? CreateRule(RuleDefinition? ruleDefinition, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private ParsedRule? CreateRule(RuleDefinition? ruleDefinition, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
-        var statement = ruleDefinition?.Statement ?? string.Empty;
-        var dataCheck = GetDataCheckSetting(ruleDefinition?.RuleConfiguration);
+        IParser parser = CreateParser(ruleDefinition, OperatorNames, ObjectNames, DatasetNames);
+        if (parser == null)
+        {
+            return default(ParsedRule);
+        }
 
         try
         {
-            Node node = GenerateTree(statement, OperatorNames, ObjectNames, DatasetNames, dataCheck);
+            Node node = GenerateTree(parser);
             ParsedRule? rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
         }
@@ -53,17 +65,21 @@ internal class RuleRegistrationService
         }
     }
 
-    private static bool GetDataCheckSetting(RuleConfiguration? ruleConfig)
+    private Node GenerateTree(IParser parser)
     {
-        return Helper.GetDataCheckSetting(ruleConfig);
-    }
-
-    private static Node GenerateTree(string Statement, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames, bool DataCheck)
-    {
-        var tokenizer = new Tokenizer(Statement, OperatorNames, ObjectNames, DatasetNames, DataCheck);
-        var parser = new Parser(tokenizer);
-
         Node node = parser.Parse();
         return node;
+    }
+
+    private IParser CreateParser(RuleDefinition? ruleDefinition, HashSet<string>? OperatorNames, HashSet<string>? DataObjectNames, HashSet<string>? DatasetNames)
+    {
+        string statement = string.Empty;
+        bool dataCheck = false;
+        if (ruleDefinition != null)
+        {
+            statement = ruleDefinition.Statement;
+            dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
+        }
+        return _factory.CreateParser(_serviceProvider, statement, OperatorNames, DataObjectNames, DatasetNames, dataCheck);
     }
 }

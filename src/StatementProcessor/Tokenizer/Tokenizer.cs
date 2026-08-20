@@ -3,30 +3,28 @@ using System.Text;
 
 namespace RightRule.StatementProcessor.Tokenizer;
 
-internal sealed class Tokenizer
+internal sealed class Tokenizer : ITokenizer
 {
     private readonly string _statement;
     private int _pos;
     private readonly HashSet<string> _operators;
     private readonly HashSet<string>? _objectNames;
     private readonly HashSet<string>? _datasetNames;
-    private readonly bool _dataCheck;
 
-    internal Tokenizer(string statement, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames, bool DataCheck)
+    public Tokenizer(string statement, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         _statement = statement ?? string.Empty;
         _operators = OperatorNames;
         _objectNames = ObjectNames;
         _datasetNames = DatasetNames;
-        _dataCheck = DataCheck;
     }
 
-    internal Token NextToken()
+    public Token NextToken(bool DataCheck)
     {
-        return ReadNextToken();
+        return ReadNextToken(DataCheck);
     }
 
-    private Token ReadNextToken()
+    private Token ReadNextToken(bool DataCheck)
     {
         SkipWhitespace();
 
@@ -88,7 +86,7 @@ internal sealed class Tokenizer
             // Variable (No dot notation)
             if (!foundDot)
             {
-                if (!_dataCheck)
+                if (!DataCheck)
                     return new Token(TokenType.Variable, value, start);
 
                 if (_objectNames is not null && _objectNames.Contains(value))
@@ -99,10 +97,10 @@ internal sealed class Tokenizer
             // Dataset identifier (dot notation)
             if (foundDot && value.Count(c => c == '.') == 1)
             {
-                if (!_dataCheck)
+                if (!DataCheck)
                     return new Token(TokenType.Identifier, value, start);
 
-                if (_dataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
+                if (DataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
                 {
                     return new Token(TokenType.Identifier, value, start);
                 }

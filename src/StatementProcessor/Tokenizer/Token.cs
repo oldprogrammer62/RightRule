@@ -1,6 +1,6 @@
 ﻿namespace RightRule.StatementProcessor.Tokenizer;
 
-internal sealed class Token
+public sealed class Token
 {
     internal TokenType Type { get; }
     internal string Value { get; }

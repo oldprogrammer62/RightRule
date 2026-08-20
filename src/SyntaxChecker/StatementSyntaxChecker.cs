@@ -50,12 +50,12 @@ internal sealed class StatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var scanner = new Tokenizer(Statement, operatorNames, objectNames, datasetNames, DataCheck);
+                var scanner = new Tokenizer(Statement, operatorNames, objectNames, datasetNames);
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
                 {
-                    var tok = scanner.NextToken();
+                    var tok = scanner.NextToken(false);
                     if (tok.Type == TokenType.End) break;
 
                     // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
@@ -137,8 +137,8 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var parserTokenizer = new Tokenizer(Statement, operatorNames, objectNames, datasetNames, DataCheck);
-                var parser = new Parser(parserTokenizer);
+                var parserTokenizer = new Tokenizer(Statement, operatorNames, objectNames, datasetNames);
+                var parser = new Parser(parserTokenizer, false); // TO DO
                 _ = parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid

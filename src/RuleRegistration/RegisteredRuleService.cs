@@ -1,16 +1,18 @@
 ﻿using RightRule.RuleModels;
 using System.Data;
-using System.Xml.Linq;
 
 namespace RightRule.RuleRegistration;
 
 internal class RegisteredRuleService : IRegisteredRuleService
 {
     private readonly IRegisteredRules _registeredRules;
+    private readonly IRuleRegistrationService _ruleRegistrationService;
+
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RegisteredRuleService(IRegisteredRules registeredRules)
+    public RegisteredRuleService(IRuleRegistrationService ruleRegistrationService, IRegisteredRules registeredRules)
     {
+        _ruleRegistrationService = ruleRegistrationService;
         _registeredRules = registeredRules;
     }
 
@@ -35,7 +37,7 @@ internal class RegisteredRuleService : IRegisteredRuleService
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = RuleRegistrationService.RegisterRules(rules, OperatorNames, ObjectNames, DatasetNames);
+        var parsedRules = _ruleRegistrationService.RegisterRules(rules, OperatorNames, ObjectNames, DatasetNames);
         RegisteredRules.AddRules(parsedRules);
         return parsedRules;
     }
@@ -43,7 +45,7 @@ internal class RegisteredRuleService : IRegisteredRuleService
     public ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = RuleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
+        var parsedRule = _ruleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
         if (parsedRule == null)
         {
             return null;
