@@ -44,7 +44,7 @@ internal class RuleRegistrationService
         try
         {
             Node node = GenerateTree(statement, OperatorNames, ObjectNames, DatasetNames, dataCheck);
-            ParsedRule rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
+            ParsedRule? rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
         }
         catch (Exception ex)

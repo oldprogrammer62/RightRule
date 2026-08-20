@@ -37,9 +37,9 @@ internal partial class RightRuleService : IRightRuleService
         return _registerRuleService.GetRules(Context);
     }
 
-    public List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string Data)
+    public List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string JsonData)
     {
-        var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, Data);
+        var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, JsonData);
         if (ruleDefn == null)
         {
             return default(List<ParsedRule>);
@@ -70,7 +70,7 @@ internal partial class RightRuleService : IRightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    public ParsedRule RegisterRule(RuleDefinition rule)
+    public ParsedRule? RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 

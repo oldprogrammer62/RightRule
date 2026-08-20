@@ -3,6 +3,7 @@ using RightRule.Factories.RightFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Evaluator;
+using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
 
 namespace RightRule.RuleService;
@@ -12,6 +13,7 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IServiceProvider _serviceProvider;
     private readonly IRightRuleFactory _factory;
     private readonly IEvaluator _evaluator;
+    private readonly IInterpreter _interpreter;
 
 
     private readonly IOperatorsService _operatorsService;
@@ -36,10 +38,16 @@ internal partial class RightRuleService : IRightRuleService
         _registeredDataObjects = registeredDataObjects;
 
         _evaluator = CreateEvaluator(_operatorsService.OperatorAliases);
+        _interpreter = CreateInterpreter(_evaluator, registeredDatasets, registeredDataObjects, _operatorsService.OperatorAliases);
     }
 
     private IEvaluator CreateEvaluator(Dictionary<string, Operator> Operators)
     {
         return _factory.CreateEvaluator(_serviceProvider, Operators);
+    }
+
+    private IInterpreter CreateInterpreter(IEvaluator evaluator, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
+    {
+        return _factory.CreateInterpreter(_serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators);
     }
 }

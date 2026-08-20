@@ -350,7 +350,7 @@ public interface IRightRule
     /// <returns>The Parsed Rule.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    ParsedRule RegisterRule(RuleDefinition rule);
+    ParsedRule? RegisterRule(RuleDefinition rule);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
@@ -359,9 +359,16 @@ public interface IRightRule
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
+    List<ParsedRule>? RegisterRules(IEnumerable<RuleDefinition> rules);
 
-    List<ParsedRule>? RegisterRulesJson(string Data);
+    /// <summary>
+    /// Registers a set of Rules with the RightRule engine from a JSON string.
+    /// </summary>
+    /// <param name="JsonData">The Rule definitions to register.</param>
+    /// <returns>The set of Parsed Rules.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="FormatException"></exception>
+    List<ParsedRule>? RegisterRulesJson(string JsonData);
 
     /// <summary>
     /// Unloads an Operator from the RightRule engine.

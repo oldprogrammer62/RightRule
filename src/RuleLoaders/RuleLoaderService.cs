@@ -5,7 +5,7 @@ namespace RightRule.RuleLoaders;
 
 internal static class RuleLoaderService
 {
-    public static List<RuleDefinition>? LoadRulesFromJson(IRightRule rightRule, string Data)
+    public static List<RuleDefinition>? LoadRulesFromJson(IRightRule rightRule, string JsonData)
     {
         string loaderType = "JSON";
         var loader = GetLoader(rightRule, loaderType);
@@ -14,7 +14,7 @@ internal static class RuleLoaderService
             return null;
         }
 
-        var rules = loader.Load(Data);
+        var rules = loader.Load(JsonData);
         return rules;
     }
 

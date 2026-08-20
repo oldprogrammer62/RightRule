@@ -21,7 +21,7 @@ internal interface IRightRuleService
 
     List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string Data);
     List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
-    ParsedRule RegisterRule(RuleDefinition rule);
+    ParsedRule? RegisterRule(RuleDefinition rule);
     bool DeRegisterRules(string Context);
     bool DeRegisterRules();
     bool DeRegisterRule(string Name);

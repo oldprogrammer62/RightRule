@@ -5,16 +5,16 @@ namespace RightRule.StatementProcessor.Tokenizer;
 
 internal sealed class Tokenizer
 {
-    private readonly string _input;
+    private readonly string _statement;
     private int _pos;
     private readonly HashSet<string> _operators;
     private readonly HashSet<string>? _objectNames;
     private readonly HashSet<string>? _datasetNames;
     private readonly bool _dataCheck;
 
-    internal Tokenizer(string input, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames, bool DataCheck)
+    internal Tokenizer(string statement, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames, bool DataCheck)
     {
-        _input = input ?? string.Empty;
+        _statement = statement ?? string.Empty;
         _operators = OperatorNames;
         _objectNames = ObjectNames;
         _datasetNames = DatasetNames;
@@ -30,10 +30,10 @@ internal sealed class Tokenizer
     {
         SkipWhitespace();
 
-        if (_pos >= _input.Length)
+        if (_pos >= _statement.Length)
             return new Token(TokenType.End, "", _pos);
 
-        char c = _input[_pos];
+        char c = _statement[_pos];
 
         // Parentheses
         if (c == '(') { _pos++; return new Token(TokenType.LParen, "(", _pos - 1); }
@@ -45,8 +45,8 @@ internal sealed class Tokenizer
         {
             int start = _pos;
             var sb = new StringBuilder();
-            while (_pos < _input.Length && (char.IsDigit(_input[_pos]) || _input[_pos] == '.'))
-                sb.Append(_input[_pos++]);
+            while (_pos < _statement.Length && (char.IsDigit(_statement[_pos]) || _statement[_pos] == '.'))
+                sb.Append(_statement[_pos++]);
             return new Token(TokenType.Number, sb.ToString(), start);
         }
 
@@ -58,12 +58,12 @@ internal sealed class Tokenizer
             bool foundDot = false;
             int start = _pos;
             var sb = new StringBuilder();
-            sb.Append(_input[_pos++]);
+            sb.Append(_statement[_pos++]);
 
-            while (_pos < _input.Length && (char.IsLetterOrDigit(_input[_pos]) || _input[_pos] == '_' || _input[_pos] == '.'))
+            while (_pos < _statement.Length && (char.IsLetterOrDigit(_statement[_pos]) || _statement[_pos] == '_' || _statement[_pos] == '.'))
             {
-                if (!foundDot && _input[_pos] == '.') foundDot = true;
-                sb.Append(_input[_pos++]);
+                if (!foundDot && _statement[_pos] == '.') foundDot = true;
+                sb.Append(_statement[_pos++]);
             }
             var value = sb.ToString();
 
@@ -118,12 +118,12 @@ internal sealed class Tokenizer
             _pos++; // Skip opening quote
             var sb = new StringBuilder();
 
-            while (_pos < _input.Length && _input[_pos] != '\'')
+            while (_pos < _statement.Length && _statement[_pos] != '\'')
             {
                 // basic escape support for \" and \\ (optional)
-                if (_input[_pos] == '\\' && _pos + 1 < _input.Length)
+                if (_statement[_pos] == '\\' && _pos + 1 < _statement.Length)
                 {
-                    char next = _input[_pos + 1];
+                    char next = _statement[_pos + 1];
                     if (next == '"' || next == '\\')
                     {
                         sb.Append(next);
@@ -131,10 +131,10 @@ internal sealed class Tokenizer
                         continue;
                     }
                 }
-                sb.Append(_input[_pos++]);
+                sb.Append(_statement[_pos++]);
             }
 
-            if (_pos >= _input.Length || _input[_pos] != '\'')
+            if (_pos >= _statement.Length || _statement[_pos] != '\'')
                 throw new Exception($"Unterminated string literal at position {start}.");
 
             _pos++; // closing quote
@@ -149,12 +149,12 @@ internal sealed class Tokenizer
             _pos++; // Skip opening quote
             var sb = new StringBuilder();
 
-            while (_pos < _input.Length && _input[_pos] != '"')
+            while (_pos < _statement.Length && _statement[_pos] != '"')
             {
                 // basic escape support for \" and \\ (optional)
-                if (_input[_pos] == '\\' && _pos + 1 < _input.Length)
+                if (_statement[_pos] == '\\' && _pos + 1 < _statement.Length)
                 {
-                    char next = _input[_pos + 1];
+                    char next = _statement[_pos + 1];
                     if (next == '"' || next == '\\')
                     {
                         sb.Append(next);
@@ -162,10 +162,10 @@ internal sealed class Tokenizer
                         continue;
                     }
                 }
-                sb.Append(_input[_pos++]);
+                sb.Append(_statement[_pos++]);
             }
 
-            if (_pos >= _input.Length || _input[_pos] != '"')
+            if (_pos >= _statement.Length || _statement[_pos] != '"')
                 throw new Exception($"Unterminated string literal at position {start}.");
 
             _pos++; // closing quote
@@ -178,17 +178,17 @@ internal sealed class Tokenizer
         {
             int start = _pos;
             var sb = new StringBuilder();
-            sb.Append(_input[_pos++]);
+            sb.Append(_statement[_pos++]);
 
-            while (_pos < _input.Length &&
+            while (_pos < _statement.Length &&
                 (
-                char.IsLetter(_input[_pos]) ||
-                char.IsLetterOrDigit(_input[_pos]) ||
-                char.IsSymbol(_input[_pos]) ||
-                char.IsPunctuation(_input[_pos]) ||
-                _input[_pos] == '_')
+                char.IsLetter(_statement[_pos]) ||
+                char.IsLetterOrDigit(_statement[_pos]) ||
+                char.IsSymbol(_statement[_pos]) ||
+                char.IsPunctuation(_statement[_pos]) ||
+                _statement[_pos] == '_')
                 )
-                sb.Append(_input[_pos++]);
+                sb.Append(_statement[_pos++]);
 
             var value = sb.ToString();
 
@@ -203,7 +203,7 @@ internal sealed class Tokenizer
 
     private void SkipWhitespace()
     {
-        while (_pos < _input.Length && char.IsWhiteSpace(_input[_pos]))
+        while (_pos < _statement.Length && char.IsWhiteSpace(_statement[_pos]))
             _pos++;
     }
 }

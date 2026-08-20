@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.Data;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
@@ -12,8 +13,8 @@ public class RightRuleFactory : IRightRuleFactory
         return ActivatorUtilities.CreateInstance<Evaluator>(serviceProvider, Operators);
     }
 
-    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider)
+    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, IEvaluator evaluator, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
     {
-        return ActivatorUtilities.CreateInstance<Interpreter>(serviceProvider);
+        return ActivatorUtilities.CreateInstance<Interpreter>(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators);
     }
 }
