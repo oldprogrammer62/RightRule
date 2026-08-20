@@ -5,6 +5,7 @@ using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.RuleService;
 using RightRule.StatementProcessor.Evaluator;
+using RightRule.StatementProcessor.Interpreter;
 
 namespace RightRule.ServiceRegister;
 
@@ -24,6 +25,8 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredRules, RegisteredRules>();
 
         services.AddScoped<IRightRuleFactory, RightRuleFactory>();
+
+        services.AddSingleton<IInterpreter, Interpreter>();
         services.AddSingleton<IEvaluator, Evaluator>();
 
         return services;
