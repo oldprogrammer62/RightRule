@@ -1,5 +1,6 @@
 ﻿using RightRule.RuleModels;
 using System.Data;
+using System.Xml.Linq;
 
 namespace RightRule.RuleRegistration;
 
@@ -70,5 +71,20 @@ internal class RegisteredRuleService : IRegisteredRuleService
     public bool DeRegisterRule(int Number)
     {
         return RegisteredRules.RemoveRule(Number);
+    }
+
+    public List<(int Number, string Name)>? GetRuleNumbers()
+    {
+        return RegisteredRules.GetRuleNumbers();
+    }
+
+    public List<string>? GetRuleNames()
+    {
+        return RegisteredRules.GetRuleNames();
+    }
+
+    public List<string>? GetRuleContexts()
+    {
+        return RegisteredRules.GetRuleContexts();
     }
 }

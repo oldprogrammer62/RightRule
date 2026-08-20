@@ -10,12 +10,11 @@ namespace BeSoft;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
-    private bool _disposed;
-        
+    private bool _disposed { get; set; }
+
     private readonly ServiceProvider _serviceProvider;
 
     private readonly IRightRuleService _rightRuleService;
-    internal IRightRuleService RightRuleService => _rightRuleService;
 
     public RightRule()
     {

@@ -1,5 +1,6 @@
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
+using RightRule.System.Common;
 
 namespace BeSoft;
 
@@ -9,6 +10,37 @@ namespace BeSoft;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
+
+    /// <summary>
+    /// Returns the set of Rule Numbers
+    /// </summary>
+    /// <returns>The list of Rule Numbers (with Names).</returns>
+    public List<(int Number, string Name)>? GetRuleNumbers()
+    {
+        var ruleNumbers = _rightRuleService?.GetRuleNumbers();
+        return ruleNumbers;
+    }
+
+    /// <summary>
+    /// Returns the set of Rule Names
+    /// </summary>
+    /// <returns>The list of Rule Names.</returns>
+    public List<string>? GetRuleNames()
+    {
+        var ruleNames = _rightRuleService?.GetRuleNames();
+        return ruleNames;
+    }
+
+    /// <summary>
+    /// Returns the set of Rule Contexts
+    /// </summary>
+    /// <returns>The list of Rule Contexts.</returns>
+    public List<string>? GetRuleContexts()
+    {
+        var contexts = _rightRuleService?.GetRuleContexts();
+        return contexts;
+    }
+
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
     /// </summary>

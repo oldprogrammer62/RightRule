@@ -1,7 +1,6 @@
 ﻿using RightRule.Data;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
-using RightRule.StatementProcessor.Evaluator;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
@@ -371,4 +370,10 @@ public interface IRightRule
     /// <param name="OperatorName">The name of the Operator to unload.</param>
     /// <exception cref="ArgumentException"></exception>
     bool UnloadOperator(string OperatorName);
+
+    List<(int Number, string Name)>? GetRuleNumbers();
+
+    List<string>? GetRuleNames();
+
+    List<string>? GetRuleContexts();
 }

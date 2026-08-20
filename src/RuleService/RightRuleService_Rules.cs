@@ -6,6 +6,21 @@ namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
+    public List<(int Number, string Name)>? GetRuleNumbers()
+    {
+        return _registerRuleService.GetRuleNumbers();
+    }
+
+    public List<string>? GetRuleNames()
+    {
+        return _registerRuleService.GetRuleNames();
+    }
+
+    public List<string>? GetRuleContexts()
+    {
+        return _registerRuleService.GetRuleContexts();
+    }
+
     public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));

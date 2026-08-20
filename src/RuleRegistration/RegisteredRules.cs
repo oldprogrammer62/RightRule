@@ -92,4 +92,30 @@ public class RegisteredRules : IRegisteredRules
             return false;
         }
     }
+
+    public List<(int Number, string Name)> GetRuleNumbers()
+    {
+        return _rules
+            .DistinctBy(rule => rule.Number)
+            .Select(rule => (rule.Number, rule.Name))
+            .ToList();
+    }
+
+    public List<string> GetRuleNames()
+    {
+        return _rules
+            .Select(rule => rule.Name)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order()
+            .ToList();
+    }
+
+    public List<string> GetRuleContexts()
+    {
+        return _rules
+            .Select(rule => rule.Context)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order()
+            .ToList();
+    }
 }

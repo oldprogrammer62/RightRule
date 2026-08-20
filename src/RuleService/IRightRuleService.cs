@@ -38,4 +38,8 @@ internal interface IRightRuleService
     Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules);
     Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
     Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+
+    List<(int Number, string Name)>? GetRuleNumbers();
+    List<string>? GetRuleNames();
+    List<string>? GetRuleContexts();
 }
