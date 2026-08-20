@@ -134,8 +134,35 @@ internal static class EvaluatorHelper
             return null;
         }
 
-        var propertyInfo = type.GetProperty(propertyName);
-        return propertyInfo?.GetValue(propertyValue);
+        return GetPropertyValue(type, propertyName, propertyValue);
+    }
+
+    private static object? GetPropertyValue(Type type, string PropertyName, object PropertyValue)
+    {
+        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ValueTuple<,>))
+        {
+            return GetValueFromTuple(type, PropertyName, PropertyValue);
+        }
+
+        var propertyInfo = type.GetProperty(PropertyName);
+        return propertyInfo?.GetValue(PropertyValue);
+    }
+
+    private static object? GetValueFromTuple(Type type, string PropertyName, object PropertyValue)
+    {
+        var fieldInfo = type.GetField(PropertyName);
+        if (fieldInfo != null)
+        {
+            return fieldInfo.GetValue(PropertyValue);
+        }
+
+        // Use default Field Name
+        fieldInfo = type.GetField("Item2");
+        if (fieldInfo != null)
+        {
+            return fieldInfo.GetValue(PropertyValue);
+        }
+        return default;
     }
 
     private static object? ResolveOperand(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op)
