@@ -33,7 +33,6 @@ internal sealed class StatementSyntaxChecker
             // Obtain operator names (fall back to empty set)
             HashSet<string> operatorNames;
 
-            // TO DO Can we get these objects
             HashSet<string> objectNames = [];
             HashSet<string> datasetNames = [];
 
@@ -138,7 +137,7 @@ internal sealed class StatementSyntaxChecker
             try
             {
                 var parserTokenizer = new Tokenizer(Statement, operatorNames, objectNames, datasetNames);
-                var parser = new Parser(parserTokenizer, false); // TO DO
+                var parser = new Parser(parserTokenizer, false);
                 _ = parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid
