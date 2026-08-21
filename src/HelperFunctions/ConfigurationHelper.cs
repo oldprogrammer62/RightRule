@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace RightRule.HelperFunctions;
 
-public class ConfigurationHelper
+internal class ConfigurationHelper
 {
     private static readonly Configuration _config;
 
@@ -13,8 +13,8 @@ public class ConfigurationHelper
         _config = ConfigurationManager.OpenExeConfiguration(dllPath);
     }
 
-    public static string? GetSetting(string key)
+    public static string GetSetting(string key)
     {
-        return _config.AppSettings.Settings[key]?.Value;
+        return _config.AppSettings.Settings[key]?.Value ?? string.Empty;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace RightRule.RuleBuilder;
 
-public sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStatementStep, IDecisionStep, IRuleBuilder
+internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStatementStep, IDecisionStep, IRuleBuilder
 {
     private readonly int _number;
     private readonly string _name;

@@ -9,6 +9,8 @@ namespace BeSoft;
 
 public interface IRightRule
 {
+    string GetConfigSettings(string key);
+
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
     /// </summary>

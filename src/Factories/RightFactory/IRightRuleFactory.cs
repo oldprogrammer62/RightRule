@@ -7,7 +7,7 @@ using RightRule.System.Common;
 
 namespace RightRule.Factories.RightFactory
 {
-    public interface IRightRuleFactory
+    internal interface IRightRuleFactory
     {
         IInterpreter CreateInterpreter(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators);
 
