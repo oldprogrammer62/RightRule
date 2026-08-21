@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <Folder Include="Licenses\" />
-    <Folder Include="Docs\" />
     <Folder Include="OperatorLoader\" />
   </ItemGroup>
 </Project>

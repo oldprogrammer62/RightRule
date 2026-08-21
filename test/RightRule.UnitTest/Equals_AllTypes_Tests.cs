@@ -15,6 +15,7 @@ public class Equals_AllTypes_Tests
     char chrVal = 'C';
 
     bool boolVal = true;
+    string boolStr = "true";
 
     static DateOnly dtonlyVal = new DateOnly(1970, 01, 01);
     static TimeOnly tmonlyVal = new TimeOnly(12, 13, 14);
@@ -42,25 +43,23 @@ public class Equals_AllTypes_Tests
         int intVal5 = 105;
         rr.RegisterData(nameof(intVal5), intVal5);
 
-        //RuleDefinition rule = new RuleDefinition()
-        //{
-        //    Number = 1,
-        //    Name = "Rule1",
-        //    Context = "Context",
-        //    Decision = "SAME",
-        //    Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105"
-        //};
+        RuleDefinition ruleDef = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105"
+        };
 
-        //var ruleDef = rr.BuildRule(rule).WithDataCheck().Build();
+        var rrule = rr.RegisterRule(ruleDef);
+        Assert.True(rrule.IsSuccess);
 
-        //var rrule = rr.RegisterRule(ruleDef);
-        //Assert.True(rrule.Success);
+        var result = rr.EvaluateFirstRule("Context");
 
-        //var result = rr.EvaluateFirstRule("Context");
-
-        //Assert.NotNull(result);
-        //Assert.True(result.Result);
-        //Assert.Equal(rule.Decision, result.Decision);
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rrule.RegisteredRule.Decision, result.Decision);
     }
 
     [Fact]
@@ -109,6 +108,295 @@ public class Equals_AllTypes_Tests
             .Build();
             
         var prule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Dbl()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", dblVal);
+
+        double localVal = dblVal;
+        var registeredDat = rr.RegisterData("localVal", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localVal.testVal = testVal.dblVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Lng()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", lngVal);
+
+        var localVal = lngVal;
+        var registeredData = rr.RegisterData("localVal", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localVal.testVal = testVal.lngVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Sin()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", sinVal);
+
+        Single localVal = sinVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Float_Dict()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", fltVal);
+
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "entry", fltVal }
+        };
+        var registeredData = rr.RegisterData("localData", data);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData.entry = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_String()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", strVal);
+
+        string localVal = strVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Char()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", chrVal);
+
+        char localVal = chrVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Bool_Bool()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", boolVal);
+
+        bool localVal = boolVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_Bool_String()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", boolStr);
+
+        string localVal = boolStr;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_DateOnly()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", dtonlyVal);
+
+        DateOnly localVal = dtonlyVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_TimeOnly()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", tmonlyVal);
+
+        TimeOnly localVal = tmonlyVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
+
+        var result = rr.EvaluateFirstRule("Context");
+
+        Assert.NotNull(result);
+        Assert.True(result.Result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Test_DateTime()
+    {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        rr.RegisterData("testVal", dttimeVal);
+
+        DateTime localVal = dttimeVal;
+        var registeredData = rr.RegisterData("localData", localVal);
+
+        RuleDefinition rule = new RuleDefinition()
+        {
+            Number = 1,
+            Name = "Rule1",
+            Context = "Context",
+            Decision = "SAME",
+            Statement = "localData = testVal"
+        };
+        var registeredRule = rr.RegisterRule(rule);
 
         var result = rr.EvaluateFirstRule("Context");
 

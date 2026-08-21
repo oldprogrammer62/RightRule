@@ -23,17 +23,26 @@ public class EqualsOperator : Operator
 
         if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right));
         if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right));
+        if (IsChar(left) && IsChar(right)) return EvaluationResult.Success(ProcessAsChar(left, right));
         if (IsBoolean(left) && IsBoolean(right)) return EvaluationResult.Success(ProcessAsBoolean(left, right));
         if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right));
         if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right));
+        if (IsTimeOnly(left) && IsTimeOnly(right)) return EvaluationResult.Success(ProcessAsTimeOnly(left, right));
 
         return EvaluationResult.Success(Equals(left, right));
     }
 
     private static new bool Equals(dynamic left, dynamic right)
     {
-        dynamic x = left == right;
-        return x;
+        try
+        {
+            dynamic x = left == right;
+            return x;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private static bool ProcessAsDateOnly(object left, object right)
@@ -54,6 +63,17 @@ public class EqualsOperator : Operator
         if (dtLeft != null && dtRight != null)
         {
             return Equals(dtLeft, dtRight);
+        }
+        return false;
+    }
+
+    private static bool ProcessAsTimeOnly(object left, object right)
+    {
+        var tLeft = ConvertToTimeOnly(left);
+        var tRight = ConvertToTimeOnly(right);
+        if (tLeft != null && tRight != null)
+        {
+            return Equals(tLeft, tRight);
         }
         return false;
     }
@@ -125,6 +145,34 @@ public class EqualsOperator : Operator
         }
     }
 
+    private static TimeOnly? ConvertToTimeOnly(object input)
+    {
+        // Direct match
+        if (input is TimeOnly timeOnly)
+        {
+            return timeOnly;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (TimeOnly.TryParse(stringInput, out TimeOnly parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        // Try ultimate fallback for other convertible types (like long timestamps)
+        try
+        {
+            return (TimeOnly)input;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     private static bool IsBoolean(object value)
     {
         if (value is bool) return true;
@@ -132,17 +180,13 @@ public class EqualsOperator : Operator
         // Safe parsing for text strings
         if (value is string stringInput)
         {
-            return bool.TryParse(stringInput, out _);
-        }
-        try
-        {
-            var result = Convert.ToBoolean(value);
-            return true;
-        }
-        catch
-        {
+            string sTrue = "TRUE";
+            string sFalse = "FALSE";
+            if (stringInput.ToUpper().Equals(sTrue)) return true;
+            if (stringInput.ToUpper().Equals(sFalse)) return false;
             return false;
         }
+        return false;
     }
 
     private static bool ProcessAsBoolean(object left, object right)
@@ -182,16 +226,7 @@ public class EqualsOperator : Operator
         {
             return DateOnly.TryParse(stringInput, out _);
         }
-
-        try
-        {
-            var result = Convert.ToDateTime(value);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
+        return false;
     }
 
     private static bool IsDateTime(object value)
@@ -203,16 +238,19 @@ public class EqualsOperator : Operator
         {
             return DateTime.TryParse(stringInput, out _);
         }
+        return false;
+    }
 
-        try
+    private static bool IsTimeOnly(object value)
+    {
+        if (value is TimeOnly) return true;
+
+        // Safe parsing for text strings
+        if (value is string stringInput)
         {
-            var result = Convert.ToDateTime(value);
-            return true;
+            return TimeOnly.TryParse(stringInput, out _);
         }
-        catch
-        {
-            return false;
-        }
+        return false;
     }
 
     private static bool ProcessAsNumber(object left, object right)
@@ -266,6 +304,20 @@ public class EqualsOperator : Operator
     }
 
     private static bool ProcessAsString(object left, object right)
+    {
+        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        return Equals(sLeft, sRight);
+    }
+
+    private static bool IsChar(object value)
+    {
+        if (value is null) return false;
+
+        return value is char;
+    }
+
+    private static bool ProcessAsChar(object left, object right)
     {
         string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
         string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;

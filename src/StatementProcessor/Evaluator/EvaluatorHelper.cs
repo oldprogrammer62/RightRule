@@ -124,7 +124,14 @@ internal static class EvaluatorHelper
         var type = propertyValue.GetType();
 
         // Return the object itself if it is a primitive type, enum, string, or decimal
-        if (type.IsPrimitive || type.IsEnum || propertyValue is string || propertyValue is decimal || propertyValue is DateTime)
+        if (
+            type.IsPrimitive || 
+            propertyValue is string || 
+            propertyValue is decimal || 
+            propertyValue is DateTime || 
+            propertyValue is DateOnly ||
+            propertyValue is TimeOnly
+            )
         {
             return propertyValue;
         }

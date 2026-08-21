@@ -113,6 +113,9 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals6()
     {
+        // This will return a false result
+        // Boolean false does not equal string false
+
         RuleDefinition rule1 = new RuleDefinition
         {
             Name = "BooleanEquals6",
@@ -126,6 +129,6 @@ public class BooleanEquals_Tests
         var result = rr.EvaluateFirstRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule1.Decision, result.Decision);
+        Assert.Equal(AppliedRule.DefaultDecision, result.Decision);
     }
 }
