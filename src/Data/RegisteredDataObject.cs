@@ -4,13 +4,13 @@ namespace RightRule.Data;
 
 public class RegisteredDataObject
 {
-    public required string DataName { get; init; }
-    public required object DataValue { get; init; }
+    public required string Name { get; init; }
+    public required object Value { get; init; }
 
     [SetsRequiredMembers]
     internal RegisteredDataObject(string DataName, object DataValue)
     {
-        this.DataName = DataName;
-        this.DataValue = DataValue;
+        this.Name = DataName;
+        this.Value = DataValue;
     }
 }

@@ -1,4 +1,5 @@
 using RightRule.Data;
+using RightRule.Models;
 
 namespace RightRule.RuleService;
 
@@ -26,7 +27,7 @@ internal partial class RightRuleService : IRightRuleService
         return _registeredDataObjects.GetData(DataName);
     }
 
-    public bool RegisterData(string DataName, Dictionary<string, object> Data)
+    public DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -35,7 +36,7 @@ internal partial class RightRuleService : IRightRuleService
         return _registeredDataSets!.AddData(data);
     }
 
-    public bool RegisterData(string DataName, object VariableValue)
+    public DataRegistrationResult RegisterData(string DataName, object VariableValue)
     {
         ArgumentNullException.ThrowIfNull(VariableValue, nameof(VariableValue));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));

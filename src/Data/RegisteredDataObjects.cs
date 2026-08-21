@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using RightRule.Models;
+using System.Linq;
 
 namespace RightRule.Data;
 
@@ -11,26 +12,26 @@ internal class RegisteredDataObjects : IRegisteredDataObjects
 
     public RegisteredDataObject? this[int index] => index >= 0 && index < _data.Count ? _data[index] : null;
 
-    public HashSet<string> ObjectNames => new HashSet<string>(Objects.Select(ob => ob.DataName).Distinct(StringComparer.OrdinalIgnoreCase));
+    public HashSet<string> ObjectNames => new HashSet<string>(Objects.Select(ob => ob.Name).Distinct(StringComparer.OrdinalIgnoreCase));
 
     public RegisteredDataObjects()
     {
         _data = new List<RegisteredDataObject>();
     }
 
-    public bool AddData(RegisteredDataObject data)
+    public DataRegistrationResult AddData(RegisteredDataObject data)
     {
-        if (data == null || string.IsNullOrEmpty(data.DataName))
+        if (data == null || string.IsNullOrEmpty(data.Name))
         {
-            return false;
+            return DataRegistrationResult.Failed(string.Empty, DataTypes.DATAOBJECT, "Data Name not specified");
         }
-        var existingData = GetData(data.DataName);
+        var existingData = GetData(data.Name);
         if (existingData == null)
         {
             _data.Add(data);
-            return true;
+            return DataRegistrationResult.Success(data.Name, DataTypes.DATAOBJECT, $"{data.Name} registered");
         }
-        return false;
+        return DataRegistrationResult.Failed(data.Name, DataTypes.DATAOBJECT, $"{data.Name} already exists");
     }
 
     public bool RemoveData()
@@ -60,6 +61,6 @@ internal class RegisteredDataObjects : IRegisteredDataObjects
         {
             return null;
         }
-        return _data.FirstOrDefault(d => d.DataName.Equals(name, StringComparison.Ordinal));
+        return _data.FirstOrDefault(d => d.Name.Equals(name, StringComparison.Ordinal));
     }
 }

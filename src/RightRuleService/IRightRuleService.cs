@@ -1,5 +1,6 @@
 ﻿using BeSoft;
 using RightRule.Data;
+using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.System.Common;
@@ -28,8 +29,8 @@ internal interface IRightRuleService
     bool DeRegisterRule(int Number);
     RegisteredDataset? GetDataSet(string DataName);
     RegisteredDataObject? GetDataObject(string DataName);
-    bool RegisterData(string DataName, Dictionary<string, object> Data);
-    bool RegisterData(string DataName, object VariableValue);
+    DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data);
+    DataRegistrationResult RegisterData(string DataName, object VariableValue);
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
     Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context);

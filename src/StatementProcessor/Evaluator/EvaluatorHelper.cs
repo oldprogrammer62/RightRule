@@ -19,7 +19,7 @@ internal static class EvaluatorHelper
             return null;
         }
 
-        return GetPropertyValue(Identifier, dataObject.DataValue);
+        return GetPropertyValue(Identifier, dataObject.Value);
     }
 
     internal static object? ResolveIdentifier(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, string Identifier)
@@ -84,12 +84,12 @@ internal static class EvaluatorHelper
         {
             throw new KeyNotFoundException($"Unknown dataset '{Dataset}'");
         }
-        if (!Dataset.Data.TryGetValue(KeyName, out _))
+        if (!Dataset.Value.TryGetValue(KeyName, out _))
         {
             throw new KeyNotFoundException($"Unknown variable '{KeyName}' in Registered Dataset {Dataset.Name}.");
         }
 
-        Dataset.Data.TryGetValue(KeyName, out var result);
+        Dataset.Value.TryGetValue(KeyName, out var result);
         return result!;
     }
 
@@ -111,7 +111,7 @@ internal static class EvaluatorHelper
             return null;
         }
 
-        return GetPropertyValue(propertyName, dataObject.DataValue);
+        return GetPropertyValue(propertyName, dataObject.Value);
     }
 
     private static object? GetPropertyValue(string propertyName, object? propertyValue)

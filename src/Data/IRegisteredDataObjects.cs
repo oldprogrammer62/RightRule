@@ -1,4 +1,6 @@
-﻿namespace RightRule.Data;
+﻿using RightRule.Models;
+
+namespace RightRule.Data;
 
 public interface IRegisteredDataObjects
 {
@@ -6,7 +8,7 @@ public interface IRegisteredDataObjects
     int Count { get; }
     RegisteredDataObject? this[int index] { get; }
     HashSet<string> ObjectNames { get; }
-    bool AddData(RegisteredDataObject data);
+    DataRegistrationResult AddData(RegisteredDataObject data);
     bool RemoveData();
     bool RemoveData(string name);
     RegisteredDataObject? GetData(string name);

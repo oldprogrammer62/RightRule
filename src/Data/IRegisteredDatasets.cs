@@ -1,4 +1,6 @@
-﻿namespace RightRule.Data;
+﻿using RightRule.Models;
+
+namespace RightRule.Data;
 
 public interface IRegisteredDatasets
 {
@@ -6,7 +8,8 @@ public interface IRegisteredDatasets
     int Count { get; }
     RegisteredDataset? this[int index] { get; }
     HashSet<string> DatasetNames { get; }
-    bool AddData(RegisteredDataset data);
+    DataRegistrationResult AddData(RegisteredDataset data);
+
     bool RemoveData();
     bool RemoveData(string name);
     RegisteredDataset? GetData(string name);

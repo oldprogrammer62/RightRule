@@ -1,4 +1,6 @@
-﻿namespace RightRule.Data;
+﻿using RightRule.Models;
+
+namespace RightRule.Data;
 
 internal class RegisteredDatasets : IRegisteredDatasets
 {
@@ -16,19 +18,19 @@ internal class RegisteredDatasets : IRegisteredDatasets
         _data = new List<RegisteredDataset>();
     }
 
-    public bool AddData(RegisteredDataset data)
+    public DataRegistrationResult AddData(RegisteredDataset data)
     {
         if (data == null || string.IsNullOrEmpty(data.Name))
         {
-            return false;
+            return DataRegistrationResult.Failed(string.Empty, DataTypes.DATASET, "Data Name not specified");
         }
         var existingData = GetData(data.Name);
         if (existingData == null)
         {
             _data.Add(data);
-            return true;
+            return DataRegistrationResult.Success(data.Name, DataTypes.DATASET, $"{data.Name} registered");
         }
-        return false;
+        return DataRegistrationResult.Failed(data.Name, DataTypes.DATASET, $"{data.Name} already exists");
     }
 
     public bool RemoveData()

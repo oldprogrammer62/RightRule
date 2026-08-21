@@ -1,4 +1,5 @@
 ﻿using RightRule.Data;
+using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.SyntaxChecker;
@@ -331,7 +332,7 @@ public interface IRightRule
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    bool RegisterData(string DataName, Dictionary<string, object> Data);
+    DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
@@ -341,7 +342,7 @@ public interface IRightRule
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    bool RegisterData(string DataName, object DataReference);
+    DataRegistrationResult RegisterData(string DataName, object DataReference);
 
     /// <summary>
     /// Registers a single Rule with the RightRule engine.

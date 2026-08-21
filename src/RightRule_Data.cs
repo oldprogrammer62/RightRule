@@ -1,4 +1,5 @@
 using RightRule.Data;
+using RightRule.Models;
 
 namespace BeSoft;
 
@@ -86,7 +87,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public bool RegisterData(string DataName, Dictionary<string, object> Data)
+    public DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -108,7 +109,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public bool RegisterData(string DataName, object DataReference)
+    public DataRegistrationResult RegisterData(string DataName, object DataReference)
     {
         ArgumentNullException.ThrowIfNull(DataReference, nameof(DataReference));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));

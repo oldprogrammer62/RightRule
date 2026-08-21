@@ -30,7 +30,7 @@ public class DatasetTests
         var ds = rr.RegisteredDataset("Data1");
         Assert.NotNull(ds);
 
-        var ds_name = (string)ds.Data["name"];
+        var ds_name = (string)ds.Value["name"];
         var data_name = (string)Data1["name"];
         Assert.Equal(ds_name, data_name);
     }
@@ -46,7 +46,7 @@ public class DatasetTests
         var ds = rr.RegisteredDataset("Data2");
         Assert.NotNull(ds);
 
-        var ds_name = (string)ds.Data["name"];
+        var ds_name = (string)ds.Value["name"];
         var data_name = (string)Data2["name"];
         Assert.Equal(ds_name, data_name);
     }
