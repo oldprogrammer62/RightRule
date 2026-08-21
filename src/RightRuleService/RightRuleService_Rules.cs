@@ -1,6 +1,7 @@
 using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
+using RightRule.Models;
 
 namespace RightRule.RuleService;
 
@@ -37,12 +38,12 @@ internal partial class RightRuleService : IRightRuleService
         return _registerRuleService.GetRules(Context);
     }
 
-    public List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string JsonData)
+    public List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string JsonData)
     {
         var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, JsonData);
         if (ruleDefn == null)
         {
-            return default(List<ParsedRule>);
+            return [RuleRegistrationResult.Failed("Rule Definitions not build from Json", null)];
         }
         return rightRule.RegisterRules(ruleDefn);
     }
@@ -54,7 +55,7 @@ internal partial class RightRuleService : IRightRuleService
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
@@ -70,7 +71,7 @@ internal partial class RightRuleService : IRightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    public ParsedRule? RegisterRule(RuleDefinition rule)
+    public RuleRegistrationResult RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 

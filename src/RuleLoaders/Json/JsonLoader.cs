@@ -28,7 +28,7 @@ internal class JsonLoader : IRuleLoader
 
         try
         {
-            List<RuleDefinition> rules = JsonConvert.DeserializeObject<List<RuleDefinition>>(JsonData);
+            List<RuleDefinition>? rules = JsonConvert.DeserializeObject<List<RuleDefinition>>(JsonData);
             return rules;
         }
         catch

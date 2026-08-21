@@ -178,7 +178,7 @@ public class RulesToApplyTests
         var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule1.Decision);
+        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.Decision);
     }
 
     [Fact]
@@ -192,6 +192,6 @@ public class RulesToApplyTests
         var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule2.Decision);
+        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.Decision);
     }
 }

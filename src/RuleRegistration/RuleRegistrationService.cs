@@ -50,7 +50,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
         IParser parser = CreateParser(ruleDefinition, OperatorNames, ObjectNames, DatasetNames);
         if (parser == null)
         {
-            return default(ParsedRule);
+            return default;
         }
 
         try
@@ -65,7 +65,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
         }
     }
 
-    private Node GenerateTree(IParser parser)
+    private static Node GenerateTree(IParser parser)
     {
         Node node = parser.Parse();
         return node;
@@ -80,6 +80,6 @@ internal class RuleRegistrationService : IRuleRegistrationService
             statement = ruleDefinition.Statement;
             dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
         }
-        return _factory.CreateParser(_serviceProvider, statement, OperatorNames, DataObjectNames, DatasetNames, dataCheck);
+        return _factory.CreateParser(_serviceProvider, statement, OperatorNames!, DataObjectNames!, DatasetNames!, dataCheck);
     }
 }

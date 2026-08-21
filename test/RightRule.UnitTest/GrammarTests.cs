@@ -283,7 +283,7 @@ public class GrammarTests
 
         var appliedRule = rr.EvaluateFirstRule("GoodPayerContext");
 
-        Assert.Equal(newRule.Decision, appliedRule.Decision);
+        Assert.Equal(newRule.RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -338,7 +338,7 @@ public class GrammarTests
         var appliedRule = rr.EvaluateFirstRule("NAMECONTEXT1");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule1.Decision, appliedRule.Decision);
+        Assert.Equal(newRule1 .RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -348,7 +348,7 @@ public class GrammarTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Name Rule",
+            Name = "Name Rule1",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             Decision = "NAMEFOUND",
@@ -357,7 +357,7 @@ public class GrammarTests
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Name Rule",
+            Name = "Name Rule2",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             Decision = "NAMEFOUND2",
@@ -371,6 +371,6 @@ public class GrammarTests
         var appliedRule = rr.EvaluateFirstRule("NAMECONTEXT2");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule2.Decision, appliedRule.Decision);
+        Assert.Equal(newRule2.RegisteredRule.Decision, appliedRule.Decision);
     }
 }

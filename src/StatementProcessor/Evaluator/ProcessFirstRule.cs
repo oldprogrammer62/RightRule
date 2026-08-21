@@ -1,4 +1,4 @@
-﻿using RightRule.Data;
+﻿using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.RuleModels;
 

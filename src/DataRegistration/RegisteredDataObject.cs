@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RightRule.Data;
+namespace RightRule.DataRegistration;
 
 public class RegisteredDataObject
 {
@@ -10,7 +10,7 @@ public class RegisteredDataObject
     [SetsRequiredMembers]
     internal RegisteredDataObject(string DataName, object DataValue)
     {
-        this.Name = DataName;
-        this.Value = DataValue;
+        Name = DataName;
+        Value = DataValue;
     }
 }

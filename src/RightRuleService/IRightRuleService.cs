@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.Data;
+using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
@@ -20,9 +20,10 @@ internal interface IRightRuleService
     ParsedRule? GetRegisteredRule(int Number);
     List<ParsedRule> GetRules(string Context);
 
-    List<ParsedRule>? RegisterRulesJson(IRightRule rightRule, string Data);
-    List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules);
-    ParsedRule? RegisterRule(RuleDefinition rule);
+    List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string Data);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules);
+    RuleRegistrationResult RegisterRule(RuleDefinition rule);
+
     bool DeRegisterRules(string Context);
     bool DeRegisterRules();
     bool DeRegisterRule(string Name);

@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
@@ -42,7 +43,7 @@ public class ExtensionTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.IsType<List<ParsedRule>>(result);
+        Assert.IsType<List<RuleRegistrationResult>>(result);
     }
 
     [Fact]
@@ -62,6 +63,7 @@ public class ExtensionTests
 
         // Assert
         Assert.NotNull(result);
-        Assert.IsType<ParsedRule>(result);
+        Assert.IsType<RuleRegistrationResult>(result);
+        Assert.IsType<ParsedRule>(result.RegisteredRule);
     }
 }

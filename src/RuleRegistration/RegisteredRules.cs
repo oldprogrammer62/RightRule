@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleModels;
 
 namespace RightRule.RuleRegistration;
 
@@ -9,7 +10,7 @@ namespace RightRule.RuleRegistration;
 /// The RightRules property allows the interpreter to access the list of parsed rules and evaluate them accordingly.
 /// This class is internal
 /// </summary>
-public class RegisteredRules : IRegisteredRules
+internal class RegisteredRules : IRegisteredRules
 {
     private readonly List<ParsedRule> _rules;
     public List<ParsedRule> Rules { get { return _rules; } }
@@ -28,17 +29,35 @@ public class RegisteredRules : IRegisteredRules
         _rules = rules;
     }
 
-    public void AddRule(ParsedRule rule)
+    public RuleRegistrationResult AddRule(ParsedRule rule)
     {
-        _rules.Add(rule);
+        if (rule == null)
+        {
+            return RuleRegistrationResult.Failed("Rule is null", null);
+        }
+        var existingRule = GetRule(rule.Number, rule.Name);
+        switch (existingRule)
+        {
+            case RuleFound.NotFound:
+                _rules.Add(rule);
+                return RuleRegistrationResult.Success($"Rule: {rule.Number}-{rule.Name} Registered", rule);
+            case RuleFound.FoundByNumber:
+                return RuleRegistrationResult.Failed($"Rule Number: {rule.Number} already registered", rule);
+            case RuleFound.FoundByName:
+                return RuleRegistrationResult.Failed($"Rule Name: {rule.Name} already registered", rule);
+            default:
+                return RuleRegistrationResult.Failed($"Rule: {rule.Number}-{rule.Name} not registered", rule);
+        }
     }
 
-    public void AddRules(List<ParsedRule> rules)
+    public List<RuleRegistrationResult> AddRules(List<ParsedRule> rules)
     {
+        List<RuleRegistrationResult> results = new List<RuleRegistrationResult>();
         foreach (ParsedRule rule in rules)
         {
-            _rules.Add(rule);
+            results.Add(AddRule(rule));
         }
+        return results;
     }
 
     public bool RemoveRules(string Context)
@@ -117,5 +136,32 @@ public class RegisteredRules : IRegisteredRules
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Order()
             .ToList();
+    }
+
+    private RuleFound GetRule(int number, string name)
+    {
+        if (GetRule(number))
+        {
+            return RuleFound.FoundByNumber;
+        }
+        if (GetRule(name))
+        {
+            return RuleFound.FoundByName;
+        }
+        return RuleFound.NotFound;
+    }
+
+    private bool GetRule(int number)
+    {
+        return _rules.Any(d => d.Number.Equals(number));
+    }
+
+    private bool GetRule(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return false;
+        }
+        return _rules.Any(d => d.Name.Equals(name, StringComparison.Ordinal));
     }
 }

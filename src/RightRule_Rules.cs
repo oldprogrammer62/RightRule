@@ -1,3 +1,4 @@
+using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.System.Common;
@@ -109,7 +110,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    public List<ParsedRule>? RegisterRulesJson(string JsonData)
+    public List<RuleRegistrationResult> RegisterRulesJson(string JsonData)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
         try
@@ -129,7 +130,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public List<ParsedRule>? RegisterRules(IEnumerable<RuleDefinition> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
@@ -149,7 +150,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The Parsed Rule.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public ParsedRule? RegisterRule(RuleDefinition rule)
+    public RuleRegistrationResult RegisterRule(RuleDefinition rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try

@@ -25,7 +25,7 @@ public class ApplyAllRules
         {
             Context = "Test",
             Number = 2,
-            Name = "Name",
+            Name = "Name2",
             Decision = "GOOD",
             Statement = "xdata.x = 10"
         };

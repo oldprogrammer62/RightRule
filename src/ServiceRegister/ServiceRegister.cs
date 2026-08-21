@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RightRule.Data;
+using RightRule.DataRegistration;
 using RightRule.Factories.RightFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;

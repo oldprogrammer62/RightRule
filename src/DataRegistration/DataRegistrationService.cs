@@ -1,4 +1,4 @@
-﻿namespace RightRule.Data;
+﻿namespace RightRule.DataRegistration;
 
 internal class DataRegistrationService
 {

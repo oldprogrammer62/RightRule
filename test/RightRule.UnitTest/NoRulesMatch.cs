@@ -52,7 +52,7 @@ public class NoRulesMatch
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             Decision = "EQUALS101",
@@ -60,7 +60,7 @@ public class NoRulesMatch
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
@@ -167,7 +167,7 @@ public class NoRulesMatch
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             Decision = "EQUALS101",
@@ -175,7 +175,7 @@ public class NoRulesMatch
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
@@ -260,7 +260,7 @@ public class NoRulesMatch
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100_1",
@@ -268,7 +268,7 @@ public class NoRulesMatch
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100_2",
@@ -292,7 +292,7 @@ public class NoRulesMatch
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             Decision = "EQUALS101",
@@ -300,7 +300,7 @@ public class NoRulesMatch
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Equals Bool Value Rule",
+            Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
             Decision = "EQUALS102",

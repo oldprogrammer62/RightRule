@@ -254,7 +254,7 @@ public class EqualsTests
         RuleDefinition rule1 = new()
         {
             Number = 1,
-            Name = "Equals Int Value Rule",
+            Name = "Equals Int Value Rule1",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
@@ -263,7 +263,7 @@ public class EqualsTests
         RuleDefinition rule2 = new()
         {
             Number = 2,
-            Name = "Equals Int Value Rule",
+            Name = "Equals Int Value Rule2",
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             Decision = "EQUALS200",

@@ -1,4 +1,4 @@
-﻿using RightRule.Data;
+﻿using RightRule.DataRegistration;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.StatementProcessor.Parser;

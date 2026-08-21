@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
@@ -32,9 +33,9 @@ public class RuleBuilder_Test
         var x2 = rr.RegisterRule(rule2);
 
         Assert.NotNull(x1);
-        Assert.IsType<ParsedRule>(x1);
+        Assert.IsType<RuleRegistrationResult>(x1);
 
         Assert.NotNull(x2);
-        Assert.IsType<ParsedRule>(x2);
+        Assert.IsType<RuleRegistrationResult>(x2);
     }
 }
