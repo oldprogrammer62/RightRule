@@ -1,33 +1,35 @@
-﻿Local variables of intrinsic types
-----------------------------------
+﻿Local intrinsic variables
+-------------------------
 - type.IsPrimitive
 - propertyValue is string
 - propertyValue is decimal
 - propertyValue is DateTime
+- propertyValue is DateOnly
+- propertyValue is TimeOnly
 
-Declare variable
+// Declare variable
 long localVal = 1000;
 
-Register Data
-Registration name "localData"
-Registered value 1000
-var registeredData = rr.RegisterData("localData", localVal);
+// Register Data
+// Registration name "localData"
+DataRegistrationResult registeredData = rr.RegisterData("localData", localVal);
 
-Statement (true)
+// Rule Statement refers to Registered name "localData"
 Statement = "localData = 1000"
-Refers to Registered name "localData"
+
 
 Dictionary
 ----------
-Declare dictionary
+// Declare dictionary
 Dictionary<string, object> data = new Dictionary<string, object>()
 {
      { "entry", 1000 }
 };
-Register Data
-var registeredData = rr.RegisterData("localData", data);
 
-Statement (true)
+// Register Data
+// Registration name "localData"
+DataRegistrationResult registeredData = rr.RegisterData("localData", data);
+
+// Rule statement refers to Registered name "localData" with registered value "entry"
 Statement = "localData.entry = 1000"
-Refers to Registered name "localData" with registered value "entry"
 

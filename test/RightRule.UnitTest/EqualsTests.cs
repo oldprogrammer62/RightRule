@@ -23,6 +23,13 @@ public class EqualsTests
     [Fact]
     public void Equals_Bool()
     {
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        RuleConfiguration rc = new RuleConfiguration()
+        {
+            DataCheck = false,
+            Diagnostics = false
+        };
+
         // Rule
         RuleDefinition rule = new()
         {
@@ -30,10 +37,12 @@ public class EqualsTests
             Name = "Equals Bool Value Rule",
             Statement = @"Test.boolvalue equals true",
             Context = "Context",
-            Decision = "EQUALS"
+            OptionalData = null,
+            Decision = "EQUALS",
+            DecisionData = null,
+            RuleConfiguration = rc
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -82,7 +91,7 @@ public class EqualsTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        var data1 = rr.RegisterData("Test", _Data);
 
         var appliedRule = rr.EvaluateFirstRule("Context");
 

@@ -1,0 +1,39 @@
+﻿Initialise a Rule Definition and Register
+-----------------------------------------
+BeSoft.IRightRule rr = new BeSoft.RightRule();
+RuleConfiguration rc = new RuleConfiguration()
+{
+    DataCheck = true,
+    Diagnostics = false
+};
+
+RuleDefinition rule = new()
+{
+    Number = 1,
+    Name = "Rule1",
+    Context = "Context",
+    Statement = "Test.boolvalue equals true",
+    Decision = "EQUALS",
+    DecisionData = null,
+    OptionalData = null,
+    RuleConfiguration = rc
+};
+RuleRegistrationResult rule1 = rr.RegisterRule(rule);
+
+
+Build a Rule Definition and Register
+------------------------------------
+BeSoft.IRightRule rr = new BeSoft.RightRule();
+RuleDefinition rule = rr.BuildRuleDefinition()
+   .Number(1)
+   .Name("Rule1")
+   .Context("Context")
+   .Statement("Test.boolvalue equals true")
+   .Decision("EQUALS")
+   .DecisionData(null)
+   .OptionalData(null)
+   .WithCheckData(false)
+   .WithDiagnostics(false)
+   .Build();
+RuleRegistrationResult rule1 = rr.RegisterRule(rule);
+

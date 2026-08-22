@@ -95,13 +95,11 @@ Registration provides RightRule with a name for the data, followed by the actual
 
 ### ParsedRule class. Extends RuleDefinition adding:
 Returned by the rule registration process.
-* Success {bool}
 * Node {Node}
 * StatementPath {string}
 * Message {string}
 
 ## ParsedRule Properties. As RuleDefinition plus:
-* Success: true/false result of rule statement Parser outcome.
 * Node: Represents the Abstract Syntax Tree that defines the logic of the rule statement.
 * StatementPath: String version of Abstract Tree (Node).
 * Message: Message returned if the Rule statement does not Parse successfully.

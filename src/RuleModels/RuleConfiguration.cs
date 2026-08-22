@@ -9,16 +9,19 @@ public class RuleConfiguration
     public const bool DEFAULT_DATACHECK = false;
     public const bool DEFAULT_DIAGNOSTICS = true;
 
-    private readonly bool _datacheck = DEFAULT_DATACHECK;
-    public bool DataCheck => _datacheck;
+    public bool DataCheck { get; init; }
+    public bool Diagnostics { get; init; }
 
-    private readonly bool _diagnostics = DEFAULT_DIAGNOSTICS;
-    public bool Diagnostics => _diagnostics;
-
-    public RuleConfiguration(bool DataCheck, bool Diagnostics)
+    public RuleConfiguration()
     {
-        _datacheck = DataCheck;
-        _diagnostics = Diagnostics;
+        DataCheck = DEFAULT_DATACHECK;
+        Diagnostics = DEFAULT_DIAGNOSTICS;
+    }
+
+    public RuleConfiguration(bool dataCheck, bool diagnostics)
+    {
+        DataCheck = dataCheck;
+        Diagnostics = diagnostics;
     }
 
     public static RuleConfiguration DefaultConfig()
