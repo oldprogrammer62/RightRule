@@ -14,7 +14,7 @@ internal static class ProcessAllRules
         {
             AppliedRule appliedRule = AppliedRule.DefaultResult();
 
-            RuleResult result = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
+            RuleEvaluationResult result = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
             switch ((result.Result.IsSuccess, result.Result.Value))
             {
                 case (true, true): // Success and Rule applied
@@ -34,17 +34,17 @@ internal static class ProcessAllRules
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async static Task<RuleEvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         if (rule.Node == null)
         {
             var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
-            return RuleResult.Failure(message);
+            return RuleEvaluationResult.Failure(message);
         }
 
         try
         {
-            RuleResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
+            RuleEvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
             return result;
         }
         catch
@@ -53,17 +53,17 @@ internal static class ProcessAllRules
         }
     }
 
-    private static AppliedRule CreateTrueResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.TrueResult(rule, result);
     }
 
-    private static AppliedRule CreateFalseResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.FalseResult(rule, result);
     }
 
-    private static AppliedRule CreateErrorResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.ErrorResult(rule, result);
     }

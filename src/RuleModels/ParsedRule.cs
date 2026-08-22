@@ -12,11 +12,6 @@ namespace RightRule.RuleModels;
 public sealed class ParsedRule : Rule
 {
     /// <summary>
-    /// Indicates the outcome of the Parsing process.
-    /// </summary>
-    public required bool Success { get; init; }
-
-    /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).
     /// It allows the interpreter to traverse the AST and evaluate the rule statement.
     /// </summary>
@@ -34,7 +29,6 @@ public sealed class ParsedRule : Rule
 
     private ParsedRule() : base()
     {
-        Success = false;
         Node = null;
         StatementPath = string.Empty;
         Message = string.Empty;
@@ -49,9 +43,8 @@ public sealed class ParsedRule : Rule
 
         return new ParsedRule()
         {
-            Success = true,
             Message = message,
-            Context = ruleDefinition!.Context,
+            Context = ruleDefinition.Context,
             Decision = ruleDefinition.Decision,
             DecisionData = ruleDefinition.DecisionData,
             Name = ruleDefinition.Name,
@@ -73,7 +66,6 @@ public sealed class ParsedRule : Rule
 
         return new ParsedRule()
         {
-            Success = false,
             Message = message,
             Context = ruleDefinition.Context,
             Decision = ruleDefinition.Decision,
