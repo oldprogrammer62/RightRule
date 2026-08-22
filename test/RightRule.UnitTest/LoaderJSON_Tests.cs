@@ -9,13 +9,13 @@ public class LoaderJSON_Tests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        var loaderFactory = new RightRule.Factories.Loaders.LoaderFactory(rr);
+        RightRule.Factories.Loaders.LoaderFactory? loaderFactory = new RightRule.Factories.Loaders.LoaderFactory(rr);
 
         var loader = loaderFactory.BuildLoader("JSON");
         Assert.NotNull(loader);
 
         var json = RightRule.RuleLoaders.Json.Template.JsonString();
-        var rules = loader.Load(json);
+        List<RightRule.RuleModels.RuleDefinition>? rules = loader.Load(json);
 
         Assert.NotNull(rules);
     }
@@ -26,7 +26,7 @@ public class LoaderJSON_Tests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
         var json = RightRule.RuleLoaders.Json.Template.JsonString();
-        var rules = rr.RegisterRulesJson(json);
+        List<RightRule.Models.RuleRegistrationResult>? rules = rr.RegisterRulesJson(json);
 
         Assert.NotNull(rules);
     }

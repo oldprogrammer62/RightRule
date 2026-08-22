@@ -1,0 +1,7 @@
+﻿AppliedRule result = rr.EvaluateFirstRule("Context");
+
+List<AppliedRule>? results = rr.EvaluateAllRules("Test");
+
+        var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.First);
+
+            Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);

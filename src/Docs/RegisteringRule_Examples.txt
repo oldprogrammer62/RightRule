@@ -36,4 +36,3 @@ RuleDefinition rule = rr.BuildRuleDefinition()
    .WithDiagnostics(false)
    .Build();
 RuleRegistrationResult rule1 = rr.RegisterRule(rule);
-

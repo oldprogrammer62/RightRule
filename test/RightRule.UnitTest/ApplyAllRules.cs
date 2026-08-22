@@ -33,7 +33,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        var result = rr.EvaluateAllRules("Test");
+        List<AppliedRule>? result = rr.EvaluateAllRules("Test");
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }
