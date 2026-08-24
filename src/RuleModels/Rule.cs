@@ -27,17 +27,19 @@ public abstract class Rule
     /// </summary>
     public required string Context { get; init; }
 
+    /// <summary>
+    /// The string returned to the calling application if the rule evaluates true
+    /// </summary>
     public required string Decision { get; init; }
 
     /// <summary>
     /// Optional data returned when the Rule is evaluated to true.
+    /// The DecisionData value is passed to the Operator so it can be returned.
+    /// The Operator can return its own version of DecisionData if appropriate
     /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
     public object? DecisionData { get; init; }
 
-    /// <summary>
-    /// Optional configuration settings during rule processing.
-    /// </summary>
     /// <summary>
     /// Optional data that will be passed to the Operator when evaluating the Rule.
     /// It is the responsibility of the Operator to validate the configuration details and use it as required.
@@ -45,8 +47,7 @@ public abstract class Rule
     public object? OptionalData { get; init; }
 
     /// <summary>
-    /// String value returned if the Rule evaluates to True.
-    /// Note: the calling application should handle all possible decision striongs for the specified Context.
+    /// Configuration details passed to the Operator
     /// </summary>
-    public RuleConfiguration? RuleConfiguration { get; init; }
+    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
 }

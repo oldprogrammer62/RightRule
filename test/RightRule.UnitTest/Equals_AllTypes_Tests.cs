@@ -103,7 +103,7 @@ public class Equals_AllTypes_Tests
             .Context("Context")
             .Statement("testVal = localVal")
             .Decision("GOOD")
-            .WithCheckData(true)
+            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
             

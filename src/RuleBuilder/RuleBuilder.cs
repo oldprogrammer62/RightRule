@@ -11,8 +11,8 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
     private readonly string _decision;
     private readonly object? _decisionData;
     private readonly object? _optionalData;
-    private readonly bool _dataCheck;
-    private readonly bool _diagnostics;
+    private readonly bool _dataCheck = RightRuleConfiguration.DEFAULT_DATACHECK;
+    private readonly bool _diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
 
     // Private constructor for state progression
     private RuleBuilder(int number, string name, string context, string statement, string decision,
@@ -31,7 +31,9 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
 
     internal static INumberStep Create()
     {
-        return new RuleBuilder(0, null, null, null, null, null, null, true, false);
+        var dataCheck = RightRuleConfiguration.DEFAULT_DATACHECK;
+        var diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
+        return new RuleBuilder(0, string.Empty, string.Empty, string.Empty, string.Empty, null, null, dataCheck, diagnostics);
     }
 
     // Step 1: Enforces that Number must be provided first
@@ -79,12 +81,12 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, optionalData, _dataCheck, _diagnostics);
     }
 
-    public IRuleBuilder WithCheckData(bool checkData = RuleConfiguration.DEFAULT_DATACHECK)
+    public IRuleBuilder WithDataCheck(bool checkData = RightRuleConfiguration.DEFAULT_DATACHECK)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, checkData, _diagnostics);
     }
 
-    public IRuleBuilder WithDiagnostics(bool diagnostics = RuleConfiguration.DEFAULT_DIAGNOSTICS)
+    public IRuleBuilder WithDiagnostics(bool diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, _dataCheck, diagnostics);
     }
@@ -98,7 +100,7 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
         if (string.IsNullOrWhiteSpace(_statement)) throw new InvalidOperationException("Statement is a mandatory field.");
         if (string.IsNullOrWhiteSpace(_decision)) throw new InvalidOperationException("Decision is a mandatory field.");
 
-        RuleConfiguration ruleConfiguration = new RuleConfiguration(_dataCheck, _diagnostics);
+        RightRuleConfiguration ruleConfiguration = new RightRuleConfiguration(_dataCheck, _diagnostics);
 
         return RuleDefinition.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, ruleConfiguration);
     }

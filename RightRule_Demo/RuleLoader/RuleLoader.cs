@@ -15,7 +15,7 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .Decision("GOOD")
-                .WithCheckData(false)
+                .WithDataCheck(false)
                 .Build(),
 
                 rightRule.BuildRuleDefinition()
@@ -24,7 +24,7 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .Decision("GOOD")
-                .WithCheckData(false)
+                .WithDataCheck(false)
                 .Build(),
 
                 new RuleDefinition

@@ -10,26 +10,26 @@ public class EqualsOperator : Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.");
+            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
         }
         if (left == null || right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.");
+            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
         }
 
-        if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right));
-        if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right));
-        if (IsChar(left) && IsChar(right)) return EvaluationResult.Success(ProcessAsChar(left, right));
-        if (IsBoolean(left) && IsBoolean(right)) return EvaluationResult.Success(ProcessAsBoolean(left, right));
-        if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right));
-        if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right));
-        if (IsTimeOnly(left) && IsTimeOnly(right)) return EvaluationResult.Success(ProcessAsTimeOnly(left, right));
+        if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right), DecisionData);
+        if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right), DecisionData);
+        if (IsChar(left) && IsChar(right)) return EvaluationResult.Success(ProcessAsChar(left, right), DecisionData);
+        if (IsBoolean(left) && IsBoolean(right)) return EvaluationResult.Success(ProcessAsBoolean(left, right), DecisionData);
+        if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right), DecisionData);
+        if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right), DecisionData);
+        if (IsTimeOnly(left) && IsTimeOnly(right)) return EvaluationResult.Success(ProcessAsTimeOnly(left, right), DecisionData);
 
-        return EvaluationResult.Success(Equals(left, right));
+        return EvaluationResult.Success(Equals(left, right), DecisionData);
     }
 
     private static new bool Equals(dynamic left, dynamic right)

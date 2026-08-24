@@ -24,7 +24,7 @@ public class EqualsTests
     public void Equals_Bool()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        RuleConfiguration rc = new RuleConfiguration()
+        RightRuleConfiguration rc = new RightRuleConfiguration()
         {
             DataCheck = false,
             Diagnostics = false
@@ -76,7 +76,7 @@ public class EqualsTests
     [Fact]
     public void Equals_Int()
     {
-        RuleConfiguration rc = new RuleConfiguration(false, false);
+        RightRuleConfiguration rc = new RightRuleConfiguration(false, false);
 
         // Rule
         RuleDefinition rule = new()

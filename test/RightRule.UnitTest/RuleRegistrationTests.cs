@@ -16,7 +16,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         RuleDefinition rule2 = rr.BuildRuleDefinition()
@@ -25,7 +25,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);
@@ -49,7 +49,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         RuleDefinition rule2 = rr.BuildRuleDefinition()
@@ -58,7 +58,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);
@@ -82,7 +82,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         RuleDefinition rule2 = rr.BuildRuleDefinition()
@@ -91,7 +91,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);

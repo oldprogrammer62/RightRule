@@ -18,7 +18,7 @@ public sealed class RuleDefinition : Rule
     {
     }
 
-    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RuleConfiguration ruleConfiguration)
+    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
     {
         return new RuleDefinition()
         {

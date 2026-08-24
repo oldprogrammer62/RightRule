@@ -38,8 +38,8 @@ public interface IRuleBuilder
     // IRuleBuilder Decision(string decision);
     IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
-    IRuleBuilder WithCheckData(bool checkData = RuleConfiguration.DEFAULT_DATACHECK);
-    IRuleBuilder WithDiagnostics(bool diagnostics = RuleConfiguration.DEFAULT_DIAGNOSTICS);
+    IRuleBuilder WithDataCheck(bool checkData = RightRuleConfiguration.DEFAULT_DATACHECK);
+    IRuleBuilder WithDiagnostics(bool diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS);
 
     RuleDefinition Build();
 }

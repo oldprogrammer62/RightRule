@@ -4,11 +4,11 @@ namespace RightRule.RuleRegistration;
 
 internal class Helper
 {
-    internal static bool GetDataCheckSetting(RuleConfiguration? ruleConfig)
+    internal static bool GetDataCheckSetting(RightRuleConfiguration? ruleConfig)
     {
         if (ruleConfig == null)
         {
-            return RuleConfiguration.DefaultConfig().DataCheck;
+            return RightRuleConfiguration.DefaultConfig().DataCheck;
         }
         return ruleConfig.DataCheck;
     }

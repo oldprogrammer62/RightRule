@@ -11,20 +11,20 @@ public class Exists : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.");
+            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
         }
         if (left == null || right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.");
+            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
         }
 
         if (right is IList list)
         {
-            return EvaluationResult.Success(list.Contains(left));
+            return EvaluationResult.Success(list.Contains(left), DecisionData);
         }
 
         if (right is ArrayList array)
@@ -33,7 +33,7 @@ public class Exists : RightRule.System.Common.Operator
             {
                 if (Equals(item, left))
                 {
-                    return EvaluationResult.Success(true);
+                    return EvaluationResult.Success(true, DecisionData);
                 }
             }
         }
@@ -46,10 +46,10 @@ public class Exists : RightRule.System.Common.Operator
                 var sItem = item.ToString();
                 if (Equals(sItem, sLeft))
                 {
-                    return EvaluationResult.Success(true);
+                    return EvaluationResult.Success(true, DecisionData);
                 }
             }
         }
-        return EvaluationResult.Failure("Operand (right) is not a valid collection.");
+        return EvaluationResult.Failure("Operand (right) is not a valid collection.", DecisionData);
     }
 }

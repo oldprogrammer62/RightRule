@@ -40,7 +40,7 @@ public sealed class AppliedRule : Rule
         StatementApplied = string.Empty;
     }
 
-    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
@@ -50,7 +50,7 @@ public sealed class AppliedRule : Rule
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
             Decision = parsedRule.Decision,
-            DecisionData = parsedRule.DecisionData,
+            DecisionData = result.EvaluationResult.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             RuleConfiguration = parsedRule.RuleConfiguration,
@@ -58,7 +58,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
@@ -68,7 +68,7 @@ public sealed class AppliedRule : Rule
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
             Decision = DefaultDecision,
-            DecisionData = parsedRule.DecisionData,
+            DecisionData = result.EvaluationResult.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             RuleConfiguration = parsedRule.RuleConfiguration,
@@ -89,7 +89,7 @@ public sealed class AppliedRule : Rule
             DecisionData = string.Empty,
             OptionalData = string.Empty,
             StatementApplied = string.Empty,
-            RuleConfiguration = RuleConfiguration.DefaultConfig(),
+            RuleConfiguration = RightRuleConfiguration.DefaultConfig(),
             Message = string.Empty
         };
     }
@@ -112,7 +112,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule ErrorResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule ErrorResult(ParsedRule parsedRule, RuleResult result)
     {
         return new AppliedRule()
         {
@@ -122,7 +122,7 @@ public sealed class AppliedRule : Rule
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
             Decision = ErrorDecision,
-            DecisionData = parsedRule.DecisionData,
+            DecisionData = result.EvaluationResult.DecisionData,
             OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
             RuleConfiguration = parsedRule.RuleConfiguration,

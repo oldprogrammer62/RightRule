@@ -17,7 +17,7 @@ public class RuleBuilder_Test
             .Decision("GOOD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .WithDiagnostics(false)
             .Build();
         var x1 = rr.RegisterRule(rule1);
@@ -28,7 +28,7 @@ public class RuleBuilder_Test
             .Context("Context")
             .Statement("a = b")
             .Decision("GOOD")
-            .WithCheckData(false)
+            .WithDataCheck(false)
             .WithDiagnostics(true)
             .Build();
         var x2 = rr.RegisterRule(rule2);
