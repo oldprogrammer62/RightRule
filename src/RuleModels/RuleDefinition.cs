@@ -16,6 +16,12 @@ namespace RightRule.RuleModels;
 public sealed class RuleDefinition : Rule
 {
     /// <summary>
+    /// Optional data that will be passed to the Operator when evaluating the Rule.
+    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
+    /// </summary>
+    public object? OptionalData { get; init; }
+
+    /// <summary>
     /// Configuration details
     /// </summary>
     public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();

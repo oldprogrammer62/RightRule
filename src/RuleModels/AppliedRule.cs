@@ -51,9 +51,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = parsedRule.Decision,
             DecisionData = result.EvaluationResult.DecisionData,
-            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            // RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }
@@ -69,9 +67,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = DefaultDecision,
             DecisionData = result.EvaluationResult.DecisionData,
-            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            // RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }
@@ -87,9 +83,7 @@ public sealed class AppliedRule : Rule
             Context = string.Empty,
             Decision = DefaultDecision,
             DecisionData = string.Empty,
-            OptionalData = string.Empty,
             StatementApplied = string.Empty,
-            // RuleConfiguration = RightRuleConfiguration.DefaultConfig(),
             Message = string.Empty
         };
     }
@@ -105,9 +99,7 @@ public sealed class AppliedRule : Rule
             Context = string.Empty,
             Decision = ErrorDecision,
             DecisionData = string.Empty,
-            OptionalData = string.Empty,
             StatementApplied = string.Empty,
-            // RuleConfiguration = null,
             Message = message
         };
     }
@@ -123,9 +115,7 @@ public sealed class AppliedRule : Rule
             Context = parsedRule.Context,
             Decision = ErrorDecision,
             DecisionData = result.EvaluationResult.DecisionData,
-            OptionalData = parsedRule.OptionalData,
             StatementApplied = result.StatementApplied,
-            // RuleConfiguration = parsedRule.RuleConfiguration,
             Message = result.Message
         };
     }
@@ -142,7 +132,6 @@ public sealed class AppliedRule : Rule
         sb.AppendLine($"Result: {this.Result}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
-        sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
         sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();

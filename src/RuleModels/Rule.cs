@@ -41,10 +41,4 @@ public abstract class Rule
     /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
     public object? DecisionData { get; init; }
-
-    /// <summary>
-    /// Optional data that will be passed to the Operator when evaluating the Rule.
-    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
-    /// </summary>
-    public object? OptionalData { get; init; }
 }

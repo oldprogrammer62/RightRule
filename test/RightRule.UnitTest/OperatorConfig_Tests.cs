@@ -29,12 +29,12 @@ public class OperatorConfig_Tests
         };
 
         IRightRule rr = new BeSoft.RightRule();
-        var data1Registered = rr.RegisterData("Data", data);
-        var rule1Registered = rr.RegisterRule(rule1);
+        RightRule.Models.DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
+        RightRule.Models.RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(OpConfig, result.OptionalData);
+        Assert.Equal(OpConfig, rule1Registered.RegisteredRule.OptionalData);
     }
 }
