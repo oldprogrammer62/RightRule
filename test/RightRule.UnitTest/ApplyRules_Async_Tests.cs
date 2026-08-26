@@ -2,7 +2,7 @@
 
 namespace RightRuleTests;
 
-public class ApplyRules_Async
+public class ApplyRules_Async_Tests
 {
     [Fact]
     public async Task Full_Async_Test()

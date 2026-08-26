@@ -20,7 +20,7 @@ internal static class RuleLoaderService
 
     private static IRuleLoader GetLoader(IRightRule rightRule, string LoaderType)
     {
-        var loaderFactory = new Factories.Loaders.LoaderFactory(rightRule);
+        var loaderFactory = new Factories.RuleLoaderFactory.RuleLoaderFactory(rightRule);
         var loader = loaderFactory.BuildLoader(LoaderType);
         return loader;
     }

@@ -1,14 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule.DataRegistration;
+using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.StatementProcessor.Parser;
 using RightRule.StatementProcessor.Tokenizer;
 using RightRule.System.Common;
 
-namespace RightRule.Factories.RightFactory;
+namespace RightRule.Factories.LanguageFactory;
 
-internal class RightRuleFactory : IRightRuleFactory
+internal class LanguageFactory : ILanguageFactory
 {
     public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
     {

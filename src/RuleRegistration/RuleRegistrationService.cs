@@ -1,4 +1,4 @@
-﻿using RightRule.Factories.RightFactory;
+﻿using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
 
@@ -7,9 +7,9 @@ namespace RightRule.RuleRegistration;
 internal class RuleRegistrationService : IRuleRegistrationService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IRightRuleFactory _factory;
+    private readonly ILanguageFactory _factory;
 
-    public RuleRegistrationService(IServiceProvider ServiceProvider, IRightRuleFactory factory)
+    public RuleRegistrationService(IServiceProvider ServiceProvider, ILanguageFactory factory)
     {
         _serviceProvider = ServiceProvider;
         _factory = factory;

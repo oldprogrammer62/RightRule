@@ -9,7 +9,7 @@ public class LoaderJSON_Tests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        RightRule.Factories.Loaders.LoaderFactory? loaderFactory = new RightRule.Factories.Loaders.LoaderFactory(rr);
+        RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory? loaderFactory = new RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory(rr);
 
         var loader = loaderFactory.BuildLoader("JSON");
         Assert.NotNull(loader);

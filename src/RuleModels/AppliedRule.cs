@@ -40,7 +40,7 @@ public sealed class AppliedRule : Rule
         StatementApplied = string.Empty;
     }
 
-    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleResult result)
+    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleEvaluationResult result)
     {
         return new AppliedRule()
         {
@@ -58,7 +58,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleResult result)
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleEvaluationResult result)
     {
         return new AppliedRule()
         {
@@ -112,7 +112,7 @@ public sealed class AppliedRule : Rule
         };
     }
 
-    internal static AppliedRule ErrorResult(ParsedRule parsedRule, RuleResult result)
+    internal static AppliedRule ErrorResult(ParsedRule parsedRule, RuleEvaluationResult result)
     {
         return new AppliedRule()
         {

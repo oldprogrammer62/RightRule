@@ -6,5 +6,5 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 public interface IEvaluator
 {
-    Task<RuleResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects);
+    Task<RuleEvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects);
 }

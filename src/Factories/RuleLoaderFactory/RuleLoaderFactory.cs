@@ -2,13 +2,13 @@
 using RightRule.RuleLoaders;
 using RightRule.RuleLoaders.Json;
 
-namespace RightRule.Factories.Loaders;
+namespace RightRule.Factories.RuleLoaderFactory;
 
-public class LoaderFactory
+public class RuleLoaderFactory
 {
     private readonly IRightRule _rightRule;
 
-    public LoaderFactory(IRightRule rightRule)
+    public RuleLoaderFactory(IRightRule rightRule)
     {
         _rightRule = rightRule;
     }

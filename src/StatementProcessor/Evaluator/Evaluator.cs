@@ -15,7 +15,7 @@ internal sealed class Evaluator : IEvaluator
         _operators = Operators ?? new Dictionary<string, Operator> { };
     }
 
-    public Task<RuleResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    public Task<RuleEvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         return Task.Run(async () =>
         {
@@ -24,20 +24,20 @@ internal sealed class Evaluator : IEvaluator
                 var evaluationResult = await EvaluateNodeAsync(Datasets, DataObjects, ParsedRule).ConfigureAwait(false);
                 if (evaluationResult == null)
                 {
-                    return RuleResult.Failure(evaluationResult!, "Evaluation invalid.");
+                    return RuleEvaluationResult.Failure(evaluationResult!, "Evaluation invalid.");
                 }
                 if (!evaluationResult.IsSuccess)
                 {
-                    return RuleResult.Failure(evaluationResult, evaluationResult.Message);
+                    return RuleEvaluationResult.Failure(evaluationResult, evaluationResult.Message);
                 }
 
                 string message = string.Empty;
                 string statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
-                return RuleResult.Success(evaluationResult, message, statementApplied);
+                return RuleEvaluationResult.Success(evaluationResult, message, statementApplied);
             }
             catch (Exception ex)
             {
-                return RuleResult.Failure(ex.Message, null);
+                return RuleEvaluationResult.Failure(ex.Message, null);
             }
         });
     }

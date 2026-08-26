@@ -10,48 +10,53 @@ internal static class ProcessFirstRule
     {
         List<AppliedRule> appliedRules = [];
         bool complete = false;
+        bool matched = false;
 
         foreach (var rule in rules)
         {
-            AppliedRule appliedRule = AppliedRule.DefaultResult();
-
-            RuleResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
+            RuleEvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
             switch ((ruleResult.EvaluationResult.IsSuccess, ruleResult.EvaluationResult.Result))
             {
                 case (true, true): // Success and Rule applied
-                    appliedRule = CreateTrueResult(ruleResult, rule);
+                    appliedRules.Add(CreateTrueResult(ruleResult, rule));
                     complete = true;
+                    matched = true;
                     break;
 
                 case (true, false): // Success and Rule not applied
-                    appliedRule = CreateFalseResult(ruleResult, rule);
+                    complete = false;
+                    matched = false;
                     continue;
 
                 default:
-                    appliedRule = CreateErrorResult(ruleResult, rule);
+                    appliedRules.Add(CreateErrorResult(ruleResult, rule));
                     complete = true;
+                    matched = true;
                     break;
             }
             if (complete)
             {
-                appliedRules.Add(appliedRule);
                 break;
             }
+        }
+        if (!matched)
+        {
+            appliedRules.Add(AppliedRule.DefaultResult());
         }
         return appliedRules;
     }
 
-    private async static Task<RuleResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async static Task<RuleEvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         if (rule.Node == null)
         {
             var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
-            return RuleResult.Failure(message, rule.DecisionData);
+            return RuleEvaluationResult.Failure(message, rule.DecisionData);
         }
 
         try
         {
-            RuleResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
+            RuleEvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
             return result;
         }
         catch
@@ -60,17 +65,17 @@ internal static class ProcessFirstRule
         }
     }
 
-    private static AppliedRule CreateTrueResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.TrueResult(rule, result);
     }
 
-    private static AppliedRule CreateFalseResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.FalseResult(rule, result);
     }
 
-    private static AppliedRule CreateErrorResult(RuleResult result, ParsedRule rule)
+    private static AppliedRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.ErrorResult(rule, result);
     }

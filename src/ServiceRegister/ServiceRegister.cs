@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule.DataRegistration;
-using RightRule.Factories.RightFactory;
+using RightRule.Factories.LanguageFactory;
+using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.RuleService;
@@ -27,7 +28,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredRules, RegisteredRules>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
 
-        services.AddScoped<IRightRuleFactory, RightRuleFactory>();
+        services.AddScoped<ILanguageFactory, LanguageFactory>();
 
         services.AddSingleton<IInterpreter, Interpreter>();
         services.AddSingleton<IEvaluator, Evaluator>();

@@ -1,5 +1,6 @@
 ﻿using RightRule.DataRegistration;
 using RightRule.Models;
+using RightRule.RuleBuilder;
 using RightRule.RuleModels;
 using RightRule.RuleRegistration;
 using RightRule.SyntaxChecker;

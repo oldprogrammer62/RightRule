@@ -46,7 +46,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Factories\RuleFactory\" />
     <Folder Include="Licenses\" />
     <Folder Include="OperatorLoader\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Expose internals to your unit test project -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>RightRuleTests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>

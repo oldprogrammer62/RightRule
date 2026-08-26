@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using RightRule.Models;
+using System.Text;
 
 namespace RightRule.RuleModels;
 

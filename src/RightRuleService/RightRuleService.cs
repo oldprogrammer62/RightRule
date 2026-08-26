@@ -1,5 +1,5 @@
 ﻿using RightRule.DataRegistration;
-using RightRule.Factories.RightFactory;
+using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.Operators;
 using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Interpreter;
@@ -10,7 +10,7 @@ namespace RightRule.RuleService;
 internal partial class RightRuleService : IRightRuleService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IRightRuleFactory _factory;
+    private readonly ILanguageFactory _factory;
     private readonly IInterpreter _interpreter;
 
 
@@ -25,7 +25,7 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
-    public RightRuleService(IServiceProvider ServiceProvider, IRightRuleFactory factory, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
+    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
         _serviceProvider = ServiceProvider;
         _factory = factory;
