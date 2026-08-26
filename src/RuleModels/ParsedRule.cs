@@ -59,7 +59,7 @@ public sealed class ParsedRule : Rule
         };
     }
 
-    internal static ParsedRule? FailResult(RuleDefinition? ruleDefinition, string message)
+    internal static ParsedRule? ErrorResult(RuleDefinition? ruleDefinition, string message)
     {
         if (ruleDefinition == null)
         {
@@ -94,6 +94,7 @@ public sealed class ParsedRule : Rule
         sb.AppendLine($"DecisionData: {this.DecisionData}");
         sb.AppendLine($"OptionalData: {this.OptionalData}");
         sb.AppendLine($"StatementPath: {this.StatementPath}");
+        sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();
     }
 

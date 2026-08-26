@@ -61,7 +61,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
         }
         catch (Exception ex)
         {
-            return ParsedRule.FailResult(ruleDefinition, message: ex.Message);
+            return ParsedRule.ErrorResult(ruleDefinition, message: ex.Message);
         }
     }
 

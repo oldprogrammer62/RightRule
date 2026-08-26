@@ -8,8 +8,6 @@ namespace RightRule.RuleModels;
 /// </summary>
 public sealed class DefaultRule : Rule
 {
-    //public string DefaultMessage { get; } = "Im Defaulted";
-
     /// <summary>
     /// Indicates whether the Rule logic evaluated as true or false against the dataset.
     /// </summary>
