@@ -1,4 +1,5 @@
 ﻿using RightRule.Models;
+using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Parser;
 using System.Text;
 
@@ -53,7 +54,7 @@ public sealed class ParsedRule : Rule
             Statement = ruleDefinition.Statement,
             StatementPath = BuildTreeText(ruleDefinition, node),
             OptionalData = ruleDefinition.OptionalData,
-            RuleConfiguration = ruleDefinition.RuleConfiguration is not null ? ruleDefinition.RuleConfiguration :RightRuleConfiguration.DefaultConfig(),
+            RuleConfiguration = ruleDefinition.RuleConfiguration,
             Node = node
         };
     }
@@ -76,7 +77,7 @@ public sealed class ParsedRule : Rule
             Statement = ruleDefinition.Statement,
             StatementPath = string.Empty,
             OptionalData = ruleDefinition.OptionalData,
-            RuleConfiguration = ruleDefinition.RuleConfiguration is not null ? ruleDefinition.RuleConfiguration : RightRuleConfiguration.DefaultConfig(),
+            RuleConfiguration = ruleDefinition.RuleConfiguration,
             Node = null
         };
     }
@@ -98,7 +99,7 @@ public sealed class ParsedRule : Rule
 
     private static string BuildTreeText(RuleDefinition? ruleDefinition, Node node)
     {
-        bool diagnostics = ruleDefinition?.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
+        bool diagnostics = Helper.GetDiagnosticsSetting(ruleDefinition); ;
         if (diagnostics)
         {
             return StatementProcessor.StatementPathBuilder.BuildTreeText(node);

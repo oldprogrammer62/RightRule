@@ -1,4 +1,5 @@
 ﻿using RightRule.Models;
+using RightRule.RuleModels;
 
 namespace RightRule.RuleRegistration;
 
@@ -11,5 +12,14 @@ internal class Helper
             return RightRuleConfiguration.DefaultConfig().DataCheck;
         }
         return ruleConfig.DataCheck;
+    }
+
+    internal static bool GetDiagnosticsSetting(RuleDefinition? ruleDefinition)
+    {
+        if (ruleDefinition == null)
+        {
+            return false;
+        }
+        return ruleDefinition.RuleConfiguration.Diagnostics;
     }
 }
