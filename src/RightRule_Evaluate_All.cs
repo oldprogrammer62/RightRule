@@ -19,13 +19,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public List<AppliedRule> EvaluateAllRules(string Context)
+    public List<AppliedRule> EvaluateAll(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return EvaluateAllRulesAsync(Context).GetAwaiter().GetResult();
+            return EvaluateAllAsync(Context).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -43,13 +43,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
@@ -79,13 +79,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    public List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn ReturnRules)
+    public List<AppliedRule> EvaluateAll(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return EvaluateAllRulesAsync(Context, ReturnRules).GetAwaiter().GetResult();
+            return EvaluateAllAsync(Context, ReturnRules).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -106,13 +106,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, ReturnRules).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
@@ -143,7 +143,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data)
+    public List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -151,7 +151,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return EvaluateAllRulesAsync(Context, DataName, Data).GetAwaiter().GetResult();
+            return EvaluateAllAsync(Context, DataName, Data).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -173,7 +173,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -181,7 +181,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, DataName, Data).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];
@@ -216,7 +216,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -224,7 +224,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return EvaluateAllRulesAsync(Context, DataName, Data, ReturnRules).GetAwaiter().GetResult();
+            return EvaluateAllAsync(Context, DataName, Data, ReturnRules).GetAwaiter().GetResult();
         }
                 catch (Exception ex)
         {
@@ -250,7 +250,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -258,7 +258,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateAllRulesAsync(Context, DataName, Data, ReturnRules).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, DataName, Data, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return [AppliedRule.DefaultResult()];

@@ -107,7 +107,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data2", _Step1Data2);
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule1);
-        var rule1result = rr.EvaluateFirstRule("Step1");
+        var rule1result = rr.EvaluateFirstMatch("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
     }
 
@@ -120,7 +120,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data2", _Step1Data2);
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule2);
-        var rule1result = rr.EvaluateFirstRule("Step1");
+        var rule1result = rr.EvaluateFirstMatch("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
     }
 
@@ -133,7 +133,7 @@ public class MultiStepTests
         rr.RegisterData("Step1Data2", _Step1Data2);
         rr.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule3);
-        var rule1result = rr.EvaluateFirstRule("Step1");
+        var rule1result = rr.EvaluateFirstMatch("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
     }
 
@@ -144,12 +144,12 @@ public class MultiStepTests
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
-        var rule1result = rr.EvaluateFirstRule("Step1");
+        var rule1result = rr.EvaluateFirstMatch("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
         rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
-        var rule2result = rr.EvaluateFirstRule("Step2");
+        var rule2result = rr.EvaluateFirstMatch("Step2");
         Assert.Equal("GOOD", rule2result.Decision);
     }
 
@@ -160,18 +160,18 @@ public class MultiStepTests
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
-        var rule1result = rr.EvaluateFirstRule("Step1");
+        var rule1result = rr.EvaluateFirstMatch("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
         rr.DeRegisterData("Step1Data1");
         rr.DeRegisterRules("Step1");
 
-        var rule1result_v2 = rr.EvaluateFirstRule("Step1");
+        var rule1result_v2 = rr.EvaluateFirstMatch("Step1");
         Assert.Equal(AppliedRule.ErrorDecision, rule1result_v2.Decision);
 
         rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
-        var rule2result = rr.EvaluateFirstRule("Step2");
+        var rule2result = rr.EvaluateFirstMatch("Step2");
         Assert.Equal("GOOD", rule2result.Decision);
     }
 }

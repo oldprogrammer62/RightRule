@@ -5,14 +5,14 @@ namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSingleRuleAsync(Context).ConfigureAwait(false);
     }
 
-    public async Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));

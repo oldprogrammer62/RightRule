@@ -40,7 +40,7 @@ public class NoRulesMatch
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(rule1.Decision, appliedRule.Decision);
     }
@@ -71,7 +71,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(rule2.Decision, appliedRule.Decision);
     }
@@ -93,7 +93,7 @@ public class NoRulesMatch
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(AppliedRule.DefaultDecision , appliedRule.Decision);
     }
@@ -124,7 +124,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
@@ -155,7 +155,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.First);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.First);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
@@ -186,7 +186,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.First);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.First);
 
         Assert.Equal(rule2.Decision, appliedRules[0].Decision);
     }
@@ -217,7 +217,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.First);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.First);
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRules[0].Decision);
     }
@@ -248,7 +248,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.All);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
@@ -279,7 +279,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.All);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
         Assert.Equal(rule2.Decision, appliedRules[1].Decision);
@@ -311,7 +311,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.EvaluateAllRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.All);
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRules[0].Decision);
         Assert.Equal(AppliedRule.DefaultDecision, appliedRules[1].Decision);

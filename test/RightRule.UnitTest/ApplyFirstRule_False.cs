@@ -28,7 +28,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.Equal(1, result.Number);
@@ -57,7 +57,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.Equal(2, result.Number);
@@ -87,7 +87,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.Equal(AppliedRule.DefaultResult().Decision, result.Decision);

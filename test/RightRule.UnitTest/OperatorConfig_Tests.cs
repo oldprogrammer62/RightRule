@@ -32,7 +32,7 @@ public class OperatorConfig_Tests
         var data1Registered = rr.RegisterData("Data", data);
         var rule1Registered = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.Equal(OpConfig, result.OptionalData);

@@ -1,4 +1,6 @@
-﻿AppliedRule result = rr.EvaluateFirstRule("Context");
+﻿RightRule can process rules with 2 different result 
+
+AppliedRule result = rr.EvaluateFirstRule("Context");
 
 List<AppliedRule>? results = rr.EvaluateAllRules("Test");
 

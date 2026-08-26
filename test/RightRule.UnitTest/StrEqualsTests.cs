@@ -26,7 +26,7 @@ public class StrEqualsTests
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstRule("TestContext");
+        var result = rr.EvaluateFirstMatch("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(rule1.Decision, result.Decision);
@@ -54,7 +54,7 @@ public class StrEqualsTests
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstRule("TestContext");
+        var result = rr.EvaluateFirstMatch("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(AppliedRule.DefaultDecision, result.Decision);
@@ -82,7 +82,7 @@ public class StrEqualsTests
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstRule("TestContext");
+        var result = rr.EvaluateFirstMatch("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(rule1.Decision, result.Decision);

@@ -34,12 +34,12 @@ internal interface IRightRuleService
     DataRegistrationResult RegisterData(string DataName, object VariableValue);
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
-    Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context);
-    Task<List<AppliedRule>> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context);
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules);
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context);
+    Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

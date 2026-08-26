@@ -32,7 +32,7 @@ public class NumberTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -54,7 +54,7 @@ public class NumberTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -76,7 +76,7 @@ public class NumberTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -98,7 +98,7 @@ public class NumberTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
 
         Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
     }
@@ -120,7 +120,7 @@ public class NumberTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstRule("Context");
+        var appliedRule = rr.EvaluateFirstMatch("Context");
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

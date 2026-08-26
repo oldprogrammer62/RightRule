@@ -6,21 +6,21 @@ namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSpecifiedRulesAsync(Context, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return await EvaluateSpecifiedRulesAsync(Context, ReturnRules).ConfigureAwait(false);
     }
 
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -29,7 +29,7 @@ internal partial class RightRuleService : IRightRuleService
         return await EvaluateSpecifiedRulesAsync(Context, DataName, Data, RulesToReturn.All).ConfigureAwait(false);
     }
 
-    public async Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public async Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));

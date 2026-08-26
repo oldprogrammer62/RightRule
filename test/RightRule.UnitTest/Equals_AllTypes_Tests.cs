@@ -55,7 +55,7 @@ public class Equals_AllTypes_Tests
         var rrule = rr.RegisterRule(ruleDef);
         Assert.True(rrule.IsSuccess);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -81,7 +81,7 @@ public class Equals_AllTypes_Tests
         };
         rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -109,7 +109,7 @@ public class Equals_AllTypes_Tests
             
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -135,7 +135,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -161,7 +161,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -187,7 +187,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -216,7 +216,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -242,7 +242,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -268,7 +268,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -294,7 +294,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -320,7 +320,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -346,7 +346,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -372,7 +372,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);
@@ -398,7 +398,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
         Assert.True(result.Result);

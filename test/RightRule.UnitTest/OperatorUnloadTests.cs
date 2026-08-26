@@ -55,7 +55,7 @@ public class OperatorUnloadTests
         rr.RegisterData("Test", _Data);
 
         // Use EQUALS
-        var appliedRuleBefore = rr.EvaluateFirstRule("Context");
+        var appliedRuleBefore = rr.EvaluateFirstMatch("Context");
         Assert.Equal(rule.Decision, appliedRuleBefore.Decision);
 
         // Unload the "Equals" operator
@@ -63,7 +63,7 @@ public class OperatorUnloadTests
         Assert.True(result);
 
         // Use EQUALS
-        var appliedRuleAfter = rr.EvaluateFirstRule("Context");
+        var appliedRuleAfter = rr.EvaluateFirstMatch("Context");
         Assert.Equal(AppliedRule.ErrorDecision, appliedRuleAfter.Decision);
     }
 }

@@ -23,13 +23,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public AppliedRule EvaluateFirstRule(string Context)
+    public AppliedRule EvaluateFirstMatch(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return EvaluateFirstRuleAsync(Context).GetAwaiter().GetResult();
+            return EvaluateFirstMatchAsync(Context).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -52,13 +52,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context)
+    public async Task<AppliedRule> EvaluateFirstMatchAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateFirstMatchAsync(Context).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return AppliedRule.DefaultResult();
@@ -89,7 +89,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public AppliedRule EvaluateFirstRule(string Context, string DataName, Dictionary<string, object> Data)
+    public AppliedRule EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -97,7 +97,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return EvaluateFirstRuleAsync(Context, DataName, Data).GetAwaiter().GetResult();
+            return EvaluateFirstMatchAsync(Context, DataName, Data).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -119,7 +119,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<AppliedRule> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -127,7 +127,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateFirstRuleAsync(Context, DataName, Data).ConfigureAwait(false);
+            var appliedRules = await _rightRuleService.EvaluateFirstMatchAsync(Context, DataName, Data).ConfigureAwait(false);
             if (appliedRules == null)
             {
                 return AppliedRule.DefaultResult();

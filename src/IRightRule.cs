@@ -53,7 +53,7 @@ public interface IRightRule
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    Task<AppliedRule> EvaluateFirstRuleAsync(string Context);
+    Task<AppliedRule> EvaluateFirstMatchAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
@@ -70,7 +70,7 @@ public interface IRightRule
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    AppliedRule EvaluateFirstRule(string Context);
+    AppliedRule EvaluateFirstMatch(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -86,7 +86,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    Task<AppliedRule> EvaluateFirstRuleAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<AppliedRule> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -102,7 +102,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    AppliedRule EvaluateFirstRule(string Context, string DataName, Dictionary<string, object> Data);
+    AppliedRule EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -114,7 +114,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -126,7 +126,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context);
+    List<AppliedRule> EvaluateAll(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -141,7 +141,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, RulesToReturn ReturnRules);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -156,7 +156,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    List<AppliedRule> EvaluateAllRules(string Context, RulesToReturn ReturnRules);
+    List<AppliedRule> EvaluateAll(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -172,7 +172,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the specified data set.<br/>
@@ -188,7 +188,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data);
+    List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -208,7 +208,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -228,7 +228,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    List<AppliedRule> EvaluateAllRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.

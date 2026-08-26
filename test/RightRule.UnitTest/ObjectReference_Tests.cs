@@ -29,7 +29,7 @@ public class ObjectReference_Tests
             OptionalData = null
         };
         rr.RegisterRule(rd1);
-        var result = rr.EvaluateFirstRule("Test");
+        var result = rr.EvaluateFirstMatch("Test");
         Assert.NotNull(result);
         Assert.True(result.Result);
         Assert.Equal(rd1.Decision, result.Decision);
@@ -60,7 +60,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.EvaluateFirstRule("Test");
+        var result = rr.EvaluateFirstMatch("Test");
         Assert.NotNull(result);
         Assert.True(result.Result);
         Assert.Equal(rd1.Decision, result.Decision);
@@ -87,7 +87,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.EvaluateAllRules("Test");
+        var result = rr.EvaluateAll("Test");
         Assert.NotNull(result);
         Assert.True(result[0].Result);
 
@@ -115,7 +115,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.EvaluateAllRules("Test");
+        var result = rr.EvaluateAll("Test");
         Assert.NotNull(result);
         Assert.False(result[0].Result);
 
@@ -140,7 +140,7 @@ public class ObjectReference_Tests
             Statement = "x.x = 100"
         };
         var registeredRule = rr.RegisterRule(rule);
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -169,7 +169,7 @@ public class ObjectReference_Tests
             Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\""
         };
         var registeredRule = rr.RegisterRule(rule);
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -202,7 +202,7 @@ public class ObjectReference_Tests
             Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\" and databob.Age = 30"
         };
         var registeredRule = rr.RegisterRule(rule);
-        var result = rr.EvaluateFirstRule("Context");
+        var result = rr.EvaluateFirstMatch("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
