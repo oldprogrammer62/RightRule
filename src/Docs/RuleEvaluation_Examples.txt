@@ -1,4 +1,17 @@
-﻿RightRule can process rules with 2 different result 
+﻿### Rule Evaluation Methods
+
+The RightRule engine exposes two distinct evaluation paths based on your required output structure:
+
+EvaluateFirstMatch...
+Evaluates the ruleset sequentially and returns the result of the first rule that resolves to true.
+Execution short-circuits immediately upon the first match.
+If no rules evaluate to true, the engine returns a system default result.
+Developers can override this behavior by registering a custom default result object via the builder's dedicated registration method.
+
+EvaluateAll...
+Evaluates the entire ruleset and returns a List containing every applied rule along with its individual boolean outcome (true or false).
+
+
 
 AppliedRule result = rr.EvaluateFirstRule("Context");
 

@@ -1,4 +1,19 @@
-﻿Initialise a Rule Definition and Register
+﻿You can configure each rule with a specific "decision word" and "decision data" 
+for both true and false outcomes.
+
+Decision Word:
+Tells the calling application which decision was made so it can route the next logical step.
+
+Decision Data: 
+Returns additional, context-specific information that the calling application can use during downstream processing.
+
+
+
+
+
+
+
+Initialise a Rule Definition and Register
 -----------------------------------------
 BeSoft.IRightRule rr = new BeSoft.RightRule();
 RuleConfiguration rc = new RuleConfiguration()
