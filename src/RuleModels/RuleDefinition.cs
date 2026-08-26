@@ -15,6 +15,11 @@ namespace RightRule.RuleModels;
 /// </summary> 
 public sealed class RuleDefinition : Rule
 {
+    /// <summary>
+    /// Configuration details
+    /// </summary>
+    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
+
     public RuleDefinition() : base()
     {
     }

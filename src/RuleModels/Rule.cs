@@ -47,9 +47,4 @@ public abstract class Rule
     /// It is the responsibility of the Operator to validate the configuration details and use it as required.
     /// </summary>
     public object? OptionalData { get; init; }
-
-    /// <summary>
-    /// Configuration details passed to the Operator
-    /// </summary>
-    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
 }

@@ -29,6 +29,11 @@ public sealed class ParsedRule : Rule
     /// </summary>
     public string? Message { get; init; }
 
+    /// <summary>
+    /// Configuration details
+    /// </summary>
+    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
+
     private ParsedRule() : base()
     {
         Node = null;
