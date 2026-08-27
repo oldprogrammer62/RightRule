@@ -9,6 +9,12 @@ namespace RightRule.RuleModels;
 public sealed class ErrorRule : Rule
 {
     /// <summary>
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
+    /// </summary>
+    public required string Statement { get; init; }
+
+    /// <summary>
     /// Used to return a message
     /// - Exception message if an error is thrown
     /// </summary>
@@ -19,8 +25,9 @@ public sealed class ErrorRule : Rule
     /// </summary>
     public static string ErrorDecision { get; } = "ERROR";
 
-    public ErrorRule() : base()
+    private ErrorRule() : base()
     {
+        Decision = ErrorDecision;
     }
 
     internal static ErrorRule ErrorResult(string message)

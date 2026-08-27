@@ -20,6 +20,12 @@ public sealed class ParsedRule : Rule
     public required Node? Node { get; init; }
 
     /// <summary>
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
+    /// </summary>
+    public required string Statement { get; init; }
+
+    /// <summary>
     /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
     /// </summary>
     public required string StatementPath { get; init; }

@@ -8,6 +8,12 @@ namespace RightRule.RuleModels;
 public sealed class DefaultRule : Rule
 {
     /// <summary>
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
+    /// </summary>
+    public required string Statement { get; init; }
+
+    /// <summary>
     /// Indicates whether the Rule logic evaluated as true or false against the dataset.
     /// </summary>
     public required bool Result { get; init; }
@@ -23,8 +29,9 @@ public sealed class DefaultRule : Rule
     /// </summary>
     public static string DefaultDecision { get; } = "NODECISION";
 
-    public DefaultRule() : base()
+    private DefaultRule() : base()
     {
+        Decision = DefaultDecision;
     }
 
     internal static DefaultRule DefaultResult()

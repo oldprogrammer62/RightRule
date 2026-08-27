@@ -8,6 +8,8 @@ namespace RightRule.RuleModels;
 /// </summary>
 public sealed class AppliedRule : Rule
 {
+    // TO DO Result shouldn't be needed, rely on Decision to indicate success
+
     /// <summary>
     /// Indicates whether the Rule logic evaluated as true or false against the dataset.
     /// </summary>
@@ -18,6 +20,12 @@ public sealed class AppliedRule : Rule
     /// - Exception message if an error is thrown
     /// </summary>
     public required string Message { get; init; }
+
+    /// <summary>
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
+    /// </summary>
+    public required string Statement { get; init; }
 
     /// <summary>
     /// Diagnostics only
@@ -65,7 +73,7 @@ public sealed class AppliedRule : Rule
             Name = parsedRule.Name,
             Statement = parsedRule.Statement,
             Context = parsedRule.Context,
-            Decision = DefaultDecision,
+            Decision = parsedRule.Decision, // TO DO needs to be False Decision
             DecisionData = result.EvaluationResult.DecisionData,
             StatementApplied = result.StatementApplied,
             Message = result.Message

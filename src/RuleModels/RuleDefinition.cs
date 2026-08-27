@@ -16,6 +16,12 @@ namespace RightRule.RuleModels;
 public sealed class RuleDefinition : Rule
 {
     /// <summary>
+    /// The logic of the Rule, evaluated to determine if the rule is true or false.
+    /// The statement must conform to the RightRule statement syntax.
+    /// </summary>
+    public required string Statement { get; init; }
+
+    /// <summary>
     /// Optional data that will be passed to the Operator when evaluating the Rule.
     /// It is the responsibility of the Operator to validate the configuration details and use it as required.
     /// </summary>

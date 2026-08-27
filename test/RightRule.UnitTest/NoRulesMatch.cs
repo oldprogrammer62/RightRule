@@ -308,7 +308,7 @@ public class NoRulesMatch
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
+        // var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
         var appliedRules = rr.EvaluateAll("Context", RightRule.System.Common.RulesToReturn.All);

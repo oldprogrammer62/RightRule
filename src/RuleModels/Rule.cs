@@ -1,6 +1,4 @@
-﻿using RightRule.Models;
-
-namespace RightRule.RuleModels;
+﻿namespace RightRule.RuleModels;
 
 /// <summary>
 /// Base class for all rules. A rule is a statement that can be evaluated to determine if it is true or false. It contains the context in which the rule applies, the number of the rule, the name of the rule, the statement of the rule, and the decision that should be made if the rule is true. It also contains any arguments that may be needed to evaluate the rule and any data that may be needed to make the decision.
@@ -22,7 +20,7 @@ public abstract class Rule
     /// The logic of the Rule, evaluated to determine if the rule is true or false.
     /// The statement must conform to the RightRule statement syntax.
     /// </summary>
-    public required string Statement { get; init; }
+    // public required string Statement { get; init; }
 
     /// <summary>
     /// Binds the Rule to a specific event context defined in code.
