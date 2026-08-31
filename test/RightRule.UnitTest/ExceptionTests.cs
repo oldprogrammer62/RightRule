@@ -31,7 +31,7 @@ public class ExceptionTests
     [Fact]
     public void Test_RegisterRule_InvalidFormat()
     {
-        var rule = new RightRule.RuleModels.RuleDefinition()
+        var rule = new RightRule.RuleModels.DefinedRule()
         {
             Context = "Context",
             Decision = "Done",

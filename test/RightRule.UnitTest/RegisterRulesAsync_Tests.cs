@@ -7,7 +7,7 @@ public class RegisterRulesAsync_Tests
     [Fact]
     public void RegisterRulesAsync()
     {
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule1",
@@ -15,7 +15,7 @@ public class RegisterRulesAsync_Tests
             Decision = "DONE",
             Statement = "a.b = c.d"
         };
-        RuleDefinition rule2 = new RuleDefinition()
+        DefinedRule rule2 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule2",
@@ -23,7 +23,7 @@ public class RegisterRulesAsync_Tests
             Decision = "DONE",
             Statement = "a.b = c.d"
         };
-        List<RuleDefinition> rules = new List<RuleDefinition>()
+        List<DefinedRule> rules = new List<DefinedRule>()
         {
             rule1,
             rule2
@@ -39,7 +39,7 @@ public class RegisterRulesAsync_Tests
     [Fact]
     public void RegisterRuleAsync()
     {
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule1",
@@ -47,7 +47,7 @@ public class RegisterRulesAsync_Tests
             Decision = "DONE",
             Statement = "a.b = c.d"
         };
-        RuleDefinition rule2 = new RuleDefinition()
+        DefinedRule rule2 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule2",

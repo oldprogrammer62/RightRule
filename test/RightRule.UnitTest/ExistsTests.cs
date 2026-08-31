@@ -37,7 +37,7 @@ public class ExistsTests
         };
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Int Value Rule",
@@ -66,7 +66,7 @@ public class ExistsTests
         };
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists String Value Rule",
@@ -89,7 +89,7 @@ public class ExistsTests
     public void Exists_int_in()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Int Value Rule",
@@ -111,7 +111,7 @@ public class ExistsTests
     public void Exists_int_foundin()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Int Value Rule",
@@ -133,7 +133,7 @@ public class ExistsTests
     public void Exists_bool()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Bool Value Rule",
@@ -155,7 +155,7 @@ public class ExistsTests
     public void Exists_int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Int Value Rule",
@@ -177,7 +177,7 @@ public class ExistsTests
     public void Exists_float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists Float Value Rule",
@@ -199,7 +199,7 @@ public class ExistsTests
     public void Exists_string()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists String Value Rule",
@@ -221,7 +221,7 @@ public class ExistsTests
     public void Exists_dateonly()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists DateOnly Value Rule",
@@ -243,7 +243,7 @@ public class ExistsTests
     public void Exists_datetime()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Exists DateTime Value Rule",

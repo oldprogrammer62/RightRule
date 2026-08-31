@@ -12,7 +12,7 @@ public class ApplyAllRules
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         rr.RegisterData("xdata", x);
 
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "Test",
             Number = 1,
@@ -21,7 +21,7 @@ public class ApplyAllRules
             Statement = "xdata.x = 20"
         };
 
-        RuleDefinition rule2 = new RuleDefinition()
+        DefinedRule rule2 = new DefinedRule()
         {
             Context = "Test",
             Number = 2,

@@ -14,11 +14,11 @@ public class DayOfWeek : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
     {
         if (left is null || right is null)
         {
-            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
+            return OperatorResult.Failure("One or both operands are null.", DecisionData);
         }
 
         // left will contain a reference to a Date
@@ -28,7 +28,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
         // Short day: Mon, Tue etc
 
         var day = GetDayNumberOfWeek(left);
-        if (day == -1) return EvaluationResult.Failure("Invalid day.", DecisionData);
+        if (day == -1) return OperatorResult.Failure("Invalid day.", DecisionData);
 
         var shortDay = ShortDays[day];
         var longDay = LongDays[day];
@@ -37,14 +37,14 @@ public class DayOfWeek : RightRule.System.Common.Operator
         {
             if (right.ToString()!.ToLower().Equals(shortDay.ToString().ToLower()))
             {
-                return EvaluationResult.Success(true, DecisionData);
+                return OperatorResult.Success(true, DecisionData);
             }
             if (right.ToString()!.ToLower().Equals(longDay.ToString().ToLower()))
             {
-                return EvaluationResult.Success(true, DecisionData);
+                return OperatorResult.Success(true, DecisionData);
             }
         }
-        return EvaluationResult.Failure("Operand (right) is not a valid date.", DecisionData);
+        return OperatorResult.Failure("Operand (right) is not a valid date.", DecisionData);
     }
 
     /// <summary>

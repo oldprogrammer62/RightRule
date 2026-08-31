@@ -35,7 +35,7 @@ public class ExtensionTests
     {
         // Arrange
         BeSoft.RightRule rightRule = new BeSoft.RightRule();
-        var rules = new List<RuleDefinition>
+        var rules = new List<DefinedRule>
         {
         };
 
@@ -50,7 +50,7 @@ public class ExtensionTests
     public void RegisterRule()
     {
         BeSoft.RightRule rightRule = new BeSoft.RightRule();
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Context = "TestContext",
             Decision = "TestDecision",

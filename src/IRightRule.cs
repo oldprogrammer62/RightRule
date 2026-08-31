@@ -2,6 +2,7 @@
 using RightRule.Models;
 using RightRule.RuleBuilder;
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -53,7 +54,7 @@ public interface IRightRule
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    Task<AppliedRule> EvaluateFirstMatchAsync(string Context);
+    Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
@@ -70,7 +71,7 @@ public interface IRightRule
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    AppliedRule EvaluateFirstMatch(string Context);
+    RightRuleResult<IRule> EvaluateFirstMatch(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -86,7 +87,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    Task<AppliedRule> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
@@ -102,7 +103,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    AppliedRule EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data);
+    RightRuleResult<IRule> EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -114,7 +115,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context);
+    Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -126,7 +127,7 @@ public interface IRightRule
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    List<AppliedRule> EvaluateAll(string Context);
+    List<RightRuleResult<IRule>> EvaluateAll(string Context);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -141,7 +142,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
+    Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the registered data set(s).<br/>
@@ -156,7 +157,7 @@ public interface IRightRule
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    List<AppliedRule> EvaluateAll(string Context, RulesToReturn ReturnRules);
+    List<RightRuleResult<IRule>> EvaluateAll(string Context, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -172,7 +173,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the specified data set.<br/>
@@ -188,7 +189,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data);
+    List<RightRuleResult<IRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -208,7 +209,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// Apply all Registered Rules for the given context to the specified data set.<br/>
@@ -228,7 +229,7 @@ public interface IRightRule
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    List<AppliedRule> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    List<RightRuleResult<IRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.
@@ -354,7 +355,7 @@ public interface IRightRule
     /// <returns>The Parsed Rule.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    RuleRegistrationResult RegisterRule(RuleDefinition rule);
+    RuleRegistrationResult RegisterRule(DefinedRule rule);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
@@ -363,7 +364,7 @@ public interface IRightRule
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine from a JSON string.

@@ -19,7 +19,7 @@ public class NoRulesMatch
     public void SingleRule1_Matched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -27,7 +27,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS100",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule",
@@ -49,7 +49,7 @@ public class NoRulesMatch
     public void SingleRule2_Matched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule1",
@@ -57,7 +57,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS101",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule2",
@@ -80,7 +80,7 @@ public class NoRulesMatch
     public void SingleRule1_NotMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -102,7 +102,7 @@ public class NoRulesMatch
     public void SingleRule2_NotMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -110,7 +110,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule",
@@ -133,7 +133,7 @@ public class NoRulesMatch
     public void AllRules_First_OneMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -141,7 +141,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS100",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule",
@@ -164,7 +164,7 @@ public class NoRulesMatch
     public void AllRules_First_AllMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule1",
@@ -172,7 +172,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS101",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule2",
@@ -195,7 +195,7 @@ public class NoRulesMatch
     public void AllRules_First_NoneMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -203,7 +203,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS101",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule",
@@ -226,7 +226,7 @@ public class NoRulesMatch
     public void AllRules_All_OneMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -234,7 +234,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS100",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule",
@@ -257,7 +257,7 @@ public class NoRulesMatch
     public void AllRules_All_AllMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule1",
@@ -265,7 +265,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS100_1",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule2",
@@ -289,7 +289,7 @@ public class NoRulesMatch
     public void AllRules_All_NoneMatched()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule1",
@@ -297,7 +297,7 @@ public class NoRulesMatch
             Context = "Context",
             Decision = "EQUALS101",
         };
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Bool Value Rule2",

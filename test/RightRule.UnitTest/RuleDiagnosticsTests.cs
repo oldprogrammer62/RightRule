@@ -53,7 +53,7 @@ public class RuleDiagnosticsTests
     public void RuleDefnTest_NoConfig()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -77,7 +77,7 @@ public class RuleDiagnosticsTests
         };
 
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",

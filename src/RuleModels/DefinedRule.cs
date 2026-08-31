@@ -1,4 +1,5 @@
 ﻿using RightRule.Models;
+using RightRule.RuleModels.BaseModels;
 using System.Text;
 
 namespace RightRule.RuleModels;
@@ -13,32 +14,15 @@ namespace RightRule.RuleModels;
 /// <para>Decision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
 /// <para>DecisionData: Optional data returned when the Rule is evaluated to true. Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.</para>
 /// </summary> 
-public sealed class RuleDefinition : Rule
+public sealed class DefinedRule : RuleDefinition
 {
-    /// <summary>
-    /// The logic of the Rule, evaluated to determine if the rule is true or false.
-    /// The statement must conform to the RightRule statement syntax.
-    /// </summary>
-    public required string Statement { get; init; }
-
-    /// <summary>
-    /// Optional data that will be passed to the Operator when evaluating the Rule.
-    /// It is the responsibility of the Operator to validate the configuration details and use it as required.
-    /// </summary>
-    public object? OptionalData { get; init; }
-
-    /// <summary>
-    /// Configuration details
-    /// </summary>
-    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
-
-    public RuleDefinition() : base()
+    public DefinedRule() : base()
     {
     }
 
-    internal static RuleDefinition Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
+    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
     {
-        return new RuleDefinition()
+        return new DefinedRule()
         {
             Number = Number,
             Name = Name,

@@ -13,7 +13,7 @@ public class DayOfWeekTests
             { "date", new DateOnly(2026, 07, 29) }
         };
 
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "context",
             Number = 1,

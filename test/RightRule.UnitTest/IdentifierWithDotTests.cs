@@ -28,7 +28,7 @@ public class IdentifierWithDotTests
     public void Equals_Int_And_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -52,7 +52,7 @@ public class IdentifierWithDotTests
     public void Equals_Int_And_Int2()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",

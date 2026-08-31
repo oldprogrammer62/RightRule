@@ -1,47 +1,45 @@
 ﻿using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
-internal static class ProcessFirstRule
+internal static class EvaluateAllRules
 {
-    internal async static Task<List<AppliedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
+    internal async static Task<List<IRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
     {
-        List<AppliedRule> appliedRules = [];
-        bool complete = false;
+        List<IRule> appliedRules = [];
         bool matched = false;
 
         foreach (var rule in rules)
         {
             RuleEvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
-            switch ((ruleResult.EvaluationResult.IsSuccess, ruleResult.EvaluationResult.Result))
+
+            bool success = ruleResult.OperatorResult?.IsSuccess ?? false;
+            bool result = ruleResult.OperatorResult?.Result ?? false;
+
+            switch ((success, result))
             {
-                case (true, true): // Success and Rule applied
+                case (true, true): // Successfully applied and Rule true
                     appliedRules.Add(CreateTrueResult(ruleResult, rule));
-                    complete = true;
                     matched = true;
                     break;
 
-                case (true, false): // Success and Rule not applied
-                    complete = false;
-                    matched = false;
-                    continue;
+                case (true, false): // Successfully applied and Rule false
+                    appliedRules.Add(CreateFalseResult(ruleResult, rule));
+                    matched = true;
+                    break;
 
                 default:
                     appliedRules.Add(CreateErrorResult(ruleResult, rule));
-                    complete = true;
                     matched = true;
                     break;
             }
-            if (complete)
-            {
-                break;
-            }
         }
-        if (!matched)
+        if (!matched) // appliedRules is empty
         {
-            appliedRules.Add(AppliedRule.DefaultResult());
+            appliedRules.Add(DefaultRule.DefaultResult());
         }
         return appliedRules;
     }
@@ -51,7 +49,7 @@ internal static class ProcessFirstRule
         if (rule.Node == null)
         {
             var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
-            return RuleEvaluationResult.Failure(message, rule.DecisionData);
+            return RuleEvaluationResult.Error(message);
         }
 
         try
@@ -65,18 +63,18 @@ internal static class ProcessFirstRule
         }
     }
 
-    private static AppliedRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
     {
-        return AppliedRule.TrueResult(rule, result);
+        return AppliedRule.BuildTrueResult(rule, result);
     }
 
-    private static AppliedRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
     {
-        return AppliedRule.FalseResult(rule, result);
+        return AppliedRule.BuildFalseResult(rule, result);
     }
 
-    private static AppliedRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
     {
-        return AppliedRule.ErrorResult(rule, result);
+        return ErrorRule.ErrorResult(rule, result);
     }
 }

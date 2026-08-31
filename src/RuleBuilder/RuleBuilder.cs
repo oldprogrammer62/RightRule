@@ -93,7 +93,7 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
     }
 
     // Terminal step: validates that remaining mandatory variables are populated before finishing
-    public RuleDefinition Build()
+    public DefinedRule Build()
     {
         if (_number.Equals(0)) throw new InvalidOperationException("Number is a mandatory field.");
         if (string.IsNullOrWhiteSpace(_name)) throw new InvalidOperationException("Name is a mandatory field.");
@@ -103,6 +103,6 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
 
         RightRuleConfiguration ruleConfiguration = new RightRuleConfiguration(_dataCheck, _diagnostics);
 
-        return RuleDefinition.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, ruleConfiguration);
+        return DefinedRule.Build(_number, _name, _context, _statement, _decision, _decisionData, _optionalData, ruleConfiguration);
     }
 }

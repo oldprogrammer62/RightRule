@@ -6,12 +6,12 @@ namespace RightRuleTests;
 
 public class RuleTests
 {
-    RuleDefinition rule1;
-    RuleDefinition rule2;
+    DefinedRule rule1;
+    DefinedRule rule2;
 
     public RuleTests()
     {
-        rule1 = new RuleDefinition()
+        rule1 = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -20,7 +20,7 @@ public class RuleTests
             Statement = "a.b = c.d"
         };
 
-        rule2 = new RuleDefinition()
+        rule2 = new DefinedRule()
         {
             Number = 2,
             Name = "Rule2",

@@ -32,7 +32,7 @@ public class EqualsTests
         };
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",
@@ -56,7 +56,7 @@ public class EqualsTests
     public void Equals_Int_And_Decimal()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -80,7 +80,7 @@ public class EqualsTests
         RightRuleConfiguration rc = new RightRuleConfiguration(false, false);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -103,7 +103,7 @@ public class EqualsTests
     public void Equals_Int_And_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -125,7 +125,7 @@ public class EqualsTests
     public void Equals_Float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Float Value Rule",
@@ -147,7 +147,7 @@ public class EqualsTests
     public void Equals_String()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals String Value Rule",
@@ -171,7 +171,7 @@ public class EqualsTests
         var date = new DateOnly(1970, 01, 01);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Date Only Value Rule",
@@ -195,7 +195,7 @@ public class EqualsTests
         var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Date Time Value Rule",
@@ -223,7 +223,7 @@ public class EqualsTests
         };
 
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -232,7 +232,7 @@ public class EqualsTests
             Decision = "EQUALS100",
         };
         // Rule
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Int Value Rule",
@@ -261,7 +261,7 @@ public class EqualsTests
         };
 
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule1",
@@ -270,7 +270,7 @@ public class EqualsTests
             Decision = "EQUALS100",
         };
         // Rule
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Int Value Rule2",
@@ -299,7 +299,7 @@ public class EqualsTests
         };
 
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Equals Int Value Rule",
@@ -308,7 +308,7 @@ public class EqualsTests
             Decision = "EQUALS100",
         };
         // Rule
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Equals Int Value Rule",

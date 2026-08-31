@@ -103,14 +103,12 @@ namespace RightRule_Demo
             }
 
             Console.WriteLine("Rule applied...");
-            Console.WriteLine($"\tResult: {appliedRule.Result}");
-            Console.WriteLine($"\tNumber: {appliedRule.Number}");
-            Console.WriteLine($"\tName: {appliedRule.Name}");
+            Console.WriteLine($"\tNumber: {appliedRule.ParsedRule.RuleDefinition.Number}");
+            Console.WriteLine($"\tName: {appliedRule.ParsedRule.RuleDefinition.Name}");
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
-            Console.WriteLine($"\tStatement: {appliedRule.Statement}");
+            Console.WriteLine($"\tStatement: {appliedRule.ParsedRule.RuleDefinition.Statement}");
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
-            Console.WriteLine($"\tMessage: {appliedRule.Message}");
         }
 
         private static void Welcome()

@@ -24,7 +24,7 @@ public class DoesContainTests
     public void DoesContain()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Name Rule",
@@ -46,7 +46,7 @@ public class DoesContainTests
     public void DoesContain2()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Name Rule",

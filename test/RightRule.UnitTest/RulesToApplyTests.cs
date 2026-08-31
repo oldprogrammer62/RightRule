@@ -5,8 +5,8 @@ namespace RightRuleTests;
 public class RulesToApplyTests
 {
     private readonly Dictionary<string, object> _Data;
-    private readonly RuleDefinition rule1;
-    private readonly RuleDefinition rule2;
+    private readonly DefinedRule rule1;
+    private readonly DefinedRule rule2;
 
     public RulesToApplyTests()
     {
@@ -143,7 +143,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_First_WithMultiRuleRegistration()
     {
-        var rules = new List<RuleDefinition>() { rule1, rule2 };
+        var rules = new List<DefinedRule>() { rule1, rule2 };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRules = rr.RegisterRules(rules);

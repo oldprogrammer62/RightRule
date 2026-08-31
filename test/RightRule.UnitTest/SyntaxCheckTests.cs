@@ -89,7 +89,7 @@ public class SyntaxCheckTests
         var rightRule = new BeSoft.RightRule();
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Rule 1",

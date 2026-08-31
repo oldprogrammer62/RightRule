@@ -5,9 +5,9 @@ namespace RightRuleTests;
 public class ApplyRuleWithDatasetTests
 {
     private readonly Dictionary<string, object> _Data;
-    private readonly RuleDefinition rule1;
-    private readonly RuleDefinition rule2;
-    private readonly RuleDefinition rule3;
+    private readonly DefinedRule rule1;
+    private readonly DefinedRule rule2;
+    private readonly DefinedRule rule3;
 
     public ApplyRuleWithDatasetTests()
     {

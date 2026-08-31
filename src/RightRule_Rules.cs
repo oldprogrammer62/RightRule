@@ -130,7 +130,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
@@ -150,7 +150,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The Parsed Rule.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public RuleRegistrationResult RegisterRule(RuleDefinition rule)
+    public RuleRegistrationResult RegisterRule(DefinedRule rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try

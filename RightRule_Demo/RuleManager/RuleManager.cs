@@ -22,10 +22,11 @@ namespace RightRule_Demo.RuleManager
             var x = rr.EvaluateFirstMatch(Context);
 
             var appliedRules = rr.EvaluateAll(Context, ReturnRules);
-            return appliedRules;
+            // return appliedRules;
+            return null; // TO DO
         }
 
-        private static List<RuleDefinition> LoadRules(IRightRule rightRule, string Context)
+        private static List<DefinedRule> LoadRules(IRightRule rightRule, string Context)
         {
             return RuleLoader.RuleLoader.Load(rightRule, Context);
         }

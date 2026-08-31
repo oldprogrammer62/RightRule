@@ -19,7 +19,7 @@ public class ObjectReference_Tests
         var obj1 = new RefObject() { Name = "Bob", Age = 31 };
         rr.RegisterData("BobData", obj1);
 
-        RuleDefinition rd1 = new RuleDefinition()
+        DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
@@ -49,7 +49,7 @@ public class ObjectReference_Tests
         var obj1 = new RefObject() { Name = "Bob", Age = 31 };
         rr.RegisterData("obj1", obj1);
 
-        RuleDefinition rd1 = new RuleDefinition()
+        DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
@@ -76,7 +76,7 @@ public class ObjectReference_Tests
         rr.RegisterData("obj1", obj1);
         rr.RegisterData("obj2", obj2);
 
-        RuleDefinition rd1 = new RuleDefinition()
+        DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
@@ -104,7 +104,7 @@ public class ObjectReference_Tests
         rr.RegisterData("obj1", obj1);
         rr.RegisterData("obj2", obj2);
 
-        RuleDefinition rd1 = new RuleDefinition()
+        DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
@@ -131,7 +131,7 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("x", x);
         Assert.True(added1.IsSuccess);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Context = "Context",
             Name = "Name",
@@ -160,7 +160,7 @@ public class ObjectReference_Tests
         Assert.True(added2.IsSuccess);
         Assert.True(added3.IsSuccess);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Context = "Context",
             Name = "Name",
@@ -193,7 +193,7 @@ public class ObjectReference_Tests
         var added4 = rr.RegisterData("databob", obj1);
         Assert.True(added4.IsSuccess);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Context = "Context",
             Name = "Name",

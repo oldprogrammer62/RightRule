@@ -14,7 +14,7 @@ internal class Helper
         return ruleConfig.DataCheck;
     }
 
-    internal static bool GetDiagnosticsSetting(RuleDefinition? ruleDefinition)
+    internal static bool GetDiagnosticsSetting(DefinedRule? ruleDefinition)
     {
         if (ruleDefinition == null)
         {

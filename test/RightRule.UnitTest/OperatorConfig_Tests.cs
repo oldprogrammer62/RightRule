@@ -18,7 +18,7 @@ public class OperatorConfig_Tests
             { "key3", "value3" }
         };
 
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "Context",
             Name = "Name",

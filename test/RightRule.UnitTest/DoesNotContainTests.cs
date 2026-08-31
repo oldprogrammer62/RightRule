@@ -24,7 +24,7 @@ public class DoesNotContainTests
     public void DoesNotContain()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Name Rule",
@@ -46,7 +46,7 @@ public class DoesNotContainTests
     public void DoesNotContain2()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Name Rule",

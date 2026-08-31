@@ -20,7 +20,7 @@ public abstract class Operator
         IsCustom = isCustom;
     }
 
-    public async Task<EvaluationResult> ProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
+    public async Task<OperatorResult> ProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
     {
         try
         {
@@ -32,7 +32,7 @@ public abstract class Operator
         }
     }
 
-    protected abstract Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics);
+    protected abstract Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics);
 
     public void Dispose()
     {

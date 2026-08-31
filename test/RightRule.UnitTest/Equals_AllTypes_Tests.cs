@@ -43,7 +43,7 @@ public class Equals_AllTypes_Tests
         int intVal5 = 105;
         rr.RegisterData(nameof(intVal5), intVal5);
 
-        RuleDefinition ruleDef = new RuleDefinition()
+        DefinedRule ruleDef = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -71,7 +71,7 @@ public class Equals_AllTypes_Tests
         decimal localVal = 100.01M;
         rr.RegisterData("localVal", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -125,7 +125,7 @@ public class Equals_AllTypes_Tests
         double localVal = dblVal;
         var registeredDat = rr.RegisterData("localVal", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -151,7 +151,7 @@ public class Equals_AllTypes_Tests
         var localVal = lngVal;
         var registeredData = rr.RegisterData("localVal", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -177,7 +177,7 @@ public class Equals_AllTypes_Tests
         Single localVal = sinVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -206,7 +206,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredData = rr.RegisterData("localData", data);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -232,7 +232,7 @@ public class Equals_AllTypes_Tests
         string localVal = strVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -258,7 +258,7 @@ public class Equals_AllTypes_Tests
         char localVal = chrVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -284,7 +284,7 @@ public class Equals_AllTypes_Tests
         bool localVal = boolVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -310,7 +310,7 @@ public class Equals_AllTypes_Tests
         string localVal = boolStr;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -336,7 +336,7 @@ public class Equals_AllTypes_Tests
         DateOnly localVal = dtonlyVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -362,7 +362,7 @@ public class Equals_AllTypes_Tests
         TimeOnly localVal = tmonlyVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
@@ -388,7 +388,7 @@ public class Equals_AllTypes_Tests
         DateTime localVal = dttimeVal;
         var registeredData = rr.RegisterData("localData", localVal);
 
-        RuleDefinition rule = new RuleDefinition()
+        DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",

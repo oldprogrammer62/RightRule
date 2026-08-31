@@ -20,7 +20,7 @@ public class LiteralTests
     public void Equals_Right_Literal_String()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Literal String Rule",
@@ -42,7 +42,7 @@ public class LiteralTests
     public void Equals_Right_Literal_Number()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Literal Number Rule",
@@ -69,7 +69,7 @@ public class LiteralTests
         };
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Literal String Rule",
@@ -92,7 +92,7 @@ public class LiteralTests
     public void Equals_Both_Literal_Number()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Literal Number Rule",
@@ -119,7 +119,7 @@ public class LiteralTests
         };
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Literal String Rule",

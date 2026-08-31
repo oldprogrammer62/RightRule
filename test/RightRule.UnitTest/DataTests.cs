@@ -22,7 +22,7 @@ public class DataTests
         // Depends on SilentEvaluatorExceptions setting being false (default)
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Bool Value Rule",

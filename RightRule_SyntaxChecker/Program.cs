@@ -36,7 +36,7 @@ internal class Program
 
         if (result.IsValid)
         {
-            RuleDefinition rule = new RuleDefinition()
+            DefinedRule rule = new DefinedRule()
             {
                 Number = 1,
                 Name = "Rule being Checked",

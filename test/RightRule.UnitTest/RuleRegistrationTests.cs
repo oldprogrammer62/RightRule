@@ -10,7 +10,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        RuleDefinition rule1 = rr.BuildRuleDefinition()
+        DefinedRule rule1 = rr.BuildRuleDefinition()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -19,7 +19,7 @@ public class RuleRegistrationTests
             .WithDataCheck(false)
             .Build();
 
-        RuleDefinition rule2 = rr.BuildRuleDefinition()
+        DefinedRule rule2 = rr.BuildRuleDefinition()
             .Number(2)
             .Name("Name2")
             .Context("Context2")
@@ -43,7 +43,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        RuleDefinition rule1 = rr.BuildRuleDefinition()
+        DefinedRule rule1 = rr.BuildRuleDefinition()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -52,7 +52,7 @@ public class RuleRegistrationTests
             .WithDataCheck(false)
             .Build();
 
-        RuleDefinition rule2 = rr.BuildRuleDefinition()
+        DefinedRule rule2 = rr.BuildRuleDefinition()
             .Number(1)
             .Name("Name2")
             .Context("Context2")
@@ -76,7 +76,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        RuleDefinition rule1 = rr.BuildRuleDefinition()
+        DefinedRule rule1 = rr.BuildRuleDefinition()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -85,7 +85,7 @@ public class RuleRegistrationTests
             .WithDataCheck(false)
             .Build();
 
-        RuleDefinition rule2 = rr.BuildRuleDefinition()
+        DefinedRule rule2 = rr.BuildRuleDefinition()
             .Number(2)
             .Name("Name1")
             .Context("Context2")

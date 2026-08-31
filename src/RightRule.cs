@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.Models;
+using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleService;
 using RightRule.ServiceRegister;
 
@@ -22,6 +25,37 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _serviceProvider = services.BuildServiceProvider();
 
         _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
+    }
+
+    private static List<RightRuleResult<IRule>> BuildResult(List<RightRuleServiceResult<IRule>> serviceResults)
+    {
+        List<RightRuleResult<IRule>> rightRuleResults = new List<RightRuleResult<IRule>>();
+
+        foreach (var serviceResult in serviceResults)
+        {
+            rightRuleResults.Add(BuildResult(serviceResult));
+        }
+        return rightRuleResults;
+    }
+
+    private static RightRuleResult<IRule> BuildResult(RightRuleServiceResult<IRule> serviceResult)
+    {
+        return serviceResult.Status switch
+        {
+            ServiceStatus.Success when serviceResult.Payload != null =>
+                RightRuleResult<IRule>.Success(serviceResult.Payload),
+
+            ServiceStatus.Failure =>
+                RightRuleResult<IRule>.Failure(serviceResult.Message, serviceResult.Payload != null ? serviceResult.Payload : DefaultRule.DefaultResult()),
+
+            ServiceStatus.Default =>
+                RightRuleResult<IRule>.Default(DefaultRule.DefaultResult(), serviceResult.Message),
+
+            ServiceStatus.Error =>
+                RightRuleResult<IRule>.Error(serviceResult.Exception ?? new Exception(serviceResult.Message), serviceResult.Payload != null ? serviceResult.Payload : ErrorRule.ErrorResult(serviceResult.Message)),
+
+            _ => RightRuleResult<IRule>.Default(DefaultRule.DefaultResult())
+        };
     }
 
     public void Dispose()

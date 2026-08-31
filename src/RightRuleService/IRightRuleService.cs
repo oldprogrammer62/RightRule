@@ -2,6 +2,7 @@
 using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration;
 using RightRule.System.Common;
 
@@ -21,8 +22,8 @@ internal interface IRightRuleService
     List<ParsedRule> GetRules(string Context);
 
     List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string Data);
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules);
-    RuleRegistrationResult RegisterRule(RuleDefinition rule);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);
+    RuleRegistrationResult RegisterRule(DefinedRule rule);
 
     bool DeRegisterRules(string Context);
     bool DeRegisterRules();
@@ -34,12 +35,14 @@ internal interface IRightRuleService
     DataRegistrationResult RegisterData(string DataName, object VariableValue);
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
-    Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context);
-    Task<List<AppliedRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context);
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<AppliedRule>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    
+    Task<RightRuleServiceResult<IRule>> EvaluateFirstAsync(string Context);
+    Task<RightRuleServiceResult<IRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data);
+    
+    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context);
+    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
+    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

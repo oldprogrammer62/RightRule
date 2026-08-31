@@ -36,13 +36,10 @@ public interface IDecisionStep
 // Unlocks remaining options in any order
 public interface IRuleBuilder
 {
-    // IRuleBuilder Statement(string statement);
-    // IRuleBuilder Context(string context);
-    // IRuleBuilder Decision(string decision);
     IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
     IRuleBuilder WithDataCheck(bool checkData = RightRuleConfiguration.DEFAULT_DATACHECK);
     IRuleBuilder WithDiagnostics(bool diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS);
 
-    RuleDefinition Build();
+    DefinedRule Build();
 }

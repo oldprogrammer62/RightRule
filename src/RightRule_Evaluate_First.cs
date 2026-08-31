@@ -1,4 +1,6 @@
+using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 
 namespace BeSoft;
 
@@ -23,7 +25,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public AppliedRule EvaluateFirstMatch(string Context)
+    public RightRuleResult<IRule> EvaluateFirstMatch(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -33,7 +35,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return AppliedRule.ErrorResult(ex.Message);
+            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -52,26 +54,22 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<AppliedRule> EvaluateFirstMatchAsync(string Context)
+    public async Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateFirstMatchAsync(Context).ConfigureAwait(false);
-            if (appliedRules == null)
+            var svcResult = await _rightRuleService.EvaluateFirstAsync(Context).ConfigureAwait(false);
+            if (svcResult == null)
             {
-                return AppliedRule.DefaultResult();
+                return RightRuleResult<IRule>.Default(DefaultRule.DefaultResult());
             }
-            if (appliedRules.Count == 1)
-            {
-                return appliedRules[0];
-            }
-            return AppliedRule.DefaultResult();
+            return BuildResult(svcResult);
         }
         catch (Exception ex)
         {
-            return AppliedRule.ErrorResult(ex.Message);
+            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -89,7 +87,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public AppliedRule EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data)
+    public RightRuleResult<IRule> EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -101,7 +99,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return AppliedRule.ErrorResult(ex.Message);
+            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -119,7 +117,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<AppliedRule> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -127,20 +125,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var appliedRules = await _rightRuleService.EvaluateFirstMatchAsync(Context, DataName, Data).ConfigureAwait(false);
-            if (appliedRules == null)
-            {
-                return AppliedRule.DefaultResult();
-            }
-            if (appliedRules.Count == 1)
-            {
-                return appliedRules[0];
-            }
-            return AppliedRule.DefaultResult();
+            var svcResult = await _rightRuleService.EvaluateFirstMatchWithDataAsync(Context, DataName, Data).ConfigureAwait(false);
+
+            return BuildResult(svcResult);
         }
         catch (Exception ex)
         {
-            return AppliedRule.ErrorResult(ex.Message);
+            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 }

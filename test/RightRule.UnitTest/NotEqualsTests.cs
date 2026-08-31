@@ -24,7 +24,7 @@ public class NotEqualsTests
     public void NotEquals_Bool()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals Bool Value Rule",
@@ -46,7 +46,7 @@ public class NotEqualsTests
     public void NotEquals_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals Int Value Rule",
@@ -68,7 +68,7 @@ public class NotEqualsTests
     public void NotEquals_Float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals Float Value Rule",
@@ -90,7 +90,7 @@ public class NotEqualsTests
     public void NotEquals_String()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals String Value Rule",
@@ -114,7 +114,7 @@ public class NotEqualsTests
         var date = new DateOnly(1970, 01, 01);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals Date Only Value Rule",
@@ -138,7 +138,7 @@ public class NotEqualsTests
         var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotEquals Date Time Value Rule",
@@ -160,7 +160,7 @@ public class NotEqualsTests
     public void NotNotEquals_Bool()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "NotNotEquals Bool Value Rule",
@@ -181,7 +181,7 @@ public class NotEqualsTests
     public void Not_Equals_Bool()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Not Equals Bool Value Rule",

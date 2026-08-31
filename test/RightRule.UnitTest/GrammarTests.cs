@@ -24,7 +24,7 @@ public class GrammarTests
     public void TestItWorks_NoDecision()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -46,7 +46,7 @@ public class GrammarTests
     public void TestItWorks_ThisAndThis()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -69,7 +69,7 @@ public class GrammarTests
     public void TestItWorks_ThisOrThis()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -92,7 +92,7 @@ public class GrammarTests
     public void TestItWorks_ThisAndThisOrThis()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -115,7 +115,7 @@ public class GrammarTests
     public void TestItWorks_Number_Equals()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -137,7 +137,7 @@ public class GrammarTests
     public void TestItWorks_Number_NotEquals()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -159,7 +159,7 @@ public class GrammarTests
     public void TestItWorks_Number_NotEqualsSymbol1()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -181,7 +181,7 @@ public class GrammarTests
     public void TestItWorks_Number_NotEqualsSymbol2()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -203,7 +203,7 @@ public class GrammarTests
     public void TestItWorks_Number_EqualsSymbol()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -224,7 +224,7 @@ public class GrammarTests
     public void TestItWorks_String_Equals()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 2,
             Name = "Name Rule",
@@ -246,7 +246,7 @@ public class GrammarTests
     public void TestItWorks_String_Equals_String()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 3,
             Name = "Name Rule",
@@ -268,7 +268,7 @@ public class GrammarTests
     public void TestItWorks_Equals_Boolean_True()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 4,
             Name = "Good Payer Rule",
@@ -290,7 +290,7 @@ public class GrammarTests
     public void TestItWorks_Equals_Boolean_False()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 4,
             Name = "Good Payer Rule",
@@ -312,7 +312,7 @@ public class GrammarTests
     public void TestItWorks_String_Equals_MultipleContext1()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Name Rule",
@@ -321,7 +321,7 @@ public class GrammarTests
             Decision = "NAMEFOUND",
         };
 
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Name Rule",
@@ -345,7 +345,7 @@ public class GrammarTests
     public void TestItWorks_String_Equals_MultipleContext2()
     {
         // Rule
-        RuleDefinition rule1 = new()
+        DefinedRule rule1 = new()
         {
             Number = 1,
             Name = "Name Rule1",
@@ -354,7 +354,7 @@ public class GrammarTests
             Decision = "NAMEFOUND",
         };
 
-        RuleDefinition rule2 = new()
+        DefinedRule rule2 = new()
         {
             Number = 2,
             Name = "Name Rule2",

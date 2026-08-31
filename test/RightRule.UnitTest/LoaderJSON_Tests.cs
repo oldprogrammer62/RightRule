@@ -15,7 +15,7 @@ public class LoaderJSON_Tests
         Assert.NotNull(loader);
 
         var json = RightRule.RuleLoaders.Json.Template.JsonString();
-        List<RightRule.RuleModels.RuleDefinition>? rules = loader.Load(json);
+        List<RightRule.RuleModels.DefinedRule>? rules = loader.Load(json);
 
         Assert.NotNull(rules);
     }

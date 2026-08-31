@@ -8,12 +8,12 @@ public class MultiStepTests
     private readonly Dictionary<string, object> _Step1Data2;
     private readonly Dictionary<string, object> _Step1Data3;
 
-    private readonly RuleDefinition _Step1Rule1;
-    private readonly RuleDefinition _Step1Rule2;
-    private readonly RuleDefinition _Step1Rule3;
+    private readonly DefinedRule _Step1Rule1;
+    private readonly DefinedRule _Step1Rule2;
+    private readonly DefinedRule _Step1Rule3;
 
     private readonly Dictionary<string, object> _Step2Data1;
-    private readonly RuleDefinition _Step2Rule;
+    private readonly DefinedRule _Step2Rule;
 
     public MultiStepTests()
     {

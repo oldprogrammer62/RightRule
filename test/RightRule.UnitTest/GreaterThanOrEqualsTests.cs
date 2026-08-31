@@ -23,7 +23,7 @@ public class GreaterThanOrEqualsTests
     {
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Int Value Rule",
@@ -45,7 +45,7 @@ public class GreaterThanOrEqualsTests
     public void GreaterThan_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Int Value Rule",
@@ -67,7 +67,7 @@ public class GreaterThanOrEqualsTests
     public void GreaterThanEquals_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Equals Int Value Rule",
@@ -89,7 +89,7 @@ public class GreaterThanOrEqualsTests
     public void GreaterThan_Float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Float Value Rule",
@@ -111,7 +111,7 @@ public class GreaterThanOrEqualsTests
     public void GreaterThanEquals_Float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Equals Float Value Rule",
@@ -135,7 +135,7 @@ public class GreaterThanOrEqualsTests
         var date = new DateOnly(1969, 01, 01);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
@@ -159,7 +159,7 @@ public class GreaterThanOrEqualsTests
         var date = new DateOnly(1970, 01, 01);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
@@ -183,7 +183,7 @@ public class GreaterThanOrEqualsTests
         var date = new DateTime(new DateOnly(1969, 01, 01), new TimeOnly(12, 30, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
@@ -207,7 +207,7 @@ public class GreaterThanOrEqualsTests
         var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 25, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
@@ -231,7 +231,7 @@ public class GreaterThanOrEqualsTests
         var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 30, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Datetime Value Rule",
@@ -253,7 +253,7 @@ public class GreaterThanOrEqualsTests
     public void NotGreaterThan()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Not Greater Than Value Rule",
@@ -275,7 +275,7 @@ public class GreaterThanOrEqualsTests
     public void GreaterThan_SyntaxError()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",

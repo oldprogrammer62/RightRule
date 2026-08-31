@@ -47,7 +47,7 @@ public class StatementBuilderTests
         statement.Append("CustomerData.Name = StaticData.CustomerName");
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "DiscountRule",

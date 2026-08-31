@@ -55,7 +55,7 @@ internal partial class RightRuleService : IRightRuleService
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<RuleDefinition> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
@@ -71,7 +71,7 @@ internal partial class RightRuleService : IRightRuleService
     /// <param name="rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    public RuleRegistrationResult RegisterRule(RuleDefinition rule)
+    public RuleRegistrationResult RegisterRule(DefinedRule rule)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 

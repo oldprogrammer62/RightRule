@@ -12,7 +12,7 @@ public class ApplyRules_Async_Tests
             { "field1", "value1" }
         };
 
-        RuleDefinition rule1 = new RuleDefinition()
+        DefinedRule rule1 = new DefinedRule()
         {
             Context = "Context",
             Number = 1,

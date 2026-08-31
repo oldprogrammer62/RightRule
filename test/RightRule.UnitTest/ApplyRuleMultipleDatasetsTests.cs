@@ -6,8 +6,8 @@ public class ApplyRuleMultipleDatasetsTests
 {
     private readonly Dictionary<string, object> _DataA;
     private readonly Dictionary<string, object> _DataB;
-    private readonly RuleDefinition rule1;
-    private readonly RuleDefinition rule2;
+    private readonly DefinedRule rule1;
+    private readonly DefinedRule rule2;
 
     public ApplyRuleMultipleDatasetsTests()
     {

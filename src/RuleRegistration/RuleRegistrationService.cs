@@ -15,17 +15,17 @@ internal class RuleRegistrationService : IRuleRegistrationService
         _factory = factory;
     }
 
-    public List<ParsedRule> RegisterRules(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public List<ParsedRule> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         return ParseRulesAndRegister(rules, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    public ParsedRule? RegisterRule(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public ParsedRule? RegisterRule(DefinedRule rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         return ParseRuleAndRegister(rule, OperatorNames, ObjectNames, DatasetNames);
     }
 
-    private List<ParsedRule> ParseRulesAndRegister(IEnumerable<RuleDefinition> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private List<ParsedRule> ParseRulesAndRegister(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         var parsedRules = new List<ParsedRule>();
         foreach (var rule in rules)
@@ -39,13 +39,13 @@ internal class RuleRegistrationService : IRuleRegistrationService
         return parsedRules;
     }
 
-    private ParsedRule? ParseRuleAndRegister(RuleDefinition rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private ParsedRule? ParseRuleAndRegister(DefinedRule rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         var parsedRule = CreateRule(rule, OperatorNames, ObjectNames, DatasetNames);
         return parsedRule;
     }
 
-    private ParsedRule? CreateRule(RuleDefinition? ruleDefinition, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    private ParsedRule? CreateRule(DefinedRule? ruleDefinition, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
         IParser parser = CreateParser(ruleDefinition, OperatorNames, ObjectNames, DatasetNames);
         if (parser == null)
@@ -71,7 +71,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
         return node;
     }
 
-    private IParser CreateParser(RuleDefinition? ruleDefinition, HashSet<string>? OperatorNames, HashSet<string>? DataObjectNames, HashSet<string>? DatasetNames)
+    private IParser CreateParser(DefinedRule? ruleDefinition, HashSet<string>? OperatorNames, HashSet<string>? DataObjectNames, HashSet<string>? DatasetNames)
     {
         string statement = string.Empty;
         bool dataCheck = false;

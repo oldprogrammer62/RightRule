@@ -13,13 +13,13 @@ internal class JsonLoader : IRuleLoader
         _rightRule = rightRule;
     }
 
-    public List<RuleDefinition>? Load(string JsonData)
+    public List<DefinedRule>? Load(string JsonData)
     {
         var ruleDefs = ConvertJson(JsonData);
         return ruleDefs;
     }
 
-    private List<RuleDefinition>? ConvertJson(string JsonData)
+    private List<DefinedRule>? ConvertJson(string JsonData)
     {
         if (string.IsNullOrWhiteSpace(JsonData))
         {
@@ -28,7 +28,7 @@ internal class JsonLoader : IRuleLoader
 
         try
         {
-            List<RuleDefinition>? rules = JsonConvert.DeserializeObject<List<RuleDefinition>>(JsonData);
+            List<DefinedRule>? rules = JsonConvert.DeserializeObject<List<DefinedRule>>(JsonData);
             return rules;
         }
         catch

@@ -11,9 +11,9 @@ public static class Helpers
         {
             var filteredRules = Rules.Where
                 (
-                x => x.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
+                x => x.RuleDefinition.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
                 )
-                .OrderBy(x => x.Number)
+                .OrderBy(x => x.RuleDefinition.Number)
                 .ToList();
             return new RegisteredRules(filteredRules);
         }

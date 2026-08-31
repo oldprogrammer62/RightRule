@@ -18,7 +18,7 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals1()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals1",
             Number = 1,
@@ -37,7 +37,7 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals2()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals2",
             Number = 1,
@@ -56,7 +56,7 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals3()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals3",
             Number = 1,
@@ -75,7 +75,7 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals4()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals4",
             Number = 1,
@@ -94,7 +94,7 @@ public class BooleanEquals_Tests
     [Fact]
     public void BooleanEquals5()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals5",
             Number = 1,
@@ -116,7 +116,7 @@ public class BooleanEquals_Tests
         // This will return a false result
         // Boolean false does not equal string false
 
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Name = "BooleanEquals6",
             Number = 1,
@@ -129,6 +129,6 @@ public class BooleanEquals_Tests
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(AppliedRule.DefaultDecision, result.Decision);
+        Assert.Equal(DefaultRule.Decision, result.Decision);
     }
 }

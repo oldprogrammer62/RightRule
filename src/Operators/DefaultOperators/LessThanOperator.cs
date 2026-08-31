@@ -10,23 +10,23 @@ public sealed class LessThanOperator : Operator
     {
     }
 
-    protected override async Task<EvaluationResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
+            return OperatorResult.Failure("One or both operands are null.", DecisionData);
         }
         if (left == null || right == null)
         {
-            return EvaluationResult.Failure("One or both operands are null.", DecisionData);
+            return OperatorResult.Failure("One or both operands are null.", DecisionData);
         }
 
-        if (IsNumber(left) && IsNumber(right)) return EvaluationResult.Success(ProcessAsNumber(left, right), DecisionData);
-        if (IsString(left) && IsString(right)) return EvaluationResult.Success(ProcessAsString(left, right), DecisionData);
-        if (IsDateTime(left) && IsDateTime(right)) return EvaluationResult.Success(ProcessAsDateTime(left, right), DecisionData);
-        if (IsDateOnly(left) && IsDateOnly(right)) return EvaluationResult.Success(ProcessAsDateOnly(left, right), DecisionData);
+        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(ProcessAsNumber(left, right), DecisionData);
+        if (IsString(left) && IsString(right)) return OperatorResult.Success(ProcessAsString(left, right), DecisionData);
+        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(ProcessAsDateTime(left, right), DecisionData);
+        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(ProcessAsDateOnly(left, right), DecisionData);
 
-        return EvaluationResult.Success(LessThan(left, right), DecisionData);
+        return OperatorResult.Success(LessThan(left, right), DecisionData);
     }
 
     private static bool LessThan(dynamic left, dynamic right)

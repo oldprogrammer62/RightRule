@@ -19,7 +19,7 @@ public class NumberTests
     public void IntegerValueTest()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",
@@ -41,7 +41,7 @@ public class NumberTests
     public void DecimalValueTest_True()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",
@@ -63,7 +63,7 @@ public class NumberTests
     public void DecimalValueTest_True2()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",
@@ -85,7 +85,7 @@ public class NumberTests
     public void DecimalValueTest_False()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",
@@ -107,7 +107,7 @@ public class NumberTests
     public void DecimalValueTest_False_TwoConditions()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Greater Than Value Rule",

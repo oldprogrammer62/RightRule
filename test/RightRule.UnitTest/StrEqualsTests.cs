@@ -12,7 +12,7 @@ public class StrEqualsTests
             { "value1", "Hello World" }
         };
 
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Context = "TestContext",
             Name = "TestRule",
@@ -40,7 +40,7 @@ public class StrEqualsTests
             { "value1", "Hello World" }
         };
 
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Context = "TestContext",
             Name = "TestRule",
@@ -68,7 +68,7 @@ public class StrEqualsTests
             { "value1", "Hello World" }
         };
 
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Context = "TestContext",
             Name = "TestRule",

@@ -22,7 +22,7 @@ public class LessThanTests
     public void LessThan_Int()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Int Value Rule",
@@ -45,7 +45,7 @@ public class LessThanTests
     {
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Int Value Rule",
@@ -67,7 +67,7 @@ public class LessThanTests
     public void NotLessThan()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Not Less Than Int Value Rule",
@@ -89,7 +89,7 @@ public class LessThanTests
     public void LessThan_Float()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Float Value Rule",
@@ -113,7 +113,7 @@ public class LessThanTests
         var date = new DateOnly(1971, 01, 01);
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Date Only Value Rule",
@@ -137,7 +137,7 @@ public class LessThanTests
         var date = new DateTime(new DateOnly(1971, 01, 01), new TimeOnly(12, 30, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Datetime Value Rule",
@@ -161,7 +161,7 @@ public class LessThanTests
         var date = new DateTime(new DateOnly(1970, 01, 01), new TimeOnly(12, 35, 30));
 
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Less Than Datetime Value Rule",

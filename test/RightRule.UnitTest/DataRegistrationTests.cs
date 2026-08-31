@@ -23,7 +23,7 @@ public class DataRegistrationTests
     [Fact]
     public void RegisterDataTest()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -43,7 +43,7 @@ public class DataRegistrationTests
     [Fact]
     public void RegisterListDataTest()
     {
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Number = 1,
             Name = "Number of orders Rule",
@@ -64,7 +64,7 @@ public class DataRegistrationTests
     public void RegisterDataAndApplyRulesTest()
     {
         // Rule
-        RuleDefinition rule1 = new RuleDefinition
+        DefinedRule rule1 = new DefinedRule
         {
             Number = 1,
             Name = "Number of orders Rule",

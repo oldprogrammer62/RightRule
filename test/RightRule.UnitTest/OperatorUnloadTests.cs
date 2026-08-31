@@ -41,7 +41,7 @@ public class OperatorUnloadTests
     public void TestItWorks_UseItLoseIt_Equals()
     {
         // Rule
-        RuleDefinition rule = new()
+        DefinedRule rule = new()
         {
             Number = 1,
             Name = "Equals Value Rule",

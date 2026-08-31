@@ -5,9 +5,9 @@ namespace RightRule_Demo.RuleLoader
 {
     internal class RuleLoader
     {
-        internal static List<RuleDefinition> Load(IRightRule rightRule, string Context)
+        internal static List<DefinedRule> Load(IRightRule rightRule, string Context)
         {
-            return new List<RuleDefinition>
+            return new List<DefinedRule>
             {
                 rightRule.BuildRuleDefinition()
                 .Number(10)
@@ -27,7 +27,7 @@ namespace RightRule_Demo.RuleLoader
                 .WithDataCheck(false)
                 .Build(),
 
-                new RuleDefinition
+                new DefinedRule
                 {
                     Context = Context,
                     Number = 1,
@@ -36,7 +36,7 @@ namespace RightRule_Demo.RuleLoader
                     Decision = "NEWCUST_EXACT_PRIZEVALUE",
                     DecisionData = "{discount: 50, unit: '%'}"
                 },
-                new RuleDefinition
+                new DefinedRule
                 {
                     Context = Context,
                     Number = 2,
@@ -45,7 +45,7 @@ namespace RightRule_Demo.RuleLoader
                     Decision = "NEWCUST_LOWVALUE",
                     DecisionData = "{discount: 5, unit: '%'}"
                 },
-                new RuleDefinition
+                new DefinedRule
                 {
                     Context = Context,
                     Number = 3,
@@ -54,7 +54,7 @@ namespace RightRule_Demo.RuleLoader
                     Decision = "NEWCUST_HIGHVALUE",
                     DecisionData = "{discount: 20, unit: '%'}"
                 },
-                new RuleDefinition
+                new DefinedRule
                 {
                     Context = Context,
                     Number = 4,
@@ -63,7 +63,7 @@ namespace RightRule_Demo.RuleLoader
                     Decision = "EXISTINGCUST_LOWVALUE",
                     DecisionData = "{discount: 15, unit: '%'}"
                 },
-                new RuleDefinition
+                new DefinedRule
                 {
                     Context = Context,
                     Number = 5,

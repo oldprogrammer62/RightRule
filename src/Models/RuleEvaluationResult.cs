@@ -4,18 +4,18 @@ namespace RightRule.Models;
 
 public class RuleEvaluationResult
 {
-    public EvaluationResult EvaluationResult { get; }
+    public OperatorResult? OperatorResult { get; }
     public string Message { get; }
     public string StatementApplied { get; }
 
-    private RuleEvaluationResult(EvaluationResult Result, string Message, string StatementApplied)
+    private RuleEvaluationResult(OperatorResult Result, string Message, string StatementApplied)
     {
-        this.EvaluationResult = Result;
+        this.OperatorResult = Result;
         this.Message = Message;
         this.StatementApplied = StatementApplied;
     }
 
-    internal static RuleEvaluationResult Success(EvaluationResult result, string successMessage, string StatementApplied)
+    internal static RuleEvaluationResult Success(OperatorResult result, string successMessage, string StatementApplied)
     {
         return new RuleEvaluationResult(
             Result: result,
@@ -24,7 +24,7 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult Failure(EvaluationResult result, string errorMessage)
+    internal static RuleEvaluationResult Failure(OperatorResult result, string errorMessage)
     {
         return new RuleEvaluationResult(
             Result: result,
@@ -33,10 +33,10 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult Failure(string error, object? decisionData)
+    internal static RuleEvaluationResult Error(string error)
     {
         return new RuleEvaluationResult(
-            Result: EvaluationResult.Failure(error, decisionData),
+            Result: null,
             Message: error,
             StatementApplied: string.Empty
         );
