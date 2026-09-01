@@ -10,23 +10,23 @@ public sealed class GreaterThanOrEqualsOperator : Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, object? FalseDecisionData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData);
+            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
         }
         if (left == null || right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData);
+            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
         }
 
-        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(ProcessAsNumber(left, right), DecisionData);
-        if (IsString(left) && IsString(right)) return OperatorResult.Success(ProcessAsString(left, right), DecisionData);
-        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(ProcessAsDateTime(left, right), DecisionData);
-        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(ProcessAsDateOnly(left, right), DecisionData);
+        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(ProcessAsNumber(left, right), DecisionData, FalseDecisionData);
+        if (IsString(left) && IsString(right)) return OperatorResult.Success(ProcessAsString(left, right), DecisionData, FalseDecisionData);
+        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(ProcessAsDateTime(left, right), DecisionData, FalseDecisionData);
+        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(ProcessAsDateOnly(left, right), DecisionData, FalseDecisionData);
 
-        return OperatorResult.Success(GreaterThanOrEquals(left, right), DecisionData);
+        return OperatorResult.Success(GreaterThanOrEquals(left, right), DecisionData, FalseDecisionData);
     }
 
     private static bool GreaterThanOrEquals(dynamic left, dynamic right)

@@ -7,15 +7,15 @@ namespace Operator.strequals
     {
         public override List<string> Identifiers => ["strequals", "=str"];
 
-        protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, bool Diagnostics)
+        protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, object? FalseDecisionData, bool Diagnostics)
         {
             if (left is string leftStr && right is string rightStr)
             {
-                return OperatorResult.Success(Equals(leftStr, rightStr, OptionalData), DecisionData);
+                return OperatorResult.Success(Equals(leftStr, rightStr, OptionalData), DecisionData, FalseDecisionData);
             }
             else
             {
-                return OperatorResult.Failure("Both left and right operands must be strings.", DecisionData);
+                return OperatorResult.Failure("Both left and right operands must be strings.", DecisionData, FalseDecisionData);
             }
         }
 

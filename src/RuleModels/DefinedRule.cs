@@ -20,7 +20,7 @@ public sealed class DefinedRule : RuleDefinition
     {
     }
 
-    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
+    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
     {
         return new DefinedRule()
         {
@@ -30,6 +30,8 @@ public sealed class DefinedRule : RuleDefinition
             Statement = Statement,
             Decision = Decision,
             DecisionData = DecisionData,
+            FalseDecision = FalseDecision,
+            FalseDecisionData = FalseDecisionData,
             OptionalData = OptionalData,
             RuleConfiguration = ruleConfiguration
         };
@@ -44,6 +46,8 @@ public sealed class DefinedRule : RuleDefinition
         sb.AppendLine($"Statement: {this.Statement}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"FalseDecision: {this.FalseDecision}");
+        sb.AppendLine($"FalseDecisionData: {this.FalseDecisionData}");
         sb.AppendLine($"Configuration: {this.OptionalData}");
         sb.AppendLine($"DataCheck: {this.RuleConfiguration?.DataCheck}");
         sb.AppendLine($"Diagnostics: {this.RuleConfiguration?.Diagnostics}");

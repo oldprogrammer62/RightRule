@@ -20,7 +20,9 @@ public sealed class AppliedRule : RuleApplied
             ParsedRule = parsedRule,
             StatementApplied = result.StatementApplied,
             Decision = parsedRule.RuleDefinition.Decision,
-            DecisionData = result.OperatorResult?.DecisionData
+            DecisionData = result.OperatorResult?.DecisionData,
+            FalseDecision = parsedRule.RuleDefinition.FalseDecision,
+            FalseDecisionData = result.OperatorResult?.FalseDecisionData
         };
     }
 
@@ -30,8 +32,10 @@ public sealed class AppliedRule : RuleApplied
         {
             ParsedRule = parsedRule,
             StatementApplied = result.StatementApplied,
-            Decision = parsedRule.RuleDefinition.Decision, // TO DO Need False Decision
+            Decision = parsedRule.RuleDefinition.Decision,
             DecisionData = result.OperatorResult?.DecisionData,
+            FalseDecision = parsedRule.RuleDefinition.FalseDecision,
+            FalseDecisionData = result.OperatorResult?.FalseDecisionData
         };
     }
 

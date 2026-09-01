@@ -35,14 +35,14 @@ internal sealed class RightRuleServiceResult<T>
     }
 
     public static RightRuleServiceResult<IRule> Success(IRule? payload) =>
-        new RightRuleServiceResult<IRule> { Status = ServiceStatus.Success, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+        new RightRuleServiceResult<IRule> { Status = ServiceStatus.Success, Message = string.Empty, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
 
     public static RightRuleServiceResult<IRule> Failure(string message, IRule? payload = default) =>
-        new() { Status = ServiceStatus.Failure, Message = message, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+        new() { Status = ServiceStatus.Failure, Message = message, Decision = payload.Decision, DecisionData = payload.FalseDecisionData, Payload = payload };
 
     public static RightRuleServiceResult<IRule> Error(Exception ex, IRule? payload = default) =>
-        new() { Status = ServiceStatus.Error, Exception = ex, Message = ex.Message, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+        new() { Status = ServiceStatus.Error, Message = ex.Message, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex };
 
     public static RightRuleServiceResult<IRule> Default(IRule? payload = default, string message = "Default") =>
-        new() { Status = ServiceStatus.Default, Payload = payload, Decision = payload.Decision, DecisionData = payload.DecisionData, Message = message };
+        new() { Status = ServiceStatus.Default, Message = message, Payload = payload, Decision = payload.Decision, DecisionData = payload.DecisionData };
 }

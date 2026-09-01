@@ -42,7 +42,8 @@ internal class Program
                 Name = "Rule being Checked",
                 Statement = statement,
                 Context = "Default Context",
-                Decision = "Default Decision"
+                Decision = "Default Decision",
+                FalseDecision = "False Decision"
             };
             _ = rightRule.RegisterRule(rule);
 

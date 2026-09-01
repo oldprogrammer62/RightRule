@@ -12,8 +12,6 @@ public enum RightRuleStatus
 
 public sealed class RightRuleResult<T>
 {
-    // public RightRuleStatus Status { get; init; }
-
     public required string Decision { get; init; }
     public object? DecisionData { get; init; }
 
@@ -27,10 +25,10 @@ public sealed class RightRuleResult<T>
         new() { Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
 
     public static RightRuleResult<IRule> Failure(string message, IRule? payload = default) =>
-        new() { Message = message, Decision = payload.Decision, DecisionData = payload?.DecisionData, Payload = payload };
+        new() { Message = message, Decision = payload.FalseDecision, DecisionData = payload?.FalseDecisionData, Payload = payload };
 
     public static RightRuleResult<IRule> Error(Exception ex, IRule? payload = default) =>
-        new() { Exception = ex, Message = ex.Message, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+        new() { Message = ex.Message, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex};
 
     public static RightRuleResult<IRule> Default(IRule? payload = default, string message = "Default") =>
         new() { Message = message, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
