@@ -31,6 +31,7 @@ public class NotEqualsTests
             Statement = @"Test.boolvalue notequals true",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -53,6 +54,7 @@ public class NotEqualsTests
             Statement = @"Test.intvalue notequals 100",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -75,6 +77,7 @@ public class NotEqualsTests
             Statement = @"Test.floatvalue notequals 100.01",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -97,6 +100,7 @@ public class NotEqualsTests
             Statement = @"Test.stringvalue notequals ""Hello World""",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -121,6 +125,7 @@ public class NotEqualsTests
             Statement = @$"Test.datevalue notequals ""{date}""",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -145,6 +150,7 @@ public class NotEqualsTests
             Statement = @$"Test.datetimevalue notequals ""{date}""",
             Context = "Context",
             Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -166,7 +172,8 @@ public class NotEqualsTests
             Name = "NotNotEquals Bool Value Rule",
             Statement = @"not Test.boolvalue equals true",
             Context = "Context",
-            Decision = "NOTNOTEQUALS",
+            Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var newRule = rr.RegisterRule(rule);
@@ -187,7 +194,8 @@ public class NotEqualsTests
             Name = "Not Equals Bool Value Rule",
             Statement = @"Test.boolvalue equals false and not Test.intvalue = 100",
             Context = "Context",
-            Decision = "NOTNOTEQUALS",
+            Decision = "NOTEQUALS",
+            FalseDecision = "EQUALS"
         };
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         rr.RegisterData("Test", _Data);

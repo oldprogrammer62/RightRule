@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels.BaseModels;
+﻿using RightRule.Models.RuleRegistration;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Parser;
 using System.Text;
@@ -13,6 +14,8 @@ namespace RightRule.RuleModels;
 /// </summary>
 public sealed class ParsedRule
 {
+    public RuleRegistrationStatus Status { get; init; }
+
     public required RuleDefinition RuleDefinition { get; init; }
 
     /// <summary>
@@ -47,6 +50,7 @@ public sealed class ParsedRule
 
         return new ParsedRule()
         {
+            Status = RuleRegistrationStatus.SUCCESS,
             RuleDefinition = ruleDefinition,
             Message = message,
             StatementPath = BuildTreeText(ruleDefinition, node),
@@ -63,6 +67,7 @@ public sealed class ParsedRule
 
         return new ParsedRule()
         {
+            Status = RuleRegistrationStatus.ERROR,
             RuleDefinition = ruleDefinition,
             Message = message,
             StatementPath = string.Empty,

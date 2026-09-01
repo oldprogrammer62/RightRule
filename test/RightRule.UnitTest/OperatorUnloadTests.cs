@@ -48,6 +48,7 @@ public class OperatorUnloadTests
             Statement = @"Test.value = 10",
             Context = "Context",
             Decision = "VALUEEQUALS",
+            FalseDecision = "VALUEUNEQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -64,6 +65,6 @@ public class OperatorUnloadTests
 
         // Use EQUALS
         var appliedRuleAfter = rr.EvaluateFirstMatch("Context");
-        Assert.Equal(AppliedRule.ErrorDecision, appliedRuleAfter.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, appliedRuleAfter.Decision);
     }
 }

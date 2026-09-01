@@ -29,6 +29,7 @@ public class RulesToApplyTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "GOODRULE1",
+            FalseDecision = "BADRULE1"
         };
 
         // Rule
@@ -39,6 +40,7 @@ public class RulesToApplyTests
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
             Decision = "GOODRULE2",
+            FalseDecision = "BADRULE2"
         };
     }
 
@@ -178,7 +180,7 @@ public class RulesToApplyTests
         var appliedRules = rr.EvaluateAll("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.Decision);
+        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.RuleDefinition.Decision);
     }
 
     [Fact]
@@ -192,6 +194,6 @@ public class RulesToApplyTests
         var appliedRules = rr.EvaluateAll("AllContext", RightRule.System.Common.RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.Decision);
+        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.RuleDefinition.Decision);
     }
 }

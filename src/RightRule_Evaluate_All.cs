@@ -21,7 +21,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public List<RightRuleResult<IRule>> EvaluateAll(string Context)
+    public List<RightRuleResult<IProcessedRule>> EvaluateAll(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -31,7 +31,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -45,7 +45,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// All Rules applied are returned in a list.<br />
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// </returns>
-    public async Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context)
+    public async Task<List<RightRuleResult<IProcessedRule>>> EvaluateAllAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -54,13 +54,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var appliedRules = await _rightRuleService.EvaluateAllAsync(Context).ConfigureAwait(false);
             if (appliedRules == null || appliedRules.Count == 0)
             {
-                return [RightRuleResult<IRule>.Default(DefaultRule.DefaultResult())];
+                return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
             }
             return BuildResult(appliedRules);
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -77,7 +77,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    public List<RightRuleResult<IRule>> EvaluateAll(string Context, RulesToReturn ReturnRules)
+    public List<RightRuleResult<IProcessedRule>> EvaluateAll(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -87,7 +87,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -104,7 +104,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// The result of each rule can be checked in the Result property of each AppliedRule object.<br />
     /// Return is based on specified ReturnRules parameter.
     /// </returns>
-    public async Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
+    public async Task<List<RightRuleResult<IProcessedRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -113,13 +113,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null || appliedRules.Count == 0)
             {
-                return [RightRuleResult<IRule>.Default(DefaultRule.DefaultResult())];
+                return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
             }
             return BuildResult(appliedRules);
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -137,7 +137,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<RightRuleResult<IRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data)
+    public List<RightRuleResult<IProcessedRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -149,7 +149,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -167,7 +167,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<RightRuleResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -178,13 +178,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, DataName, Data).ConfigureAwait(false);
             if (appliedRules == null || appliedRules.Count == 0)
             {
-                return [RightRuleResult<IRule>.Default(DefaultRule.DefaultResult())];
+                return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
             }
             return BuildResult(appliedRules);
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -206,7 +206,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public List<RightRuleResult<IRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public List<RightRuleResult<IProcessedRule>> EvaluateAll(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -218,7 +218,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -240,7 +240,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<List<RightRuleResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public async Task<List<RightRuleResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -251,13 +251,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var appliedRules = await _rightRuleService.EvaluateAllAsync(Context, DataName, Data, ReturnRules).ConfigureAwait(false);
             if (appliedRules == null || appliedRules.Count == 0)
             {
-                return [RightRuleResult<IRule>.Default(DefaultRule.DefaultResult())];
+                return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
             }
             return BuildResult(appliedRules);
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 }

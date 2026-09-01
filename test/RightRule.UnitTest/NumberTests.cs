@@ -25,7 +25,8 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 10",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS"
+            Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "LESSTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -47,7 +48,8 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 10.1",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS"
+            Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "LESSTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -69,7 +71,8 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 99.99",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS"
+            Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "LESSTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -91,7 +94,8 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 100.00001",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS"
+            Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "LESSTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -100,7 +104,7 @@ public class NumberTests
 
         var appliedRule = rr.EvaluateFirstMatch("Context");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -113,7 +117,8 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value >= 99.9999 and Test.value < 200.001",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS"
+            Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "LESSTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

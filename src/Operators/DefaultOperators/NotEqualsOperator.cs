@@ -10,23 +10,23 @@ public sealed class NotEqualsOperator : Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, object? FalseDecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
+            return OperatorResult.Failure(this.Name, "One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
+            return OperatorResult.Failure(this.Name, "One or both operands are null.");
         }
 
-        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(ProcessAsNumber(left, right), DecisionData, FalseDecisionData);
-        if (IsString(left) && IsString(right)) return OperatorResult.Success(ProcessAsString(left, right), DecisionData, FalseDecisionData);
-        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(ProcessAsDateTime(left, right), DecisionData, FalseDecisionData);
-        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(ProcessAsDateOnly(left, right), DecisionData, FalseDecisionData);
+        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(this.Name, ProcessAsNumber(left, right));
+        if (IsString(left) && IsString(right)) return OperatorResult.Success(this.Name, ProcessAsString(left, right));
+        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(this.Name, ProcessAsDateTime(left, right));
+        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(this.Name, ProcessAsDateOnly(left, right));
 
-        return OperatorResult.Success(!Equals(left, right), DecisionData, FalseDecisionData);
+        return OperatorResult.Success(this.Name, !Equals(left, right));
     }
 
     private static bool NotEquals(dynamic left, dynamic right)

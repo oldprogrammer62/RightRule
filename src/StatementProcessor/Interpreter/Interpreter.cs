@@ -24,22 +24,22 @@ public sealed class Interpreter : IInterpreter
         _evaluator = evaluator;
     }
 
-    public async Task<IRule> EvaluateFirstAsync(IRegisteredRules rules)
+    public async Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules rules)
     {
         return await EvaluateFirstMatchAsync(rules).ConfigureAwait(false);
     }
 
-    public async Task<List<IRule>> EvaluateAllAsync(IRegisteredRules rules, RulesToReturn ReturnRules)
+    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, RulesToReturn ReturnRules)
     {
         return await EvaluateAsync(rules.Rules, ReturnRules).ConfigureAwait(false);
     }
 
-    private async Task<IRule> EvaluateFirstMatchAsync(IRegisteredRules rules)
+    private async Task<IProcessedRule> EvaluateFirstMatchAsync(IRegisteredRules rules)
     {
         return await EvaluateFirstMatch.EvaluateAsync(_evaluator, rules.Rules, _registeredDatasets, _registeredDataObjects).ConfigureAwait(false);
     }
 
-    private async Task<List<IRule>> EvaluateAsync(List<ParsedRule> rules, RulesToReturn ReturnRules)
+    private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, RulesToReturn ReturnRules)
     {
         return ReturnRules switch
         {

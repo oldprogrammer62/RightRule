@@ -25,7 +25,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public RightRuleResult<IRule> EvaluateFirstMatch(string Context)
+    public RightRuleResult<IProcessedRule> EvaluateFirstMatch(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -35,7 +35,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -54,7 +54,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context)
+    public async Task<RightRuleResult<IProcessedRule>> EvaluateFirstMatchAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -63,13 +63,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await _rightRuleService.EvaluateFirstAsync(Context).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IRule>.Default(DefaultRule.DefaultResult());
+                return RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
             }
             return BuildResult(svcResult);
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -87,7 +87,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public RightRuleResult<IRule> EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data)
+    public RightRuleResult<IProcessedRule> EvaluateFirstMatch(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -99,7 +99,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -117,7 +117,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<RightRuleResult<IRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<RightRuleResult<IProcessedRule>> EvaluateFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -131,7 +131,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 }

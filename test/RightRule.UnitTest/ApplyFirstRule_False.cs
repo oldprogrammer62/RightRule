@@ -16,6 +16,7 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 2")
             .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RegisterRule(rule1);
 
@@ -24,14 +25,15 @@ public class ApplyFirstRule_False
             .Name("Name2")
             .Context("Context")
             .Statement("1 = 2")
-            .Decision("INCORRECT")
+            .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(1, result.Number);
+        Assert.Equal(1, result.RuleNumber);
     }
 
     [Fact]
@@ -44,7 +46,8 @@ public class ApplyFirstRule_False
             .Name("Name1")
             .Context("Context")
             .Statement("2 = 1")
-            .Decision("INCORRECT")
+            .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RegisterRule(rule1);
 
@@ -54,13 +57,14 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 2")
             .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(2, result.Number);
+        Assert.Equal(2, result.RuleNumber);
     }
 
 
@@ -74,7 +78,8 @@ public class ApplyFirstRule_False
             .Name("Name1")
             .Context("Context")
             .Statement("2 = 1")
-            .Decision("INCORRECT")
+            .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RegisterRule(rule1);
 
@@ -83,13 +88,14 @@ public class ApplyFirstRule_False
             .Name("Name2")
             .Context("Context")
             .Statement("2 = 3")
-            .Decision("INCORRECT")
+            .Decision("CORRECT")
+            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(AppliedRule.DefaultResult().Decision, result.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
     }
 }

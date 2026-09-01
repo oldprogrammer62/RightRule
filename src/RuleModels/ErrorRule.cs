@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels.BaseModels;
 using System.Text;
 

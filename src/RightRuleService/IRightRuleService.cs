@@ -1,6 +1,8 @@
 ﻿using BeSoft;
 using RightRule.DataRegistration;
 using RightRule.Models;
+using RightRule.Models.DataRegistration;
+using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration;
@@ -36,13 +38,13 @@ internal interface IRightRuleService
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
     
-    Task<RightRuleServiceResult<IRule>> EvaluateFirstAsync(string Context);
-    Task<RightRuleServiceResult<IRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstAsync(string Context);
+    Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data);
     
-    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context);
-    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
-    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

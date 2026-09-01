@@ -11,20 +11,20 @@ public class Exists : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, object? FalseDecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left == null && right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
+            return OperatorResult.Failure(this.Name, "One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
+            return OperatorResult.Failure(this.Name, "One or both operands are null.");
         }
 
         if (right is IList list)
         {
-            return OperatorResult.Success(list.Contains(left), DecisionData, FalseDecisionData);
+            return OperatorResult.Success(this.Name, list.Contains(left));
         }
 
         if (right is ArrayList array)
@@ -33,7 +33,7 @@ public class Exists : RightRule.System.Common.Operator
             {
                 if (Equals(item, left))
                 {
-                    return OperatorResult.Success(true, DecisionData, FalseDecisionData);
+                    return OperatorResult.Success(this.Name, true);
                 }
             }
         }
@@ -46,10 +46,10 @@ public class Exists : RightRule.System.Common.Operator
                 var sItem = item.ToString();
                 if (Equals(sItem, sLeft))
                 {
-                    return OperatorResult.Success(true, DecisionData, FalseDecisionData);
+                    return OperatorResult.Success(this.Name, true);
                 }
             }
         }
-        return OperatorResult.Failure("Operand (right) is not a valid collection.", DecisionData, FalseDecisionData);
+        return OperatorResult.Failure(this.Name, "Operand (right) is not a valid collection.");
     }
 }

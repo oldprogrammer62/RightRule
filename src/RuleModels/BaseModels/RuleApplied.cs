@@ -1,16 +1,21 @@
 ﻿namespace RightRule.RuleModels.BaseModels;
 
-public abstract class RuleApplied : IRule
+public abstract class RuleApplied : IProcessedRule
 {
-    public required ParsedRule ParsedRule { get; init; }
+    public required int Number { get; init; }
+    public required string Name { get; init; }
 
-    //public required RuleDefinition RuleDefinition { get; init; }
+    public required ParsedRule ParsedRule { get; init; }
 
     /// <summary>
     /// Diagnostics only
     /// Provides the actual statement applied when evaluating the rule.
     /// </summary>
     public required string StatementApplied { get; init; }
+
+    public required bool IsSuccess { get; init; }
+    public required bool Result { get; init; }
+
 
     /// <summary>
     /// The string returned to the calling application if the rule evaluates true

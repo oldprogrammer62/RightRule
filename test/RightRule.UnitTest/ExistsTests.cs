@@ -43,7 +43,8 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Arguments.number in Arguments.numbers",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -72,7 +73,8 @@ public class ExistsTests
             Name = "Exists String Value Rule",
             Statement = @"""dd"" in Arguments.strings",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -95,7 +97,8 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue in Test.ints",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -117,7 +120,8 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -139,7 +143,8 @@ public class ExistsTests
             Name = "Exists Bool Value Rule",
             Statement = @"Test.boolvalue exists Test.bools",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -161,7 +166,8 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue exists Test.ints",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -183,7 +189,8 @@ public class ExistsTests
             Name = "Exists Float Value Rule",
             Statement = @"Test.floatvalue exists Test.floats",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -205,7 +212,8 @@ public class ExistsTests
             Name = "Exists String Value Rule",
             Statement = @"Test.stringvalue exists Test.strings",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -227,7 +235,8 @@ public class ExistsTests
             Name = "Exists DateOnly Value Rule",
             Statement = @"Test.datevalue exists Test.dates",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -249,7 +258,8 @@ public class ExistsTests
             Name = "Exists DateTime Value Rule",
             Statement = @"Test.datetimevalue exists Test.datetimes",
             Context = "Context",
-            Decision = "EXISTS"
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

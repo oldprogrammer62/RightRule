@@ -30,6 +30,7 @@ public class ApplyRuleWithDatasetTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "GOODRULE1",
+            FalseDecision = "BADRULE1"
         };
 
         // Rule 2
@@ -40,6 +41,7 @@ public class ApplyRuleWithDatasetTests
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
             Decision = "GOODRULE2",
+            FalseDecision = "BADRULE2"
         };
 
         // Rule 3
@@ -50,6 +52,7 @@ public class ApplyRuleWithDatasetTests
             Statement = @"XXTest.surname equals ""Doe""",
             Context = "AllContext",
             Decision = "GOODRULE3",
+            FalseDecision = "BADRULE3"
         };
     }
 
@@ -87,6 +90,6 @@ public class ApplyRuleWithDatasetTests
 
         var appliedRule = rr.EvaluateFirstMatch("AllContext");
 
-        Assert.Equal(AppliedRule.ErrorDecision, appliedRule.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, appliedRule.Decision);
     }
 }

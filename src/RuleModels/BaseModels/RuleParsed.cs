@@ -2,8 +2,12 @@
 
 namespace RightRule.RuleModels.BaseModels;
 
-internal abstract class RuleParsed
+internal abstract class RuleParsed : IRule
 {
+    public required int Number { get; init; }
+
+    public required string Name { get; init; }
+
     public required RuleDefinition RuleDefinition { get; init; }
 
     /// <summary>

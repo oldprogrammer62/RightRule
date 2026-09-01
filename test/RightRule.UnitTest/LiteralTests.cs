@@ -27,6 +27,7 @@ public class LiteralTests
             Statement = @"Test.stringvalue equals ""A_String""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -49,6 +50,7 @@ public class LiteralTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -75,7 +77,8 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"""A_String"" equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS"
+            Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -99,6 +102,7 @@ public class LiteralTests
             Statement = @"100 equals 100",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -125,7 +129,8 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"Test.stringvalue equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS"
+            Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

@@ -12,24 +12,32 @@ public enum RightRuleStatus
 
 public sealed class RightRuleResult<T>
 {
+    public required int RuleNumber { get; init; }
+    public required string RuleName { get; init; }
+
+    //public required bool IsSuccess { get; init; }
+    //public required bool Result { get; init; }
+
     public required string Decision { get; init; }
     public object? DecisionData { get; init; }
-
-    public T? Payload { get; init; }
+    
+    public string StatementApplied { get; init; }
+    
     public string Message { get; init; } = string.Empty;
-    public Exception? Exception { get; init; }
+
+    //public Exception? Exception { get; init; }
 
     private RightRuleResult() { }
 
-    public static RightRuleResult<IRule> Success(IRule? payload) =>
-        new() { Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+    public static RightRuleResult<IProcessedRule> Success(IProcessedRule? payload, string statementApplied) =>
+        new() { RuleNumber = payload.Number, RuleName = payload.Name, Decision = payload.Decision, DecisionData = payload.DecisionData, StatementApplied = statementApplied };
 
-    public static RightRuleResult<IRule> Failure(string message, IRule? payload = default) =>
-        new() { Message = message, Decision = payload.FalseDecision, DecisionData = payload?.FalseDecisionData, Payload = payload };
+    public static RightRuleResult<IProcessedRule> Failure(string message, string statementApplied, IProcessedRule? payload = default) =>
+        new() { RuleNumber = payload.Number, RuleName = payload.Name, Message = message, Decision = payload.FalseDecision, DecisionData = payload?.FalseDecisionData, StatementApplied = statementApplied };
 
-    public static RightRuleResult<IRule> Error(Exception ex, IRule? payload = default) =>
-        new() { Message = ex.Message, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex};
+    public static RightRuleResult<IProcessedRule> Error(Exception ex, IProcessedRule? payload = default) =>
+        new() { RuleNumber = payload.Number, RuleName = payload.Name, Message = ex.Message, Decision = payload.Decision, DecisionData = null, StatementApplied = string.Empty};
 
-    public static RightRuleResult<IRule> Default(IRule? payload = default, string message = "Default") =>
-        new() { Message = message, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+    public static RightRuleResult<IProcessedRule> Default(IProcessedRule? payload = default, string message = "Default") =>
+        new() { RuleNumber = payload.Number, RuleName = payload.Name, Message = message, Decision = payload.Decision, DecisionData = payload.DecisionData, StatementApplied = string.Empty };
 }

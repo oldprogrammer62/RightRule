@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.DataRegistration;
 
 namespace RightRule.DataRegistration;
 

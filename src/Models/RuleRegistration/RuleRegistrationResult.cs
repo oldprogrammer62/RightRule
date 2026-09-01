@@ -1,15 +1,19 @@
 ﻿using RightRule.RuleModels;
 
-namespace RightRule.Models;
+namespace RightRule.Models.RuleRegistration;
 
 public class RuleRegistrationResult
 {
+    public RuleRegistrationStatus Status { get; init; }
+
     public bool IsSuccess { get; init; }
+
     public ParsedRule RegisteredRule { get; init; }
     public string Message { get; init; }
 
     private RuleRegistrationResult(bool isSuccess, string message, ParsedRule parsedRule)
     {
+        Status = parsedRule.Status;
         IsSuccess = isSuccess;
         Message = message;
         RegisteredRule = parsedRule;

@@ -26,12 +26,12 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "BobData.Name = \"Bob\" and BobData.Age = 31 and OrderData.OrderCount >= 5",
             Decision = "Approved",
+            FalseDecision = "Denied",
             OptionalData = null
         };
         rr.RegisterRule(rd1);
         var result = rr.EvaluateFirstMatch("Test");
         Assert.NotNull(result);
-        Assert.True(result.Result);
         Assert.Equal(rd1.Decision, result.Decision);
     }
 
@@ -56,13 +56,13 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "obj1.Name = \"Bob\" and obj1.Age = 31 and Data.OrderCount >= 5",
             Decision = "Approved",
+            FalseDecision = "Denied",
             OptionalData = null
         };
 
         rr.RegisterRule(rd1);
         var result = rr.EvaluateFirstMatch("Test");
         Assert.NotNull(result);
-        Assert.True(result.Result);
         Assert.Equal(rd1.Decision, result.Decision);
     }
 
@@ -83,14 +83,13 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "obj1.Name = \"Bob\" and obj1.Age = 31 and obj2.Name = \"Harry\" and obj2.Age = 21",
             Decision = "Approved",
+            FalseDecision = "Denied",
             OptionalData = null
         };
 
         rr.RegisterRule(rd1);
         var result = rr.EvaluateAll("Test");
         Assert.NotNull(result);
-        Assert.True(result[0].Result);
-
         Assert.Equal(rd1.Decision, result[0].Decision);
     }
 
@@ -111,15 +110,15 @@ public class ObjectReference_Tests
             Context = "Test",
             Statement = "obj1.Name = \"Bob\" and obj1.Age = 31 and obj2.Name = \"Harry\" and obj2.Age = 21",
             Decision = "Approved",
+            FalseDecision = "Denied",
             OptionalData = null
         };
 
         rr.RegisterRule(rd1);
         var result = rr.EvaluateAll("Test");
         Assert.NotNull(result);
-        Assert.False(result[0].Result);
 
-        Assert.Equal(AppliedRule.DefaultDecision, result[0].Decision);
+        Assert.Equal(rd1.FalseDecision, result[0].Decision);
     }
 
     [Fact]
@@ -137,6 +136,7 @@ public class ObjectReference_Tests
             Name = "Name",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "x.x = 100"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -166,6 +166,7 @@ public class ObjectReference_Tests
             Name = "Name",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\""
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -199,6 +200,7 @@ public class ObjectReference_Tests
             Name = "Name",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\" and databob.Age = 30"
         };
         var registeredRule = rr.RegisterRule(rule);

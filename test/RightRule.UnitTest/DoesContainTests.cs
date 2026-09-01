@@ -31,6 +31,7 @@ public class DoesContainTests
             Statement = @"Test.fullname contains ""Doe""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
+            FalseDecision = "NOTNAMEDECISION"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -53,6 +54,7 @@ public class DoesContainTests
             Statement = @"Test.fullname contains ""XXDoeXX""",
             Context = "NameContext",
             Decision = "NAMEDECISION",
+            FalseDecision = "NOTNAMEDECISION"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -61,6 +63,6 @@ public class DoesContainTests
 
         var appliedRule = rr.EvaluateFirstMatch("NameContext");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 }

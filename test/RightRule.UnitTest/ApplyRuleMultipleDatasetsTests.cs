@@ -41,6 +41,7 @@ public class ApplyRuleMultipleDatasetsTests
             Statement = @"TestA.numberoforders equals 10",
             Context = "AllContext",
             Decision = "GOODRULE1",
+            FalseDecision = "BADRULE1"
         };
 
         // Rule matching dataset B by surname
@@ -51,6 +52,7 @@ public class ApplyRuleMultipleDatasetsTests
             Statement = @"TestB.surname equals ""Smith""",
             Context = "AllContext",
             Decision = "GOODRULE2",
+            FalseDecision = "BADRULE2"
         };
     }
 

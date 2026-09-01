@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels.BaseModels;
 using System.Text;
 
@@ -17,12 +17,16 @@ public sealed class AppliedRule : RuleApplied
     {
         return new AppliedRule()
         {
+            Number = parsedRule.RuleDefinition.Number,
+            Name = parsedRule.RuleDefinition.Name,
             ParsedRule = parsedRule,
             StatementApplied = result.StatementApplied,
             Decision = parsedRule.RuleDefinition.Decision,
-            DecisionData = result.OperatorResult?.DecisionData,
+            DecisionData = parsedRule.RuleDefinition.DecisionData,
             FalseDecision = parsedRule.RuleDefinition.FalseDecision,
-            FalseDecisionData = result.OperatorResult?.FalseDecisionData
+            FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
+            IsSuccess = result.IsSuccess,
+            Result = result.Result
         };
     }
 
@@ -30,12 +34,16 @@ public sealed class AppliedRule : RuleApplied
     {
         return new AppliedRule()
         {
+            Number = parsedRule.RuleDefinition.Number,
+            Name = parsedRule.RuleDefinition.Name,
             ParsedRule = parsedRule,
             StatementApplied = result.StatementApplied,
             Decision = parsedRule.RuleDefinition.Decision,
-            DecisionData = result.OperatorResult?.DecisionData,
+            DecisionData = parsedRule.RuleDefinition.DecisionData,
             FalseDecision = parsedRule.RuleDefinition.FalseDecision,
-            FalseDecisionData = result.OperatorResult?.FalseDecisionData
+            FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
+            IsSuccess = result.IsSuccess,
+            Result = result.Result
         };
     }
 
@@ -48,8 +56,12 @@ public sealed class AppliedRule : RuleApplied
         sb.AppendLine($"Name: {this.ParsedRule.RuleDefinition.Name}");
         sb.AppendLine($"Context: {this.ParsedRule.RuleDefinition.Context}");
         sb.AppendLine($"Statement: {this.ParsedRule.RuleDefinition.Statement}");
+        sb.AppendLine($"IsSuccess: {this.IsSuccess}");
+        sb.AppendLine($"Result: {this.Result}");
         sb.AppendLine($"Decision: {this.Decision}");
         sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"FalseDecision: {this.FalseDecision}");
+        sb.AppendLine($"FalseDecisionData: {this.FalseDecisionData}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
         return sb.ToString();
     }

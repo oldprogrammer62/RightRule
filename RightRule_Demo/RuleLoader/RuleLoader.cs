@@ -15,6 +15,7 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .Decision("GOOD")
+                .FalseDecision("BAD")
                 .WithDataCheck(false)
                 .Build(),
 
@@ -24,6 +25,7 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .Decision("GOOD")
+                .FalseDecision("BAD")
                 .WithDataCheck(false)
                 .Build(),
 

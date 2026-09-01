@@ -1,4 +1,6 @@
 ﻿using BeSoft;
+using RightRule.Models.DataRegistration;
+using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 using System.Runtime.CompilerServices;
 
@@ -25,16 +27,17 @@ public class OperatorConfig_Tests
             Number = 1,
             Statement = "Data.key1 = 'value1' and Data.key2 = \'value2\' and Data.key3 = \"value3\"",
             Decision = "Decision",
+            FalseDecision = "FalseDecision",
             OptionalData = OpConfig
         };
 
         IRightRule rr = new BeSoft.RightRule();
-        RightRule.Models.DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
-        RightRule.Models.RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
+        DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
+        RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
 
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(OpConfig, rule1Registered.RegisteredRule.OptionalData);
+        Assert.Equal(OpConfig, rule1Registered.RegisteredRule.RuleDefinition.OptionalData);
     }
 }

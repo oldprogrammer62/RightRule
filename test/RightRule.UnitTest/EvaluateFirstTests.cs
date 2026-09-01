@@ -1,6 +1,6 @@
 ﻿using BeSoft;
 
-namespace NewTests;
+namespace RightRuleTests;
 
 public class EvaluateFirstTests
 {
@@ -15,6 +15,7 @@ public class EvaluateFirstTests
             .Context("Context")
             .Statement("1 = 1")
             .Decision("Hello")
+            .FalseDecision("Goodbye")
             .Build();
 
         var rule1 = rr.RegisterRule(ruleDef);
@@ -34,6 +35,7 @@ public class EvaluateFirstTests
             .Context("Context")
             .Statement("1 = 0")
             .Decision("Hello")
+            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.BuildRuleDefinition()
@@ -42,6 +44,7 @@ public class EvaluateFirstTests
             .Context("Context")
             .Statement("1 = 1")
             .Decision("Hello2")
+            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RegisterRule(ruleDef1);
@@ -63,6 +66,7 @@ public class EvaluateFirstTests
             .Context("Context")
             .Statement("1 = 1")
             .Decision("Hello")
+            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.BuildRuleDefinition()
@@ -71,6 +75,7 @@ public class EvaluateFirstTests
             .Context("Context")
             .Statement("1 = 0")
             .Decision("Hello2")
+            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RegisterRule(ruleDef1);
@@ -79,6 +84,6 @@ public class EvaluateFirstTests
         var result = rr.EvaluateAll("Context");
         Assert.NotNull(result);
         Assert.Equal(result[0].Decision, ruleDef1.Decision);
-        Assert.Equal(result[1].Decision, ruleDef2.Decision);
+        Assert.Equal(result[1].Decision, ruleDef2.FalseDecision);
     }
 }

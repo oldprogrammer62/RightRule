@@ -1,5 +1,5 @@
 ﻿using RightRule.DataRegistration;
-using RightRule.Models;
+using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 
@@ -7,17 +7,17 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal static class EvaluateAllRules
 {
-    internal async static Task<List<IRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
     {
-        List<IRule> appliedRules = [];
+        List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;
 
         foreach (var rule in rules)
         {
             RuleEvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
 
-            bool success = ruleResult.OperatorResult?.IsSuccess ?? false;
-            bool result = ruleResult.OperatorResult?.Result ?? false;
+            bool success = ruleResult.IsSuccess;
+            bool result = ruleResult.Result;
 
             switch ((success, result))
             {
@@ -63,17 +63,17 @@ internal static class EvaluateAllRules
         }
     }
 
-    private static IRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.BuildTrueResult(rule, result);
     }
 
-    private static IRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return AppliedRule.BuildFalseResult(rule, result);
     }
 
-    private static IRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)
     {
         return ErrorRule.ErrorResult(rule, result);
     }

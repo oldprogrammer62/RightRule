@@ -54,6 +54,7 @@ public class MultiStepTests
             Statement = @"Step1Data1.surname = ""One"" and Step1Data1.numberoforders equals 10",
             Context = "Step1",
             Decision = "GOOD",
+            FalseDecision = "BAD"
         };
 
         // Rule
@@ -64,6 +65,7 @@ public class MultiStepTests
             Statement = @"Step1Data1.surname = ""One"" and Step1Data2.numberoforders equals 11",
             Context = "Step1",
             Decision = "GOOD",
+            FalseDecision = "BAD"
         };
 
         // Rule
@@ -74,6 +76,7 @@ public class MultiStepTests
             Statement = @"Step1Data3.surname = ""One"" and Step1Data3.numberoforders equals 12",
             Context = "Step1",
             Decision = "GOOD",
+            FalseDecision = "BAD"
         };
 
         // Data
@@ -95,6 +98,7 @@ public class MultiStepTests
             Statement = @"Step2Data1.surname equals ""Two"" and Step2Data1.numberoforders equals 100",
             Context = "Step2",
             Decision = "GOOD",
+            FalseDecision = "BAD"
         };
     }
 
@@ -167,7 +171,7 @@ public class MultiStepTests
         rr.DeRegisterRules("Step1");
 
         var rule1result_v2 = rr.EvaluateFirstMatch("Step1");
-        Assert.Equal(AppliedRule.ErrorDecision, rule1result_v2.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, rule1result_v2.Decision);
 
         rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);

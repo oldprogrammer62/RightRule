@@ -12,16 +12,18 @@ public class RegisterRulesAsync_Tests
             Context = "Context",
             Name = "Rule1",
             Number = 1,
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE",
         };
         DefinedRule rule2 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule2",
             Number = 2,
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE",
         };
         List<DefinedRule> rules = new List<DefinedRule>()
         {
@@ -44,16 +46,18 @@ public class RegisterRulesAsync_Tests
             Context = "Context",
             Name = "Rule1",
             Number = 1,
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE"
         };
         DefinedRule rule2 = new DefinedRule()
         {
             Context = "Context",
             Name = "Rule2",
             Number = 2,
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

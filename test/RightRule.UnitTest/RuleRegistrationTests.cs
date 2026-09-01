@@ -16,6 +16,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 
@@ -25,6 +26,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 
@@ -49,6 +51,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 
@@ -58,6 +61,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 
@@ -82,6 +86,7 @@ public class RuleRegistrationTests
             .Context("Context1")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 
@@ -91,6 +96,7 @@ public class RuleRegistrationTests
             .Context("Context2")
             .Statement("a = b")
             .Decision("Decision")
+            .FalseDecision("FalseDecision")
             .WithDataCheck(false)
             .Build();
 

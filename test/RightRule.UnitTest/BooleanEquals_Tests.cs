@@ -23,8 +23,9 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals1",
             Number = 1,
             Context = "Context",
+            Statement = "Data.IsTrue = \"true\"",
             Decision = "Good",
-            Statement = "Data.IsTrue = \"true\""
+            FalseDecision = "NotGood"
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -42,8 +43,9 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals2",
             Number = 1,
             Context = "Context",
+            Statement = "true = Data.IsTrue",
             Decision = "Good",
-            Statement = "true = Data.IsTrue"
+            FalseDecision = "NotGood"
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -61,8 +63,9 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals3",
             Number = 1,
             Context = "Context",
+            Statement = "true = true",
             Decision = "Good",
-            Statement = "true = true"
+            FalseDecision = "NotGood"
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -80,8 +83,9 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals4",
             Number = 1,
             Context = "Context",
+            Statement = "false = false",
             Decision = "Good",
-            Statement = "false = false"
+            FalseDecision = "NotGood"
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -99,8 +103,9 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals5",
             Number = 1,
             Context = "Context",
+            Statement = "FALSE = false",
             Decision = "Good",
-            Statement = "FALSE = false"
+            FalseDecision = "NotGood"
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -122,6 +127,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Decision = "Good",
+            FalseDecision = "NotGood",
             Statement = "FALSE = \"false\""
         };
 
@@ -129,6 +135,6 @@ public class BooleanEquals_Tests
         var result = rr.EvaluateFirstMatch("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(DefaultRule.Decision, result.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
     }
 }

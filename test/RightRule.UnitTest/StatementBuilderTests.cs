@@ -54,6 +54,7 @@ public class StatementBuilderTests
             Statement = statement.ToString(),
             Context = "DiscountDecision",
             Decision = "DISCOUNTED",
+            FalseDecision = "NOT_DISCOUNTED",
             DecisionData = new Dictionary<string, object>
             {
                 { "Discount", 10 }

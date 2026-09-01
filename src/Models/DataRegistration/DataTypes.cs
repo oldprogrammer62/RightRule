@@ -1,4 +1,4 @@
-﻿namespace RightRule.Models;
+﻿namespace RightRule.Models.DataRegistration;
 
 internal class DataTypes
 {

@@ -29,6 +29,7 @@ public class DataTests
             Statement = @"Test.whatvalue equals 123",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOTEQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -37,6 +38,6 @@ public class DataTests
 
         var ap = rr.EvaluateFirstMatch("Context");
 
-        Assert.Equal(AppliedRule.ErrorDecision, ap.Decision.ToUpper());
+        Assert.Equal(ErrorRule.DECISIONWORD, ap.Decision);
     }
 }

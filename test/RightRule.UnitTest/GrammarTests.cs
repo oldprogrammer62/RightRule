@@ -31,6 +31,7 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 11",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -39,7 +40,7 @@ public class GrammarTests
 
         var appliedRule = rr.EvaluateFirstMatch("NumberOfOrdersContext");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -53,6 +54,7 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10 and Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
+            FalseDecision = "NOTOK"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -76,6 +78,7 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10 or Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
+            FalseDecision = "NOTOK"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -99,6 +102,7 @@ public class GrammarTests
             Statement = @"(Test.numberoforders equals 10 and Test.goodpayer equals true) or (Test.numberoforders equals 10 and Test.goodpayer equals true)",
             Context = "NumberOfOrdersContext",
             Decision = "OK",
+            FalseDecision = "NOTOK"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -122,6 +126,7 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -143,7 +148,8 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders notequals 11",
             Context = "NumberOfOrdersContext",
-            Decision = "NOTENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -165,7 +171,8 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders != 18",
             Context = "NumberOfOrdersContext",
-            Decision = "INCORRECTORDERCOUNT",
+            Decision = "CORRECTORDERCOUNT",
+            FalseDecision = "INCORRECTORDERCOUNT"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -187,7 +194,8 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders <> 11",
             Context = "NumberOfOrdersContext",
-            Decision = "NOTENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -210,6 +218,7 @@ public class GrammarTests
             Statement = "Test.numberoforders = 10",
             Context = "NumberOfOrdersContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -231,6 +240,7 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NameContext",
             Decision = "NAMEFOUND",
+            FalseDecision = "NAMENOTFOUND"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -253,6 +263,7 @@ public class GrammarTests
             Statement = "Test.name equals Test.fullname",
             Context = "NameContext",
             Decision = "NAMESAMEASFULLNAME",
+            FalseDecision = "NAMEDIFFERENTFROMFULLNAME"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -261,7 +272,7 @@ public class GrammarTests
 
         var appliedRule = rr.EvaluateFirstMatch("NameContext");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -275,6 +286,7 @@ public class GrammarTests
             Statement = "Test.goodpayer equals true",
             Context = "GoodPayerContext",
             Decision = "GOODPAYER",
+            FalseDecision = "NOTGOODPAYER"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -283,7 +295,7 @@ public class GrammarTests
 
         var appliedRule = rr.EvaluateFirstMatch("GoodPayerContext");
 
-        Assert.Equal(newRule.RegisteredRule.Decision, appliedRule.Decision);
+        Assert.Equal(newRule.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -296,7 +308,8 @@ public class GrammarTests
             Name = "Good Payer Rule",
             Statement = "Test.goodpayer equals false",
             Context = "NotGoodPayerContext",
-            Decision = "NOTGOODPAYER",
+            Decision = "GOODPAYER",
+            FalseDecision = "NOTGOODPAYER"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -305,7 +318,7 @@ public class GrammarTests
 
         var appliedRule = rr.EvaluateFirstMatch("NotGoodPayerContext");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -319,6 +332,7 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             Decision = "NAMEFOUND",
+            FalseDecision = "NAMENOTFOUND"
         };
 
         DefinedRule rule2 = new()
@@ -328,6 +342,7 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             Decision = "NAMEFOUND2",
+            FalseDecision = "NAMENOTFOUND2"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -338,7 +353,7 @@ public class GrammarTests
         var appliedRule = rr.EvaluateFirstMatch("NAMECONTEXT1");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule1 .RegisteredRule.Decision, appliedRule.Decision);
+        Assert.Equal(newRule1.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -352,6 +367,7 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             Decision = "NAMEFOUND",
+            FalseDecision = "NAMENOTFOUND"
         };
 
         DefinedRule rule2 = new()
@@ -361,6 +377,7 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             Decision = "NAMEFOUND2",
+            FalseDecision = "NAMENOTFOUND2"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -371,6 +388,6 @@ public class GrammarTests
         var appliedRule = rr.EvaluateFirstMatch("NAMECONTEXT2");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule2.RegisteredRule.Decision, appliedRule.Decision);
+        Assert.Equal(newRule2.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
     }
 }

@@ -18,8 +18,9 @@ public class DayOfWeekTests
             Context = "context",
             Number = 1,
             Name = "rule1",
+            Statement = "data.date dow \"wednesday\"",
             Decision = "SAME",
-            Statement = "data.date dow \"wednesday\""
+            FalseDecision = "NOT_SAME"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

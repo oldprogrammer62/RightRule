@@ -30,6 +30,7 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new BeSoft.RightRule();
@@ -50,6 +51,7 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new BeSoft.RightRule();
@@ -71,6 +73,7 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             Decision = "ENOUGHORDERS",
+            FalseDecision = "NOTENOUGHORDERS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

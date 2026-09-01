@@ -1,7 +1,7 @@
 using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
-using RightRule.Models;
+using RightRule.Models.RuleRegistration;
 
 namespace RightRule.RuleService;
 

@@ -18,6 +18,7 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
@@ -46,6 +47,7 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.Ordinal
         };
@@ -57,7 +59,7 @@ public class StrEqualsTests
         var result = rr.EvaluateFirstMatch("TestContext");
 
         Assert.NotNull(result);
-        Assert.Equal(AppliedRule.DefaultDecision, result.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
     }
 
     [Fact]
@@ -74,6 +76,7 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             Decision = "GOOD",
+            FalseDecision = "BAD",
             Statement = "Data.value1 =str \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };

@@ -29,6 +29,7 @@ public class LessThanTests
             Statement = @"Test.intvalue lessthan 1000",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -52,6 +53,7 @@ public class LessThanTests
             Statement = @"Test.intvalue lessthan 1000.00",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -73,7 +75,8 @@ public class LessThanTests
             Name = "Not Less Than Int Value Rule",
             Statement = @"Test.intvalue lessthan 5",
             Context = "Context",
-            Decision = "NOT_LESSTHAN",
+            Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -82,7 +85,7 @@ public class LessThanTests
 
         var appliedRule = rr.EvaluateFirstMatch("Context");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -96,6 +99,7 @@ public class LessThanTests
             Statement = @"Test.floatvalue lessthan 1000.001",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -120,6 +124,7 @@ public class LessThanTests
             Statement = @$"Test.datevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -144,6 +149,7 @@ public class LessThanTests
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -168,6 +174,7 @@ public class LessThanTests
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

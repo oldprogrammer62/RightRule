@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
 namespace RightRuleTests;
@@ -39,9 +39,10 @@ public class EqualsTests
             Statement = @"Test.boolvalue equals true",
             Context = "Context",
             OptionalData = null,
+            RuleConfiguration = rc,
             Decision = "EQUALS",
             DecisionData = null,
-            RuleConfiguration = rc
+            FalseDecision = "NOT EQUALS"
         };
 
         var newRule = rr.RegisterRule(rule);
@@ -63,6 +64,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100.00",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -87,6 +89,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS",
             RuleConfiguration = rc
         };
 
@@ -110,6 +113,7 @@ public class EqualsTests
             Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -132,6 +136,7 @@ public class EqualsTests
             Statement = @"Test.floatvalue equals 100.01",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -154,6 +159,7 @@ public class EqualsTests
             Statement = @"Test.stringvalue equals ""Hello World""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -178,6 +184,7 @@ public class EqualsTests
             Statement = @$"Test.datevalue equals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -202,6 +209,7 @@ public class EqualsTests
             Statement = @$"Test.datetimevalue equals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -230,6 +238,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
+            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -239,6 +248,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             Decision = "EQUALS200",
+            FalseDecision = "NOT EQUALS200"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -268,6 +278,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
+            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -277,6 +288,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             Decision = "EQUALS200",
+            FalseDecision = "NOT EQUALS200"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -306,6 +318,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS100",
+            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -315,6 +328,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             Decision = "EQUALS200",
+            FalseDecision = "NOT EQUALS200"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

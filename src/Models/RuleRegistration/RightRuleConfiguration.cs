@@ -1,4 +1,4 @@
-﻿namespace RightRule.Models; 
+﻿namespace RightRule.Models.RuleRegistration; 
 
 /// <summary>
 /// DataCheck: Optional true/false (default: false) to include a data check during statement parsing

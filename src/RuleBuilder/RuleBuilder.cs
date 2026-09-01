@@ -1,9 +1,9 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
 namespace RightRule.RuleBuilder;
 
-internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStatementStep, IDecisionStep, IRuleBuilder
+internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStatementStep, IDecisionStep, IFalseDecisionStep, IRuleBuilder
 {
     private readonly int _number;
     private readonly string _name;
@@ -81,19 +81,13 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
     }
 
     // Step 5: Enforces that Decision must follow Statement
-    public IRuleBuilder Decision(string decision)
+    public IFalseDecisionStep Decision(string decision)
     {
         if (string.IsNullOrWhiteSpace(decision)) throw new ArgumentException("Decision is mandatory.", nameof(decision));
         return new RuleBuilder(_number, _name, _context, _statement, decision, _decisionData, _falseDecision, _falseDecisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
-    // Unordered Mandatory / Optional Methods
-    public IRuleBuilder DecisionData(object? decisionData)
-    {
-        return new RuleBuilder(_number, _name, _context, _statement, _decision, decisionData, _falseDecision, _falseDecisionData, _optionalData, _dataCheck, _diagnostics);
-    }
-
-    // Step 5: Enforces that Decision must follow Statement
+    // Step 6: Enforces that False Decision must follow Decision
     public IRuleBuilder FalseDecision(string falseDecision)
     {
         if (string.IsNullOrWhiteSpace(falseDecision)) throw new ArgumentException("False Decision is mandatory.", nameof(falseDecision));
@@ -104,6 +98,12 @@ internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IState
     public IRuleBuilder FalseDecisionData(object? falseDecisionData)
     {
         return new RuleBuilder(_number, _name, _context, _statement, _decision, _decisionData, _falseDecision, falseDecisionData, _optionalData, _dataCheck, _diagnostics);
+    }
+
+    // Unordered Mandatory / Optional Methods
+    public IRuleBuilder DecisionData(object? decisionData)
+    {
+        return new RuleBuilder(_number, _name, _context, _statement, _decision, decisionData, _falseDecision, _falseDecisionData, _optionalData, _dataCheck, _diagnostics);
     }
 
     public IRuleBuilder OptionalData(object? optionalData)

@@ -7,33 +7,33 @@ namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public async Task<RightRuleServiceResult<IRule>> EvaluateFirstAsync(string Context)
+    public async Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var applied = await EvaluateFirstMatchAsync(Context).ConfigureAwait(false);
         if (applied == null)
         {
-            return RightRuleServiceResult<IRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
         }
-        return RightRuleServiceResult<IRule>.Success(applied);
+        return RightRuleServiceResult<IProcessedRule>.Success(applied);
     }
 
-    public async Task<RightRuleServiceResult<IRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
         RegisterData(DataName, Data);
-        IRule appliedRule = await EvaluateFirstMatchAsync(Context).ConfigureAwait(false);
+        IProcessedRule appliedRule = await EvaluateFirstMatchAsync(Context).ConfigureAwait(false);
         DeRegisterData(DataName);
 
-        var svc = RightRuleServiceResult<IRule>.Success(appliedRule);
+        var svc = RightRuleServiceResult<IProcessedRule>.Success(appliedRule);
         return svc;
     }
 
-    private async Task<IRule> EvaluateFirstMatchAsync(string Context)
+    private async Task<IProcessedRule> EvaluateFirstMatchAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 

@@ -35,6 +35,7 @@ public class ExceptionTests
         {
             Context = "Context",
             Decision = "Done",
+            FalseDecision = "NotDone",
             Name = "RuleName",
             Number = 1,
             Statement = "a.b was c.d"

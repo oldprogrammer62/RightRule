@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -15,6 +15,7 @@ public class RuleBuilder_Test
             .Context("Context")
             .Statement("a = b")
             .Decision("GOOD")
+            .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
             .WithDataCheck(false)
@@ -28,6 +29,7 @@ public class RuleBuilder_Test
             .Context("Context")
             .Statement("a = b")
             .Decision("GOOD")
+            .FalseDecision("BAD")
             .WithDataCheck(false)
             .WithDiagnostics(true)
             .Build();

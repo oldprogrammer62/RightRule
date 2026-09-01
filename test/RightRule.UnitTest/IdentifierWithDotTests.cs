@@ -35,6 +35,7 @@ public class IdentifierWithDotTests
             Statement = "Data.ordervalue equals Constants.highvalue",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -59,6 +60,7 @@ public class IdentifierWithDotTests
             Statement = @"Data.NewCust = true and Data.ordervalue = Constants.highvalue and ""123"" = Constants.name",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

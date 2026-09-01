@@ -1,9 +1,19 @@
-﻿namespace RightRule.RuleModels.BaseModels;
+﻿using RightRule.Models.RuleRegistration;
 
-public abstract class RuleError : IRule
+namespace RightRule.RuleModels.BaseModels;
+
+public abstract class RuleError : IProcessedRule
 {
     public const string DECISIONWORD = "ERROR";
     public const string FALSEDECISIONWORD = "ERROR";
+
+    public int Number { get; init; } = (int)RuleNumberEnum.ErrorRule;
+    public string Name { get; init; } = "ErrorRule";
+
+    public bool IsSuccess { get; } = false;
+    public bool Result { get; } = false;
+
+    public string StatementApplied { get; } = string.Empty;
 
     public string Decision { get; } = DECISIONWORD;
     public object? DecisionData { get; }

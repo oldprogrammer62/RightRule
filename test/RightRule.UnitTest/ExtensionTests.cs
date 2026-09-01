@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
 namespace RightRuleTests;
@@ -54,6 +54,7 @@ public class ExtensionTests
         {
             Context = "TestContext",
             Decision = "TestDecision",
+            FalseDecision = "TestFalseDecision",
             Name = "TestRule",
             Number = 1,
             Statement = "Test.hello equals \"hello\""

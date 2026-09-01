@@ -16,6 +16,10 @@ public abstract class Rule : IRule
     /// </summary>
     public required string Name { get; init; }
 
+    public required bool IsSuccess { get; init; }
+    public required bool Result { get; init; }
+
+
     /// <summary>
     /// The string returned to the calling application if the rule evaluates true
     /// </summary>

@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.Models;
+using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 using System.Data;
 using System.Text;
@@ -19,6 +19,7 @@ public class RuleDiagnosticsTests
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
             .Decision("SAME")
+            .FalseDecision("NOT_SAME")
             .Build();
 
         Assert.NotNull(rule1.RuleConfiguration);
@@ -40,6 +41,7 @@ public class RuleDiagnosticsTests
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
             .Decision("SAME")
+            .FalseDecision("NOTSAME")
             .WithDataCheck(datacheck)
             .WithDiagnostics(diagnostics)
             .Build();
@@ -60,6 +62,7 @@ public class RuleDiagnosticsTests
             Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         Assert.NotNull(rule1.RuleConfiguration);
@@ -84,7 +87,8 @@ public class RuleDiagnosticsTests
             Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
             Decision = "EQUALS",
-            RuleConfiguration = rc
+            FalseDecision = "NOT_EQUALS",
+            RuleConfiguration = rc,
         };
 
         Assert.NotNull(rule1.RuleConfiguration);

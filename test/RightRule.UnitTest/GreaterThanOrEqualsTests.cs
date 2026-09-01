@@ -30,6 +30,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 10.00",
             Context = "Context",
             Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -52,6 +53,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 10",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -74,6 +76,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 100",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -96,6 +99,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.floatvalue greaterthanorequals 99.9",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -118,6 +122,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.floatvalue greaterthanorequals 100.01",
             Context = "Context",
             Decision = "GREATERTHANOREQUALS",
+            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -142,6 +147,7 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -166,6 +172,7 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -190,6 +197,7 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -214,6 +222,7 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -238,6 +247,7 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -259,7 +269,8 @@ public class GreaterThanOrEqualsTests
             Name = "Not Greater Than Value Rule",
             Statement = @"Test.intvalue greaterthanorequals 1010",
             Context = "Context",
-            Decision = "NOT_GREATERTHAN",
+            Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -268,7 +279,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.EvaluateFirstMatch("Context");
 
-        Assert.Equal(AppliedRule.DefaultDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 
     [Fact]
@@ -282,6 +293,7 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue >== 10",
             Context = "Context",
             Decision = "GREATERTHAN",
+            FalseDecision = "NOT_GREATERTHAN"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
@@ -290,6 +302,6 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.EvaluateFirstMatch("Context");
 
-        Assert.Equal(AppliedRule.ErrorDecision, appliedRule.Decision);
+        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
 }

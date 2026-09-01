@@ -17,8 +17,9 @@ public class ApplyAllRules
             Context = "Test",
             Number = 1,
             Name = "Name",
+            Statement = "xdata.x = 20",
             Decision = "BAD",
-            Statement = "xdata.x = 20"
+            FalseDecision = "BAD"
         };
 
         DefinedRule rule2 = new DefinedRule()
@@ -26,14 +27,15 @@ public class ApplyAllRules
             Context = "Test",
             Number = 2,
             Name = "Name2",
+            Statement = "xdata.x = 10",
             Decision = "GOOD",
-            Statement = "xdata.x = 10"
+            FalseDecision = "BAD"
         };
 
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        List<AppliedRule>? result = rr.EvaluateAll("Test");
+        var result = rr.EvaluateAll("Test");
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }

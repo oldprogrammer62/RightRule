@@ -35,6 +35,7 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -60,6 +61,7 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -85,6 +87,7 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -110,6 +113,7 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -139,7 +143,8 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS"
+            Decision = "EQUALS",
+            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data

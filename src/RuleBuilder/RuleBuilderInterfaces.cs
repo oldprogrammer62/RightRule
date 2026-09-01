@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
 namespace RightRule.RuleBuilder;
@@ -30,13 +30,20 @@ public interface IStatementStep
 // Enforces step 5
 public interface IDecisionStep
 {
-    IRuleBuilder Decision(string decision);
+    IFalseDecisionStep Decision(string decision);
+}
+
+// Enforces step 6
+public interface IFalseDecisionStep
+{
+    IRuleBuilder FalseDecision(string decision);
 }
 
 // Unlocks remaining options in any order
 public interface IRuleBuilder
 {
     IRuleBuilder DecisionData(object? decisionData);
+    IRuleBuilder FalseDecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
     IRuleBuilder WithDataCheck(bool checkData = RightRuleConfiguration.DEFAULT_DATACHECK);
     IRuleBuilder WithDiagnostics(bool diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS);

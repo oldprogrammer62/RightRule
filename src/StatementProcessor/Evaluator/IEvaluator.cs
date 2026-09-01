@@ -1,5 +1,5 @@
 ﻿using RightRule.DataRegistration;
-using RightRule.Models;
+using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels;
 
 namespace RightRule.StatementProcessor.Evaluator;

@@ -16,8 +16,9 @@ public class RuleTests
             Number = 1,
             Name = "Rule1",
             Context = "Rule1_Context",
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE",
         };
 
         rule2 = new DefinedRule()
@@ -25,8 +26,9 @@ public class RuleTests
             Number = 2,
             Name = "Rule2",
             Context = "Rule2_Context",
+            Statement = "a.b = c.d",
             Decision = "DONE",
-            Statement = "a.b = c.d"
+            FalseDecision = "NOT_DONE",
         };
     }
 
@@ -43,7 +45,7 @@ public class RuleTests
         Assert.Single(rules);
 
         var r1 = rules[0];
-        Assert.Equal("Rule1", r1.Name);
+        Assert.Equal("Rule1", r1.RuleDefinition.Name);
     }
 
     [Fact]
@@ -59,7 +61,7 @@ public class RuleTests
         Assert.Single(rules);
 
         var r2 = rules[0];
-        Assert.Equal("Rule2", r2.Name);
+        Assert.Equal("Rule2", r2.RuleDefinition.Name);
     }
 
     [Fact]
@@ -75,10 +77,10 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         var r1 = registeredRules.Rules[0];
-        Assert.Equal("Rule1", r1.Name);
+        Assert.Equal("Rule1", r1.RuleDefinition.Name);
 
         var r2 = registeredRules.Rules[1];
-        Assert.Equal("Rule2", r2.Name);
+        Assert.Equal("Rule2", r2.RuleDefinition.Name);
     }
 
     [Fact]
@@ -94,10 +96,10 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         var r1 = registeredRules.Rules[0];
-        Assert.Equal("Rule1", r1.Name);
+        Assert.Equal("Rule1", r1.RuleDefinition.Name);
 
         var r2 = registeredRules.Rules[1];
-        Assert.Equal("Rule2", r2.Name);
+        Assert.Equal("Rule2", r2.RuleDefinition.Name);
 
         var indexed_rule1 = registeredRules[0];
         Assert.NotNull (rule1);
@@ -118,7 +120,7 @@ public class RuleTests
         string RuleName = "Rule1";
         ParsedRule? pr1 = rr.RegisteredRule(RuleName);
         Assert.NotNull(pr1);
-        Assert.Equal(RuleName, pr1.Name);
+        Assert.Equal(RuleName, pr1.RuleDefinition.Name);
     }
 
     [Fact]
@@ -136,7 +138,7 @@ public class RuleTests
         string RuleName = "RULE1";
         ParsedRule? pr1 = rr.RegisteredRule(RuleName);
         Assert.NotNull(pr1);
-        Assert.Equal(RuleName, pr1.Name.ToUpper());
+        Assert.Equal(RuleName, pr1.RuleDefinition.Name.ToUpper());
     }
 
     [Fact]
@@ -154,7 +156,7 @@ public class RuleTests
         int RuleNumber = 2;
         ParsedRule? pr1 = rr.RegisteredRule(RuleNumber);
         Assert.NotNull(pr1);
-        Assert.Equal(RuleNumber, pr1.Number);
+        Assert.Equal(RuleNumber, pr1.RuleDefinition.Number);
     }
 
     [Fact]

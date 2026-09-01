@@ -9,23 +9,23 @@ namespace RightRule.RuleApplication;
 
 internal class RuleApplicationService
 {
-    internal async static Task<IRule> EvaluateFirstAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
+    internal async static Task<IProcessedRule> EvaluateFirstAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
     {
         return await EvaluateFirstMatchAsync(interpreter, Context, parsedRules).ConfigureAwait(false);
     }
 
-    internal async static Task<List<IRule>> ApplyRulesAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturn ReturnRules)
+    internal async static Task<List<IProcessedRule>> ApplyRulesAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturn ReturnRules)
     {
         return await EvaluateAllAsync(interpreter, Context, parsedRules, ReturnRules).ConfigureAwait(false);
     }
 
-    private async static Task<IRule> EvaluateFirstMatchAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
+    private async static Task<IProcessedRule> EvaluateFirstMatchAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
     {
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
         return await interpreter.EvaluateFirstAsync(filteredRules).ConfigureAwait(false);
     }
 
-    private async static Task<List<IRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturn ReturnRules)
+    private async static Task<List<IProcessedRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturn ReturnRules)
     {
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
         return await interpreter.EvaluateAllAsync(filteredRules, ReturnRules).ConfigureAwait(false);

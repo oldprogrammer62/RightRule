@@ -21,6 +21,7 @@ public class DataTypes_Test
             .Context("Context")
             .Statement("Data.Value = 100")
             .Decision("DONE")
+            .FalseDecision("NOT DONE")
             .WithDataCheck(true)
             .Build();
         var prule = rr.RegisterRule(rule);
@@ -47,6 +48,7 @@ public class DataTypes_Test
             .Context("Context")
             .Statement("Value22 = 100")
             .Decision("DONE")
+            .FalseDecision("NOT DONE")
             .WithDataCheck(true)
             .Build();
         var prule = rr.RegisterRule(rule);
@@ -71,6 +73,7 @@ public class DataTypes_Test
             .Context("Context")
             .Statement("Value = 100")
             .Decision("DONE")
+            .FalseDecision("NOT DONE")
             .WithDataCheck(true)
             .Build();
         var prule = rr.RegisterRule(rule);

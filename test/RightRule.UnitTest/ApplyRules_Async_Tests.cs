@@ -17,8 +17,9 @@ public class ApplyRules_Async_Tests
             Context = "Context",
             Number = 1,
             Name = "Rule1",
+            Statement = "Data.field1 = \"value1\"",
             Decision = "DONE",
-            Statement = "Data.field1 = \"value1\""
+            FalseDecision = "NOT_DONE"
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();

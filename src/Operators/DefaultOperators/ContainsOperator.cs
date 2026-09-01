@@ -10,23 +10,23 @@ public sealed class ContainsOperator : Operator
 
     public override List<string> Identifiers { get;  } = ["contains"];
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, object? DecisionData, object? FalseDecisionData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left is null || right is null)
         {
-            return OperatorResult.Failure("One or both operands are null.", DecisionData, FalseDecisionData);
+            return OperatorResult.Failure(this.Name, "One or both operands are null.");
         }
 
         // String contains (case-insensitive)
         if (left is string ls && right is string rs)
         {
-            return OperatorResult.Success(Contains(ls, rs), DecisionData, FalseDecisionData);
+            return OperatorResult.Success(this.Name, Contains(ls, rs));
         }
 
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;
         var rstr = right.ToString() ?? string.Empty;
-        return OperatorResult.Success(Contains(lstr, rstr), DecisionData, FalseDecisionData);
+        return OperatorResult.Success(this.Name, Contains(lstr, rstr));
     }
 
     private static bool Contains(string left, string right)

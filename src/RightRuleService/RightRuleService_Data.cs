@@ -1,5 +1,5 @@
 using RightRule.DataRegistration;
-using RightRule.Models;
+using RightRule.Models.DataRegistration;
 
 namespace RightRule.RuleService;
 

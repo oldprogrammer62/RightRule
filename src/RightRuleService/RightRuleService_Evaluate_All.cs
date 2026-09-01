@@ -8,31 +8,31 @@ namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public async Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var rulesApplied = await EvaluateSpecifiedRulesAsync(Context, RulesToReturn.All).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
         }
         return BuildResult(rulesApplied);
     }
 
-    public async Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var rulesApplied = await EvaluateSpecifiedRulesAsync(Context, ReturnRules).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
         }
         return BuildResult(rulesApplied);
     }
 
-    public async Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -46,7 +46,7 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(rulesApplied);
     }
 
-    public async Task<List<RightRuleServiceResult<IRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -55,24 +55,24 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await EvaluateSpecifiedRulesAsync(Context, DataName, Data, ReturnRules).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
         }
         return BuildResult(rulesApplied);
     }
 
-    private async Task<List<IRule>> EvaluateSpecifiedRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
+    private async Task<List<IProcessedRule>> EvaluateSpecifiedRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules)
     {
         ArgumentNullException.ThrowIfNull(Data, nameof(Data));
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
         RegisterData(DataName, Data);
-        List<IRule> appliedRules = await EvaluateSpecifiedRulesAsync(Context, ReturnRules).ConfigureAwait(false);
+        var appliedRules = await EvaluateSpecifiedRulesAsync(Context, ReturnRules).ConfigureAwait(false);
         DeRegisterData(DataName);
         return appliedRules;
     }
 
-    private async Task<List<IRule>> EvaluateSpecifiedRulesAsync(string Context, RulesToReturn ReturnRules)
+    private async Task<List<IProcessedRule>> EvaluateSpecifiedRulesAsync(string Context, RulesToReturn ReturnRules)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -83,12 +83,12 @@ internal partial class RightRuleService : IRightRuleService
         return await RuleApplicationService.ApplyRulesAsync(_interpreter, Context, _registerRuleService.RegisteredRules, ReturnRules).ConfigureAwait(false);
     }
 
-    private static List<RightRuleServiceResult<IRule>> BuildResult(List<IRule> RulesApplied)
+    private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
     {
-        List<RightRuleServiceResult<IRule>> results = new List<RightRuleServiceResult<IRule>>();
+        List<RightRuleServiceResult<IProcessedRule>> results = new List<RightRuleServiceResult<IProcessedRule>>();
         foreach (var ruleApplied in RulesApplied)
         {
-            results.Add(RightRuleServiceResult<IRule>.Success(ruleApplied));
+            results.Add(RightRuleServiceResult<IProcessedRule>.Build(ruleApplied, ""));
         }
         return results;
     }
