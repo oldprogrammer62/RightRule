@@ -37,14 +37,11 @@ internal interface IRightRuleService
     DataRegistrationResult RegisterData(string DataName, object VariableValue);
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
-    
-    Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstAsync(string Context);
-    Task<RightRuleServiceResult<IProcessedRule>> EvaluateFirstMatchWithDataAsync(string Context, string DataName, Dictionary<string, object> Data);
-    
-    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, RulesToReturn ReturnRules);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> EvaluateAllAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn ReturnRules);
+
+    Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
+    Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

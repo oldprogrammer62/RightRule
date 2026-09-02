@@ -39,6 +39,11 @@ internal sealed class RightRuleServiceResult<T>
         return results;
     }
 
+    public static RightRuleServiceResult<IProcessedRule> Success(IProcessedRule payload)
+    {
+        return new RightRuleServiceResult<IProcessedRule> { Status = ServiceStatus.Success, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = string.Empty, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+    }
+
     public static RightRuleServiceResult<IProcessedRule> Build(IProcessedRule payload, string message)
     {
         return payload.Result switch
@@ -48,8 +53,8 @@ internal sealed class RightRuleServiceResult<T>
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> Success(IProcessedRule? payload) =>
-        new RightRuleServiceResult<IProcessedRule> { Status = ServiceStatus.Success, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = string.Empty, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+    //public static RightRuleServiceResult<IProcessedRule> Success(IProcessedRule? payload) =>
+    //    new RightRuleServiceResult<IProcessedRule> { Status = ServiceStatus.Success, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = string.Empty, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
 
     public static RightRuleServiceResult<IProcessedRule> Failure(string message, IProcessedRule? payload = default) =>
         new() { Status = ServiceStatus.Failure, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Decision = payload.FalseDecision, DecisionData = payload.FalseDecisionData, Payload = payload };

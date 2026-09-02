@@ -1,4 +1,5 @@
 ﻿using RightRule.RuleModels;
+using RightRule.System.Common;
 
 namespace RightRuleTests;
 
@@ -35,7 +36,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        var result = rr.EvaluateAll("Test");
+        var result = rr.ApplyRules("Test", RulesToReturn.All);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }

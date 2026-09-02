@@ -1,4 +1,5 @@
 ﻿using RightRule.RuleModels;
+using RightRule.System.Common;
 
 namespace RightRuleTests;
 
@@ -29,7 +30,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateAll("Context");
+        var result = rr.ApplyRules("Context", RulesToReturn.All);
 
         Assert.NotNull(result);
         Assert.Equal("Good", result[0].Decision);
@@ -49,7 +50,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -69,7 +70,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -89,7 +90,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -109,7 +110,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -132,7 +133,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);

@@ -1,6 +1,8 @@
 ﻿using RightRule.DataRegistration;
 using RightRule.Factories.RightRuleLanguageFactory;
+using RightRule.Models;
 using RightRule.Operators;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
@@ -36,6 +38,22 @@ internal partial class RightRuleService : IRightRuleService
         _registeredDataObjects = registeredDataObjects;
 
         _interpreter = CreateInterpreter(_operatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, _operatorsService.OperatorAliases);
+    }
+
+    private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
+    {
+        List<RightRuleServiceResult<IProcessedRule>> results = new List<RightRuleServiceResult<IProcessedRule>>();
+        foreach (var ruleApplied in RulesApplied)
+        {
+            results.Add(BuildResult(ruleApplied));
+        }
+        return results;
+    }
+
+    private static RightRuleServiceResult<IProcessedRule> BuildResult(IProcessedRule RuleApplied)
+    {
+        var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied, "");
+        return result;
     }
 
     private IInterpreter CreateInterpreter(Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)

@@ -26,7 +26,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -53,7 +53,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -78,7 +78,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }

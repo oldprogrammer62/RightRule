@@ -19,9 +19,9 @@ namespace RightRule_Demo.RuleManager
             var hvData = MakeHvData(HighValue);
             rr.RegisterData("hv", hvData);
 
-            var x = rr.EvaluateFirstMatch(Context);
+            var x = rr.ApplyRules(Context);
 
-            var appliedRules = rr.EvaluateAll(Context, ReturnRules);
+            var appliedRules = rr.ApplyRules(Context, ReturnRules);
             // return appliedRules;
             return null; // TO DO
         }

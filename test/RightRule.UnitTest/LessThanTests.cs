@@ -36,7 +36,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -60,7 +60,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -83,7 +83,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -106,7 +106,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -131,7 +131,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -156,7 +156,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -181,7 +181,7 @@ public class LessThanTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.EvaluateFirstMatch("Context");
+        var appliedRule = rr.ApplyRules("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

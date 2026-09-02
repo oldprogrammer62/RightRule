@@ -18,7 +18,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstMatch("TestContext");
+        var result = rr.ApplyRules("TestContext");
         Assert.NotNull(result);
     }
 
@@ -56,7 +56,7 @@ public class SimpleTests
             .Build();
         var rule3Result = rr.RegisterRule(rule3);
 
-        var result = rr.EvaluateAll("TestContext");
+        var result = rr.ApplyRules("TestContext");
         Assert.NotNull(result);
     }
 }

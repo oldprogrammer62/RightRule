@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.System.Common;
 
 namespace RightRuleTests;
 
@@ -20,7 +21,7 @@ public class EvaluateFirstTests
 
         var rule1 = rr.RegisterRule(ruleDef);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
     }
 
@@ -50,7 +51,7 @@ public class EvaluateFirstTests
         var rule1 = rr.RegisterRule(ruleDef1);
         var rule2 = rr.RegisterRule(ruleDef2);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, ruleDef2.Decision);
     }
@@ -81,7 +82,7 @@ public class EvaluateFirstTests
         var rule1 = rr.RegisterRule(ruleDef1);
         var rule2 = rr.RegisterRule(ruleDef2);
 
-        var result = rr.EvaluateAll("Context");
+        var result = rr.ApplyRules("Context", RulesToReturn.All);
         Assert.NotNull(result);
         Assert.Equal(result[0].Decision, ruleDef1.Decision);
         Assert.Equal(result[1].Decision, ruleDef2.FalseDecision);

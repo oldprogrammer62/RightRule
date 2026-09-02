@@ -35,7 +35,7 @@ public class OperatorConfig_Tests
         DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
         RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
 
-        var result = rr.EvaluateFirstMatch("Context");
+        var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
         Assert.Equal(OpConfig, rule1Registered.RegisteredRule.RuleDefinition.OptionalData);
