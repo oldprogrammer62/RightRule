@@ -1,12 +1,14 @@
 ﻿using BeSoft;
+using RightRule.Models;
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<AppliedRule> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn ReturnRules)
+        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn ReturnRules)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
@@ -22,8 +24,7 @@ namespace RightRule_Demo.RuleManager
             var x = rr.ApplyRules(Context);
 
             var appliedRules = rr.ApplyRules(Context, ReturnRules);
-            // return appliedRules;
-            return null; // TO DO
+            return appliedRules;
         }
 
         private static List<DefinedRule> LoadRules(IRightRule rightRule, string Context)

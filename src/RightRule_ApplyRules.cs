@@ -200,8 +200,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    // ***************** FROM EVALUATE ALL RULES *****************
-
     /// <summary>
     /// Apply all Registered Rules for the given context to the data set provided.<br/>
     /// The first Rule to return a positive (true) result will be returned.<br/>
@@ -268,8 +266,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-
+    // ***************************************************************
     // ***************** CALLS TO RIGHT RULE SERVICE *****************
+    // ***************************************************************
 
     private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context)
     {

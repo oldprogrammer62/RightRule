@@ -1,4 +1,6 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
 using RightRule_Demo.DataManager;
 
@@ -74,12 +76,12 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static List<AppliedRule> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn ReturnRules)
+        private static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn ReturnRules)
         {
             return RuleManager.RuleManager.ApplyRules(data, HighValue, ReturnRules);
         }
 
-        private static void DisplayAppliedRules(List<AppliedRule> appliedRules)
+        private static void DisplayAppliedRules(List<RightRuleResult<IProcessedRule>> appliedRules)
         {
             if (appliedRules == null || appliedRules.Count == 0)
             {
@@ -94,7 +96,7 @@ namespace RightRule_Demo
             }
         }
 
-        private static void DisplayAppliedRule(AppliedRule appliedRule)
+        private static void DisplayAppliedRule(RightRuleResult<IProcessedRule> appliedRule)
         {
             if (appliedRule == null)
             {
@@ -103,11 +105,10 @@ namespace RightRule_Demo
             }
 
             Console.WriteLine("Rule applied...");
-            Console.WriteLine($"\tNumber: {appliedRule.ParsedRule.RuleDefinition.Number}");
-            Console.WriteLine($"\tName: {appliedRule.ParsedRule.RuleDefinition.Name}");
+            Console.WriteLine($"\tNumber: {appliedRule.RuleNumber}");
+            Console.WriteLine($"\tName: {appliedRule.RuleName}");
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");
             Console.WriteLine($"\tDecision Data: {appliedRule.DecisionData}");
-            Console.WriteLine($"\tStatement: {appliedRule.ParsedRule.RuleDefinition.Statement}");
             Console.WriteLine($"\tStatement Applied: {appliedRule.StatementApplied}");
         }
 

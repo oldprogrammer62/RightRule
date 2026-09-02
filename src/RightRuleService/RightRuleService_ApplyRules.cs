@@ -115,18 +115,21 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(ruleApplied);
     }
 
+    // *****************************************
     // *** Calls to RULE APPLICATION SERVICE ***
+    // *****************************************
+
     private async Task<List<IProcessedRule>> ApplyMatchAsync_RAS(string Context, RulesToReturn rulesToReturn)
     {
         return rulesToReturn switch
         {
-            RulesToReturn.First => [await xApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            RulesToReturn.All => await xApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            RulesToReturn.First => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturn.All => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
     }
 
-    private async Task<IProcessedRule> xApplyFirstMatchAsync_RAS(string Context)
+    private async Task<IProcessedRule> ApplyFirstMatchAsync_RAS(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -137,7 +140,7 @@ internal partial class RightRuleService : IRightRuleService
         return await RuleApplicationService.ApplyFirstAsync(_interpreter, Context, _registerRuleService.RegisteredRules).ConfigureAwait(false);
     }
 
-    private async Task<List<IProcessedRule>> xApplyAllMatchAsync_RAS(string Context)
+    private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
