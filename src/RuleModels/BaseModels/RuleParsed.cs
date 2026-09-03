@@ -1,4 +1,4 @@
-﻿using RightRule.Models.RuleRegistration;
+﻿using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Parser;
 
 namespace RightRule.RuleModels.BaseModels;

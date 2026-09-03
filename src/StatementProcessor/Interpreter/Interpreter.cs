@@ -1,7 +1,7 @@
 ﻿using RightRule.DataRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
-using RightRule.RuleRegistration;
+using RightRule.RuleRegistration.LogicRules;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.System.Common;
 

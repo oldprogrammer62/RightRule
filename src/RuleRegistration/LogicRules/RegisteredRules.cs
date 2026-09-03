@@ -1,7 +1,7 @@
 ﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
-namespace RightRule.RuleRegistration;
+namespace RightRule.RuleRegistration.LogicRules;
 
 /// <summary>
 /// A Class used to hold a list of ParsedRule objects.

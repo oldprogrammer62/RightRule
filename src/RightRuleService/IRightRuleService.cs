@@ -2,10 +2,9 @@
 using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.Models.DataRegistration;
-using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
-using RightRule.RuleRegistration;
+using RightRule.RuleRegistration.LogicRules;
 using RightRule.System.Common;
 
 namespace RightRule.RuleService;

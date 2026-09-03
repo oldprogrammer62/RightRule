@@ -1,7 +1,7 @@
 ﻿using BeSoft;
 using RightRule.Models.DataRegistration;
-using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration.LogicRules;
 using System.Runtime.CompilerServices;
 
 namespace RightRuleTests;

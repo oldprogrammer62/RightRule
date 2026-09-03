@@ -1,8 +1,7 @@
-﻿using RightRule.Models.RuleRegistration;
-using RightRule.RuleModels;
+﻿using RightRule.RuleModels;
 using System.Data;
 
-namespace RightRule.RuleRegistration;
+namespace RightRule.RuleRegistration.LogicRules;
 
 internal class RegisteredRuleService : IRegisteredRuleService
 {

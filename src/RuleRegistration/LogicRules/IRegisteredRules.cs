@@ -1,7 +1,6 @@
-﻿using RightRule.Models.RuleRegistration;
-using RightRule.RuleModels;
+﻿using RightRule.RuleModels;
 
-namespace RightRule.RuleRegistration;
+namespace RightRule.RuleRegistration.LogicRules;
 
 public interface IRegisteredRules
 {

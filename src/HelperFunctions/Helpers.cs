@@ -1,5 +1,6 @@
 ﻿using RightRule.RuleModels;
 using RightRule.RuleRegistration;
+using RightRule.RuleRegistration.LogicRules;
 
 namespace RightRule.HelperFunctions;
 
@@ -14,7 +15,7 @@ public static class Helpers
                 pr => 
                 pr.RuleDefinition.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
                 &&
-                pr.Status == Models.RuleRegistration.RuleRegistrationStatus.SUCCESS
+                pr.Status == RuleRegistrationStatus.SUCCESS
                 )
                 .OrderBy(pr => pr.RuleDefinition.Number)
                 .ToList();

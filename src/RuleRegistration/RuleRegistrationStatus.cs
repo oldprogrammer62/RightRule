@@ -1,4 +1,4 @@
-﻿namespace RightRule.Models.RuleRegistration;
+﻿namespace RightRule.RuleRegistration;
 
 public enum RuleRegistrationStatus
 {

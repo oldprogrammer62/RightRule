@@ -3,7 +3,7 @@ using RightRule.DataRegistration;
 using RightRule.Factories.LanguageFactory;
 using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.Operators;
-using RightRule.RuleRegistration;
+using RightRule.RuleRegistration.LogicRules;
 using RightRule.RuleService;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.StatementProcessor.Interpreter;
