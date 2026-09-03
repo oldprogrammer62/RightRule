@@ -8,7 +8,7 @@ namespace RightRule.RuleModels;
 /// </summary>
 public sealed class DefaultRule : RuleDefault
 {
-    private DefaultRule() : base()
+    public DefaultRule() : base()
     {
     }
 

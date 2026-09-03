@@ -1,23 +1,22 @@
 ﻿using RightRule.RuleModels;
-using RightRule.RuleModels.BaseModels;
 
 namespace RightRule.RuleRegistration.DefaultRuleRegistration;
 
 internal class DefaultRuleRegister : IDefaultRuleRegister
 {
-    public RuleDefault _defaultRule { get; private set; }
+    public DefaultRule _defaultRule { get; private set; }
 
     public DefaultRuleRegister()
     {
         _defaultRule = DefaultRule.DefaultResult();
     }
 
-    public RuleDefault GetDefaultRule()
+    public DefaultRule GetDefaultRule(string Context)
     {
         return _defaultRule;
     }
 
-    public bool SetDefaultRule(RuleDefault rule)
+    public bool SetDefaultRule(DefaultRule rule)
     {
         if (rule == null)
         {

@@ -8,9 +8,9 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal static class EvaluateFirstMatch
 {
-    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
+    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
     {
-        IProcessedRule appliedRule = defaultRuleRegister.GetDefaultRule();
+        IProcessedRule appliedRule = defaultRuleRegister.GetDefaultRule(Context);
 
         bool complete = false;
         bool matched = false;
@@ -48,7 +48,7 @@ internal static class EvaluateFirstMatch
         }
         if (!matched) // appliedRule is default
         {
-            appliedRule = defaultRuleRegister.GetDefaultRule();
+            appliedRule = defaultRuleRegister.GetDefaultRule(Context);
         }
         return appliedRule;
     }

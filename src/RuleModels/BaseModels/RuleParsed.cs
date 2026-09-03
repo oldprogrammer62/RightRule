@@ -20,6 +20,8 @@ public abstract class RuleParsed : IRule
 
     public RuleRegistrationStatus Status { get; init; }
 
+    public required string Context { get; init; }
+
     /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).
     /// It allows the interpreter to traverse the AST and evaluate the rule statement.

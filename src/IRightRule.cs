@@ -365,6 +365,10 @@ public interface IRightRule
     /// <exception cref="ArgumentNullException"></exception>
     DataRegistrationResult RegisterData(string DataName, object DataReference);
 
+    DefaultRule GetDefaultRule(string Context);
+
+    bool RegisterDefaultRule(DefaultRule rule);
+
     /// <summary>
     /// Registers a single Rule with the RightRule engine.
     /// </summary>

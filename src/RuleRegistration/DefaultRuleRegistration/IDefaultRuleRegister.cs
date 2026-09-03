@@ -1,9 +1,9 @@
-﻿using RightRule.RuleModels.BaseModels;
+﻿using RightRule.RuleModels;
 
 namespace RightRule.RuleRegistration.DefaultRuleRegistration;
 
 public interface IDefaultRuleRegister
 {
-    bool SetDefaultRule(RuleDefault rule);
-    RuleDefault GetDefaultRule();
+    bool SetDefaultRule(DefaultRule rule);
+    DefaultRule GetDefaultRule(string Context);
 }

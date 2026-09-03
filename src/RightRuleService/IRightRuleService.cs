@@ -15,13 +15,16 @@ internal interface IRightRuleService
     IRegisteredDatasets RegisteredDatasets { get; }
     IRegisteredDataObjects RegisteredDataObjects { get; }
 
-    RuleDefault GetDefaultRule();
     Dictionary<string, Operator> GetOperatorAliases();
     List<Operator> GetOperatorDetails();
     bool UnloadOperator(string OperatorName);
+
     ParsedRule? GetRegisteredRule(string Name);
     ParsedRule? GetRegisteredRule(int Number);
     List<ParsedRule> GetRules(string Context);
+
+    DefaultRule GetDefaultRule(string Context);
+    bool RegisterDefaultRule(DefaultRule rule);
 
     List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string Data);
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);

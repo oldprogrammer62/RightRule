@@ -16,6 +16,8 @@ public abstract class RuleDefault : IProcessedRule
 
     public string StatementApplied { get; init; } = string.Empty;
 
+    public string Context { get; init; } = string.Empty;
+
     public string Decision { get; } = DECISIONWORD;
     public object? DecisionData { get; init; } = null;
 

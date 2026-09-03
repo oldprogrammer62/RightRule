@@ -8,7 +8,7 @@ namespace RightRule.StatementProcessor.Evaluator;
 
 internal static class EvaluateAllRules
 {
-    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;
@@ -40,7 +40,7 @@ internal static class EvaluateAllRules
         }
         if (!matched) // appliedRules is empty
         {
-            appliedRules.Add(defaultRuleRegister.GetDefaultRule());
+            appliedRules.Add(defaultRuleRegister.GetDefaultRule(Context));
         }
         return appliedRules;
     }

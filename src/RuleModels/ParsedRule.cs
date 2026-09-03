@@ -28,6 +28,7 @@ public sealed class ParsedRule : RuleParsed
         {
             Number = ruleDefinition.Number,
             Name = ruleDefinition.Name,
+            Context = ruleDefinition.Context,
             Status = RuleRegistrationStatus.SUCCESS,
             RuleDefinition = ruleDefinition,
             Message = message,
@@ -47,6 +48,7 @@ public sealed class ParsedRule : RuleParsed
         {
             Number = ruleDefinition.Number,
             Name = ruleDefinition.Name,
+            Context = ruleDefinition.Context,
             Status = RuleRegistrationStatus.FAILED,
             RuleDefinition = ruleDefinition,
             Message = message,

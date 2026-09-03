@@ -60,7 +60,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule());
+                return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
@@ -125,7 +125,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, rulesToReturn).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule())];
+                return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
@@ -190,7 +190,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule());
+                return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
@@ -256,7 +256,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, rulesToReturn).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule())];
+                return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }

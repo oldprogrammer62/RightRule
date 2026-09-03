@@ -2,15 +2,24 @@ using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RuleRegistration.LogicRules;
-using RightRule.RuleModels.BaseModels;
 
 namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public RuleDefault GetDefaultRule()
+    public bool RegisterDefaultRule(DefaultRule rule)
     {
-        return _defaultRuleRegister.GetDefaultRule();
+        if (rule == null)
+        {
+            return false;
+        }
+        var result = _defaultRuleRegister.SetDefaultRule(rule);
+        return true;
+    }
+
+    public DefaultRule GetDefaultRule(string Context)
+    {
+        return _defaultRuleRegister.GetDefaultRule(Context);
     }
 
     public List<(int Number, string Name)>? GetRuleNumbers()

@@ -1,6 +1,6 @@
 using RightRule.RuleModels;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration.LogicRules;
-using RightRule.System.Common;
 
 namespace BeSoft;
 
@@ -40,6 +40,21 @@ public sealed partial class RightRule : IRightRule, IDisposable
         var contexts = _rightRuleService?.GetRuleContexts();
         return contexts;
     }
+
+    public DefaultRule GetDefaultRule(string Context)
+    {
+        return _rightRuleService.GetDefaultRule(Context);
+    }
+
+    public bool RegisterDefaultRule(DefaultRule rule)
+    {
+        if (rule == null)
+        {
+            return false;
+        }
+        return _rightRuleService.RegisterDefaultRule(rule);
+    }
+
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.

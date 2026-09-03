@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
@@ -38,5 +39,30 @@ public class DefaultRule_Tests
         var rule1 = rr.RegisterRule(ruleDef1);
         var result1 = rr.ApplyRules("Test", RightRule.System.Common.RulesToReturn.All);
         Assert.NotNull(result1);
+    }
+
+    [Fact]
+    public void RegisterNewDefaultRule()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        string context = "Hello";
+
+        var defaultRule1 = rr.GetDefaultRule(context);
+        Assert.NotNull(defaultRule1);
+
+        var newDefaultRule = new DefaultRule()
+        {
+            Number = 1,
+            Name = "DefaultRule1",
+            DecisionData = "DefaultDecision",
+            FalseDecisionData = "DefaultFalseDecision",
+            Context = context
+        };  
+        var result = rr.RegisterDefaultRule(newDefaultRule);
+        Assert.True(result);
+
+        var defaultRule2 = rr.GetDefaultRule(context);
+        Assert.NotNull(defaultRule2);
     }
 }

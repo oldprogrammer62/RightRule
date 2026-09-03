@@ -21,12 +21,12 @@ internal class RuleApplicationService
     private async static Task<IProcessedRule> EvaluateFirstMatchAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
     {
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-        return await interpreter.EvaluateFirstAsync(filteredRules).ConfigureAwait(false);
+        return await interpreter.EvaluateFirstAsync(filteredRules, Context).ConfigureAwait(false);
     }
 
     private async static Task<List<IProcessedRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturn ReturnRules)
     {
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-        return await interpreter.EvaluateAllAsync(filteredRules, ReturnRules).ConfigureAwait(false);
+        return await interpreter.EvaluateAllAsync(filteredRules, Context, ReturnRules).ConfigureAwait(false);
     }
 }
