@@ -15,6 +15,7 @@ internal interface IRightRuleService
     IRegisteredDatasets RegisteredDatasets { get; }
     IRegisteredDataObjects RegisteredDataObjects { get; }
 
+    RuleDefault GetDefaultRule();
     Dictionary<string, Operator> GetOperatorAliases();
     List<Operator> GetOperatorDetails();
     bool UnloadOperator(string OperatorName);

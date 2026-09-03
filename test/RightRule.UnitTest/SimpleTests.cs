@@ -23,6 +23,24 @@ public class SimpleTests
     }
 
     [Fact]
+    public void TestWithDefault()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        var rule1 = rr.BuildRuleDefinition()
+            .Number(1)
+            .Name("TestRule1")
+            .Context("TestContext")
+            .Statement("1 = 1 and 2 <> 2")
+            .Decision("SAME")
+            .FalseDecision("NOTSAME")
+            .Build();
+        var rule1Result = rr.RegisterRule(rule1);
+
+        var result = rr.ApplyRules("TestContext");
+        Assert.NotNull(result);
+    }
+
+    [Fact]
     public void Test_WithError_Rule()
     {
         IRightRule rr = new BeSoft.RightRule();

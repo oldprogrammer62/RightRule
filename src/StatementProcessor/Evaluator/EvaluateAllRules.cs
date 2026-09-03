@@ -2,12 +2,13 @@
 using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
 internal static class EvaluateAllRules
 {
-    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;
@@ -39,7 +40,7 @@ internal static class EvaluateAllRules
         }
         if (!matched) // appliedRules is empty
         {
-            appliedRules.Add(DefaultRule.DefaultResult());
+            appliedRules.Add(defaultRuleRegister.GetDefaultRule());
         }
         return appliedRules;
     }

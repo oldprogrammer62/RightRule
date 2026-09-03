@@ -3,6 +3,7 @@ using RightRule.DataRegistration;
 using RightRule.Factories.LanguageFactory;
 using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.Operators;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
 using RightRule.RuleService;
 using RightRule.StatementProcessor.Evaluator;
@@ -29,8 +30,9 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredRules, RegisteredRules>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
 
-        services.AddScoped<ILanguageFactory, LanguageFactory>();
+        services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
 
+        services.AddScoped<ILanguageFactory, LanguageFactory>();
         services.AddSingleton<IInterpreter, Interpreter>();
         services.AddSingleton<IEvaluator, Evaluator>();
         services.AddSingleton<ITokenizer, Tokenizer>();

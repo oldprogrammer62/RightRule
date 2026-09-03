@@ -49,7 +49,6 @@
     <Folder Include="Factories\RuleFactory\" />
     <Folder Include="Licenses\" />
     <Folder Include="OperatorLoader\" />
-    <Folder Include="RuleRegistration\DefaultRule\" />
   </ItemGroup>
 
   <ItemGroup>

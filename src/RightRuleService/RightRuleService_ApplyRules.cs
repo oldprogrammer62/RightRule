@@ -15,14 +15,14 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyRulesAsync(Context, RulesToReturn.First).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
-            return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule());
         }
         var result = rulesApplied.FirstOrDefault();
         if (result != null)
         {
             return result;
         }
-        return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+        return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule());
     }
 
     public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
@@ -30,14 +30,14 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyRulesAsync(Context, DataName, Data, RulesToReturn.First).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
-            return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule());
         }
         var result = rulesApplied.FirstOrDefault();
         if (result != null)
         {
             return result;
         }
-        return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+        return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule());
     }
 
     public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
@@ -67,7 +67,7 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyMatchAsync_RAS(Context, rulesToReturn).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule())];
         }
         return BuildResult(rulesApplied);
     }
@@ -79,7 +79,7 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyMatchAsync_RAS(Context, rulesToReturn).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule())];
         }
         return BuildResult(rulesApplied);
     }
@@ -88,15 +88,15 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
+        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
         {
-            return RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule());
         }
         RegisterData(DataName, Data);
         var rulesApplied = await ApplyMatchAsync_RAS(Context, RulesToReturn.First).ConfigureAwait(false);
         DeRegisterData(DataName);
 
-        var ruleApplied = rulesApplied.FirstOrDefault() ?? DefaultRule.DefaultResult();
+        var ruleApplied = rulesApplied.FirstOrDefault() ?? GetDefaultRule();
         return RightRuleServiceResult<IProcessedRule>.Success(ruleApplied);
     }
 
@@ -104,9 +104,9 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
+        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
         {
-            return [RightRuleServiceResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule())];
         }
         RegisterData(DataName, Data);
         var ruleApplied = await ApplyMatchAsync_RAS(Context, RulesToReturn.All).ConfigureAwait(false);
@@ -133,21 +133,21 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
+        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
         {
-            return DefaultRule.DefaultResult();
+            return GetDefaultRule();
         }
-        return await RuleApplicationService.ApplyFirstAsync(_interpreter, Context, _registerRuleService.RegisteredRules).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyFirstAsync(_interpreter, Context, _registeredRuleService.RegisteredRules).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registerRuleService.RegisteredRules.Rules == null || _registerRuleService.RegisteredRules.Rules.Count == 0)
+        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
         {
-            return [DefaultRule.DefaultResult()];
+            return [GetDefaultRule()];
         }
-        return await RuleApplicationService.ApplyAllAsync(_interpreter, Context, _registerRuleService.RegisteredRules, RulesToReturn.All).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyAllAsync(_interpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.All).ConfigureAwait(false);
     }
 }

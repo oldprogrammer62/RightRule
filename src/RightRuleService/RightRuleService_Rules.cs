@@ -2,40 +2,46 @@ using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RuleRegistration.LogicRules;
+using RightRule.RuleModels.BaseModels;
 
 namespace RightRule.RuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
+    public RuleDefault GetDefaultRule()
+    {
+        return _defaultRuleRegister.GetDefaultRule();
+    }
+
     public List<(int Number, string Name)>? GetRuleNumbers()
     {
-        return _registerRuleService.GetRuleNumbers();
+        return _registeredRuleService.GetRuleNumbers();
     }
 
     public List<string>? GetRuleNames()
     {
-        return _registerRuleService.GetRuleNames();
+        return _registeredRuleService.GetRuleNames();
     }
 
     public List<string>? GetRuleContexts()
     {
-        return _registerRuleService.GetRuleContexts();
+        return _registeredRuleService.GetRuleContexts();
     }
 
     public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
-        return _registerRuleService.GetRegisteredRule(Name);
+        return _registeredRuleService.GetRegisteredRule(Name);
     }
 
     public ParsedRule? GetRegisteredRule(int Number)
     {
-        return _registerRuleService.GetRegisteredRule(Number);
+        return _registeredRuleService.GetRegisteredRule(Number);
     }
 
     public List<ParsedRule> GetRules(string Context)
     {
-        return _registerRuleService.GetRules(Context);
+        return _registeredRuleService.GetRules(Context);
     }
 
     public List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string JsonData)
@@ -62,7 +68,7 @@ internal partial class RightRuleService : IRightRuleService
         var operatorNames = _operatorsService.OperatorNames;
         var objectNames = _registeredDataObjects?.ObjectNames;
         var datasetNames = _registeredDataSets?.DatasetNames;
-        return _registerRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
+        return _registeredRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
     }
 
     /// <summary>
@@ -80,29 +86,29 @@ internal partial class RightRuleService : IRightRuleService
         var objectNames = GetObjectNames();
         var datasetNames = GetDatasetNames();
 
-        return _registerRuleService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
+        return _registeredRuleService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
     }
 
     public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return _registerRuleService.DeRegisterRules(Context);
+        return _registeredRuleService.DeRegisterRules(Context);
     }
 
     public bool DeRegisterRules()
     {
-        return _registerRuleService.DeRegisterRules();
+        return _registeredRuleService.DeRegisterRules();
     }
 
     public bool DeRegisterRule(string Name)
     {
-        return _registerRuleService.DeRegisterRule(Name);
+        return _registeredRuleService.DeRegisterRule(Name);
     }
 
     public bool DeRegisterRule(int Number)
     {
-        return _registerRuleService.DeRegisterRule(Number);
+        return _registeredRuleService.DeRegisterRule(Number);
     }
 
     private HashSet<string> GetObjectNames()

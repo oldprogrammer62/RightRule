@@ -1,10 +1,12 @@
 ﻿using RightRule.RuleModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 
 namespace RightRule.RuleRegistration.LogicRules;
 
 internal interface IRegisteredRuleService
 {
     IRegisteredRules RegisteredRules { get; }
+
     ParsedRule? GetRegisteredRule(string Name);
     ParsedRule? GetRegisteredRule(int Number);
     List<ParsedRule> GetRules(string Context);

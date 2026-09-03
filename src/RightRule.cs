@@ -27,7 +27,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
     }
 
-    private static List<RightRuleResult<IProcessedRule>> BuildResult(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
+    private List<RightRuleResult<IProcessedRule>> BuildResult(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
     {
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
 
@@ -38,7 +38,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return rightRuleResults;
     }
 
-    private static RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
+    private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
     {
         return serviceResult.Status switch
         {
@@ -46,15 +46,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
                 RightRuleResult<IProcessedRule>.Success(serviceResult.Payload, serviceResult.Payload.StatementApplied),
 
             ServiceStatus.Failure =>
-                RightRuleResult<IProcessedRule>.Failure(serviceResult.Message, serviceResult.Payload.StatementApplied, serviceResult.Payload != null ? serviceResult.Payload : DefaultRule.DefaultResult()),
+                RightRuleResult<IProcessedRule>.Failure(serviceResult.Message, serviceResult?.Payload?.StatementApplied ?? string.Empty, serviceResult?.Payload != null ? serviceResult.Payload : _rightRuleService.GetDefaultRule()),
 
             ServiceStatus.Default =>
-                RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult(), serviceResult.Message),
+                RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(), serviceResult.Message),
 
             ServiceStatus.Error =>
                 RightRuleResult<IProcessedRule>.Error(serviceResult.Exception ?? new Exception(serviceResult.Message), serviceResult.Payload != null ? serviceResult.Payload : ErrorRule.ErrorResult(serviceResult.Message)),
 
-            _ => RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())
+            _ => RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule())
         };
     }
 

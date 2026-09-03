@@ -2,14 +2,15 @@
 using RightRule.Models.RuleEvaluation;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 
 namespace RightRule.StatementProcessor.Evaluator;
 
 internal static class EvaluateFirstMatch
 {
-    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects)
+    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
     {
-        IProcessedRule appliedRule = DefaultRule.DefaultResult();
+        IProcessedRule appliedRule = defaultRuleRegister.GetDefaultRule();
 
         bool complete = false;
         bool matched = false;
@@ -47,7 +48,7 @@ internal static class EvaluateFirstMatch
         }
         if (!matched) // appliedRule is default
         {
-            appliedRule = DefaultRule.DefaultResult();
+            appliedRule = defaultRuleRegister.GetDefaultRule();
         }
         return appliedRule;
     }
