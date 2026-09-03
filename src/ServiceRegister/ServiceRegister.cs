@@ -22,6 +22,7 @@ internal sealed class ServiceRegister
         }
         services.AddScoped<IRightRuleService, RightRuleService>();
         services.AddScoped<IOperatorsService, OperatorsService>();
+
         services.AddScoped<IRegisteredRuleService, RegisteredRuleService>();
         services.AddScoped<IRegisteredDatasets, RegisteredDatasets>();
         services.AddScoped<IRegisteredDataObjects, RegisteredDataObjects>();

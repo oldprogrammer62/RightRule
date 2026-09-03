@@ -12,33 +12,10 @@ namespace RightRule.RuleModels;
 /// The Node property allows the interpreter to traverse the abstract syntax tree (AST) of the parsed rule statement and evaluate it accordingly.
 /// This class is internal
 /// </summary>
-public sealed class ParsedRule
+public sealed class ParsedRule : RuleParsed
 {
-    public RuleRegistrationStatus Status { get; init; }
-
-    public required RuleDefinition RuleDefinition { get; init; }
-
-    /// <summary>
-    /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).
-    /// It allows the interpreter to traverse the AST and evaluate the rule statement.
-    /// </summary>
-    public required Node? Node { get; init; }
-
-    /// <summary>
-    /// Provides the AST (Abstract Syntax Tree) path of the statement applied when evaluating the rule.
-    /// </summary>
-    public required string StatementPath { get; init; }
-
-    /// <summary>
-    /// When parsing fails during registration this holds the parser/tokenizer error message.
-    /// </summary>
-    public string? Message { get; init; }
-
     private ParsedRule() : base()
     {
-        Node = null;
-        StatementPath = string.Empty;
-        Message = string.Empty;
     }
 
     internal static ParsedRule? SuccessResult(DefinedRule? ruleDefinition, Node node, string message)
@@ -50,6 +27,8 @@ public sealed class ParsedRule
 
         return new ParsedRule()
         {
+            Number = ruleDefinition.Number,
+            Name = ruleDefinition.Name,
             Status = RuleRegistrationStatus.SUCCESS,
             RuleDefinition = ruleDefinition,
             Message = message,
@@ -67,7 +46,9 @@ public sealed class ParsedRule
 
         return new ParsedRule()
         {
-            Status = RuleRegistrationStatus.ERROR,
+            Number = ruleDefinition.Number,
+            Name = ruleDefinition.Name,
+            Status = RuleRegistrationStatus.FAILED,
             RuleDefinition = ruleDefinition,
             Message = message,
             StatementPath = string.Empty,
@@ -93,7 +74,7 @@ public sealed class ParsedRule
 
     private static string BuildTreeText(DefinedRule? ruleDefinition, Node node)
     {
-        bool diagnostics = Helper.GetDiagnosticsSetting(ruleDefinition); ;
+        bool diagnostics = Helper.GetDiagnosticsSetting(ruleDefinition);
         if (diagnostics)
         {
             return StatementProcessor.StatementPathBuilder.BuildTreeText(node);

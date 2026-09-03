@@ -75,6 +75,12 @@ public interface IRightRule
     /// <exception cref="Exception"></exception>
     RightRuleResult<IProcessedRule> ApplyRules(string Context);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Context"></param>
+    /// <param name="rulesToReturn"></param>
+    /// <returns></returns>
     List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturn rulesToReturn);
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
 

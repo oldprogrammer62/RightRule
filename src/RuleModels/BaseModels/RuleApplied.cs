@@ -7,10 +7,6 @@ public abstract class RuleApplied : IProcessedRule
 
     public required ParsedRule ParsedRule { get; init; }
 
-    /// <summary>
-    /// Diagnostics only
-    /// Provides the actual statement applied when evaluating the rule.
-    /// </summary>
     public required string StatementApplied { get; init; }
 
     public required bool IsSuccess { get; init; }

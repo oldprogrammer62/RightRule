@@ -6,9 +6,10 @@ public abstract class RuleDefault : IProcessedRule
 {
     public const string DECISIONWORD = "NODECISION";
     public const string FALSEDECISIONWORD = "NODECISION";
+    public const string RULENAME = "DefaultRule";
 
     public int Number { get; init; } = (int)RuleNumberEnum.DefaultRule;
-    public string Name { get; init; } = "DefaultRule";
+    public string Name { get; init; } = RULENAME;
 
     public bool IsSuccess { get; init; } = true;
     public bool Result { get; init; } = false;

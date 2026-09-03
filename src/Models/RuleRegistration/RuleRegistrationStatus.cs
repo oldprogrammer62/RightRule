@@ -3,5 +3,5 @@
 public enum RuleRegistrationStatus
 {
     SUCCESS = 1,
-    ERROR = 2
+    FAILED = 2
 }

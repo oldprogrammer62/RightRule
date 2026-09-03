@@ -6,9 +6,10 @@ public abstract class RuleError : IProcessedRule
 {
     public const string DECISIONWORD = "ERROR";
     public const string FALSEDECISIONWORD = "ERROR";
+    public const string RULENAME = "ErrorRule";
 
     public int Number { get; init; } = (int)RuleNumberEnum.ErrorRule;
-    public string Name { get; init; } = "ErrorRule";
+    public string Name { get; init; } = RULENAME;
 
     public bool IsSuccess { get; } = false;
     public bool Result { get; } = false;

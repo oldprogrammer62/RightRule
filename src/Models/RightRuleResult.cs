@@ -15,17 +15,13 @@ public sealed class RightRuleResult<T>
     public required int RuleNumber { get; init; }
     public required string RuleName { get; init; }
 
-    //public required bool IsSuccess { get; init; }
-    //public required bool Result { get; init; }
-
     public required string Decision { get; init; }
     public object? DecisionData { get; init; }
     
-    public string StatementApplied { get; init; }
-    
+    public required string StatementApplied { get; init; } = string.Empty;
+
     public string Message { get; init; } = string.Empty;
 
-    //public Exception? Exception { get; init; }
 
     private RightRuleResult() { }
 
