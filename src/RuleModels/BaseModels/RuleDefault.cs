@@ -5,7 +5,7 @@ namespace RightRule.RuleModels.BaseModels;
 public abstract class RuleDefault : IProcessedRule
 {
     public const string DECISIONWORD = "NODECISION";
-    public const string RULENAME = "DEDFAULTRULE";
+    public const string RULENAME = "DEFAULTRULE";
 
     int IRule.Number { get; } = (int)RuleNumberEnum.DefaultRule;
     public string Name { get; init; } = RULENAME;
