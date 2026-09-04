@@ -10,13 +10,12 @@ public abstract class RuleDefault : IProcessedRule
 
     public int Number { get; init; } = (int)RuleNumberEnum.DefaultRule;
     public string Name { get; init; } = RULENAME;
+    public string Context { get; init; } = string.Empty;
 
     public bool IsSuccess { get; init; } = true;
     public bool Result { get; init; } = false;
-
     public string StatementApplied { get; init; } = string.Empty;
-
-    public string Context { get; init; } = string.Empty;
+    public string Message {  get; init; } = string.Empty;
 
     public string Decision { get; } = DECISIONWORD;
     public object? DecisionData { get; init; } = null;

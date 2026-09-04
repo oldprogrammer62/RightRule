@@ -27,7 +27,8 @@ public sealed class AppliedRule : RuleApplied
             FalseDecision = parsedRule.RuleDefinition.FalseDecision,
             FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
             IsSuccess = result.IsSuccess,
-            Result = result.Result
+            Result = result.Result,
+            Message = result.Message
         };
     }
 
@@ -45,7 +46,8 @@ public sealed class AppliedRule : RuleApplied
             FalseDecision = parsedRule.RuleDefinition.FalseDecision,
             FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
             IsSuccess = result.IsSuccess,
-            Result = result.Result
+            Result = result.Result,
+            Message = result.Message
         };
     }
 

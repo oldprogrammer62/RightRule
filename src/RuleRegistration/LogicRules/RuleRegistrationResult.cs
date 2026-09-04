@@ -4,7 +4,7 @@ namespace RightRule.RuleRegistration.LogicRules;
 
 public class RuleRegistrationResult
 {
-    public RuleRegistrationStatus Status { get; init; }
+    public RegistrationStatus Status { get; init; }
 
     public bool IsSuccess { get; init; }
 

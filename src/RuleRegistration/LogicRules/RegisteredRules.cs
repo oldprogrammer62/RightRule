@@ -35,18 +35,18 @@ internal class RegisteredRules : IRegisteredRules
         {
             return RuleRegistrationResult.Failed("Rule is null", null);
         }
-        var existingRule = GetRule(rule.RuleDefinition.Number, rule.RuleDefinition.Name);
+        var existingRule = GetRule(rule.Number, rule.Name);
         switch (existingRule)
         {
             case RuleFound.NotFound:
                 _rules.Add(rule);
-                return RuleRegistrationResult.Success($"Rule: {rule.RuleDefinition.Number}-{rule.RuleDefinition.Name} Registered", rule);
+                return RuleRegistrationResult.Success($"Rule: {rule.Number}-{rule.Name} Registered", rule);
             case RuleFound.FoundByNumber:
-                return RuleRegistrationResult.Failed($"Rule Number: {rule.RuleDefinition.Number} already registered", rule);
+                return RuleRegistrationResult.Failed($"Rule Number: {rule.Number} already registered", rule);
             case RuleFound.FoundByName:
-                return RuleRegistrationResult.Failed($"Rule Name: {rule.RuleDefinition.Name} already registered", rule);
+                return RuleRegistrationResult.Failed($"Rule Name: {rule.Name} already registered", rule);
             default:
-                return RuleRegistrationResult.Failed($"Rule: {rule.RuleDefinition.Number}-{rule.RuleDefinition.Name} not registered", rule);
+                return RuleRegistrationResult.Failed($"Rule: {rule.Number}-{rule.Name} not registered", rule);
         }
     }
 
@@ -64,7 +64,7 @@ internal class RegisteredRules : IRegisteredRules
     {
         try
         {
-            _rules.RemoveAll(r => string.Equals(r.RuleDefinition.Context, Context, StringComparison.OrdinalIgnoreCase));
+            _rules.RemoveAll(r => string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
             return true;
         }
         catch
@@ -77,7 +77,7 @@ internal class RegisteredRules : IRegisteredRules
     {
         try
         {
-            _rules.RemoveAll(r => string.Equals(r.RuleDefinition.Name, Name, StringComparison.OrdinalIgnoreCase));
+            _rules.RemoveAll(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
             return true;
         }
         catch
@@ -90,7 +90,7 @@ internal class RegisteredRules : IRegisteredRules
     {
         try
         {
-            _rules.RemoveAll(r => r.RuleDefinition.Number == Number);
+            _rules.RemoveAll(r => r.Number == Number);
             return true;
         }
         catch
@@ -115,15 +115,15 @@ internal class RegisteredRules : IRegisteredRules
     public List<(int Number, string Name)> GetRuleNumbers()
     {
         return _rules
-            .DistinctBy(rule => rule.RuleDefinition.Number)
-            .Select(rule => (rule.RuleDefinition.Number, rule.RuleDefinition.Name))
+            .DistinctBy(rule => rule.Number)
+            .Select(rule => (rule.Number, rule.Name))
             .ToList();
     }
 
     public List<string> GetRuleNames()
     {
         return _rules
-            .Select(rule => rule.RuleDefinition.Name)
+            .Select(rule => rule.Name)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Order()
             .ToList();
@@ -132,7 +132,7 @@ internal class RegisteredRules : IRegisteredRules
     public List<string> GetRuleContexts()
     {
         return _rules
-            .Select(rule => rule.RuleDefinition.Context)
+            .Select(rule => rule.Context)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Order()
             .ToList();
@@ -153,7 +153,7 @@ internal class RegisteredRules : IRegisteredRules
 
     private bool GetRule(int number)
     {
-        return _rules.Any(d => d.RuleDefinition.Number.Equals(number));
+        return _rules.Any(d => d.Number.Equals(number));
     }
 
     private bool GetRule(string name)
@@ -162,6 +162,6 @@ internal class RegisteredRules : IRegisteredRules
         {
             return false;
         }
-        return _rules.Any(d => d.RuleDefinition.Name.Equals(name, StringComparison.Ordinal));
+        return _rules.Any(d => d.Name.Equals(name, StringComparison.Ordinal));
     }
 }

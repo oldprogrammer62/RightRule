@@ -19,18 +19,18 @@ internal class RegisteredRuleService : IRegisteredRuleService
     public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentNullException.ThrowIfNull(Name, nameof(Name));
-        return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.RuleDefinition.Name, Name, StringComparison.OrdinalIgnoreCase));
+        return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
     }
 
     public ParsedRule? GetRegisteredRule(int Number)
     {
         ArgumentNullException.ThrowIfNull(Number, nameof(Number));
-        return _registeredRules.Rules.FirstOrDefault(r => r.RuleDefinition.Number == Number);
+        return _registeredRules.Rules.FirstOrDefault(r => r.Number == Number);
     }
 
     public List<ParsedRule> GetRules(string Context)
     {
-        return _registeredRules.Rules.Where(r => r.RuleDefinition.Context == Context).ToList();
+        return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
     public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)

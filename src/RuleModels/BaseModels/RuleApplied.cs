@@ -2,17 +2,16 @@
 
 public abstract class RuleApplied : IProcessedRule
 {
-    public required int Number { get; init; }
-    public required string Name { get; init; }
-
     public required ParsedRule ParsedRule { get; init; }
 
-    public required string StatementApplied { get; init; }
+    public required int Number { get; init; }
+    public required string Name { get; init; }
+    public required string Context { get; init; }
 
     public required bool IsSuccess { get; init; }
     public required bool Result { get; init; }
-
-    public required string Context { get; init; }
+    public required string StatementApplied { get; init; }
+    public required string Message { get; init; } = string.Empty;
 
     /// <summary>
     /// The string returned to the calling application if the rule evaluates true

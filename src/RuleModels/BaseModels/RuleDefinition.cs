@@ -2,7 +2,7 @@
 
 namespace RightRule.RuleModels.BaseModels;
 
-public abstract class RuleDefinition : IRule
+public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
 {
     /// <summary>
     /// Identifies the Rule by number.
