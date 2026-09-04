@@ -1,21 +1,23 @@
-﻿using RightRule.RuleRegistration;
+﻿using RightRule.Models.RuleRegistration;
+using RightRule.RuleRegistration;
 using RightRule.StatementProcessor.Parser;
 
 namespace RightRule.RuleModels.BaseModels;
 
-public abstract class RuleParsed : IRule, IParsed
+public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
 {
     protected RuleParsed()
     {
     }
 
     public required int Number { get; init; }
-
     public required string Name { get; init; }
-
-    public required RuleDefinition RuleDefinition { get; init; }
-
     public required string Context { get; init; }
+
+    public required string Decision { get; init; }
+    public object? DecisionData { get; init; }
+    public required string FalseDecision { get; init; }
+    public object? FalseDecisionData { get; init; }
 
     public required string Statement { get; init; }
 
@@ -36,4 +38,8 @@ public abstract class RuleParsed : IRule, IParsed
     ///// When parsing fails during registration this holds the parser/tokenizer error message.
     ///// </summary>
     public string? Message { get; init; }
+
+    public object? OptionalData { get; init; }
+
+    public RightRuleConfiguration? RuleConfiguration { get; init; }
 }

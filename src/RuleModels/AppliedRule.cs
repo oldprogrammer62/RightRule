@@ -17,15 +17,15 @@ public sealed class AppliedRule : RuleApplied
     {
         return new AppliedRule()
         {
-            Number = parsedRule.RuleDefinition.Number,
-            Name = parsedRule.RuleDefinition.Name,
+            Number = parsedRule.Number,
+            Name = parsedRule.Name,
             ParsedRule = parsedRule,
-            Context = parsedRule.RuleDefinition.Context,
+            Context = parsedRule.Context,
             StatementApplied = result.StatementApplied,
-            Decision = parsedRule.RuleDefinition.Decision,
-            DecisionData = parsedRule.RuleDefinition.DecisionData,
-            FalseDecision = parsedRule.RuleDefinition.FalseDecision,
-            FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
+            Decision = parsedRule.Decision,
+            DecisionData = parsedRule.DecisionData,
+            FalseDecision = parsedRule.FalseDecision,
+            FalseDecisionData = parsedRule.FalseDecisionData,
             IsSuccess = result.IsSuccess,
             Result = result.Result,
             Message = result.Message
@@ -36,15 +36,15 @@ public sealed class AppliedRule : RuleApplied
     {
         return new AppliedRule()
         {
-            Number = parsedRule.RuleDefinition.Number,
-            Name = parsedRule.RuleDefinition.Name,
+            Number = parsedRule.Number,
+            Name = parsedRule.Name,
             ParsedRule = parsedRule,
-            Context = parsedRule.RuleDefinition.Context,
+            Context = parsedRule.Context,
             StatementApplied = result.StatementApplied,
-            Decision = parsedRule.RuleDefinition.Decision,
-            DecisionData = parsedRule.RuleDefinition.DecisionData,
-            FalseDecision = parsedRule.RuleDefinition.FalseDecision,
-            FalseDecisionData = parsedRule.RuleDefinition.FalseDecisionData,
+            Decision = parsedRule.Decision,
+            DecisionData = parsedRule.DecisionData,
+            FalseDecision = parsedRule.FalseDecision,
+            FalseDecisionData = parsedRule.FalseDecisionData,
             IsSuccess = result.IsSuccess,
             Result = result.Result,
             Message = result.Message
@@ -56,10 +56,10 @@ public sealed class AppliedRule : RuleApplied
         var statementApplied = !string.IsNullOrWhiteSpace(StatementApplied) ? StatementApplied : "Enable Diagnostics";
 
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {this.ParsedRule.RuleDefinition.Number}");
-        sb.AppendLine($"Name: {this.ParsedRule.RuleDefinition.Name}");
-        sb.AppendLine($"Context: {this.ParsedRule.RuleDefinition.Context}");
-        sb.AppendLine($"Statement: {this.ParsedRule.RuleDefinition.Statement}");
+        sb.AppendLine($"Number: {this.ParsedRule.Number}");
+        sb.AppendLine($"Name: {this.ParsedRule.Name}");
+        sb.AppendLine($"Context: {this.ParsedRule.Context}");
+        sb.AppendLine($"Statement: {this.ParsedRule.Statement}");
         sb.AppendLine($"IsSuccess: {this.IsSuccess}");
         sb.AppendLine($"Result: {this.Result}");
         sb.AppendLine($"Decision: {this.Decision}");

@@ -12,12 +12,12 @@ public static class Helpers
         {
             var filteredRules = Rules.Where
                 (
-                pr => 
-                pr.RuleDefinition.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
+                parsedRule => 
+                parsedRule.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
                 &&
-                pr.Status == RegistrationStatus.SUCCESS
+                parsedRule.Status == RegistrationStatus.SUCCESS
                 )
-                .OrderBy(pr => pr.RuleDefinition.Number)
+                .OrderBy(pr => pr.Number)
                 .ToList();
             return new RegisteredRules(filteredRules);
         }

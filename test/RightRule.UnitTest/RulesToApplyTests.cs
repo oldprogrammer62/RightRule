@@ -180,7 +180,7 @@ public class RulesToApplyTests
         var appliedRules = rr.ApplyRules("AllContext", RulesToReturn.All);
         var appliedRule = appliedRules.FirstOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.RuleDefinition.Decision);
+        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.Decision);
     }
 
     [Fact]
@@ -194,6 +194,6 @@ public class RulesToApplyTests
         var appliedRules = rr.ApplyRules("AllContext", RulesToReturn.All);
         var appliedRule = appliedRules.LastOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.RuleDefinition.Decision);
+        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.Decision);
     }
 }

@@ -59,7 +59,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rrule.RegisteredRule.RuleDefinition.Decision, result.Decision);
+        Assert.Equal(rrule.RegisteredRule.Decision, result.Decision);
     }
 
     [Fact]

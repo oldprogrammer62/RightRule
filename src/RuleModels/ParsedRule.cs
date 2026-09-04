@@ -30,11 +30,16 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
+            FalseDecision = ruleDefinition.FalseDecision,
+            FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RegistrationStatus.SUCCESS,
-            RuleDefinition = ruleDefinition,
             Message = message,
             StatementPath = BuildTreeText(ruleDefinition, node),
-            Node = node
+            Node = node,
+            OptionalData = ruleDefinition.OptionalData,
+            RuleConfiguration = ruleDefinition.RuleConfiguration
         };
     }
 
@@ -50,26 +55,33 @@ public sealed class ParsedRule : RuleParsed
             Number = ruleDefinition.Number,
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
+            FalseDecision = ruleDefinition.FalseDecision,
+            FalseDecisionData = ruleDefinition.FalseDecisionData,
             Statement = ruleDefinition.Statement,
             Status = RegistrationStatus.FAILED,
-            RuleDefinition = ruleDefinition,
             Message = message,
             StatementPath = string.Empty,
-            Node = null
+            Node = null,
+            OptionalData = ruleDefinition.OptionalData,
+            RuleConfiguration = ruleDefinition.RuleConfiguration
         };
     }
 
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {this.RuleDefinition.Number}");
-        sb.AppendLine($"Name: {this.RuleDefinition.Name}");
-        sb.AppendLine($"Context: {this.RuleDefinition.Context}");
-        sb.AppendLine($"Statement: {this.RuleDefinition.Statement}");
-        sb.AppendLine($"Configuration: {this.RuleDefinition.OptionalData}");
-        sb.AppendLine($"Decision: {this.RuleDefinition.Decision}");
-        sb.AppendLine($"DecisionData: {this.RuleDefinition.DecisionData}");
-        sb.AppendLine($"OptionalData: {this.RuleDefinition.OptionalData}");
+        sb.AppendLine($"Number: {this.Number}");
+        sb.AppendLine($"Name: {this.Name}");
+        sb.AppendLine($"Context: {this.Context}");
+        sb.AppendLine($"Statement: {this.Statement}");
+        sb.AppendLine($"Configuration: {this.OptionalData}");
+        sb.AppendLine($"Decision: {this.Decision}");
+        sb.AppendLine($"DecisionData: {this.DecisionData}");
+        sb.AppendLine($"FalseDecision: {this.FalseDecision}");
+        sb.AppendLine($"FalseDecisionData: {this.FalseDecisionData}");
+        sb.AppendLine($"OptionalData: {this.OptionalData}");
         sb.AppendLine($"StatementPath: {this.StatementPath}");
         sb.AppendLine($"Message: {this.Message}");
         return sb.ToString();

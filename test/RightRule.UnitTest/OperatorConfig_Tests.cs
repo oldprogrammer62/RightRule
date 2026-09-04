@@ -38,6 +38,6 @@ public class OperatorConfig_Tests
         var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(OpConfig, rule1Registered.RegisteredRule.RuleDefinition.OptionalData);
+        Assert.Equal(OpConfig, rule1Registered.RegisteredRule.OptionalData);
     }
 }

@@ -295,7 +295,7 @@ public class GrammarTests
 
         var appliedRule = rr.ApplyRules("GoodPayerContext");
 
-        Assert.Equal(newRule.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
+        Assert.Equal(newRule.RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -353,7 +353,7 @@ public class GrammarTests
         var appliedRule = rr.ApplyRules("NAMECONTEXT1");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule1.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
+        Assert.Equal(newRule1.RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -388,6 +388,6 @@ public class GrammarTests
         var appliedRule = rr.ApplyRules("NAMECONTEXT2");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule2.RegisteredRule.RuleDefinition.Decision, appliedRule.Decision);
+        Assert.Equal(newRule2.RegisteredRule.Decision, appliedRule.Decision);
     }
 }

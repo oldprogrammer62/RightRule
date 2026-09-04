@@ -47,8 +47,8 @@ internal sealed class Evaluator : IEvaluator
     {
         var node = rule.Node;
 
-        var diagnostics = rule.RuleDefinition.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
-        var statement = rule.RuleDefinition.Statement;
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
+        var statement = rule.Statement;
         return diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
     }
 
@@ -59,9 +59,9 @@ internal sealed class Evaluator : IEvaluator
             return OperatorResult.Failure("XXX", "Rule is invalid/empty.");
         }
 
-        var diagnostics = rule.RuleDefinition.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
+        var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
 
-        return await EvaluateNodeAsync(Datasets, DataObjects, rule.Node, rule.RuleDefinition.OptionalData, diagnostics).ConfigureAwait(false);
+        return await EvaluateNodeAsync(Datasets, DataObjects, rule.Node, rule.OptionalData, diagnostics).ConfigureAwait(false);
     }
 
     private async Task<OperatorResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node? node, object? OptionalData, bool Diagnostics)
