@@ -19,8 +19,8 @@ public sealed class AppliedRule : RuleApplied
         {
             Number = parsedRule.Number,
             Name = parsedRule.Name,
-            ParsedRule = parsedRule,
             Context = parsedRule.Context,
+            Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
             Decision = parsedRule.Decision,
             DecisionData = parsedRule.DecisionData,
@@ -38,8 +38,8 @@ public sealed class AppliedRule : RuleApplied
         {
             Number = parsedRule.Number,
             Name = parsedRule.Name,
-            ParsedRule = parsedRule,
             Context = parsedRule.Context,
+            Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
             Decision = parsedRule.Decision,
             DecisionData = parsedRule.DecisionData,
@@ -56,10 +56,10 @@ public sealed class AppliedRule : RuleApplied
         var statementApplied = !string.IsNullOrWhiteSpace(StatementApplied) ? StatementApplied : "Enable Diagnostics";
 
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {this.ParsedRule.Number}");
-        sb.AppendLine($"Name: {this.ParsedRule.Name}");
-        sb.AppendLine($"Context: {this.ParsedRule.Context}");
-        sb.AppendLine($"Statement: {this.ParsedRule.Statement}");
+        sb.AppendLine($"Number: {this.Number}");
+        sb.AppendLine($"Name: {this.Name}");
+        sb.AppendLine($"Context: {this.Context}");
+        sb.AppendLine($"Statement: {this.Statement}");
         sb.AppendLine($"IsSuccess: {this.IsSuccess}");
         sb.AppendLine($"Result: {this.Result}");
         sb.AppendLine($"Decision: {this.Decision}");
