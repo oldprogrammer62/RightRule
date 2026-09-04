@@ -53,16 +53,51 @@ public class DefaultRule_Tests
 
         var newDefaultRule = new DefaultRule()
         {
-            Number = 1,
             Name = "DefaultRule1",
-            DecisionData = "DefaultDecision",
-            FalseDecisionData = "DefaultFalseDecision",
-            Context = context
+            Context = context,
+            Decision = "dec",
+            DecisionData = "DefaultDecision"
         };  
         var result = rr.RegisterDefaultRule(newDefaultRule);
         Assert.True(result);
 
         var defaultRule2 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
+    }
+
+    [Fact]
+    public void RegisterNewDefaultRuleAndUseIt()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        string context = "Hello";
+
+        var defaultRule1 = rr.GetDefaultRule(context);
+        Assert.NotNull(defaultRule1);
+
+        var newDefaultRule = new DefaultRule()
+        {
+            Name = "HOWDYDOODY",
+            Context = context,
+            Decision = "GOTITNOW",
+            DecisionData = "HELLO WORLD"
+        };
+        var result = rr.RegisterDefaultRule(newDefaultRule);
+        Assert.True(result);
+
+        var defaultRule2 = rr.GetDefaultRule(context);
+        Assert.NotNull(defaultRule2);
+
+        var ruleDef1 = rr.BuildRuleDefinition()
+            .Number(1)
+            .Name("Rule1")
+            .Context(context)
+            .Statement("11 >= 19")
+            .Decision("true")
+            .FalseDecision("False")
+            .Build();
+        var rule1 = rr.RegisterRule(ruleDef1);
+        var result1 = rr.ApplyRules(context);
+        Assert.NotNull(result1);
     }
 }
