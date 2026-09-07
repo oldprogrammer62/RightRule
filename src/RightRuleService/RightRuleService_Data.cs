@@ -1,7 +1,7 @@
 using RightRule.DataRegistration;
 using RightRule.Models.DataRegistration;
 
-namespace RightRule.RuleService;
+namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {

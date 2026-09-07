@@ -135,20 +135,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    /// <summary>
-    /// Apply all Registered Rules for the given context to the data set provided.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.<br/>
-    /// The data set provided will be registered and deregistered as part of this method call.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">The name of the dataset to use</param>
-    /// <param name="Data">The data to apply the rule to</param>
-    /// <returns>
-    /// A single rule object is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
     public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -157,7 +143,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, DataName, Data, DataRetention.Discard).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -174,12 +160,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="dataRetention"></param>
     /// <returns>
     /// A single rule object is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
+    public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -187,7 +174,38 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data).ConfigureAwait(false);
+            return ApplyRulesAsync(Context, DataName, Data, dataRetention).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given context to the data set provided.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.<br/>
+    /// The data set provided will be registered and deregistered as part of this method call.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">The name of the dataset to use</param>
+    /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="dataRetention"></param>
+    /// <returns>
+    /// A single rule object is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+
+        try
+        {
+            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, dataRetention).ConfigureAwait(false);
             if (svcResult == null)
             {
                 return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
@@ -209,12 +227,14 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
+    /// <param name="rulesToReturn"></param>
+    /// <param name="dataRetention"></param>
     /// <returns>
     /// A single rule object is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -222,7 +242,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data, rulesToReturn).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -240,12 +260,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="DataName">The name of the dataset to use</param>
     /// <param name="Data">The data to apply the rule to</param>
     /// <param name="rulesToReturn"></param>
+    /// <param name="dataRetention"></param>
     /// <returns>
     /// A single rule object is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -253,7 +274,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, rulesToReturn).ConfigureAwait(false);
+            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, rulesToReturn, dataRetention).ConfigureAwait(false);
             if (svcResult == null)
             {
                 return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
@@ -283,11 +304,24 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, RulesToReturn rulesToReturn)
     {
         try
         {
-            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data);
+            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, rulesToReturn);
+            return BuildResults(rulesApplied);
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
+    {
+        try
+        {
+            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturn.First, dataRetention);
             return BuildResult(rulesApplied);
         }
         catch (Exception ex)
@@ -296,25 +330,12 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, RulesToReturn rulesToReturn)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
     {
         try
         {
-            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, rulesToReturn);
-            return BuildResult(rulesApplied);
-        }
-        catch (Exception ex)
-        {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
-        }
-    }
-
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
-    {
-        try
-        {
-            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn);
-            return BuildResult(rulesApplied);
+            var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention);
+            return BuildResults(rulesApplied);
         }
         catch (Exception ex)
         {

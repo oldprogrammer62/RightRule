@@ -113,7 +113,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All, DataRetention.Discard);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -125,7 +125,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All, DataRetention.Discard);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
@@ -137,7 +137,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
 
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, RulesToReturn.All, DataRetention.Keep);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

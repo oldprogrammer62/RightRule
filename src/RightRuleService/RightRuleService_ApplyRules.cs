@@ -1,10 +1,10 @@
 ﻿using RightRule.Models;
 using RightRule.RuleApplication;
-using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace RightRule.RuleService;
+namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
@@ -25,46 +25,11 @@ internal partial class RightRuleService : IRightRuleService
         return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
     }
 
-    public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data)
-    {
-        var rulesApplied = await ApplyRulesAsync(Context, DataName, Data, RulesToReturn.First).ConfigureAwait(false);
-        if (rulesApplied == null || rulesApplied.Count == 0)
-        {
-            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
-        }
-        var result = rulesApplied.FirstOrDefault();
-        if (result != null)
-        {
-            return result;
-        }
-        return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
-    }
-
     public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
     {
-        return rulesToReturn switch
-        {
-            RulesToReturn.First => await ApplyFirstMatchAsync(Context, rulesToReturn).ConfigureAwait(false),
-            RulesToReturn.All => await ApplyAllMatchAsync(Context, rulesToReturn).ConfigureAwait(false),
-            _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
-        };
-    }
-
-    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn)
-    {
-        return rulesToReturn switch
-        {
-            RulesToReturn.First => [await ApplyFirstMatchAsync(Context, DataName, Data).ConfigureAwait(false)],
-            RulesToReturn.All => await ApplyAllMatchAsync(Context, DataName, Data).ConfigureAwait(false),
-            _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
-        };
-    }
-
-    private async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyFirstMatchAsync(string Context, RulesToReturn rulesToReturn)
-    {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var rulesApplied = await ApplyMatchAsync_RAS(Context, rulesToReturn).ConfigureAwait(false);
+        var rulesApplied = await ApplyMatchAsync(Context, rulesToReturn).ConfigureAwait(false);
         if (rulesApplied == null)
         {
             return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context))];
@@ -72,11 +37,13 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(rulesApplied);
     }
 
-    private async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyAllMatchAsync(string Context, RulesToReturn rulesToReturn)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
 
-        var rulesApplied = await ApplyMatchAsync_RAS(Context, rulesToReturn).ConfigureAwait(false);
+        var rulesApplied = await ApplyMatchAsync(Context, DataName, Data, rulesToReturn, dataRetention).ConfigureAwait(false);
         if (rulesApplied == null)
         {
             return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context))];
@@ -84,43 +51,10 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(rulesApplied);
     }
 
-    private async Task<RightRuleServiceResult<IProcessedRule>> ApplyFirstMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
+    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, RulesToReturn rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
-        {
-            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
-        }
-        RegisterData(DataName, Data);
-        var rulesApplied = await ApplyMatchAsync_RAS(Context, RulesToReturn.First).ConfigureAwait(false);
-        DeRegisterData(DataName);
-
-        var ruleApplied = rulesApplied.FirstOrDefault() ?? GetDefaultRule(Context);
-        return RightRuleServiceResult<IProcessedRule>.Success(ruleApplied);
-    }
-
-    private async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyAllMatchAsync(string Context, string DataName, Dictionary<string, object> Data)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-
-        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
-        {
-            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context))];
-        }
-        RegisterData(DataName, Data);
-        var ruleApplied = await ApplyMatchAsync_RAS(Context, RulesToReturn.All).ConfigureAwait(false);
-        DeRegisterData(DataName);
-
-        return BuildResult(ruleApplied);
-    }
-
-    // *****************************************
-    // *** Calls to RULE APPLICATION SERVICE ***
-    // *****************************************
-
-    private async Task<List<IProcessedRule>> ApplyMatchAsync_RAS(string Context, RulesToReturn rulesToReturn)
-    {
         return rulesToReturn switch
         {
             RulesToReturn.First => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
@@ -128,6 +62,30 @@ internal partial class RightRuleService : IRightRuleService
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
     }
+
+    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
+
+        RegisterData(DataName, Data);
+        var result = rulesToReturn switch
+        {
+            RulesToReturn.First => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturn.All => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
+        };
+        if (dataRetention.Equals(DataRetention.Discard))
+        {
+            DeRegisterData(DataName);
+        }
+        return result;
+    }
+
+    // *****************************************
+    // *** Calls to RULE APPLICATION SERVICE ***
+    // *****************************************
 
     private async Task<IProcessedRule> ApplyFirstMatchAsync_RAS(string Context)
     {

@@ -41,6 +41,10 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
 
     private void RemoveDefaultRule(string Context)
     {
+        if (string.IsNullOrWhiteSpace(Context))
+        {
+            return;
+        }
         var ruleFound = GetRegisteredDefaultRulePerContext(Context);
         if (ruleFound != null)
         {
@@ -50,6 +54,10 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
 
     private DefaultRule GetRegisteredDefaultRule(string Context)
     {
+        if (string.IsNullOrWhiteSpace(Context))
+        {
+            return DefaultRule;
+        }
         var result = GetRegisteredDefaultRulePerContext(Context);
         if (result == null)
         {

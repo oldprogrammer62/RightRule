@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule.Models;
+using RightRule.RightRuleService;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
-using RightRule.RuleService;
 using RightRule.ServiceRegister;
 
 namespace BeSoft;
@@ -27,8 +27,17 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
     }
 
-    private List<RightRuleResult<IProcessedRule>> BuildResult(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
+    private List<RightRuleResult<IProcessedRule>> BuildResults(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
     {
+        if (serviceResults == null)
+        {
+            return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+        }
+        if (serviceResults.Count == 0)
+        {
+            return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+        }
+
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
 
         foreach (var serviceResult in serviceResults)
@@ -36,6 +45,24 @@ public sealed partial class RightRule : IRightRule, IDisposable
             rightRuleResults.Add(BuildResult(serviceResult));
         }
         return rightRuleResults;
+    }
+
+    private RightRuleResult<IProcessedRule> BuildResult(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
+    {
+        if (serviceResults == null)
+        {
+            return RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+        }
+        if (serviceResults.Count == 0)
+        {
+            return RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+        }
+        var context = serviceResults.FirstOrDefault()?.Payload?.Context ?? string.Empty;
+        if (serviceResults.Count == 1)
+        {
+            return BuildResult(serviceResults[0]);
+        }
+        return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(context));
     }
 
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)

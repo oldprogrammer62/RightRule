@@ -3,7 +3,7 @@ using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RuleRegistration.LogicRules;
 
-namespace RightRule.RuleService;
+namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {

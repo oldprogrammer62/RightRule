@@ -8,7 +8,7 @@ using RightRule.RuleRegistration.LogicRules;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
 
-namespace RightRule.RuleService;
+namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {

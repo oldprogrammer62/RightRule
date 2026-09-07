@@ -3,9 +3,9 @@ using RightRule.DataRegistration;
 using RightRule.Factories.LanguageFactory;
 using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.Operators;
+using RightRule.RightRuleService;
 using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
-using RightRule.RuleService;
 using RightRule.StatementProcessor.Evaluator;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.StatementProcessor.Parser;
@@ -21,7 +21,7 @@ internal sealed class ServiceRegister
         {
             services = new ServiceCollection();
         }
-        services.AddScoped<IRightRuleService, RightRuleService>();
+        services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
         services.AddScoped<IOperatorsService, OperatorsService>();
 
         services.AddScoped<IRegisteredRuleService, RegisteredRuleService>();

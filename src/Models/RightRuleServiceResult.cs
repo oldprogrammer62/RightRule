@@ -29,7 +29,7 @@ internal sealed class RightRuleServiceResult<T>
 
     public static List<RightRuleServiceResult<IProcessedRule>> Success(List<IProcessedRule> payloads)
     {
-        List<RightRuleServiceResult<IProcessedRule>> results = new();
+        List<RightRuleServiceResult<IProcessedRule>> results = [];
 
         foreach (var payload in payloads)
         {
