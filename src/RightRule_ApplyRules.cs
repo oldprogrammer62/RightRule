@@ -309,7 +309,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         try
         {
             var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, rulesToReturn);
-            return BuildResults(rulesApplied);
+            return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)
         {
@@ -322,7 +322,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         try
         {
             var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturn.First, dataRetention);
-            return BuildResult(rulesApplied);
+            return BuildResult(Context, rulesApplied);
         }
         catch (Exception ex)
         {
@@ -335,7 +335,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         try
         {
             var rulesApplied = await _rightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention);
-            return BuildResults(rulesApplied);
+            return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)
         {

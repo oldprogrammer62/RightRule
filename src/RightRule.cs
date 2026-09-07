@@ -27,15 +27,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
     }
 
-    private List<RightRuleResult<IProcessedRule>> BuildResults(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
+    private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> serviceResults)
     {
         if (serviceResults == null)
         {
-            return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
         }
         if (serviceResults.Count == 0)
         {
-            return [RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult())];
+            return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
         }
 
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
@@ -47,22 +47,21 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return rightRuleResults;
     }
 
-    private RightRuleResult<IProcessedRule> BuildResult(List<RightRuleServiceResult<IProcessedRule>> serviceResults)
+    private RightRuleResult<IProcessedRule> BuildResult(string Context, List<RightRuleServiceResult<IProcessedRule>> serviceResults)
     {
         if (serviceResults == null)
         {
-            return RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
         }
         if (serviceResults.Count == 0)
         {
-            return RightRuleResult<IProcessedRule>.Default(DefaultRule.DefaultResult());
+            return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
         }
-        var context = serviceResults.FirstOrDefault()?.Payload?.Context ?? string.Empty;
         if (serviceResults.Count == 1)
         {
             return BuildResult(serviceResults[0]);
         }
-        return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(context));
+        return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
     }
 
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
