@@ -1,6 +1,7 @@
 ﻿using BeSoft;
 using RightRule.Models.DataRegistration;
 using RightRule.RuleModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
 using System.Runtime.CompilerServices;
 

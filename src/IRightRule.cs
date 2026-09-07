@@ -5,6 +5,7 @@ using RightRule.Models;
 using RightRule.Models.DataRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;
@@ -213,7 +214,7 @@ public interface IRightRule
 
     DefaultRule GetDefaultRule(string Context);
 
-    bool RegisterDefaultRule(DefaultRule rule);
+    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule);
 
     /// <summary>
     /// Registers a single Rule with the RightRule engine.

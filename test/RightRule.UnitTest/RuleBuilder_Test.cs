@@ -1,4 +1,5 @@
-﻿using RightRule.RuleRegistration.LogicRules;
+﻿using RightRule.RuleRegistration.DefaultRuleRegistration;
+using RightRule.RuleRegistration.LogicRules;
 
 namespace RightRuleTests;
 

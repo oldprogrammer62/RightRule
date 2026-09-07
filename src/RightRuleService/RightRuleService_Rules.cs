@@ -2,19 +2,24 @@ using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RuleRegistration.LogicRules;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 
 namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public bool RegisterDefaultRule(DefaultRule rule)
+    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule)
     {
         if (rule == null)
         {
-            return false;
+            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed");
         }
         var result = _defaultRuleRegister.SetDefaultRule(rule);
-        return true;
+        if (!result)
+        {
+            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed", rule);
+        }
+        return DefaultRuleRegistrationResult.Success("Default Rule registration success", rule);
     }
 
     public DefaultRule GetDefaultRule(string Context)

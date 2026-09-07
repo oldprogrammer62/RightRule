@@ -4,6 +4,7 @@ using RightRule.Models;
 using RightRule.Models.DataRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
 using RightRule.System.Common;
 
@@ -24,7 +25,7 @@ internal interface IRightRuleService
     List<ParsedRule> GetRules(string Context);
 
     DefaultRule GetDefaultRule(string Context);
-    bool RegisterDefaultRule(DefaultRule rule);
+    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule);
 
     List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string Data);
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);

@@ -1,5 +1,5 @@
 using RightRule.RuleModels;
-using RightRule.RuleModels.BaseModels;
+using RightRule.RuleRegistration.DefaultRuleRegistration;
 using RightRule.RuleRegistration.LogicRules;
 
 namespace BeSoft;
@@ -46,11 +46,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return _rightRuleService.GetDefaultRule(Context);
     }
 
-    public bool RegisterDefaultRule(DefaultRule rule)
+    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule)
     {
         if (rule == null)
         {
-            return false;
+            return DefaultRuleRegistrationResult.Failed("Default Rule Registration Failed");
         }
         return _rightRuleService.RegisterDefaultRule(rule);
     }
