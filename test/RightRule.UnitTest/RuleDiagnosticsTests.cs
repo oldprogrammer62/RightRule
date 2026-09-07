@@ -13,7 +13,7 @@ public class RuleDiagnosticsTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -35,7 +35,7 @@ public class RuleDiagnosticsTests
         bool datacheck = true;
         bool diagnostics = true;
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

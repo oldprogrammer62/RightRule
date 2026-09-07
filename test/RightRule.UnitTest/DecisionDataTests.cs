@@ -10,7 +10,7 @@ public class DecisionDataTests
         IRightRule rr = new BeSoft.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -40,7 +40,7 @@ public class DecisionDataTests
         IRightRule rr = new BeSoft.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -67,7 +67,7 @@ public class DecisionDataTests
         IRightRule rr = new BeSoft.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

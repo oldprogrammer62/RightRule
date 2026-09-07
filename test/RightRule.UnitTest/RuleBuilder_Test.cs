@@ -9,7 +9,7 @@ public class RuleBuilder_Test
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -23,7 +23,7 @@ public class RuleBuilder_Test
             .Build();
         var x1 = rr.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRuleDefinition()
+        var rule2 = rr.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")

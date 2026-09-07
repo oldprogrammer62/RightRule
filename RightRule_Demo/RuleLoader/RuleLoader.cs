@@ -9,7 +9,7 @@ namespace RightRule_Demo.RuleLoader
         {
             return new List<DefinedRule>
             {
-                rightRule.BuildRuleDefinition()
+                rightRule.BuildRule()
                 .Number(10)
                 .Name("Rule10")
                 .Context("Context")
@@ -19,7 +19,7 @@ namespace RightRule_Demo.RuleLoader
                 .WithDataCheck(false)
                 .Build(),
 
-                rightRule.BuildRuleDefinition()
+                rightRule.BuildRule()
                 .Number(11)
                 .Name("Rule11")
                 .Context("Context")

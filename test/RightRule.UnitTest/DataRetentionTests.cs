@@ -18,7 +18,7 @@ public class DataRetentionTests
             {"x", x }
         };
 
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

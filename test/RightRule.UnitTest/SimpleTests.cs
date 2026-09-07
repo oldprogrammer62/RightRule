@@ -8,7 +8,7 @@ public class SimpleTests
     public void Test1()
     {
         IRightRule rr = new BeSoft.RightRule();
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -26,7 +26,7 @@ public class SimpleTests
     public void TestWithDefault()
     {
         IRightRule rr = new BeSoft.RightRule();
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -44,7 +44,7 @@ public class SimpleTests
     public void Test_WithError_Rule()
     {
         IRightRule rr = new BeSoft.RightRule();
-        var rule1 = rr.BuildRuleDefinition()
+        var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -54,7 +54,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRuleDefinition()
+        var rule2 = rr.BuildRule()
             .Number(2)
             .Name("TestRule2")
             .Context("TestContext")
@@ -64,7 +64,7 @@ public class SimpleTests
             .Build();
         var rule2Result = rr.RegisterRule(rule2);
 
-        var rule3 = rr.BuildRuleDefinition()
+        var rule3 = rr.BuildRule()
             .Number(3)
             .Name("TestRule3")
             .Context("TestContext")

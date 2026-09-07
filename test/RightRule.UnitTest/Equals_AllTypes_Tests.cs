@@ -97,7 +97,7 @@ public class Equals_AllTypes_Tests
         decimal localVal = 100.01M;
         rr.RegisterData("localVal", localVal);
 
-        var rule = rr.BuildRuleDefinition()
+        var rule = rr.BuildRule()
             .Number(1)
             .Name("NameOfRule")
             .Context("Context")

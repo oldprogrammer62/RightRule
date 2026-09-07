@@ -10,7 +10,7 @@ public class DefaultRule_Tests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var ruleDef1 = rr.BuildRuleDefinition()
+        var ruleDef1 = rr.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Test")
@@ -28,7 +28,7 @@ public class DefaultRule_Tests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var ruleDef1 = rr.BuildRuleDefinition()
+        var ruleDef1 = rr.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Test")
@@ -88,7 +88,7 @@ public class DefaultRule_Tests
         var defaultRule2 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
 
-        var ruleDef1 = rr.BuildRuleDefinition()
+        var ruleDef1 = rr.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
@@ -162,5 +162,23 @@ public class DefaultRule_Tests
         var DefaultRuleContext3 = rr.GetDefaultRule("NotFound");
         Assert.NotNull(DefaultRuleContext3);
         Assert.Equal(DefaultRuleContext3.Context, string.Empty);
+    }
+
+    [Fact]
+    public void DefaultRuleBuilder_Test()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        string Context = "ContextFromBuilder";
+
+        var defRule = rr.BuildDefaultRule()
+            .Name("DefaultName")
+            .Context(Context)
+            .Decision("WhatEver")
+            .Build();
+
+        var defRuleRegistered = rr.RegisterDefaultRule(defRule);
+        var defRule2 = rr.GetDefaultRule(Context);
+        Assert.NotNull(defRule2);
     }
 }

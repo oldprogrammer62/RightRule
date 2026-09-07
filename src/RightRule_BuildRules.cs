@@ -1,5 +1,6 @@
-using RightRule.RuleBuilder;
-using RightRule.RuleModels;
+using RightRule.Builders.DefaultRuleBuilder;
+using RightRule.Builders.RightRule;
+using RightRule.Builders.RightRuleBuilder;
 
 namespace BeSoft;
 
@@ -14,8 +15,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// Entry point kicks off the strict compile-time interface chain
     /// </summary>
-    public INumberStep BuildRuleDefinition()
+    public INumberStep BuildRule()
     {
         return RuleBuilder.Create();
+    }
+
+    public IDefaultNameStep BuildDefaultRule()
+    {
+        return DefaultRuleBuilder.Create();
     }
 }

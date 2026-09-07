@@ -1,7 +1,8 @@
-﻿using RightRule.DataRegistration;
+﻿using RightRule.Builders.RightRule;
+using RightRule.Builders.RightRuleBuilder;
+using RightRule.DataRegistration;
 using RightRule.Models;
 using RightRule.Models.DataRegistration;
-using RightRule.RuleBuilder;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 using RightRule.RuleRegistration.LogicRules;
@@ -26,7 +27,9 @@ public interface IRightRule
     /// Build an enhanced Rule Definition
     /// Based on Interface to force fiuelds to be applied to the rule defn in order
     /// </summary>
-    INumberStep BuildRuleDefinition();
+    INumberStep BuildRule();
+
+    IDefaultNameStep BuildDefaultRule();
 
     /// <summary>
     /// Returns the set of Operators currently loaded in the RightRule engine.

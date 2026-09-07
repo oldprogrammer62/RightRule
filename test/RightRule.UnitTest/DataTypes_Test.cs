@@ -15,7 +15,7 @@ public class DataTypes_Test
         };
         rr.RegisterData("Data", data);
 
-        var rule = rr.BuildRuleDefinition()
+        var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -42,7 +42,7 @@ public class DataTypes_Test
         rr.RegisterData("Value", data);
         rr.RegisterData("Value22", data22);
 
-        var rule = rr.BuildRuleDefinition()
+        var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -67,7 +67,7 @@ public class DataTypes_Test
 
         rr.RegisterData("Value", Value);
 
-        var rule = rr.BuildRuleDefinition()
+        var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")

@@ -17,6 +17,17 @@ public sealed class DefaultRule : RuleDefault
         return new DefaultRule();
     }
 
+    public static DefaultRule Build(string Name, string Context, string Decision, object? DecisionData)
+    {
+        return new DefaultRule()
+        {
+            Name = Name,
+            Context = Context,
+            Decision = Decision,
+            DecisionData = DecisionData
+        };
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

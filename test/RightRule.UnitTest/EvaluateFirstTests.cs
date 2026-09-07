@@ -10,7 +10,7 @@ public class EvaluateFirstTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var ruleDef = rr.BuildRuleDefinition()
+        var ruleDef = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -30,7 +30,7 @@ public class EvaluateFirstTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var ruleDef1 = rr.BuildRuleDefinition()
+        var ruleDef1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -39,7 +39,7 @@ public class EvaluateFirstTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRuleDefinition()
+        var ruleDef2 = rr.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -61,7 +61,7 @@ public class EvaluateFirstTests
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        var ruleDef1 = rr.BuildRuleDefinition()
+        var ruleDef1 = rr.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -70,7 +70,7 @@ public class EvaluateFirstTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRuleDefinition()
+        var ruleDef2 = rr.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")

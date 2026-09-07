@@ -1,7 +1,7 @@
 ﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
-namespace RightRule.RuleBuilder;
+namespace RightRule.Builders.RightRuleBuilder;
 
 // Enforces step 1
 public interface INumberStep
