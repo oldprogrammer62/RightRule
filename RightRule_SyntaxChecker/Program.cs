@@ -47,7 +47,7 @@ internal class Program
             };
             _ = rightRule.RegisterRule(rule);
 
-            ShowResult(statement, result, rightRule.RegisteredRules().Rules);
+            ShowResult(statement, result, rightRule.GetRegisteredRules().Rules);
         }
 
         Console.WriteLine("Check another statement? (y/n)");

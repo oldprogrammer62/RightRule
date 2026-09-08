@@ -10,7 +10,7 @@ public class ExtensionTests
     {
         BeSoft.RightRule rightRule = new BeSoft.RightRule();
 
-        var rules = rightRule.RegisteredRules();
+        var rules = rightRule.GetRegisteredRules();
 
         Assert.NotNull(rules);
         Assert.IsType<List<ParsedRule>>(rules.Rules);
@@ -23,7 +23,7 @@ public class ExtensionTests
 
         BeSoft.RightRule rightRule = new BeSoft.RightRule();
 
-        var result = rightRule.RegisteredRules(specifiedContext);
+        var result = rightRule.GetRegisteredRules(specifiedContext);
 
         Assert.NotNull(result);
         Assert.IsType<List<ParsedRule>>(result);

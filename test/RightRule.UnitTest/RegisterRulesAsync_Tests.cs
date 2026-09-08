@@ -66,7 +66,7 @@ public class RegisterRulesAsync_Tests
         Assert.NotNull(registeredRule1);
         Assert.NotNull(registeredRule2);
 
-        var registeredRules = rr.RegisteredRules();
+        var registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
     }

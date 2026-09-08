@@ -13,10 +13,10 @@ public class DataDeregistrationTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterData("d", d);
         rr.RegisterData("d2", d2);
-        Assert.Equal(2, rr.RegisteredDataObjects().Count);
+        Assert.Equal(2, rr.GetRegisteredDataObjects().Count);
 
         rr.DeRegisterData("d");
-        Assert.Equal(1, rr.RegisteredDataObjects().Count);
+        Assert.Equal(1, rr.GetRegisteredDataObjects().Count);
     }
 
     [Fact]
@@ -33,10 +33,10 @@ public class DataDeregistrationTests
         IRightRule rr = new BeSoft.RightRule();
         rr.RegisterData("d", d);
         rr.RegisterData("d2", d2);
-        Assert.Equal(2, rr.RegisteredDatasets().Count);
+        Assert.Equal(2, rr.GetRegisteredDatasets().Count);
 
         rr.DeRegisterData("d");
-        Assert.Equal(1, rr.RegisteredDatasets().Count);
+        Assert.Equal(1, rr.GetRegisteredDatasets().Count);
     }
 
 }

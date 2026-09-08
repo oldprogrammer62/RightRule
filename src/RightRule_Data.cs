@@ -14,7 +14,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
-    public RegisteredDataset? RegisteredDataset(string DataName)
+    public RegisteredDataset? GetRegisteredDataset(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         try
@@ -33,7 +33,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="DataName">The name of the dataobject.</param>
     /// <returns>RegisteredDataObject</returns>
     /// <exception cref="ArgumentException"></exception>
-    public RegisteredDataObject? RegisteredDataObject(string DataName)
+    public RegisteredDataObject? GetRegisteredDataObject(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
         try
@@ -50,7 +50,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Returns the set of Registered Datasets.
     /// </summary>
     /// <returns>RegisteredDatasets object</returns>
-    public IRegisteredDatasets RegisteredDatasets()
+    public IRegisteredDatasets GetRegisteredDatasets()
     {
         try
         {
@@ -66,7 +66,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Returns the set of Registered DataObjects
     /// </summary>
     /// <returns>RegisteredDataObjects object</returns>
-    public IRegisteredDataObjects RegisteredDataObjects()
+    public IRegisteredDataObjects GetRegisteredDataObjects()
     {
         try
         {

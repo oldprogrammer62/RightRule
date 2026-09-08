@@ -20,7 +20,7 @@ public class UniqueRegistration_Tests
         var second = rr.RegisterData("Data1", data);
         Assert.False(second.IsSuccess);
 
-        Assert.Equal(1, rr.RegisteredDatasets().Count);
+        Assert.Equal(1, rr.GetRegisteredDatasets().Count);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class UniqueRegistration_Tests
         var second = rr.RegisterData("Data2", data);
         Assert.True(second.IsSuccess);
 
-        Assert.Equal(2, rr.RegisteredDatasets().Count);
+        Assert.Equal(2, rr.GetRegisteredDatasets().Count);
     }
 
     [Fact]
@@ -55,6 +55,6 @@ public class UniqueRegistration_Tests
         var second = rr.RegisterData("Data1", data);
         Assert.False(second.IsSuccess);
 
-        Assert.Equal(1, rr.RegisteredDataObjects().Count);
+        Assert.Equal(1, rr.GetRegisteredDataObjects().Count);
     }
 }

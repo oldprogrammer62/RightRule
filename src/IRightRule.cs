@@ -141,13 +141,13 @@ public interface IRightRule
     /// Returns the set of Registered Datasets.
     /// </summary>
     /// <returns>RegisteredDatasets object</returns>
-    IRegisteredDatasets RegisteredDatasets();
+    IRegisteredDatasets GetRegisteredDatasets();
 
     /// <summary>
     /// Returns the set of Registered DataObjects
     /// </summary>
     /// <returns>RegisteredDataObjects object</returns>
-    IRegisteredDataObjects RegisteredDataObjects();
+    IRegisteredDataObjects GetRegisteredDataObjects();
 
     /// <summary>
     /// Returns the specified Dataset.
@@ -155,7 +155,7 @@ public interface IRightRule
     /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
     /// <exception cref="ArgumentException"></exception>
-    RegisteredDataset? RegisteredDataset(string DataName);
+    RegisteredDataset? GetRegisteredDataset(string DataName);
 
     /// <summary>
     /// Returns the specified DataObject
@@ -163,7 +163,7 @@ public interface IRightRule
     /// <param name="DataName">The name of the dataobject.</param>
     /// <returns>RegisteredDataObject</returns>
     /// <exception cref="ArgumentException"></exception>
-    RegisteredDataObject? RegisteredDataObject(string DataName);
+    RegisteredDataObject? GetRegisteredDataObject(string DataName);
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
@@ -171,26 +171,26 @@ public interface IRightRule
     /// <param name="Name"></param>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
-    ParsedRule? RegisteredRule(string Name);
+    ParsedRule? GetRegisteredRule(string Name);
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Number.
     /// </summary>
     /// <param name="Number"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    ParsedRule? RegisteredRule(int Number);
+    ParsedRule? GetRegisteredRule(int Number);
 
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>
-    IRegisteredRules RegisteredRules();
+    IRegisteredRules GetRegisteredRules();
 
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
     /// <exception cref="ArgumentException"></exception>
-    List<ParsedRule> RegisteredRules(string Context);
+    List<ParsedRule> GetRegisteredRules(string Context);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.

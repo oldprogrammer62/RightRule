@@ -63,7 +63,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="Name"></param>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? RegisteredRule(string Name)
+    public ParsedRule? GetRegisteredRule(string Name)
     {
         try
         {
@@ -80,7 +80,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     /// <param name="Number"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? RegisteredRule(int Number)
+    public ParsedRule? GetRegisteredRule(int Number)
     {
         try
         {
@@ -95,7 +95,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>
-    public IRegisteredRules RegisteredRules()
+    public IRegisteredRules GetRegisteredRules()
     {
         try
         {
@@ -112,7 +112,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     /// <param name="Context"></param>
     /// <exception cref="ArgumentException"></exception>
-    public List<ParsedRule> RegisteredRules(string Context)
+    public List<ParsedRule> GetRegisteredRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         try
