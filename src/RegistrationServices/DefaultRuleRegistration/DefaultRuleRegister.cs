@@ -5,12 +5,12 @@ namespace RightRule.RegistrationServices.DefaultRuleRegistration;
 internal class DefaultRuleRegister : IDefaultRuleRegister
 {
     private DefaultRule DefaultRule { get; }
-    private List<DefaultRulePerContext> DefaultDefaultRules {  get; }
+    private List<DefaultRulePerContext> DefaultRules {  get; }
 
     public DefaultRuleRegister()
     {
         DefaultRule = DefaultRule.DefaultResult();
-        DefaultDefaultRules = [];
+        DefaultRules = [];
     }
 
     public DefaultRule GetDefaultRule(string Context)
@@ -48,7 +48,7 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
         var ruleFound = GetRegisteredDefaultRulePerContext(Context);
         if (ruleFound != null)
         {
-            DefaultDefaultRules.Remove(ruleFound);
+            DefaultRules.Remove(ruleFound);
         }
     }
 
@@ -72,7 +72,7 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
         {
             return null;
         }
-        return DefaultDefaultRules.Where
+        return DefaultRules.Where
             (x => x.Context.Equals(Context, StringComparison.CurrentCultureIgnoreCase))
             .FirstOrDefault();
     }
@@ -88,7 +88,7 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
             Context = defaultRule.Context,
             DefaultRule = defaultRule
         };
-        DefaultDefaultRules.Add(drpc);
+        DefaultRules.Add(drpc);
     }
 
     internal class DefaultRulePerContext
