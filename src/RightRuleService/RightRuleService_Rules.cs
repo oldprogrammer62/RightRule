@@ -14,7 +14,7 @@ internal partial class RightRuleService : IRightRuleService
         {
             return DefaultRuleRegistrationResult.Failed("Default Rule registration failed");
         }
-        var result = _defaultRuleRegister.SetDefaultRule(rule);
+        var result = DefaultRuleRegister.SetDefaultRule(rule);
         if (!result)
         {
             return DefaultRuleRegistrationResult.Failed("Default Rule registration failed", rule);
@@ -24,7 +24,7 @@ internal partial class RightRuleService : IRightRuleService
 
     public DefaultRule GetDefaultRule(string Context)
     {
-        return _defaultRuleRegister.GetDefaultRule(Context);
+        return DefaultRuleRegister.GetDefaultRule(Context);
     }
 
     public List<(int Number, string Name)>? GetRuleNumbers()
@@ -79,7 +79,7 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var operatorNames = _operatorsService.OperatorNames;
+        var operatorNames = OperatorsService.OperatorNames;
         var objectNames = _registeredDataObjects?.ObjectNames;
         var datasetNames = _registeredDataSets?.DatasetNames;
         return _registeredRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
@@ -95,7 +95,7 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
-        var operatorNames = _operatorsService.OperatorNames;
+        var operatorNames = OperatorsService.OperatorNames;
 
         var objectNames = GetObjectNames();
         var datasetNames = GetDatasetNames();

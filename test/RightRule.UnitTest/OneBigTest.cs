@@ -130,4 +130,129 @@ public class OneBigTest
         Assert.True(result.Result);
         Assert.Equal(rr.GetDefaultRule(Context1).Decision, result.Decision);
     }
+
+    [Fact]
+    public void ApplyRuleContext_False_DefaultRuleContext2()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        var data1Registration = rr.RegisterData("data1", data1);
+        Assert.NotNull(data1Registration);
+        Assert.True(data1Registration.IsSuccess);
+
+        var data2Registration = rr.RegisterData("data2", data2);
+        Assert.NotNull(data2Registration);
+        Assert.True(data2Registration.IsSuccess);
+
+        var rule1Defn = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1Name")
+            .Context(Context1)
+            .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
+            .Decision("Decision1")
+            .FalseDecision("NotDecision1")
+            .Build();
+        var rule1Registration = rr.RegisterRule(rule1Defn);
+        Assert.NotNull(rule1Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
+
+        var defaultRuleDefn = rr.BuildDefaultRule()
+            .Name(DefaultRule1Name)
+            .Context(Context1)
+            .Decision(DefaultRule1Decision)
+            .Build();
+        var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
+        Assert.NotNull(defaultRule1Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, defaultRule1Registration.Status);
+
+        var result1 = rr.ApplyRules(Context1);
+        Assert.NotNull(result1);
+        Assert.True(result1.Result);
+        Assert.Equal(rr.GetDefaultRule(Context1).Decision, result1.Decision);
+
+
+        var rule2Defn = rr.BuildRule()
+            .Number(1)
+            .Name("Rule2Name")
+            .Context(Context2)
+            .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
+            .Decision("Decision2")
+            .FalseDecision("NotDecision2")
+            .Build();
+        var rule2Registration = rr.RegisterRule(rule2Defn);
+        Assert.NotNull(rule2Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
+
+        var result2 = rr.ApplyRules(Context2);
+        Assert.NotNull(result2);
+        Assert.True(result2.Result);
+        Assert.Equal(rr.GetDefaultRule(Context2).Decision, result2.Decision);
+    }
+
+    [Fact]
+    public void ApplyRuleContext_False_NewDefaultRuleContext2()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        var data1Registration = rr.RegisterData("data1", data1);
+        Assert.NotNull(data1Registration);
+        Assert.True(data1Registration.IsSuccess);
+
+        var data2Registration = rr.RegisterData("data2", data2);
+        Assert.NotNull(data2Registration);
+        Assert.True(data2Registration.IsSuccess);
+
+        var rule1Defn = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1Name")
+            .Context(Context1)
+            .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
+            .Decision("Decision1")
+            .FalseDecision("NotDecision1")
+            .Build();
+        var rule1Registration = rr.RegisterRule(rule1Defn);
+        Assert.NotNull(rule1Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
+
+        var defaultRuleDefn = rr.BuildDefaultRule()
+            .Name(DefaultRule1Name)
+            .Context(Context1)
+            .Decision(DefaultRule1Decision)
+            .Build();
+        var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
+        Assert.NotNull(defaultRule1Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, defaultRule1Registration.Status);
+
+        var result1 = rr.ApplyRules(Context1);
+        Assert.NotNull(result1);
+        Assert.True(result1.Result);
+        Assert.Equal(rr.GetDefaultRule(Context1).Decision, result1.Decision);
+
+
+        var rule2Defn = rr.BuildRule()
+            .Number(1)
+            .Name("Rule2Name")
+            .Context(Context2)
+            .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
+            .Decision("Decision2")
+            .FalseDecision("NotDecision2")
+            .Build();
+        var rule2Registration = rr.RegisterRule(rule2Defn);
+        Assert.NotNull(rule2Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
+
+        var defaultRule2Defn = rr.BuildDefaultRule()
+            .Name(DefaultRule2Name)
+            .Context(Context2)
+            .Decision(DefaultRule2Decision)
+            .Build();
+        var defaultRule2Registration = rr.RegisterDefaultRule(defaultRule2Defn);
+        Assert.NotNull(defaultRule2Registration);
+        Assert.Equal(RegistrationStatus.SUCCESS, defaultRule2Registration.Status);
+
+        var result2 = rr.ApplyRules(Context2);
+        Assert.NotNull(result2);
+        Assert.True(result2.Result);
+        Assert.Equal(rr.GetDefaultRule(Context2).Decision, result2.Decision);
+    }
 }

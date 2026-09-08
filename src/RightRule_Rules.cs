@@ -18,7 +18,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The list of Rule Numbers (with Names).</returns>
     public List<(int Number, string Name)>? GetRuleNumbers()
     {
-        var ruleNumbers = _rightRuleService?.GetRuleNumbers();
+        var ruleNumbers = RightRuleService?.GetRuleNumbers();
         return ruleNumbers;
     }
 
@@ -28,7 +28,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The list of Rule Names.</returns>
     public List<string>? GetRuleNames()
     {
-        var ruleNames = _rightRuleService?.GetRuleNames();
+        var ruleNames = RightRuleService?.GetRuleNames();
         return ruleNames;
     }
 
@@ -38,13 +38,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The list of Rule Contexts.</returns>
     public List<string>? GetRuleContexts()
     {
-        var contexts = _rightRuleService?.GetRuleContexts();
+        var contexts = RightRuleService?.GetRuleContexts();
         return contexts;
     }
 
     public DefaultRule GetDefaultRule(string Context)
     {
-        return _rightRuleService.GetDefaultRule(Context);
+        return RightRuleService.GetDefaultRule(Context);
     }
 
     public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule)
@@ -53,7 +53,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             return DefaultRuleRegistrationResult.Failed("Default Rule Registration Failed");
         }
-        return _rightRuleService.RegisterDefaultRule(rule);
+        return RightRuleService.RegisterDefaultRule(rule);
     }
 
 
@@ -67,7 +67,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            return _rightRuleService.GetRegisteredRule(Name);
+            return RightRuleService.GetRegisteredRule(Name);
         }
         catch
         {
@@ -84,7 +84,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            return _rightRuleService.GetRegisteredRule(Number);
+            return RightRuleService.GetRegisteredRule(Number);
         }
         catch
         {
@@ -99,7 +99,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            return _rightRuleService.RegisteredRules;
+            return RightRuleService.RegisteredRules;
         }
         catch
         {
@@ -117,7 +117,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         try
         {
-            return _rightRuleService.GetRules(Context);
+            return RightRuleService.GetRules(Context);
         }
         catch
         {
@@ -130,7 +130,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
         try
         {
-            return _rightRuleService.RegisterRulesJson(this, JsonData);
+            return RightRuleService.RegisterRulesJson(this, JsonData);
         }
         catch
         {
@@ -150,7 +150,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
         try
         {
-            return _rightRuleService.RegisterRules(rules);
+            return RightRuleService.RegisterRules(rules);
         }
         catch
         {
@@ -170,7 +170,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
         try
         {
-            return _rightRuleService.RegisterRule(rule);
+            return RightRuleService.RegisterRule(rule);
         }
         catch
         {
@@ -189,7 +189,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         try
         {
-            return _rightRuleService.DeRegisterRules(Context);
+            return RightRuleService.DeRegisterRules(Context);
         }
         catch
         {
@@ -205,7 +205,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            return _rightRuleService.DeRegisterRules();
+            return RightRuleService.DeRegisterRules();
         }
         catch
         {
@@ -224,7 +224,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
         try
         {
-            return _rightRuleService.DeRegisterRule(Name);
+            return RightRuleService.DeRegisterRule(Name);
         }
         catch
         {
@@ -243,7 +243,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(Number.ToString(), nameof(Number));
         try
         {
-            return _rightRuleService.DeRegisterRule(Number);
+            return RightRuleService.DeRegisterRule(Number);
         }
         catch
         {

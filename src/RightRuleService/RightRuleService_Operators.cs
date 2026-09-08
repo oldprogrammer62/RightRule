@@ -6,17 +6,17 @@ internal partial class RightRuleService : IRightRuleService
 {
     public Dictionary<string, Operator> GetOperatorAliases()
     {
-        return _operatorsService.OperatorAliases;
+        return OperatorsService.OperatorAliases;
     }
 
     public List<Operator> GetOperatorDetails()
     {
-        return _operatorsService.Operators;
+        return OperatorsService.Operators;
     }
 
     public bool UnloadOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
-        return _operatorsService.DeRegisterOperator(OperatorName);
+        return OperatorsService.DeRegisterOperator(OperatorName);
     }
 }

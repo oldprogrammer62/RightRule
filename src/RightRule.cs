@@ -15,27 +15,27 @@ public sealed partial class RightRule : IRightRule, IDisposable
 {
     private bool _disposed { get; set; }
 
-    private readonly ServiceProvider _serviceProvider;
+    private readonly ServiceProvider ServiceProvider;
 
-    private readonly IRightRuleService _rightRuleService;
+    private readonly IRightRuleService RightRuleService;
 
     public RightRule()
     {
         var services = ServiceRegister.RegisterServices(new ServiceCollection());
-        _serviceProvider = services.BuildServiceProvider();
+        ServiceProvider = services.BuildServiceProvider();
 
-        _rightRuleService = _serviceProvider.GetRequiredService<IRightRuleService>();
+        RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
     private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> serviceResults)
     {
         if (serviceResults == null)
         {
-            return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
+            return [RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context))];
         }
         if (serviceResults.Count == 0)
         {
-            return [RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context))];
+            return [RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context))];
         }
 
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
@@ -51,17 +51,17 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (serviceResults == null)
         {
-            return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
+            return RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context));
         }
         if (serviceResults.Count == 0)
         {
-            return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
+            return RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context));
         }
         if (serviceResults.Count == 1)
         {
             return BuildResult(serviceResults[0]);
         }
-        return RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(Context));
+        return RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context));
     }
 
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
@@ -79,15 +79,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
                 RightRuleResult<IProcessedRule>.Success(payload, statementApplied),
 
             ServiceStatus.Failure =>
-                RightRuleResult<IProcessedRule>.Failure(message, statementApplied, payload != null ? payload : _rightRuleService.GetDefaultRule(context)),
+                RightRuleResult<IProcessedRule>.Failure(message, statementApplied, payload != null ? payload : RightRuleService.GetDefaultRule(context)),
 
             ServiceStatus.Default =>
-                RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(context), message),
+                RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(context), message),
 
             ServiceStatus.Error =>
                 RightRuleResult<IProcessedRule>.Error(serviceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
-            _ => RightRuleResult<IProcessedRule>.Default(_rightRuleService.GetDefaultRule(context))
+            _ => RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(context))
         };
     }
 
@@ -96,7 +96,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         if (_disposed) return;
 
         // Properly disposes of all internal singletons/scoped services
-        _serviceProvider.Dispose();
+        ServiceProvider.Dispose();
         _disposed = true;
     }
 }

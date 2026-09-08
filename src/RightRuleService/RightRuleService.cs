@@ -12,13 +12,11 @@ namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
+    private readonly ILanguageFactory LanguageFactory;
+    private readonly IInterpreter LanguageInterpreter;
+    private readonly IOperatorsService OperatorsService;
+
     private readonly IServiceProvider _serviceProvider;
-    private readonly ILanguageFactory _factory;
-    private readonly IInterpreter _interpreter;
-
-
-    private readonly IOperatorsService _operatorsService;
-
 
     private readonly IRegisteredRuleService _registeredRuleService;
     public IRegisteredRules RegisteredRules => _registeredRuleService.RegisteredRules;
@@ -37,16 +35,16 @@ internal partial class RightRuleService : IRightRuleService
 
     public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
-        _serviceProvider = ServiceProvider;
-        _factory = factory;
+        this._serviceProvider = ServiceProvider;
+        LanguageFactory = factory;
+        OperatorsService = operatorsService;
 
-        _operatorsService = operatorsService;
         _registeredRuleService = registeredRuleService;
         _defaultRuleRegister = defaultRuleRegister;
         _registeredDataSets = registeredDatasets;
         _registeredDataObjects = registeredDataObjects;
 
-        _interpreter = CreateInterpreter(_operatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, _operatorsService.OperatorAliases);
+        LanguageInterpreter = CreateInterpreter(OperatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, OperatorsService.OperatorAliases);
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
@@ -67,6 +65,6 @@ internal partial class RightRuleService : IRightRuleService
 
     private IInterpreter CreateInterpreter(Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
     {
-        return _factory.CreateInterpreter(_serviceProvider, Operators, registeredDatasets, registeredDataObjects, operators);
+        return LanguageFactory.CreateInterpreter(_serviceProvider, Operators, registeredDatasets, registeredDataObjects, operators);
     }
 }
