@@ -1,8 +1,8 @@
-﻿using RightRule.RegistrationServices.DataRegistration;
-using RightRule.StatementProcessor.Parser;
-using RightRule.System.Common.Exceptions;
+﻿using RightRule.Exceptions;
+using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices.DataRegistration;
 
-namespace RightRule.StatementProcessor.Evaluator;
+namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluatorHelper
 {
@@ -184,7 +184,7 @@ internal static class EvaluatorHelper
                 OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(Datasets, DataObjects, sId) : ResolveIdentifier(Datasets, DataObjects, op.Raw),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
-                OperandKind.String => opValue is string s ? s : (opValue?.ToString() ?? string.Empty),
+                OperandKind.String => opValue is string s ? s : opValue?.ToString() ?? string.Empty,
                 _ => opValue
             };
         }

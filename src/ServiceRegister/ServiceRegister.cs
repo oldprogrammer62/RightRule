@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule.Factories.LanguageFactory;
 using RightRule.Factories.RightRuleLanguageFactory;
+using RightRule.LanguageProcessor.Evaluator;
+using RightRule.LanguageProcessor.Interpreter;
+using RightRule.LanguageProcessor.Parser;
+using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.Operators;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.Rules;
 using RightRule.RightRuleService;
-using RightRule.StatementProcessor.Evaluator;
-using RightRule.StatementProcessor.Interpreter;
-using RightRule.StatementProcessor.Parser;
-using RightRule.StatementProcessor.Tokenizer;
 
 namespace RightRule.ServiceRegister;
 

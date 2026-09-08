@@ -1,4 +1,4 @@
-﻿namespace RightRule.StatementProcessor.Parser;
+﻿namespace RightRule.LanguageProcessor.Parser;
 
 public abstract class Node { }
 

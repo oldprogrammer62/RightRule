@@ -1,6 +1,6 @@
-﻿using RightRule.StatementProcessor.Tokenizer;
+﻿using RightRule.LanguageProcessor.Tokenizer;
 
-namespace RightRule.StatementProcessor.Parser;
+namespace RightRule.LanguageProcessor.Parser;
 
 internal sealed class Parser : IParser
 {

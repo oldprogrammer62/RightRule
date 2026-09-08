@@ -1,7 +1,7 @@
-﻿using RightRule.System.Common.Exceptions;
+﻿using RightRule.Exceptions;
 using System.Text;
 
-namespace RightRule.StatementProcessor.Tokenizer;
+namespace RightRule.LanguageProcessor.Tokenizer;
 
 internal sealed class Tokenizer : ITokenizer
 {

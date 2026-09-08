@@ -1,5 +1,5 @@
-﻿using RightRule.RegistrationServices;
-using RightRule.StatementProcessor.Parser;
+﻿using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices;
 
 namespace RightRule.RuleModels.BaseModels;
 

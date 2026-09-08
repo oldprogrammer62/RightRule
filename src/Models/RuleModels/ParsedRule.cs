@@ -1,6 +1,7 @@
-﻿using RightRule.RegistrationServices;
+﻿using RightRule.LanguageProcessor;
+using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices;
 using RightRule.RuleModels.BaseModels;
-using RightRule.StatementProcessor.Parser;
 using System.Text;
 
 namespace RightRule.RuleModels.RuleModels;
@@ -89,10 +90,10 @@ public sealed class ParsedRule : RuleParsed
 
     private static string BuildTreeText(DefinedRule? ruleDefinition, Node node)
     {
-        bool diagnostics = Helper.GetDiagnosticsSetting(ruleDefinition);
+        bool diagnostics = RegistrationServices.Helper.GetDiagnosticsSetting(ruleDefinition);
         if (diagnostics)
         {
-            return StatementProcessor.StatementPathBuilder.BuildTreeText(node);
+            return StatementPathBuilder.BuildTreeText(node);
         }
         return string.Empty;
     }

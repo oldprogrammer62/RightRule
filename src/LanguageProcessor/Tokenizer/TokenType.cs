@@ -1,4 +1,4 @@
-﻿namespace RightRule.StatementProcessor.Tokenizer;
+﻿namespace RightRule.LanguageProcessor.Tokenizer;
 
 internal enum TokenType
 {

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace RightRule.StatementProcessor;
+namespace RightRule.LanguageProcessor;
 
 internal class Helper
 {

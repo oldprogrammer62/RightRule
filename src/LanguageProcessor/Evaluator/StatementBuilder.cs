@@ -1,8 +1,8 @@
-﻿using RightRule.RegistrationServices.DataRegistration;
-using RightRule.StatementProcessor.Parser;
+﻿using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices.DataRegistration;
 using System.Globalization;
 
-namespace RightRule.StatementProcessor.Evaluator;
+namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class StatementBuilder
 {

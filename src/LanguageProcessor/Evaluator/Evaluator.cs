@@ -1,11 +1,11 @@
-﻿using RightRule.RegistrationServices.DataRegistration;
+﻿using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RuleModels;
 using RightRule.RuleModels.RuleEvaluation;
 using RightRule.RuleModels.RuleModels;
-using RightRule.StatementProcessor.Parser;
 using RightRule.System.Common;
 
-namespace RightRule.StatementProcessor.Evaluator;
+namespace RightRule.LanguageProcessor.Evaluator;
 
 internal sealed class Evaluator : IEvaluator
 {

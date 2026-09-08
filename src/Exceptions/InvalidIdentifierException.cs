@@ -1,4 +1,4 @@
-﻿namespace RightRule.System.Common.Exceptions;
+﻿namespace RightRule.Exceptions;
 
 public class InvalidIdentifierException : Exception
 {

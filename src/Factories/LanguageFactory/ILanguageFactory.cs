@@ -1,8 +1,8 @@
-﻿using RightRule.RegistrationServices.DataRegistration;
-using RightRule.StatementProcessor.Evaluator;
-using RightRule.StatementProcessor.Interpreter;
-using RightRule.StatementProcessor.Parser;
-using RightRule.StatementProcessor.Tokenizer;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.LanguageProcessor.Interpreter;
+using RightRule.LanguageProcessor.Parser;
+using RightRule.LanguageProcessor.Tokenizer;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.System.Common;
 
 namespace RightRule.Factories.RightRuleLanguageFactory;

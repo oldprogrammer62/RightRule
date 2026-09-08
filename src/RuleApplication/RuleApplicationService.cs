@@ -1,7 +1,7 @@
 ﻿using RightRule.HelperFunctions;
+using RightRule.LanguageProcessor.Interpreter;
 using RightRule.RegistrationServices.Rules;
 using RightRule.RuleModels.BaseModels;
-using RightRule.StatementProcessor.Interpreter;
 
 namespace RightRule.RuleApplication;
 
