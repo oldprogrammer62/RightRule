@@ -2,7 +2,7 @@
 using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
 
-namespace RightRule.RuleRegistration.LogicRules;
+namespace RightRule.RegistrationServices.Rules;
 
 internal class RuleRegistrationService : IRuleRegistrationService
 {

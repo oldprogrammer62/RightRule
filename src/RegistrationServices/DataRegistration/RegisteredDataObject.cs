@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RightRule.DataRegistration;
+namespace RightRule.RegistrationServices.DataRegistration;
 
 public class RegisteredDataObject
 {

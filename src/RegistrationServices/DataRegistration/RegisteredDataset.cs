@@ -1,4 +1,4 @@
-﻿namespace RightRule.DataRegistration;
+﻿namespace RightRule.RegistrationServices.DataRegistration;
 
 public class RegisteredDataset
 {

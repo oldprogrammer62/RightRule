@@ -1,4 +1,4 @@
-﻿namespace RightRule.RuleRegistration;
+﻿namespace RightRule.RegistrationServices;
 
 public enum RegistrationStatus
 {

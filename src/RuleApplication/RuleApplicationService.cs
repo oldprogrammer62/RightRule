@@ -1,6 +1,6 @@
 ﻿using RightRule.HelperFunctions;
+using RightRule.RegistrationServices.Rules;
 using RightRule.RuleModels.BaseModels;
-using RightRule.RuleRegistration.LogicRules;
 using RightRule.StatementProcessor.Interpreter;
 using RightRule.System.Common;
 

@@ -1,7 +1,7 @@
 ﻿using RightRule.Models.RuleRegistration;
 using RightRule.RuleModels;
 
-namespace RightRule.RuleRegistration;
+namespace RightRule.RegistrationServices;
 
 internal class Helper
 {

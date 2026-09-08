@@ -1,6 +1,6 @@
 ﻿using RightRule.Models.DataRegistration;
 
-namespace RightRule.DataRegistration;
+namespace RightRule.RegistrationServices.DataRegistration;
 
 public interface IRegisteredDataObjects
 {

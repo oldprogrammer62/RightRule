@@ -1,6 +1,6 @@
-﻿using RightRule.DataRegistration;
-using RightRule.Models.RuleEvaluation;
+﻿using RightRule.Models.RuleEvaluation;
 using RightRule.Models.RuleRegistration;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RuleModels;
 using RightRule.StatementProcessor.Parser;
 using RightRule.System.Common;

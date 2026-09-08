@@ -1,6 +1,6 @@
 ﻿using RightRule.RuleModels;
 
-namespace RightRule.RuleRegistration.DefaultRuleRegistration;
+namespace RightRule.RegistrationServices.DefaultRuleRegistration;
 
 public class DefaultRuleRegistrationResult
 {

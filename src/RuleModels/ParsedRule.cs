@@ -1,5 +1,5 @@
-﻿using RightRule.RuleModels.BaseModels;
-using RightRule.RuleRegistration;
+﻿using RightRule.RegistrationServices;
+using RightRule.RuleModels.BaseModels;
 using RightRule.StatementProcessor.Parser;
 using System.Text;
 

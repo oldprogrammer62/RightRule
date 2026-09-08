@@ -1,4 +1,4 @@
-﻿using RightRule.DataRegistration;
+﻿using RightRule.RegistrationServices.DataRegistration;
 using RightRule.StatementProcessor.Parser;
 using System.Globalization;
 
