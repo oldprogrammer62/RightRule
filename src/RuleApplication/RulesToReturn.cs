@@ -1,4 +1,4 @@
-﻿namespace RightRule.System.Common;
+﻿namespace RightRule.RuleApplication;
 
 /// <summary>
 /// Specifies which set of rules will return a successful result.
@@ -17,16 +17,4 @@ public enum RulesToReturn
 {
     First = 0,
     All = 1
-}
-
-public enum DataRetention
-{
-    Keep = 0,
-    Discard = 1
-}
-
-public enum OperatorRetention
-{
-    Keep = 0,
-    Discard = 1
 }

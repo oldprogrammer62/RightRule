@@ -1,6 +1,7 @@
 ﻿using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.Rules;
+using RightRule.RuleApplication;
 using RightRule.RuleModels.BaseModels;
 using RightRule.RuleModels.RuleModels;
 using RightRule.StatementProcessor.Evaluator;

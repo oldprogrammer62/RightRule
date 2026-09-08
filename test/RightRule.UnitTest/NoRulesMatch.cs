@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels.RuleModels;
+﻿using RightRule.RuleApplication;
+using RightRule.RuleModels.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRuleTests;
@@ -165,7 +166,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
+        var appliedRules = rr.ApplyRules("Context", RightRule.RuleApplication.RulesToReturn.First);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
@@ -231,7 +232,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.First);
+        var appliedRules = rr.ApplyRules("Context", RightRule.RuleApplication.RulesToReturn.First);
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRules[0].Decision);
     }
@@ -264,7 +265,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("Context", RightRule.RuleApplication.RulesToReturn.All);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
@@ -297,7 +298,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("Context", RightRule.RuleApplication.RulesToReturn.All);
 
         Assert.Equal(rule1.Decision, appliedRules[0].Decision);
         Assert.Equal(rule2.Decision, appliedRules[1].Decision);
@@ -331,7 +332,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", RightRule.System.Common.RulesToReturn.All);
+        var appliedRules = rr.ApplyRules("Context", RightRule.RuleApplication.RulesToReturn.All);
 
         Assert.Equal(rule1.FalseDecision, appliedRules[0].Decision);
         Assert.Equal(rule2.FalseDecision, appliedRules[1].Decision);

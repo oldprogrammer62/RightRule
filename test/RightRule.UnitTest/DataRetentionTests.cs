@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.RuleApplication;
 using RightRule.System.Common;
 using System.Runtime.InteropServices.ObjectiveC;
 

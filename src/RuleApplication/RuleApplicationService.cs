@@ -2,7 +2,6 @@
 using RightRule.RegistrationServices.Rules;
 using RightRule.RuleModels.BaseModels;
 using RightRule.StatementProcessor.Interpreter;
-using RightRule.System.Common;
 
 namespace RightRule.RuleApplication;
 

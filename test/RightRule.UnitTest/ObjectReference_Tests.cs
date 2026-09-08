@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.RuleApplication;
 using RightRule.RuleModels.RuleModels;
 using RightRule.System.Common;
 
