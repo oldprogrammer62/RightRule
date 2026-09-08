@@ -1,11 +1,11 @@
 ﻿using BeSoft;
-using RightRule.Models;
-using RightRule.Models.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
+using RightRule.RegistrationServices.RuleRgistration;
 using RightRule.RegistrationServices.Rules;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleModels.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;

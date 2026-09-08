@@ -1,6 +1,6 @@
 ﻿using BeSoft;
 using Newtonsoft.Json;
-using RightRule.RuleModels;
+using RightRule.RuleModels.RuleModels;
 
 namespace RightRule.RuleLoaders.Json;
 

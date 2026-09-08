@@ -1,7 +1,7 @@
 ﻿using BeSoft;
-using RightRule.Models;
 using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
+using RightRule.RuleModels.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager

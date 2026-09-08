@@ -1,5 +1,6 @@
 ﻿using BeSoft;
-using RightRule.RuleModels;
+using RightRule.RegistrationServices;
+using RightRule.RuleModels.RuleModels;
 
 namespace RightRuleTests;
 
@@ -36,8 +37,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.True(result1.IsSuccess);
-        Assert.True(result2.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, result1.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, result2.Status);
     }
 
     [Fact]
@@ -71,8 +72,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.True(result1.IsSuccess);
-        Assert.False(result2.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, result1.Status);
+        Assert.Equal(RegistrationStatus.FAILED, result2.Status);
     }
 
     [Fact]

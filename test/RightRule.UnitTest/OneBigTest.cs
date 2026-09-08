@@ -52,7 +52,7 @@ public class OneBigTest
             .Build();
         var rule1Registration = rr.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
-        Assert.True(rule1Registration.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
 
         var result = rr.ApplyRules(Context1);
         Assert.NotNull(result);
@@ -83,7 +83,7 @@ public class OneBigTest
             .Build();
         var rule1Registration = rr.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
-        Assert.True(rule1Registration.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
 
         var result = rr.ApplyRules(Context1);
         Assert.NotNull(result);
@@ -114,7 +114,7 @@ public class OneBigTest
             .Build();
         var rule1Registration = rr.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
-        Assert.True(rule1Registration.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
 
         var defaultRuleDefn = rr.BuildDefaultRule()
             .Name(DefaultRule1Name)

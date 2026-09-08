@@ -1,4 +1,3 @@
-using RightRule.Models.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration;
 
 namespace RightRule.RightRuleService;

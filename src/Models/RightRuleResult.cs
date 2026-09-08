@@ -1,6 +1,6 @@
 ﻿using RightRule.RuleModels.BaseModels;
 
-namespace RightRule.Models;
+namespace RightRule.RuleModels;
 
 public enum RightRuleStatus
 {

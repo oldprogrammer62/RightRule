@@ -1,5 +1,4 @@
-﻿using RightRule.Models;
-using RightRule.RuleModels;
+﻿using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
 using RightRule_Demo.DataManager;

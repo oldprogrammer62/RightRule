@@ -1,5 +1,5 @@
-﻿using RightRule.RegistrationServices.Rules;
-using RightRule.RuleModels;
+﻿using RightRule.RegistrationServices.RuleRgistration;
+using RightRule.RuleModels.RuleModels;
 
 namespace RightRuleTests;
 

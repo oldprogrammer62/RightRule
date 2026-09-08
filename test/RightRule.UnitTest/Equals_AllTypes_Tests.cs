@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels;
+﻿using RightRule.RegistrationServices;
+using RightRule.RuleModels.RuleModels;
 
 namespace RightRuleTests;
 
@@ -54,7 +55,7 @@ public class Equals_AllTypes_Tests
         };
 
         var rrule = rr.RegisterRule(ruleDef);
-        Assert.True(rrule.IsSuccess);
+        Assert.Equal(RegistrationStatus.SUCCESS, rrule.Status);
 
         var result = rr.ApplyRules("Context");
 

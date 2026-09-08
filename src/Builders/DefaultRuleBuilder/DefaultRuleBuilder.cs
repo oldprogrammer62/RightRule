@@ -1,5 +1,5 @@
 ﻿using RightRule.Builders.RightRule;
-using RightRule.RuleModels;
+using RightRule.RuleModels.RuleModels;
 
 namespace RightRule.Builders.DefaultRuleBuilder;
 

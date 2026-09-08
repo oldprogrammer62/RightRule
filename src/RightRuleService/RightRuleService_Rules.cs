@@ -1,8 +1,8 @@
-using RightRule.RuleModels;
 using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RuleModels.RuleModels;
+using RightRule.RegistrationServices.RuleRgistration;
 
 namespace RightRule.RightRuleService;
 

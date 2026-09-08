@@ -1,5 +1,5 @@
-﻿using RightRule.Models;
-using RightRule.RuleApplication;
+﻿using RightRule.RuleApplication;
+using RightRule.RuleModels;
 using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
 using static System.Runtime.InteropServices.JavaScript.JSType;

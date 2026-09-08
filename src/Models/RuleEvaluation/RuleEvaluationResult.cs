@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RightRule.Models.RuleEvaluation;
+namespace RightRule.RuleModels.RuleEvaluation;
 
 public class RuleEvaluationResult
 {

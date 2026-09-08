@@ -1,4 +1,6 @@
-﻿namespace RightRuleTests;
+﻿using RightRule.RuleModels.RuleModels;
+
+namespace RightRuleTests;
 
 public class ExceptionTests
 {
@@ -31,7 +33,7 @@ public class ExceptionTests
     [Fact]
     public void Test_RegisterRule_InvalidFormat()
     {
-        var rule = new RightRule.RuleModels.DefinedRule()
+        var rule = new DefinedRule()
         {
             Context = "Context",
             Decision = "Done",

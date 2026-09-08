@@ -1,6 +1,4 @@
-﻿using RightRule.Models.DataRegistration;
-
-namespace RightRule.RegistrationServices.DataRegistration;
+﻿namespace RightRule.RegistrationServices.DataRegistration;
 
 public interface IRegisteredDatasets
 {

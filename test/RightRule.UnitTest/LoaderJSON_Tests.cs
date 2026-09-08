@@ -1,4 +1,5 @@
-﻿using RightRule.RegistrationServices.Rules;
+﻿using RightRule.RegistrationServices.RuleRgistration;
+using RightRule.RuleModels.RuleModels;
 using System.Text;
 
 namespace RightRuleTests;
@@ -16,7 +17,7 @@ public class LoaderJSON_Tests
         Assert.NotNull(loader);
 
         var json = RightRule.RuleLoaders.Json.Template.JsonString();
-        List<RightRule.RuleModels.DefinedRule>? rules = loader.Load(json);
+        List<DefinedRule>? rules = loader.Load(json);
 
         Assert.NotNull(rules);
     }

@@ -1,4 +1,4 @@
-﻿using RightRule.RegistrationServices.Rules;
+﻿using RightRule.RegistrationServices.RuleRgistration;
 
 namespace RightRuleTests;
 
