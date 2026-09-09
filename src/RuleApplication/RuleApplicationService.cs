@@ -1,5 +1,4 @@
-﻿using RightRule.HelperFunctions;
-using RightRule.LanguageProcessor.Interpreter;
+﻿using RightRule.LanguageProcessor.Interpreter;
 using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices.RuleRegistration;
 

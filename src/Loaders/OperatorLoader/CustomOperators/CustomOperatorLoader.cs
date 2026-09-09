@@ -1,9 +1,9 @@
-﻿using RightRule.HelperFunctions;
-using RightRule.Loaders.OperatorLoader;
+﻿using RightRule.ConfigurationService;
+using RightRule.Loaders.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices;
 using RightRule.System.Common;
 
-namespace RightRule.Operators;
+namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
 
 internal class CustomOperatorLoader
 {
@@ -24,7 +24,7 @@ internal class CustomOperatorLoader
 
         foreach (var opConfig in opConfigs.Operators)
         {
-            var op = Loader.Load(opConfig.Path);
+            var op = ExternalAssemblyLoader.Load(opConfig.Path);
             if (op != null)
             {
                 operators.Add(op);

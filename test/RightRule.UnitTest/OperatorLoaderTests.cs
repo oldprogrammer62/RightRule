@@ -1,4 +1,4 @@
-﻿using RightRule.Loaders.OperatorLoader;
+﻿using RightRule.Loaders.OperatorLoader.CustomerOperators;
 
 namespace RightRuleTests;
 
@@ -8,7 +8,7 @@ public class OperatorLoaderTests
     public void TestItWorks_LoadOperator_Exists()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll";
-        var op = Loader.Load(path);
+        var op = ExternalAssemblyLoader.Load(path);
         Assert.NotNull(op);
     }
 
@@ -16,7 +16,7 @@ public class OperatorLoaderTests
     public void TestItWorks_LoadOperator_DayOfWeek()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll";
-        var op = Loader.Load(path);
+        var op = ExternalAssemblyLoader.Load(path);
         Assert.NotNull(op);
     }
 

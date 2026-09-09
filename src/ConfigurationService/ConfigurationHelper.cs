@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using System.Reflection;
 
-namespace RightRule.HelperFunctions;
+namespace RightRule.ConfigurationService;
 
 internal class ConfigurationHelper
 {

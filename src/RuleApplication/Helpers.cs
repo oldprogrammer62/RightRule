@@ -1,7 +1,7 @@
 ﻿using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.RuleRegistration;
 
-namespace RightRule.HelperFunctions;
+namespace RightRule.RuleApplication;
 
 public static class Helpers
 {
@@ -23,20 +23,6 @@ public static class Helpers
         catch (Exception ex)
         {
             throw new Exception($"Error filtering rules for context '{Context}': {ex.Message}", ex);
-        }
-    }
-
-    internal static T DeserialiseJson<T>(string Json)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Json, nameof(Json));
-
-        var jsonSerializer = new Newtonsoft.Json.JsonSerializer();
-        using (var jsonReader = new Newtonsoft.Json.JsonTextReader(new StringReader(Json)))
-        {
-            var deserializedObject = jsonSerializer.Deserialize<T>(jsonReader);
-            if (deserializedObject == null)
-                throw new Exception("Failed to deserialize JSON.");
-            return deserializedObject;
         }
     }
 }

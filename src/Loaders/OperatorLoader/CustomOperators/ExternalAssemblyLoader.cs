@@ -1,9 +1,9 @@
 ﻿using RightRule.System.Common;
 using System.Reflection;
 
-namespace RightRule.Loaders.OperatorLoader;
+namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
 
-public class Loader
+public class ExternalAssemblyLoader
 {
     public static Operator? Load(string pathToFunction)
     {
@@ -16,7 +16,7 @@ public class Loader
         if (string.IsNullOrWhiteSpace(pathToFunction) || !File.Exists(pathToFunction))
             throw new FileNotFoundException("Operator assembly not found", pathToFunction);
 
-        var loader = new OperatorLoader(pathToFunction, collectible);
+        var loader = new ExternalOperatorLoader(pathToFunction, collectible);
 
         try
         {

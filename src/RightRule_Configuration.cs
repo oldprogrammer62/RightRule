@@ -1,4 +1,4 @@
-﻿using RightRule.HelperFunctions;
+﻿using RightRule.ConfigurationService;
 
 namespace BeSoft;
 

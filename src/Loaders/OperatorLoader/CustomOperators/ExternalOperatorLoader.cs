@@ -1,12 +1,12 @@
 ﻿using System.Runtime.Loader;
 
-namespace RightRule.Loaders.OperatorLoader;
+namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
 
-public class OperatorLoader : AssemblyLoadContext
+public class ExternalOperatorLoader : AssemblyLoadContext
 {
     private readonly AssemblyDependencyResolver _resolver;
 
-    internal OperatorLoader(string functionPath, bool collectible)
+    internal ExternalOperatorLoader(string functionPath, bool collectible)
         : base(name: Path.GetFileName(functionPath), collectible)
     {
         if (string.IsNullOrWhiteSpace(functionPath) || !File.Exists(functionPath))
