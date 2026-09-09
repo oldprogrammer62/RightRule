@@ -1,4 +1,5 @@
-﻿using RightRule.RuleModels.BaseModels;
+﻿using RightRule.RegistrationServices.Rules;
+using RightRule.RuleModels.BaseModels;
 using RightRule.RuleModels.RuleEvaluation;
 using System.Text;
 
@@ -32,6 +33,7 @@ public sealed class ErrorRule : RuleError
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"Number: {(int)RuleNumberEnum.ErrorRule}");
         sb.AppendLine($"Decision: {DECISIONWORD}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();

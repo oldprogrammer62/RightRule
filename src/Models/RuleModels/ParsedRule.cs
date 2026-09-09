@@ -56,14 +56,14 @@ public sealed class ParsedRule : RuleParsed
             Number = ruleDefinition.Number,
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
+            Statement = ruleDefinition.Statement,
             Decision = ruleDefinition.Decision,
             DecisionData = ruleDefinition.DecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
-            Statement = ruleDefinition.Statement,
             Status = RegistrationStatus.FAILED,
-            Message = message,
             StatementPath = string.Empty,
+            Message = message,
             Node = null,
             OptionalData = ruleDefinition.OptionalData,
             RuleConfiguration = ruleDefinition.RuleConfiguration
@@ -77,13 +77,13 @@ public sealed class ParsedRule : RuleParsed
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
-        sb.AppendLine($"Configuration: {OptionalData}");
         sb.AppendLine($"Decision: {Decision}");
         sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
-        sb.AppendLine($"OptionalData: {OptionalData}");
+        sb.AppendLine($"Status: {Status}");
         sb.AppendLine($"StatementPath: {StatementPath}");
+        sb.AppendLine($"OptionalData: {OptionalData}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();
     }

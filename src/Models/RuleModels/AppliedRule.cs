@@ -60,13 +60,14 @@ public sealed class AppliedRule : RuleApplied
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
-        sb.AppendLine($"IsSuccess: {IsSuccess}");
-        sb.AppendLine($"Result: {Result}");
+        sb.AppendLine($"StatementApplied: {statementApplied}");
         sb.AppendLine($"Decision: {Decision}");
         sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
-        sb.AppendLine($"StatementApplied: {statementApplied}");
+        sb.AppendLine($"IsSuccess: {IsSuccess}");
+        sb.AppendLine($"Result: {Result}");
+        sb.AppendLine($"Message: {Message}");
         return sb.ToString();
     }
 }

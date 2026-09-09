@@ -1,6 +1,5 @@
 ﻿using BeSoft;
 using RightRule.RegistrationServices;
-using RightRule.RuleModels;
 
 namespace RightRuleTests;
 
@@ -53,6 +52,8 @@ public class OneBigTest
         var rule1Registration = rr.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RegistrationStatus.SUCCESS, rule1Registration.Status);
+        var rule1TS = rule1Registration.RegisteredRule.ToString();
+
 
         var result = rr.ApplyRules(Context1);
         Assert.NotNull(result);
