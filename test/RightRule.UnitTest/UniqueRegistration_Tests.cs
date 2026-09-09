@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -15,10 +16,10 @@ public class UniqueRegistration_Tests
         };
 
         var first = rr.RegisterData("Data1", data);
-        Assert.True(first.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, first.Status);
 
         var second = rr.RegisterData("Data1", data);
-        Assert.False(second.Success);
+        Assert.Equal(RegistrationStatus.FAILURE, second.Status);
 
         Assert.Equal(1, rr.GetRegisteredDatasets().Count);
     }
@@ -34,10 +35,10 @@ public class UniqueRegistration_Tests
         };
 
         var first = rr.RegisterData("Data1", data);
-        Assert.True(first.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, first.Status);
 
         var second = rr.RegisterData("Data2", data);
-        Assert.True(second.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, second.Status);
 
         Assert.Equal(2, rr.GetRegisteredDatasets().Count);
     }
@@ -50,10 +51,10 @@ public class UniqueRegistration_Tests
         var data = 100;
 
         var first = rr.RegisterData("Data1", data);
-        Assert.True(first.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, first.Status);
 
         var second = rr.RegisterData("Data1", data);
-        Assert.False(second.Success);
+        Assert.Equal(RegistrationStatus.FAILURE, second.Status);
 
         Assert.Equal(1, rr.GetRegisteredDataObjects().Count);
     }

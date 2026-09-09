@@ -2,6 +2,9 @@
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
+/// <summary>
+/// Result of registering a Rule with RightRule
+/// </summary>
 public class RuleRegistrationResult
 {
     public required RegistrationStatus Status { get; init; }

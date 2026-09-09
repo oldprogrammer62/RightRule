@@ -1,35 +1,36 @@
-﻿namespace RightRule.RegistrationServices.DataRegistration;
+﻿using RightRule.RegistrationServices.RuleRegistration;
 
+namespace RightRule.RegistrationServices.DataRegistration;
+
+/// <summary>
+/// Result of registering Data with RightRule
+/// </summary>
 public class DataRegistrationResult
 {
-    public bool Success { get; init; }
-    public string Name { get; init; }
-    public string DataType { get; init; }
-    public string Message { get; init; }
-
-    private DataRegistrationResult(bool Success, string name, string dataType, string message)
-    {
-        this.Success = Success;
-        Name = name;
-        DataType = dataType;
-        Message = message;
-    }
+    public required RegistrationStatus Status { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string DataType { get; init; } = string.Empty;
+    public string Message { get; init; } = string.Empty;
 
     internal static DataRegistrationResult SuccessResult(string name, string dataType, string message)
     {
-        return new DataRegistrationResult(
-            true,
-            name,
-            dataType,
-            message);
+        return new DataRegistrationResult()
+        {
+            Status = RegistrationStatus.SUCCESS,
+            Name = name,
+            DataType = dataType,
+            Message = message
+        };
     }
 
     internal static DataRegistrationResult FailureResult(string name, string dataType, string message)
     {
-        return new DataRegistrationResult(
-            false,
-            name,
-            dataType,
-            message);
+        return new DataRegistrationResult()
+        {
+            Status = RegistrationStatus.FAILURE,
+            Name = name,
+            DataType = dataType,
+            Message = message
+        };
     }
 }

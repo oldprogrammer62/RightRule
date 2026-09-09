@@ -1,5 +1,6 @@
 ﻿using BeSoft;
 using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
 using RightRule.System.Common;
 
@@ -130,7 +131,7 @@ public class ObjectReference_Tests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var added1 = rr.RegisterData("x", x);
-        Assert.True(added1.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -158,9 +159,9 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", x);
         var added2 = rr.RegisterData("datay", y);
         var added3 = rr.RegisterData("datagreeting", greeting);
-        Assert.True(added1.Success);
-        Assert.True(added2.Success);
-        Assert.True(added3.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, added2.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, added3.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -188,13 +189,13 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", x);
         var added2 = rr.RegisterData("datay", y);
         var added3 = rr.RegisterData("datagreeting", greeting);
-        Assert.True(added1.Success);
-        Assert.True(added2.Success);
-        Assert.True(added3.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, added2.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, added3.Status);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var added4 = rr.RegisterData("databob", obj1);
-        Assert.True(added4.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, added4.Status);
 
         DefinedRule rule = new DefinedRule()
         {

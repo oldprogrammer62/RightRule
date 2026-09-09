@@ -26,9 +26,9 @@ internal class RegisteredDatasets : IRegisteredDatasets
         if (existingData == null)
         {
             _data.Add(data);
-            return DataRegistrationResult.SuccessResult(data.Name, DataTypes.DATASET, $"Data: {data.Name} registered");
+            return DataRegistrationResult.SuccessResult(data.Name, DataTypes.DATASET, $"{data.Name} registered");
         }
-        return DataRegistrationResult.FailureResult(data.Name, DataTypes.DATASET, $"Data: {data.Name} already registered");
+        return DataRegistrationResult.FailureResult(data.Name, DataTypes.DATASET, $"{data.Name} already registered");
     }
 
     public bool RemoveData()

@@ -26,9 +26,9 @@ internal class RegisteredDataObjects : IRegisteredDataObjects
         if (existingData == null)
         {
             _data.Add(data);
-            return DataRegistrationResult.SuccessResult(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} registered");
+            return DataRegistrationResult.SuccessResult(data.Name, DataTypes.DATAOBJECT, $"{data.Name} registered");
         }
-        return DataRegistrationResult.FailureResult(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} already registered");
+        return DataRegistrationResult.FailureResult(data.Name, DataTypes.DATAOBJECT, $"{data.Name} already registered");
     }
 
     public bool RemoveData()

@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
 
 namespace RightRuleTests;
@@ -95,9 +96,9 @@ public class DataRegistrationTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var added1 = rr.RegisterData("r", r);
-        Assert.True(added1.Success);
+        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
 
         var added2 = rr.RegisterData("r", r);
-        Assert.False(added2.Success);
+        Assert.Equal(RegistrationStatus.FAILURE, added2.Status);
     }
 }
