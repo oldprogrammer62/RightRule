@@ -25,20 +25,20 @@ internal sealed class Evaluator : IEvaluator
                 var nodeResult = await EvaluateNodeAsync(Datasets, DataObjects, ParsedRule).ConfigureAwait(false);
                 if (nodeResult == null)
                 {
-                    return RuleEvaluationResult.Failure(false, false, "Evaluation invalid.");
+                    return RuleEvaluationResult.FailureResult(false, false, "Evaluation invalid.");
                 }
-                if (!nodeResult.IsSuccess)
+                if (!nodeResult.Success)
                 {
-                    return RuleEvaluationResult.Failure(nodeResult.IsSuccess, nodeResult.Result, nodeResult.Message);
+                    return RuleEvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message);
                 }
 
                 string message = string.Empty;
                 string statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
-                return RuleEvaluationResult.Success(nodeResult.IsSuccess, nodeResult.Result, message, statementApplied);
+                return RuleEvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, message, statementApplied);
             }
             catch (Exception ex)
             {
-                return RuleEvaluationResult.Error(ex.Message);
+                return RuleEvaluationResult.ErrorResult(ex.Message);
             }
         });
     }
@@ -56,7 +56,7 @@ internal sealed class Evaluator : IEvaluator
     {
         if (rule == null)
         {
-            return OperatorResult.Failure("XXX", "Rule is invalid/empty.");
+            return OperatorResult.FailureResult("XXX", "Rule is invalid/empty.");
         }
 
         var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
@@ -71,7 +71,7 @@ internal sealed class Evaluator : IEvaluator
             ConditionNode c => await EvaluateConditionAsync(Datasets, DataObjects, c, OptionalData, Diagnostics).ConfigureAwait(false),
             BinaryNode b => await EvaluateBinaryConditionAsync(Datasets, DataObjects, b, OptionalData, Diagnostics).ConfigureAwait(false),
             NotNode n => (await EvaluateNodeAsync(Datasets, DataObjects, n.Inner, OptionalData, Diagnostics).ConfigureAwait(false)).Invert(),
-            _ => OperatorResult.Failure("XXX", $"Unknown Node Type: {node}")
+            _ => OperatorResult.FailureResult("XXX", $"Unknown Node Type: {node}")
         };
         return result;
     }
@@ -81,23 +81,23 @@ internal sealed class Evaluator : IEvaluator
         string op = b.LogicOp?.ToLowerInvariant() ?? string.Empty;
         if (op != "and" && op != "or")
         {
-            return OperatorResult.Failure(op, $"Unknown logical operator: {b.LogicOp}");
+            return OperatorResult.FailureResult(op, $"Unknown logical operator: {b.LogicOp}");
         }
 
         // 1. Evaluate the left side
         var leftResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Left, OptionalData, Diagnostics).ConfigureAwait(false);
-        if (!leftResult.IsSuccess) return leftResult; // Bubble up the error immediately
+        if (!leftResult.Success) return leftResult; // Bubble up the error immediately
 
         // 2. Perform Short-Circuit Checks
-        if (op == "and" && !leftResult.Result) return OperatorResult.Success(op, false);
-        if (op == "or" && leftResult.Result) return OperatorResult.Success(op, true);
+        if (op == "and" && !leftResult.Result) return OperatorResult.SuccessResult(op, false);
+        if (op == "or" && leftResult.Result) return OperatorResult.SuccessResult(op, true);
 
         // 3. Evaluate the right side (only if short-circuit didn't trigger)
         var rightResult = await EvaluateNodeAsync(Datasets, DataObjects, b.Right, OptionalData, Diagnostics).ConfigureAwait(false);
-        if (!rightResult.IsSuccess) return rightResult; // Bubble up the error immediately
+        if (!rightResult.Success) return rightResult; // Bubble up the error immediately
 
         // 4. If both succeeded, the final value is just the right side's value
-        return OperatorResult.Success(op, rightResult.Result);
+        return OperatorResult.SuccessResult(op, rightResult.Result);
     }
 
     private async Task<OperatorResult> EvaluateConditionAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ConditionNode node, object? OptionalData, bool Diagnostics)
@@ -114,7 +114,7 @@ internal sealed class Evaluator : IEvaluator
         }
         catch (Exception ex)
         {
-            return OperatorResult.Failure(op, ex.Message);
+            return OperatorResult.FailureResult(op, ex.Message);
         }
     }
 

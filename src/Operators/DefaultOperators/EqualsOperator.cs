@@ -14,21 +14,21 @@ public class EqualsOperator : Operator
     {
         if (left == null && right == null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
-        if (IsNumber(left) && IsNumber(right)) return OperatorResult.Success(this.Name, ProcessAsNumber(left, right));
-        if (IsString(left) && IsString(right)) return OperatorResult.Success(this.Name, ProcessAsString(left, right));
-        if (IsChar(left) && IsChar(right)) return OperatorResult.Success(this.Name, ProcessAsChar(left, right));
-        if (IsBoolean(left) && IsBoolean(right)) return OperatorResult.Success(this.Name, ProcessAsBoolean(left, right));
-        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.Success(this.Name, ProcessAsDateTime(left, right));
-        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.Success(this.Name, ProcessAsDateOnly(left, right));
-        if (IsTimeOnly(left) && IsTimeOnly(right)) return OperatorResult.Success(this.Name, ProcessAsTimeOnly(left, right));
-        return OperatorResult.Success(this.Name, Equals(left, right));
+        if (IsNumber(left) && IsNumber(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsNumber(left, right));
+        if (IsString(left) && IsString(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsString(left, right));
+        if (IsChar(left) && IsChar(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsChar(left, right));
+        if (IsBoolean(left) && IsBoolean(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsBoolean(left, right));
+        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateTime(left, right));
+        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateOnly(left, right));
+        if (IsTimeOnly(left) && IsTimeOnly(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsTimeOnly(left, right));
+        return OperatorResult.SuccessResult(this.Name, Equals(left, right));
     }
 
     private static new bool Equals(dynamic left, dynamic right)

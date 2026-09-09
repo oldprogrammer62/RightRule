@@ -17,7 +17,7 @@ internal static class EvaluateAllRules
         {
             RuleEvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
 
-            bool success = ruleResult.IsSuccess;
+            bool success = ruleResult.Success;
             bool result = ruleResult.Result;
 
             switch ((success, result))
@@ -50,7 +50,7 @@ internal static class EvaluateAllRules
         if (rule.Node == null)
         {
             var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
-            return RuleEvaluationResult.Error(message);
+            return RuleEvaluationResult.ErrorResult(message);
         }
 
         try
@@ -66,12 +66,12 @@ internal static class EvaluateAllRules
 
     private static IProcessedRule CreateTrueResult(RuleEvaluationResult result, ParsedRule rule)
     {
-        return AppliedRule.BuildTrueResult(rule, result);
+        return AppliedRule.TrueResult(rule, result);
     }
 
     private static IProcessedRule CreateFalseResult(RuleEvaluationResult result, ParsedRule rule)
     {
-        return AppliedRule.BuildFalseResult(rule, result);
+        return AppliedRule.FalseResult(rule, result);
     }
 
     private static IProcessedRule CreateErrorResult(RuleEvaluationResult result, ParsedRule rule)

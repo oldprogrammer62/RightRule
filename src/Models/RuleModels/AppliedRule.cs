@@ -13,7 +13,7 @@ public sealed class AppliedRule : RuleApplied
     {
     }
 
-    internal static AppliedRule BuildTrueResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleEvaluationResult result)
     {
         return new AppliedRule()
         {
@@ -26,13 +26,13 @@ public sealed class AppliedRule : RuleApplied
             DecisionData = parsedRule.DecisionData,
             FalseDecision = parsedRule.FalseDecision,
             FalseDecisionData = parsedRule.FalseDecisionData,
-            IsSuccess = result.IsSuccess,
+            Success = result.Success,
             Result = result.Result,
             Message = result.Message
         };
     }
 
-    internal static AppliedRule BuildFalseResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleEvaluationResult result)
     {
         return new AppliedRule()
         {
@@ -45,7 +45,7 @@ public sealed class AppliedRule : RuleApplied
             DecisionData = parsedRule.DecisionData,
             FalseDecision = parsedRule.FalseDecision,
             FalseDecisionData = parsedRule.FalseDecisionData,
-            IsSuccess = result.IsSuccess,
+            Success = result.Success,
             Result = result.Result,
             Message = result.Message
         };
@@ -65,7 +65,7 @@ public sealed class AppliedRule : RuleApplied
         sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
-        sb.AppendLine($"IsSuccess: {IsSuccess}");
+        sb.AppendLine($"Success: {Success}");
         sb.AppendLine($"Result: {Result}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();

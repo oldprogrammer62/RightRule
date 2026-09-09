@@ -12,11 +12,10 @@ public abstract class RuleError : IProcessedRule
     public string Name { get; init; } = RULENAME;
     public string Context { get; } = string.Empty;
 
-    public bool IsSuccess { get; } = false;
+    public bool Success { get; } = false;
     public bool Result { get; } = false;
     public string StatementApplied { get; } = string.Empty;
     public required string Message { get; init; } = string.Empty;
-
 
     public string Decision { get; } = DECISIONWORD;
     public object? DecisionData { get; }

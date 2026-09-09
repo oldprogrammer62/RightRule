@@ -15,14 +15,14 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyRulesAsync(Context, RulesToReturn.First).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
-            return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
+            return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
         }
         var result = rulesApplied.FirstOrDefault();
         if (result != null)
         {
             return result;
         }
-        return RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context));
+        return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
     }
 
     public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
@@ -32,7 +32,7 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyMatchAsync(Context, rulesToReturn).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context))];
+            return [RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
         }
         return BuildResult(rulesApplied);
     }
@@ -46,7 +46,7 @@ internal partial class RightRuleService : IRightRuleService
         var rulesApplied = await ApplyMatchAsync(Context, DataName, Data, rulesToReturn, dataRetention).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IProcessedRule>.Default(GetDefaultRule(Context))];
+            return [RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
         }
         return BuildResult(rulesApplied);
     }

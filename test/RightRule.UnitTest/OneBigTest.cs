@@ -35,11 +35,11 @@ public class OneBigTest
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
-        Assert.True(data1Registration.IsSuccess);
+        Assert.True(data1Registration.Success);
 
         var data2Registration = rr.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
-        Assert.True(data2Registration.IsSuccess);
+        Assert.True(data2Registration.Success);
 
         var rule1Defn = rr.BuildRule()
             .Number(1)
@@ -68,11 +68,11 @@ public class OneBigTest
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
-        Assert.True(data1Registration.IsSuccess);
+        Assert.True(data1Registration.Success);
 
         var data2Registration = rr.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
-        Assert.True(data2Registration.IsSuccess);
+        Assert.True(data2Registration.Success);
 
         var rule1Defn = rr.BuildRule()
             .Number(1)
@@ -99,11 +99,11 @@ public class OneBigTest
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
-        Assert.True(data1Registration.IsSuccess);
+        Assert.True(data1Registration.Success);
 
         var data2Registration = rr.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
-        Assert.True(data2Registration.IsSuccess);
+        Assert.True(data2Registration.Success);
 
         var rule1Defn = rr.BuildRule()
             .Number(1)
@@ -139,11 +139,11 @@ public class OneBigTest
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
-        Assert.True(data1Registration.IsSuccess);
+        Assert.True(data1Registration.Success);
 
         var data2Registration = rr.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
-        Assert.True(data2Registration.IsSuccess);
+        Assert.True(data2Registration.Success);
 
         var rule1Defn = rr.BuildRule()
             .Number(1)
@@ -197,11 +197,11 @@ public class OneBigTest
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
-        Assert.True(data1Registration.IsSuccess);
+        Assert.True(data1Registration.Success);
 
         var data2Registration = rr.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
-        Assert.True(data2Registration.IsSuccess);
+        Assert.True(data2Registration.Success);
 
         var rule1Defn = rr.BuildRule()
             .Number(1)

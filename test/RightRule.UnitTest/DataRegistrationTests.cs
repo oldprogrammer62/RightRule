@@ -95,9 +95,9 @@ public class DataRegistrationTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var added1 = rr.RegisterData("r", r);
-        Assert.True(added1.IsSuccess);
+        Assert.True(added1.Success);
 
         var added2 = rr.RegisterData("r", r);
-        Assert.False(added2.IsSuccess);
+        Assert.False(added2.Success);
     }
 }

@@ -33,7 +33,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -61,13 +61,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context));
+                return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -97,7 +97,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -126,13 +126,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, rulesToReturn).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -148,7 +148,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -179,7 +179,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -209,13 +209,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, dataRetention).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context));
+                return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -247,7 +247,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -278,13 +278,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, rulesToReturn, dataRetention).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.Default(RightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -301,7 +301,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -314,7 +314,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 
@@ -327,7 +327,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message));
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
         }
     }
 
@@ -340,7 +340,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         catch (Exception ex)
         {
-            return [RightRuleResult<IProcessedRule>.Error(ex, ErrorRule.ErrorResult(ex.Message))];
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
 }

@@ -20,15 +20,15 @@ internal class RegisteredDataObjects : IRegisteredDataObjects
     {
         if (data == null || string.IsNullOrEmpty(data.Name))
         {
-            return DataRegistrationResult.Failed(string.Empty, DataTypes.DATAOBJECT, "Data is null or Data Name not specified");
+            return DataRegistrationResult.FailureResult(string.Empty, DataTypes.DATAOBJECT, "Data is null or Data Name not specified");
         }
         var existingData = GetData(data.Name);
         if (existingData == null)
         {
             _data.Add(data);
-            return DataRegistrationResult.Success(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} registered");
+            return DataRegistrationResult.SuccessResult(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} registered");
         }
-        return DataRegistrationResult.Failed(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} already registered");
+        return DataRegistrationResult.FailureResult(data.Name, DataTypes.DATAOBJECT, $"Data: {data.Name} already registered");
     }
 
     public bool RemoveData()

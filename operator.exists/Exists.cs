@@ -15,16 +15,16 @@ public class Exists : RightRule.System.Common.Operator
     {
         if (left == null && right == null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
         if (left == null || right == null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
         if (right is IList list)
         {
-            return OperatorResult.Success(this.Name, list.Contains(left));
+            return OperatorResult.SuccessResult(this.Name, list.Contains(left));
         }
 
         if (right is ArrayList array)
@@ -33,7 +33,7 @@ public class Exists : RightRule.System.Common.Operator
             {
                 if (Equals(item, left))
                 {
-                    return OperatorResult.Success(this.Name, true);
+                    return OperatorResult.SuccessResult(this.Name, true);
                 }
             }
         }
@@ -46,10 +46,10 @@ public class Exists : RightRule.System.Common.Operator
                 var sItem = item.ToString();
                 if (Equals(sItem, sLeft))
                 {
-                    return OperatorResult.Success(this.Name, true);
+                    return OperatorResult.SuccessResult(this.Name, true);
                 }
             }
         }
-        return OperatorResult.Failure(this.Name, "Operand (right) is not a valid collection.");
+        return OperatorResult.FailureResult(this.Name, "Operand (right) is not a valid collection.");
     }
 }

@@ -14,19 +14,19 @@ public sealed class DoesNotContainOperator : Operator
     {
         if (left is null || right is null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
         // String contains (case-insensitive)
         if (left is string ls && right is string rs)
         {
-            return OperatorResult.Success(this.Name, NotContains(ls, rs));
+            return OperatorResult.SuccessResult(this.Name, NotContains(ls, rs));
         }
 
         // Fallback to string contains
         var lstr = left.ToString() ?? string.Empty;
         var rstr = right.ToString() ?? string.Empty;
-        return OperatorResult.Success(this.Name, NotContains(lstr, rstr));
+        return OperatorResult.SuccessResult(this.Name, NotContains(lstr, rstr));
     }
 
     private static bool NotContains(string left, string right)

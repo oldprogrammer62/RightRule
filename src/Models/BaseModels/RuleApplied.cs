@@ -8,7 +8,7 @@ public abstract class RuleApplied : IProcessedRule
 
     public required string Statement { get; init; }
 
-    public required bool IsSuccess { get; init; }
+    public required bool Success { get; init; }
     public required bool Result { get; init; }
     public required string StatementApplied { get; init; }
     public required string Message { get; init; } = string.Empty;

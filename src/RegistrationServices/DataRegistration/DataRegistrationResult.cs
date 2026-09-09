@@ -2,20 +2,20 @@
 
 public class DataRegistrationResult
 {
-    public bool IsSuccess { get; init; }
+    public bool Success { get; init; }
     public string Name { get; init; }
     public string DataType { get; init; }
     public string Message { get; init; }
 
-    private DataRegistrationResult(bool isSuccess, string name, string dataType, string message)
+    private DataRegistrationResult(bool Success, string name, string dataType, string message)
     {
-        IsSuccess = isSuccess;
+        this.Success = Success;
         Name = name;
         DataType = dataType;
         Message = message;
     }
 
-    internal static DataRegistrationResult Success(string name, string dataType, string message)
+    internal static DataRegistrationResult SuccessResult(string name, string dataType, string message)
     {
         return new DataRegistrationResult(
             true,
@@ -24,7 +24,7 @@ public class DataRegistrationResult
             message);
     }
 
-    internal static DataRegistrationResult Failed(string name, string dataType, string message)
+    internal static DataRegistrationResult FailureResult(string name, string dataType, string message)
     {
         return new DataRegistrationResult(
             false,

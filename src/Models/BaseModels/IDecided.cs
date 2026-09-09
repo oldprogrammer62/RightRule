@@ -2,7 +2,7 @@ namespace RightRule.Models.BaseModels;
 
 public interface IDecided
 {
-    bool IsSuccess { get; }
+    bool Success { get; }
     bool Result { get; }
 
     string StatementApplied { get; }

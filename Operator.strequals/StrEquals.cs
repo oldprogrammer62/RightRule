@@ -11,11 +11,11 @@ namespace Operator.strequals
         {
             if (left is string leftStr && right is string rightStr)
             {
-                return OperatorResult.Success(this.Name, Equals(leftStr, rightStr, OptionalData));
+                return OperatorResult.SuccessResult(this.Name, Equals(leftStr, rightStr, OptionalData));
             }
             else
             {
-                return OperatorResult.Failure(this.Name, "Both left and right operands must be strings.");
+                return OperatorResult.FailureResult(this.Name, "Both left and right operands must be strings.");
             }
         }
 

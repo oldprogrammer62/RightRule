@@ -18,7 +18,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
     {
         if (left is null || right is null)
         {
-            return OperatorResult.Failure(this.Name, "One or both operands are null.");
+            return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
         // left will contain a reference to a Date
@@ -28,7 +28,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
         // Short day: Mon, Tue etc
 
         var day = GetDayNumberOfWeek(left);
-        if (day == -1) return OperatorResult.Failure(this.Name, "Invalid day.");
+        if (day == -1) return OperatorResult.FailureResult(this.Name, "Invalid day.");
 
         var shortDay = ShortDays[day];
         var longDay = LongDays[day];
@@ -37,14 +37,14 @@ public class DayOfWeek : RightRule.System.Common.Operator
         {
             if (right.ToString()!.ToLower().Equals(shortDay.ToString().ToLower()))
             {
-                return OperatorResult.Success(this.Name, true);
+                return OperatorResult.SuccessResult(this.Name, true);
             }
             if (right.ToString()!.ToLower().Equals(longDay.ToString().ToLower()))
             {
-                return OperatorResult.Success(this.Name, true);
+                return OperatorResult.SuccessResult(this.Name, true);
             }
         }
-        return OperatorResult.Failure(this.Name, "Operand (right) is not a valid date.");
+        return OperatorResult.FailureResult(this.Name, "Operand (right) is not a valid date.");
     }
 
     /// <summary>

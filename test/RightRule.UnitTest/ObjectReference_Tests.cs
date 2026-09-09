@@ -130,7 +130,7 @@ public class ObjectReference_Tests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var added1 = rr.RegisterData("x", x);
-        Assert.True(added1.IsSuccess);
+        Assert.True(added1.Success);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -158,9 +158,9 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", x);
         var added2 = rr.RegisterData("datay", y);
         var added3 = rr.RegisterData("datagreeting", greeting);
-        Assert.True(added1.IsSuccess);
-        Assert.True(added2.IsSuccess);
-        Assert.True(added3.IsSuccess);
+        Assert.True(added1.Success);
+        Assert.True(added2.Success);
+        Assert.True(added3.Success);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -188,13 +188,13 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", x);
         var added2 = rr.RegisterData("datay", y);
         var added3 = rr.RegisterData("datagreeting", greeting);
-        Assert.True(added1.IsSuccess);
-        Assert.True(added2.IsSuccess);
-        Assert.True(added3.IsSuccess);
+        Assert.True(added1.Success);
+        Assert.True(added2.Success);
+        Assert.True(added3.Success);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var added4 = rr.RegisterData("databob", obj1);
-        Assert.True(added4.IsSuccess);
+        Assert.True(added4.Success);
 
         DefinedRule rule = new DefinedRule()
         {

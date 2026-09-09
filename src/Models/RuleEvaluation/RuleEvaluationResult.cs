@@ -4,7 +4,7 @@ namespace RightRule.Models.RuleEvaluation;
 
 public class RuleEvaluationResult
 {
-    public required bool IsSuccess { get; init; }
+    public required bool Success { get; init; }
     public required bool Result { get; init; }
 
     public string Message { get; }
@@ -13,13 +13,13 @@ public class RuleEvaluationResult
     [SetsRequiredMembers]
     private RuleEvaluationResult(bool Success, bool Result, string Message, string StatementApplied)
     {
-        IsSuccess = Success;
+        this.Success = Success;
         this.Result = Result;
         this.Message = Message;
         this.StatementApplied = StatementApplied;
     }
 
-    internal static RuleEvaluationResult Success(bool success, bool result, string successMessage, string StatementApplied)
+    internal static RuleEvaluationResult SuccessResult(bool success, bool result, string successMessage, string StatementApplied)
     {
         return new RuleEvaluationResult(
             Success: success,
@@ -29,7 +29,7 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult Failure(bool success, bool result, string errorMessage)
+    internal static RuleEvaluationResult FailureResult(bool success, bool result, string errorMessage)
     {
         return new RuleEvaluationResult(
             Success: success,
@@ -39,7 +39,7 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult Error(string error)
+    internal static RuleEvaluationResult ErrorResult(string error)
     {
         return new RuleEvaluationResult(
             Success: false,
