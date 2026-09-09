@@ -1,11 +1,11 @@
 ﻿using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.LanguageProcessor.Interpreter;
+using RightRule.Models;
+using RightRule.Models.BaseModels;
 using RightRule.Operators;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.Rules;
-using RightRule.RuleModels;
-using RightRule.RuleModels.BaseModels;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;

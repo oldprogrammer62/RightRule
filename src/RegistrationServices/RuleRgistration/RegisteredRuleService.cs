@@ -1,5 +1,5 @@
-﻿using RightRule.RegistrationServices.RuleRgistration;
-using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRgistration;
 using System.Data;
 
 namespace RightRule.RegistrationServices.Rules;
@@ -48,7 +48,12 @@ internal class RegisteredRuleService : IRegisteredRuleService
         var parsedRule = _ruleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
         if (parsedRule == null)
         {
-            return null;
+            return new RuleRegistrationResult()
+            {
+                Message = "Rule Failed to be Parsed",
+                RegisteredRule = null,
+                Status = RegistrationStatus.FAILED
+            };
         }
         return RegisteredRules.AddRule(parsedRule);
     }

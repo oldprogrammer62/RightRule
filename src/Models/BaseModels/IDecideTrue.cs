@@ -1,4 +1,4 @@
-﻿namespace RightRule.RuleModels.BaseModels;
+﻿namespace RightRule.Models.BaseModels;
 
 public interface IDecideTrue
 {

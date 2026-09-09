@@ -1,4 +1,4 @@
-﻿namespace RightRule.RuleModels.BaseModels;
+﻿namespace RightRule.Models.BaseModels;
 
 public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
 {

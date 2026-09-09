@@ -1,6 +1,6 @@
-﻿using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RuleModels.RuleEvaluation;
-using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models.RuleEvaluation;
+using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.DataRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 

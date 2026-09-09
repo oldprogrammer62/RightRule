@@ -1,5 +1,5 @@
-﻿using RightRule.RuleApplication;
-using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models.RuleModels;
+using RightRule.RuleApplication;
 
 namespace RightRuleTests;
 

@@ -1,7 +1,7 @@
-﻿using RightRule.RuleApplication;
-using RightRule.RuleModels;
-using RightRule.RuleModels.BaseModels;
-using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models;
+using RightRule.Models.BaseModels;
+using RightRule.Models.RuleModels;
+using RightRule.RuleApplication;
 using RightRule.System.Common;
 
 namespace BeSoft;

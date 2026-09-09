@@ -1,6 +1,6 @@
-﻿using RightRule.RegistrationServices;
+﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices;
 using RightRule.RegistrationServices.Rules;
-using RightRule.RuleModels.RuleModels;
 
 namespace RightRule.HelperFunctions;
 

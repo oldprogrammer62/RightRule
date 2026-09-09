@@ -1,6 +1,6 @@
 ﻿using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.LanguageProcessor.Parser;
-using RightRule.RuleModels.RuleModels;
+using RightRule.Models.RuleModels;
 
 namespace RightRule.RegistrationServices.Rules;
 

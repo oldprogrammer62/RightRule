@@ -1,5 +1,5 @@
-﻿using RightRule.RegistrationServices.RuleRgistration;
-using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRgistration;
 
 namespace RightRule.RegistrationServices.Rules;
 
@@ -33,7 +33,7 @@ internal class RegisteredRules : IRegisteredRules
     {
         if (rule == null)
         {
-            return RuleRegistrationResult.Failed("Rule is null", null);
+            return RuleRegistrationResult.Failed("Rule is null");
         }
         var existingRule = GetRule(rule.Number, rule.Name);
         switch (existingRule)

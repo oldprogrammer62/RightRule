@@ -1,8 +1,8 @@
 using BeSoft;
 using RightRule.RuleLoaders;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RuleModels.RuleModels;
 using RightRule.RegistrationServices.RuleRgistration;
+using RightRule.Models.RuleModels;
 
 namespace RightRule.RightRuleService;
 
@@ -63,7 +63,7 @@ internal partial class RightRuleService : IRightRuleService
         var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, JsonData);
         if (ruleDefn == null)
         {
-            return [RuleRegistrationResult.Failed("Rule Definitions not build from Json", null)];
+            return [RuleRegistrationResult.Failed("Rule Definitions not build from Json")];
         }
         return rightRule.RegisterRules(ruleDefn);
     }

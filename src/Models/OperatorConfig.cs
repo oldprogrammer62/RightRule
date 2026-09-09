@@ -1,4 +1,4 @@
-﻿namespace RightRule.RuleModels;
+﻿namespace RightRule.Models;
 
 internal class OperatorConfigs
 {

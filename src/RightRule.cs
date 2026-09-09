@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.Models;
+using RightRule.Models.BaseModels;
+using RightRule.Models.RuleModels;
 using RightRule.RightRuleService;
-using RightRule.RuleModels;
-using RightRule.RuleModels.BaseModels;
-using RightRule.RuleModels.RuleModels;
 using RightRule.ServiceRegister;
 
 namespace BeSoft;

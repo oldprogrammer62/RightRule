@@ -1,11 +1,11 @@
-﻿using RightRule.RuleModels.RuleModels;
+﻿using RightRule.Models.RuleModels;
 
 namespace RightRule.RegistrationServices.RuleRgistration;
 
 public class RuleRegistrationResult
 {
     public required RegistrationStatus Status { get; init; }
-    public required ParsedRule RegisteredRule { get; init; }
+    public required ParsedRule? RegisteredRule { get; init; }
     public required string Message { get; init; }
 
     internal static RuleRegistrationResult Success(string message, ParsedRule parsedRule)
@@ -24,6 +24,16 @@ public class RuleRegistrationResult
         {
             Message = message,
             RegisteredRule = parsedRule,
+            Status = RegistrationStatus.FAILED
+        };
+    }
+
+    internal static RuleRegistrationResult Failed(string message)
+    {
+        return new RuleRegistrationResult()
+        {
+            Message = message,
+            RegisteredRule = null,
             Status = RegistrationStatus.FAILED
         };
     }

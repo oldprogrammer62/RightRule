@@ -1,6 +1,6 @@
 ﻿using RightRule.RegistrationServices.Rules;
 
-namespace RightRule.RuleModels.BaseModels;
+namespace RightRule.Models.BaseModels;
 
 public abstract class RuleError : IProcessedRule
 {

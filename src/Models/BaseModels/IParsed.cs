@@ -1,7 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Parser;
 using RightRule.RegistrationServices;
 
-namespace RightRule.RuleModels.BaseModels;
+namespace RightRule.Models.BaseModels;
 
 public interface IParsed
 {

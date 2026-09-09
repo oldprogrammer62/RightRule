@@ -1,10 +1,10 @@
 ﻿using RightRule.LanguageProcessor;
 using RightRule.LanguageProcessor.Parser;
+using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices;
-using RightRule.RuleModels.BaseModels;
 using System.Text;
 
-namespace RightRule.RuleModels.RuleModels;
+namespace RightRule.Models.RuleModels;
 
 /// <summary>
 /// A ParsedRule is a Rule that has been parsed and has an associated Node representing the parsed rule statement.

@@ -1,7 +1,7 @@
-﻿using RightRule.RuleModels.BaseModels;
+﻿using RightRule.Models.BaseModels;
 using System.Text;
 
-namespace RightRule.RuleModels.RuleModels;
+namespace RightRule.Models.RuleModels;
 
 /// <summary>
 /// Defines of a Rule for registration with RightRule.

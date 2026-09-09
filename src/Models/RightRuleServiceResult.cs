@@ -1,6 +1,6 @@
-﻿using RightRule.RuleModels.BaseModels;
+﻿using RightRule.Models.BaseModels;
 
-namespace RightRule.RuleModels;
+namespace RightRule.Models;
 
 internal enum ServiceStatus
 {
@@ -55,16 +55,19 @@ internal sealed class RightRuleServiceResult<T>
 
     public static RightRuleServiceResult<IProcessedRule> Failure(string message, IProcessedRule? payload = default)
     {
+        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() { Status = ServiceStatus.Failure, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Decision = payload.FalseDecision, DecisionData = payload.FalseDecisionData, Payload = payload };
     }
 
     public static RightRuleServiceResult<IProcessedRule> Error(Exception ex, IProcessedRule? payload = default)
     {
+        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() { Status = ServiceStatus.Error, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = ex.Message, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex };
     }
 
     public static RightRuleServiceResult<IProcessedRule> Default(IProcessedRule? payload = default, string message = "Default")
     {
+        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() { Status = ServiceStatus.Default, IsSuccess = payload.IsSuccess, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Payload = payload, Decision = payload.Decision, DecisionData = payload.DecisionData };
     }
 }

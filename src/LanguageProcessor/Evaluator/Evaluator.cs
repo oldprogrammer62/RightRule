@@ -1,8 +1,8 @@
 ﻿using RightRule.LanguageProcessor.Parser;
+using RightRule.Models;
+using RightRule.Models.RuleEvaluation;
+using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RuleModels;
-using RightRule.RuleModels.RuleEvaluation;
-using RightRule.RuleModels.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule.LanguageProcessor.Evaluator;

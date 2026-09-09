@@ -1,8 +1,8 @@
-﻿using RightRule.RuleModels.BaseModels;
-using RightRule.RuleModels.RuleEvaluation;
+﻿using RightRule.Models.BaseModels;
+using RightRule.Models.RuleEvaluation;
 using System.Text;
 
-namespace RightRule.RuleModels.RuleModels;
+namespace RightRule.Models.RuleModels;
 
 /// <summary>
 /// Represents a rule that has been applied and evaluated as true against a dataset.
