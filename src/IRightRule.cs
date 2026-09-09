@@ -25,21 +25,13 @@ public interface IRightRule
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     /// <summary>
-    /// Build an enhanced Rule Definition
-    /// Based on Interface to force fiuelds to be applied to the rule defn in order
-    /// </summary>
-    INumberStep BuildRule();
-
-    IDefaultNameStep BuildDefaultRule();
-
-    /// <summary>
-    /// Returns the set of Operators currently loaded in the RightRule engine.
+    /// Returns the set of Logic Operators currently loaded in the RightRule engine.
     /// </summary>
     /// <returns>The list of Operators.</returns>
     List<Operator>? GetOperatorDetails();
 
     /// <summary>
-    /// Returns the set of Aliases for logic Operators
+    /// Returns the set of Aliases for currently loaded Logic Operators
     /// </summary>
     /// <returns>The list of Operator Aliases.</returns>
     Dictionary<string, Operator>? GetOperatorAliases();
@@ -47,7 +39,7 @@ public interface IRightRule
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.
+    /// If no rule returns a positive result, the Default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -64,7 +56,7 @@ public interface IRightRule
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.
+    /// If no rule returns a positive result, the Default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <returns>
@@ -72,28 +64,97 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="InvalidOperationException"></exception>
-    /// <exception cref="KeyNotFoundException"></exception>
-    /// <exception cref="Exception"></exception>
     RightRuleResult<IProcessedRule> ApplyRules(string Context);
 
     /// <summary>
-    /// 
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// All Rules will be returned<br/>
     /// </summary>
-    /// <param name="Context"></param>
-    /// <param name="rulesToReturn"></param>
-    /// <returns></returns>
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturn rulesToReturn);
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturn RulesToReturn);
 
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// All Rules will be returned<br/>
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn RulesToReturn);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, the Default rule will be returned.<br/>
+    /// The additional data will be discarded after this rule application
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">Name of additional Data Set</param>
+    /// <param name="Data">Additional Data Set</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
     RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data);
-    RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention);
-    Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention);
 
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention);
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention);
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, the Default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">Name of additional Data Set</param>
+    /// <param name="Data">Additional Data Set</param>
+    /// <param name="DataRetention">Keep or discard the additional data</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetention DataRetention);
 
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, the Default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">Name of additional Data Set</param>
+    /// <param name="Data">Additional Data Set</param>
+    /// <param name="DataRetention">Keep or discard the additional data</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetention DataRetention);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">Name of additional Data Set</param>
+    /// <param name="Data">Additional Data Set</param>
+    /// <param name="RulesToReturn"></param>
+    /// <param name="DataRetention">Keep or discard the additional data</param>
+    /// <returns>
+    /// All Rules will be returned<br/>
+    /// </returns>
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn RulesToReturn, DataRetention DataRetention);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="DataName">Name of additional Data Set</param>
+    /// <param name="Data">Additional Data Set</param>
+    /// <param name="RulesToReturn"></param>
+    /// <param name="DataRetention">Keep or discard the additional data</param>
+    /// <returns>
+    /// All Rules will be returned<br/>
+    /// </returns>
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn RulesToReturn, DataRetention DataRetention);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.
@@ -103,8 +164,7 @@ public interface IRightRule
     /// <summary>
     /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <exception cref="ArgumentException"></exception>
+    /// <param name="DataName">The name of the dataset to deregister.</param>
     bool DeRegisterData(string DataName);
 
     /// <summary>
@@ -118,7 +178,6 @@ public interface IRightRule
     /// </summary>
     /// <param name="Context">The Context for which to deregister rules.</param>
     /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
-    /// <exception cref="ArgumentException"></exception>
     bool DeRegisterRules(string Context);
 
     /// <summary>
@@ -126,7 +185,6 @@ public interface IRightRule
     /// </summary>
     /// <param name="Name">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    /// <exception cref="ArgumentException"></exception>
     bool DeRegisterRule(string Name);
 
     /// <summary>
@@ -134,7 +192,6 @@ public interface IRightRule
     /// </summary>
     /// <param name="Number">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    /// <exception cref="ArgumentException"></exception>
     bool DeRegisterRule(int Number);
 
     /// <summary>
@@ -154,7 +211,6 @@ public interface IRightRule
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
-    /// <exception cref="ArgumentException"></exception>
     RegisteredDataset? GetRegisteredDataset(string DataName);
 
     /// <summary>
@@ -162,68 +218,76 @@ public interface IRightRule
     /// </summary>
     /// <param name="DataName">The name of the dataobject.</param>
     /// <returns>RegisteredDataObject</returns>
-    /// <exception cref="ArgumentException"></exception>
     RegisteredDataObject? GetRegisteredDataObject(string DataName);
 
     /// <summary>
-    /// Returns the Registered (Parsed) Rules with the specified Name.
+    /// Returns the Registered Rules with the specified Name.
     /// </summary>
     /// <param name="Name"></param>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="KeyNotFoundException"></exception>
     ParsedRule? GetRegisteredRule(string Name);
 
     /// <summary>
-    /// Returns the Registered (Parsed) Rules with the specified Number.
+    /// Returns the Registered Rules with the specified Number.
     /// </summary>
     /// <param name="Number"></param>
-    /// <exception cref="KeyNotFoundException"></exception>
     ParsedRule? GetRegisteredRule(int Number);
 
     /// <summary>
-    /// Returns the set of Registered (Parsed) Rules.
+    /// Returns the set of Registered Rules.
     /// </summary>
     IRegisteredRules GetRegisteredRules();
 
     /// <summary>
-    /// Returns the set of Registered (Parsed) Rules for the specified Context.
+    /// Returns the set of Registered Rules for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
-    /// <exception cref="ArgumentException"></exception>
     List<ParsedRule> GetRegisteredRules(string Context);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="Data">The data to register.</param>
-    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <param name="Data">Dictionary of data to register.</param>
+    /// <returns>DataRegistrationResult</returns>
     DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="DataReference">The data to register.</param>
-    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
-    /// <exception cref="ArgumentException"></exception>
-    /// <exception cref="ArgumentNullException"></exception>
+    /// <param name="DataReference">Object reference of data to register.</param>
+    /// <returns>DataRegistrationResult</returns>
     DataRegistrationResult RegisterData(string DataName, object DataReference);
 
+    /// <summary>
+    /// Returns the set of Registered Default Rule for the specified Context.
+    /// </summary>
+    /// <param name="Context"></param>
     DefaultRule GetDefaultRule(string Context);
 
-    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule);
+    /// <summary>
+    /// Build a Default Rule definition<br></br>
+    /// Used when a single rule result is requested, but no rule evaluated a true result
+    /// </summary>
+    IDefaultNameStep BuildDefaultRule();
 
     /// <summary>
-    /// Registers a single Rule with the RightRule engine.
+    /// Registers a Default Rule with the RightRule engine.<br/>
+    /// The Rule parameter will define the Context for the Default Rule registration.
     /// </summary>
-    /// <param name="rule">The Rule definition to register.</param>
-    /// <returns>The Parsed Rule.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    RuleRegistrationResult RegisterRule(DefinedRule rule);
+    /// <param name="Rule">The Rule definition to register.</param>
+    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
+
+    /// <summary>
+    /// Build a Standard Rule definition
+    /// </summary>
+    INumberStep BuildRule();
+
+    /// <summary>
+    /// Registers a Rule with the RightRule engine.
+    /// </summary>
+    /// <param name="Rule">The Rule definition to register.</param>
+    RuleRegistrationResult RegisterRule(DefinedRule Rule);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
@@ -244,16 +308,25 @@ public interface IRightRule
     List<RuleRegistrationResult> RegisterRulesJson(string JsonData);
 
     /// <summary>
-    /// Unloads an Operator from the RightRule engine.
+    /// Unloads an Operator from the RightRule engine.<br/>
     /// The Operator will no longer be valid in a Rule Statement
     /// </summary>
     /// <param name="OperatorName">The name of the Operator to unload.</param>
     /// <exception cref="ArgumentException"></exception>
     bool UnloadOperator(string OperatorName);
 
+    /// <summary>
+    /// Get the set of Rule Numbers registered
+    /// </summary>
     List<(int Number, string Name)>? GetRuleNumbers();
 
+    /// <summary>
+    /// Get the set of Rule Names registered
+    /// </summary>
     List<string>? GetRuleNames();
 
+    /// <summary>
+    /// Get the set of Contexts for which rules are registered
+    /// </summary>
     List<string>? GetRuleContexts();
 }

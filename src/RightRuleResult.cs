@@ -9,7 +9,6 @@ public sealed class RightRuleResult<T>
     public required string RuleName { get; init; }
     public required bool Result { get; init; }
 
-
     public required string Decision { get; init; }
     public object? DecisionData { get; init; }
     
