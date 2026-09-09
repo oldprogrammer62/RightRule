@@ -1,6 +1,6 @@
 ﻿using RightRule.Models.RuleModels;
 
-namespace RightRule.RegistrationServices.RuleRgistration;
+namespace RightRule.RegistrationServices.RuleRegistration;
 
 public class RuleRegistrationResult
 {
@@ -24,7 +24,7 @@ public class RuleRegistrationResult
         {
             Message = message,
             RegisteredRule = parsedRule,
-            Status = RegistrationStatus.FAILED
+            Status = RegistrationStatus.FAILURE
         };
     }
 
@@ -34,7 +34,7 @@ public class RuleRegistrationResult
         {
             Message = message,
             RegisteredRule = null,
-            Status = RegistrationStatus.FAILED
+            Status = RegistrationStatus.FAILURE
         };
     }
 }

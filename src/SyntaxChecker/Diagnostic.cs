@@ -1,13 +1,6 @@
 
 namespace RightRule.SyntaxChecker;
 
-public enum DiagnosticSeverity
-{
-    Error,
-    Warning,
-    Info
-}
-
 public sealed class Diagnostic
 {
     public Diagnostic()
@@ -21,7 +14,7 @@ public sealed class Diagnostic
     }
 
     public string Message { get; init; } = string.Empty;
-    public DiagnosticSeverity Severity { get; init; } = DiagnosticSeverity.Error;
+    public DiagnosticSeverity Severity { get; init; } = DiagnosticSeverity.ERROR;
     public string? Code { get; init; }
     public int Position { get; init; } = -1;   // absolute position in the statement
     public int Length { get; init; } = 0;      // token length at Position

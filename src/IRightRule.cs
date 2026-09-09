@@ -1,12 +1,11 @@
-﻿using RightRule.Builders.RightRule;
+﻿using RightRule;
+using RightRule.Builders.RightRule;
 using RightRule.Builders.RightRuleBuilder;
-using RightRule.Models;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRgistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
 using RightRule.SyntaxChecker;
 using RightRule.System.Common;

@@ -32,19 +32,19 @@ public class DataRetentionTests
         var result1 = rr.ApplyRules("Context", "Data", data);
         Assert.NotNull(result1);
 
-        var result2 = rr.ApplyRules("Context", "Data", data, DataRetention.Keep);
+        var result2 = rr.ApplyRules("Context", "Data", data, DataRetention.KEEP);
         Assert.NotNull(result2);
 
-        var result3 = rr.ApplyRules("Context", "Data", data, RulesToReturn.First, DataRetention.Keep);
+        var result3 = rr.ApplyRules("Context", "Data", data, RulesToReturn.FIRST, DataRetention.KEEP);
         Assert.NotNull(result3);
 
         var result4 = await rr.ApplyRulesAsync("Context");
         Assert.NotNull(result4);
 
-        var result5 = await rr.ApplyRulesAsync("Context", RulesToReturn.First);
+        var result5 = await rr.ApplyRulesAsync("Context", RulesToReturn.FIRST);
         Assert.NotNull(result5);
 
-        var result6 = await rr.ApplyRulesAsync("Context", "Data", data, RulesToReturn.All, DataRetention.Keep);
+        var result6 = await rr.ApplyRulesAsync("Context", "Data", data, RulesToReturn.ALL, DataRetention.KEEP);
         Assert.NotNull(result6);
     }
 }

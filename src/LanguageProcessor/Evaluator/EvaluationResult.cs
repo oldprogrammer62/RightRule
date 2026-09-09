@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RightRule.Models.RuleEvaluation;
+namespace RightRule.LanguageProcessor.Evaluator;
 
-public class RuleEvaluationResult
+public class EvaluationResult
 {
     public required bool Success { get; init; }
     public required bool Result { get; init; }
@@ -11,7 +11,7 @@ public class RuleEvaluationResult
     public string StatementApplied { get; }
 
     [SetsRequiredMembers]
-    private RuleEvaluationResult(bool Success, bool Result, string Message, string StatementApplied)
+    private EvaluationResult(bool Success, bool Result, string Message, string StatementApplied)
     {
         this.Success = Success;
         this.Result = Result;
@@ -19,9 +19,9 @@ public class RuleEvaluationResult
         this.StatementApplied = StatementApplied;
     }
 
-    internal static RuleEvaluationResult SuccessResult(bool success, bool result, string successMessage, string StatementApplied)
+    internal static EvaluationResult SuccessResult(bool success, bool result, string successMessage, string StatementApplied)
     {
-        return new RuleEvaluationResult(
+        return new EvaluationResult(
             Success: success,
             Result: result,
             Message: successMessage,
@@ -29,9 +29,9 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult FailureResult(bool success, bool result, string errorMessage)
+    internal static EvaluationResult FailureResult(bool success, bool result, string errorMessage)
     {
-        return new RuleEvaluationResult(
+        return new EvaluationResult(
             Success: success,
             Result: result,
             Message: errorMessage,
@@ -39,9 +39,9 @@ public class RuleEvaluationResult
         );
     }
 
-    internal static RuleEvaluationResult ErrorResult(string error)
+    internal static EvaluationResult ErrorResult(string error)
     {
-        return new RuleEvaluationResult(
+        return new EvaluationResult(
             Success: false,
             Result: false,
             Message: error,

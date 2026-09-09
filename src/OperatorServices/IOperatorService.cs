@@ -1,8 +1,8 @@
 ﻿using RightRule.System.Common;
 
-namespace RightRule.Operators;
+namespace RightRule.OperatorServices;
 
-internal interface IOperatorsService
+internal interface IOperatorService
 {
     List<Operator> Operators { get; }
     Dictionary<string, Operator> OperatorAliases { get; }

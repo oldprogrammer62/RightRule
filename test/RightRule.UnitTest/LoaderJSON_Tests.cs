@@ -1,5 +1,6 @@
-﻿using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.RuleRgistration;
+﻿using RightRule.Loaders.Json;
+using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using System.Text;
 
 namespace RightRuleTests;
@@ -16,7 +17,7 @@ public class LoaderJSON_Tests
         var loader = loaderFactory.BuildLoader("JSON");
         Assert.NotNull(loader);
 
-        var json = RightRule.RuleLoaders.Json.Template.JsonString();
+        var json = Template.JsonString();
         List<DefinedRule>? rules = loader.Load(json);
 
         Assert.NotNull(rules);
@@ -27,7 +28,7 @@ public class LoaderJSON_Tests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        var json = RightRule.RuleLoaders.Json.Template.JsonString();
+        var json = Template.JsonString();
         List<RuleRegistrationResult>? rules = rr.RegisterRulesJson(json);
 
         Assert.NotNull(rules);

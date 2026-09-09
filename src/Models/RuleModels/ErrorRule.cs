@@ -1,6 +1,6 @@
-﻿using RightRule.Models.BaseModels;
-using RightRule.Models.RuleEvaluation;
-using RightRule.RegistrationServices.Rules;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.BaseModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using System.Text;
 
 namespace RightRule.Models.RuleModels;
@@ -22,7 +22,7 @@ public sealed class ErrorRule : RuleError
         };
     }
 
-    internal static ErrorRule ErrorResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static ErrorRule ErrorResult(ParsedRule parsedRule, EvaluationResult result)
     {
         return new ErrorRule()
         {
@@ -33,7 +33,7 @@ public sealed class ErrorRule : RuleError
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {(int)RuleNumberEnum.ErrorRule}");
+        sb.AppendLine($"Number: {(int)RuleNumberEnum.ERRORRULE}");
         sb.AppendLine($"Decision: {DECISIONWORD}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();

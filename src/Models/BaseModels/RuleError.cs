@@ -1,4 +1,4 @@
-﻿using RightRule.RegistrationServices.Rules;
+﻿using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRule.Models.BaseModels;
 
@@ -8,7 +8,7 @@ public abstract class RuleError : IProcessedRule
     public const string FALSEDECISIONWORD = "ERROR";
     public const string RULENAME = "ErrorRule";
 
-    public int Number { get; init; } = (int)RuleNumberEnum.ErrorRule;
+    public int Number { get; init; } = (int)RuleNumberEnum.ERRORRULE;
     public string Name { get; init; } = RULENAME;
     public string Context { get; } = string.Empty;
 

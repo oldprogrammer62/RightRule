@@ -1,6 +1,6 @@
 ﻿using BeSoft;
 using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
 
 namespace RightRuleTests;
@@ -39,7 +39,7 @@ public class DefaultRule_Tests
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
-        var result1 = rr.ApplyRules("Test", RulesToReturn.All);
+        var result1 = rr.ApplyRules("Test", RulesToReturn.ALL);
         Assert.NotNull(result1);
     }
 

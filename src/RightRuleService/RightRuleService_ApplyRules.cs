@@ -1,8 +1,5 @@
-﻿using RightRule.Models;
-using RightRule.Models.BaseModels;
+﻿using RightRule.Models.BaseModels;
 using RightRule.RuleApplication;
-using RightRule.System.Common;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRule.RightRuleService;
 
@@ -12,7 +9,7 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var rulesApplied = await ApplyRulesAsync(Context, RulesToReturn.First).ConfigureAwait(false);
+        var rulesApplied = await ApplyRulesAsync(Context, RulesToReturn.FIRST).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
             return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
@@ -57,8 +54,8 @@ internal partial class RightRuleService : IRightRuleService
 
         return rulesToReturn switch
         {
-            RulesToReturn.First => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            RulesToReturn.All => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            RulesToReturn.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturn.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
     }
@@ -72,11 +69,11 @@ internal partial class RightRuleService : IRightRuleService
         RegisterData(DataName, Data);
         var result = rulesToReturn switch
         {
-            RulesToReturn.First => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            RulesToReturn.All => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            RulesToReturn.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturn.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
-        if (dataRetention.Equals(DataRetention.Discard))
+        if (dataRetention.Equals(DataRetention.DISCARD))
         {
             DeRegisterData(DataName);
         }
@@ -106,6 +103,6 @@ internal partial class RightRuleService : IRightRuleService
         {
             return [GetDefaultRule(Context)];
         }
-        return await RuleApplicationService.ApplyAllAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.All).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyAllAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.ALL).ConfigureAwait(false);
     }
 }

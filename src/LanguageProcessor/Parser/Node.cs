@@ -2,8 +2,6 @@
 
 public abstract class Node { }
 
-internal enum OperandKind { Identifier, Variable, Number, String, Boolean }
-
 internal sealed class Operand
 {
     public OperandKind Kind { get; }

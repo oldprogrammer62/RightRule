@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RuleApplication;
@@ -144,7 +144,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data, DataRetention.Discard).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, DataName, Data, DataRetention.DISCARD).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -322,7 +322,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturn.First, dataRetention);
+            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturn.FIRST, dataRetention);
             return BuildResult(Context, rulesApplied);
         }
         catch (Exception ex)

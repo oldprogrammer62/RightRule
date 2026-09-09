@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Loader;
 
-namespace RightRule.OperatorLoader;
+namespace RightRule.Loaders.OperatorLoader;
 
 public class OperatorLoader : AssemblyLoadContext
 {

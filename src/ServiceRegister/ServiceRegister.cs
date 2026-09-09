@@ -5,10 +5,10 @@ using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Interpreter;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.Operators;
+using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RightRuleService;
 
 namespace RightRule.ServiceRegister;
@@ -22,7 +22,7 @@ internal sealed class ServiceRegister
             services = new ServiceCollection();
         }
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
-        services.AddScoped<IOperatorsService, OperatorsService>();
+        services.AddScoped<IOperatorService, OperatorService>();
 
         services.AddScoped<IRegisteredRuleService, RegisteredRuleService>();
         services.AddScoped<IRegisteredDatasets, RegisteredDatasets>();

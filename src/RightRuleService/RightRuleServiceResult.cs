@@ -1,14 +1,7 @@
 ﻿using RightRule.Models.BaseModels;
+using RightRule.RegistrationServices.RuleRegistration;
 
-namespace RightRule.Models;
-
-internal enum ServiceStatus
-{
-    Success,
-    Failure,
-    Error,
-    Default
-}
+namespace RightRule.RightRuleService;
 
 internal sealed class RightRuleServiceResult<T>
 {
@@ -20,7 +13,7 @@ internal sealed class RightRuleServiceResult<T>
 
     public required string StatementApplied { get; init; }
 
-    public ServiceStatus Status { get; init; }
+    public RegistrationStatus Status { get; init; }
     public T? Payload { get; init; }
     public string Message { get; init; } = string.Empty;
     public Exception? Exception { get; init; }
@@ -41,7 +34,7 @@ internal sealed class RightRuleServiceResult<T>
 
     public static RightRuleServiceResult<IProcessedRule> SuccessResult(IProcessedRule payload)
     {
-        return new RightRuleServiceResult<IProcessedRule> { Status = ServiceStatus.Success, Success = payload.Success, Result = payload.Result, Message = string.Empty, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
+        return new RightRuleServiceResult<IProcessedRule> { Status = RegistrationStatus.SUCCESS, Success = payload.Success, Result = payload.Result, Message = string.Empty, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = payload.DecisionData, Payload = payload };
     }
 
     public static RightRuleServiceResult<IProcessedRule> Build(IProcessedRule payload, string message)
@@ -56,18 +49,18 @@ internal sealed class RightRuleServiceResult<T>
     public static RightRuleServiceResult<IProcessedRule> FailureResult(string message, IProcessedRule? payload = default)
     {
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
-        return new() { Status = ServiceStatus.Failure, Success = payload.Success, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Decision = payload.FalseDecision, DecisionData = payload.FalseDecisionData, Payload = payload };
+        return new() { Status = RegistrationStatus.FAILURE, Success = payload.Success, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Decision = payload.FalseDecision, DecisionData = payload.FalseDecisionData, Payload = payload };
     }
 
     public static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? payload = default)
     {
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
-        return new() { Status = ServiceStatus.Error, Success = payload.Success, Result = payload.Result, Message = ex.Message, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex };
+        return new() { Status = RegistrationStatus.ERROR, Success = payload.Success, Result = payload.Result, Message = ex.Message, StatementApplied = payload.StatementApplied, Decision = payload.Decision, DecisionData = null, Payload = payload, Exception = ex };
     }
 
     public static RightRuleServiceResult<IProcessedRule> DefaultResult(IProcessedRule? payload = default, string message = "Default")
     {
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
-        return new() { Status = ServiceStatus.Default, Success = payload.Success, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Payload = payload, Decision = payload.Decision, DecisionData = payload.DecisionData };
+        return new() { Status = RegistrationStatus.DEFAULT, Success = payload.Success, Result = payload.Result, Message = message, StatementApplied = payload.StatementApplied, Payload = payload, Decision = payload.Decision, DecisionData = payload.DecisionData };
     }
 }

@@ -1,4 +1,4 @@
-﻿using RightRule.RegistrationServices.Rules;
+﻿using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRule.Models.BaseModels;
 
@@ -8,7 +8,7 @@ public abstract class RuleDefault : IProcessedRule
     public const string FALSEDECISIONWORD = "NODECISION";
     public const string RULENAME = "DefaultRule";
 
-    int IRule.Number { get; } = (int)RuleNumberEnum.DefaultRule;
+    int IRule.Number { get; } = (int)RuleNumberEnum.DEFAULTRULE;
     public string Name { get; init; } = RULENAME;
     public string Context { get; init; } = string.Empty;
 

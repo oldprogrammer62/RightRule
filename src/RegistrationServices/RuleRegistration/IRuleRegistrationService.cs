@@ -1,6 +1,6 @@
 ﻿using RightRule.Models.RuleModels;
 
-namespace RightRule.RegistrationServices.Rules
+namespace RightRule.RegistrationServices.RuleRegistration
 {
     internal interface IRuleRegistrationService
     {

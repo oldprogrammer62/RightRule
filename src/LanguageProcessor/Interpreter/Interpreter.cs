@@ -3,7 +3,7 @@ using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
 using RightRule.System.Common;
 
@@ -47,8 +47,8 @@ public sealed class Interpreter : IInterpreter
     {
         return ReturnRules switch
         {
-            RulesToReturn.First => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister).ConfigureAwait(false) },
-            RulesToReturn.All => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister).ConfigureAwait(false),
+            RulesToReturn.FIRST => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister).ConfigureAwait(false) },
+            RulesToReturn.ALL => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister).ConfigureAwait(false),
             _ => [ErrorRule.ErrorResult($"Unknown RulesToReturn value: {ReturnRules}")]
         };
     }

@@ -1,6 +1,5 @@
 ﻿using RightRule.LanguageProcessor.Parser;
 using RightRule.Models;
-using RightRule.Models.RuleEvaluation;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.System.Common;
@@ -16,7 +15,7 @@ internal sealed class Evaluator : IEvaluator
         _operators = Operators ?? new Dictionary<string, Operator> { };
     }
 
-    public Task<RuleEvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    public Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
         return Task.Run(async () =>
         {
@@ -25,20 +24,20 @@ internal sealed class Evaluator : IEvaluator
                 var nodeResult = await EvaluateNodeAsync(Datasets, DataObjects, ParsedRule).ConfigureAwait(false);
                 if (nodeResult == null)
                 {
-                    return RuleEvaluationResult.FailureResult(false, false, "Evaluation invalid.");
+                    return EvaluationResult.FailureResult(false, false, "Evaluation invalid.");
                 }
                 if (!nodeResult.Success)
                 {
-                    return RuleEvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message);
+                    return EvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message);
                 }
 
                 string message = string.Empty;
                 string statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
-                return RuleEvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, message, statementApplied);
+                return EvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, message, statementApplied);
             }
             catch (Exception ex)
             {
-                return RuleEvaluationResult.ErrorResult(ex.Message);
+                return EvaluationResult.ErrorResult(ex.Message);
             }
         });
     }

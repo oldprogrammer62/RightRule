@@ -82,7 +82,7 @@ public class DataRegistrationTests
         rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
-        var appliedRules = rr.ApplyRules("AllContext", RulesToReturn.First);
+        var appliedRules = rr.ApplyRules("AllContext", RulesToReturn.FIRST);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

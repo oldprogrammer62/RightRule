@@ -2,6 +2,7 @@
 using RightRule.LanguageProcessor.Parser;
 using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices;
+using RightRule.RegistrationServices.RuleRegistration;
 using System.Text;
 
 namespace RightRule.Models.RuleModels;
@@ -61,7 +62,7 @@ public sealed class ParsedRule : RuleParsed
             DecisionData = ruleDefinition.DecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
-            Status = RegistrationStatus.FAILED,
+            Status = RegistrationStatus.FAILURE,
             StatementPath = string.Empty,
             Message = message,
             Node = null,

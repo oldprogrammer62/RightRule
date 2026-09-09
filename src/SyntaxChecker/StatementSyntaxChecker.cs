@@ -1,6 +1,6 @@
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.Operators;
+using RightRule.OperatorServices;
 using System.Text.RegularExpressions;
 
 namespace RightRule.SyntaxChecker;
@@ -20,7 +20,7 @@ internal sealed class StatementSyntaxChecker
             {
                 diagnostics.Add(new Diagnostic
                 {
-                    Severity = DiagnosticSeverity.Error,
+                    Severity = DiagnosticSeverity.ERROR,
                     Message = "Statement is empty.",
                     Position = 0,
                     Length = 0,
@@ -38,7 +38,7 @@ internal sealed class StatementSyntaxChecker
 
             try
             {
-                var ops = new OperatorsService();
+                var ops = new OperatorService();
                 operatorNames = ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             }
             catch (Exception)
@@ -72,7 +72,7 @@ internal sealed class StatementSyntaxChecker
                                 var s = CreateSnippet(Statement, tok.Position, tok.Value?.Length ?? 1);
                                 diagnostics.Add(new Diagnostic
                                 {
-                                    Severity = DiagnosticSeverity.Error,
+                                    Severity = DiagnosticSeverity.ERROR,
                                     Message = $"Logical operator '{v}' must be lowercase ('and', 'or', 'not').",
                                     Position = tok.Position,
                                     Length = tok.Value?.Length ?? 1,
@@ -97,7 +97,7 @@ internal sealed class StatementSyntaxChecker
                             var s = CreateSnippet(Statement, tok.Position, tok.Value?.Length ?? 1);
                             diagnostics.Add(new Diagnostic
                             {
-                                Severity = DiagnosticSeverity.Error,
+                                Severity = DiagnosticSeverity.ERROR,
                                 Message = "Unmatched closing parenthesis ')'.",
                                 Position = tok.Position,
                                 Length = tok.Value?.Length ?? 1,
@@ -115,7 +115,7 @@ internal sealed class StatementSyntaxChecker
                     var s = CreateSnippet(Statement, lastLParenPos, 1);
                     diagnostics.Add(new Diagnostic
                     {
-                        Severity = DiagnosticSeverity.Error,
+                        Severity = DiagnosticSeverity.ERROR,
                         Message = "Unmatched opening parenthesis '(' found.",
                         Position = lastLParenPos,
                         Length = 1,
@@ -141,7 +141,7 @@ internal sealed class StatementSyntaxChecker
                 _ = parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid
-                if (diagnostics.Count == 0) return CheckStatementResult.Success();
+                if (diagnostics.Count == 0) return CheckStatementResult.SuccessResult();
                 return new CheckStatementResult(diagnostics);
             }
             catch (Exception ex)
@@ -155,7 +155,7 @@ internal sealed class StatementSyntaxChecker
                 {
                     diagnostics.Add(new Diagnostic
                     {
-                        Severity = DiagnosticSeverity.Info,
+                        Severity = DiagnosticSeverity.INFO,
                         Message = "Ensure you used a valid operator name (e.g. equals, contains, notequals) or check operator registration.",
                         Position = diag.Position,
                         Length = diag.Length,
@@ -168,7 +168,7 @@ internal sealed class StatementSyntaxChecker
                 {
                     diagnostics.Add(new Diagnostic
                     {
-                        Severity = DiagnosticSeverity.Info,
+                        Severity = DiagnosticSeverity.INFO,
                         Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean).",
                         Position = diag.Position,
                         Length = diag.Length,
@@ -181,7 +181,7 @@ internal sealed class StatementSyntaxChecker
                 {
                     diagnostics.Add(new Diagnostic
                     {
-                        Severity = DiagnosticSeverity.Info,
+                        Severity = DiagnosticSeverity.INFO,
                         Message = "Right-hand side must be a variable identifier or literal.",
                         Position = diag.Position,
                         Length = diag.Length,
@@ -216,7 +216,7 @@ internal sealed class StatementSyntaxChecker
 
         var diag = new Diagnostic
         {
-            Severity = DiagnosticSeverity.Error,
+            Severity = DiagnosticSeverity.ERROR,
             Message = ex.Message ?? "Parsing error.",
             Position = pos,
             Length = length,

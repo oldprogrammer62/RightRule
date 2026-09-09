@@ -1,6 +1,6 @@
 ﻿using BeSoft;
 using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRuleTests;
 

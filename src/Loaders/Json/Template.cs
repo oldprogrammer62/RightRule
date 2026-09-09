@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace RightRule.RuleLoaders.Json;
+namespace RightRule.Loaders.Json;
 
 public static class Template
 {

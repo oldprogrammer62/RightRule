@@ -1,11 +1,10 @@
 ﻿using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.LanguageProcessor.Interpreter;
-using RightRule.Models;
 using RightRule.Models.BaseModels;
-using RightRule.Operators;
+using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
@@ -14,7 +13,7 @@ internal partial class RightRuleService : IRightRuleService
 {
     private readonly ILanguageFactory LanguageFactory;
     private readonly IInterpreter LanguageInterpreter;
-    private readonly IOperatorsService OperatorsService;
+    private readonly IOperatorService OperatorsService;
 
     private readonly IServiceProvider _serviceProvider;
 
@@ -33,7 +32,7 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
-    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorsService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
+    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
     {
         this._serviceProvider = ServiceProvider;
         LanguageFactory = factory;

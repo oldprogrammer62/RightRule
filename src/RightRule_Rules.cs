@@ -1,7 +1,6 @@
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRgistration;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace BeSoft;
 

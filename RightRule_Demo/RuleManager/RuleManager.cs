@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.Models;
+using RightRule;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RuleApplication;

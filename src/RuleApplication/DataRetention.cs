@@ -2,6 +2,6 @@
 
 public enum DataRetention
 {
-    Keep = 0,
-    Discard = 1
+    KEEP = 0,
+    DISCARD = 1
 }

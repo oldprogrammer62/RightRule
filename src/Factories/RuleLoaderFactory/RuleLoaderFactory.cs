@@ -1,6 +1,6 @@
 ﻿using BeSoft;
-using RightRule.RuleLoaders;
-using RightRule.RuleLoaders.Json;
+using RightRule.Loaders.Json;
+using RightRule.Loaders.RuleLoader;
 
 namespace RightRule.Factories.RuleLoaderFactory;
 

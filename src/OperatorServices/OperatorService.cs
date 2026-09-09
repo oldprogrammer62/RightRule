@@ -1,8 +1,9 @@
-﻿using RightRule.System.Common;
+﻿using RightRule.Operators;
+using RightRule.System.Common;
 
-namespace RightRule.Operators;
+namespace RightRule.OperatorServices;
 
-internal class OperatorsService : IOperatorsService
+internal class OperatorService : IOperatorService
 {
     private readonly List<Operator> _operators;
     public List<Operator> Operators => _operators;
@@ -13,7 +14,7 @@ internal class OperatorsService : IOperatorsService
     private readonly HashSet<string> _operatorNames;
     public HashSet<string> OperatorNames => _operatorNames;
 
-    public OperatorsService()
+    public OperatorService()
     {
         _operators = RegisterOperators();
         _operatorAliases = RegisterOperatorAliases(_operators);

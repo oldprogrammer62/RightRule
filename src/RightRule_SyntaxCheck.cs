@@ -19,7 +19,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (string.IsNullOrWhiteSpace(Statement))
         {
-            return CheckStatementResult.Failure();
+            return CheckStatementResult.FailureResult();
         }
         return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
     }

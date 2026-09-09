@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RightRule.Models;
+using RightRule;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RightRuleService;
 using RightRule.ServiceRegister;
 
@@ -67,7 +68,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
     {
         var context = serviceResult?.Payload?.Context ?? string.Empty;
-        var status = serviceResult?.Status ?? ServiceStatus.Default;
+        var status = serviceResult?.Status ?? RegistrationStatus.DEFAULT;
 
         var payload = serviceResult?.Payload ?? null;
         var message = serviceResult?.Message ?? string.Empty;
@@ -75,16 +76,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         return status switch
         {
-            ServiceStatus.Success when serviceResult?.Payload != null =>
+            RegistrationStatus.SUCCESS when serviceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied),
 
-            ServiceStatus.Failure =>
+            RegistrationStatus.FAILURE =>
                 RightRuleResult<IProcessedRule>.FailureResult(message, statementApplied, payload != null ? payload : RightRuleService.GetDefaultRule(context)),
 
-            ServiceStatus.Default =>
+            RegistrationStatus.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context), message),
 
-            ServiceStatus.Error =>
+            RegistrationStatus.ERROR =>
                 RightRuleResult<IProcessedRule>.ErrorResult(serviceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
             _ => RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context))

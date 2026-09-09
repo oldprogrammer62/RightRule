@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRule.RegistrationServices.DefaultRuleRegistration;
 
@@ -29,7 +30,7 @@ public class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RegistrationStatus.FAILED,
+            RegistrationStatus.FAILURE,
             message,
             default
             );
@@ -39,7 +40,7 @@ public class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RegistrationStatus.FAILED,
+            RegistrationStatus.FAILURE,
             message,
             defaultRule
             );

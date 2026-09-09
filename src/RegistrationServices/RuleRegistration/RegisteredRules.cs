@@ -1,7 +1,6 @@
 ﻿using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.RuleRgistration;
 
-namespace RightRule.RegistrationServices.Rules;
+namespace RightRule.RegistrationServices.RuleRegistration;
 
 /// <summary>
 /// A Class used to hold a list of ParsedRule objects.
@@ -38,12 +37,12 @@ internal class RegisteredRules : IRegisteredRules
         var existingRule = GetRule(rule.Number, rule.Name);
         switch (existingRule)
         {
-            case RuleFound.NotFound:
+            case RuleFound.NOTFOUND:
                 _rules.Add(rule);
                 return RuleRegistrationResult.Success($"Rule: {rule.Number}-{rule.Name} Registered", rule);
-            case RuleFound.FoundByNumber:
+            case RuleFound.FOUNDBYNUMBER:
                 return RuleRegistrationResult.Failed($"Rule Number: {rule.Number} already registered", rule);
-            case RuleFound.FoundByName:
+            case RuleFound.FOUNDBYNAME:
                 return RuleRegistrationResult.Failed($"Rule Name: {rule.Name} already registered", rule);
             default:
                 return RuleRegistrationResult.Failed($"Rule: {rule.Number}-{rule.Name} not registered", rule);
@@ -142,13 +141,13 @@ internal class RegisteredRules : IRegisteredRules
     {
         if (GetRule(number))
         {
-            return RuleFound.FoundByNumber;
+            return RuleFound.FOUNDBYNUMBER;
         }
         if (GetRule(name))
         {
-            return RuleFound.FoundByName;
+            return RuleFound.FOUNDBYNAME;
         }
-        return RuleFound.NotFound;
+        return RuleFound.NOTFOUND;
     }
 
     private bool GetRule(int number)

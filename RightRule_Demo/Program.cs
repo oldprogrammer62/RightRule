@@ -1,4 +1,4 @@
-﻿using RightRule.Models;
+﻿using RightRule;
 using RightRule.Models.BaseModels;
 using RightRule.RuleApplication;
 using RightRule.System.Common;
@@ -31,17 +31,17 @@ namespace RightRule_Demo
 
             if (string.IsNullOrEmpty(choice))
             {
-                return RulesToReturn.First;
+                return RulesToReturn.FIRST;
             }
             if (choice.Equals("s", StringComparison.CurrentCultureIgnoreCase))
             {
-                return RulesToReturn.First;
+                return RulesToReturn.FIRST;
             }
             if (choice.Equals("a", StringComparison.CurrentCultureIgnoreCase))
             {
-                return RulesToReturn.All;
+                return RulesToReturn.ALL;
             }
-            return RulesToReturn.All;
+            return RulesToReturn.ALL;
         }
 
         private static decimal GetHighValue()

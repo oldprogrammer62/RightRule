@@ -1,5 +1,5 @@
-﻿using RightRule.Models.BaseModels;
-using RightRule.Models.RuleEvaluation;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.BaseModels;
 using System.Text;
 
 namespace RightRule.Models.RuleModels;
@@ -13,7 +13,7 @@ public sealed class AppliedRule : RuleApplied
     {
     }
 
-    internal static AppliedRule TrueResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule TrueResult(ParsedRule parsedRule, EvaluationResult result)
     {
         return new AppliedRule()
         {
@@ -32,7 +32,7 @@ public sealed class AppliedRule : RuleApplied
         };
     }
 
-    internal static AppliedRule FalseResult(ParsedRule parsedRule, RuleEvaluationResult result)
+    internal static AppliedRule FalseResult(ParsedRule parsedRule, EvaluationResult result)
     {
         return new AppliedRule()
         {

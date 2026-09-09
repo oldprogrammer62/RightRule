@@ -1,5 +1,5 @@
 ﻿using RightRule.Models.BaseModels;
-using RightRule.RegistrationServices.Rules;
+using RightRule.RegistrationServices.RuleRegistration;
 using System.Text;
 
 namespace RightRule.Models.RuleModels;
@@ -32,7 +32,7 @@ public sealed class DefaultRule : RuleDefault
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {(int)RuleNumberEnum.DefaultRule}");
+        sb.AppendLine($"Number: {(int)RuleNumberEnum.DEFAULTRULE}");
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Decision: {Decision}");

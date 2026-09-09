@@ -1,8 +1,7 @@
 ﻿using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.RuleRgistration;
 using System.Data;
 
-namespace RightRule.RegistrationServices.Rules;
+namespace RightRule.RegistrationServices.RuleRegistration;
 
 internal class RegisteredRuleService : IRegisteredRuleService
 {
@@ -52,7 +51,7 @@ internal class RegisteredRuleService : IRegisteredRuleService
             {
                 Message = "Rule Failed to be Parsed",
                 RegisteredRule = null,
-                Status = RegistrationStatus.FAILED
+                Status = RegistrationStatus.FAILURE
             };
         }
         return RegisteredRules.AddRule(parsedRule);

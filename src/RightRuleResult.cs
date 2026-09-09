@@ -1,7 +1,7 @@
 ﻿using RightRule.Models.BaseModels;
 using System.Text;
 
-namespace RightRule.Models;
+namespace RightRule;
 
 public sealed class RightRuleResult<T>
 {

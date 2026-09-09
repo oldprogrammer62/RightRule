@@ -1,7 +1,6 @@
 ﻿using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.RuleRgistration;
 
-namespace RightRule.RegistrationServices.Rules;
+namespace RightRule.RegistrationServices.RuleRegistration;
 
 public interface IRegisteredRules
 {

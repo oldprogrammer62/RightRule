@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.RegistrationServices;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -219,6 +219,7 @@ public class OneBigTest
             .Name(DefaultRule1Name)
             .Context(Context1)
             .Decision(DefaultRule1Decision)
+            .DecisionData("Hello World Do Something Now1")
             .Build();
         var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
         Assert.NotNull(defaultRule1Registration);
@@ -246,6 +247,7 @@ public class OneBigTest
             .Name(DefaultRule2Name)
             .Context(Context2)
             .Decision(DefaultRule2Decision)
+            .DecisionData("Hello World Do Something Now2")
             .Build();
         var defaultRule2Registration = rr.RegisterDefaultRule(defaultRule2Defn);
         Assert.NotNull(defaultRule2Registration);

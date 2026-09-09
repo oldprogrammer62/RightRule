@@ -15,6 +15,6 @@
 /// </remarks>
 public enum RulesToReturn
 {
-    First = 0,
-    All = 1
+    FIRST = 0,
+    ALL = 1
 }
