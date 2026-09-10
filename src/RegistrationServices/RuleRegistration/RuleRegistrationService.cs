@@ -47,7 +47,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
 
     private ParsedRule? CreateRule(DefinedRule? ruleDefinition, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
     {
-        IParser parser = CreateParser(ruleDefinition, OperatorNames, ObjectNames, DatasetNames);
+        IParser? parser = CreateParser(ruleDefinition, OperatorNames, ObjectNames, DatasetNames);
         if (parser == null)
         {
             return default;
@@ -71,15 +71,17 @@ internal class RuleRegistrationService : IRuleRegistrationService
         return node;
     }
 
-    private IParser CreateParser(DefinedRule? ruleDefinition, HashSet<string>? OperatorNames, HashSet<string>? DataObjectNames, HashSet<string>? DatasetNames)
+    private IParser? CreateParser(DefinedRule? ruleDefinition, HashSet<string>? OperatorNames, HashSet<string>? DataObjectNames, HashSet<string>? DatasetNames)
     {
         string statement = string.Empty;
         bool dataCheck = false;
-        if (ruleDefinition != null)
+        if (ruleDefinition == null)
         {
-            statement = ruleDefinition.Statement;
-            dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
+            return default;
         }
+
+        statement = ruleDefinition.Statement;
+        dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
         return _factory.CreateParser(_serviceProvider, statement, OperatorNames!, DataObjectNames!, DatasetNames!, dataCheck);
     }
 }

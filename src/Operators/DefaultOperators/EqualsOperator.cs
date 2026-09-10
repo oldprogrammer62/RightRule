@@ -179,10 +179,10 @@ public class EqualsOperator : Operator
         // Safe parsing for text strings
         if (value is string stringInput)
         {
-            string sTrue = "TRUE";
-            string sFalse = "FALSE";
-            if (stringInput.ToUpper().Equals(sTrue)) return true;
-            if (stringInput.ToUpper().Equals(sFalse)) return false;
+            string sTrue = "true";
+            string sFalse = "false";
+            if (stringInput.Equals(sTrue, StringComparison.Ordinal)) return true;
+            if (stringInput.Equals(sFalse, StringComparison.Ordinal)) return true;
             return false;
         }
         return false;

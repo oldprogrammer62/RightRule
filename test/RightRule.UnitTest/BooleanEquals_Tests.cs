@@ -105,7 +105,7 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals5",
             Number = 1,
             Context = "Context",
-            Statement = "FALSE = false",
+            Statement = "False = false",
             Decision = "Good",
             FalseDecision = "NotGood"
         };
@@ -114,14 +114,15 @@ public class BooleanEquals_Tests
         var result = rr.ApplyRules("Context");
 
         Assert.NotNull(result);
-        Assert.Equal("Good", result.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, result.Decision);
     }
 
     [Fact]
     public void BooleanEquals6()
     {
-        // This will return a false result
-        // Boolean false does not equal string false
+        // False is case sensitive - lower case
+        // This will return a false result - Converted to Default
+        // Boolean false does not equal string False
 
         DefinedRule rule1 = new DefinedRule
         {
@@ -130,7 +131,7 @@ public class BooleanEquals_Tests
             Context = "Context",
             Decision = "Good",
             FalseDecision = "NotGood",
-            Statement = "FALSE = \"false\""
+            Statement = "false = \"False\""
         };
 
         var pr = rr.RegisterRule(rule1);
@@ -138,5 +139,27 @@ public class BooleanEquals_Tests
 
         Assert.NotNull(result);
         Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
+    }
+
+    [Fact]
+    public void BooleanEquals7()
+    {
+        // This will return a true result
+
+        DefinedRule rule1 = new DefinedRule
+        {
+            Name = "BooleanEquals6",
+            Number = 1,
+            Context = "Context",
+            Decision = "Good",
+            FalseDecision = "NotGood",
+            Statement = "false = \"false\""
+        };
+
+        var pr = rr.RegisterRule(rule1);
+        var result = rr.ApplyRules("Context");
+
+        Assert.NotNull(result);
+        Assert.Equal(rule1.Decision, result.Decision);
     }
 }

@@ -74,13 +74,13 @@ internal sealed class Tokenizer : ITokenizer
                 return new Token(TokenType.Not, value, start);
 
             // boolean
-            if (value.Equals("TRUE", StringComparison.OrdinalIgnoreCase))
+            if (value.Equals("true", StringComparison.Ordinal))
                 return new Token(TokenType.Boolean, value, start);
-            if (value.Equals("FALSE", StringComparison.OrdinalIgnoreCase))
+            if (value.Equals("false", StringComparison.Ordinal))
                 return new Token(TokenType.Boolean, value, start);
 
             // External operator names
-            if (_operators.Contains(value))
+            if (_operators.Contains(value, StringComparer.Ordinal))
                 return new Token(TokenType.Operator, value, start);
 
             // Variable (No dot notation)
