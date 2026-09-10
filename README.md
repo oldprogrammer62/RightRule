@@ -3,25 +3,35 @@
 C# Rules Engine with a simple Rule grammar and extensible operator library.
 
 It consists of the following parts:
-- Data in the form of Dictionary<string, object>
-- Rules that define the statement used to evaluate a condition in the Data.
-- A set of default Operators that can be used in the Rule Statement (Equals, NotEquals, Contains)
-- External loadable Operators
-- An Interpreter responsible for evaluating a rule statement.
+- Data.
+- Rules.
+- Internal logic Operators, like 'Equals' and 'NotEquals'.
+- External logic Operators, that can be developed and integrated in to Right Rule.
+- An Interpreter responsible for evaluating a Rule statement.
 - An Evaluator responsible for applying the interpreted rules over the Data.
 
 ### How to use
-There are 2 main steps to implement RightRule in your application:
-1. Register your Rule(s)
-2. Apply the specified rules to your Data
+There are 3 main steps to implement RightRule in your application:
+1. Register your Data.
+2. Register your Rule(s).
+3. Apply the specified Rule(s) to your Data.
+4. Act on the result.
+
+### Data can be registered in different formats:
+- Dictionary<string, object>
+- Variable
+- Tuple
 
 ### A Rule is defined as follows
-Number: Used to order the set of rules to be applied.  
-Name: Description of the Rule.  
-Context: A word that indicates when this Rule will be applied.  
-Statement: A syntactically correct statement that defines the Rule criteria to be evaluated.  
-Decision: A string that will be returned when the Rule statement evaluates to true.  
+Number: Identifies the Rule and is used to order the set of rules to be applied.
+Name: Description of the Rule.
+Context: A word that indicates when this Rule will be applied.
+Statement: A syntactically correct statement that defines the Rule criteria to be evaluated.
+Decision: A string that will be returned when the Rule statement evaluates to true.
 DecisionData: Additional details that will be returned when the Rule statement evaluates to true.
+FalseDecision: A string that will be returned when the Rule statement evaluates to false.
+FalseDecisionData: Additional details that will be returned when the Rule statement evaluates to false.
+(Note: False details are used only when a set of rule results are returned.)
 
 Rules can be registered early.  
 This allows for Rule registration at startup, potentially with multiple Context words.
