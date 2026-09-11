@@ -58,7 +58,7 @@ internal partial class RightRuleService : IRightRuleService
 
     private static RightRuleServiceResult<IProcessedRule> BuildResult(IProcessedRule RuleApplied)
     {
-        var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied, "");
+        var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied);
         return result;
     }
 

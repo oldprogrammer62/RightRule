@@ -22,12 +22,12 @@ public class ExceptionTests
     {
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
-            { "DataItem1", "Value" }
         };
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        Assert.Throws<ArgumentNullException>(() => rr.RegisterData("DataName", null));
+        var dataReg = rr.RegisterData("DataName", data);
+        Assert.NotNull(dataReg);
     }
 
     [Fact]

@@ -10,11 +10,11 @@ public abstract class RuleError : IProcessedRule
 
     public int Number { get; init; } = (int)RuleNumberEnum.ERRORRULE;
     public string Name { get; init; } = RULENAME;
-    public string Context { get; } = string.Empty;
+    public string Context { get; init; } = string.Empty;
 
     public bool Success { get; } = false;
     public bool Result { get; } = false;
-    public string StatementApplied { get; } = string.Empty;
+    public string StatementApplied { get; init; } = string.Empty;
     public required string Message { get; init; } = string.Empty;
 
     public string Decision { get; } = DECISIONWORD;

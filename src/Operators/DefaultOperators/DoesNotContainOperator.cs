@@ -4,7 +4,7 @@ namespace RightRule.Operators.DefaultOperators;
 
 public sealed class DoesNotContainOperator : Operator
 {
-    public override List<string> Identifiers { get; } = ["doesnotcontain", "notc", "notni"];
+    public override List<string> Identifiers { get; } = ["doesnotcontain", "notc"];
 
     public DoesNotContainOperator() : base(false)
     {

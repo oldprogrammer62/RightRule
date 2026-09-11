@@ -26,6 +26,8 @@ public sealed class ErrorRule : RuleError
     {
         return new ErrorRule()
         {
+            Context = parsedRule.Context,
+            StatementApplied = result.StatementApplied,
             Message = result.Message
         };
     }
@@ -33,8 +35,12 @@ public sealed class ErrorRule : RuleError
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {(int)RuleNumberEnum.ERRORRULE}");
-        sb.AppendLine($"Decision: {DECISIONWORD}");
+        sb.AppendLine($"Number: {Number}");
+        sb.AppendLine($"Name: {Name}");
+        sb.AppendLine($"Context: {Context}");
+        sb.AppendLine($"Decision: {Decision}");
+        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"StatementApplied: {StatementApplied}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();
     }

@@ -24,7 +24,6 @@ internal class RegisteredRuleService : IRegisteredRuleService
 
     public ParsedRule? GetRegisteredRule(int Number)
     {
-        ArgumentNullException.ThrowIfNull(Number, nameof(Number));
         return _registeredRules.Rules.FirstOrDefault(r => r.Number == Number);
     }
 

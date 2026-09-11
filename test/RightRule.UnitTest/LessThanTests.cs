@@ -185,4 +185,26 @@ public class LessThanTests
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
+
+    [Fact]
+    public void LessThan_String()
+    {
+        // Rule
+        DefinedRule rule = new()
+        {
+            Number = 1,
+            Name = "Less Than Float Value Rule",
+            Statement = @"'abc' < 'abcd'",
+            Context = "Context",
+            Decision = "LESSTHAN",
+            FalseDecision = "NOT_LESSTHAN"
+        };
+
+        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        var newRule = rr.RegisterRule(rule);
+
+        var appliedRule = rr.ApplyRules("Context");
+
+        Assert.Equal(ErrorRule.DECISIONWORD, appliedRule.Decision);
+    }
 }

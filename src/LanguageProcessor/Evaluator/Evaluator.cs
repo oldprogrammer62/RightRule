@@ -17,6 +17,7 @@ internal sealed class Evaluator : IEvaluator
 
     public Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
     {
+        string statementApplied = string.Empty;
         return Task.Run(async () =>
         {
             try
@@ -24,16 +25,16 @@ internal sealed class Evaluator : IEvaluator
                 var nodeResult = await EvaluateNodeAsync(Datasets, DataObjects, ParsedRule).ConfigureAwait(false);
                 if (nodeResult == null)
                 {
-                    return EvaluationResult.FailureResult(false, false, "Evaluation invalid.");
+                    return EvaluationResult.FailureResult(false, false, "Evaluation invalid.", statementApplied);
                 }
                 if (!nodeResult.Success)
                 {
-                    return EvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message);
+                    statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
+                    return EvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message, statementApplied);
                 }
 
-                string message = string.Empty;
-                string statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
-                return EvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, message, statementApplied);
+                statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
+                return EvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, nodeResult.Message, statementApplied);
             }
             catch (Exception ex)
             {

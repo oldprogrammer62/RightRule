@@ -22,7 +22,6 @@ public sealed class GreaterThanOrEqualsOperator : Operator
         }
 
         if (IsNumber(left) && IsNumber(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsNumber(left, right));
-        if (IsString(left) && IsString(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsString(left, right));
         if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateTime(left, right));
         if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateOnly(left, right));
 
@@ -207,19 +206,5 @@ public sealed class GreaterThanOrEqualsOperator : Operator
                 || value is float
                 || value is double
                 || value is decimal;
-    }
-
-    private static bool IsString(object value)
-    {
-        if (value is null) return false;
-
-        return value is string;
-    }
-
-    private static bool ProcessAsString(object left, object right)
-    {
-        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        return GreaterThanOrEquals(sLeft, sRight);
     }
 }

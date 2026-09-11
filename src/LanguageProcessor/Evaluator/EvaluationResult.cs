@@ -29,13 +29,13 @@ public class EvaluationResult
         );
     }
 
-    internal static EvaluationResult FailureResult(bool success, bool result, string errorMessage)
+    internal static EvaluationResult FailureResult(bool success, bool result, string errorMessage, string StatementApplied)
     {
         return new EvaluationResult(
             Success: success,
             Result: result,
             Message: errorMessage,
-            StatementApplied: string.Empty
+            StatementApplied: StatementApplied
         );
     }
 
