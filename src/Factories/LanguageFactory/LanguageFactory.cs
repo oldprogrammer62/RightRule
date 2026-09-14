@@ -11,15 +11,15 @@ namespace RightRule.Factories.LanguageFactory;
 
 internal class LanguageFactory : ILanguageFactory
 {
-    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
+    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators, InewGetDataService newGetDataService)
     {
         var evaluator = CreateEvaluator(serviceProvider, Operators);
-        return CreateInterpreter(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators);
+        return CreateInterpreter(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators, newGetDataService);
     }
 
-    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, IEvaluator evaluator, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
+    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, IEvaluator evaluator, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators, InewGetDataService newGetDataService)
     {
-        return ActivatorUtilities.CreateInstance<Interpreter>(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators);
+        return ActivatorUtilities.CreateInstance<Interpreter>(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators, newGetDataService);
     }
 
     public IEvaluator CreateEvaluator(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators)

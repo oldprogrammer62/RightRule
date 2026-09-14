@@ -44,9 +44,9 @@ internal partial class RightRuleService : IRightRuleService
         _defaultRuleRegister = defaultRuleRegister;
         _registeredDataSets = registeredDatasets;
         _registeredDataObjects = registeredDataObjects;
-        LanguageInterpreter = CreateInterpreter(OperatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, OperatorsService.OperatorAliases);
-
         NewDataService = newDataService;
+
+        LanguageInterpreter = CreateInterpreter(OperatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, OperatorsService.OperatorAliases, NewDataService);
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
@@ -65,8 +65,8 @@ internal partial class RightRuleService : IRightRuleService
         return result;
     }
 
-    private IInterpreter CreateInterpreter(Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators)
+    private IInterpreter CreateInterpreter(Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators, InewGetDataService NewDataService)
     {
-        return LanguageFactory.CreateInterpreter(_serviceProvider, Operators, registeredDatasets, registeredDataObjects, operators);
+        return LanguageFactory.CreateInterpreter(_serviceProvider, Operators, registeredDatasets, registeredDataObjects, operators, NewDataService);
     }
 }

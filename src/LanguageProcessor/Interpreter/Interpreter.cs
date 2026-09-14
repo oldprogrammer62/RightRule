@@ -14,36 +14,36 @@ public sealed class Interpreter : IInterpreter
     private readonly IRegisteredDatasets? _registeredDatasets;
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
-
+    private readonly InewGetDataService getDataService;
     private readonly Dictionary<string, Operator> _operators;
     private readonly IEvaluator _evaluator;
 
-    public Interpreter(IEvaluator evaluator, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, IDefaultRuleRegister defaultRuleRegister)
+    public Interpreter(IEvaluator evaluator, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, IDefaultRuleRegister defaultRuleRegister, InewGetDataService newGetDataService)
     {
         _registeredDatasets = Datasets ?? new RegisteredDatasets();
         _registeredDataObjects = DataObjects ?? new RegisteredDataObjects();
         _operators = operators ?? new Dictionary<string, Operator> { };
         _defaultRuleRegister = defaultRuleRegister;
-
+        getDataService = newGetDataService;
         _evaluator = evaluator;
     }
 
-    public async Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules rules, string context, InewGetDataService getDataService)
+    public async Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules rules, string context)
     {
-        return await EvaluateFirstMatchAsync(rules, context, getDataService).ConfigureAwait(false);
+        return await EvaluateFirstMatchAsync(rules, context).ConfigureAwait(false);
     }
 
-    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, RulesToReturn ReturnRules, InewGetDataService getDataService)
+    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, RulesToReturn ReturnRules)
     {
-        return await EvaluateAsync(rules.Rules, Context, ReturnRules, getDataService).ConfigureAwait(false);
+        return await EvaluateAsync(rules.Rules, Context, ReturnRules).ConfigureAwait(false);
     }
 
-    private async Task<IProcessedRule> EvaluateFirstMatchAsync(IRegisteredRules rules, string context, InewGetDataService getDataService)
+    private async Task<IProcessedRule> EvaluateFirstMatchAsync(IRegisteredRules rules, string context)
     {
         return await EvaluateFirstMatch.EvaluateAsync(_evaluator, context, rules.Rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister, getDataService).ConfigureAwait(false);
     }
 
-    private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, string Context, RulesToReturn ReturnRules, InewGetDataService getDataService)
+    private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, string Context, RulesToReturn ReturnRules)
     {
         return ReturnRules switch
         {
