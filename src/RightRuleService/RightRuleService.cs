@@ -32,7 +32,9 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IRegisteredDataObjects? _registeredDataObjects;
     public IRegisteredDataObjects RegisteredDataObjects => _registeredDataObjects!;
 
-    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects)
+    public InewGetDataService NewDataService { get; }
+
+    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, InewGetDataService newDataService)
     {
         this._serviceProvider = ServiceProvider;
         LanguageFactory = factory;
@@ -42,8 +44,9 @@ internal partial class RightRuleService : IRightRuleService
         _defaultRuleRegister = defaultRuleRegister;
         _registeredDataSets = registeredDatasets;
         _registeredDataObjects = registeredDataObjects;
-
         LanguageInterpreter = CreateInterpreter(OperatorsService.OperatorAliases, registeredDatasets, registeredDataObjects, OperatorsService.OperatorAliases);
+
+        NewDataService = newDataService;
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)

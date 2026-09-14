@@ -27,22 +27,22 @@ public class Equals_AllTypes_Tests
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        rr.RegisterData(nameof(intVal), intVal);
+        rr.RegisterData(nameof(intVal), nameof(intVal), intVal);
 
         int intVal1 = 101;
-        rr.RegisterData(nameof(intVal1), intVal1);
+        rr.RegisterData(nameof(intVal1), nameof(intVal1), intVal1);
 
         int intVal2 = 102;
-        rr.RegisterData(nameof(intVal2), intVal2);
+        rr.RegisterData(nameof(intVal2), nameof(intVal2), intVal2);
 
         int intVal3 = 103;
-        rr.RegisterData(nameof(intVal3), intVal3);
+        rr.RegisterData(nameof(intVal3), nameof(intVal3), intVal3);
 
         int intVal4 = 104;
-        rr.RegisterData(nameof(intVal4), intVal4);
+        rr.RegisterData(nameof(intVal4), nameof(intVal4), intVal4);
 
         int intVal5 = 105;
-        rr.RegisterData(nameof(intVal5), intVal5);
+        rr.RegisterData(nameof(intVal5), nameof(intVal5), intVal5);
 
         DefinedRule ruleDef = new DefinedRule()
         {
@@ -67,17 +67,17 @@ public class Equals_AllTypes_Tests
     public void Test_Dec()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", decVal);
+        rr.RegisterData("testVal", "decVal", decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData("localVal", localVal);
+        rr.RegisterData("localVal", "localVal", localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.testVal = testVal.decVal",
+            Statement = "localVal.localVal = testVal.decVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -93,19 +93,19 @@ public class Equals_AllTypes_Tests
     public void Test_Dec2()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", decVal);
+        rr.RegisterData("testVal", nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData("localVal", localVal);
+        rr.RegisterData("localVal", nameof(localVal), localVal);
 
         var rule = rr.BuildRule()
             .Number(1)
             .Name("NameOfRule")
             .Context("Context")
-            .Statement("testVal = localVal")
+            .Statement("testVal.decVal = localVal.localVal")
             .Decision("GOOD")
             .FalseDecision("DIFFERENT")
-            .WithDataCheck(true)
+            .WithDataCheck(false)
             .WithDiagnostics(true)
             .Build();
             
@@ -121,17 +121,17 @@ public class Equals_AllTypes_Tests
     public void Test_Dbl()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", dblVal);
+        rr.RegisterData("testVal", nameof(dblVal), dblVal);
 
         double localVal = dblVal;
-        var registeredDat = rr.RegisterData("localVal", localVal);
+        var registeredDat = rr.RegisterData("localVal", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.testVal = testVal.dblVal",
+            Statement = "localVal.localVal = testVal.dblVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -147,17 +147,17 @@ public class Equals_AllTypes_Tests
     public void Test_Lng()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", lngVal);
+        rr.RegisterData("testVal", nameof(lngVal), lngVal);
 
         var localVal = lngVal;
-        var registeredData = rr.RegisterData("localVal", localVal);
+        var registeredData = rr.RegisterData("localVal", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.testVal = testVal.lngVal",
+            Statement = "localVal.localVal = testVal.lngVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -173,17 +173,17 @@ public class Equals_AllTypes_Tests
     public void Test_Sin()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", sinVal);
+        rr.RegisterData("testVal", nameof(sinVal), sinVal);
 
         Single localVal = sinVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.sinVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -199,7 +199,7 @@ public class Equals_AllTypes_Tests
     public void Test_Float_Dict()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", fltVal);
+        rr.RegisterData("testVal", nameof(fltVal), fltVal);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -212,7 +212,7 @@ public class Equals_AllTypes_Tests
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.entry = testVal",
+            Statement = "localData.entry = testVal.fltVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -228,17 +228,17 @@ public class Equals_AllTypes_Tests
     public void Test_String()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", strVal);
+        rr.RegisterData("testVal", nameof(strVal), strVal);
 
         string localVal = strVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.strVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -254,17 +254,17 @@ public class Equals_AllTypes_Tests
     public void Test_Char()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", chrVal);
+        rr.RegisterData("testVal", nameof(chrVal), chrVal);
 
         char localVal = chrVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.chrVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -280,17 +280,17 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_Bool()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", boolVal);
+        rr.RegisterData("testVal", nameof(boolVal), boolVal);
 
         bool localVal = boolVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.boolVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -306,17 +306,17 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_String()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", boolStr);
+        rr.RegisterData("testVal", nameof(boolStr), boolStr);
 
         string localVal = boolStr;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.boolStr",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -332,10 +332,10 @@ public class Equals_AllTypes_Tests
     public void Test_DateOnly()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", dtonlyVal);
+        rr.RegisterData("testVal", nameof(dtonlyVal), dtonlyVal);
 
         DateOnly localVal = dtonlyVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -344,7 +344,7 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Decision = "SAME",
             FalseDecision = "DIFFERENT",
-            Statement = "localData = testVal"
+            Statement = "localData.localVal = testVal.dtonlyVal"
         };
         var registeredRule = rr.RegisterRule(rule);
 
@@ -358,17 +358,17 @@ public class Equals_AllTypes_Tests
     public void Test_TimeOnly()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", tmonlyVal);
+        rr.RegisterData("testVal", nameof(tmonlyVal), tmonlyVal);
 
         TimeOnly localVal = tmonlyVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.tmonlyVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -384,17 +384,17 @@ public class Equals_AllTypes_Tests
     public void Test_DateTime()
     {
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("testVal", dttimeVal);
+        rr.RegisterData("testVal", nameof(dttimeVal), dttimeVal);
 
         DateTime localVal = dttimeVal;
-        var registeredData = rr.RegisterData("localData", localVal);
+        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData = testVal",
+            Statement = "localData.localVal = testVal.dttimeVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };

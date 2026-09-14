@@ -5,5 +5,5 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 public interface IEvaluator
 {
-    Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects);
+    Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, InewGetDataService getDataService);
 }

@@ -7,14 +7,14 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluateAllRules
 {
-    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister, InewGetDataService getDataService)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;
 
         foreach (var rule in rules)
         {
-            EvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
+            EvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects, getDataService).ConfigureAwait(false);
 
             bool success = ruleResult.Success;
             bool result = ruleResult.Result;
@@ -44,7 +44,7 @@ internal static class EvaluateAllRules
         return appliedRules;
     }
 
-    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, InewGetDataService getDataService)
     {
         if (rule.Node == null)
         {
@@ -54,7 +54,7 @@ internal static class EvaluateAllRules
 
         try
         {
-            EvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
+            EvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects, getDataService).ConfigureAwait(false);
             return result;
         }
         catch

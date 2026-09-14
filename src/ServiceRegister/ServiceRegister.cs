@@ -30,6 +30,8 @@ internal sealed class ServiceRegister
         services.AddScoped<IRegisteredRules, RegisteredRules>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
 
+        services.AddSingleton<InewGetDataService, newGetDataService>();
+
         services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
 
         services.AddScoped<ILanguageFactory, LanguageFactory>();

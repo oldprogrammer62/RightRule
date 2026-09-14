@@ -12,7 +12,7 @@ public class ApplyAllRules
         int x = 10;
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
-        rr.RegisterData("xdata", x);
+        rr.RegisterData("xdata", nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()
         {

@@ -11,4 +11,5 @@ public interface IRegisteredDatasets
     bool RemoveData();
     bool RemoveData(string name);
     RegisteredDataset? GetData(string name);
+    List<RegisteredDataset> GetData();
 }

@@ -1,6 +1,7 @@
 ﻿using RightRule;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RuleApplication;
 using RightRule.System.Common;
 

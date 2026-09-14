@@ -3,11 +3,11 @@
 public class RegisteredDataset
 {
     public string Name { get; init; }
-    public Dictionary<string, object> Value { get; init; }
+    public Dictionary<string, object> Values { get; init; }
 
     internal RegisteredDataset(string DataName, Dictionary<string, object> Dataset)
     {
         Name = DataName;
-        Value = Dataset;
+        Values = Dataset;
     }
 }

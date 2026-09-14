@@ -22,7 +22,7 @@ public class DataTypes_Test
             .Statement("Data.Value = 100")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
-            .WithDataCheck(true)
+            .WithDataCheck(false)
             .Build();
         var prule = rr.RegisterRule(rule);
 
@@ -36,20 +36,22 @@ public class DataTypes_Test
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        (string Name, int Number) data = (Name: "Value", Number: 100);
-        (string Name, int Number) data22 = (Name: "Value", Number: 100);
+        rr.RegisterData("Data1", "Value", 9000);
 
-        rr.RegisterData("Value", data);
-        rr.RegisterData("Value22", data22);
+        (string Name, int Number) data2 = (Name: "Value", Number: 100);
+        rr.RegisterData("Data2", data2);
+
+        (string Name, int Number) data3 = (Name: "Value", Number: 200);
+        rr.RegisterData("Data3", data3);
 
         var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
-            .Statement("Value22 = 100")
+            .Statement("Data1.Value = 9000 and Data2.Value = 100 and Data3.Value = 200")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
-            .WithDataCheck(true)
+            .WithDataCheck(false)
             .Build();
         var prule = rr.RegisterRule(rule);
 
@@ -65,16 +67,16 @@ public class DataTypes_Test
 
         int Value = 100;
 
-        rr.RegisterData("Value", Value);
+        rr.RegisterData("Value", nameof(Value), Value);
 
         var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
-            .Statement("Value = 100")
+            .Statement("Value.Value = 100")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
-            .WithDataCheck(true)
+            .WithDataCheck(false)
             .Build();
         var prule = rr.RegisterRule(rule);
 

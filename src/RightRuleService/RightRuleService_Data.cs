@@ -1,9 +1,22 @@
 using RightRule.RegistrationServices.DataRegistration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
+    public List<newRegisteredData>? newGetData()
+    {
+        return NewDataService.newGetData();
+    }
+
+    public newRegisteredData? newGetData(string DataName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
+        return NewDataService.newGetData(DataName);
+    }
+
     public RegisteredDataset? GetDataSet(string DataName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -26,29 +39,99 @@ internal partial class RightRuleService : IRightRuleService
         return _registeredDataObjects.GetData(DataName);
     }
 
-    public DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data)
+    public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
     {
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(DataItems, nameof(DataItems));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var data = DataRegistrationService.CreateRegisteredData(DataName, Data);
-        return _registeredDataSets!.AddData(data);
+        // Add data to new Data Service
+        var added = NewDataService.newAddData(DatasetName, DataItems);
+        if (!added)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+        return new DataRegistrationResult()
+        {
+            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            DataType = DataTypes.DATASET,
+            Name = DatasetName
+        };
+
+        //var data = DataRegistrationService.CreateRegisteredData(DataName, Data);
+        //return _registeredDataSets!.AddData(data);
     }
 
-    public DataRegistrationResult RegisterData(string DataName, object VariableValue)
+    public DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem)
     {
-        ArgumentNullException.ThrowIfNull(VariableValue, nameof(VariableValue));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(DataItem, nameof(DataItem));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        var data = DataRegistrationService.CreateRegisteredData(DataName, VariableValue);
-        return _registeredDataObjects!.AddData(data);
+        // Add data to new Data Service
+        var added = NewDataService.newAddData(DatasetName, DataItem);
+        if (!added)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+
+        return new DataRegistrationResult()
+        {
+            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            DataType = DataTypes.DATASET,
+            Name = DatasetName
+        };
+
+        //var data = DataRegistrationService.CreateRegisteredData(DataName, VariableValue);
+        //return _registeredDataObjects!.AddData(data);
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
+    {
+        // Add data to new Data Service
+        var added = NewDataService.newAddData(DatasetName, DataItemName, DataItemValue);
+        if (!added)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+
+        return new DataRegistrationResult()
+        {
+            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            DataType = DataTypes.DATASET,
+            Name = DatasetName
+        };
     }
 
     public bool DeRegisterData()
     {
+        DeRegisterNewData();
         DeregisterDataObjects();
         DergisterDatasets();
         return true;
+    }
+
+    private void DeRegisterNewData()
+    {
+        NewDataService.Clear();
+    }
+
+    private void DeRegisterNewData(string DatasetName)
+    {
+        NewDataService.DeregisterData(DatasetName);
     }
 
     private void DeregisterDataObjects()
@@ -73,6 +156,7 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
 
+        DeRegisterNewData(DataName);
         DeRegisterDataObjects(DataName);
         DeRegisterDatasets(DataName);
         return true;

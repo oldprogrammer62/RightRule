@@ -9,13 +9,15 @@ namespace RightRule.LanguageProcessor.Evaluator;
 internal sealed class Evaluator : IEvaluator
 {
     private readonly Dictionary<string, Operator> _operators;
+    private readonly InewGetDataService getDataService;
 
-    public Evaluator(Dictionary<string, Operator> Operators)
+    public Evaluator(Dictionary<string, Operator> Operators, InewGetDataService getDataService)
     {
         _operators = Operators ?? new Dictionary<string, Operator> { };
+        this.getDataService = getDataService;
     }
 
-    public Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    public Task<EvaluationResult> EvaluateAsync(ParsedRule ParsedRule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, InewGetDataService getDataService)
     {
         string statementApplied = string.Empty;
         return Task.Run(async () =>
@@ -29,11 +31,11 @@ internal sealed class Evaluator : IEvaluator
                 }
                 if (!nodeResult.Success)
                 {
-                    statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
+                    statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects, getDataService);
                     return EvaluationResult.FailureResult(nodeResult.Success, nodeResult.Result, nodeResult.Message, statementApplied);
                 }
 
-                statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects);
+                statementApplied = await BuildStatementApplied(ParsedRule, Datasets, DataObjects, getDataService);
                 return EvaluationResult.SuccessResult(nodeResult.Success, nodeResult.Result, nodeResult.Message, statementApplied);
             }
             catch (Exception ex)
@@ -43,13 +45,13 @@ internal sealed class Evaluator : IEvaluator
         });
     }
 
-    private async Task<string> BuildStatementApplied(ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async Task<string> BuildStatementApplied(ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, InewGetDataService getDataService)
     {
         var node = rule.Node;
 
         var diagnostics = rule.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
         var statement = rule.Statement;
-        return diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!).ConfigureAwait(false) : string.Empty;
+        return diagnostics ? await BuildStatementAsync(statement, Datasets, DataObjects, node!, getDataService).ConfigureAwait(false) : string.Empty;
     }
 
     private async Task<OperatorResult> EvaluateNodeAsync(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, ParsedRule rule)
@@ -106,8 +108,8 @@ internal sealed class Evaluator : IEvaluator
 
         try
         {
-            var left = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, node.Left);
-            var right = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, node.Right);
+            var left = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, node.Left, getDataService);
+            var right = EvaluatorHelper.ResolveOperandValue(Datasets, DataObjects, node.Right, getDataService);
 
             var result = await ProcessOperator(op, left!, right!, OptionalData, Diagnostics).ConfigureAwait(false);
             return result;
@@ -133,11 +135,11 @@ internal sealed class Evaluator : IEvaluator
         }
     }
 
-    private async static Task<string> BuildStatementAsync(string Statement, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node Node)
+    private async static Task<string> BuildStatementAsync(string Statement, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Node Node, InewGetDataService getDataService)
     {
         try
         {
-            return await StatementBuilder.BuildAppliedStatement(Datasets, DataObjects, Node, Statement).ConfigureAwait(false);
+            return await StatementBuilder.BuildAppliedStatement(Datasets, DataObjects, Node, Statement, getDataService).ConfigureAwait(false);
         }
         catch
         {

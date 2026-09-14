@@ -194,31 +194,35 @@ public interface IRightRule
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRule(int Number);
 
+    List<newRegisteredData> newGetRegisteredData();
+
+    newRegisteredData newGetRegisteredData(string DataName);
+
     /// <summary>
     /// Returns the set of Registered Datasets.
     /// </summary>
     /// <returns>RegisteredDatasets object</returns>
-    IRegisteredDatasets GetRegisteredDatasets();
+    // IRegisteredDatasets GetRegisteredDatasets();
 
     /// <summary>
     /// Returns the set of Registered DataObjects
     /// </summary>
     /// <returns>RegisteredDataObjects object</returns>
-    IRegisteredDataObjects GetRegisteredDataObjects();
+    // IRegisteredDataObjects GetRegisteredDataObjects();
 
     /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
     /// <param name="DataName">The name of the dataset.</param>
     /// <returns>RegisteredDataset object</returns>
-    RegisteredDataset? GetRegisteredDataset(string DataName);
+    // RegisteredDataset? GetRegisteredDataset(string DataName);
 
     /// <summary>
     /// Returns the specified DataObject
     /// </summary>
     /// <param name="DataName">The name of the dataobject.</param>
     /// <returns>RegisteredDataObject</returns>
-    RegisteredDataObject? GetRegisteredDataObject(string DataName);
+    // RegisteredDataObject? GetRegisteredDataObject(string DataName);
 
     /// <summary>
     /// Returns the Registered Rules with the specified Name.
@@ -246,18 +250,28 @@ public interface IRightRule
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="Data">Dictionary of data to register.</param>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataItems">Dictionary of data to register.</param>
     /// <returns>DataRegistrationResult</returns>
-    DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data);
+    DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="DataReference">Object reference of data to register.</param>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataItem">Object reference of data to register.</param>
     /// <returns>DataRegistrationResult</returns>
-    DataRegistrationResult RegisterData(string DataName, object DataReference);
+    DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
+
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, bool DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, string DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, int DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, long DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, double DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, decimal DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateTime DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateOnly DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, TimeOnly DataItemValue);
 
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.

@@ -40,7 +40,7 @@ public class LoaderJSON_Tests
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
         int x = 100;
-        var xregistered = rr.RegisterData("x", x);
+        var xregistered = rr.RegisterData("x", nameof(x), x);
 
         var json = JsonString();
         var rules = rr.RegisterRulesJson(json);

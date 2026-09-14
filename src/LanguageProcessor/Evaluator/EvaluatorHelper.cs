@@ -6,23 +6,27 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluatorHelper
 {
-    internal static object? ResolveVariable(IRegisteredDataObjects? DataObjects, string Identifier)
+    internal static object? ResolveVariable(IRegisteredDataObjects? DataObjects, string Identifier, InewGetDataService getDataService)
     {
         if (DataObjects is null)
         {
             return null;
         }
 
-        var dataObject = DataObjects.GetData(Identifier);
-        if (dataObject is null)
-        {
-            return null;
-        }
+        // TO DO
+        var newValue = NewGetValue(getDataService, Identifier, Identifier);
+        return newValue;
 
-        return GetPropertyValue(Identifier, dataObject.Value);
+        //var dataObject = DataObjects.GetData(Identifier);
+        //if (dataObject is null)
+        //{
+        //    return null;
+        //}
+
+        //return GetPropertyValue(Identifier, dataObject.Value);
     }
 
-    internal static object? ResolveIdentifier(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, string Identifier)
+    internal static object? ResolveIdentifier(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, string Identifier, InewGetDataService getDataService)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -36,19 +40,30 @@ internal static class EvaluatorHelper
         var split = Identifier.Split('.');
         var parent = split[0];
         var child = split[1];
-        var ds = Datasets?.GetData(parent);
-        if (ds is not null)
-        {
-            return ResolveIdentifier(ds, child);
-        }
-        return ResolveIdentifier(DataObjects, parent, child);
+
+        // TO DO
+        var newValue = NewGetValue(getDataService, parent, child);
+        return newValue;
+
+        //var ds = Datasets?.GetData(parent);
+        //if (ds is not null)
+        //{
+        //    return ResolveIdentifier(ds, child);
+        //}
+        //return ResolveIdentifier(DataObjects, parent, child, getDataService);
     }
 
-    internal static object? ResolveOperandValue(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op)
+    private static object? NewGetValue(InewGetDataService getDataService, string LeftSide, string RightSide)
+    {
+        var value = getDataService.newGetDataValue(LeftSide, RightSide);
+        return value;
+    }
+
+    internal static object? ResolveOperandValue(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op, InewGetDataService getDataService)
     {
         try
         {
-            return ResolveOperand(Datasets, DataObjects, op);
+            return ResolveOperand(Datasets, DataObjects, op, getDataService);
         }
         catch
         {
@@ -56,7 +71,7 @@ internal static class EvaluatorHelper
         }
     }
 
-    private static object? ResolveIdentifier(IRegisteredDataObjects? DataObjects, string ObjectName, string PropertyName)
+    private static object? ResolveIdentifier(IRegisteredDataObjects? DataObjects, string ObjectName, string PropertyName, InewGetDataService getDataService)
     {
         if (string.IsNullOrEmpty(ObjectName))
         {
@@ -71,7 +86,7 @@ internal static class EvaluatorHelper
             throw new KeyNotFoundException($"Unknown dataobject '{ObjectName}'");
         }
 
-        return GetValue(DataObjects, ObjectName, PropertyName);
+        return GetValue(DataObjects, ObjectName, PropertyName, getDataService);
     }
 
     private static object? ResolveIdentifier(RegisteredDataset? Dataset, string KeyName)
@@ -84,16 +99,16 @@ internal static class EvaluatorHelper
         {
             throw new KeyNotFoundException($"Unknown dataset '{Dataset}'");
         }
-        if (!Dataset.Value.TryGetValue(KeyName, out _))
+        if (!Dataset.Values.TryGetValue(KeyName, out _))
         {
             throw new KeyNotFoundException($"Unknown variable '{KeyName}' in Registered Dataset {Dataset.Name}.");
         }
 
-        Dataset.Value.TryGetValue(KeyName, out var result);
+        Dataset.Values.TryGetValue(KeyName, out var result);
         return result!;
     }
 
-    private static object? GetValue(IRegisteredDataObjects DataObjects, string objectName, string propertyName)
+    private static object? GetValue(IRegisteredDataObjects DataObjects, string objectName, string propertyName, InewGetDataService getDataService)
     {
         if (DataObjects is null)
         {
@@ -172,16 +187,17 @@ internal static class EvaluatorHelper
         return default;
     }
 
-    private static object? ResolveOperand(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op)
+    private static object? ResolveOperand(IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Operand op, InewGetDataService getDataService)
     {
         try
         {
+            // TO DO Resolve var
             object opValue = ResolveOperatorValue(op);
 
             return op.Kind switch
             {
-                OperandKind.Variable => opValue is string vVar ? ResolveVariable(DataObjects, vVar) : ResolveVariable(DataObjects, op.Raw),
-                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(Datasets, DataObjects, sId) : ResolveIdentifier(Datasets, DataObjects, op.Raw),
+                OperandKind.Variable => opValue is string vVar ? ResolveVariable(DataObjects, vVar, getDataService) : ResolveVariable(DataObjects, op.Raw, getDataService),
+                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(Datasets, DataObjects, sId, getDataService) : ResolveIdentifier(Datasets, DataObjects, op.Raw, getDataService),
                 OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
                 OperandKind.String => opValue is string s ? s : opValue?.ToString() ?? string.Empty,

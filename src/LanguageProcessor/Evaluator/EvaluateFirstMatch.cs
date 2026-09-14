@@ -7,7 +7,7 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluateFirstMatch
 {
-    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister)
+    internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IRegisteredDatasets? registeredDatasets, IRegisteredDataObjects? registeredDataObjects, IDefaultRuleRegister defaultRuleRegister, InewGetDataService getDataService)
     {
         IProcessedRule appliedRule = defaultRuleRegister.GetDefaultRule(Context);
 
@@ -16,7 +16,7 @@ internal static class EvaluateFirstMatch
 
         foreach (var rule in rules)
         {
-            EvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects).ConfigureAwait(false);
+            EvaluationResult ruleResult = await EvaluateAsync(evaluator, rule, registeredDatasets, registeredDataObjects, getDataService).ConfigureAwait(false);
 
             bool success = ruleResult.Success;
             bool result = ruleResult.Result;
@@ -52,7 +52,7 @@ internal static class EvaluateFirstMatch
         return appliedRule;
     }
 
-    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects)
+    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, InewGetDataService getDataService)
     {
         if (rule.Node == null)
         {
@@ -62,7 +62,7 @@ internal static class EvaluateFirstMatch
 
         try
         {
-            EvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects).ConfigureAwait(false);
+            EvaluationResult result = await evaluator.EvaluateAsync(rule, Datasets, DataObjects, getDataService).ConfigureAwait(false);
             return result;
         }
         catch

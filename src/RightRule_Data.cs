@@ -8,6 +8,16 @@ namespace BeSoft;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
+    public List<newRegisteredData> newGetRegisteredData()
+    {
+        return RightRuleService.newGetData();
+    }
+
+    public newRegisteredData newGetRegisteredData(string DataName)
+    {
+        return RightRuleService.newGetData(DataName);
+    }
+
     /// <summary>
     /// Returns the specified Dataset.
     /// </summary>
@@ -81,18 +91,18 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="Data">The data to register.</param>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataItems">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data)
+    public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
     {
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(DataItems, nameof(DataItems));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         try
         {
-            return RightRuleService.RegisterData(DataName, Data);
+            return RightRuleService.RegisterData(DatasetName, DataItems);
         }
         catch
         {
@@ -103,18 +113,126 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <param name="DataReference">The data to register.</param>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataItem">The data to register.</param>
     /// <returns>True if the data was successfully registered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public DataRegistrationResult RegisterData(string DataName, object DataReference)
+    public DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem)
     {
-        ArgumentNullException.ThrowIfNull(DataReference, nameof(DataReference));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentNullException.ThrowIfNull(DataItem, nameof(DataItem));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         try
         {
-            return RightRuleService.RegisterData(DataName, DataReference);
+            return RightRuleService.RegisterData(DatasetName, DataItem);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, bool DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, string DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, int DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, long DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, double DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, decimal DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateTime DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateOnly DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, TimeOnly DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
         }
         catch
         {

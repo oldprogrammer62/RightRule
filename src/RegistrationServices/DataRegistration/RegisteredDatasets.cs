@@ -60,4 +60,9 @@ internal class RegisteredDatasets : IRegisteredDatasets
         }
         return _data.FirstOrDefault(d => d.Name.Equals(name, StringComparison.Ordinal));
     }
+
+    public List<RegisteredDataset> GetData()
+    {
+        return _data;
+    }
 }

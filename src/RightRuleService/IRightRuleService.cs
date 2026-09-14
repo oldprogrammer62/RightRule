@@ -11,6 +11,9 @@ namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
+    List<newRegisteredData>? newGetData();
+    newRegisteredData? newGetData(string DataName);
+
     IRegisteredRules RegisteredRules { get; }
     IRegisteredDatasets RegisteredDatasets { get; }
     IRegisteredDataObjects RegisteredDataObjects { get; }
@@ -34,10 +37,13 @@ internal interface IRightRuleService
     bool DeRegisterRules();
     bool DeRegisterRule(string Name);
     bool DeRegisterRule(int Number);
+
     RegisteredDataset? GetDataSet(string DataName);
     RegisteredDataObject? GetDataObject(string DataName);
-    DataRegistrationResult RegisterData(string DataName, Dictionary<string, object> Data);
-    DataRegistrationResult RegisterData(string DataName, object VariableValue);
+    DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
+    DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
+
     bool DeRegisterData();
     bool DeRegisterData(string DataName);
 

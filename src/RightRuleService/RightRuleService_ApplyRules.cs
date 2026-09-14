@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.BaseModels;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RuleApplication;
 
 namespace RightRule.RightRuleService;
@@ -92,7 +93,7 @@ internal partial class RightRuleService : IRightRuleService
         {
             return GetDefaultRule(Context);
         }
-        return await RuleApplicationService.ApplyFirstAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyFirstAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, NewDataService).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context)
@@ -103,6 +104,6 @@ internal partial class RightRuleService : IRightRuleService
         {
             return [GetDefaultRule(Context)];
         }
-        return await RuleApplicationService.ApplyAllAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.ALL).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyAllAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.ALL, NewDataService).ConfigureAwait(false);
     }
 }

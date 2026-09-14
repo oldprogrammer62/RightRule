@@ -89,7 +89,7 @@ public class DataRegistrationTests
     }
 
     [Fact]
-    public void UniqueDataObjectRegsitration()
+    public void addDataToExistingDataObjectRegsitration()
     {
         int x = 100;
         var r = ("r", x);
@@ -99,6 +99,6 @@ public class DataRegistrationTests
         Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
 
         var added2 = rr.RegisterData("r", r);
-        Assert.Equal(RegistrationStatus.FAILURE, added2.Status);
+        Assert.Equal(RegistrationStatus.SUCCESS, added2.Status);
     }
 }
