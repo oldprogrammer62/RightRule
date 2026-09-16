@@ -103,7 +103,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", RulesToReturn.ALL);
+        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
         Assert.NotNull(result);
         Assert.Equal(rd1.Decision, result[0].Decision);
     }
@@ -135,7 +135,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", RulesToReturn.ALL);
+        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
         Assert.NotNull(result);
 
         Assert.Equal(rd1.FalseDecision, result[0].Decision);

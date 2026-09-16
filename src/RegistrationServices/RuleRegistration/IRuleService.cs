@@ -2,7 +2,7 @@
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
-internal interface IRegisteredRuleService
+internal interface IRuleService
 {
     IRegisteredRules RegisteredRules { get; }
 

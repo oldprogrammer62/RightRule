@@ -71,7 +71,7 @@ internal class RuleRegistrationService : IRuleRegistrationService
         return node;
     }
 
-    private IParser? CreateParser(DefinedRule? ruleDefinition, HashSet<string>? OperatorNames)
+    private IParser? CreateParser(DefinedRule? ruleDefinition, HashSet<string>? operatorNames)
     {
         string statement = string.Empty;
         bool dataCheck = false;
@@ -82,6 +82,6 @@ internal class RuleRegistrationService : IRuleRegistrationService
 
         statement = ruleDefinition.Statement;
         dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
-        return _factory.CreateParser(_serviceProvider, statement, OperatorNames!, dataCheck);
+        return _factory.CreateParser(_serviceProvider, statement, operatorNames, dataCheck);
     }
 }

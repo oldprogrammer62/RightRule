@@ -1,4 +1,5 @@
-﻿using RightRule.Exceptions;
+﻿using Newtonsoft.Json.Linq;
+using RightRule.Exceptions;
 using System.Text;
 
 namespace RightRule.LanguageProcessor.Tokenizer;
@@ -7,9 +8,9 @@ internal sealed class Tokenizer : ITokenizer
 {
     private readonly string _statement;
     private int _pos;
-    private readonly HashSet<string> _operators;
+    private readonly HashSet<string>? _operators;
 
-    public Tokenizer(string statement, HashSet<string> OperatorNames)
+    public Tokenizer(string statement, HashSet<string>? OperatorNames)
     {
         _statement = statement ?? string.Empty;
         _operators = OperatorNames;
@@ -76,7 +77,7 @@ internal sealed class Tokenizer : ITokenizer
                 return new Token(TokenType.Boolean, value, start);
 
             // External operator names
-            if (_operators.Contains(value, StringComparer.Ordinal))
+            if (IsLogicOperator(value))
                 return new Token(TokenType.Operator, value, start);
 
             // Variable (No dot notation)
@@ -189,12 +190,21 @@ internal sealed class Tokenizer : ITokenizer
             var value = sb.ToString();
 
             // External operator names
-            if (_operators.Contains(value))
+            if (IsLogicOperator(value))
                 return new Token(TokenType.Operator, value, start);
 
             throw new FormatException($"Unexpected '{sb}' at position {_pos}.");
         }
         throw new FormatException($"Unexpected character '{c}' at position {_pos}.");
+    }
+
+    private bool IsLogicOperator(string OpName)
+    {
+        if (_operators == null || _operators.Count == 0)
+        {
+            return false;
+        }
+        return _operators.Contains(OpName, StringComparer.Ordinal);
     }
 
     private void SkipWhitespace()

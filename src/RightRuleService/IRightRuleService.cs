@@ -16,7 +16,7 @@ internal interface IRightRuleService
 
     Dataset? GetData(string DataName);
 
-    List<ParsedRule> RegisteredRules { get; }
+    List<ParsedRule>? RegisteredRules { get; }
     List<Dataset>? RegisteredDatasets { get; }
 
     Dictionary<string, Operator> GetOperatorAliases();
@@ -47,8 +47,8 @@ internal interface IRightRuleService
     bool DeRegisterData(string DataName);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturnEnum rulesToReturn);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

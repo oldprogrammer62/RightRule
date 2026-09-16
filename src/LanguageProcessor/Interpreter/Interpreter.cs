@@ -29,7 +29,7 @@ public sealed class Interpreter : IInterpreter
         return await EvaluateFirstMatchAsync(rules, context).ConfigureAwait(false);
     }
 
-    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, RulesToReturn ReturnRules)
+    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, RulesToReturnEnum ReturnRules)
     {
         return await EvaluateAsync(rules.Rules, Context, ReturnRules).ConfigureAwait(false);
     }
@@ -39,12 +39,12 @@ public sealed class Interpreter : IInterpreter
         return await EvaluateFirstMatch.EvaluateAsync(_evaluator, context, rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
     }
 
-    private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, string Context, RulesToReturn ReturnRules)
+    private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, string Context, RulesToReturnEnum ReturnRules)
     {
         return ReturnRules switch
         {
-            RulesToReturn.FIRST => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister).ConfigureAwait(false) },
-            RulesToReturn.ALL => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister, _dataService).ConfigureAwait(false),
+            RulesToReturnEnum.FIRST => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister).ConfigureAwait(false) },
+            RulesToReturnEnum.ALL => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister, _dataService).ConfigureAwait(false),
             _ => [ErrorRule.ErrorResult($"Unknown RulesToReturn value: {ReturnRules}")]
         };
     }

@@ -25,23 +25,23 @@ namespace RightRule_Demo
             Console.ReadLine();
         }
 
-        private static RulesToReturn GetRulesToReturn()
+        private static RulesToReturnEnum GetRulesToReturn()
         {
             var choice = RTRManager.GetRuleResultType();
 
             if (string.IsNullOrEmpty(choice))
             {
-                return RulesToReturn.FIRST;
+                return RulesToReturnEnum.FIRST;
             }
             if (choice.Equals("s", StringComparison.CurrentCultureIgnoreCase))
             {
-                return RulesToReturn.FIRST;
+                return RulesToReturnEnum.FIRST;
             }
             if (choice.Equals("a", StringComparison.CurrentCultureIgnoreCase))
             {
-                return RulesToReturn.ALL;
+                return RulesToReturnEnum.ALL;
             }
-            return RulesToReturn.ALL;
+            return RulesToReturnEnum.ALL;
         }
 
         private static decimal GetHighValue()
@@ -76,7 +76,7 @@ namespace RightRule_Demo
             return OrderManager.GetOrderValue();
         }
 
-        private static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturn ReturnRules)
+        private static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> data, decimal HighValue, RulesToReturnEnum ReturnRules)
         {
             return RuleManager.RuleManager.ApplyRules(data, HighValue, ReturnRules);
         }

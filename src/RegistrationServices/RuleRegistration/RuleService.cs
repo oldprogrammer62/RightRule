@@ -3,14 +3,14 @@ using System.Data;
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
-internal class RegisteredRuleService : IRegisteredRuleService
+internal class RuleService : IRuleService
 {
-    private readonly IRegisteredRules _registeredRules;
     private readonly IRuleRegistrationService _ruleRegistrationService;
 
+    private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RegisteredRuleService(IRuleRegistrationService ruleRegistrationService, IRegisteredRules registeredRules)
+    public RuleService(IRuleRegistrationService ruleRegistrationService, IRegisteredRules registeredRules)
     {
         _ruleRegistrationService = ruleRegistrationService;
         _registeredRules = registeredRules;

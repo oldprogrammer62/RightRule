@@ -10,7 +10,7 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var rulesApplied = await ApplyRulesAsync(Context, RulesToReturn.FIRST).ConfigureAwait(false);
+        var rulesApplied = await ApplyRulesAsync(Context, RulesToReturnEnum.FIRST).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
             return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
@@ -23,7 +23,7 @@ internal partial class RightRuleService : IRightRuleService
         return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
     }
 
-    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturnEnum rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -35,7 +35,7 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(rulesApplied);
     }
 
-    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -49,19 +49,19 @@ internal partial class RightRuleService : IRightRuleService
         return BuildResult(rulesApplied);
     }
 
-    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, RulesToReturn rulesToReturn)
+    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, RulesToReturnEnum rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         return rulesToReturn switch
         {
-            RulesToReturn.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            RulesToReturn.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            RulesToReturnEnum.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturnEnum.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
     }
 
-    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    private async Task<List<IProcessedRule>> ApplyMatchAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -70,11 +70,11 @@ internal partial class RightRuleService : IRightRuleService
         RegisterData(DataName, Data);
         var result = rulesToReturn switch
         {
-            RulesToReturn.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            RulesToReturn.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
+            RulesToReturnEnum.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            RulesToReturnEnum.ALL => await ApplyAllMatchAsync_RAS(Context).ConfigureAwait(false),
             _ => throw new ArgumentOutOfRangeException(nameof(rulesToReturn), $"Invalid value: {rulesToReturn}")
         };
-        if (dataRetention.Equals(DataRetention.DISCARD))
+        if (dataRetention.Equals(DataRetentionEnum.DISCARD))
         {
             DeRegisterData(DataName);
         }
@@ -89,21 +89,21 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (RegisteredRuleService.RegisteredRules.Rules == null || RegisteredRuleService.RegisteredRules.Rules.Count == 0)
+        if (RuleService.RegisteredRules.Rules == null || RuleService.RegisteredRules.Rules.Count == 0)
         {
             return GetDefaultRule(Context);
         }
-        return await RuleApplicationService.ApplyFirstAsync(Interpreter, Context, RegisteredRuleService.RegisteredRules).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyFirstAsync(Interpreter, Context, RuleService.RegisteredRules).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (RegisteredRuleService.RegisteredRules.Rules == null || RegisteredRuleService.RegisteredRules.Rules.Count == 0)
+        if (RuleService.RegisteredRules.Rules == null || RuleService.RegisteredRules.Rules.Count == 0)
         {
             return [GetDefaultRule(Context)];
         }
-        return await RuleApplicationService.ApplyAllAsync(Interpreter, Context, RegisteredRuleService.RegisteredRules, RulesToReturn.ALL).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyAllAsync(Interpreter, Context, RuleService.RegisteredRules, RulesToReturnEnum.ALL).ConfigureAwait(false);
     }
 }

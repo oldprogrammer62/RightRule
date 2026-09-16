@@ -29,12 +29,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IStatementBuilder, StatementBuilder>();
 
 
-        //services.AddSingleton<InewGetDataService, newGetDataService>();
-
-
-        services.AddScoped<IRegisteredRuleService, RegisteredRuleService>();
-        //services.AddScoped<IRegisteredDatasets, RegisteredDatasets>();
-        //services.AddScoped<IRegisteredDataObjects, RegisteredDataObjects>();
+        services.AddScoped<IRuleService, RuleService>();
         services.AddScoped<IRegisteredRules, RegisteredRules>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
 

@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RuleApplication;
 
-public enum DataRetention
+public enum DataRetentionEnum
 {
     KEEP = 0,
     DISCARD = 1

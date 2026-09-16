@@ -37,7 +37,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        var result = rr.ApplyRules("Test", RulesToReturn.ALL);
+        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }

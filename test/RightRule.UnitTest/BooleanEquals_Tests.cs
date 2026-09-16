@@ -31,7 +31,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context", RulesToReturn.ALL);
+        var result = rr.ApplyRules("Context", RulesToReturnEnum.ALL);
 
         Assert.NotNull(result);
         Assert.Equal("Good", result[0].Decision);

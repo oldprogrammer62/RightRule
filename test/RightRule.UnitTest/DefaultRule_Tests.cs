@@ -39,7 +39,7 @@ public class DefaultRule_Tests
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
-        var result1 = rr.ApplyRules("Test", RulesToReturn.ALL);
+        var result1 = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
         Assert.NotNull(result1);
     }
 

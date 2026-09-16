@@ -13,7 +13,7 @@
 /// The Result attribute will indicate a true or false result of the statement.
 /// Each Rule will return either its true Decision details or False Decision details.
 /// </remarks>
-public enum RulesToReturn
+public enum RulesToReturnEnum
 {
     FIRST = 0,
     ALL = 1

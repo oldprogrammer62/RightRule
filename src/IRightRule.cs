@@ -73,7 +73,7 @@ public interface IRightRule
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturn RulesToReturn);
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturnEnum RulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
@@ -81,7 +81,7 @@ public interface IRightRule
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn RulesToReturn);
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturnEnum RulesToReturn);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
@@ -113,7 +113,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetention DataRetention);
+    RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum DataRetention);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
@@ -129,7 +129,7 @@ public interface IRightRule
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetention DataRetention);
+    Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum DataRetention);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
@@ -142,7 +142,7 @@ public interface IRightRule
     /// <returns>
     /// All Rules will be returned<br/>
     /// </returns>
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn RulesToReturn, DataRetention DataRetention);
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum RulesToReturn, DataRetentionEnum DataRetention);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
@@ -155,7 +155,7 @@ public interface IRightRule
     /// <returns>
     /// All Rules will be returned<br/>
     /// </returns>
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn RulesToReturn, DataRetention DataRetention);
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum RulesToReturn, DataRetentionEnum DataRetention);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.

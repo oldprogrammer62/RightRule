@@ -88,7 +88,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturn rulesToReturn)
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, RulesToReturnEnum rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -118,7 +118,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturn rulesToReturn)
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturnEnum rulesToReturn)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -145,7 +145,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data, DataRetention.DISCARD).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, DataName, Data, DataRetentionEnum.DISCARD).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -168,7 +168,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
+    public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -199,7 +199,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
+    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -236,7 +236,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -268,7 +268,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -306,7 +306,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, RulesToReturn rulesToReturn)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, RulesToReturnEnum rulesToReturn)
     {
         try
         {
@@ -319,11 +319,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetention dataRetention)
+    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturn.FIRST, dataRetention);
+            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, RulesToReturnEnum.FIRST, dataRetention);
             return BuildResult(Context, rulesApplied);
         }
         catch (Exception ex)
@@ -332,7 +332,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, RulesToReturn rulesToReturn, DataRetention dataRetention)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention)
     {
         try
         {

@@ -9,7 +9,7 @@ namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturn ReturnRules)
+        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturnEnum ReturnRules)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 

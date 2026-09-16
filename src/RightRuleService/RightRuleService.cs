@@ -15,24 +15,24 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IInterpreter Interpreter;
     private readonly IOperatorService OperatorsService;
     private readonly IServiceProvider ServiceProvider;
-
     private readonly IDefaultRuleRegister DefaultRuleRegister;
 
-    private readonly IRegisteredRuleService RegisteredRuleService;
-    public List<ParsedRule>? RegisteredRules => RegisteredRuleService?.GetRules();
+    private readonly IRuleService RuleService;
+    public List<ParsedRule>? RegisteredRules => RuleService?.GetRules();
 
     private readonly IDataService DataService;
+
     public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
-    public RightRuleService(IServiceProvider ServiceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRegisteredRuleService registeredRuleService, IDefaultRuleRegister defaultRuleRegister, IDataService dataService)
+    public RightRuleService(IServiceProvider serviceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRuleService ruleService, IDefaultRuleRegister defaultRuleRegister, IDataService dataService, IInterpreter interpreter)
     {
-        this.ServiceProvider = ServiceProvider;
+        ServiceProvider = serviceProvider;
         LanguageFactory = factory;
         OperatorsService = operatorsService;
-        RegisteredRuleService = registeredRuleService;
+        RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
         DataService = dataService;
-        Interpreter = CreateInterpreter();
+        Interpreter = interpreter;
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
@@ -49,10 +49,5 @@ internal partial class RightRuleService : IRightRuleService
     {
         var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied);
         return result;
-    }
-
-    private IInterpreter CreateInterpreter()
-    {
-        return LanguageFactory.CreateInterpreter(ServiceProvider);
     }
 }
