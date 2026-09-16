@@ -1,7 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Interpreter;
 using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.RegistrationServices.RuleRegistration.Rules;
 
 namespace RightRule.RuleApplication;
 

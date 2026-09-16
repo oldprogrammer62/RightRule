@@ -1,6 +1,6 @@
-﻿using RightRule.Data;
-using RightRule.Models.BaseModels;
+﻿using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;

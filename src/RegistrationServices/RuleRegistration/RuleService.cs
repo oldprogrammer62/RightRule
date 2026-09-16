@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.RuleRegistration.Rules;
 using System.Data;
 
 namespace RightRule.RegistrationServices.RuleRegistration;

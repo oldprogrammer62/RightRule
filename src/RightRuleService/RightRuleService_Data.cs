@@ -1,5 +1,5 @@
-using RightRule.Data;
 using RightRule.RegistrationServices.DataRegistration;
+using RightRule.RegistrationServices.DataRegistration.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRule.RightRuleService;

@@ -1,6 +1,7 @@
-﻿using System.Runtime.InteropServices.ObjectiveC;
+﻿using RightRule.RegistrationServices.DataRegistration.Data;
+using System.Runtime.InteropServices.ObjectiveC;
 
-namespace RightRule.Data
+namespace RightRule.RegistrationServices.DataRegistration
 {
     public interface IDataService
     {

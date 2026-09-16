@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.Data;
+using RightRule.RegistrationServices.DataRegistration.Data;
 
 namespace RightRuleTests;
 

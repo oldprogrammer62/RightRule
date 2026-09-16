@@ -1,10 +1,10 @@
 ﻿using RightRule;
 using RightRule.Builders.RightRule;
 using RightRule.Builders.RightRuleBuilder;
-using RightRule.Data;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
+using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;

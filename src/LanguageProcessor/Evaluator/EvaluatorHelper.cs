@@ -1,6 +1,6 @@
-﻿using RightRule.Data;
-using RightRule.Exceptions;
+﻿using RightRule.Exceptions;
 using RightRule.LanguageProcessor.Parser;
+using RightRule.RegistrationServices.DataRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 

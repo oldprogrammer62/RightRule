@@ -1,4 +1,6 @@
-﻿namespace RightRule.Data;
+﻿using RightRule.RegistrationServices.DataRegistration.Data;
+
+namespace RightRule.RegistrationServices.DataRegistration;
 
 public class DataService : IDataService
 {
