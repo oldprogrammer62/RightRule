@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RegistrationServices.DataRegistration;
 
-internal class RegisteredDataObjects : IRegisteredDataObjects
+internal class RegisteredDataObjects : xIRegisteredDataObjects
 {
     private readonly List<RegisteredDataObject> _data;
     public List<RegisteredDataObject> Objects => _data;

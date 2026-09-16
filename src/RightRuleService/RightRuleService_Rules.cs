@@ -29,33 +29,33 @@ internal partial class RightRuleService : IRightRuleService
 
     public List<(int Number, string Name)>? GetRuleNumbers()
     {
-        return _registeredRuleService.GetRuleNumbers();
+        return RegisteredRuleService.GetRuleNumbers();
     }
 
     public List<string>? GetRuleNames()
     {
-        return _registeredRuleService.GetRuleNames();
+        return RegisteredRuleService.GetRuleNames();
     }
 
     public List<string>? GetRuleContexts()
     {
-        return _registeredRuleService.GetRuleContexts();
+        return RegisteredRuleService.GetRuleContexts();
     }
 
     public ParsedRule? GetRegisteredRule(string Name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
-        return _registeredRuleService.GetRegisteredRule(Name);
+        return RegisteredRuleService.GetRule(Name);
     }
 
     public ParsedRule? GetRegisteredRule(int Number)
     {
-        return _registeredRuleService.GetRegisteredRule(Number);
+        return RegisteredRuleService.GetRule(Number);
     }
 
     public List<ParsedRule> GetRules(string Context)
     {
-        return _registeredRuleService.GetRules(Context);
+        return RegisteredRuleService.GetRules(Context);
     }
 
     public List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string JsonData)
@@ -80,9 +80,7 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
         var operatorNames = OperatorsService.OperatorNames;
-        var objectNames = _registeredDataObjects?.ObjectNames;
-        var datasetNames = _registeredDataSets?.DatasetNames;
-        return _registeredRuleService.RegisterRules(rules, operatorNames, objectNames, datasetNames);
+        return RegisteredRuleService.RegisterRules(rules, operatorNames);
     }
 
     /// <summary>
@@ -96,50 +94,28 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
 
         var operatorNames = OperatorsService.OperatorNames;
-
-        var objectNames = GetObjectNames();
-        var datasetNames = GetDatasetNames();
-
-        return _registeredRuleService.RegisterRule(rule, operatorNames, objectNames, datasetNames);
+        return RegisteredRuleService.RegisterRule(rule, operatorNames);
     }
 
     public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return _registeredRuleService.DeRegisterRules(Context);
+        return RegisteredRuleService.DeRegisterRules(Context);
     }
 
     public bool DeRegisterRules()
     {
-        return _registeredRuleService.DeRegisterRules();
+        return RegisteredRuleService.DeRegisterRules();
     }
 
     public bool DeRegisterRule(string Name)
     {
-        return _registeredRuleService.DeRegisterRule(Name);
+        return RegisteredRuleService.DeRegisterRule(Name);
     }
 
     public bool DeRegisterRule(int Number)
     {
-        return _registeredRuleService.DeRegisterRule(Number);
-    }
-
-    private HashSet<string> GetObjectNames()
-    {
-        if (_registeredDataObjects == null)
-        {
-            return [];
-        }
-        return _registeredDataObjects.ObjectNames;
-    }
-
-    private HashSet<string> GetDatasetNames()
-    {
-        if (_registeredDataSets == null)
-        {
-            return [];
-        }
-        return _registeredDataSets.DatasetNames;
+        return RegisteredRuleService.DeRegisterRule(Number);
     }
 }

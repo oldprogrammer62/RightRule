@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RegistrationServices.DataRegistration;
 
-internal class RegisteredDatasets : IRegisteredDatasets
+internal class RegisteredDatasets : xIRegisteredDatasets
 {
     private readonly List<RegisteredDataset> _data;
     public List<RegisteredDataset> Datasets => _data;

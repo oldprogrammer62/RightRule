@@ -53,7 +53,7 @@ namespace RightRuleTests
 
             var regData4 = rr.RegisterData("C", datatuple);
 
-            var xxxx = rr.newGetRegisteredData();
+            var xxxx = rr.GetRegisteredData();
             Assert.NotNull(xxxx);
         }
 
@@ -69,7 +69,7 @@ namespace RightRuleTests
 
             var regData4 = rr.RegisterData("C", datatuple);
 
-            var xxxx = rr.newGetRegisteredData();
+            var xxxx = rr.GetRegisteredData();
             Assert.NotNull(xxxx);
 
             var rule1def = rr.BuildRule()

@@ -1,7 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Parser;
 using System.Text;
 
-namespace RightRule.LanguageProcessor;
+namespace RightRule.LanguageProcessor.StatementBuilder;
 
 internal static class StatementPathBuilder
 {

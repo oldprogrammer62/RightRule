@@ -16,15 +16,20 @@ internal class RegisteredRuleService : IRegisteredRuleService
         _registeredRules = registeredRules;
     }
 
-    public ParsedRule? GetRegisteredRule(string Name)
+    public ParsedRule? GetRule(string Name)
     {
         ArgumentNullException.ThrowIfNull(Name, nameof(Name));
         return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
     }
 
-    public ParsedRule? GetRegisteredRule(int Number)
+    public ParsedRule? GetRule(int Number)
     {
         return _registeredRules.Rules.FirstOrDefault(r => r.Number == Number);
+    }
+
+    public List<ParsedRule> GetRules()
+    {
+        return _registeredRules.Rules;
     }
 
     public List<ParsedRule> GetRules(string Context)
@@ -32,18 +37,18 @@ internal class RegisteredRuleService : IRegisteredRuleService
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rules, nameof(rules));
 
-        var parsedRules = _ruleRegistrationService.RegisterRules(rules, OperatorNames, ObjectNames, DatasetNames);
+        var parsedRules = _ruleRegistrationService.RegisterRules(rules, OperatorNames);
         return RegisteredRules.AddRules(parsedRules);
     }
 
-    public RuleRegistrationResult RegisterRule(DefinedRule rule, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public RuleRegistrationResult RegisterRule(DefinedRule rule, HashSet<string> OperatorNames)
     {
         ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = _ruleRegistrationService.RegisterRule(rule, OperatorNames, ObjectNames, DatasetNames);
+        var parsedRule = _ruleRegistrationService.RegisterRule(rule, OperatorNames);
         if (parsedRule == null)
         {
             return new RuleRegistrationResult()

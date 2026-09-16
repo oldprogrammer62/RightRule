@@ -49,7 +49,7 @@ internal sealed class StatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var scanner = new Tokenizer(Statement, operatorNames, objectNames, datasetNames);
+                var scanner = new Tokenizer(Statement, operatorNames);
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
@@ -136,7 +136,7 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var parserTokenizer = new Tokenizer(Statement, operatorNames, objectNames, datasetNames);
+                var parserTokenizer = new Tokenizer(Statement, operatorNames);
                 var parser = new Parser(parserTokenizer, false);
                 _ = parser.Parse();
 

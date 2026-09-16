@@ -89,21 +89,21 @@ internal partial class RightRuleService : IRightRuleService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
+        if (RegisteredRuleService.RegisteredRules.Rules == null || RegisteredRuleService.RegisteredRules.Rules.Count == 0)
         {
             return GetDefaultRule(Context);
         }
-        return await RuleApplicationService.ApplyFirstAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyFirstAsync(Interpreter, Context, RegisteredRuleService.RegisteredRules).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_registeredRuleService.RegisteredRules.Rules == null || _registeredRuleService.RegisteredRules.Rules.Count == 0)
+        if (RegisteredRuleService.RegisteredRules.Rules == null || RegisteredRuleService.RegisteredRules.Rules.Count == 0)
         {
             return [GetDefaultRule(Context)];
         }
-        return await RuleApplicationService.ApplyAllAsync(LanguageInterpreter, Context, _registeredRuleService.RegisteredRules, RulesToReturn.ALL).ConfigureAwait(false);
+        return await RuleApplicationService.ApplyAllAsync(Interpreter, Context, RegisteredRuleService.RegisteredRules, RulesToReturn.ALL).ConfigureAwait(false);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.Data;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
@@ -11,12 +12,12 @@ namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
-    List<newRegisteredData>? newGetData();
-    newRegisteredData? newGetData(string DataName);
+    List<Dataset>? GetData();
 
-    IRegisteredRules RegisteredRules { get; }
-    IRegisteredDatasets RegisteredDatasets { get; }
-    IRegisteredDataObjects RegisteredDataObjects { get; }
+    Dataset? GetData(string DataName);
+
+    List<ParsedRule> RegisteredRules { get; }
+    List<Dataset>? RegisteredDatasets { get; }
 
     Dictionary<string, Operator> GetOperatorAliases();
     List<Operator> GetOperatorDetails();
@@ -38,8 +39,6 @@ internal interface IRightRuleService
     bool DeRegisterRule(string Name);
     bool DeRegisterRule(int Number);
 
-    RegisteredDataset? GetDataSet(string DataName);
-    RegisteredDataObject? GetDataObject(string DataName);
     DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
     DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);

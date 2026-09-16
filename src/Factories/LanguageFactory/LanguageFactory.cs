@@ -1,35 +1,41 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.Data;
 using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Interpreter;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.System.Common;
 
 namespace RightRule.Factories.LanguageFactory;
 
 internal class LanguageFactory : ILanguageFactory
 {
-    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators, InewGetDataService newGetDataService)
+    private readonly IDataService dataService;
+
+    public LanguageFactory(IDataService DataService)
     {
-        var evaluator = CreateEvaluator(serviceProvider, Operators);
-        return CreateInterpreter(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators, newGetDataService);
+        dataService = DataService;
     }
 
-    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider, IEvaluator evaluator, IRegisteredDatasets registeredDatasets, IRegisteredDataObjects registeredDataObjects, Dictionary<string, Operator> operators, InewGetDataService newGetDataService)
+    public IInterpreter CreateInterpreter(IServiceProvider serviceProvider)
     {
-        return ActivatorUtilities.CreateInstance<Interpreter>(serviceProvider, evaluator, registeredDatasets, registeredDataObjects, operators, newGetDataService);
+        var evaluator = CreateLanguageEvaluator(serviceProvider);
+        return CreateLanguageInterpreter(serviceProvider);
     }
 
-    public IEvaluator CreateEvaluator(IServiceProvider serviceProvider, Dictionary<string, Operator> Operators)
+    public IInterpreter CreateLanguageInterpreter(IServiceProvider serviceProvider)
     {
-        return ActivatorUtilities.CreateInstance<Evaluator>(serviceProvider, Operators);
+        return ActivatorUtilities.GetServiceOrCreateInstance<Interpreter>(serviceProvider);
     }
 
-    public IParser CreateParser(IServiceProvider serviceProvider, string Statement, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames, bool DataCheck)
+    public IEvaluator CreateLanguageEvaluator(IServiceProvider serviceProvider)
     {
-        var tokenizer = CreateTokenizer(serviceProvider, Statement, OperatorNames, ObjectNames, DatasetNames);
+        return ActivatorUtilities.GetServiceOrCreateInstance<Evaluator>(serviceProvider);
+    }
+
+    public IParser CreateParser(IServiceProvider serviceProvider, string Statement, HashSet<string> OperatorNames, bool DataCheck)
+    {
+        var tokenizer = CreateTokenizer(serviceProvider, Statement, OperatorNames);
         return CreateParser(serviceProvider, tokenizer, DataCheck);
     }
 
@@ -38,8 +44,8 @@ internal class LanguageFactory : ILanguageFactory
         return ActivatorUtilities.CreateInstance<Parser>(serviceProvider, tokenizer, DataCheck);
     }
 
-    public ITokenizer CreateTokenizer(IServiceProvider serviceProvider, string Statement, HashSet<string> OperatorNames, HashSet<string> ObjectNames, HashSet<string> DatasetNames)
+    public ITokenizer CreateTokenizer(IServiceProvider serviceProvider, string Statement, HashSet<string> OperatorNames)
     {
-        return ActivatorUtilities.CreateInstance<Tokenizer>(serviceProvider, Statement, OperatorNames, ObjectNames, DatasetNames);
+        return ActivatorUtilities.CreateInstance<Tokenizer>(serviceProvider, Statement, OperatorNames);
     }
 }

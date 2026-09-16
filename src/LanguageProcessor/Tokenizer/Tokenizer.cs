@@ -8,15 +8,11 @@ internal sealed class Tokenizer : ITokenizer
     private readonly string _statement;
     private int _pos;
     private readonly HashSet<string> _operators;
-    private readonly HashSet<string>? _objectNames;
-    private readonly HashSet<string>? _datasetNames;
 
-    public Tokenizer(string statement, HashSet<string> OperatorNames, HashSet<string>? ObjectNames, HashSet<string>? DatasetNames)
+    public Tokenizer(string statement, HashSet<string> OperatorNames)
     {
         _statement = statement ?? string.Empty;
         _operators = OperatorNames;
-        _objectNames = ObjectNames;
-        _datasetNames = DatasetNames;
     }
 
     public Token NextToken(bool DataCheck)
@@ -89,10 +85,11 @@ internal sealed class Tokenizer : ITokenizer
                 if (!DataCheck)
                     return new Token(TokenType.Variable, value, start);
 
-                if (_objectNames is not null && _objectNames.Contains(value))
-                {
-                    return new Token(TokenType.Variable, value, start);
-                }
+                // TO DO Data check look at existing data
+                //if (_objectNames is not null && _objectNames.Contains(value))
+                //{
+                //    return new Token(TokenType.Variable, value, start);
+                //}
             }
             // Dataset identifier (dot notation)
             if (foundDot && value.Count(c => c == '.') == 1)
@@ -100,10 +97,11 @@ internal sealed class Tokenizer : ITokenizer
                 if (!DataCheck)
                     return new Token(TokenType.Identifier, value, start);
 
-                if (DataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
-                {
-                    return new Token(TokenType.Identifier, value, start);
-                }
+                // TO DO Data check look at existing data
+                //if (DataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
+                //{
+                //    return new Token(TokenType.Identifier, value, start);
+                //}
             }
             // Not known - Error
             throw new InvalidIdentifierException(value, start);

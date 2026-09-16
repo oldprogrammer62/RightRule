@@ -5,6 +5,32 @@ namespace RightRuleTests;
 public class SimpleTests
 {
     [Fact]
+    public void SimpleTest()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            {"a", 100 }
+        };
+        var ds = rr.RegisterData("data", data);
+
+        string context = "Context";
+        var rule = rr.BuildRule()
+            .Number(1)
+            .Name("Name")
+            .Context(context)
+            .Statement("data.a = 100")
+            .Decision("GOOD")
+            .FalseDecision("BAD")
+            .Build();
+
+        rr.RegisterRule(rule);
+
+        var result = rr.ApplyRules(context);
+        Assert.NotNull(result);
+    }
+
+    [Fact]
     public void Test1()
     {
         IRightRule rr = new BeSoft.RightRule();

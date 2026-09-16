@@ -94,7 +94,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>
-    public IRegisteredRules GetRegisteredRules()
+    public List<ParsedRule> GetRegisteredRules()
     {
         try
         {

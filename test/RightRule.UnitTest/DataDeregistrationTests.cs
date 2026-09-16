@@ -14,11 +14,11 @@ public class DataDeregistrationTests
         rr.RegisterData("d", nameof(d), d);
         rr.RegisterData("d2", nameof(d2), d2);
         // Assert.Equal(2, rr.GetRegisteredDataObjects().Count);
-        Assert.Equal(2, rr.newGetRegisteredData().Count);
+        Assert.Equal(2, rr.GetRegisteredData().Count);
 
         rr.DeRegisterData("d");
         // Assert.Equal(1, rr.GetRegisteredDataObjects().Count);
-        Assert.Single(rr.newGetRegisteredData());
+        Assert.Single(rr.GetRegisteredData());
     }
 
     [Fact]
@@ -36,11 +36,11 @@ public class DataDeregistrationTests
         rr.RegisterData("d", d);
         rr.RegisterData("d2", d2);
         //Assert.Equal(2, rr.GetRegisteredDatasets().Count);
-        Assert.Equal(2, rr.newGetRegisteredData().Count);
+        Assert.Equal(2, rr.GetRegisteredData().Count);
 
         rr.DeRegisterData("d");
         //Assert.Equal(1, rr.GetRegisteredDatasets().Count);
-        Assert.Single(rr.newGetRegisteredData());
+        Assert.Single(rr.GetRegisteredData());
     }
 
 }

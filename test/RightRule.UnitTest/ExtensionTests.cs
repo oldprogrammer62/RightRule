@@ -13,7 +13,7 @@ public class ExtensionTests
         var rules = rightRule.GetRegisteredRules();
 
         Assert.NotNull(rules);
-        Assert.IsType<List<ParsedRule>>(rules.Rules);
+        Assert.IsType<List<ParsedRule>>(rules);
     }
 
     [Fact]

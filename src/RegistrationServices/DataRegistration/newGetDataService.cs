@@ -1,13 +1,15 @@
-﻿namespace RightRule.RegistrationServices.DataRegistration;
+﻿using RightRule.Data;
+
+namespace RightRule.RegistrationServices.DataRegistration;
 
 // TO DO Wants to be called DataService
 internal class newGetDataService : InewGetDataService
 {
-    public newAllRegisteredData _registeredData { get; init; }
+    public DataService _registeredData { get; init; }
 
     public newGetDataService()
     {
-        _registeredData = new newAllRegisteredData();
+        _registeredData = new DataService();
     }
 
     public void Clear()

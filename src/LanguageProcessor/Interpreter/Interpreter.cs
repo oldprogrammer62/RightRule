@@ -1,30 +1,26 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule.Data;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
+using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
-using RightRule.System.Common;
 
 namespace RightRule.LanguageProcessor.Interpreter;
 
 public sealed class Interpreter : IInterpreter
 {
-    private readonly IRegisteredDatasets? _registeredDatasets;
-    private readonly IRegisteredDataObjects? _registeredDataObjects;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
-    private readonly InewGetDataService getDataService;
-    private readonly Dictionary<string, Operator> _operators;
+    private readonly IDataService _dataService;
+    private readonly IOperatorService _operatorService;
     private readonly IEvaluator _evaluator;
 
-    public Interpreter(IEvaluator evaluator, IRegisteredDatasets? Datasets, IRegisteredDataObjects? DataObjects, Dictionary<string, Operator> operators, IDefaultRuleRegister defaultRuleRegister, InewGetDataService newGetDataService)
+    public Interpreter(IEvaluator evaluator, IOperatorService operatorService, IDefaultRuleRegister defaultRuleRegister, IDataService DataService)
     {
-        _registeredDatasets = Datasets ?? new RegisteredDatasets();
-        _registeredDataObjects = DataObjects ?? new RegisteredDataObjects();
-        _operators = operators ?? new Dictionary<string, Operator> { };
+        _operatorService = operatorService;
         _defaultRuleRegister = defaultRuleRegister;
-        getDataService = newGetDataService;
+        _dataService = DataService;
         _evaluator = evaluator;
     }
 
@@ -40,15 +36,15 @@ public sealed class Interpreter : IInterpreter
 
     private async Task<IProcessedRule> EvaluateFirstMatchAsync(IRegisteredRules rules, string context)
     {
-        return await EvaluateFirstMatch.EvaluateAsync(_evaluator, context, rules.Rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister, getDataService).ConfigureAwait(false);
+        return await EvaluateFirstMatch.EvaluateAsync(_evaluator, context, rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> EvaluateAsync(List<ParsedRule> rules, string Context, RulesToReturn ReturnRules)
     {
         return ReturnRules switch
         {
-            RulesToReturn.FIRST => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister, getDataService).ConfigureAwait(false) },
-            RulesToReturn.ALL => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _registeredDatasets, _registeredDataObjects, _defaultRuleRegister, getDataService).ConfigureAwait(false),
+            RulesToReturn.FIRST => new List<IProcessedRule> { await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister).ConfigureAwait(false) },
+            RulesToReturn.ALL => await EvaluateAllRules.EvaluateAsync(_evaluator, Context, rules, _defaultRuleRegister, _dataService).ConfigureAwait(false),
             _ => [ErrorRule.ErrorResult($"Unknown RulesToReturn value: {ReturnRules}")]
         };
     }

@@ -1,6 +1,7 @@
 ﻿using RightRule;
 using RightRule.Builders.RightRule;
 using RightRule.Builders.RightRuleBuilder;
+using RightRule.Data;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
@@ -194,35 +195,9 @@ public interface IRightRule
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRule(int Number);
 
-    List<newRegisteredData> newGetRegisteredData();
+    List<Dataset>? GetRegisteredData();
 
-    newRegisteredData newGetRegisteredData(string DataName);
-
-    /// <summary>
-    /// Returns the set of Registered Datasets.
-    /// </summary>
-    /// <returns>RegisteredDatasets object</returns>
-    // IRegisteredDatasets GetRegisteredDatasets();
-
-    /// <summary>
-    /// Returns the set of Registered DataObjects
-    /// </summary>
-    /// <returns>RegisteredDataObjects object</returns>
-    // IRegisteredDataObjects GetRegisteredDataObjects();
-
-    /// <summary>
-    /// Returns the specified Dataset.
-    /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
-    /// <returns>RegisteredDataset object</returns>
-    // RegisteredDataset? GetRegisteredDataset(string DataName);
-
-    /// <summary>
-    /// Returns the specified DataObject
-    /// </summary>
-    /// <param name="DataName">The name of the dataobject.</param>
-    /// <returns>RegisteredDataObject</returns>
-    // RegisteredDataObject? GetRegisteredDataObject(string DataName);
+    Dataset? GetRegisteredData(string DatasetName);
 
     /// <summary>
     /// Returns the Registered Rules with the specified Name.
@@ -239,7 +214,7 @@ public interface IRightRule
     /// <summary>
     /// Returns the set of Registered Rules.
     /// </summary>
-    IRegisteredRules GetRegisteredRules();
+    List<ParsedRule> GetRegisteredRules();
 
     /// <summary>
     /// Returns the set of Registered Rules for the specified Context.
@@ -263,6 +238,7 @@ public interface IRightRule
     /// <returns>DataRegistrationResult</returns>
     DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
 
+    DataRegistrationResult RegisterData(string DataItemName, object DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, bool DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, string DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, int DataItemValue);

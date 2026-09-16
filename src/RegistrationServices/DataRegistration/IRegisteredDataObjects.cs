@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RegistrationServices.DataRegistration;
 
-public interface IRegisteredDataObjects
+public interface xIRegisteredDataObjects
 {
     List<RegisteredDataObject> Objects { get; }
     int Count { get; }

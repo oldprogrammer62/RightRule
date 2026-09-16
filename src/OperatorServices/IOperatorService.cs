@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices;
 
-internal interface IOperatorService
+public interface IOperatorService
 {
     List<Operator> Operators { get; }
     Dictionary<string, Operator> OperatorAliases { get; }

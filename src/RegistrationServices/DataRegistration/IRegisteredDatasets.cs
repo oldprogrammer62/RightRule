@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RegistrationServices.DataRegistration;
 
-public interface IRegisteredDatasets
+public interface xIRegisteredDatasets
 {
     List<RegisteredDataset> Datasets { get; }
     int Count { get; }

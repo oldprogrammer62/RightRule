@@ -72,14 +72,14 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        IRegisteredRules? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
-        var r1 = registeredRules.Rules[0];
+        var r1 = registeredRules[0];
         Assert.Equal("Rule1", r1.Name);
 
-        var r2 = registeredRules.Rules[1];
+        var r2 = registeredRules[1];
         Assert.Equal("Rule2", r2.Name);
     }
 
@@ -91,14 +91,14 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        IRegisteredRules? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule> registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
-        var r1 = registeredRules.Rules[0];
+        var r1 = registeredRules[0];
         Assert.Equal("Rule1", r1.Name);
 
-        var r2 = registeredRules.Rules[1];
+        var r2 = registeredRules[1];
         Assert.Equal("Rule2", r2.Name);
 
         var indexed_rule1 = registeredRules[0];
@@ -113,7 +113,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        IRegisteredRules? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -131,7 +131,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        IRegisteredRules? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -149,7 +149,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        IRegisteredRules? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 

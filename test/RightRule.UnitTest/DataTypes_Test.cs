@@ -67,13 +67,36 @@ public class DataTypes_Test
 
         int Value = 100;
 
-        rr.RegisterData("Value", nameof(Value), Value);
+        rr.RegisterData(nameof(Value), Value);
 
         var rule = rr.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
-            .Statement("Value.Value = 100")
+            .Statement("Value = 100")
+            .Decision("DONE")
+            .FalseDecision("NOT DONE")
+            .WithDataCheck(false)
+            .Build();
+        var prule = rr.RegisterRule(rule);
+
+        var result = rr.ApplyRules("Context");
+        Assert.NotNull(result);
+        Assert.Equal(rule.Decision, result.Decision);
+    }
+
+    [Fact]
+    public void Dictionary_Variable2()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        rr.RegisterData("Variable", "Hello World");
+
+        var rule = rr.BuildRule()
+            .Number(1)
+            .Name("Name")
+            .Context("Context")
+            .Statement("Variable = 'Hello World'")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
             .WithDataCheck(false)

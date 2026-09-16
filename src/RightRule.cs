@@ -14,7 +14,7 @@ namespace BeSoft;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
-    private bool _disposed { get; set; }
+    private bool Disposed { get; set; }
 
     private readonly ServiceProvider ServiceProvider;
 
@@ -24,7 +24,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         var services = ServiceRegister.RegisterServices(new ServiceCollection());
         ServiceProvider = services.BuildServiceProvider();
-
         RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
@@ -38,7 +37,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
         }
-
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
 
         foreach (var serviceResult in serviceResults)
@@ -94,10 +92,10 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     public void Dispose()
     {
-        if (_disposed) return;
+        if (Disposed) return;
 
         // Properly disposes of all internal singletons/scoped services
         ServiceProvider.Dispose();
-        _disposed = true;
+        Disposed = true;
     }
 }
