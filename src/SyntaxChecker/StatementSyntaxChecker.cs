@@ -31,30 +31,17 @@ internal sealed class StatementSyntaxChecker
             }
 
             // Obtain operator names (fall back to empty set)
-            HashSet<string> operatorNames;
-
-            HashSet<string> objectNames = [];
-            HashSet<string> datasetNames = [];
-
-            try
-            {
-                var ops = new OperatorService();
-                operatorNames = ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
-            catch (Exception)
-            {
-                operatorNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            }
+            HashSet<string> operatorNames = GetOperatorNames();
 
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var scanner = new Tokenizer(Statement, operatorNames);
+                var tokenizer = new Tokenizer(Statement, operatorNames);
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
                 {
-                    var tok = scanner.NextToken(false);
+                    var tok = tokenizer.NextToken(false);
                     if (tok.Type == TokenType.End) break;
 
                     // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
@@ -136,8 +123,8 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var parserTokenizer = new Tokenizer(Statement, operatorNames);
-                var parser = new Parser(parserTokenizer, false);
+                var tokenizer = new Tokenizer(Statement, operatorNames);
+                var parser = new Parser(tokenizer, false);
                 _ = parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid
@@ -194,6 +181,19 @@ internal sealed class StatementSyntaxChecker
                 return new CheckStatementResult(diagnostics);
             }
         });
+    }
+
+    private static HashSet<string> GetOperatorNames()
+    {
+        try
+        {
+            var ops = new OperatorService();
+            return ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
+        catch (Exception)
+        {
+            return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
     }
 
     private static Diagnostic CreateDiagnosticFromException(Exception ex, string code, string statement)
