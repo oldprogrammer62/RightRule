@@ -1,14 +1,14 @@
 ﻿using RightRule;
-using RightRule.Builders.RightRule;
-using RightRule.Builders.RightRuleBuilder;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
+using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleApplication;
-using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
 namespace BeSoft;

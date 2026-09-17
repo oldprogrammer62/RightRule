@@ -3,6 +3,7 @@ using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Interpreter;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
@@ -10,7 +11,6 @@ using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
 using RightRule.RightRuleService;
-using RightRule.SyntaxChecker;
 
 namespace RightRule.ServiceRegister;
 

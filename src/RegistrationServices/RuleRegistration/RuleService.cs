@@ -56,7 +56,7 @@ internal class RuleService : IRuleService
             {
                 Message = "Rule Failed to be Parsed",
                 RegisteredRule = null,
-                Status = RegistrationStatus.FAILURE
+                Status = RegistrationStatusEnum.FAILURE
             };
         }
         return RegisteredRules.AddRule(parsedRule);

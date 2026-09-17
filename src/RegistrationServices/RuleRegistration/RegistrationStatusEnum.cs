@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RegistrationServices.RuleRegistration;
 
-public enum RegistrationStatus
+public enum RegistrationStatusEnum
 {
     SUCCESS = 1,
     FAILURE = 2,

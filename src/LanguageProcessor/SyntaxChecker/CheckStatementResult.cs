@@ -1,4 +1,4 @@
-namespace RightRule.SyntaxChecker;
+namespace RightRule.LanguageProcessor.SyntaxChecker;
 
 public sealed class CheckStatementResult
 {

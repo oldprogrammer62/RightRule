@@ -3,7 +3,7 @@ using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.OperatorServices;
 using System.Text.RegularExpressions;
 
-namespace RightRule.SyntaxChecker;
+namespace RightRule.LanguageProcessor.SyntaxChecker;
 
 internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
 {

@@ -1,7 +1,6 @@
-﻿using RightRule.Builders.RightRule;
-using RightRule.Models.RuleModels;
+﻿using RightRule.Models.RuleModels;
 
-namespace RightRule.Builders.DefaultRuleBuilder;
+namespace RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
 
 internal sealed class DefaultRuleBuilder : IDefaultNameStep, IDefaultContextStep, IDefaultDecisionStep, IDefaultRuleBuilder
 {

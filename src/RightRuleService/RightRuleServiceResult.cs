@@ -14,7 +14,7 @@ internal sealed class RightRuleServiceResult<T>
 
     public required string StatementApplied { get; init; }
 
-    public RegistrationStatus Status { get; init; }
+    public RegistrationStatusEnum Status { get; init; }
     public T? Payload { get; init; }
     public string Message { get; init; } = string.Empty;
     public Exception? Exception { get; init; }
@@ -37,7 +37,7 @@ internal sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
-            Status = RegistrationStatus.SUCCESS, 
+            Status = RegistrationStatusEnum.SUCCESS, 
             Success = payload.Success, 
             Result = payload.Result, 
             Context = payload.Context,
@@ -63,7 +63,7 @@ internal sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() 
         { 
-            Status = RegistrationStatus.FAILURE, 
+            Status = RegistrationStatusEnum.FAILURE, 
             Success = payload.Success, 
             Result = payload.Result, 
             Context = payload.Context, 
@@ -80,7 +80,7 @@ internal sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() 
         { 
-            Status = RegistrationStatus.ERROR, 
+            Status = RegistrationStatusEnum.ERROR, 
             Success = payload.Success, 
             Result = payload.Result, 
             Context = payload.Context,
@@ -98,7 +98,7 @@ internal sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(payload, nameof(payload));
         return new() 
         { 
-            Status = RegistrationStatus.DEFAULT, 
+            Status = RegistrationStatusEnum.DEFAULT, 
             Success = payload.Success, 
             Result = payload.Result, 
             Context = payload.Context,

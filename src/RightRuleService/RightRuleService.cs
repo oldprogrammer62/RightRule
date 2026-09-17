@@ -1,4 +1,5 @@
 ﻿using RightRule.LanguageProcessor.Interpreter;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.OperatorServices;
@@ -6,7 +7,6 @@ using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.SyntaxChecker;
 
 namespace RightRule.RightRuleService;
 

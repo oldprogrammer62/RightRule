@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.DataRegistration;
@@ -6,7 +7,6 @@ using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
-using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;

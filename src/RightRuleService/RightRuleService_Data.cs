@@ -29,14 +29,14 @@ internal partial class RightRuleService : IRightRuleService
         {
             return new DataRegistrationResult()
             {
-                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
         }
         return new DataRegistrationResult()
         {
-            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.SUCCESS,
             DataType = DataTypes.DATASET,
             Name = DatasetName
         };
@@ -52,7 +52,7 @@ internal partial class RightRuleService : IRightRuleService
         {
             return new DataRegistrationResult()
             {
-                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
@@ -60,7 +60,7 @@ internal partial class RightRuleService : IRightRuleService
 
         return new DataRegistrationResult()
         {
-            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.SUCCESS,
             DataType = DataTypes.DATASET,
             Name = DatasetName
         };
@@ -74,7 +74,7 @@ internal partial class RightRuleService : IRightRuleService
         {
             return new DataRegistrationResult()
             {
-                Status = RegistrationServices.RuleRegistration.RegistrationStatus.FAILURE,
+                Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
@@ -82,7 +82,7 @@ internal partial class RightRuleService : IRightRuleService
 
         return new DataRegistrationResult()
         {
-            Status = RegistrationServices.RuleRegistration.RegistrationStatus.SUCCESS,
+            Status = RegistrationServices.RuleRegistration.RegistrationStatusEnum.SUCCESS,
             DataType = DataTypes.DATASET,
             Name = DatasetName
         };

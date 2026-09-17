@@ -1,5 +1,5 @@
-﻿using RightRule.Models.RuleModels;
-using RightRule.SyntaxChecker;
+﻿using RightRule.LanguageProcessor.SyntaxChecker;
+using RightRule.Models.RuleModels;
 
 namespace RightRule_SyntaxChecker;
 

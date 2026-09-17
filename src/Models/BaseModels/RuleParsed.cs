@@ -20,7 +20,7 @@ public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
 
     public required string Statement { get; init; }
 
-    public required RegistrationStatus Status { get; init; }
+    public required RegistrationStatusEnum Status { get; init; }
 
     ///// <summary>
     ///// The Node property represents the parsed rule statement as an abstract syntax tree (AST).

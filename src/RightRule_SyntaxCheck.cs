@@ -1,4 +1,4 @@
-using RightRule.SyntaxChecker;
+using RightRule.LanguageProcessor.SyntaxChecker;
 
 namespace BeSoft;
 

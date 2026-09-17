@@ -66,7 +66,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> serviceResult)
     {
         var context = serviceResult?.Payload?.Context ?? string.Empty;
-        var status = serviceResult?.Status ?? RegistrationStatus.DEFAULT;
+        var status = serviceResult?.Status ?? RegistrationStatusEnum.DEFAULT;
 
         var payload = serviceResult?.Payload ?? null;
         var message = serviceResult?.Message ?? string.Empty;
@@ -74,16 +74,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         return status switch
         {
-            RegistrationStatus.SUCCESS when serviceResult?.Payload != null =>
+            RegistrationStatusEnum.SUCCESS when serviceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied),
 
-            RegistrationStatus.FAILURE =>
+            RegistrationStatusEnum.FAILURE =>
                 RightRuleResult<IProcessedRule>.FailureResult(message, statementApplied, payload != null ? payload : RightRuleService.GetDefaultRule(context)),
 
-            RegistrationStatus.DEFAULT =>
+            RegistrationStatusEnum.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context), message),
 
-            RegistrationStatus.ERROR =>
+            RegistrationStatusEnum.ERROR =>
                 RightRuleResult<IProcessedRule>.ErrorResult(serviceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
             _ => RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context))

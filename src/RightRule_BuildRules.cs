@@ -1,6 +1,5 @@
-using RightRule.Builders.DefaultRuleBuilder;
-using RightRule.Builders.RightRule;
-using RightRule.Builders.RightRuleBuilder;
+using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
+using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.RightRuleBuilder;
 
 namespace BeSoft;
 

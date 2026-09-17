@@ -148,7 +148,7 @@ public class ObjectReference_Tests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
         var added1 = rr.RegisterData("x", nameof(x), x);
-        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -176,9 +176,9 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", nameof(x), x);
         var added2 = rr.RegisterData("datay", nameof(y), y);
         var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);
-        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
-        Assert.Equal(RegistrationStatus.SUCCESS, added2.Status);
-        Assert.Equal(RegistrationStatus.SUCCESS, added3.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -206,16 +206,16 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData("datax", nameof(x), x);
         var added2 = rr.RegisterData("datay", nameof(y), y);
         var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);
-        Assert.Equal(RegistrationStatus.SUCCESS, added1.Status);
-        Assert.Equal(RegistrationStatus.SUCCESS, added2.Status);
-        Assert.Equal(RegistrationStatus.SUCCESS, added3.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var name = "Bob";
         var age = 30;
         var added4 = rr.RegisterData("databob", nameof(name), name);
         var added5 = rr.RegisterData("databob", nameof(age), age);
-        Assert.Equal(RegistrationStatus.SUCCESS, added4.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added4.Status);
 
         DefinedRule rule = new DefinedRule()
         {

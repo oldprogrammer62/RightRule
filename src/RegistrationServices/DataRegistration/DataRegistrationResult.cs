@@ -7,7 +7,7 @@ namespace RightRule.RegistrationServices.DataRegistration;
 /// </summary>
 public class DataRegistrationResult
 {
-    public required RegistrationStatus Status { get; init; }
+    public required RegistrationStatusEnum Status { get; init; }
     public string Name { get; init; } = string.Empty;
     public string DataType { get; init; } = string.Empty;
     public string Message { get; init; } = string.Empty;
@@ -16,7 +16,7 @@ public class DataRegistrationResult
     {
         return new DataRegistrationResult()
         {
-            Status = RegistrationStatus.SUCCESS,
+            Status = RegistrationStatusEnum.SUCCESS,
             Name = name,
             DataType = dataType,
             Message = message
@@ -27,7 +27,7 @@ public class DataRegistrationResult
     {
         return new DataRegistrationResult()
         {
-            Status = RegistrationStatus.FAILURE,
+            Status = RegistrationStatusEnum.FAILURE,
             Name = name,
             DataType = dataType,
             Message = message

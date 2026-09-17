@@ -1,7 +1,7 @@
 ﻿using RightRule.Models;
 using RightRule.Models.RuleModels;
 
-namespace RightRule.Builders.RightRuleBuilder;
+namespace RightRule.RegistrationServices.RuleRegistration.RuleBuilders.RightRuleBuilder;
 
 internal sealed class RuleBuilder : INumberStep, INameStep, IContextStep, IStatementStep, IDecisionStep, IFalseDecisionStep, IRuleBuilder
 {

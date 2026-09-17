@@ -1,6 +1,6 @@
 ﻿using RightRule.Models.RuleModels;
 
-namespace RightRule.Builders.RightRule;
+namespace RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
 
 // Enforces step 1
 public interface IDefaultNameStep
