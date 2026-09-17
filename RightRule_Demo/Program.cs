@@ -105,6 +105,7 @@ namespace RightRule_Demo
             }
 
             Console.WriteLine("Rule applied...");
+            Console.WriteLine($"\tResult: {appliedRule.Result}");
             Console.WriteLine($"\tNumber: {appliedRule.RuleNumber}");
             Console.WriteLine($"\tName: {appliedRule.RuleName}");
             Console.WriteLine($"\tDecision: {appliedRule.Decision}");

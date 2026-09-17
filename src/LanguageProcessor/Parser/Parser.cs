@@ -4,19 +4,23 @@ namespace RightRule.LanguageProcessor.Parser;
 
 internal sealed class Parser : IParser
 {
-    private readonly Tokenizer.Tokenizer _tokenizer;
-    private readonly bool _dataCheck;
+    public bool DataCheck { get; set; } = false;
+    public string Statement { get; set; } = string.Empty;
+
+    private readonly ITokenizer _tokenizer;
     private Token? _current;
 
-    public Parser(Tokenizer.Tokenizer tokenizer, bool dataCheck)
+    public Parser(ITokenizer tokenizer)
     {
         _tokenizer = tokenizer;
-        _dataCheck = dataCheck;
     }
 
     public Node Parse()
     {
-        _current = _tokenizer.NextToken(_dataCheck);
+        _tokenizer.Statement = this.Statement;
+        _tokenizer.Pos = 0;
+
+        _current = _tokenizer.NextToken(DataCheck);
         return ParseOr();
     }
 
@@ -28,7 +32,7 @@ internal sealed class Parser : IParser
         if (_current.Type != type)
             throw new Exception($"Expected {type} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
 
-        _current = _tokenizer.NextToken(_dataCheck);
+        _current = _tokenizer.NextToken(DataCheck);
     }
 
     private Node ContinueParse()

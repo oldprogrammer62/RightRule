@@ -6,14 +6,16 @@ using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
+using RightRule.SyntaxChecker;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
-    List<Dataset>? GetData();
+    Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
+    List<Dataset>? GetData();
     Dataset? GetData(string DataName);
 
     List<ParsedRule>? RegisteredRules { get; }

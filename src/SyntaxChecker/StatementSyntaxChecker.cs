@@ -5,13 +5,25 @@ using System.Text.RegularExpressions;
 
 namespace RightRule.SyntaxChecker;
 
-internal sealed class StatementSyntaxChecker
+internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
 {
     private static readonly Regex PosRegex = new(@"\bposition\s*(\d+)|\bpos\s*(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private readonly ITokenizer tokenizer;
+    private readonly IParser parser;
+    private readonly IOperatorService operatorService;
     private const int ContextRadius = 12; // characters either side for snippet
 
-    internal static Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
+    public StatementSyntaxChecker(ITokenizer tokenizer, IParser parser, IOperatorService operatorService)
     {
+        this.tokenizer = tokenizer;
+        this.parser = parser;
+        this.operatorService = operatorService;
+    }
+
+    public Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
+    {
+        parser.Statement = Statement;
+        parser.DataCheck = DataCheck;
         return Task.Run<CheckStatementResult>(() =>
         {
             var diagnostics = new List<Diagnostic>();
@@ -36,7 +48,9 @@ internal sealed class StatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                var tokenizer = new Tokenizer(Statement, operatorNames);
+                // var tokenizer = new Tokenizer(Statement, dataService, operatorNames);
+                tokenizer.Statement = Statement;
+
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
@@ -123,8 +137,6 @@ internal sealed class StatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                var tokenizer = new Tokenizer(Statement, operatorNames);
-                var parser = new Parser(tokenizer, false);
                 _ = parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid
@@ -183,12 +195,11 @@ internal sealed class StatementSyntaxChecker
         });
     }
 
-    private static HashSet<string> GetOperatorNames()
+    private HashSet<string> GetOperatorNames()
     {
         try
         {
-            var ops = new OperatorService();
-            return ops.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            return operatorService.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
         catch (Exception)
         {
@@ -269,7 +280,7 @@ internal sealed class StatementSyntaxChecker
 
         // Otherwise, scan forward until whitespace or paren or punctuation that separates tokens
         int end = pos;
-        while (end < statement.Length && !char.IsWhiteSpace(statement[end]) && statement[end] != '(' && statement[end] != ')' )
+        while (end < statement.Length && !char.IsWhiteSpace(statement[end]) && statement[end] != '(' && statement[end] != ')')
             end++;
         return Math.Max(1, end - pos);
     }

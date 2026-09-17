@@ -1,5 +1,4 @@
-﻿using RightRule.Extensions;
-using RightRule.Models.RuleModels;
+﻿using RightRule.Models.RuleModels;
 using RightRule.SyntaxChecker;
 
 namespace RightRule_SyntaxChecker;

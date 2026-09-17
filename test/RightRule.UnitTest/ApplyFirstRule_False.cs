@@ -67,7 +67,6 @@ public class ApplyFirstRule_False
         Assert.Equal(2, result.RuleNumber);
     }
 
-
     [Fact]
     public void First_False_Second_False_Test()
     {

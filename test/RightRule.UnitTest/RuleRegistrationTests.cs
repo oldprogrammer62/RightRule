@@ -25,7 +25,7 @@ public class RuleRegistrationTests
             .Number(2)
             .Name("Name2")
             .Context("Context2")
-            .Statement("a = b")
+            .Statement("b = c")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
             .WithDataCheck(false)

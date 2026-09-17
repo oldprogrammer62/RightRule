@@ -1,5 +1,4 @@
-﻿using RightRule.Factories.RightRuleLanguageFactory;
-using RightRule.LanguageProcessor.Parser;
+﻿using RightRule.LanguageProcessor.Parser;
 using RightRule.Models.RuleModels;
 
 namespace RightRule.RegistrationServices.RuleRegistration;
@@ -7,12 +6,12 @@ namespace RightRule.RegistrationServices.RuleRegistration;
 internal class RuleRegistrationService : IRuleRegistrationService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly ILanguageFactory _factory;
+    private readonly IParser _parser;
 
-    public RuleRegistrationService(IServiceProvider ServiceProvider, ILanguageFactory factory)
+    public RuleRegistrationService(IServiceProvider ServiceProvider, IParser parser)
     {
         _serviceProvider = ServiceProvider;
-        _factory = factory;
+        _parser = parser;
     }
 
     public List<ParsedRule> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames)
@@ -47,15 +46,20 @@ internal class RuleRegistrationService : IRuleRegistrationService
 
     private ParsedRule? CreateRule(DefinedRule? ruleDefinition, HashSet<string> OperatorNames)
     {
-        IParser? parser = CreateParser(ruleDefinition, OperatorNames);
-        if (parser == null)
+        if (_parser == null)
+        {
+            return default;
+        }
+        if (ruleDefinition == null)
         {
             return default;
         }
 
         try
         {
-            Node node = GenerateTree(parser);
+            _parser.Statement = ruleDefinition.Statement;
+
+            Node node = GenerateTree(_parser);
             ParsedRule? rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
         }
@@ -69,19 +73,5 @@ internal class RuleRegistrationService : IRuleRegistrationService
     {
         Node node = parser.Parse();
         return node;
-    }
-
-    private IParser? CreateParser(DefinedRule? ruleDefinition, HashSet<string>? operatorNames)
-    {
-        string statement = string.Empty;
-        bool dataCheck = false;
-        if (ruleDefinition == null)
-        {
-            return default;
-        }
-
-        statement = ruleDefinition.Statement;
-        dataCheck = ruleDefinition.RuleConfiguration?.DataCheck ?? false;
-        return _factory.CreateParser(_serviceProvider, statement, operatorNames, dataCheck);
     }
 }

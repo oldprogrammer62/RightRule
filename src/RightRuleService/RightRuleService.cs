@@ -1,5 +1,4 @@
-﻿using RightRule.Factories.RightRuleLanguageFactory;
-using RightRule.LanguageProcessor.Interpreter;
+﻿using RightRule.LanguageProcessor.Interpreter;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.OperatorServices;
@@ -7,13 +6,14 @@ using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.SyntaxChecker;
 
 namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    private readonly ILanguageFactory LanguageFactory;
     private readonly IInterpreter Interpreter;
+    private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IOperatorService OperatorsService;
     private readonly IServiceProvider ServiceProvider;
     private readonly IDefaultRuleRegister DefaultRuleRegister;
@@ -25,15 +25,20 @@ internal partial class RightRuleService : IRightRuleService
 
     public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
-    public RightRuleService(IServiceProvider serviceProvider, ILanguageFactory factory, IOperatorService operatorsService, IRuleService ruleService, IDefaultRuleRegister defaultRuleRegister, IDataService dataService, IInterpreter interpreter)
+    public RightRuleService(IServiceProvider serviceProvider, IOperatorService operatorsService, IRuleService ruleService, IDefaultRuleRegister defaultRuleRegister, IDataService dataService, IInterpreter interpreter, IStatementSyntaxChecker statementSyntaxChecker)
     {
         ServiceProvider = serviceProvider;
-        LanguageFactory = factory;
         OperatorsService = operatorsService;
         RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
         DataService = dataService;
         Interpreter = interpreter;
+        StatementSyntaxChecker = statementSyntaxChecker;
+    }
+
+    public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
+    {
+        return StatementSyntaxChecker.CheckAsync(Statement, false);
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)

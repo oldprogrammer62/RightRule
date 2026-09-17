@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RightRule.Factories.LanguageFactory;
-using RightRule.Factories.RightRuleLanguageFactory;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Interpreter;
 using RightRule.LanguageProcessor.Parser;
@@ -12,6 +10,7 @@ using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
 using RightRule.RightRuleService;
+using RightRule.SyntaxChecker;
 
 namespace RightRule.ServiceRegister;
 
@@ -23,25 +22,23 @@ internal sealed class ServiceRegister
         {
             services = new ServiceCollection();
         }
-        services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
-        services.AddScoped<IOperatorService, OperatorService>();
+        services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
+        services.AddSingleton<IOperatorService, OperatorService>();
+
+        services.AddScoped<IInterpreter, Interpreter>();
+        services.AddScoped<IEvaluator, Evaluator>();
+        services.AddTransient<IParser, Parser>();
+        services.AddTransient<ITokenizer, Tokenizer>();
 
         services.AddSingleton<IDataService, DataService>();
-        services.AddScoped<IStatementBuilder, StatementBuilder>();
 
-
-        services.AddScoped<IRuleService, RuleService>();
-        services.AddScoped<IRegisteredRules, RegisteredRules>();
+        services.AddSingleton<IRuleService, RuleService>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
-
-
+        services.AddSingleton<IRegisteredRules, RegisteredRules>();
         services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
 
-        services.AddScoped<ILanguageFactory, LanguageFactory>();
-        services.AddSingleton<IInterpreter, Interpreter>();
-        services.AddSingleton<IEvaluator, Evaluator>();
-        services.AddSingleton<ITokenizer, Tokenizer>();
-        services.AddSingleton<IParser, Parser>();
+        services.AddScoped<IStatementBuilder, StatementBuilder>();
+        services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
 
         return services;
     }

@@ -1,4 +1,3 @@
-using RightRule.Extensions;
 using RightRule.SyntaxChecker;
 
 namespace BeSoft;
@@ -21,6 +20,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             return CheckStatementResult.FailureResult();
         }
-        return await this.CheckSyntaxAsync(Statement).ConfigureAwait(false);
+        return await RightRuleService.SyntaxCheckAsync(Statement).ConfigureAwait(false);
     }
 }

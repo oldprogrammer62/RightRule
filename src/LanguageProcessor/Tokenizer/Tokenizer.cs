@@ -1,19 +1,22 @@
-﻿using Newtonsoft.Json.Linq;
-using RightRule.Exceptions;
+﻿using RightRule.Exceptions;
+using RightRule.OperatorServices;
+using RightRule.RegistrationServices.DataRegistration;
 using System.Text;
 
 namespace RightRule.LanguageProcessor.Tokenizer;
 
-internal sealed class Tokenizer : ITokenizer
+public sealed class Tokenizer : ITokenizer
 {
-    private readonly string _statement;
-    private int _pos;
-    private readonly HashSet<string>? _operators;
+    public string Statement { get; set; } = string.Empty;
+    public int Pos { get; set; } = 0;
 
-    public Tokenizer(string statement, HashSet<string>? OperatorNames)
+    private readonly IOperatorService _operatorService;
+    private readonly IDataService _dataService;
+
+    public Tokenizer(IOperatorService operatorService, IDataService dataService)
     {
-        _statement = statement ?? string.Empty;
-        _operators = OperatorNames;
+        _operatorService = operatorService;
+        _dataService = dataService;
     }
 
     public Token NextToken(bool DataCheck)
@@ -25,23 +28,23 @@ internal sealed class Tokenizer : ITokenizer
     {
         SkipWhitespace();
 
-        if (_pos >= _statement.Length)
-            return new Token(TokenType.End, "", _pos);
+        if (Pos >= Statement.Length)
+            return new Token(TokenType.End, "", Pos);
 
-        char c = _statement[_pos];
+        char c = Statement[Pos];
 
         // Parentheses
-        if (c == '(') { _pos++; return new Token(TokenType.LParen, "(", _pos - 1); }
-        if (c == ')') { _pos++; return new Token(TokenType.RParen, ")", _pos - 1); }
+        if (c == '(') { Pos++; return new Token(TokenType.LParen, "(", Pos - 1); }
+        if (c == ')') { Pos++; return new Token(TokenType.RParen, ")", Pos - 1); }
 
         // Number (simple integer support)
         // Must start with a digit, and can contain digits
         if (char.IsDigit(c))
         {
-            int start = _pos;
+            int start = Pos;
             var sb = new StringBuilder();
-            while (_pos < _statement.Length && (char.IsDigit(_statement[_pos]) || _statement[_pos] == '.'))
-                sb.Append(_statement[_pos++]);
+            while (Pos < Statement.Length && (char.IsDigit(Statement[Pos]) || Statement[Pos] == '.'))
+                sb.Append(Statement[Pos++]);
             return new Token(TokenType.Number, sb.ToString(), start);
         }
 
@@ -51,14 +54,14 @@ internal sealed class Tokenizer : ITokenizer
         if (char.IsLetter(c) || c == '_')
         {
             bool foundDot = false;
-            int start = _pos;
+            int start = Pos;
             var sb = new StringBuilder();
-            sb.Append(_statement[_pos++]);
+            sb.Append(Statement[Pos++]);
 
-            while (_pos < _statement.Length && (char.IsLetterOrDigit(_statement[_pos]) || _statement[_pos] == '_' || _statement[_pos] == '.'))
+            while (Pos < Statement.Length && (char.IsLetterOrDigit(Statement[Pos]) || Statement[Pos] == '_' || Statement[Pos] == '.'))
             {
-                if (!foundDot && _statement[_pos] == '.') foundDot = true;
-                sb.Append(_statement[_pos++]);
+                if (!foundDot && Statement[Pos] == '.') foundDot = true;
+                sb.Append(Statement[Pos++]);
             }
             var value = sb.ToString();
 
@@ -111,30 +114,30 @@ internal sealed class Tokenizer : ITokenizer
         // String literal '...'
         if (c == '\'')
         {
-            int start = _pos;
-            _pos++; // Skip opening quote
+            int start = Pos;
+            Pos++; // Skip opening quote
             var sb = new StringBuilder();
 
-            while (_pos < _statement.Length && _statement[_pos] != '\'')
+            while (Pos < Statement.Length && Statement[Pos] != '\'')
             {
                 // basic escape support for \" and \\ (optional)
-                if (_statement[_pos] == '\\' && _pos + 1 < _statement.Length)
+                if (Statement[Pos] == '\\' && Pos + 1 < Statement.Length)
                 {
-                    char next = _statement[_pos + 1];
+                    char next = Statement[Pos + 1];
                     if (next == '"' || next == '\\')
                     {
                         sb.Append(next);
-                        _pos += 2;
+                        Pos += 2;
                         continue;
                     }
                 }
-                sb.Append(_statement[_pos++]);
+                sb.Append(Statement[Pos++]);
             }
 
-            if (_pos >= _statement.Length || _statement[_pos] != '\'')
+            if (Pos >= Statement.Length || Statement[Pos] != '\'')
                 throw new Exception($"Unterminated string literal at position {start}.");
 
-            _pos++; // closing quote
+            Pos++; // closing quote
             return new Token(TokenType.String, sb.ToString(), start);
         }
 
@@ -142,30 +145,30 @@ internal sealed class Tokenizer : ITokenizer
         // Supports basic escaping of \" and \\ (optional)
         if (c == '"')
         {
-            int start = _pos;
-            _pos++; // Skip opening quote
+            int start = Pos;
+            Pos++; // Skip opening quote
             var sb = new StringBuilder();
 
-            while (_pos < _statement.Length && _statement[_pos] != '"')
+            while (Pos < Statement.Length && Statement[Pos] != '"')
             {
                 // basic escape support for \" and \\ (optional)
-                if (_statement[_pos] == '\\' && _pos + 1 < _statement.Length)
+                if (Statement[Pos] == '\\' && Pos + 1 < Statement.Length)
                 {
-                    char next = _statement[_pos + 1];
+                    char next = Statement[Pos + 1];
                     if (next == '"' || next == '\\')
                     {
                         sb.Append(next);
-                        _pos += 2;
+                        Pos += 2;
                         continue;
                     }
                 }
-                sb.Append(_statement[_pos++]);
+                sb.Append(Statement[Pos++]);
             }
 
-            if (_pos >= _statement.Length || _statement[_pos] != '"')
+            if (Pos >= Statement.Length || Statement[Pos] != '"')
                 throw new Exception($"Unterminated string literal at position {start}.");
 
-            _pos++; // closing quote
+            Pos++; // closing quote
             return new Token(TokenType.String, sb.ToString(), start);
         }
 
@@ -173,19 +176,19 @@ internal sealed class Tokenizer : ITokenizer
         // Must start with a symbol or punctuation character, and can contain letters/digits/symbols/punctuation/underscore
         if (char.IsSymbol(c) || char.IsPunctuation(c))
         {
-            int start = _pos;
+            int start = Pos;
             var sb = new StringBuilder();
-            sb.Append(_statement[_pos++]);
+            sb.Append(Statement[Pos++]);
 
-            while (_pos < _statement.Length &&
+            while (Pos < Statement.Length &&
                 (
-                char.IsLetter(_statement[_pos]) ||
-                char.IsLetterOrDigit(_statement[_pos]) ||
-                char.IsSymbol(_statement[_pos]) ||
-                char.IsPunctuation(_statement[_pos]) ||
-                _statement[_pos] == '_')
+                char.IsLetter(Statement[Pos]) ||
+                char.IsLetterOrDigit(Statement[Pos]) ||
+                char.IsSymbol(Statement[Pos]) ||
+                char.IsPunctuation(Statement[Pos]) ||
+                Statement[Pos] == '_')
                 )
-                sb.Append(_statement[_pos++]);
+                sb.Append(Statement[Pos++]);
 
             var value = sb.ToString();
 
@@ -193,23 +196,24 @@ internal sealed class Tokenizer : ITokenizer
             if (IsLogicOperator(value))
                 return new Token(TokenType.Operator, value, start);
 
-            throw new FormatException($"Unexpected '{sb}' at position {_pos}.");
+            throw new FormatException($"Unexpected '{sb}' at position {Pos}.");
         }
-        throw new FormatException($"Unexpected character '{c}' at position {_pos}.");
+        throw new FormatException($"Unexpected character '{c}' at position {Pos}.");
     }
 
     private bool IsLogicOperator(string OpName)
     {
-        if (_operators == null || _operators.Count == 0)
+        var _operatorNames = _operatorService.OperatorNames;
+        if (_operatorNames == null || _operatorNames.Count == 0)
         {
             return false;
         }
-        return _operators.Contains(OpName, StringComparer.Ordinal);
+        return _operatorNames.Contains(OpName, StringComparer.Ordinal);
     }
 
     private void SkipWhitespace()
     {
-        while (_pos < _statement.Length && char.IsWhiteSpace(_statement[_pos]))
-            _pos++;
+        while (Pos < Statement.Length && char.IsWhiteSpace(Statement[Pos]))
+            Pos++;
     }
 }
