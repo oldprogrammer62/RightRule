@@ -1,17 +1,19 @@
-﻿using RightRule.LanguageProcessor.Parser;
+﻿using RightRule.Factories.ParserFactory;
+using RightRule.LanguageProcessor.Parser;
+using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
 internal class RuleRegistrationService : IRuleRegistrationService
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IParser _parser;
+    private readonly IParserFactory _parserFactory;
 
-    public RuleRegistrationService(IServiceProvider ServiceProvider, IParser parser)
+    private IParser? _parser = default;
+
+    public RuleRegistrationService(IParserFactory parserFactory)
     {
-        _serviceProvider = ServiceProvider;
-        _parser = parser;
+        _parserFactory = parserFactory;
     }
 
     public List<ParsedRule> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames)
@@ -38,27 +40,27 @@ internal class RuleRegistrationService : IRuleRegistrationService
         return parsedRules;
     }
 
-    private ParsedRule? ParseRuleAndRegister(DefinedRule rule, HashSet<string> OperatorNames)
+    private ParsedRule? ParseRuleAndRegister(DefinedRule ruleDefinition, HashSet<string> OperatorNames)
     {
-        var parsedRule = CreateRule(rule, OperatorNames);
+        _parser = BuildParser(ruleDefinition);
+
+        var parsedRule = CreateRule(ruleDefinition);
         return parsedRule;
     }
 
-    private ParsedRule? CreateRule(DefinedRule? ruleDefinition, HashSet<string> OperatorNames)
+    private ParsedRule? CreateRule(DefinedRule? ruleDefinition)
     {
-        if (_parser == null)
+        if (ruleDefinition == null)
         {
             return default;
         }
-        if (ruleDefinition == null)
+        if (_parser == null)
         {
             return default;
         }
 
         try
         {
-            _parser.Statement = ruleDefinition.Statement;
-
             Node node = GenerateTree(_parser);
             ParsedRule? rule = ParsedRule.SuccessResult(ruleDefinition, node, message: "Parsing succeeded");
             return rule;
@@ -73,5 +75,10 @@ internal class RuleRegistrationService : IRuleRegistrationService
     {
         Node node = parser.Parse();
         return node;
+    }
+
+    private IParser BuildParser(RuleDefinition ruleDefinition)
+    {
+        return _parserFactory.BuildParser(ruleDefinition);
     }
 }

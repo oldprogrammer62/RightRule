@@ -45,8 +45,8 @@ public interface IRuleBuilder
     IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder FalseDecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
-    IRuleBuilder WithDataCheck(bool checkData = RightRuleConfiguration.DEFAULT_DATACHECK);
-    IRuleBuilder WithDiagnostics(bool diagnostics = RightRuleConfiguration.DEFAULT_DIAGNOSTICS);
+    IRuleBuilder WithDataCheck(bool checkData);
+    IRuleBuilder WithDiagnostics(bool diagnostics);
 
     DefinedRule Build();
 }

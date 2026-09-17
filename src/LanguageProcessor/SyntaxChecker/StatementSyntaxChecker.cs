@@ -1,5 +1,8 @@
+using RightRule.Factories.ParserFactory;
+using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
+using RightRule.Models.BaseModels;
 using RightRule.OperatorServices;
 using System.Text.RegularExpressions;
 
@@ -8,22 +11,31 @@ namespace RightRule.LanguageProcessor.SyntaxChecker;
 internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
 {
     private static readonly Regex PosRegex = new(@"\bposition\s*(\d+)|\bpos\s*(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-    private readonly ITokenizer tokenizer;
-    private readonly IParser parser;
-    private readonly IOperatorService operatorService;
     private const int ContextRadius = 12; // characters either side for snippet
 
-    public StatementSyntaxChecker(ITokenizer tokenizer, IParser parser, IOperatorService operatorService)
+    private readonly IOperatorService _operatorService;
+    
+    private readonly IParserFactory _parserFactory;
+    private readonly ITokenizerFactory _tokenizerFactory;
+    private ITokenizer? _tokenizer = default;
+    private IParser? _parser = default;
+
+    public StatementSyntaxChecker(IOperatorService operatorService, IParserFactory parserFactory, ITokenizerFactory tokenizerFactory)
     {
-        this.tokenizer = tokenizer;
-        this.parser = parser;
-        this.operatorService = operatorService;
+        //this.tokenizer = tokenizer;
+        _operatorService = operatorService;
+        _parserFactory = parserFactory;
+        _tokenizerFactory = tokenizerFactory;
+        // _parser = parser;
     }
 
     public Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
     {
-        parser.Statement = Statement;
-        parser.DataCheck = DataCheck;
+        _parser = BuildParser(Statement, DataCheck);
+        _tokenizer = BuildTokenizer(Statement, DataCheck);
+
+        //_parser.Statement = Statement;
+        //_parser.DataCheck = DataCheck;
         return Task.Run<CheckStatementResult>(() =>
         {
             var diagnostics = new List<Diagnostic>();
@@ -49,13 +61,13 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
             try
             {
                 // var tokenizer = new Tokenizer(Statement, dataService, operatorNames);
-                tokenizer.Statement = Statement;
+                // tokenizer.Statement = Statement;
 
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)
                 {
-                    var tok = tokenizer.NextToken(false);
+                    var tok = _tokenizer.NextToken();
                     if (tok.Type == TokenType.End) break;
 
                     // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
@@ -137,7 +149,7 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
             // Run full parser to capture grammar errors
             try
             {
-                _ = parser.Parse();
+                _ = _parser.Parse();
 
                 // if no diagnostics were collected above, statement is valid
                 if (diagnostics.Count == 0) return CheckStatementResult.SuccessResult();
@@ -199,7 +211,7 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
     {
         try
         {
-            return operatorService.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            return _operatorService.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         }
         catch (Exception)
         {
@@ -312,5 +324,15 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
         if (message.Contains("Expected operator", StringComparison.OrdinalIgnoreCase))
             return "Use a registered operator or check the operator name's spelling.";
         return null;
+    }
+
+    private IParser BuildParser(string Statement, bool DataCheck)
+    {
+        return _parserFactory.BuildParser(Statement, DataCheck);
+    }
+
+    private ITokenizer BuildTokenizer(string Statement, bool DataCheck)
+    {
+        return _tokenizerFactory.BuildTokenizer(Statement, 0, DataCheck);
     }
 }

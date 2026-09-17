@@ -5,6 +5,8 @@ namespace RightRule.RegistrationServices.DataRegistration
 {
     public interface IDataService
     {
+        List<string> GetDataItemNames();
+
         Dataset AddData(string DatasetName, (string, object) DataItem);
         Dataset AddData(string DatasetName, Dictionary<string, object> DataItems);
         Dataset AddData(string DatasetName, List<(string, object)> DataItems);

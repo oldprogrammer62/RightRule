@@ -2,15 +2,11 @@
 
 public class Dataset
 {
-    //private string _datasetname;
-    //public string DatasetName=> _datasetname;
-
-    //private List<DataItem> _dataitems;
-    //public List<DataItem> DataItems => _dataitems;
-
     public string DatasetName { get; init; }
 
     public List<DataItem> DataItems { get; init; }
+
+    public List<string> DataItemNames => GetDataItemNames();
 
     public Dataset(string DatasetName)
     {
@@ -28,6 +24,11 @@ public class Dataset
         : this(DatasetName)
     {
         AddDataItems(DataItems);
+    }
+
+    private List<string> GetDataItemNames()
+    {
+        return this.DataItems.Select(x => x.Key).ToList();
     }
 
     public void AddDataItems(Dictionary<string, object> DataItems)

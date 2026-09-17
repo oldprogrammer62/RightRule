@@ -20,6 +20,16 @@ public class DataService : IDataService
         _datasets = new List<Dataset>();
     }
 
+    public List<string> GetDataItemNames()
+    {
+        List<string> names = new List<string>();
+        foreach (Dataset dataset in _datasets)
+        {
+            names.AddRange(dataset.DataItemNames);
+        }
+        return names;
+    }
+
     public void DeregisterData(string DatasetName)
     {
         if (_datasets == null || _datasets.Count == 0)

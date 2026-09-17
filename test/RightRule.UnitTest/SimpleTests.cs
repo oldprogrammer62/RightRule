@@ -5,6 +5,29 @@ namespace RightRuleTests;
 public class SimpleTests
 {
     [Fact]
+    public void WithDataCheck()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+        var ds = rr.RegisterData("a", 100);
+
+        string context = "Context";
+        var rule = rr.BuildRule()
+            .Number(1)
+            .Name("Name")
+            .Context(context)
+            .Statement("a = 100")
+            .Decision("GOOD")
+            .FalseDecision("BAD")
+            .WithDataCheck(false)
+            .Build();
+
+        rr.RegisterRule(rule);
+
+        var result = rr.ApplyRules(context);
+        Assert.NotNull(result);
+    }
+
+    [Fact]
     public void SimpleTest()
     {
         IRightRule rr = new BeSoft.RightRule();
@@ -22,6 +45,7 @@ public class SimpleTests
             .Statement("data.a = 100")
             .Decision("GOOD")
             .FalseDecision("BAD")
+            .WithDataCheck(true)
             .Build();
 
         rr.RegisterRule(rule);
@@ -41,6 +65,7 @@ public class SimpleTests
             .Statement("1 = 1 and 2 <> 3")
             .Decision("SAME")
             .FalseDecision("NOTSAME")
+            .WithDataCheck(true)
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 

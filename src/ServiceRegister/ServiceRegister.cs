@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.Factories.ParserFactory;
+using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Interpreter;
 using RightRule.LanguageProcessor.Parser;
@@ -24,6 +26,9 @@ internal sealed class ServiceRegister
         }
         services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
         services.AddSingleton<IOperatorService, OperatorService>();
+
+        services.AddSingleton<ITokenizerFactory, TokenizerFactory>();
+        services.AddSingleton<IParserFactory, ParserFactory>();
 
         services.AddScoped<IInterpreter, Interpreter>();
         services.AddScoped<IEvaluator, Evaluator>();
