@@ -2,7 +2,6 @@ using RightRule.Factories.ParserFactory;
 using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.Models.BaseModels;
 using RightRule.OperatorServices;
 using System.Text.RegularExpressions;
 
@@ -17,16 +16,15 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
     
     private readonly IParserFactory _parserFactory;
     private readonly ITokenizerFactory _tokenizerFactory;
+
     private ITokenizer? _tokenizer = default;
     private IParser? _parser = default;
 
     public StatementSyntaxChecker(IOperatorService operatorService, IParserFactory parserFactory, ITokenizerFactory tokenizerFactory)
     {
-        //this.tokenizer = tokenizer;
         _operatorService = operatorService;
         _parserFactory = parserFactory;
         _tokenizerFactory = tokenizerFactory;
-        // _parser = parser;
     }
 
     public Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
@@ -34,8 +32,6 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
         _parser = BuildParser(Statement, DataCheck);
         _tokenizer = BuildTokenizer(Statement, DataCheck);
 
-        //_parser.Statement = Statement;
-        //_parser.DataCheck = DataCheck;
         return Task.Run<CheckStatementResult>(() =>
         {
             var diagnostics = new List<Diagnostic>();
@@ -60,9 +56,6 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
             // Token-scan to detect structural issues (balanced parens, unmatched closings, etc.)
             try
             {
-                // var tokenizer = new Tokenizer(Statement, dataService, operatorNames);
-                // tokenizer.Statement = Statement;
-
                 int parenBalance = 0;
                 int lastLParenPos = -1;
                 while (true)

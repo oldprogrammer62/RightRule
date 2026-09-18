@@ -24,7 +24,7 @@ public class DecisionDataTests
 
         var rrule1 = rr.RegisterRule(rule1);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(result.DecisionData, dd);
@@ -54,7 +54,7 @@ public class DecisionDataTests
 
         var rrule1 = rr.RegisterRule(rule1);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         // Uncomment when the Operator changes the value of DecisionData
@@ -80,7 +80,7 @@ public class DecisionDataTests
 
         var rrule1 = rr.RegisterRule(rule1);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(result.DecisionData, dd);

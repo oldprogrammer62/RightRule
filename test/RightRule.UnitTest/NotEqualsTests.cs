@@ -38,7 +38,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -61,7 +61,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -84,7 +84,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -107,7 +107,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -132,7 +132,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -157,7 +157,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -179,7 +179,7 @@ public class NotEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -201,7 +201,7 @@ public class NotEqualsTests
         rr.RegisterData("Test", _Data);
         rr.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

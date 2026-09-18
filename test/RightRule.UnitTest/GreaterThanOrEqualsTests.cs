@@ -37,7 +37,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -60,7 +60,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -83,7 +83,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -106,7 +106,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -129,7 +129,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -154,7 +154,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -179,7 +179,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -204,7 +204,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -229,7 +229,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -254,7 +254,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -277,7 +277,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -300,7 +300,7 @@ public class GreaterThanOrEqualsTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }

@@ -15,15 +15,15 @@ public class SimpleTests
             .Number(1)
             .Name("Name")
             .Context(context)
-            .Statement("a = 100")
+            .Statement("a.a = 100")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(false)
+            .WithDataCheck(true)
             .Build();
 
         rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules(context);
+        var result = rr.ApplyRule(context);
         Assert.NotNull(result);
     }
 
@@ -50,7 +50,7 @@ public class SimpleTests
 
         rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules(context);
+        var result = rr.ApplyRule(context);
         Assert.NotNull(result);
     }
 
@@ -69,7 +69,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 
-        var result = rr.ApplyRules("TestContext");
+        var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 
@@ -87,7 +87,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 
-        var result = rr.ApplyRules("TestContext");
+        var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 
@@ -125,7 +125,7 @@ public class SimpleTests
             .Build();
         var rule3Result = rr.RegisterRule(rule3);
 
-        var result = rr.ApplyRules("TestContext");
+        var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 }

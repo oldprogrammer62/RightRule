@@ -46,7 +46,7 @@ public class LoaderJSON_Tests
         var rules = rr.RegisterRulesJson(json);
         Assert.NotNull(rules);
 
-        var appliedRule = rr.ApplyRules("RuleContext");
+        var appliedRule = rr.ApplyRule("RuleContext");
         Assert.NotNull(appliedRule);
     }
 

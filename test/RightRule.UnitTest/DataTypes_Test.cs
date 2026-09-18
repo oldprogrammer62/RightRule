@@ -26,7 +26,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -55,7 +55,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -80,7 +80,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
@@ -103,7 +103,7 @@ public class DataTypes_Test
             .Build();
         var prule = rr.RegisterRule(rule);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }

@@ -24,13 +24,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public RightRuleResult<IProcessedRule> ApplyRules(string Context)
+    public RightRuleResult<IProcessedRule> ApplyRule(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return ApplyRulesAsync(Context).GetAwaiter().GetResult();
+            return ApplyRuleAsync(Context).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -53,7 +53,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context)
+    public async Task<RightRuleResult<IProcessedRule>> ApplyRuleAsync(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -137,7 +137,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data)
+    public RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -145,7 +145,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data, DataRetentionEnum.DISCARD).GetAwaiter().GetResult();
+            return ApplyRuleAsync(Context, DataName, Data, DataRetentionEnum.DISCARD).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -168,7 +168,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public RightRuleResult<IProcessedRule> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
+    public RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
@@ -176,7 +176,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return ApplyRulesAsync(Context, DataName, Data, dataRetention).GetAwaiter().GetResult();
+            return ApplyRuleAsync(Context, DataName, Data, dataRetention).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -199,7 +199,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
     /// </returns>
-    public async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
+    public async Task<RightRuleResult<IProcessedRule>> ApplyRuleAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));

@@ -29,16 +29,16 @@ public class DataRetentionTests
             .Build();
         var ruleDef = rr.RegisterRule(rule1);
 
-        var result1 = rr.ApplyRules("Context", "Data", data);
+        var result1 = rr.ApplyRule("Context", "Data", data);
         Assert.NotNull(result1);
 
-        var result2 = rr.ApplyRules("Context", "Data", data, DataRetentionEnum.KEEP);
+        var result2 = rr.ApplyRule("Context", "Data", data, DataRetentionEnum.KEEP);
         Assert.NotNull(result2);
 
         var result3 = rr.ApplyRules("Context", "Data", data, RulesToReturnEnum.FIRST, DataRetentionEnum.KEEP);
         Assert.NotNull(result3);
 
-        var result4 = await rr.ApplyRulesAsync("Context");
+        var result4 = await rr.ApplyRuleAsync("Context");
         Assert.NotNull(result4);
 
         var result5 = await rr.ApplyRulesAsync("Context", RulesToReturnEnum.FIRST);

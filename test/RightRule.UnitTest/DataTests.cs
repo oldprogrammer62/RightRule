@@ -36,7 +36,7 @@ public class DataTests
         rr.RegisterData("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 
-        var ap = rr.ApplyRules("Context");
+        var ap = rr.ApplyRule("Context");
 
         Assert.Equal(ErrorRule.DECISIONWORD, ap.Decision);
     }

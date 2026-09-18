@@ -22,7 +22,7 @@ public class EvaluateFirstTests
 
         var rule1 = rr.RegisterRule(ruleDef);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
     }
 
@@ -52,7 +52,7 @@ public class EvaluateFirstTests
         var rule1 = rr.RegisterRule(ruleDef1);
         var rule2 = rr.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, ruleDef2.Decision);
     }

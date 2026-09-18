@@ -55,7 +55,7 @@ public class OneBigTest
         var rule1TS = rule1Registration.RegisteredRule.ToString();
 
 
-        var result = rr.ApplyRules(Context1);
+        var result = rr.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
         Assert.Equal(result.Decision, rule1Defn.Decision);
@@ -86,7 +86,7 @@ public class OneBigTest
         Assert.NotNull(rule1Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var result = rr.ApplyRules(Context1);
+        var result = rr.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
         Assert.Equal(rr.GetDefaultRule(Context1).Decision, result.Decision);
@@ -126,7 +126,7 @@ public class OneBigTest
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
-        var result = rr.ApplyRules(Context1);
+        var result = rr.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
         Assert.Equal(rr.GetDefaultRule(Context1).Decision, result.Decision);
@@ -166,7 +166,7 @@ public class OneBigTest
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
-        var result1 = rr.ApplyRules(Context1);
+        var result1 = rr.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
         Assert.Equal(rr.GetDefaultRule(Context1).Decision, result1.Decision);
@@ -184,7 +184,7 @@ public class OneBigTest
         Assert.NotNull(rule2Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var result2 = rr.ApplyRules(Context2);
+        var result2 = rr.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
         Assert.Equal(rr.GetDefaultRule(Context2).Decision, result2.Decision);
@@ -225,7 +225,7 @@ public class OneBigTest
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
-        var result1 = rr.ApplyRules(Context1);
+        var result1 = rr.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
         Assert.Equal(rr.GetDefaultRule(Context1).Decision, result1.Decision);
@@ -253,7 +253,7 @@ public class OneBigTest
         Assert.NotNull(defaultRule2Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, defaultRule2Registration.Status);
 
-        var result2 = rr.ApplyRules(Context2);
+        var result2 = rr.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
         Assert.Equal(rr.GetDefaultRule(Context2).Decision, result2.Decision);

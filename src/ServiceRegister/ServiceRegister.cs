@@ -9,6 +9,7 @@ using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
+using RightRule.RegistrationServices.DataRegistration.DataValidator;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
@@ -40,10 +41,13 @@ internal sealed class ServiceRegister
         services.AddSingleton<IRuleService, RuleService>();
         services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
         services.AddSingleton<IRegisteredRules, RegisteredRules>();
+
         services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
 
         services.AddScoped<IStatementBuilder, StatementBuilder>();
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
+
+        services.AddScoped<IDataValidator, DataValidator>();
 
         return services;
     }

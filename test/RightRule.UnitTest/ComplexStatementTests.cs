@@ -41,7 +41,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRules("Context");
+        var appliedRule = rightRule.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -67,7 +67,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRules("Context");
+        var appliedRule = rightRule.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -93,7 +93,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRules("Context");
+        var appliedRule = rightRule.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -119,7 +119,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRules("Context");
+        var appliedRule = rightRule.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
@@ -150,7 +150,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.RegisterData("TestDataset", _Data);
         rightRule.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRules("Context");
+        var appliedRule = rightRule.ApplyRule("Context");
 
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }

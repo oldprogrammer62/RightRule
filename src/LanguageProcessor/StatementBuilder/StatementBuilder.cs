@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace RightRule.LanguageProcessor.StatementBuilder;
 
-public class StatementBuilder : IStatementBuilder
+internal class StatementBuilder : IStatementBuilder
 {
     private readonly IDataService _dataService;
 

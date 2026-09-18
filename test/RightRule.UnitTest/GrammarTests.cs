@@ -38,7 +38,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -61,7 +61,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -85,7 +85,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -109,7 +109,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
         Assert.Equal(rule.Decision, appliedRule.Decision);
@@ -133,7 +133,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
     }
@@ -156,7 +156,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -179,7 +179,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -202,7 +202,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
         Assert.Equal(appliedRule.Decision, rule.Decision);
     }
@@ -225,7 +225,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NumberOfOrdersContext");
+        var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
         Assert.NotNull(appliedRule);
     }
 
@@ -247,7 +247,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext");
+        var appliedRule = rr.ApplyRule("NameContext");
 
         Assert.NotNull(appliedRule);
     }
@@ -270,7 +270,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NameContext");
+        var appliedRule = rr.ApplyRule("NameContext");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -293,7 +293,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("GoodPayerContext");
+        var appliedRule = rr.ApplyRule("GoodPayerContext");
 
         Assert.Equal(newRule.RegisteredRule.Decision, appliedRule.Decision);
     }
@@ -316,7 +316,7 @@ public class GrammarTests
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NotGoodPayerContext");
+        var appliedRule = rr.ApplyRule("NotGoodPayerContext");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -350,7 +350,7 @@ public class GrammarTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NAMECONTEXT1");
+        var appliedRule = rr.ApplyRule("NAMECONTEXT1");
 
         Assert.NotNull(appliedRule);
         Assert.Equal(newRule1.RegisteredRule.Decision, appliedRule.Decision);
@@ -385,7 +385,7 @@ public class GrammarTests
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("NAMECONTEXT2");
+        var appliedRule = rr.ApplyRule("NAMECONTEXT2");
 
         Assert.NotNull(appliedRule);
         Assert.Equal(newRule2.RegisteredRule.Decision, appliedRule.Decision);

@@ -21,7 +21,7 @@ public class DefaultRule_Tests
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
-        var result1 = rr.ApplyRules("Test");
+        var result1 = rr.ApplyRule("Test");
         Assert.NotNull(result1);
     }
 
@@ -99,7 +99,7 @@ public class DefaultRule_Tests
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
-        var result1 = rr.ApplyRules(context);
+        var result1 = rr.ApplyRule(context);
         Assert.NotNull(result1);
     }
 

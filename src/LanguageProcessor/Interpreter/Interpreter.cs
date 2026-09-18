@@ -1,7 +1,6 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
-using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
@@ -9,16 +8,14 @@ using RightRule.RuleApplication;
 
 namespace RightRule.LanguageProcessor.Interpreter;
 
-public sealed class Interpreter : IInterpreter
+internal sealed class Interpreter : IInterpreter
 {
     private readonly IDefaultRuleRegister _defaultRuleRegister;
     private readonly IDataService _dataService;
-    private readonly IOperatorService _operatorService;
     private readonly IEvaluator _evaluator;
 
-    public Interpreter(IEvaluator evaluator, IOperatorService operatorService, IDefaultRuleRegister defaultRuleRegister, IDataService DataService)
+    public Interpreter(IEvaluator evaluator, IDefaultRuleRegister defaultRuleRegister, IDataService DataService)
     {
-        _operatorService = operatorService;
         _defaultRuleRegister = defaultRuleRegister;
         _dataService = DataService;
         _evaluator = evaluator;

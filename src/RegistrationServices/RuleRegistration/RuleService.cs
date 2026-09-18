@@ -54,12 +54,34 @@ internal class RuleService : IRuleService
         {
             return new RuleRegistrationResult()
             {
-                Message = "Rule Failed to be Parsed",
                 RegisteredRule = null,
+                Message = "Rule Failed to be Parsed",
                 Status = RegistrationStatusEnum.FAILURE
             };
         }
-        return RegisteredRules.AddRule(parsedRule);
+        if (parsedRule.Status == RegistrationStatusEnum.FAILURE)
+        {
+            return new RuleRegistrationResult()
+            {
+                RegisteredRule = parsedRule,
+                Message = parsedRule.Message ?? "Registration failed, reason unknown!",
+                Status = RegistrationStatusEnum.FAILURE
+            };
+        }
+        if (parsedRule.Status == RegistrationStatusEnum.SUCCESS)
+        {
+            return RegisteredRules.AddRule(parsedRule);
+        }
+        if (parsedRule.Status == RegistrationStatusEnum.DEFAULT)
+        {
+            return RegisteredRules.AddRule(parsedRule);
+        }
+        return new RuleRegistrationResult()
+        {
+            RegisteredRule = null,
+            Message = "Rule Failed to register",
+            Status = RegistrationStatusEnum.FAILURE
+        };
     }
 
     public bool DeRegisterRules(string Context)

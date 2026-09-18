@@ -44,7 +44,7 @@ public class NoRulesMatch
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule1.Decision, appliedRule.Decision);
     }
@@ -77,7 +77,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(rule2.Decision, appliedRule.Decision);
     }
@@ -100,7 +100,7 @@ public class NoRulesMatch
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD , appliedRule.Decision);
     }
@@ -133,7 +133,7 @@ public class NoRulesMatch
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRules("Context");
+        var appliedRule = rr.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }

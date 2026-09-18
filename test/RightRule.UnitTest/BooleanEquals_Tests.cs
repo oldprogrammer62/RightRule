@@ -51,7 +51,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -71,7 +71,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -91,7 +91,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
@@ -111,7 +111,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(ErrorRule.DECISIONWORD, result.Decision);
@@ -135,7 +135,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
@@ -157,7 +157,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context");
+        var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule1.Decision, result.Decision);

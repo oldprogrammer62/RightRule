@@ -1,29 +1,33 @@
 ﻿using RightRule.Exceptions;
 using RightRule.OperatorServices;
 using RightRule.RegistrationServices.DataRegistration;
+using RightRule.RegistrationServices.DataRegistration.DataValidator;
 using System.Text;
 
 namespace RightRule.LanguageProcessor.Tokenizer;
 
-public sealed class Tokenizer : ITokenizer
+internal sealed class Tokenizer : ITokenizer
 {
-    private readonly string _statement = string.Empty;
     private int _pos = 0;
     private readonly bool _dataCheck = false;
+    private readonly string _statement = string.Empty;
 
     private readonly IOperatorService _operatorService;
     private readonly IDataService _dataService;
+    private readonly IDataValidator _dataValidator;
 
-    public Tokenizer(IOperatorService operatorService, IDataService dataService)
+    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidator dataValidator)
     {
         _operatorService = operatorService;
         _dataService = dataService;
+        _dataValidator = dataValidator;
     }
 
-    public Tokenizer(IOperatorService operatorService, IDataService dataService, string statement, int pos, bool dataCheck)
+    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidator dataValidator, string statement, int pos, bool dataCheck)
     {
         _operatorService = operatorService;
         _dataService = dataService;
+        _dataValidator = dataValidator;
         _statement = statement;
         _pos = pos;
         _dataCheck = dataCheck;
@@ -99,22 +103,21 @@ public sealed class Tokenizer : ITokenizer
                 if (!_dataCheck)
                     return new Token(TokenType.Variable, value, start);
 
-                if (IsValidDataItemName(value))
+                if (IsValidData(value))
                 {
                     return new Token(TokenType.Variable, value, start);
                 }
             }
             // Dataset identifier (dot notation)
-            if (foundDot && value.Count(c => c == '.') == 1)
+            if (foundDot && FoundOneDot(value))
             {
                 if (!_dataCheck)
                     return new Token(TokenType.Identifier, value, start);
 
-                // TO DO Data check look at existing data
-                //if (DataCheck && _datasetNames is not null && _datasetNames.Contains(value.Split('.')[0]))
-                //{
-                //    return new Token(TokenType.Identifier, value, start);
-                //}
+                if (IsValidData(value))
+                {
+                    return new Token(TokenType.Identifier, value, start);
+                }
             }
             // Not known - Error
             throw new InvalidIdentifierException(value, start);
@@ -220,15 +223,25 @@ public sealed class Tokenizer : ITokenizer
         return _operatorNames.Contains(OpName, StringComparer.Ordinal);
     }
 
-    private bool IsValidDataItemName(string name)
+    private bool IsValidData(string name)
     {
-        var names = _dataService.GetDataItemNames();
-        return (names.Contains(name)) ;
+        return _dataValidator.IsValidData(_dataService, name);
     }
 
     private void SkipWhitespace()
     {
         while (_pos < _statement.Length && char.IsWhiteSpace(_statement[_pos]))
             _pos++;
+    }
+
+    private bool FoundOneDot(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+        char dot = '.';
+        int dotCount = 1;
+        return value.Count(c => c == dot) == dotCount;
     }
 }

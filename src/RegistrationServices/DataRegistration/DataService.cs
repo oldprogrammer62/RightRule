@@ -1,14 +1,17 @@
 ﻿using RightRule.RegistrationServices.DataRegistration.Data;
+using RightRule.RegistrationServices.DataRegistration.DataValidator;
 
 namespace RightRule.RegistrationServices.DataRegistration;
 
-public class DataService : IDataService
+internal class DataService : IDataService
 {
     private List<Dataset> _datasets;
+    private readonly IDataValidator _dataValidator;
 
-    public DataService()
+    public DataService(IDataValidator dataValidator)
     {
         _datasets = new List<Dataset>();
+        _dataValidator = dataValidator;
     }
 
     public void Clear()
@@ -20,6 +23,16 @@ public class DataService : IDataService
         _datasets = new List<Dataset>();
     }
 
+    public bool IsValidData(string name)
+    {
+        return _dataValidator.IsValidData(this, name);
+    }
+
+    public List<string> GetDataItemNames(Dataset dataset)
+    {
+        return dataset.DataItemNames;
+    }
+
     public List<string> GetDataItemNames()
     {
         List<string> names = new List<string>();
@@ -29,6 +42,17 @@ public class DataService : IDataService
         }
         return names;
     }
+
+    public List<string> GetDataSetNames()
+    {
+        List<string> names = new List<string>();
+        foreach (Dataset dataset in _datasets)
+        {
+            names.AddRange(dataset.DatasetName);
+        }
+        return names;
+    }
+
 
     public void DeregisterData(string DatasetName)
     {

@@ -22,7 +22,7 @@ namespace RightRule_Demo.RuleManager
             var hvData = MakeHvData(HighValue);
             rr.RegisterData("hv", hvData);
 
-            var x = rr.ApplyRules(Context);
+            var x = rr.ApplyRule(Context);
 
             var appliedRules = rr.ApplyRules(Context, ReturnRules);
             return appliedRules;
