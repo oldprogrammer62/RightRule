@@ -70,6 +70,22 @@ public interface IRightRule
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// All Rules will be returned<br/>
+    /// EvaluationType will default to First
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// All Rules will be returned<br/>
+    /// EvaluationType will default to First
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context);
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// All Rules will be returned<br/>
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="EvaluationType">Used to indicate if the results should be first positive rule or all rules</param>

@@ -9,6 +9,8 @@ internal static class EvaluateAllMatches
     internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IDefaultRuleRegister defaultRuleRegister)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
+
+        bool complete = false;
         bool matched = false;
 
         foreach (var rule in rules)
@@ -22,18 +24,26 @@ internal static class EvaluateAllMatches
             {
                 case (true, true): // Successfully applied and Rule true
                     appliedRules.Add(CreateTrueResult(ruleResult, rule));
+                    complete = false;
                     matched = true;
-                    break;
+                    continue;
 
                 case (true, false): // Successfully applied and Rule false
-                    appliedRules.Add(CreateFalseResult(ruleResult, rule));
+                    appliedRules = new List<IProcessedRule>();
+                    appliedRules.Add(defaultRuleRegister.GetDefaultRule(Context));
+                    complete = true;
                     matched = true;
                     break;
 
                 default:
                     appliedRules.Add(CreateErrorResult(ruleResult, rule));
+                    complete = true;
                     matched = true;
                     break;
+            }
+            if (complete)
+            {
+                break;
             }
         }
         if (!matched) // appliedRules is empty
