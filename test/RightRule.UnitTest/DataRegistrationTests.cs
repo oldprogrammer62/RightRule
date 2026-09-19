@@ -1,6 +1,6 @@
-﻿using RightRule.Models.RuleModels;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RuleApplication;
 
 namespace RightRuleTests;
 
@@ -83,7 +83,7 @@ public class DataRegistrationTests
         rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
-        var appliedRules = rr.ApplyRules("AllContext", RulesToReturnEnum.FIRST);
+        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

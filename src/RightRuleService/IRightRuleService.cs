@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
@@ -49,8 +50,8 @@ internal interface IRightRuleService
     bool DeRegisterData(string DataName);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, RulesToReturnEnum rulesToReturn);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, RulesToReturnEnum rulesToReturn, DataRetentionEnum dataRetention);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum rulesToReturn);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

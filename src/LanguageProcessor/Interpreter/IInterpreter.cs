@@ -1,12 +1,12 @@
-﻿using RightRule.Models.BaseModels;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
-using RightRule.RuleApplication;
 
 namespace RightRule.LanguageProcessor.Interpreter
 {
     public interface IInterpreter
     {
         Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules rules, string Context);
-        Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, RulesToReturnEnum ReturnRules);
+        Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, EvaluationTypeEnum ReturnRules);
     }
 }

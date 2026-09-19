@@ -1,15 +1,15 @@
 ﻿using BeSoft;
 using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
-using RightRule.RuleApplication;
 using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, RulesToReturnEnum ReturnRules)
+        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, EvaluationTypeEnum ReturnRules)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 

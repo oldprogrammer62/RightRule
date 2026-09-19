@@ -1,7 +1,7 @@
 ﻿using BeSoft;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RuleApplication;
 
 namespace RightRuleTests;
 
@@ -39,7 +39,7 @@ public class DefaultRule_Tests
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
-        var result1 = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
+        var result1 = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result1);
     }
 

@@ -1,5 +1,5 @@
-﻿using RightRule.Models.RuleModels;
-using RightRule.RuleApplication;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRuleTests;
@@ -31,7 +31,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context", RulesToReturnEnum.ALL);
+        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
         Assert.NotNull(result);
         Assert.Equal("Good", result[0].Decision);

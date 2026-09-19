@@ -1,5 +1,5 @@
 ﻿using BeSoft;
-using RightRule.RuleApplication;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.System.Common;
 
 namespace RightRuleTests;
@@ -83,7 +83,7 @@ public class EvaluateFirstTests
         var rule1 = rr.RegisterRule(ruleDef1);
         var rule2 = rr.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context", RulesToReturnEnum.ALL);
+        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(result[0].Decision, ruleDef1.Decision);
         Assert.Equal(result[1].Decision, ruleDef2.FalseDecision);

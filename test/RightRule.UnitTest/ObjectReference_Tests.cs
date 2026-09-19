@@ -1,7 +1,7 @@
 ﻿using BeSoft;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RuleApplication;
 using RightRule.System.Common;
 
 namespace RightRuleTests;
@@ -103,7 +103,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
+        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(rd1.Decision, result[0].Decision);
     }
@@ -135,7 +135,7 @@ public class ObjectReference_Tests
         };
 
         rr.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
+        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
 
         Assert.Equal(rd1.FalseDecision, result[0].Decision);

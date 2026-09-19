@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Interpreter;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.LanguageProcessor.Interpreter;
 using RightRule.Models.BaseModels;
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
@@ -12,7 +13,7 @@ internal class RuleApplicationService
         return await EvaluateFirstMatchAsync(interpreter, Context, parsedRules).ConfigureAwait(false);
     }
 
-    internal async static Task<List<IProcessedRule>> ApplyAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturnEnum ReturnRules)
+    internal async static Task<List<IProcessedRule>> ApplyAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum ReturnRules)
     {
         return await EvaluateAllAsync(interpreter, Context, parsedRules, ReturnRules).ConfigureAwait(false);
     }
@@ -23,7 +24,7 @@ internal class RuleApplicationService
         return await interpreter.EvaluateFirstAsync(filteredRules, Context).ConfigureAwait(false);
     }
 
-    private async static Task<List<IProcessedRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, RulesToReturnEnum ReturnRules)
+    private async static Task<List<IProcessedRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum ReturnRules)
     {
         var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
         return await interpreter.EvaluateAllAsync(filteredRules, Context, ReturnRules).ConfigureAwait(false);

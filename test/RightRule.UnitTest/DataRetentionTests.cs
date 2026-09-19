@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleApplication;
 using RightRule.System.Common;
 using System.Runtime.InteropServices.ObjectiveC;
@@ -35,16 +36,16 @@ public class DataRetentionTests
         var result2 = rr.ApplyRule("Context", "Data", data, DataRetentionEnum.KEEP);
         Assert.NotNull(result2);
 
-        var result3 = rr.ApplyRules("Context", "Data", data, RulesToReturnEnum.FIRST, DataRetentionEnum.KEEP);
+        var result3 = rr.ApplyRules("Context", "Data", data, EvaluationTypeEnum.FIRST, DataRetentionEnum.KEEP);
         Assert.NotNull(result3);
 
         var result4 = await rr.ApplyRuleAsync("Context");
         Assert.NotNull(result4);
 
-        var result5 = await rr.ApplyRulesAsync("Context", RulesToReturnEnum.FIRST);
+        var result5 = await rr.ApplyRulesAsync("Context", EvaluationTypeEnum.FIRST);
         Assert.NotNull(result5);
 
-        var result6 = await rr.ApplyRulesAsync("Context", "Data", data, RulesToReturnEnum.ALL, DataRetentionEnum.KEEP);
+        var result6 = await rr.ApplyRulesAsync("Context", "Data", data, EvaluationTypeEnum.ANY, DataRetentionEnum.KEEP);
         Assert.NotNull(result6);
     }
 }

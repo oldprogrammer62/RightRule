@@ -1,13 +1,12 @@
 ﻿using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluateAllRules
 {
-    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IDefaultRuleRegister defaultRuleRegister, IDataService dataService)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IDefaultRuleRegister defaultRuleRegister)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;

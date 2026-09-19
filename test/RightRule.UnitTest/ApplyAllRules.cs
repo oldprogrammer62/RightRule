@@ -1,5 +1,5 @@
-﻿using RightRule.Models.RuleModels;
-using RightRule.RuleApplication;
+﻿using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRuleTests;
@@ -37,7 +37,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        var result = rr.ApplyRules("Test", RulesToReturnEnum.ALL);
+        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }
