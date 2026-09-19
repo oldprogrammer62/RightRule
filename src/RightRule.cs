@@ -5,6 +5,7 @@ using RightRule.Models.RuleModels;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RightRuleService;
 using RightRule.ServiceRegister;
+using System.ComponentModel;
 
 namespace BeSoft;
 
@@ -14,11 +15,13 @@ namespace BeSoft;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private bool Disposed { get; set; }
 
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ServiceProvider ServiceProvider;
 
-    private readonly IRightRuleService RightRuleService;
+    public readonly IRightRuleService RightRuleService;
 
     public RightRule()
     {

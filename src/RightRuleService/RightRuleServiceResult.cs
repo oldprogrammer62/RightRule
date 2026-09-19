@@ -3,7 +3,7 @@ using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRule.RightRuleService;
 
-internal sealed class RightRuleServiceResult<T>
+public sealed class RightRuleServiceResult<T>
 {
     public required string Context { get; init; } 
     public required bool Success { get; init; }

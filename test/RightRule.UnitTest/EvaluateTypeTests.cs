@@ -22,6 +22,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RegisterRule(ruleDef);
 
         var result = rr.ApplyRule("Context");
+        result.ToString();
         Assert.NotNull(result);
     }
 

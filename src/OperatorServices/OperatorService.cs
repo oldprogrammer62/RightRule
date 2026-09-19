@@ -1,19 +1,20 @@
 ﻿using RightRule.Loaders.OperatorLoader.CustomerOperators;
 using RightRule.Loaders.OperatorLoader.DefaultOperators;
 using RightRule.System.Common;
+using System.ComponentModel;
 
 namespace RightRule.OperatorServices;
 
 internal class OperatorService : IOperatorService
 {
     private readonly List<Operator> _operators;
-    public List<Operator> Operators => _operators;
+    public List<Operator> Operators { get { return _operators; } }
 
     private readonly Dictionary<string, Operator> _operatorAliases;
     public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
     private readonly HashSet<string> _operatorNames;
-    public HashSet<string> OperatorNames => _operatorNames;
+    public HashSet<string> OperatorNames { get { return _operatorNames; } }
 
     public OperatorService()
     {

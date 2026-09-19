@@ -11,7 +11,7 @@ using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
 
-internal interface IRightRuleService
+public interface IRightRuleService
 {
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
