@@ -98,53 +98,6 @@ public class RulesToApplyTests
     }
 
     [Fact]
-    public void TwoRules_First_Unspecified_WithDataSet()
-    {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
-
-        var appliedRule = rr.ApplyRule("AllContext", "Test", _Data);
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
-    }
-
-    [Fact]
-    public void TwoRules_All_Unspecified_WithDataSet()
-    {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
-
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, EvaluationTypeEnum.ANY, DataRetentionEnum.DISCARD);
-        var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
-    }
-
-    [Fact]
-    public void TwoRules_FirstSpecified_WithDataSet()
-    {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
-
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, EvaluationTypeEnum.ANY, DataRetentionEnum.DISCARD);
-        var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
-    }
-
-    [Fact]
-    public void TwoRules_AllSpecified_WithDataSet()
-    {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
-
-        var appliedRules = rr.ApplyRules("AllContext", "Test", _Data, EvaluationTypeEnum.ANY, DataRetentionEnum.KEEP);
-        var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
-    }
-
-    [Fact]
     public void TwoRules_First_WithMultiRuleRegistration()
     {
         var rules = new List<DefinedRule>() { rule1, rule2 };

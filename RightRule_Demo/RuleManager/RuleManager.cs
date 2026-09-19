@@ -9,7 +9,7 @@ namespace RightRule_Demo.RuleManager
 {
     internal class RuleManager
     {
-        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, EvaluationTypeEnum ReturnRules)
+        internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, EvaluationTypeEnum EvaluationType)
         {
             BeSoft.RightRule rr = new BeSoft.RightRule();
 
@@ -24,7 +24,7 @@ namespace RightRule_Demo.RuleManager
 
             var x = rr.ApplyRule(Context);
 
-            var appliedRules = rr.ApplyRules(Context, ReturnRules);
+            var appliedRules = rr.ApplyRules(Context, EvaluationType);
             return appliedRules;
         }
 

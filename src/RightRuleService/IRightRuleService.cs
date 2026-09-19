@@ -7,7 +7,6 @@ using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RuleApplication;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
@@ -50,8 +49,8 @@ internal interface IRightRuleService
     bool DeRegisterData(string DataName);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum rulesToReturn);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType);
+
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();

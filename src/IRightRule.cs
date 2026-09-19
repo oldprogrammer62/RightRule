@@ -9,7 +9,6 @@ using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.RightRuleBuilder;
-using RightRule.RuleApplication;
 using RightRule.System.Common;
 
 namespace BeSoft;
@@ -69,94 +68,20 @@ public interface IRightRule
     RightRuleResult<IProcessedRule> ApplyRule(string Context);
 
     /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, the Default rule will be returned.<br/>
-    /// The additional data will be discarded after this rule application
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// All Rules will be returned<br/>
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">Name of additional Data Set</param>
-    /// <param name="Data">Additional Data Set</param>
-    /// <returns>
-    /// A single Applied Rule is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data);
-
-    /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, the Default rule will be returned.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">Name of additional Data Set</param>
-    /// <param name="Data">Additional Data Set</param>
-    /// <param name="DataRetention">Keep or discard the additional data</param>
-    /// <returns>
-    /// A single Applied Rule is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum DataRetention);
-
-    /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, the Default rule will be returned.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">Name of additional Data Set</param>
-    /// <param name="Data">Additional Data Set</param>
-    /// <param name="DataRetention">Keep or discard the additional data</param>
-    /// <returns>
-    /// A single Applied Rule is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    Task<RightRuleResult<IProcessedRule>> ApplyRuleAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum DataRetention);
+    /// <param name="EvaluationType">Used to indicate if the results should be first positive rule or all rules</param>
+    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
     /// All Rules will be returned<br/>
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum RulesToReturn);
-
-    /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
-    /// All Rules will be returned<br/>
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="RulesToReturn">Used to indicate if the results should be first positive rule or all rules</param>
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum RulesToReturn);
-
-    /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">Name of additional Data Set</param>
-    /// <param name="Data">Additional Data Set</param>
-    /// <param name="RulesToReturn"></param>
-    /// <param name="DataRetention">Keep or discard the additional data</param>
-    /// <returns>
-    /// All Rules will be returned<br/>
-    /// </returns>
-    List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum RulesToReturn, DataRetentionEnum DataRetention);
-
-    /// <summary>
-    /// Apply all Registered Rules for the given Context to the registered data set(s) and the additional data.<br/>
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">Name of additional Data Set</param>
-    /// <param name="Data">Additional Data Set</param>
-    /// <param name="RulesToReturn"></param>
-    /// <param name="DataRetention">Keep or discard the additional data</param>
-    /// <returns>
-    /// All Rules will be returned<br/>
-    /// </returns>
-    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum RulesToReturn, DataRetentionEnum DataRetention);
+    /// <param name="EvaluationType">Used to indicate if the results should be first positive rule or all rules</param>
+    Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.

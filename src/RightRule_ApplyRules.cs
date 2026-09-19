@@ -2,9 +2,6 @@
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RuleApplication;
-using RightRule.System.Common;
 
 namespace BeSoft;
 
@@ -79,7 +76,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn"></param>
+    /// <param name="evaluationType"></param>
     /// <returns>
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
@@ -89,13 +86,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum rulesToReturn)
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum evaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return ApplyRulesAsync(Context, rulesToReturn).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, evaluationType).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -109,7 +106,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="rulesToReturn"></param>
+    /// <param name="evaluationType"></param>
     /// <returns>
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
@@ -119,165 +116,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum rulesToReturn)
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var svcResult = await ApplyRulesAsync_SVC(Context, rulesToReturn).ConfigureAwait(false);
-            if (svcResult == null)
-            {
-                return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
-            }
-            return svcResult;
-        }
-        catch (Exception ex)
-        {
-            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
-        }
-    }
-
-    public RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-
-        try
-        {
-            return ApplyRuleAsync(Context, DataName, Data, DataRetentionEnum.DISCARD).GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
-        }
-    }
-
-    /// <summary>
-    /// Apply all Registered Rules for the given context to the data set provided.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.<br/>
-    /// The data set provided will be registered and deregistered as part of this method call.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">The name of the dataset to use</param>
-    /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="dataRetention"></param>
-    /// <returns>
-    /// A single rule object is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    public RightRuleResult<IProcessedRule> ApplyRule(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-
-        try
-        {
-            return ApplyRuleAsync(Context, DataName, Data, dataRetention).GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
-        }
-    }
-
-    /// <summary>
-    /// Apply all Registered Rules for the given context to the data set provided.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.<br/>
-    /// The data set provided will be registered and deregistered as part of this method call.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">The name of the dataset to use</param>
-    /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="dataRetention"></param>
-    /// <returns>
-    /// A single rule object is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    public async Task<RightRuleResult<IProcessedRule>> ApplyRuleAsync(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-
-        try
-        {
-            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, dataRetention).ConfigureAwait(false);
-            if (svcResult == null)
-            {
-                return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
-            }
-            return svcResult;
-        }
-        catch (Exception ex)
-        {
-            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
-        }
-    }
-
-    /// <summary>
-    /// Apply all Registered Rules for the given context to the data set provided.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.<br/>
-    /// The data set provided will be registered and deregistered as part of this method call.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">The name of the dataset to use</param>
-    /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn"></param>
-    /// <param name="dataRetention"></param>
-    /// <returns>
-    /// A single rule object is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-
-        try
-        {
-            return ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention).GetAwaiter().GetResult();
-        }
-        catch (Exception ex)
-        {
-            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
-        }
-    }
-
-    /// <summary>
-    /// Apply all Registered Rules for the given context to the data set provided.<br/>
-    /// The first Rule to return a positive (true) result will be returned.<br/>
-    /// If no rule returns a positive result, a default rule will be returned.<br/>
-    /// The data set provided will be registered and deregistered as part of this method call.
-    /// </summary>
-    /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="DataName">The name of the dataset to use</param>
-    /// <param name="Data">The data to apply the rule to</param>
-    /// <param name="rulesToReturn"></param>
-    /// <param name="dataRetention"></param>
-    /// <returns>
-    /// A single rule object is returned.<br />
-    /// If a rule returns true, that rule is returned.<br />
-    /// If no rule returns true, a default rule is returned.<br />
-    /// </returns>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-        ArgumentNullException.ThrowIfNull(Data, nameof(Data));
-
-        try
-        {
-            var svcResult = await ApplyRulesAsync_SVC(Context, DataName, Data, rulesToReturn, dataRetention).ConfigureAwait(false);
+            var svcResult = await ApplyRulesAsync_SVC(Context, evaluationType).ConfigureAwait(false);
             if (svcResult == null)
             {
                 return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
@@ -307,11 +152,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, EvaluationTypeEnum rulesToReturn)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, EvaluationTypeEnum evaluationType)
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, rulesToReturn);
+            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, evaluationType);
             return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)
@@ -320,29 +165,29 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
-    {
-        try
-        {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, EvaluationTypeEnum.FIRST, dataRetention);
-            return BuildResult(Context, rulesApplied);
-        }
-        catch (Exception ex)
-        {
-            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
-        }
-    }
+    //private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
+    //{
+    //    try
+    //    {
+    //        var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, EvaluationTypeEnum.FIRST, dataRetention);
+    //        return BuildResult(Context, rulesApplied);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
+    //    }
+    //}
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention)
-    {
-        try
-        {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention);
-            return BuildResults(Context, rulesApplied);
-        }
-        catch (Exception ex)
-        {
-            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
-        }
-    }
+    //private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention)
+    //{
+    //    try
+    //    {
+    //        var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention);
+    //        return BuildResults(Context, rulesApplied);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+    //    }
+    //}
 }

@@ -4,7 +4,7 @@ using RightRule.RegistrationServices.DefaultRuleRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 
-internal static class EvaluateAnyRules
+internal static class EvaluateAllMatches
 {
     internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IDefaultRuleRegister defaultRuleRegister)
     {
