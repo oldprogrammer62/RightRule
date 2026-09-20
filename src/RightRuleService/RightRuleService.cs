@@ -7,6 +7,7 @@ using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
 using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.RuleApplication;
 
 namespace RightRule.RightRuleService;
 
@@ -14,8 +15,8 @@ internal partial class RightRuleService : IRightRuleService
 {
     private readonly IInterpreter Interpreter;
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
+    private readonly IRuleApplicationService RuleApplicationService;
     private readonly IOperatorService OperatorsService;
-    private readonly IServiceProvider ServiceProvider;
     private readonly IDefaultRuleRegister DefaultRuleRegister;
 
     private readonly IRuleService RuleService;
@@ -25,15 +26,24 @@ internal partial class RightRuleService : IRightRuleService
 
     public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
-    public RightRuleService(IServiceProvider serviceProvider, IOperatorService operatorsService, IRuleService ruleService, IDefaultRuleRegister defaultRuleRegister, IDataService dataService, IInterpreter interpreter, IStatementSyntaxChecker statementSyntaxChecker)
+    public RightRuleService(
+        IServiceProvider serviceProvider, 
+        IOperatorService operatorsService, 
+        IRuleService ruleService, 
+        IDefaultRuleRegister defaultRuleRegister, 
+        IDataService dataService, 
+        IInterpreter interpreter, 
+        IStatementSyntaxChecker statementSyntaxChecker,
+        IRuleApplicationService ruleApplicationService
+        )
     {
-        ServiceProvider = serviceProvider;
         OperatorsService = operatorsService;
         RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
         DataService = dataService;
         Interpreter = interpreter;
         StatementSyntaxChecker = statementSyntaxChecker;
+        RuleApplicationService = ruleApplicationService;
     }
 
     public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)

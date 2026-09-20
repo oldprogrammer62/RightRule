@@ -14,6 +14,7 @@ using RightRule.RegistrationServices.DefaultRuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RegistrationServices.RuleRegistration.Rules;
 using RightRule.RightRuleService;
+using RightRule.RuleApplication;
 
 namespace RightRule.ServiceRegister;
 
@@ -25,7 +26,6 @@ internal sealed class ServiceRegister
         {
             services = new ServiceCollection();
         }
-        services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
         services.AddSingleton<IOperatorService, OperatorService>();
 
         services.AddSingleton<ITokenizerFactory, TokenizerFactory>();
@@ -48,6 +48,13 @@ internal sealed class ServiceRegister
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
 
         services.AddScoped<IDataValidator, DataValidator>();
+
+        services.AddScoped<IRuleApplicationService, RuleApplicationService>();
+        services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();
+        services.AddScoped<IApplyAnyRulesService, ApplyAnyRulesService>();
+        services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
+
+        services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
 
         return services;
     }

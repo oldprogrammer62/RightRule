@@ -1,42 +1,63 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
-using RightRule.LanguageProcessor.Interpreter;
 using RightRule.Models.BaseModels;
-using RightRule.RegistrationServices.RuleRegistration.Rules;
+using RightRule.Models.RuleModels;
+using RightRule.RegistrationServices.DefaultRuleRegistration;
+using RightRule.RegistrationServices.RuleRegistration;
 
 namespace RightRule.RuleApplication;
 
-internal class RuleApplicationService
+internal class RuleApplicationService : IRuleApplicationService
 {
-    internal async static Task<IProcessedRule> ApplyFirstAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
+    private readonly IRuleService _ruleService;
+    private readonly IApplyFirstRuleService _applyFirstRuleService;
+    private readonly IApplyAnyRulesService _applyAnyRulesService;
+    private readonly IApplyAllRulesService _applyAllRulesService;
+    private readonly IDefaultRuleRegister _defaultRuleRegister;
+
+    public RuleApplicationService(IRuleService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
     {
-        return await EvaluateFirstMatchAsync(interpreter, Context, parsedRules).ConfigureAwait(false);
+        this._ruleService = ruleService;
+        this._applyFirstRuleService = applyFirstRuleService;
+        this._applyAnyRulesService = applyAnyRulesService;
+        this._applyAllRulesService = applyAllRulesService;
+        this._defaultRuleRegister = defaultRuleRegister;
     }
 
-    internal async static Task<List<IProcessedRule>> ApplyAnyAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum EvaluationType)
+    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
     {
-        return await EvaluateAnyAsync(interpreter, Context, parsedRules, EvaluationType).ConfigureAwait(false);
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        if (_ruleService.RegisteredRules.Rules == null || _ruleService.RegisteredRules.Rules.Count == 0)
+        {
+            return [GetDefaultRule(Context)];
+        }
+
+        return evaluationType switch
+        {
+            EvaluationTypeEnum.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
+            EvaluationTypeEnum.ANY => await ApplyAnyMatchAsync_RAS(Context, evaluationType).ConfigureAwait(false),
+            EvaluationTypeEnum.ALL => await ApplyAllMatchAsync_RAS(Context, evaluationType).ConfigureAwait(false),
+            _ => throw new ArgumentOutOfRangeException(nameof(evaluationType), $"Invalid value: {evaluationType}")
+        };
     }
 
-    internal async static Task<List<IProcessedRule>> ApplyAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum EvaluationType)
+    private async Task<IProcessedRule> ApplyFirstMatchAsync_RAS(string Context)
     {
-        return await EvaluateAllAsync(interpreter, Context, parsedRules, EvaluationType).ConfigureAwait(false);
+        return await _applyFirstRuleService.ApplyRuleAsync(Context);
     }
 
-    private async static Task<IProcessedRule> EvaluateFirstMatchAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules)
+    private async Task<List<IProcessedRule>> ApplyAnyMatchAsync_RAS(string Context, EvaluationTypeEnum evaluationType)
     {
-        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-        return await interpreter.EvaluateFirstAsync(filteredRules, Context).ConfigureAwait(false);
+        return await _applyAnyRulesService.ApplyRulesAsync(Context, evaluationType);
     }
 
-    private async static Task<List<IProcessedRule>> EvaluateAnyAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum EvaluationType)
+    private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context, EvaluationTypeEnum evaluationType)
     {
-        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-        return await interpreter.EvaluateAnyAsync(filteredRules, Context, EvaluationType).ConfigureAwait(false);
+        return await _applyAllRulesService.ApplyRulesAsync(Context, evaluationType);
     }
 
-    private async static Task<List<IProcessedRule>> EvaluateAllAsync(IInterpreter interpreter, string Context, IRegisteredRules parsedRules, EvaluationTypeEnum EvaluationType)
+    private DefaultRule GetDefaultRule(string Context)
     {
-        var filteredRules = Helpers.FilterRules(Context, parsedRules.Rules);
-        return await interpreter.EvaluateAllAsync(filteredRules, Context, EvaluationType).ConfigureAwait(false);
+        return _defaultRuleRegister.GetDefaultRule(Context);
     }
 }

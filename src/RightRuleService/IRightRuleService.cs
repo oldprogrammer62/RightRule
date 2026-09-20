@@ -51,7 +51,6 @@ public interface IRightRuleService
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
     Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType);
 
-
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();
     List<string>? GetRuleContexts();
