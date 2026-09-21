@@ -9,10 +9,10 @@ internal class ApplyFirstRuleService : IApplyFirstRuleService
     private readonly IInterpreter _interpreter;
     private readonly IRegisteredRules _registeredRules;
 
-    public ApplyFirstRuleService(IInterpreter interpreter, IRegisteredRules registeredRules)
+    public ApplyFirstRuleService(IInterpreter Interpreter, IRegisteredRules RegisteredRules)
     {
-        this._interpreter = interpreter;
-        this._registeredRules = registeredRules;
+        this._interpreter = Interpreter;
+        this._registeredRules = RegisteredRules;
     }
 
     public async Task<IProcessedRule> ApplyRuleAsync(string Context)

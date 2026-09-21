@@ -1,6 +1,6 @@
 ﻿namespace RightRule.LanguageProcessor.SyntaxChecker;
 
-public enum DiagnosticSeverity
+public enum DiagnosticSeverityEnum
 {
     ERROR,
     WARNING,

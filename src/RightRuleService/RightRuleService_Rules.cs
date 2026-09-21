@@ -8,18 +8,18 @@ namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule)
+    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule)
     {
-        if (rule == null)
+        if (Rule == null)
         {
             return DefaultRuleRegistrationResult.Failed("Default Rule registration failed");
         }
-        var result = DefaultRuleRegister.SetDefaultRule(rule);
+        var result = DefaultRuleRegister.SetDefaultRule(Rule);
         if (!result)
         {
-            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed", rule);
+            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed", Rule);
         }
-        return DefaultRuleRegistrationResult.Success("Default Rule registration success", rule);
+        return DefaultRuleRegistrationResult.Success("Default Rule registration success", Rule);
     }
 
     public DefaultRule GetDefaultRule(string Context)
@@ -42,15 +42,15 @@ internal partial class RightRuleService : IRightRuleService
         return RuleService.GetRuleContexts();
     }
 
-    public ParsedRule? GetRegisteredRule(string Name)
+    public ParsedRule? GetRegisteredRule(string RuleName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
-        return RuleService.GetRule(Name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
+        return RuleService.GetRule(RuleName);
     }
 
-    public ParsedRule? GetRegisteredRule(int Number)
+    public ParsedRule? GetRegisteredRule(int RuleNumber)
     {
-        return RuleService.GetRule(Number);
+        return RuleService.GetRule(RuleNumber);
     }
 
     public List<ParsedRule> GetRules(string Context)
@@ -58,43 +58,39 @@ internal partial class RightRuleService : IRightRuleService
         return RuleService.GetRules(Context);
     }
 
-    public List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string JsonData)
+    public List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string JsonData)
     {
-        var ruleDefn = RuleLoaderService.LoadRulesFromJson(rightRule, JsonData);
+        var ruleDefn = RuleLoaderService.LoadRulesFromJson(RightRule, JsonData);
         if (ruleDefn == null)
         {
             return [RuleRegistrationResult.Failed("Rule Definitions not build from Json")];
         }
-        return rightRule.RegisterRules(ruleDefn);
+        return RightRule.RegisterRules(ruleDefn);
     }
 
     /// <summary>
     /// Registers a collection of rules with the service, parsing them and making them available for application.
     /// </summary>
-    /// <param name="rules">The rule definitions to register.</param>
+    /// <param name="Rules">The rule definitions to register.</param>
     /// <returns>The parsed rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException">Thrown when any of the rules contain a syntax error.</exception>
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules)
     {
-        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
-
-        var operatorNames = OperatorsService.OperatorNames;
-        return RuleService.RegisterRules(rules, operatorNames);
+        ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
+        return RuleService.RegisterRules(Rules);
     }
 
     /// <summary>
     /// Registers a single rule with the service, parsing it and making it available for application.
     /// </summary>
-    /// <param name="rule">The rule definition to register.</param>
+    /// <param name="Rule">The rule definition to register.</param>
     /// <returns>The parsed rule.</returns>
     /// <exception cref="FormatException">Thrown when the rule contains a syntax error.</exception>
-    public RuleRegistrationResult RegisterRule(DefinedRule rule)
+    public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
-        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-
-        var operatorNames = OperatorsService.OperatorNames;
-        return RuleService.RegisterRule(rule, operatorNames);
+        ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
+        return RuleService.RegisterRule(Rule);
     }
 
     public bool DeRegisterRules(string Context)
@@ -109,13 +105,13 @@ internal partial class RightRuleService : IRightRuleService
         return RuleService.DeRegisterRules();
     }
 
-    public bool DeRegisterRule(string Name)
+    public bool DeRegisterRule(string RuleName)
     {
-        return RuleService.DeRegisterRule(Name);
+        return RuleService.DeRegisterRule(RuleName);
     }
 
-    public bool DeRegisterRule(int Number)
+    public bool DeRegisterRule(int RuleNumber)
     {
-        return RuleService.DeRegisterRule(Number);
+        return RuleService.DeRegisterRule(RuleNumber);
     }
 }

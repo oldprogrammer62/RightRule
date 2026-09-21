@@ -10,12 +10,12 @@ internal static class StatementPathBuilder
     /// Uses ├─ and └─ for branches and │ for vertical lines.
     /// Returns an empty string when <see cref="Node"/> is null.
     /// </summary>
-    public static string BuildTreeText(Node node)
+    public static string BuildTreeText(Node Node)
     {
-        if (node is null) return string.Empty;
+        if (Node is null) return string.Empty;
 
         var sb = new StringBuilder();
-        Build(node, sb, string.Empty, true);
+        Build(Node, sb, string.Empty, true);
         return sb.ToString();
 
         static void Build(Node node, StringBuilder sb, string prefix, bool isLast)
@@ -30,8 +30,8 @@ internal static class StatementPathBuilder
 
             switch (node)
             {
-                case BinaryNode b:
-                    var childrenB = new Node[] { b.Left, b.Right };
+                case BinaryNode bNode:
+                    var childrenB = new Node[] { bNode.Left, bNode.Right };
                     for (int i = 0; i < childrenB.Length; i++)
                     {
                         var child = childrenB[i];
@@ -40,9 +40,9 @@ internal static class StatementPathBuilder
                     }
                     break;
 
-                case NotNode n:
-                    if (n.Inner is not null)
-                        Build(n.Inner, sb, childPrefix, true);
+                case NotNode notNode:
+                    if (notNode.Inner is not null)
+                        Build(notNode.Inner, sb, childPrefix, true);
                     break;
 
                 case ConditionNode:
@@ -56,34 +56,34 @@ internal static class StatementPathBuilder
             ;
         }
 
-        static string Describe(Node node)
+        static string Describe(Node Node)
         {
-            return node switch
+            return Node switch
             {
                 BinaryNode b => $"Binary: {b.LogicOp}",
                 NotNode _ => "NOT",
                 ConditionNode c => $"Condition: {FormatOperand(c.Left)} {c.Operator} {FormatOperand(c.Right)}",
-                _ => $"Unknown node: {node.GetType().Name}"
+                _ => $"Unknown node: {Node.GetType().Name}"
             };
         }
 
-        static string FormatOperand(Operand op)
+        static string FormatOperand(Operand Op)
         {
-            return op.Kind switch
+            return Op.Kind switch
             {
-                OperandKind.Variable => $"Variable({op.Raw})",
-                OperandKind.Identifier => $"Dataset.Identifier({op.Raw})",
-                OperandKind.Number => $"Number({op.Raw})",
-                OperandKind.String => $"String(\"{EscapeForDisplay(op.Raw)}\")",
-                OperandKind.Boolean => $"Boolean({op.Raw})",
-                _ => $"Operand({op.Raw})"
+                OperandKindEnum.VARIABLE => $"Variable({Op.Raw})",
+                OperandKindEnum.IDENTIFIER => $"Dataset.Identifier({Op.Raw})",
+                OperandKindEnum.NUMBER => $"Number({Op.Raw})",
+                OperandKindEnum.STRING => $"String(\"{EscapeForDisplay(Op.Raw)}\")",
+                OperandKindEnum.BOOLEAN => $"Boolean({Op.Raw})",
+                _ => $"Operand({Op.Raw})"
             };
         }
 
-        static string EscapeForDisplay(string raw)
+        static string EscapeForDisplay(string Value)
         {
-            if (string.IsNullOrEmpty(raw)) return raw ?? string.Empty;
-            return raw.Replace("\"", "\\\"");
+            if (string.IsNullOrEmpty(Value)) return Value ?? string.Empty;
+            return Value.Replace("\"", "\\\"");
         }
     }
 }

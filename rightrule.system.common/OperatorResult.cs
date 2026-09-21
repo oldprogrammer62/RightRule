@@ -10,15 +10,15 @@ public class OperatorResult
     public required string Message { get; init; }
 
     [SetsRequiredMembers]
-    private OperatorResult(string operatorName, bool Success, bool result, string message)
+    private OperatorResult(string OperatorName, bool Success, bool Result, string Message)
     {
-        OperatorName = operatorName;
+        this.OperatorName = OperatorName;
         this.Success = Success;
-        Result = result;
-        Message = message;
+        this.Result = Result;
+        this.Message = Message;
     }
 
     public OperatorResult Invert() => new OperatorResult(OperatorName, Success, !Result, Message);
-    public static OperatorResult SuccessResult(string operatorName, bool result) => new OperatorResult(operatorName, true, result, string.Empty);
-    public static OperatorResult FailureResult(string operatorName, string message) => new OperatorResult(operatorName, false, false, message);
+    public static OperatorResult SuccessResult(string OperatorName, bool Result) => new OperatorResult(OperatorName, true, Result, string.Empty);
+    public static OperatorResult FailureResult(string OperatorName, string Message) => new OperatorResult(OperatorName, false, false, Message);
 }

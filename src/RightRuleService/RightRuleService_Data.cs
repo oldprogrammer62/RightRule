@@ -1,6 +1,5 @@
 using RightRule.RegistrationServices.DataRegistration;
 using RightRule.RegistrationServices.DataRegistration.Data;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRule.RightRuleService;
 
@@ -88,6 +87,14 @@ internal partial class RightRuleService : IRightRuleService
         };
     }
 
+    public bool DeRegisterData(string DataName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+
+        DeRegisterNewData(DataName);
+        return true;
+    }
+
     public bool DeRegisterData()
     {
         DeRegisterNewData();
@@ -102,13 +109,5 @@ internal partial class RightRuleService : IRightRuleService
     private void DeRegisterNewData(string DatasetName)
     {
         DataService.DeregisterData(DatasetName);
-    }
-
-    public bool DeRegisterData(string DataName)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
-
-        DeRegisterNewData(DataName);
-        return true;
     }
 }

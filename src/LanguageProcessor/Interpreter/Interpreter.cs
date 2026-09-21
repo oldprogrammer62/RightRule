@@ -16,18 +16,18 @@ internal sealed class Interpreter : IInterpreter
         _evaluator = evaluator;
     }
 
-    public async Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules rules, string Context)
+    public async Task<IProcessedRule> EvaluateFirstAsync(IRegisteredRules Rules, string Context)
     {
-        return await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
+        return await EvaluateFirstMatch.EvaluateAsync(_evaluator, Context, Rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
     }
 
-    public async Task<List<IProcessedRule>> EvaluateAnyAsync(IRegisteredRules rules, string Context, EvaluationTypeEnum EvaluationType)
+    public async Task<List<IProcessedRule>> EvaluateAnyAsync(IRegisteredRules Rules, string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await EvaluateAnyMatch.EvaluateAsync(_evaluator, Context, rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
+        return await EvaluateAnyMatch.EvaluateAsync(_evaluator, Context, Rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
     }
 
-    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules rules, string Context, EvaluationTypeEnum EvaluationType)
+    public async Task<List<IProcessedRule>> EvaluateAllAsync(IRegisteredRules Rules, string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await EvaluateAllMatches.EvaluateAsync(_evaluator, Context, rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
+        return await EvaluateAllMatches.EvaluateAsync(_evaluator, Context, Rules.Rules, _defaultRuleRegister).ConfigureAwait(false);
     }
 }

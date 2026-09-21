@@ -10,17 +10,17 @@ internal interface IRuleService
     List<ParsedRule> GetRules();
     List<ParsedRule> GetRules(string Context);
 
-    ParsedRule? GetRule(string Name);
-    ParsedRule? GetRule(int Number);
+    ParsedRule? GetRule(string RuleName);
+    ParsedRule? GetRule(int RuleNumber);
 
     List<(int Number, string Name)>? GetRuleNumbers();
     List<string>? GetRuleNames();
     List<string>? GetRuleContexts();
 
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames);
-    RuleRegistrationResult RegisterRule(DefinedRule rule, HashSet<string> OperatorNames);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
+    RuleRegistrationResult RegisterRule(DefinedRule Rule);
     bool DeRegisterRules(string Context);
     bool DeRegisterRules();
-    bool DeRegisterRule(string Name);
-    bool DeRegisterRule(int Number);
+    bool DeRegisterRule(string RuleName);
+    bool DeRegisterRule(int RuleNumber);
 }

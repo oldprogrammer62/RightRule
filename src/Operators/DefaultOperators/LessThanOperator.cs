@@ -10,27 +10,27 @@ public sealed class LessThanOperator : Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
-        if (left == null && right == null)
+        if (Left == null && Right == null)
         {
             return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
-        if (left == null || right == null)
+        if (Left == null || Right == null)
         {
             return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
-        if (IsNumber(left) && IsNumber(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsNumber(left, right));
-        if (IsDateTime(left) && IsDateTime(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateTime(left, right));
-        if (IsDateOnly(left) && IsDateOnly(right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateOnly(left, right));
+        if (IsNumber(Left) && IsNumber(Right)) return OperatorResult.SuccessResult(this.Name, ProcessAsNumber(Left, Right));
+        if (IsDateTime(Left) && IsDateTime(Right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateTime(Left, Right));
+        if (IsDateOnly(Left) && IsDateOnly(Right)) return OperatorResult.SuccessResult(this.Name, ProcessAsDateOnly(Left, Right));
 
         return OperatorResult.FailureResult(this.Name, "Invalid data types");
     }
 
-    private static bool LessThan(dynamic left, dynamic right)
+    private static bool LessThan(dynamic Left, dynamic Right)
     {
-        dynamic x = left < right;
+        dynamic x = Left < Right;
         return x;
     }
 

@@ -10,15 +10,15 @@ internal class ApplyAnyRulesService : IApplyAnyRulesService
     private readonly IInterpreter _interpreter;
     private readonly IRegisteredRules _registeredRules;
 
-    public ApplyAnyRulesService(IInterpreter interpreter, IRegisteredRules registeredRules)
+    public ApplyAnyRulesService(IInterpreter Interpreter, IRegisteredRules RegisteredRules)
     {
-        this._interpreter = interpreter;
-        this._registeredRules = registeredRules;
+        this._interpreter = Interpreter;
+        this._registeredRules = RegisteredRules;
     }
 
-    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
+    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await EvaluateAnyAsync(Context, evaluationType).ConfigureAwait(false);
+        return await EvaluateAnyAsync(Context, EvaluationType).ConfigureAwait(false);
     }
 
     private async Task<List<IProcessedRule>> EvaluateAnyAsync(string Context, EvaluationTypeEnum EvaluationType)

@@ -4,5 +4,5 @@ namespace RightRule.Loaders.RuleLoader;
 
 public interface IRuleLoader
 {
-    List<DefinedRule>? Load(string Data);
+    List<DefinedRule>? LoadFromJson(string JsonData);
 }

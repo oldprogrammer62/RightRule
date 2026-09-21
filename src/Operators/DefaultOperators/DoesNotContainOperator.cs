@@ -10,27 +10,27 @@ public sealed class DoesNotContainOperator : Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
-        if (left is null || right is null)
+        if (Left is null || Right is null)
         {
             return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
         // String contains (case-insensitive)
-        if (left is string ls && right is string rs)
+        if (Left is string ls && Right is string rs)
         {
             return OperatorResult.SuccessResult(this.Name, NotContains(ls, rs));
         }
 
         // Fallback to string contains
-        var lstr = left.ToString() ?? string.Empty;
-        var rstr = right.ToString() ?? string.Empty;
+        var lstr = Left.ToString() ?? string.Empty;
+        var rstr = Right.ToString() ?? string.Empty;
         return OperatorResult.SuccessResult(this.Name, NotContains(lstr, rstr));
     }
 
-    private static bool NotContains(string left, string right)
+    private static bool NotContains(string Left, string Right)
     {
-        return !(left.Contains(right, StringComparison.OrdinalIgnoreCase));
+        return !(Left.Contains(Right, StringComparison.OrdinalIgnoreCase));
     }
 }

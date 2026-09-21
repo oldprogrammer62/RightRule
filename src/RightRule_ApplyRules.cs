@@ -139,7 +139,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="evaluationType"></param>
+    /// <param name="EvaluationType"></param>
     /// <returns>
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
@@ -149,13 +149,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum evaluationType)
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            return ApplyRulesAsync(Context, evaluationType).GetAwaiter().GetResult();
+            return ApplyRulesAsync(Context, EvaluationType).GetAwaiter().GetResult();
         }
         catch (Exception ex)
         {
@@ -169,7 +169,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// If no rule returns a positive result, a default rule will be returned.
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
-    /// <param name="evaluationType"></param>
+    /// <param name="EvaluationType"></param>
     /// <returns>
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
@@ -179,13 +179,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
     /// <exception cref="Exception"></exception>
-    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         try
         {
-            var svcResult = await ApplyRulesAsync_SVC(Context, evaluationType).ConfigureAwait(false);
+            var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationType).ConfigureAwait(false);
             if (svcResult == null)
             {
                 return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
@@ -215,11 +215,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, EvaluationTypeEnum evaluationType)
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, EvaluationTypeEnum EvaluationType)
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, evaluationType);
+            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, EvaluationType);
             return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)
@@ -227,30 +227,4 @@ public sealed partial class RightRule : IRightRule, IDisposable
             return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
         }
     }
-
-    //private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, DataRetentionEnum dataRetention)
-    //{
-    //    try
-    //    {
-    //        var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, EvaluationTypeEnum.FIRST, dataRetention);
-    //        return BuildResult(Context, rulesApplied);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
-    //    }
-    //}
-
-    //private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, string DataName, Dictionary<string, object> Data, EvaluationTypeEnum rulesToReturn, DataRetentionEnum dataRetention)
-    //{
-    //    try
-    //    {
-    //        var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, DataName, Data, rulesToReturn, dataRetention);
-    //        return BuildResults(Context, rulesApplied);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
-    //    }
-    //}
 }

@@ -28,6 +28,16 @@ internal class RegisteredRules : IRegisteredRules
         _rules = rules;
     }
 
+    public List<RuleRegistrationResult> AddRules(List<ParsedRule> rules)
+    {
+        List<RuleRegistrationResult> results = new List<RuleRegistrationResult>();
+        foreach (ParsedRule rule in rules)
+        {
+            results.Add(AddRule(rule));
+        }
+        return results;
+    }
+
     public RuleRegistrationResult AddRule(ParsedRule rule)
     {
         if (rule == null)
@@ -47,16 +57,6 @@ internal class RegisteredRules : IRegisteredRules
             default:
                 return RuleRegistrationResult.Failed($"Rule: {rule.Number}-{rule.Name} not registered", rule);
         }
-    }
-
-    public List<RuleRegistrationResult> AddRules(List<ParsedRule> rules)
-    {
-        List<RuleRegistrationResult> results = new List<RuleRegistrationResult>();
-        foreach (ParsedRule rule in rules)
-        {
-            results.Add(AddRule(rule));
-        }
-        return results;
     }
 
     public bool RemoveRules(string Context)

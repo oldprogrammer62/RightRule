@@ -21,11 +21,11 @@ public sealed class RightRuleServiceResult<T>
 
     private RightRuleServiceResult() { }
 
-    public static List<RightRuleServiceResult<IProcessedRule>> SuccessResult(List<IProcessedRule> payloads)
+    public static List<RightRuleServiceResult<IProcessedRule>> SuccessResult(List<IProcessedRule> Payloads)
     {
         List<RightRuleServiceResult<IProcessedRule>> results = [];
 
-        foreach (var payload in payloads)
+        foreach (var payload in Payloads)
         {
             var result = SuccessResult(payload);
             results.Add(result);
@@ -33,80 +33,80 @@ public sealed class RightRuleServiceResult<T>
         return results;
     }
 
-    public static RightRuleServiceResult<IProcessedRule> SuccessResult(IProcessedRule payload)
+    public static RightRuleServiceResult<IProcessedRule> SuccessResult(IProcessedRule Payload)
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
             Status = RegistrationStatusEnum.SUCCESS, 
-            Success = payload.Success, 
-            Result = payload.Result, 
-            Context = payload.Context,
-            StatementApplied = payload.StatementApplied, 
-            Decision = payload.Decision, 
-            DecisionData = payload.DecisionData, 
-            Payload = payload,
+            Success = Payload.Success, 
+            Result = Payload.Result, 
+            Context = Payload.Context,
+            StatementApplied = Payload.StatementApplied, 
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData, 
+            Payload = Payload,
             Message = string.Empty
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> Build(IProcessedRule payload)
+    public static RightRuleServiceResult<IProcessedRule> Build(IProcessedRule Payload)
     {
-        return payload.Result switch
+        return Payload.Result switch
         {
-            true => SuccessResult(payload),
-            false => FailureResult(payload)
+            true => SuccessResult(Payload),
+            false => FailureResult(Payload)
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule? payload)
+    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule? Payload)
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
             Status = RegistrationStatusEnum.FAILURE, 
-            Success = payload.Success, 
-            Result = payload.Result, 
-            Context = payload.Context, 
-            StatementApplied = payload.StatementApplied, 
-            Decision = payload.FalseDecision, 
-            DecisionData = payload.FalseDecisionData, 
-            Payload = payload,
-            Message = payload.Message
+            Success = Payload.Success, 
+            Result = Payload.Result, 
+            Context = Payload.Context, 
+            StatementApplied = Payload.StatementApplied, 
+            Decision = Payload.FalseDecision, 
+            DecisionData = Payload.FalseDecisionData, 
+            Payload = Payload,
+            Message = Payload.Message
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? payload)
+    public static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload)
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
             Status = RegistrationStatusEnum.ERROR, 
-            Success = payload.Success, 
-            Result = payload.Result, 
-            Context = payload.Context,
-            StatementApplied = payload.StatementApplied, 
-            Decision = payload.Decision, 
+            Success = Payload.Success, 
+            Result = Payload.Result, 
+            Context = Payload.Context,
+            StatementApplied = Payload.StatementApplied, 
+            Decision = Payload.Decision, 
             DecisionData = null, 
-            Payload = payload,
+            Payload = Payload,
             Message = ex.Message,
             Exception = ex 
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> DefaultResult(IProcessedRule? payload, string message = "Default")
+    public static RightRuleServiceResult<IProcessedRule> DefaultResult(IProcessedRule? Payload, string Message = "Default")
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
             Status = RegistrationStatusEnum.DEFAULT, 
-            Success = payload.Success, 
-            Result = payload.Result, 
-            Context = payload.Context,
-            StatementApplied = payload.StatementApplied, 
-            Decision = payload.Decision, 
-            DecisionData = payload.DecisionData,
-            Payload = payload, 
-            Message = message
+            Success = Payload.Success, 
+            Result = Payload.Result, 
+            Context = Payload.Context,
+            StatementApplied = Payload.StatementApplied, 
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData,
+            Payload = Payload, 
+            Message = Message
         };
     }
 }

@@ -6,14 +6,14 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluateAnyMatch
 {
-    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator evaluator, string Context, List<ParsedRule> rules, IDefaultRuleRegister defaultRuleRegister)
+    internal async static Task<List<IProcessedRule>> EvaluateAsync(IEvaluator Evaluator, string Context, List<ParsedRule> Rules, IDefaultRuleRegister DefaultRuleRegister)
     {
         List<IProcessedRule> appliedRules = new List<IProcessedRule>();
         bool matched = false;
 
-        foreach (var rule in rules)
+        foreach (var rule in Rules)
         {
-            EvaluationResult ruleResult = await EvaluateAsync(evaluator, rule).ConfigureAwait(false);
+            EvaluationResult ruleResult = await EvaluateAsync(Evaluator, rule).ConfigureAwait(false);
 
             bool success = ruleResult.Success;
             bool result = ruleResult.Result;
@@ -38,22 +38,22 @@ internal static class EvaluateAnyMatch
         }
         if (!matched) // appliedRules is empty
         {
-            appliedRules.Add(defaultRuleRegister.GetDefaultRule(Context));
+            appliedRules.Add(DefaultRuleRegister.GetDefaultRule(Context));
         }
         return appliedRules;
     }
 
-    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator evaluator, ParsedRule rule)
+    private async static Task<EvaluationResult> EvaluateAsync(IEvaluator Evaluator, ParsedRule Rule)
     {
-        if (rule.Node == null)
+        if (Rule.Node == null)
         {
-            var message = string.IsNullOrEmpty(rule.Message) ? "Rule statement not interpreted properly." : rule.Message;
+            var message = string.IsNullOrEmpty(Rule.Message) ? "Rule statement not interpreted properly." : Rule.Message;
             return EvaluationResult.ErrorResult(message);
         }
 
         try
         {
-            EvaluationResult result = await evaluator.EvaluateAsync(rule).ConfigureAwait(false);
+            EvaluationResult result = await Evaluator.EvaluateAsync(Rule).ConfigureAwait(false);
             return result;
         }
         catch
@@ -62,18 +62,18 @@ internal static class EvaluateAnyMatch
         }
     }
 
-    private static IProcessedRule CreateTrueResult(EvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateTrueResult(EvaluationResult Result, ParsedRule Rule)
     {
-        return AppliedRule.TrueResult(rule, result);
+        return AppliedRule.TrueResult(Rule, Result);
     }
 
-    private static IProcessedRule CreateFalseResult(EvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateFalseResult(EvaluationResult Result, ParsedRule Rule)
     {
-        return AppliedRule.FalseResult(rule, result);
+        return AppliedRule.FalseResult(Rule, Result);
     }
 
-    private static IProcessedRule CreateErrorResult(EvaluationResult result, ParsedRule rule)
+    private static IProcessedRule CreateErrorResult(EvaluationResult Result, ParsedRule Rule)
     {
-        return ErrorRule.ErrorResult(rule, result);
+        return ErrorRule.ErrorResult(Rule, Result);
     }
 }

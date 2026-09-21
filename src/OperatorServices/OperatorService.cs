@@ -1,7 +1,6 @@
 ﻿using RightRule.Loaders.OperatorLoader.CustomerOperators;
 using RightRule.Loaders.OperatorLoader.DefaultOperators;
 using RightRule.System.Common;
-using System.ComponentModel;
 
 namespace RightRule.OperatorServices;
 
@@ -89,13 +88,13 @@ internal class OperatorService : IOperatorService
         return operatorNames;
     }
 
-    private static bool OperatorIdentifiersUnique(List<Operator> operators)
+    private static bool OperatorIdentifiersUnique(List<Operator> Operators)
     {
-        if (operators == null || operators.Count == 0)
+        if (Operators == null || Operators.Count == 0)
             return true;
 
         // Flatten all identifiers, ignore null/whitespace, compare case-insensitively.
-        var hasDuplicates = operators
+        var hasDuplicates = Operators
             .Where(op => op?.Identifiers != null)
             .SelectMany(op => op.Identifiers)
             .Where(id => !string.IsNullOrWhiteSpace(id))
@@ -124,10 +123,10 @@ internal class OperatorService : IOperatorService
         return CustomOperatorLoader.Load();
     }
 
-    private static Dictionary<string, Operator> RegisterOperatorAliases(List<Operator> operators)
+    private static Dictionary<string, Operator> RegisterOperatorAliases(List<Operator> Operators)
     {
         var operatorAliases = new Dictionary<string, Operator>(StringComparer.OrdinalIgnoreCase);
-        foreach (var op in operators)
+        foreach (var op in Operators)
         {
             foreach (var alias in op.Identifiers)
             {

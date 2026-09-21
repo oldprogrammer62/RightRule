@@ -39,7 +39,7 @@ internal sealed class ServiceRegister
         services.AddSingleton<IDataService, DataService>();
 
         services.AddSingleton<IRuleService, RuleService>();
-        services.AddScoped<IRuleRegistrationService, RuleRegistrationService>();
+        services.AddScoped<IParseRuleService, ParseRuleService>();
         services.AddSingleton<IRegisteredRules, RegisteredRules>();
 
         services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();

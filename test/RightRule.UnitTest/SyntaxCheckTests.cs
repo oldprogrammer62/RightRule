@@ -27,7 +27,7 @@ public class SyntaxCheckTests
         CheckStatementResult? result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
-        Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverity.ERROR);
+        Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
     }
 
     [Fact]

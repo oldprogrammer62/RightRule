@@ -6,14 +6,14 @@ public sealed class Diagnostic
     {
     }
 
-    public Diagnostic(string Message, DiagnosticSeverity diagnosticSeverity)
+    public Diagnostic(string Message, DiagnosticSeverityEnum diagnosticSeverity)
     {
         this.Message = Message;
         this.Severity = diagnosticSeverity;
     }
 
     public string Message { get; init; } = string.Empty;
-    public DiagnosticSeverity Severity { get; init; } = DiagnosticSeverity.ERROR;
+    public DiagnosticSeverityEnum Severity { get; init; } = DiagnosticSeverityEnum.ERROR;
     public string? Code { get; init; }
     public int Position { get; init; } = -1;   // absolute position in the statement
     public int Length { get; init; } = 0;      // token length at Position

@@ -43,13 +43,13 @@ internal sealed class Tokenizer : ITokenizer
         SkipWhitespace();
 
         if (_pos >= _statement.Length)
-            return new Token(TokenType.End, "", _pos);
+            return new Token(TokenTypeEnum.End, "", _pos);
 
         char c = _statement[_pos];
 
         // Parentheses
-        if (c == '(') { _pos++; return new Token(TokenType.LParen, "(", _pos - 1); }
-        if (c == ')') { _pos++; return new Token(TokenType.RParen, ")", _pos - 1); }
+        if (c == '(') { _pos++; return new Token(TokenTypeEnum.LParen, "(", _pos - 1); }
+        if (c == ')') { _pos++; return new Token(TokenTypeEnum.RParen, ")", _pos - 1); }
 
         // Number (simple integer support)
         // Must start with a digit, and can contain digits
@@ -59,7 +59,7 @@ internal sealed class Tokenizer : ITokenizer
             var sb = new StringBuilder();
             while (_pos < _statement.Length && (char.IsDigit(_statement[_pos]) || _statement[_pos] == '.'))
                 sb.Append(_statement[_pos++]);
-            return new Token(TokenType.Number, sb.ToString(), start);
+            return new Token(TokenTypeEnum.Number, sb.ToString(), start);
         }
 
         // Identifier / Operator / Logical keywords
@@ -81,42 +81,42 @@ internal sealed class Tokenizer : ITokenizer
 
             // Logical keywords - case sensitive: valid only as lower-case
             if (value == "and")
-                return new Token(TokenType.And, value, start);
+                return new Token(TokenTypeEnum.And, value, start);
             if (value == "or")
-                return new Token(TokenType.Or, value, start);
+                return new Token(TokenTypeEnum.Or, value, start);
             if (value == "not")
-                return new Token(TokenType.Not, value, start);
+                return new Token(TokenTypeEnum.Not, value, start);
 
             // boolean
             if (value.Equals("true", StringComparison.Ordinal))
-                return new Token(TokenType.Boolean, value, start);
+                return new Token(TokenTypeEnum.Boolean, value, start);
             if (value.Equals("false", StringComparison.Ordinal))
-                return new Token(TokenType.Boolean, value, start);
+                return new Token(TokenTypeEnum.Boolean, value, start);
 
             // External operator names
             if (IsLogicOperator(value))
-                return new Token(TokenType.Operator, value, start);
+                return new Token(TokenTypeEnum.Operator, value, start);
 
             // Variable (No dot notation)
             if (!foundDot)
             {
                 if (!_dataCheck)
-                    return new Token(TokenType.Variable, value, start);
+                    return new Token(TokenTypeEnum.Variable, value, start);
 
                 if (IsValidData(value))
                 {
-                    return new Token(TokenType.Variable, value, start);
+                    return new Token(TokenTypeEnum.Variable, value, start);
                 }
             }
             // Dataset identifier (dot notation)
             if (foundDot && FoundOneDot(value))
             {
                 if (!_dataCheck)
-                    return new Token(TokenType.Identifier, value, start);
+                    return new Token(TokenTypeEnum.Identifier, value, start);
 
                 if (IsValidData(value))
                 {
-                    return new Token(TokenType.Identifier, value, start);
+                    return new Token(TokenTypeEnum.Identifier, value, start);
                 }
             }
             // Not known - Error
@@ -150,7 +150,7 @@ internal sealed class Tokenizer : ITokenizer
                 throw new Exception($"Unterminated string literal at position {start}.");
 
             _pos++; // closing quote
-            return new Token(TokenType.String, sb.ToString(), start);
+            return new Token(TokenTypeEnum.String, sb.ToString(), start);
         }
 
         // String literal "..."
@@ -181,7 +181,7 @@ internal sealed class Tokenizer : ITokenizer
                 throw new Exception($"Unterminated string literal at position {start}.");
 
             _pos++; // closing quote
-            return new Token(TokenType.String, sb.ToString(), start);
+            return new Token(TokenTypeEnum.String, sb.ToString(), start);
         }
 
         // Symbolised Operator
@@ -206,7 +206,7 @@ internal sealed class Tokenizer : ITokenizer
 
             // External operator names
             if (IsLogicOperator(value))
-                return new Token(TokenType.Operator, value, start);
+                return new Token(TokenTypeEnum.Operator, value, start);
 
             throw new FormatException($"Unexpected '{sb}' at position {_pos}.");
         }
@@ -223,9 +223,9 @@ internal sealed class Tokenizer : ITokenizer
         return _operatorNames.Contains(OpName, StringComparer.Ordinal);
     }
 
-    private bool IsValidData(string name)
+    private bool IsValidData(string DataName)
     {
-        return _dataValidator.IsValidData(_dataService, name);
+        return _dataValidator.IsValidData(_dataService, DataName);
     }
 
     private void SkipWhitespace()
@@ -234,14 +234,14 @@ internal sealed class Tokenizer : ITokenizer
             _pos++;
     }
 
-    private bool FoundOneDot(string value)
+    private bool FoundOneDot(string Value)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(Value))
         {
             return false;
         }
         char dot = '.';
         int dotCount = 1;
-        return value.Count(c => c == dot) == dotCount;
+        return Value.Count(c => c == dot) == dotCount;
     }
 }

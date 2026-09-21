@@ -11,31 +11,31 @@ public class RuleRegistrationResult
     public required ParsedRule? RegisteredRule { get; init; }
     public required string Message { get; init; }
 
-    internal static RuleRegistrationResult Success(string message, ParsedRule parsedRule)
+    internal static RuleRegistrationResult Success(string Message, ParsedRule ParsedRule)
     {
         return new RuleRegistrationResult()
         {
-            Message = message,
-            RegisteredRule = parsedRule,
-            Status = parsedRule.Status
+            Message = Message,
+            RegisteredRule = ParsedRule,
+            Status = ParsedRule.Status
         };
     }
 
-    internal static RuleRegistrationResult Failed(string message, ParsedRule parsedRule)
+    internal static RuleRegistrationResult Failed(string Message, ParsedRule ParsedRule)
     {
         return new RuleRegistrationResult()
         {
-            Message = message,
-            RegisteredRule = parsedRule,
+            Message = Message,
+            RegisteredRule = ParsedRule,
             Status = RegistrationStatusEnum.FAILURE
         };
     }
 
-    internal static RuleRegistrationResult Failed(string message)
+    internal static RuleRegistrationResult Failed(string Message)
     {
         return new RuleRegistrationResult()
         {
-            Message = message,
+            Message = Message,
             RegisteredRule = null,
             Status = RegistrationStatusEnum.FAILURE
         };

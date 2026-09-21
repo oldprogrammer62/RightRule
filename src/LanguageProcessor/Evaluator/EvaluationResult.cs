@@ -19,32 +19,32 @@ public class EvaluationResult
         this.StatementApplied = StatementApplied;
     }
 
-    internal static EvaluationResult SuccessResult(bool success, bool result, string successMessage, string StatementApplied)
+    internal static EvaluationResult SuccessResult(bool Success, bool Result, string Message, string StatementApplied)
     {
         return new EvaluationResult(
-            Success: success,
-            Result: result,
-            Message: successMessage,
+            Success: Success,
+            Result: Result,
+            Message: Message,
             StatementApplied: StatementApplied
         );
     }
 
-    internal static EvaluationResult FailureResult(bool success, bool result, string errorMessage, string StatementApplied)
+    internal static EvaluationResult FailureResult(bool Success, bool Result, string Message, string StatementApplied)
     {
         return new EvaluationResult(
-            Success: success,
-            Result: result,
-            Message: errorMessage,
+            Success: Success,
+            Result: Result,
+            Message: Message,
             StatementApplied: StatementApplied
         );
     }
 
-    internal static EvaluationResult ErrorResult(string error)
+    internal static EvaluationResult ErrorResult(string Message)
     {
         return new EvaluationResult(
             Success: false,
             Result: false,
-            Message: error,
+            Message: Message,
             StatementApplied: string.Empty
         );
     }

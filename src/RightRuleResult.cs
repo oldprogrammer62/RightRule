@@ -18,62 +18,62 @@ public sealed class RightRuleResult<T>
 
     private RightRuleResult() { }
 
-    public static RightRuleResult<IProcessedRule> SuccessResult(IProcessedRule? payload, string statementApplied)
+    public static RightRuleResult<IProcessedRule> SuccessResult(IProcessedRule? Payload, string StatementApplied)
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Result = payload.Result, 
-            RuleNumber = payload.Number, 
-            RuleName = payload.Name, 
-            Decision = payload.Decision, 
-            DecisionData = payload.DecisionData, 
-            StatementApplied = statementApplied 
+            Result = Payload.Result, 
+            RuleNumber = Payload.Number, 
+            RuleName = Payload.Name, 
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData, 
+            StatementApplied = StatementApplied 
         };
     }
 
-    public static RightRuleResult<IProcessedRule> FailureResult(string message, string statementApplied, IProcessedRule? payload = default)
+    public static RightRuleResult<IProcessedRule> FailureResult(string Message, string StatementApplied, IProcessedRule? Payload = default)
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Result = payload.Result, 
-            RuleNumber = payload.Number, 
-            RuleName = payload.Name, 
-            Decision = payload.FalseDecision, 
-            DecisionData = payload?.FalseDecisionData, 
-            StatementApplied = statementApplied,
-            Message = message 
+            Result = Payload.Result, 
+            RuleNumber = Payload.Number, 
+            RuleName = Payload.Name, 
+            Decision = Payload.FalseDecision, 
+            DecisionData = Payload?.FalseDecisionData, 
+            StatementApplied = StatementApplied,
+            Message = Message 
         };
     }
 
-    public static RightRuleResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? payload = default)
+    public static RightRuleResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload = default)
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Result = payload.Result, 
-            RuleNumber = payload.Number, 
-            RuleName = payload.Name, 
-            Decision = payload.Decision, 
+            Result = Payload.Result, 
+            RuleNumber = Payload.Number, 
+            RuleName = Payload.Name, 
+            Decision = Payload.Decision, 
             DecisionData = null, 
             StatementApplied = string.Empty,
             Message = ex.Message
         };
     }
 
-    public static RightRuleResult<IProcessedRule> DefaultResult(IProcessedRule? payload = default, string message = "Default")
+    public static RightRuleResult<IProcessedRule> DefaultResult(IProcessedRule? Payload = default, string Message = "Default")
     {
-        ArgumentNullException.ThrowIfNull(payload, nameof(payload));
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Result = payload.Result, 
-            RuleNumber = payload.Number, 
-            RuleName = payload.Name, 
-            Decision = payload.Decision, 
-            DecisionData = payload.DecisionData, 
+            Result = Payload.Result, 
+            RuleNumber = Payload.Number, 
+            RuleName = Payload.Name, 
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData, 
             StatementApplied = string.Empty,
-            Message = message
+            Message = Message
         };
     }
 

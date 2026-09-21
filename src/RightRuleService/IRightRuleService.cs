@@ -25,21 +25,21 @@ public interface IRightRuleService
     List<Operator> GetOperatorDetails();
     bool UnloadOperator(string OperatorName);
 
-    ParsedRule? GetRegisteredRule(string Name);
-    ParsedRule? GetRegisteredRule(int Number);
+    ParsedRule? GetRegisteredRule(string RuleName);
+    ParsedRule? GetRegisteredRule(int RuleNumber);
     List<ParsedRule> GetRules(string Context);
 
     DefaultRule GetDefaultRule(string Context);
-    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule);
+    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
 
-    List<RuleRegistrationResult> RegisterRulesJson(IRightRule rightRule, string Data);
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);
-    RuleRegistrationResult RegisterRule(DefinedRule rule);
+    List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string Data);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
+    RuleRegistrationResult RegisterRule(DefinedRule Rule);
 
     bool DeRegisterRules(string Context);
     bool DeRegisterRules();
-    bool DeRegisterRule(string Name);
-    bool DeRegisterRule(int Number);
+    bool DeRegisterRule(string RuleName);
+    bool DeRegisterRule(int RuleNumber);
 
     DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
     DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);

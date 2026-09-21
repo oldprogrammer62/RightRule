@@ -6,12 +6,12 @@ public class ExternalOperatorLoader : AssemblyLoadContext
 {
     private readonly AssemblyDependencyResolver _resolver;
 
-    internal ExternalOperatorLoader(string functionPath, bool collectible)
-        : base(name: Path.GetFileName(functionPath), collectible)
+    internal ExternalOperatorLoader(string FunctionPath, bool IsCollectible)
+        : base(name: Path.GetFileName(FunctionPath), IsCollectible)
     {
-        if (string.IsNullOrWhiteSpace(functionPath) || !File.Exists(functionPath))
-            throw new FileNotFoundException("Function assembly path not found", functionPath);
+        if (string.IsNullOrWhiteSpace(FunctionPath) || !File.Exists(FunctionPath))
+            throw new FileNotFoundException("Function assembly path not found", FunctionPath);
 
-        _resolver = new AssemblyDependencyResolver(functionPath);
+        _resolver = new AssemblyDependencyResolver(FunctionPath);
     }
 }

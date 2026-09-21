@@ -1,5 +1,4 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
-using RightRule.Models.BaseModels;
+﻿using RightRule.Models.BaseModels;
 
 namespace RightRule.RuleApplication
 {

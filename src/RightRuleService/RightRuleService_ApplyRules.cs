@@ -22,11 +22,11 @@ internal partial class RightRuleService : IRightRuleService
         return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
     }
 
-    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var rulesApplied = await RuleApplicationService.ApplyRulesAsync(Context, evaluationType).ConfigureAwait(false);
+        var rulesApplied = await RuleApplicationService.ApplyRulesAsync(Context, EvaluationType).ConfigureAwait(false);
         if (rulesApplied == null)
         {
             return [RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];

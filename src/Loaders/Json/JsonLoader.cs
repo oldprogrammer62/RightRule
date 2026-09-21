@@ -14,7 +14,7 @@ internal class JsonLoader : IRuleLoader
         _rightRule = rightRule;
     }
 
-    public List<DefinedRule>? Load(string JsonData)
+    public List<DefinedRule>? LoadFromJson(string JsonData)
     {
         var ruleDefs = ConvertJson(JsonData);
         return ruleDefs;

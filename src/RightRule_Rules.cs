@@ -46,27 +46,27 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return RightRuleService.GetDefaultRule(Context);
     }
 
-    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule rule)
+    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule)
     {
-        if (rule == null)
+        if (Rule == null)
         {
             return DefaultRuleRegistrationResult.Failed("Default Rule Registration Failed");
         }
-        return RightRuleService.RegisterDefaultRule(rule);
+        return RightRuleService.RegisterDefaultRule(Rule);
     }
 
 
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
     /// </summary>
-    /// <param name="Name"></param>
+    /// <param name="RuleName"></param>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? GetRegisteredRule(string Name)
+    public ParsedRule? GetRegisteredRule(string RuleName)
     {
         try
         {
-            return RightRuleService.GetRegisteredRule(Name);
+            return RightRuleService.GetRegisteredRule(RuleName);
         }
         catch
         {
@@ -77,13 +77,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Number.
     /// </summary>
-    /// <param name="Number"></param>
+    /// <param name="RuleNumber"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? GetRegisteredRule(int Number)
+    public ParsedRule? GetRegisteredRule(int RuleNumber)
     {
         try
         {
-            return RightRuleService.GetRegisteredRule(Number);
+            return RightRuleService.GetRegisteredRule(RuleNumber);
         }
         catch
         {
@@ -140,16 +140,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
     /// </summary>
-    /// <param name="rules">The Rule definitions to register.</param>
+    /// <param name="Rules">The Rule definitions to register.</param>
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules)
     {
-        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
+        ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
         try
         {
-            return RightRuleService.RegisterRules(rules);
+            return RightRuleService.RegisterRules(Rules);
         }
         catch
         {
@@ -160,16 +160,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Registers a single Rule with the RightRule engine.
     /// </summary>
-    /// <param name="rule">The Rule definition to register.</param>
+    /// <param name="Rule">The Rule definition to register.</param>
     /// <returns>The Parsed Rule.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    public RuleRegistrationResult RegisterRule(DefinedRule rule)
+    public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
-        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
+        ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
         try
         {
-            return RightRuleService.RegisterRule(rule);
+            return RightRuleService.RegisterRule(Rule);
         }
         catch
         {
@@ -215,15 +215,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
-    /// <param name="Name">The Name of the Rule to deregister.</param>
+    /// <param name="RuleName">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterRule(string Name)
+    public bool DeRegisterRule(string RuleName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Name, nameof(Name));
+        ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
         try
         {
-            return RightRuleService.DeRegisterRule(Name);
+            return RightRuleService.DeRegisterRule(RuleName);
         }
         catch
         {
@@ -234,15 +234,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
-    /// <param name="Number">The Number of the Rule to deregister.</param>
+    /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterRule(int Number)
+    public bool DeRegisterRule(int RuleNumber)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(Number.ToString(), nameof(Number));
+        ArgumentException.ThrowIfNullOrWhiteSpace(RuleNumber.ToString(), nameof(RuleNumber));
         try
         {
-            return RightRuleService.DeRegisterRule(Number);
+            return RightRuleService.DeRegisterRule(RuleNumber);
         }
         catch
         {

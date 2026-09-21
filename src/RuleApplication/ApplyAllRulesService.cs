@@ -10,20 +10,20 @@ internal class ApplyAllRulesService : IApplyAllRulesService
     private readonly IInterpreter _interpreter;
     private readonly IRegisteredRules _registeredRules;
 
-    public ApplyAllRulesService(IInterpreter interpreter, IRegisteredRules registeredRules)
+    public ApplyAllRulesService(IInterpreter Interpreter, IRegisteredRules RegisteredRules)
     {
-        this._interpreter = interpreter;
-        this._registeredRules = registeredRules;
+        this._interpreter = Interpreter;
+        this._registeredRules = RegisteredRules;
     }
 
-    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
+    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await EvaluateAllAsync(Context, evaluationType).ConfigureAwait(false);
+        return await EvaluateAllAsync(Context, EvaluationType).ConfigureAwait(false);
     }
 
-    private async Task<List<IProcessedRule>> EvaluateAllAsync(string Context, EvaluationTypeEnum evaluationType)
+    private async Task<List<IProcessedRule>> EvaluateAllAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         var filteredRules = Helpers.FilterRules(Context, _registeredRules.Rules);
-        return await _interpreter.EvaluateAllAsync(filteredRules, Context, evaluationType).ConfigureAwait(false);
+        return await _interpreter.EvaluateAllAsync(filteredRules, Context, EvaluationType).ConfigureAwait(false);
     }
 }

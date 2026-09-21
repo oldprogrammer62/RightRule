@@ -18,7 +18,7 @@ public class LoaderJSON_Tests
         Assert.NotNull(loader);
 
         var json = Template.JsonString();
-        List<DefinedRule>? rules = loader.Load(json);
+        List<DefinedRule>? rules = loader.LoadFromJson(json);
 
         Assert.NotNull(rules);
     }

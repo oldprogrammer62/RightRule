@@ -16,20 +16,20 @@ internal class StatementBuilder : IStatementBuilder
 
     // New: Build a human-readable statement where identifiers are replaced with actual dataset values.
     // If an AST node is available it will be used to render the statement precisely; otherwise the original statement is returned.
-    public Task<string> BuildAppliedStatement(Node? node, string originalStatement)
+    public Task<string> BuildAppliedStatement(Node? Node, string Statement)
     {
         return Task.Run(() =>
         {
-            if (node is null)
-                return originalStatement ?? string.Empty;
+            if (Node is null)
+                return Statement ?? string.Empty;
 
-            return RenderNode(node);
+            return RenderNode(Node);
         });
     }
 
-    private string RenderNode(Node node)
+    private string RenderNode(Node Node)
     {
-        return node switch
+        return Node switch
         {
             ConditionNode c => RenderCondition(c),
             BinaryNode b => $"({RenderNode(b.Left)} {b.LogicOp.ToUpperInvariant()} {RenderNode(b.Right)})",
@@ -38,67 +38,67 @@ internal class StatementBuilder : IStatementBuilder
         };
     }
 
-    private string RenderCondition(ConditionNode c)
+    private string RenderCondition(ConditionNode Node)
     {
-        var left = RenderOperand(c.Left);
-        var right = RenderOperand(c.Right);
-        return $"{left} {c.Operator} {right}";
+        var left = RenderOperand(Node.Left);
+        var right = RenderOperand(Node.Right);
+        return $"{left} {Node.Operator} {right}";
     }
 
-    private string RenderOperand(Operand operand)
+    private string RenderOperand(Operand Op)
     {
-        switch (operand.Kind)
+        switch (Op.Kind)
         {
-            case OperandKind.Variable:
+            case OperandKindEnum.VARIABLE:
                 {
-                    var variable = EvaluatorHelper.ResolveVariable(operand.Raw, _dataService);
+                    var variable = EvaluatorHelper.ResolveVariable(Op.Raw, _dataService);
                     return FormatValue(variable);
                 }
-            case OperandKind.Identifier:
+            case OperandKindEnum.IDENTIFIER:
                 {
                     // operand.Raw is expected to be dataset.element
-                    var value = EvaluatorHelper.ResolveIdentifier(operand.Raw, _dataService);
+                    var value = EvaluatorHelper.ResolveIdentifier(Op.Raw, _dataService);
                     return FormatValue(value);
                 }
-            case OperandKind.String:
+            case OperandKindEnum.STRING:
                 {
                     // string literal (raw already unquoted by tokenizer)
-                    return FormatValue(operand.Raw);
+                    return FormatValue(Op.Raw);
                 }
-            case OperandKind.Number:
+            case OperandKindEnum.NUMBER:
                 {
                     // keep numeric textual representation, but normalize formatting
-                    var parsed = Helper.ParseNumber(operand.Raw);
+                    var parsed = Helper.ParseNumber(Op.Raw);
                     return FormatValue(parsed);
                 }
-            case OperandKind.Boolean:
+            case OperandKindEnum.BOOLEAN:
                 {
-                    var parsed = Helper.ParseBoolean(operand.Raw);
+                    var parsed = Helper.ParseBoolean(Op.Raw);
                     return FormatValue(parsed);
                 }
             default:
-                return operand.Raw;
+                return Op.Raw;
         }
     }
 
-    private string FormatValue(object? value)
+    private string FormatValue(object? Value)
     {
-        if (value is null)
+        if (Value is null)
             return "null";
 
-        if (value is string s)
+        if (Value is string s)
         {
             // Escape backslashes and quotes
             var escaped = s.Replace("\\", "\\\\").Replace("\"", "\\\"");
             return $"\"{escaped}\"";
         }
 
-        if (value is bool b)
+        if (Value is bool b)
             return b ? "true" : "false";
 
-        if (value is IFormattable f)
-            return f.ToString(null, CultureInfo.InvariantCulture) ?? value.ToString() ?? string.Empty;
+        if (Value is IFormattable f)
+            return f.ToString(null, CultureInfo.InvariantCulture) ?? Value.ToString() ?? string.Empty;
 
-        return value.ToString() ?? string.Empty;
+        return Value.ToString() ?? string.Empty;
     }
 }

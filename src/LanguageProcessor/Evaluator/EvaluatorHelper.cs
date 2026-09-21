@@ -6,11 +6,11 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluatorHelper
 {
-    internal static object? ResolveOperandValue(Operand op, IDataService dataService)
+    internal static object? ResolveOperandValue(Operand Op, IDataService DataService)
     {
         try
         {
-            return ResolveOperand(op, dataService);
+            return ResolveOperand(Op, DataService);
         }
         catch
         {
@@ -18,13 +18,13 @@ internal static class EvaluatorHelper
         }
     }
 
-    internal static object? ResolveVariable(string Identifier, IDataService dataService)
+    internal static object? ResolveVariable(string Identifier, IDataService DataService)
     {
-        var variableValue = GetValue(Identifier, Identifier, dataService);
+        var variableValue = GetValue(Identifier, Identifier, DataService);
         return variableValue;
     }
 
-    internal static object? ResolveIdentifier(string Identifier, IDataService dataService)
+    internal static object? ResolveIdentifier(string Identifier, IDataService DataService)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -39,28 +39,28 @@ internal static class EvaluatorHelper
         var parent = split[0];
         var child = split[1];
 
-        var identifierValue = GetValue(parent, child, dataService);
+        var identifierValue = GetValue(parent, child, DataService);
         return identifierValue;
     }
 
-    private static object? GetValue(string LeftSide, string RightSide, IDataService dataService)
+    private static object? GetValue(string Left, string Right, IDataService DataService)
     {
-        return dataService.GetDataValue(LeftSide, RightSide);
+        return DataService.GetDataValue(Left, Right);
     }
 
-    private static object? ResolveOperand(Operand op, IDataService dataService)
+    private static object? ResolveOperand(Operand Op, IDataService DataService)
     {
         try
         {
-            object opValue = GetOperator(op);
+            object opValue = GetOperator(Op);
 
-            return op.Kind switch
+            return Op.Kind switch
             {
-                OperandKind.Variable => opValue is string vVar ? ResolveVariable(vVar, dataService) : ResolveVariable(op.Raw, dataService),
-                OperandKind.Identifier => opValue is string sId ? ResolveIdentifier(sId, dataService) : ResolveIdentifier(op.Raw, dataService),
-                OperandKind.Number => opValue is string sNum ? ParseNumber(sNum) : opValue,
-                OperandKind.Boolean => opValue is string sBool ? ParseBoolean(sBool) : opValue,
-                OperandKind.String => opValue is string s ? s : opValue?.ToString() ?? string.Empty,
+                OperandKindEnum.VARIABLE => opValue is string vVar ? ResolveVariable(vVar, DataService) : ResolveVariable(Op.Raw, DataService),
+                OperandKindEnum.IDENTIFIER => opValue is string sId ? ResolveIdentifier(sId, DataService) : ResolveIdentifier(Op.Raw, DataService),
+                OperandKindEnum.NUMBER => opValue is string sNum ? ParseNumber(sNum) : opValue,
+                OperandKindEnum.BOOLEAN => opValue is string sBool ? ParseBoolean(sBool) : opValue,
+                OperandKindEnum.STRING => opValue is string s ? s : opValue?.ToString() ?? string.Empty,
                 _ => opValue
             };
         }
@@ -70,11 +70,11 @@ internal static class EvaluatorHelper
         }
     }
 
-    private static string GetOperator(Operand operand)
+    private static string GetOperator(Operand Op)
     {
         try
         {
-            return operand.Raw;
+            return Op.Raw;
         }
         catch
         {
@@ -82,11 +82,11 @@ internal static class EvaluatorHelper
         }
     }
 
-    private static object ParseBoolean(string raw)
+    private static object ParseBoolean(string Value)
     {
         try
         {
-            return Helper.ParseBoolean(raw);
+            return Helper.ParseBoolean(Value);
         }
         catch
         {
@@ -94,11 +94,11 @@ internal static class EvaluatorHelper
         }
     }
 
-    private static object ParseNumber(string raw)
+    private static object ParseNumber(string Value)
     {
         try
         {
-            return Helper.ParseNumber(raw);
+            return Helper.ParseNumber(Value);
         }
         catch
         {

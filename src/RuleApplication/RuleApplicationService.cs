@@ -23,7 +23,7 @@ internal class RuleApplicationService : IRuleApplicationService
         this._defaultRuleRegister = defaultRuleRegister;
     }
 
-    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType)
+    public async Task<List<IProcessedRule>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
@@ -32,12 +32,12 @@ internal class RuleApplicationService : IRuleApplicationService
             return [GetDefaultRule(Context)];
         }
 
-        return evaluationType switch
+        return EvaluationType switch
         {
             EvaluationTypeEnum.FIRST => [await ApplyFirstMatchAsync_RAS(Context).ConfigureAwait(false)],
-            EvaluationTypeEnum.ANY => await ApplyAnyMatchAsync_RAS(Context, evaluationType).ConfigureAwait(false),
-            EvaluationTypeEnum.ALL => await ApplyAllMatchAsync_RAS(Context, evaluationType).ConfigureAwait(false),
-            _ => throw new ArgumentOutOfRangeException(nameof(evaluationType), $"Invalid value: {evaluationType}")
+            EvaluationTypeEnum.ANY => await ApplyAnyMatchAsync_RAS(Context, EvaluationType).ConfigureAwait(false),
+            EvaluationTypeEnum.ALL => await ApplyAllMatchAsync_RAS(Context, EvaluationType).ConfigureAwait(false),
+            _ => throw new ArgumentOutOfRangeException(nameof(EvaluationType), $"Invalid value: {EvaluationType}")
         };
     }
 
@@ -46,14 +46,14 @@ internal class RuleApplicationService : IRuleApplicationService
         return await _applyFirstRuleService.ApplyRuleAsync(Context);
     }
 
-    private async Task<List<IProcessedRule>> ApplyAnyMatchAsync_RAS(string Context, EvaluationTypeEnum evaluationType)
+    private async Task<List<IProcessedRule>> ApplyAnyMatchAsync_RAS(string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await _applyAnyRulesService.ApplyRulesAsync(Context, evaluationType);
+        return await _applyAnyRulesService.ApplyRulesAsync(Context, EvaluationType);
     }
 
-    private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context, EvaluationTypeEnum evaluationType)
+    private async Task<List<IProcessedRule>> ApplyAllMatchAsync_RAS(string Context, EvaluationTypeEnum EvaluationType)
     {
-        return await _applyAllRulesService.ApplyRulesAsync(Context, evaluationType);
+        return await _applyAllRulesService.ApplyRulesAsync(Context, EvaluationType);
     }
 
     private DefaultRule GetDefaultRule(string Context)

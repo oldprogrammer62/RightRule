@@ -1,6 +1,6 @@
 ﻿namespace RightRule.LanguageProcessor.Tokenizer;
 
-internal enum TokenType
+internal enum TokenTypeEnum
 {
     Identifier,   // Data name with dot notation
     Number,       // Literal Number: 123, 456

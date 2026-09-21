@@ -28,13 +28,13 @@ internal sealed class Parser : IParser
         return ParseOr();
     }
 
-    private void Eat(TokenType type)
+    private void Eat(TokenTypeEnum TokenType)
     {
         if (_current is null)
-            throw new Exception($"Expected {type} but got no current token");
+            throw new Exception($"Expected {TokenType} but got no current token");
 
-        if (_current.Type != type)
-            throw new Exception($"Expected {type} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
+        if (_current.Type != TokenType)
+            throw new Exception($"Expected {TokenType} but got {_current.Type} ('{_current.Value}') at pos {_current.Position}");
 
         _current = _tokenizer.NextToken();
     }
@@ -51,9 +51,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        while (_current.Type == TokenType.Or)
+        while (_current.Type == TokenTypeEnum.Or)
         {
-            Eat(TokenType.Or);
+            Eat(TokenTypeEnum.Or);
             node = new BinaryNode { LogicOp = "OR", Left = node, Right = ParseAnd() };
         }
         return node;
@@ -66,9 +66,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        while (_current.Type == TokenType.And)
+        while (_current.Type == TokenTypeEnum.And)
         {
-            Eat(TokenType.And);
+            Eat(TokenTypeEnum.And);
             node = new BinaryNode { LogicOp = "AND", Left = node, Right = ParseNot() };
         }
         return node;
@@ -79,9 +79,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        if (_current.Type == TokenType.Not)
+        if (_current.Type == TokenTypeEnum.Not)
         {
-            Eat(TokenType.Not);
+            Eat(TokenTypeEnum.Not);
             return new NotNode { Inner = ParseNot() }; // right-associative
         }
         return ParsePrimary();
@@ -92,11 +92,11 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        if (_current.Type == TokenType.LParen)
+        if (_current.Type == TokenTypeEnum.LParen)
         {
-            Eat(TokenType.LParen);
+            Eat(TokenTypeEnum.LParen);
             var node = ContinueParse();
-            Eat(TokenType.RParen);
+            Eat(TokenTypeEnum.RParen);
             return node;
         }
         return ParseCondition();
@@ -110,27 +110,27 @@ internal sealed class Parser : IParser
         // Left operand: allow Identifier or literal (String/Number/Boolean)
         Operand left = _current.Type switch
         {
-            TokenType.Variable => new Operand(OperandKind.Variable, _current.Value),
-            TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
-            TokenType.String => new Operand(OperandKind.String, _current.Value),
-            TokenType.Number => new Operand(OperandKind.Number, _current.Value),
-            TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
+            TokenTypeEnum.Variable => new Operand(OperandKindEnum.VARIABLE, _current.Value),
+            TokenTypeEnum.Identifier => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
+            TokenTypeEnum.String => new Operand(OperandKindEnum.STRING, _current.Value),
+            TokenTypeEnum.Number => new Operand(OperandKindEnum.NUMBER, _current.Value),
+            TokenTypeEnum.Boolean => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
             _ => throw new Exception($"Expected left-hand identifier or literal at pos {_current.Position}")
         };
         Eat(_current.Type);
 
-        if (_current.Type != TokenType.Operator)
+        if (_current.Type != TokenTypeEnum.Operator)
             throw new Exception($"Expected operator at pos {_current.Position}");
         string op = _current.Value; // keep original casing; resolve case-insensitively
-        Eat(TokenType.Operator);
+        Eat(TokenTypeEnum.Operator);
 
         Operand rhs = _current.Type switch
         {
-            TokenType.Variable => new Operand(OperandKind.Variable, _current.Value),
-            TokenType.Identifier => new Operand(OperandKind.Identifier, _current.Value),
-            TokenType.String => new Operand(OperandKind.String, _current.Value),
-            TokenType.Number => new Operand(OperandKind.Number, _current.Value),
-            TokenType.Boolean => new Operand(OperandKind.Boolean, _current.Value),
+            TokenTypeEnum.Variable => new Operand(OperandKindEnum.VARIABLE, _current.Value),
+            TokenTypeEnum.Identifier => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
+            TokenTypeEnum.String => new Operand(OperandKindEnum.STRING, _current.Value),
+            TokenTypeEnum.Number => new Operand(OperandKindEnum.NUMBER, _current.Value),
+            TokenTypeEnum.Boolean => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
             _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
         };
         Eat(_current.Type);

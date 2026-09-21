@@ -4,10 +4,10 @@ public abstract class Node { }
 
 internal sealed class Operand
 {
-    public OperandKind Kind { get; }
+    public OperandKindEnum Kind { get; }
     public string Raw { get; }
 
-    internal Operand(OperandKind kind, string raw)
+    internal Operand(OperandKindEnum kind, string raw)
     {
         Kind = kind;
         Raw = raw;
@@ -17,13 +17,13 @@ internal sealed class Operand
 internal sealed class ConditionNode : Node
 {
     // Left-hand operand (can be identifier, string literal, number, boolean)
-    public Operand Left { get; set; } = new Operand(OperandKind.String, "");
+    public Operand Left { get; set; } = new Operand(OperandKindEnum.STRING, "");
 
     // Operator name (as parsed)
     public string Operator { get; set; } = "";
 
     // Right-hand operand
-    public Operand Right { get; set; } = new Operand(OperandKind.String, "");
+    public Operand Right { get; set; } = new Operand(OperandKindEnum.STRING, "");
 }
 
 internal sealed class BinaryNode : Node

@@ -9,14 +9,14 @@ public sealed class CheckStatementResult
         Diagnostics = diagnostics?.ToList().AsReadOnly() ?? new List<Diagnostic>().AsReadOnly();
     }
 
-    public bool IsValid => !Diagnostics.Any(d => d.Severity == DiagnosticSeverity.ERROR);
+    public bool IsValid => !Diagnostics.Any(d => d.Severity == DiagnosticSeverityEnum.ERROR);
 
     public static CheckStatementResult SuccessResult() => new CheckStatementResult(null);
     public static CheckStatementResult FailureResult()
     {
         return new CheckStatementResult(new List<Diagnostic>
         {
-            new Diagnostic("Syntax error", DiagnosticSeverity.ERROR)
+            new Diagnostic("Syntax error", DiagnosticSeverityEnum.ERROR)
         });
     }
 }

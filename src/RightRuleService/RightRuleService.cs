@@ -1,5 +1,4 @@
-﻿using RightRule.LanguageProcessor.Interpreter;
-using RightRule.LanguageProcessor.SyntaxChecker;
+﻿using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models.BaseModels;
 using RightRule.Models.RuleModels;
 using RightRule.OperatorServices;
@@ -13,7 +12,6 @@ namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    private readonly IInterpreter Interpreter;
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
     private readonly IOperatorService OperatorsService;
@@ -27,12 +25,10 @@ internal partial class RightRuleService : IRightRuleService
     public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
     public RightRuleService(
-        IServiceProvider serviceProvider, 
         IOperatorService operatorsService, 
         IRuleService ruleService, 
         IDefaultRuleRegister defaultRuleRegister, 
         IDataService dataService, 
-        IInterpreter interpreter, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService
         )
@@ -41,7 +37,6 @@ internal partial class RightRuleService : IRightRuleService
         RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
         DataService = dataService;
-        Interpreter = interpreter;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
     }

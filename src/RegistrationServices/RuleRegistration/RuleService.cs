@@ -6,26 +6,26 @@ namespace RightRule.RegistrationServices.RuleRegistration;
 
 internal class RuleService : IRuleService
 {
-    private readonly IRuleRegistrationService _ruleRegistrationService;
+    private readonly IParseRuleService _parseRuleService;
 
     private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(IRuleRegistrationService ruleRegistrationService, IRegisteredRules registeredRules)
+    public RuleService(IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
     {
-        _ruleRegistrationService = ruleRegistrationService;
-        _registeredRules = registeredRules;
+        _parseRuleService = ParseRuleService;
+        _registeredRules = RegisteredRules;
     }
 
-    public ParsedRule? GetRule(string Name)
+    public ParsedRule? GetRule(string RuleName)
     {
-        ArgumentNullException.ThrowIfNull(Name, nameof(Name));
-        return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
+        ArgumentNullException.ThrowIfNull(RuleName, nameof(RuleName));
+        return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, RuleName, StringComparison.OrdinalIgnoreCase));
     }
 
-    public ParsedRule? GetRule(int Number)
+    public ParsedRule? GetRule(int RuleNumber)
     {
-        return _registeredRules.Rules.FirstOrDefault(r => r.Number == Number);
+        return _registeredRules.Rules.FirstOrDefault(r => r.Number == RuleNumber);
     }
 
     public List<ParsedRule> GetRules()
@@ -38,18 +38,18 @@ internal class RuleService : IRuleService
         return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
     }
 
-    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules, HashSet<string> OperatorNames)
+    public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules)
     {
-        ArgumentNullException.ThrowIfNull(rules, nameof(rules));
+        ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
 
-        var parsedRules = _ruleRegistrationService.RegisterRules(rules, OperatorNames);
+        var parsedRules = _parseRuleService.ParseRules(Rules);
         return RegisteredRules.AddRules(parsedRules);
     }
 
-    public RuleRegistrationResult RegisterRule(DefinedRule rule, HashSet<string> OperatorNames)
+    public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
-        ArgumentNullException.ThrowIfNull(rule, nameof(rule));
-        var parsedRule = _ruleRegistrationService.RegisterRule(rule, OperatorNames);
+        ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
+        var parsedRule = _parseRuleService.ParseRule(Rule);
         if (parsedRule == null)
         {
             return new RuleRegistrationResult()
@@ -95,14 +95,14 @@ internal class RuleService : IRuleService
         return RegisteredRules.RemoveRules();
     }
 
-    public bool DeRegisterRule(string Name)
+    public bool DeRegisterRule(string RuleName)
     {
-        return RegisteredRules.RemoveRule(Name);
+        return RegisteredRules.RemoveRule(RuleName);
     }
 
-    public bool DeRegisterRule(int Number)
+    public bool DeRegisterRule(int RuleNumber)
     {
-        return RegisteredRules.RemoveRule(Number);
+        return RegisteredRules.RemoveRule(RuleNumber);
     }
 
     public List<(int Number, string Name)>? GetRuleNumbers()

@@ -5,22 +5,22 @@ namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
 
 public class ExternalAssemblyLoader
 {
-    public static Operator? Load(string pathToFunction)
+    public static Operator? Load(string PathToFunction)
     {
-        var _operator = Load(pathToFunction, true);
+        var _operator = Load(PathToFunction, true);
         return _operator;
     }
 
-    internal static Operator? Load(string pathToFunction, bool collectible)
+    internal static Operator? Load(string PathToFunction, bool IsCollectible)
     {
-        if (string.IsNullOrWhiteSpace(pathToFunction) || !File.Exists(pathToFunction))
-            throw new FileNotFoundException("Operator assembly not found", pathToFunction);
+        if (string.IsNullOrWhiteSpace(PathToFunction) || !File.Exists(PathToFunction))
+            throw new FileNotFoundException("Operator assembly not found", PathToFunction);
 
-        var loader = new ExternalOperatorLoader(pathToFunction, collectible);
+        var loader = new ExternalOperatorLoader(PathToFunction, IsCollectible);
 
         try
         {
-            Assembly assem = loader.LoadFromAssemblyPath(pathToFunction);
+            Assembly assem = loader.LoadFromAssemblyPath(PathToFunction);
 
             Type? functionType = assem.ExportedTypes.FirstOrDefault(t => typeof(Operator).IsAssignableFrom(t));
             if (functionType == null)

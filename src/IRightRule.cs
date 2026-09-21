@@ -126,16 +126,16 @@ public interface IRightRule
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
-    /// <param name="Name">The Name of the Rule to deregister.</param>
+    /// <param name="RuleName">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(string Name);
+    bool DeRegisterRule(string RuleName);
 
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
-    /// <param name="Number">The Number of the Rule to deregister.</param>
+    /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(int Number);
+    bool DeRegisterRule(int RuleNumber);
 
     List<Dataset>? GetRegisteredData();
 
@@ -144,14 +144,14 @@ public interface IRightRule
     /// <summary>
     /// Returns the Registered Rules with the specified Name.
     /// </summary>
-    /// <param name="Name"></param>
-    ParsedRule? GetRegisteredRule(string Name);
+    /// <param name="RuleName"></param>
+    ParsedRule? GetRegisteredRule(string RuleName);
 
     /// <summary>
     /// Returns the Registered Rules with the specified Number.
     /// </summary>
-    /// <param name="Number"></param>
-    ParsedRule? GetRegisteredRule(int Number);
+    /// <param name="RuleNumber"></param>
+    ParsedRule? GetRegisteredRule(int RuleNumber);
 
     /// <summary>
     /// Returns the set of Registered Rules.
@@ -224,11 +224,11 @@ public interface IRightRule
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
     /// </summary>
-    /// <param name="rules">The Rule definitions to register.</param>
+    /// <param name="Rules">The Rule definitions to register.</param>
     /// <returns>The set of Parsed Rules.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> rules);
+    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine from a JSON string.
