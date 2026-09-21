@@ -38,63 +38,27 @@ internal class RegisteredRules : IRegisteredRules
         return results;
     }
 
-    public RuleRegistrationResult AddRule(ParsedRule rule)
+    public RuleRegistrationResult AddRule(ParsedRule Rule)
     {
-        if (rule == null)
+        if (Rule == null)
         {
             return RuleRegistrationResult.Failed("Rule is null");
         }
-        var existingRule = GetRule(rule.Number, rule.Name);
+        var existingRule = GetRule(Rule);
         switch (existingRule)
         {
             case RuleFound.NOTFOUND:
-                _rules.Add(rule);
-                return RuleRegistrationResult.Success($"Rule: {rule.Number}-{rule.Name} Registered", rule);
+                _rules.Add(Rule);
+                return RuleRegistrationResult.Success($"Rule: {Rule.Number}-{Rule.Name} Registered", Rule);
+
             case RuleFound.FOUNDBYNUMBER:
-                return RuleRegistrationResult.Failed($"Rule Number: {rule.Number} already registered", rule);
+                return RuleRegistrationResult.Failed($"Rule Number: {Rule.Number} already registered", Rule);
+
             case RuleFound.FOUNDBYNAME:
-                return RuleRegistrationResult.Failed($"Rule Name: {rule.Name} already registered", rule);
+                return RuleRegistrationResult.Failed($"Rule Name: {Rule.Name} already registered", Rule);
+
             default:
-                return RuleRegistrationResult.Failed($"Rule: {rule.Number}-{rule.Name} not registered", rule);
-        }
-    }
-
-    public bool RemoveRules(string Context)
-    {
-        try
-        {
-            _rules.RemoveAll(r => string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    public bool RemoveRule(string Name)
-    {
-        try
-        {
-            _rules.RemoveAll(r => string.Equals(r.Name, Name, StringComparison.OrdinalIgnoreCase));
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    public bool RemoveRule(int Number)
-    {
-        try
-        {
-            _rules.RemoveAll(r => r.Number == Number);
-            return true;
-        }
-        catch
-        {
-            return false;
+                return RuleRegistrationResult.Failed($"Rule: {Rule.Number}-{Rule.Name} not registered", Rule);
         }
     }
 
@@ -103,6 +67,52 @@ internal class RegisteredRules : IRegisteredRules
         try
         {
             _rules.Clear();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool RemoveRules(string Context)
+    {
+        try
+        {
+            _rules.RemoveAll(r => 
+            string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool RemoveRule(string Context, string RuleName)
+    {
+        try
+        {
+            _rules.RemoveAll(r => 
+            r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase) 
+            && 
+            r.Name.Equals(RuleName, StringComparison.OrdinalIgnoreCase));
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool RemoveRule(string Context, int RuleNumber)
+    {
+        try
+        {
+            _rules.RemoveAll(r => 
+            r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)
+            &&
+            r.Number == RuleNumber);
             return true;
         }
         catch
@@ -137,30 +147,35 @@ internal class RegisteredRules : IRegisteredRules
             .ToList();
     }
 
-    private RuleFound GetRule(int number, string name)
+    private RuleFound GetRule(ParsedRule Rule)
     {
-        if (GetRule(number))
+        var number = Rule.Number;
+        var name = Rule.Name;
+        var context = Rule.Context;
+        if (GetRule(context, number))
         {
             return RuleFound.FOUNDBYNUMBER;
         }
-        if (GetRule(name))
+        if (GetRule(context, name))
         {
             return RuleFound.FOUNDBYNAME;
         }
         return RuleFound.NOTFOUND;
     }
 
-    private bool GetRule(int number)
+    private bool GetRule(string Context, int RuleNumber)
     {
-        return _rules.Any(d => d.Number.Equals(number));
+        return _rules.Any(d => 
+        d.Context.Equals(Context, StringComparison.OrdinalIgnoreCase) 
+        && 
+        d.Number.Equals(RuleNumber));
     }
 
-    private bool GetRule(string name)
+    private bool GetRule(string Context, string RuleName)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            return false;
-        }
-        return _rules.Any(d => d.Name.Equals(name, StringComparison.Ordinal));
+        return _rules.Any(d => 
+        d.Context.Equals(Context, StringComparison.OrdinalIgnoreCase) 
+        && 
+        d.Name.Equals(RuleName, StringComparison.OrdinalIgnoreCase));
     }
 }

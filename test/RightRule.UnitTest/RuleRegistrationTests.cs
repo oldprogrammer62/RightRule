@@ -73,7 +73,7 @@ public class RuleRegistrationTests
         Assert.NotNull(result2);
 
         Assert.Equal(RegistrationStatusEnum.SUCCESS, result1.Status);
-        Assert.Equal(RegistrationStatusEnum.FAILURE, result2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result2.Status);
     }
 
     [Fact]

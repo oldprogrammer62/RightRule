@@ -167,7 +167,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        var done = rr.DeRegisterRule(1);
+        var done = rr.DeRegisterRule(rule1.Context, rule1.Number);
         Assert.True(done);
         Assert.Equal(1, rr.GetRegisteredRules().Count);
     }
@@ -180,7 +180,7 @@ public class RuleTests
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        var done = rr.DeRegisterRule("rule2");
+        var done = rr.DeRegisterRule(rule2.Context, rule2.Name);
         Assert.True(done);
         Assert.Equal(1, rr.GetRegisteredRules().Count);
     }

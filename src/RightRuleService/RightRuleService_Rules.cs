@@ -93,6 +93,11 @@ internal partial class RightRuleService : IRightRuleService
         return RuleService.RegisterRule(Rule);
     }
 
+    public bool DeRegisterRules()
+    {
+        return RuleService.DeRegisterRules();
+    }
+
     public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
@@ -100,18 +105,13 @@ internal partial class RightRuleService : IRightRuleService
         return RuleService.DeRegisterRules(Context);
     }
 
-    public bool DeRegisterRules()
+    public bool DeRegisterRule(string Context, string RuleName)
     {
-        return RuleService.DeRegisterRules();
+        return RuleService.DeRegisterRule(Context, RuleName);
     }
 
-    public bool DeRegisterRule(string RuleName)
+    public bool DeRegisterRule(string Context, int RuleNumber)
     {
-        return RuleService.DeRegisterRule(RuleName);
-    }
-
-    public bool DeRegisterRule(int RuleNumber)
-    {
-        return RuleService.DeRegisterRule(RuleNumber);
+        return RuleService.DeRegisterRule(Context, RuleNumber);
     }
 }

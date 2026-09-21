@@ -95,14 +95,14 @@ internal class RuleService : IRuleService
         return RegisteredRules.RemoveRules();
     }
 
-    public bool DeRegisterRule(string RuleName)
+    public bool DeRegisterRule(string Context, string RuleName)
     {
-        return RegisteredRules.RemoveRule(RuleName);
+        return RegisteredRules.RemoveRule(Context, RuleName);
     }
 
-    public bool DeRegisterRule(int RuleNumber)
+    public bool DeRegisterRule(string Context, int RuleNumber)
     {
-        return RegisteredRules.RemoveRule(RuleNumber);
+        return RegisteredRules.RemoveRule(Context, RuleNumber);
     }
 
     public List<(int Number, string Name)>? GetRuleNumbers()

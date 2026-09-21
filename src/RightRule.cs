@@ -21,7 +21,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ServiceProvider ServiceProvider;
 
-    public readonly IRightRuleService RightRuleService;
+    private readonly IRightRuleService RightRuleService;
 
     public RightRule()
     {

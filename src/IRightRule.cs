@@ -126,16 +126,18 @@ public interface IRightRule
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleName">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(string RuleName);
+    bool DeRegisterRule(string Context, string RuleName);
 
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(int RuleNumber);
+    bool DeRegisterRule(string Context, int RuleNumber);
 
     List<Dataset>? GetRegisteredData();
 

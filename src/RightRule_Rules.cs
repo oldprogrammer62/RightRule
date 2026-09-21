@@ -215,15 +215,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleName">The Name of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterRule(string RuleName)
+    public bool DeRegisterRule(string Context, string RuleName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
         try
         {
-            return RightRuleService.DeRegisterRule(RuleName);
+            return RightRuleService.DeRegisterRule(Context, RuleName);
         }
         catch
         {
@@ -234,15 +235,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Deregister the specified Rule from the RightRule engine.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
     /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterRule(int RuleNumber)
+    public bool DeRegisterRule(string Context, int RuleNumber)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(RuleNumber.ToString(), nameof(RuleNumber));
         try
         {
-            return RightRuleService.DeRegisterRule(RuleNumber);
+            return RightRuleService.DeRegisterRule(Context, RuleNumber);
         }
         catch
         {

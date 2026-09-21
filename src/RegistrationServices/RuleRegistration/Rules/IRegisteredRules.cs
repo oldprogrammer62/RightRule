@@ -9,13 +9,13 @@ public interface IRegisteredRules
 
     ParsedRule? this[int index] { get; }
 
-    RuleRegistrationResult AddRule(ParsedRule rule);
-    List<RuleRegistrationResult> AddRules(List<ParsedRule> rules);
+    RuleRegistrationResult AddRule(ParsedRule Rule);
+    List<RuleRegistrationResult> AddRules(List<ParsedRule> Rules);
 
-    bool RemoveRules(string Context);
-    bool RemoveRule(string Name);
-    bool RemoveRule(int Number);
     bool RemoveRules();
+    bool RemoveRules(string Context);
+    bool RemoveRule(string Context, string RuleName);
+    bool RemoveRule(string Context, int RuleNumber);
 
     List<string> GetRuleNames();
     List<string> GetRuleContexts();

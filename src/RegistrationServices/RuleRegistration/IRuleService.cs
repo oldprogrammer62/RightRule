@@ -19,8 +19,9 @@ internal interface IRuleService
 
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
     RuleRegistrationResult RegisterRule(DefinedRule Rule);
-    bool DeRegisterRules(string Context);
+
     bool DeRegisterRules();
-    bool DeRegisterRule(string RuleName);
-    bool DeRegisterRule(int RuleNumber);
+    bool DeRegisterRules(string Context);
+    bool DeRegisterRule(string Context, string RuleName);
+    bool DeRegisterRule(string Context, int RuleNumber);
 }
