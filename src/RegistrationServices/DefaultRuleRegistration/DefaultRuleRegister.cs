@@ -13,6 +13,11 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
         DefaultRules = [];
     }
 
+    public List<DefaultRulePerContext>? GetDefaultRules()
+    {
+        return DefaultRules;
+    }
+
     public DefaultRule GetDefaultRule(string Context)
     {
         if (string.IsNullOrWhiteSpace(Context))
@@ -89,11 +94,5 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
             DefaultRule = defaultRule
         };
         DefaultRules.Add(drpc);
-    }
-
-    internal class DefaultRulePerContext
-    {
-        public required DefaultRule DefaultRule { get; init;}
-        public required string Context { get; init; }
     }
 }

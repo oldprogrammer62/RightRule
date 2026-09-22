@@ -7,14 +7,14 @@ internal partial class RightRuleService : IRightRuleService
 {
     public List<Dataset>? GetDataset()
     {
-        return DataService.GetDatasets();
+        return DataRegistrationService.GetDatasets();
     }
 
     public Dataset? GetDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        return DataService.GetDataset(DatasetName);
+        return DataRegistrationService.GetDataset(DatasetName);
     }
 
     public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
@@ -23,7 +23,7 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         // Add data to new Data Service
-        var added = DataService.AddData(DatasetName, DataItems);
+        var added = DataRegistrationService.AddData(DatasetName, DataItems);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -46,7 +46,7 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         // Add data to new Data Service
-        var added = DataService.AddData(DatasetName, DataItem);
+        var added = DataRegistrationService.AddData(DatasetName, DataItem);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -68,7 +68,7 @@ internal partial class RightRuleService : IRightRuleService
     public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
     {
         // Add data to new Data Service
-        var added = DataService.AddData(DatasetName, DataItemName, DataItemValue);
+        var added = DataRegistrationService.AddData(DatasetName, DataItemName, DataItemValue);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -103,11 +103,11 @@ internal partial class RightRuleService : IRightRuleService
 
     private void DeRegisterNewData()
     {
-        DataService.Clear();
+        DataRegistrationService.Clear();
     }
 
     private void DeRegisterNewData(string DatasetName)
     {
-        DataService.DeregisterDataset(DatasetName);
+        DataRegistrationService.DeregisterDataset(DatasetName);
     }
 }
