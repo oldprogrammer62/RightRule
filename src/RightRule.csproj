@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <Folder Include="Licenses\" />
+    <Folder Include="RegistrationServices\RuleRegistration\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
