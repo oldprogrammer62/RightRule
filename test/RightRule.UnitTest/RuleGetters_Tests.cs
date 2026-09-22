@@ -16,14 +16,14 @@ public class RuleGetters_Tests
     [Fact]
     public void GetRuleNumbers()
     {
-        var numbers = rr.GetRuleNumbers();
+        var numbers = rr.GetRuleNumbers("RuleContext");
         Assert.NotNull(numbers);
     }
 
     [Fact]
     public void GetRuleNames()
     {
-        var names = rr.GetRuleNames();
+        var names = rr.GetRuleNames("RuleContext");
         Assert.NotNull(names);
     }
 

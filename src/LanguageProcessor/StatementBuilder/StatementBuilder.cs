@@ -7,9 +7,9 @@ namespace RightRule.LanguageProcessor.StatementBuilder;
 
 internal class StatementBuilder : IStatementBuilder
 {
-    private readonly IDataService _dataService;
+    private readonly IDataRegistrationService _dataService;
 
-    public StatementBuilder(IDataService dataService)
+    public StatementBuilder(IDataRegistrationService dataService)
     {
         this._dataService = dataService;
     }

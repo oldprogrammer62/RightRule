@@ -122,7 +122,7 @@ Returned by the rule evaluation process.
 A rule definition includes the statement that will be evaluated to return the result of the rule.
 The statement must be syntactically correct. (See grammar.txt)
 
-The basic syntax of a statement is: Dataname dot(.) Field operator Value
+The basic syntax of a statement is: DatasetName dot(.) Field operator Value
 
 For example: 
 ```text

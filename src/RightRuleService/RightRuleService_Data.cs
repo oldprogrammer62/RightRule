@@ -5,16 +5,16 @@ namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public List<Dataset>? GetData()
+    public List<Dataset>? GetDataset()
     {
         return DataService.GetDatasets();
     }
 
-    public Dataset? GetData(string DataName)
+    public Dataset? GetDataset(string DatasetName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        return DataService.GetDataset(DataName);
+        return DataService.GetDataset(DatasetName);
     }
 
     public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
@@ -87,11 +87,11 @@ internal partial class RightRuleService : IRightRuleService
         };
     }
 
-    public bool DeRegisterData(string DataName)
+    public bool DeRegisterData(string DatasetName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        DeRegisterNewData(DataName);
+        DeRegisterNewData(DatasetName);
         return true;
     }
 
@@ -108,6 +108,6 @@ internal partial class RightRuleService : IRightRuleService
 
     private void DeRegisterNewData(string DatasetName)
     {
-        DataService.DeregisterData(DatasetName);
+        DataService.DeregisterDataset(DatasetName);
     }
 }

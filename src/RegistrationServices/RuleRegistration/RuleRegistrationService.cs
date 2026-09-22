@@ -4,28 +4,34 @@ using System.Data;
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
-internal class RuleService : IRuleService
+internal class RuleRegistrationService : IRuleRegistrationService
 {
     private readonly IParseRuleService _parseRuleService;
 
     private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
+    public RuleRegistrationService(IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
     {
         _parseRuleService = ParseRuleService;
         _registeredRules = RegisteredRules;
     }
 
-    public ParsedRule? GetRule(string RuleName)
+    public ParsedRule? GetRule(string Context, string RuleName)
     {
         ArgumentNullException.ThrowIfNull(RuleName, nameof(RuleName));
-        return _registeredRules.Rules.FirstOrDefault(r => string.Equals(r.Name, RuleName, StringComparison.OrdinalIgnoreCase));
+        return _registeredRules.Rules.FirstOrDefault(r =>
+        r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)
+        &&
+        string.Equals(r.Name, RuleName, StringComparison.OrdinalIgnoreCase));
     }
 
-    public ParsedRule? GetRule(int RuleNumber)
+    public ParsedRule? GetRule(string Context, int RuleNumber)
     {
-        return _registeredRules.Rules.FirstOrDefault(r => r.Number == RuleNumber);
+        return _registeredRules.Rules.FirstOrDefault(r => 
+        r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)
+        &&
+        r.Number == RuleNumber);
     }
 
     public List<ParsedRule> GetRules()
@@ -35,7 +41,7 @@ internal class RuleService : IRuleService
 
     public List<ParsedRule> GetRules(string Context)
     {
-        return _registeredRules.Rules.Where(r => r.Context == Context).ToList();
+        return _registeredRules.Rules.Where(r => r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 
     public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules)
@@ -105,18 +111,18 @@ internal class RuleService : IRuleService
         return RegisteredRules.RemoveRule(Context, RuleNumber);
     }
 
-    public List<(int Number, string Name)>? GetRuleNumbers()
-    {
-        return RegisteredRules.GetRuleNumbers();
-    }
-
-    public List<string>? GetRuleNames()
-    {
-        return RegisteredRules.GetRuleNames();
-    }
-
     public List<string>? GetRuleContexts()
     {
         return RegisteredRules.GetRuleContexts();
+    }
+
+    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
+    {
+        return RegisteredRules.GetRuleNumbers(Context);
+    }
+
+    public List<string>? GetRuleNames(string Context)
+    {
+        return RegisteredRules.GetRuleNames(Context);
     }
 }

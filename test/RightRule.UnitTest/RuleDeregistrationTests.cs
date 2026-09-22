@@ -237,4 +237,114 @@ public class RuleDeregistrationTests
         Assert.True(ruleDereg);
         Assert.Single(rr.GetRegisteredRules());
     }
+
+    [Fact]
+    public void DeregisterByContext()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        string Context1 = "Context1";
+        int RuleNumber1 = 1;
+        string RuleName1 = "Rule1";
+
+        string Context2 = "Context2";
+        int RuleNumber2 = 1;
+        string RuleName2 = "Rule2";
+
+        var rule1Def = rr.BuildRule()
+            .Number(RuleNumber1)
+            .Name(RuleName1)
+            .Context(Context1)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule1reg = rr.RegisterRule(rule1Def);
+
+        Assert.NotNull(rule1reg);
+        Assert.Single(rr.GetRegisteredRules());
+
+        var rule2Def = rr.BuildRule()
+            .Number(RuleNumber2)
+            .Name(RuleName2)
+            .Context(Context2)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule2reg = rr.RegisterRule(rule2Def);
+
+        Assert.NotNull(rule2reg);
+        Assert.Equal(2, rr.GetRegisteredRules().Count);
+
+        var rule3Def = rr.BuildRule()
+            .Number(22)
+            .Name("22")
+            .Context(Context2)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule3reg = rr.RegisterRule(rule3Def);
+
+        // Deregister first rule
+        var ruleDereg = rr.DeRegisterRules(Context2);
+        Assert.True(ruleDereg);
+        Assert.Single(rr.GetRegisteredRules());
+    }
+
+    [Fact]
+    public void DeregisterAll()
+    {
+        IRightRule rr = new BeSoft.RightRule();
+
+        string Context1 = "Context1";
+        int RuleNumber1 = 1;
+        string RuleName1 = "Rule1";
+
+        string Context2 = "Context2";
+        int RuleNumber2 = 1;
+        string RuleName2 = "Rule2";
+
+        var rule1Def = rr.BuildRule()
+            .Number(RuleNumber1)
+            .Name(RuleName1)
+            .Context(Context1)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule1reg = rr.RegisterRule(rule1Def);
+
+        Assert.NotNull(rule1reg);
+        Assert.Single(rr.GetRegisteredRules());
+
+        var rule2Def = rr.BuildRule()
+            .Number(RuleNumber2)
+            .Name(RuleName2)
+            .Context(Context2)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule2reg = rr.RegisterRule(rule2Def);
+
+        Assert.NotNull(rule2reg);
+        Assert.Equal(2, rr.GetRegisteredRules().Count);
+
+        var rule3Def = rr.BuildRule()
+            .Number(22)
+            .Name("22")
+            .Context(Context2)
+            .Statement("10 = 10")
+            .Decision("Good")
+            .FalseDecision("Bad")
+            .Build();
+        var rule3reg = rr.RegisterRule(rule3Def);
+
+        // Deregister first rule
+        var ruleDereg = rr.DeRegisterRules();
+        Assert.True(ruleDereg);
+        Assert.Empty(rr.GetRegisteredRules());
+    }
 }

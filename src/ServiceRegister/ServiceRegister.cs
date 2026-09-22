@@ -36,9 +36,9 @@ internal sealed class ServiceRegister
         services.AddTransient<IParser, Parser>();
         services.AddTransient<ITokenizer, Tokenizer>();
 
-        services.AddSingleton<IDataService, DataService>();
+        services.AddSingleton<IDataRegistrationService, DataRegistrationService>();
 
-        services.AddSingleton<IRuleService, RuleService>();
+        services.AddSingleton<IRuleRegistrationService, RuleRegistrationService>();
         services.AddScoped<IParseRuleService, ParseRuleService>();
         services.AddSingleton<IRegisteredRules, RegisteredRules>();
 
@@ -47,7 +47,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IStatementBuilder, StatementBuilder>();
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
 
-        services.AddScoped<IDataValidator, DataValidator>();
+        services.AddScoped<IDataValidatorService, DataValidatorService>();
 
         services.AddScoped<IRuleApplicationService, RuleApplicationService>();
         services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();

@@ -13,17 +13,17 @@ internal sealed class Tokenizer : ITokenizer
     private readonly string _statement = string.Empty;
 
     private readonly IOperatorService _operatorService;
-    private readonly IDataService _dataService;
-    private readonly IDataValidator _dataValidator;
+    private readonly IDataRegistrationService _dataService;
+    private readonly IDataValidatorService _dataValidator;
 
-    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidator dataValidator)
+    public Tokenizer(IOperatorService operatorService, IDataRegistrationService dataService, IDataValidatorService dataValidator)
     {
         _operatorService = operatorService;
         _dataService = dataService;
         _dataValidator = dataValidator;
     }
 
-    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidator dataValidator, string statement, int pos, bool dataCheck)
+    public Tokenizer(IOperatorService operatorService, IDataRegistrationService dataService, IDataValidatorService dataValidator, string statement, int pos, bool dataCheck)
     {
         _operatorService = operatorService;
         _dataService = dataService;
@@ -223,9 +223,9 @@ internal sealed class Tokenizer : ITokenizer
         return _operatorNames.Contains(OpName, StringComparer.Ordinal);
     }
 
-    private bool IsValidData(string DataName)
+    private bool IsValidData(string DatasetName)
     {
-        return _dataValidator.IsValidData(_dataService, DataName);
+        return _dataValidator.IsValidDataIdentifier(_dataService, DatasetName);
     }
 
     private void SkipWhitespace()

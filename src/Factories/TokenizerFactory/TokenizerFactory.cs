@@ -8,10 +8,10 @@ namespace RightRule.Factories.TokenizerFactory;
 internal class TokenizerFactory : ITokenizerFactory
 {
     private readonly IOperatorService _operatorService;
-    private readonly IDataService _dataService;
-    private readonly IDataValidator _dataValidator;
+    private readonly IDataRegistrationService _dataService;
+    private readonly IDataValidatorService _dataValidator;
 
-    public TokenizerFactory(IOperatorService operatorService, IDataService dataService, IDataValidator dataValidator)
+    public TokenizerFactory(IOperatorService operatorService, IDataRegistrationService dataService, IDataValidatorService dataValidator)
     {
         _operatorService = operatorService;
         _dataService = dataService;

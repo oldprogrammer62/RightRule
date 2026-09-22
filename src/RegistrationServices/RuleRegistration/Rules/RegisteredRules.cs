@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.RuleModels;
+using System.Runtime.CompilerServices;
 
 namespace RightRule.RegistrationServices.RuleRegistration.Rules;
 
@@ -121,17 +122,31 @@ internal class RegisteredRules : IRegisteredRules
         }
     }
 
-    public List<(int Number, string Name)> GetRuleNumbers()
+    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
     {
-        return _rules
+        if (string.IsNullOrWhiteSpace(Context))
+        {
+            return null;
+        }
+        var query = _rules.Where(r => 
+            string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
+
+        return query
             .DistinctBy(rule => rule.Number)
             .Select(rule => (rule.Number, rule.Name))
             .ToList();
     }
 
-    public List<string> GetRuleNames()
+    public List<string>? GetRuleNames(string Context)
     {
-        return _rules
+        if (string.IsNullOrWhiteSpace(Context))
+        {
+            return null;
+        }
+        var query = _rules.Where(r =>
+            string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
+
+        return query
             .Select(rule => rule.Name)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Order()
@@ -152,6 +167,7 @@ internal class RegisteredRules : IRegisteredRules
         var number = Rule.Number;
         var name = Rule.Name;
         var context = Rule.Context;
+
         if (GetRule(context, number))
         {
             return RuleFound.FOUNDBYNUMBER;

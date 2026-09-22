@@ -118,7 +118,7 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         string RuleName = "Rule1";
-        ParsedRule? pr1 = rr.GetRegisteredRule(RuleName);
+        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleName);
         Assert.NotNull(pr1);
         Assert.Equal(RuleName, pr1.Name);
     }
@@ -136,7 +136,7 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         string RuleName = "RULE1";
-        ParsedRule? pr1 = rr.GetRegisteredRule(RuleName);
+        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleName);
         Assert.NotNull(pr1);
         Assert.Equal(RuleName, pr1.Name.ToUpper());
     }
@@ -153,8 +153,8 @@ public class RuleTests
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
-        int RuleNumber = 2;
-        ParsedRule? pr1 = rr.GetRegisteredRule(RuleNumber);
+        int RuleNumber = 1;
+        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleNumber);
         Assert.NotNull(pr1);
         Assert.Equal(RuleNumber, pr1.Number);
     }

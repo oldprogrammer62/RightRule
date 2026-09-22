@@ -5,7 +5,7 @@ namespace RightRuleTests;
 public class ExceptionTests
 {
     [Fact]
-    public void Test_RegisterData_NoDataName()
+    public void Test_RegisterData_NoDatasetName()
     {
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -26,7 +26,7 @@ public class ExceptionTests
 
         BeSoft.IRightRule rr = new BeSoft.RightRule();
 
-        var dataReg = rr.RegisterData("DataName", data);
+        var dataReg = rr.RegisterData("DatasetName", data);
         Assert.NotNull(dataReg);
     }
 

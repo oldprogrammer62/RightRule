@@ -27,33 +27,33 @@ internal partial class RightRuleService : IRightRuleService
         return DefaultRuleRegister.GetDefaultRule(Context);
     }
 
-    public List<(int Number, string Name)>? GetRuleNumbers()
-    {
-        return RuleService.GetRuleNumbers();
-    }
-
-    public List<string>? GetRuleNames()
-    {
-        return RuleService.GetRuleNames();
-    }
-
     public List<string>? GetRuleContexts()
     {
         return RuleService.GetRuleContexts();
     }
 
-    public ParsedRule? GetRegisteredRule(string RuleName)
+    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
+    {
+        return RuleService.GetRuleNumbers(Context);
+    }
+
+    public List<string>? GetRuleNames(string Context)
+    {
+        return RuleService.GetRuleNames(Context);
+    }
+
+    public ParsedRule? GetRegisteredRule(string Context, string RuleName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
-        return RuleService.GetRule(RuleName);
+        return RuleService.GetRule(Context, RuleName);
     }
 
-    public ParsedRule? GetRegisteredRule(int RuleNumber)
+    public ParsedRule? GetRegisteredRule(string Context, int RuleNumber)
     {
-        return RuleService.GetRule(RuleNumber);
+        return RuleService.GetRule(Context, RuleNumber);
     }
 
-    public List<ParsedRule> GetRules(string Context)
+    public List<ParsedRule> GetRegisteredRules(string Context)
     {
         return RuleService.GetRules(Context);
     }

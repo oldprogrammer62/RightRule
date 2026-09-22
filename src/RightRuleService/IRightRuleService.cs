@@ -15,8 +15,8 @@ internal interface IRightRuleService
 {
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
-    List<Dataset>? GetData();
-    Dataset? GetData(string DataName);
+    List<Dataset>? GetDataset();
+    Dataset? GetDataset(string DatasetName);
 
     List<ParsedRule>? RegisteredRules { get; }
     List<Dataset>? RegisteredDatasets { get; }
@@ -25,9 +25,9 @@ internal interface IRightRuleService
     List<Operator> GetOperatorDetails();
     bool UnloadOperator(string OperatorName);
 
-    ParsedRule? GetRegisteredRule(string RuleName);
-    ParsedRule? GetRegisteredRule(int RuleNumber);
-    List<ParsedRule> GetRules(string Context);
+    List<ParsedRule> GetRegisteredRules(string Context);
+    ParsedRule? GetRegisteredRule(string Context, string RuleName);
+    ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
 
     DefaultRule GetDefaultRule(string Context);
     DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
@@ -46,12 +46,12 @@ internal interface IRightRuleService
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
 
     bool DeRegisterData();
-    bool DeRegisterData(string DataName);
+    bool DeRegisterData(string DatasetName);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
     Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType);
 
-    List<(int Number, string Name)>? GetRuleNumbers();
-    List<string>? GetRuleNames();
     List<string>? GetRuleContexts();
+    List<(int Number, string Name)>? GetRuleNumbers(string Context);
+    List<string>? GetRuleNames(string Context);
 }

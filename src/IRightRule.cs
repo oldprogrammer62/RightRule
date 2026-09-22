@@ -107,8 +107,8 @@ public interface IRightRule
     /// <summary>
     /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
-    /// <param name="DataName">The name of the dataset to deregister.</param>
-    bool DeRegisterData(string DataName);
+    /// <param name="DatasetName">The name of the dataset to deregister.</param>
+    bool DeRegisterData(string DatasetName);
 
     /// <summary>
     /// Deregisters all Rules from the RightRule engine.
@@ -144,21 +144,23 @@ public interface IRightRule
     Dataset? GetRegisteredData(string DatasetName);
 
     /// <summary>
+    /// Returns the set of Registered Rules.
+    /// </summary>
+    List<ParsedRule> GetRegisteredRules();
+
+    /// <summary>
     /// Returns the Registered Rules with the specified Name.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleName"></param>
-    ParsedRule? GetRegisteredRule(string RuleName);
+    ParsedRule? GetRegisteredRule(string Context, string RuleName);
 
     /// <summary>
     /// Returns the Registered Rules with the specified Number.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleNumber"></param>
-    ParsedRule? GetRegisteredRule(int RuleNumber);
-
-    /// <summary>
-    /// Returns the set of Registered Rules.
-    /// </summary>
-    List<ParsedRule> GetRegisteredRules();
+    ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
 
     /// <summary>
     /// Returns the set of Registered Rules for the specified Context.
@@ -250,17 +252,17 @@ public interface IRightRule
     bool UnloadOperator(string OperatorName);
 
     /// <summary>
+    /// Get the set of Contexts for which rules are registered
+    /// </summary>
+    List<string>? GetRuleContexts();
+
+    /// <summary>
     /// Get the set of Rule Numbers registered
     /// </summary>
-    List<(int Number, string Name)>? GetRuleNumbers();
+    List<(int Number, string Name)>? GetRuleNumbers(string Context);
 
     /// <summary>
     /// Get the set of Rule Names registered
     /// </summary>
-    List<string>? GetRuleNames();
-
-    /// <summary>
-    /// Get the set of Contexts for which rules are registered
-    /// </summary>
-    List<string>? GetRuleContexts();
+    List<string>? GetRuleNames(string Context);
 }

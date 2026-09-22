@@ -60,7 +60,7 @@ public class Dataset
 
     public DataItem? GetDataItem(string DataItemName)
     {
-        return this.DataItems.FirstOrDefault(x => x.Key == DataItemName);
+        return this.DataItems.FirstOrDefault(x => x.Key.Equals(DataItemName, StringComparison.OrdinalIgnoreCase));
     }
 
     public List<DataItem> GetDataItems()

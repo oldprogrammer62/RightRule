@@ -15,9 +15,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Returns the set of Rule Numbers
     /// </summary>
     /// <returns>The list of Rule Numbers (with Names).</returns>
-    public List<(int Number, string Name)>? GetRuleNumbers()
+    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
     {
-        var ruleNumbers = RightRuleService?.GetRuleNumbers();
+        var ruleNumbers = RightRuleService?.GetRuleNumbers(Context);
         return ruleNumbers;
     }
 
@@ -25,9 +25,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Returns the set of Rule Names
     /// </summary>
     /// <returns>The list of Rule Names.</returns>
-    public List<string>? GetRuleNames()
+    public List<string>? GetRuleNames(string Context)
     {
-        var ruleNames = RightRuleService?.GetRuleNames();
+        var ruleNames = RightRuleService?.GetRuleNames(Context);
         return ruleNames;
     }
 
@@ -59,14 +59,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Returns the Registered (Parsed) Rules with the specified Name.
     /// </summary>
+    /// <param name="Context"></param>
     /// <param name="RuleName"></param>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? GetRegisteredRule(string RuleName)
+    public ParsedRule? GetRegisteredRule(string Context, string RuleName)
     {
         try
         {
-            return RightRuleService.GetRegisteredRule(RuleName);
+            return RightRuleService.GetRegisteredRule(Context, RuleName);
         }
         catch
         {
@@ -79,11 +80,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     /// <param name="RuleNumber"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    public ParsedRule? GetRegisteredRule(int RuleNumber)
+    public ParsedRule? GetRegisteredRule(string Context, int RuleNumber)
     {
         try
         {
-            return RightRuleService.GetRegisteredRule(RuleNumber);
+            return RightRuleService.GetRegisteredRule(Context, RuleNumber);
         }
         catch
         {
@@ -116,7 +117,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         try
         {
-            return RightRuleService.GetRules(Context);
+            return RightRuleService.GetRegisteredRules(Context);
         }
         catch
         {

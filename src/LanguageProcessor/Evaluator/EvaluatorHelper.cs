@@ -6,7 +6,7 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluatorHelper
 {
-    internal static object? ResolveOperandValue(Operand Op, IDataService DataService)
+    internal static object? ResolveOperandValue(Operand Op, IDataRegistrationService DataService)
     {
         try
         {
@@ -18,13 +18,13 @@ internal static class EvaluatorHelper
         }
     }
 
-    internal static object? ResolveVariable(string Identifier, IDataService DataService)
+    internal static object? ResolveVariable(string Identifier, IDataRegistrationService DataService)
     {
         var variableValue = GetValue(Identifier, Identifier, DataService);
         return variableValue;
     }
 
-    internal static object? ResolveIdentifier(string Identifier, IDataService DataService)
+    internal static object? ResolveIdentifier(string Identifier, IDataRegistrationService DataService)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -32,7 +32,7 @@ internal static class EvaluatorHelper
         }
         if (Identifier.Split('.').Length != 2)
         {
-            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'DataName.identifierName'.");
+            throw new InvalidIdentifierException(Identifier, -1, $"Identifier '{Identifier}' must be in the format 'DatasetName.IdentifierName'.");
         }
 
         var split = Identifier.Split('.');
@@ -43,12 +43,12 @@ internal static class EvaluatorHelper
         return identifierValue;
     }
 
-    private static object? GetValue(string Left, string Right, IDataService DataService)
+    private static object? GetValue(string Left, string Right, IDataRegistrationService DataService)
     {
-        return DataService.GetDataValue(Left, Right);
+        return DataService.GetDataItemValue(Left, Right);
     }
 
-    private static object? ResolveOperand(Operand Op, IDataService DataService)
+    private static object? ResolveOperand(Operand Op, IDataRegistrationService DataService)
     {
         try
         {

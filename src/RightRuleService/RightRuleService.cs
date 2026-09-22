@@ -17,18 +17,18 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IOperatorService OperatorsService;
     private readonly IDefaultRuleRegister DefaultRuleRegister;
 
-    private readonly IRuleService RuleService;
+    private readonly IRuleRegistrationService RuleService;
     public List<ParsedRule>? RegisteredRules => RuleService?.GetRules();
 
-    private readonly IDataService DataService;
+    private readonly IDataRegistrationService DataService;
 
     public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
     public RightRuleService(
         IOperatorService operatorsService, 
-        IRuleService ruleService, 
+        IRuleRegistrationService ruleService, 
         IDefaultRuleRegister defaultRuleRegister, 
-        IDataService dataService, 
+        IDataRegistrationService dataService, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService
         )

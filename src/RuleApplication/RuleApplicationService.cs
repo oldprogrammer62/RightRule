@@ -8,13 +8,13 @@ namespace RightRule.RuleApplication;
 
 internal class RuleApplicationService : IRuleApplicationService
 {
-    private readonly IRuleService _ruleService;
+    private readonly IRuleRegistrationService _ruleService;
     private readonly IApplyFirstRuleService _applyFirstRuleService;
     private readonly IApplyAnyRulesService _applyAnyRulesService;
     private readonly IApplyAllRulesService _applyAllRulesService;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
 
-    public RuleApplicationService(IRuleService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
+    public RuleApplicationService(IRuleRegistrationService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
     {
         this._ruleService = ruleService;
         this._applyFirstRuleService = applyFirstRuleService;

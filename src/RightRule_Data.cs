@@ -12,12 +12,12 @@ public sealed partial class RightRule : IRightRule, IDisposable
 {
     public List<Dataset>? GetRegisteredData()
     {
-        return RightRuleService.GetData();
+        return RightRuleService.GetDataset();
     }
 
-    public Dataset? GetRegisteredData(string DataName)
+    public Dataset? GetRegisteredData(string DatasetName)
     {
-        return RightRuleService.GetData(DataName);
+        return RightRuleService.GetDataset(DatasetName);
     }
 
     /// <summary>
@@ -201,15 +201,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
-    /// <param name="DataName">The name of the dataset.</param>
+    /// <param name="DatasetName">The name of the dataset.</param>
     /// <exception cref="ArgumentException"></exception>
-    public bool DeRegisterData(string DataName)
+    public bool DeRegisterData(string DatasetName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DataName, nameof(DataName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         try
         {
-            return RightRuleService.DeRegisterData(DataName);
+            return RightRuleService.DeRegisterData(DatasetName);
         }
         catch
         {

@@ -19,4 +19,4 @@ List<AppliedRule>? results = rr.EvaluateAllRules("Test");
 
         var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.First);
 
-            Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DataName, Dictionary<string, object> Data);
+            Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);

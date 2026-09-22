@@ -10,11 +10,11 @@ namespace RightRule.LanguageProcessor.Evaluator;
 
 internal sealed class Evaluator : IEvaluator
 {
-    private readonly IDataService _dataService;
+    private readonly IDataRegistrationService _dataService;
     private readonly IOperatorService _operatorService;
     private readonly IStatementBuilder _statementBuilder;
 
-    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder)
+    public Evaluator(IDataRegistrationService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder)
     {
         _dataService = dataService;
         _operatorService = operatorService;
