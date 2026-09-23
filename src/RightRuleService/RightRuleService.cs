@@ -18,7 +18,7 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
-    private readonly IRuleRegistrationService RuleRegistrationService;
+    public IRuleRegistrationService RuleRegistrationService { get; }
     public List<ParsedRule>? RegisteredRules => RuleRegistrationService?.GetRules();
 
     private readonly IDataRegistrationService DataRegistrationService;

@@ -3,7 +3,7 @@ using RightRule.RegistrationServices.RuleRegistration.Rules;
 
 namespace RightRule.RegistrationServices.RuleRegistration;
 
-internal interface IRuleRegistrationService
+public interface IRuleRegistrationService
 {
     IRegisteredRules RegisteredRules { get; }
 

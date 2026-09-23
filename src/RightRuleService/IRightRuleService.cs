@@ -13,6 +13,8 @@ namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
+    IRuleRegistrationService RuleRegistrationService { get; }
+
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     List<Dataset>? GetDataset();

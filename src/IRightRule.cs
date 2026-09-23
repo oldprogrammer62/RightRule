@@ -15,6 +15,8 @@ namespace BeSoft;
 
 public interface IRightRule
 {
+    IRuleRegistrationService RuleRegistrationService { get; }
+
     string GetConfigSettings(string key);
 
     /// <summary>

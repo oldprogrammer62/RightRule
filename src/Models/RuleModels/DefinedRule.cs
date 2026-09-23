@@ -1,4 +1,5 @@
 ﻿using RightRule.Models.BaseModels;
+using RightRule.RegistrationServices.RuleRegistration;
 using System.Text;
 
 namespace RightRule.Models.RuleModels;
@@ -17,6 +18,11 @@ public sealed class DefinedRule : RuleDefinition
 {
     public DefinedRule() : base()
     {
+    }
+
+    public RuleRegistrationResult Register(IRuleRegistrationService ruleRegistrationService)
+    {
+        return ruleRegistrationService.RegisterRule(this);
     }
 
     public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)

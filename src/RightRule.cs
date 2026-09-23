@@ -23,6 +23,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly IRightRuleService RightRuleService;
 
+    public IRuleRegistrationService RuleRegistrationService => RightRuleService.RuleRegistrationService;
+
     public RightRule()
     {
         var services = ServiceRegister.RegisterServices(new ServiceCollection());

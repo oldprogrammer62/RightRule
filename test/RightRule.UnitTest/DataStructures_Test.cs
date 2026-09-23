@@ -2,7 +2,7 @@
 
 namespace RightRuleTests;
 
-public class DataTypes_Test
+public class DataStructures_Test
 {
     [Fact]
     public void Dictionary_Test()

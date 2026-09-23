@@ -44,134 +44,87 @@ public class EqualsOperator : Operator
         }
     }
 
-    private static bool ProcessAsDateOnly(object left, object right)
+    #region NUMBER
+    private static bool IsNumber(object value)
     {
-        var dtLeft = ConvertToDateOnly(left);
-        var dtRight = ConvertToDateOnly(right);
-        if (dtLeft != null && dtRight != null)
-        {
-            return Equals(dtLeft, dtRight);
-        }
-        return false;
+        if (value is null) return false;
+
+        return value is sbyte
+                || value is byte
+                || value is short
+                || value is ushort
+                || value is int
+                || value is uint
+                || value is long
+                || value is ulong
+                || value is float
+                || value is double
+                || value is decimal;
     }
 
-    private static bool ProcessAsDateTime(object left, object right)
+    private static bool ProcessAsNumber(object left, object right)
     {
-        var dtLeft = ConvertToDateTime(left);
-        var dtRight = ConvertToDateTime(right);
-        if (dtLeft != null && dtRight != null)
-        {
-            return Equals(dtLeft, dtRight);
-        }
-        return false;
+        var decLeft = ConvertToNumber(left);
+        var decRight = ConvertToNumber(right);
+        return decLeft.Equals(decRight);
     }
 
-    private static bool ProcessAsTimeOnly(object left, object right)
+    private static double ConvertToNumber(object value)
     {
-        var tLeft = ConvertToTimeOnly(left);
-        var tRight = ConvertToTimeOnly(right);
-        if (tLeft != null && tRight != null)
-        {
-            return Equals(tLeft, tRight);
-        }
-        return false;
+        if (value is null) return default;
+
+        if (value is sbyte sb) return sb;
+        if (value is byte b) return b;
+        if (value is short s) return s;
+        if (value is ushort us) return us;
+        if (value is int i) return i;
+        if (value is uint ui) return ui;
+        if (value is long l) return l;
+        if (value is ulong ul) return ul;
+        if (value is float f) return f;
+        if (value is Single si) return si;
+        if (value is double d) return d;
+        if (value is decimal dec) return Convert.ToDouble(dec);
+        return default;
+    }
+    #endregion NUMBER
+
+    #region STRING
+    private static bool IsString(object value)
+    {
+        if (value is null) return false;
+
+        return value is string;
     }
 
-    private static DateOnly? ConvertToDateOnly(object input)
+    private static bool ProcessAsString(object left, object right)
     {
-        // Direct match
-        if (input is DateOnly dateOnly)
-        {
-            return dateOnly;
-        }
+        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        return Equals(sLeft, sRight);
+    }
+    #endregion STRING
 
-        // Safe conversion for string representations
-        if (input is string stringInput)
+    #region CHAR
+    private static bool IsChar(object value)
+    {
+        if (value is null) return false;
+        if (value is string && value.ToString()!.Length == 1)
         {
-            if (DateOnly.TryParse(stringInput, out DateOnly parsedResult))
-            {
-                return parsedResult;
-            }
+            return true;
         }
-
-        // Try ultimate fallback for other convertible types (like long timestamps)
-        try
-        {
-            return (DateOnly)input;
-        }
-        catch
-        {
-            return null;
-        }
+        return value is char;
     }
 
-    private static DateTime? ConvertToDateTime(object input)
+    private static bool ProcessAsChar(object left, object right)
     {
-        // Direct match
-        if (input is DateTime dateTime)
-        {
-            return dateTime;
-        }
-
-        // Safe extraction for DateOnly (presents as midnight)
-        if (input is DateOnly dateOnly)
-        {
-            return dateOnly.ToDateTime(TimeOnly.MinValue);
-        }
-
-        // Safe conversion for DateTimeOffset
-        if (input is DateTimeOffset dateTimeOffset)
-        {
-            return dateTimeOffset.DateTime;
-        }
-
-        // Safe conversion for string representations
-        if (input is string stringInput)
-        {
-            if (DateTime.TryParse(stringInput, out DateTime parsedResult))
-            {
-                return parsedResult;
-            }
-        }
-
-        try
-        {
-            return Convert.ToDateTime(input);
-        }
-        catch
-        {
-            return null;
-        }
+        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
+        return Equals(sLeft, sRight);
     }
+    #endregion CHAR
 
-    private static TimeOnly? ConvertToTimeOnly(object input)
-    {
-        // Direct match
-        if (input is TimeOnly timeOnly)
-        {
-            return timeOnly;
-        }
-
-        // Safe conversion for string representations
-        if (input is string stringInput)
-        {
-            if (TimeOnly.TryParse(stringInput, out TimeOnly parsedResult))
-            {
-                return parsedResult;
-            }
-        }
-
-        // Try ultimate fallback for other convertible types (like long timestamps)
-        try
-        {
-            return (TimeOnly)input;
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
+    #region BOOLEAN
     private static bool IsBoolean(object value)
     {
         if (value is bool) return true;
@@ -215,19 +168,9 @@ public class EqualsOperator : Operator
             return false;
         }
     }
+    #endregion BOOLEAN
 
-    private static bool IsDateOnly(object value)
-    {
-        if (value is DateOnly) return true;
-
-        // Safe parsing for text strings
-        if (value is string stringInput)
-        {
-            return DateOnly.TryParse(stringInput, out _);
-        }
-        return false;
-    }
-
+    #region DATETIME
     private static bool IsDateTime(object value)
     {
         if (value is DateTime) return true;
@@ -240,6 +183,111 @@ public class EqualsOperator : Operator
         return false;
     }
 
+    private static DateTime? ConvertToDateTime(object input)
+    {
+        // Direct match
+        if (input is DateTime dateTime)
+        {
+            return dateTime;
+        }
+
+        // Safe extraction for DateOnly (presents as midnight)
+        if (input is DateOnly dateOnly)
+        {
+            return dateOnly.ToDateTime(TimeOnly.MinValue);
+        }
+
+        // Safe conversion for DateTimeOffset
+        if (input is DateTimeOffset dateTimeOffset)
+        {
+            return dateTimeOffset.DateTime;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (DateTime.TryParse(stringInput, out DateTime parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        try
+        {
+            return Convert.ToDateTime(input);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static bool ProcessAsDateTime(object left, object right)
+    {
+        var dtLeft = ConvertToDateTime(left);
+        var dtRight = ConvertToDateTime(right);
+        if (dtLeft != null && dtRight != null)
+        {
+            return Equals(dtLeft, dtRight);
+        }
+        return false;
+    }
+    #endregion DATETIME
+
+    #region DATEONLY
+    private static bool IsDateOnly(object value)
+    {
+        if (value is DateOnly) return true;
+
+        // Safe parsing for text strings
+        if (value is string stringInput)
+        {
+            return DateOnly.TryParse(stringInput, out _);
+        }
+        return false;
+    }
+
+    private static DateOnly? ConvertToDateOnly(object input)
+    {
+        // Direct match
+        if (input is DateOnly dateOnly)
+        {
+            return dateOnly;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (DateOnly.TryParse(stringInput, out DateOnly parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        // Try ultimate fallback for other convertible types (like long timestamps)
+        try
+        {
+            return (DateOnly)input;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static bool ProcessAsDateOnly(object left, object right)
+    {
+        var dtLeft = ConvertToDateOnly(left);
+        var dtRight = ConvertToDateOnly(right);
+        if (dtLeft != null && dtRight != null)
+        {
+            return Equals(dtLeft, dtRight);
+        }
+        return false;
+    }
+    #endregion DATEONLY
+
+    #region TIMEONLY
     private static bool IsTimeOnly(object value)
     {
         if (value is TimeOnly) return true;
@@ -252,74 +300,43 @@ public class EqualsOperator : Operator
         return false;
     }
 
-    private static bool ProcessAsNumber(object left, object right)
+    private static TimeOnly? ConvertToTimeOnly(object input)
     {
-        var decLeft = ConvertToNumber(left);
-        var decRight = ConvertToNumber(right);
-        return decLeft.Equals(decRight);
+        // Direct match
+        if (input is TimeOnly timeOnly)
+        {
+            return timeOnly;
+        }
+
+        // Safe conversion for string representations
+        if (input is string stringInput)
+        {
+            if (TimeOnly.TryParse(stringInput, out TimeOnly parsedResult))
+            {
+                return parsedResult;
+            }
+        }
+
+        // Try ultimate fallback for other convertible types (like long timestamps)
+        try
+        {
+            return (TimeOnly)input;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    private static double ConvertToNumber(object value)
+    private static bool ProcessAsTimeOnly(object left, object right)
     {
-        if (value is null) return default;
-
-        if (value is sbyte sb) return sb;
-        if (value is byte b) return b;
-        if (value is short s) return s;
-        if (value is ushort us) return us;
-        if (value is int i) return i;
-        if (value is uint ui) return ui;
-        if (value is long l) return l;
-        if (value is ulong ul) return ul;
-        if (value is float f) return f;
-        if (value is Single si) return si;
-        if (value is double d) return d;
-        if (value is decimal dec) return Convert.ToDouble(dec);
-        return default;
+        var tLeft = ConvertToTimeOnly(left);
+        var tRight = ConvertToTimeOnly(right);
+        if (tLeft != null && tRight != null)
+        {
+            return Equals(tLeft, tRight);
+        }
+        return false;
     }
-
-    private static bool IsNumber(object value)
-    {
-        if (value is null) return false;
-
-        return value is sbyte
-                || value is byte
-                || value is short
-                || value is ushort
-                || value is int
-                || value is uint
-                || value is long
-                || value is ulong
-                || value is float
-                || value is double
-                || value is decimal;
-    }
-
-    private static bool IsString(object value)
-    {
-        if (value is null) return false;
-
-        return value is string;
-    }
-
-    private static bool ProcessAsString(object left, object right)
-    {
-        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        return Equals(sLeft, sRight);
-    }
-
-    private static bool IsChar(object value)
-    {
-        if (value is null) return false;
-
-        return value is char;
-    }
-
-    private static bool ProcessAsChar(object left, object right)
-    {
-        string sLeft = left?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        string sRight = right?.ToString()?.ToUpper(global::System.Globalization.CultureInfo.CurrentCulture) ?? string.Empty;
-        return Equals(sLeft, sRight);
-    }
+    #endregion TIMEONLY
 }

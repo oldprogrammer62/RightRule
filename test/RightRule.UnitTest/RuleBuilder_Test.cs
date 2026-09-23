@@ -22,8 +22,8 @@ public class RuleBuilder_Test
             .OptionalData(null)
             .WithDataCheck(false)
             .WithDiagnostics(false)
-            .Build();
-        var x1 = rr.RegisterRule(rule1);
+            .Build()
+            .Register(rr.RuleRegistrationService);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -37,8 +37,8 @@ public class RuleBuilder_Test
             .Build();
         var x2 = rr.RegisterRule(rule2);
 
-        Assert.NotNull(x1);
-        Assert.IsType<RuleRegistrationResult>(x1);
+        Assert.NotNull(rule1);
+        Assert.IsType<RuleRegistrationResult>(rule1);
 
         Assert.NotNull(x2);
         Assert.IsType<RuleRegistrationResult>(x2);
