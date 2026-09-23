@@ -1,20 +1,20 @@
-﻿using RightRule.LanguageProcessor.Parser;
+﻿using RightRule.ConfigurationService;
+using RightRule.DataServices;
+using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
-using RightRule.Models;
-using RightRule.Models.RuleModels;
 using RightRule.OperatorServices;
-using RightRule.RegistrationServices.DataRegistration;
+using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 
 internal sealed class Evaluator : IEvaluator
 {
-    private readonly IDataRegistrationService _dataService;
+    private readonly IDataService _dataService;
     private readonly IOperatorService _operatorService;
     private readonly IStatementBuilder _statementBuilder;
 
-    public Evaluator(IDataRegistrationService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder)
+    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder)
     {
         _dataService = dataService;
         _operatorService = operatorService;

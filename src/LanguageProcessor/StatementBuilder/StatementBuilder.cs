@@ -1,15 +1,15 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule.DataServices;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.Parser;
-using RightRule.RegistrationServices.DataRegistration;
 using System.Globalization;
 
 namespace RightRule.LanguageProcessor.StatementBuilder;
 
 internal class StatementBuilder : IStatementBuilder
 {
-    private readonly IDataRegistrationService _dataService;
+    private readonly IDataService _dataService;
 
-    public StatementBuilder(IDataRegistrationService dataService)
+    public StatementBuilder(IDataService dataService)
     {
         this._dataService = dataService;
     }

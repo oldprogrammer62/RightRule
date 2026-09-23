@@ -1,5 +1,6 @@
 ﻿using BeSoft;
-using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.DataServices.DataRegistration;
+using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -33,7 +34,7 @@ public class OneBigTest
     {
         IRightRule rr = new BeSoft.RightRule();
 
-        RightRule.RegistrationServices.DataRegistration.DataRegistrationResult? data1Registration = rr.RegisterData("data1", data1);
+        DataRegistrationResult? data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, data1Registration.Status);
 

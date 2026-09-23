@@ -1,7 +1,7 @@
-﻿using RightRule.Exceptions;
+﻿using RightRule.DataServices;
+using RightRule.DataServices.DataValidator;
+using RightRule.Exceptions;
 using RightRule.OperatorServices;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.DataValidator;
 using System.Text;
 
 namespace RightRule.LanguageProcessor.Tokenizer;
@@ -13,17 +13,17 @@ internal sealed class Tokenizer : ITokenizer
     private readonly string _statement = string.Empty;
 
     private readonly IOperatorService _operatorService;
-    private readonly IDataRegistrationService _dataService;
+    private readonly IDataService _dataService;
     private readonly IDataValidatorService _dataValidator;
 
-    public Tokenizer(IOperatorService operatorService, IDataRegistrationService dataService, IDataValidatorService dataValidator)
+    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidatorService dataValidator)
     {
         _operatorService = operatorService;
         _dataService = dataService;
         _dataValidator = dataValidator;
     }
 
-    public Tokenizer(IOperatorService operatorService, IDataRegistrationService dataService, IDataValidatorService dataValidator, string statement, int pos, bool dataCheck)
+    public Tokenizer(IOperatorService operatorService, IDataService dataService, IDataValidatorService dataValidator, string statement, int pos, bool dataCheck)
     {
         _operatorService = operatorService;
         _dataService = dataService;

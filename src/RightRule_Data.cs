@@ -1,5 +1,5 @@
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.Data;
+using RightRule.DataServices.Data;
+using RightRule.DataServices.DataRegistration;
 using System.Data;
 
 namespace BeSoft;

@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="RegistrationServices\DataRegistration\InewGetDataService.cs" />
-    <Compile Remove="RegistrationServices\DataRegistration\newGetDataService.cs" />
+    <Compile Remove="DataServices\DataRegistration\InewGetDataService.cs" />
+    <Compile Remove="DataServices\DataRegistration\newGetDataService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,7 +52,6 @@
 
   <ItemGroup>
     <Folder Include="Licenses\" />
-    <Folder Include="RegistrationServices\RuleRegistration\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

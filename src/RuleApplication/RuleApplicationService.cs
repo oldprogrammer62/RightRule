@@ -1,20 +1,20 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RuleApplication;
 
 internal class RuleApplicationService : IRuleApplicationService
 {
-    private readonly IRuleRegistrationService _ruleService;
+    private readonly IRuleService _ruleService;
     private readonly IApplyFirstRuleService _applyFirstRuleService;
     private readonly IApplyAnyRulesService _applyAnyRulesService;
     private readonly IApplyAllRulesService _applyAllRulesService;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
 
-    public RuleApplicationService(IRuleRegistrationService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
+    public RuleApplicationService(IRuleService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
     {
         this._ruleService = ruleService;
         this._applyFirstRuleService = applyFirstRuleService;

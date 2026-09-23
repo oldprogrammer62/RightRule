@@ -1,5 +1,5 @@
 ﻿using RightRule.LanguageProcessor.Parser;
-using RightRule.Models.BaseModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.Factories.ParserFactory;
 

@@ -1,7 +1,7 @@
 ﻿using BeSoft;
 using Newtonsoft.Json;
 using RightRule.Loaders.RuleLoader;
-using RightRule.Models.RuleModels;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.Loaders.Json;
 

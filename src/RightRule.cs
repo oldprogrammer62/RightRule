@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RightRule;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RightRuleService;
+using RightRule.RuleServices;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.RuleServices.RuleRegistration;
 using RightRule.ServiceRegister;
 using System.ComponentModel;
 
@@ -23,7 +24,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly IRightRuleService RightRuleService;
 
-    public IRuleRegistrationService RuleRegistrationService => RightRuleService.RuleRegistrationService;
+    public IRuleService RuleRegistrationService => RightRuleService.RuleRegistrationService;
 
     public RightRule()
     {

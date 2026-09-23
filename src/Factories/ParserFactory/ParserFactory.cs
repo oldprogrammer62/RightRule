@@ -1,7 +1,7 @@
 ﻿using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.Models.BaseModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.Factories.ParserFactory
 {

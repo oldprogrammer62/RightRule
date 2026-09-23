@@ -1,6 +1,6 @@
 ﻿using RightRule.LanguageProcessor.Interpreter;
-using RightRule.Models.BaseModels;
-using RightRule.RegistrationServices.RuleRegistration.Rules;
+using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleApplication;
 

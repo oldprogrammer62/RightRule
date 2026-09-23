@@ -1,6 +1,6 @@
 ﻿using BeSoft;
-using RightRule.Models;
-using RightRule.Models.RuleModels;
+using RightRule.ConfigurationService;
+using RightRule.RuleServices.RuleModels;
 using System.Data;
 using System.Text;
 

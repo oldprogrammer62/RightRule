@@ -1,7 +1,7 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace BeSoft;
 

@@ -1,5 +1,5 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
-using RightRule.Models.BaseModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RightRuleService;
 

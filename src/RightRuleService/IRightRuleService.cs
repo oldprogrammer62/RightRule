@@ -1,19 +1,20 @@
 ﻿using BeSoft;
+using RightRule.DataServices.Data;
+using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.Data;
-using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
-    IRuleRegistrationService RuleRegistrationService { get; }
+    IRuleService RuleRegistrationService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 

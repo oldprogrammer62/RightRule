@@ -1,6 +1,5 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
-using RightRule.Models.RuleModels;
-using RightRule.System.Common;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 

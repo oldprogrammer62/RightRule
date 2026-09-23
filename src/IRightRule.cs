@@ -1,21 +1,22 @@
 ﻿using RightRule;
+using RightRule.DataServices.Data;
+using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.Data;
-using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.DefaultRuleBuilder;
-using RightRule.RegistrationServices.RuleRegistration.RuleBuilders.RightRuleBuilder;
+using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
+using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common;
 
 namespace BeSoft;
 
 public interface IRightRule
 {
-    IRuleRegistrationService RuleRegistrationService { get; }
+    IRuleService RuleRegistrationService { get; }
 
     string GetConfigSettings(string key);
 

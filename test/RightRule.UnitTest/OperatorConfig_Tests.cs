@@ -1,7 +1,7 @@
 ﻿using BeSoft;
-using RightRule.Models.RuleModels;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
+using RightRule.DataServices.DataRegistration;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.DataServices;
+using RightRule.DataServices.DataValidator;
 using RightRule.Factories.ParserFactory;
 using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Evaluator;
@@ -8,13 +10,12 @@ using RightRule.LanguageProcessor.StatementBuilder;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.OperatorServices;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.DataValidator;
-using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration.Rules;
 using RightRule.RightRuleService;
 using RightRule.RuleApplication;
+using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleParsingServices;
+using RightRule.RuleServices.Rules;
 
 namespace RightRule.ServiceRegister;
 
@@ -36,9 +37,9 @@ internal sealed class ServiceRegister
         services.AddTransient<IParser, Parser>();
         services.AddTransient<ITokenizer, Tokenizer>();
 
-        services.AddSingleton<IDataRegistrationService, DataRegistrationService>();
+        services.AddSingleton<IDataService, DataService>();
 
-        services.AddSingleton<IRuleRegistrationService, RuleRegistrationService>();
+        services.AddSingleton<IRuleService, RuleService>();
         services.AddScoped<IParseRuleService, ParseRuleService>();
         services.AddSingleton<IRegisteredRules, RegisteredRules>();
 

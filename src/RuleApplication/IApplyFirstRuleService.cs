@@ -1,4 +1,4 @@
-﻿using RightRule.Models.BaseModels;
+﻿using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RuleApplication
 {

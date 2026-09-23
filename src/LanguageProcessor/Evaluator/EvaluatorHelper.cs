@@ -1,12 +1,12 @@
-﻿using RightRule.Exceptions;
+﻿using RightRule.DataServices;
+using RightRule.Exceptions;
 using RightRule.LanguageProcessor.Parser;
-using RightRule.RegistrationServices.DataRegistration;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 
 internal static class EvaluatorHelper
 {
-    internal static object? ResolveOperandValue(Operand Op, IDataRegistrationService DataService)
+    internal static object? ResolveOperandValue(Operand Op, IDataService DataService)
     {
         try
         {
@@ -18,13 +18,13 @@ internal static class EvaluatorHelper
         }
     }
 
-    internal static object? ResolveVariable(string Identifier, IDataRegistrationService DataService)
+    internal static object? ResolveVariable(string Identifier, IDataService DataService)
     {
         var variableValue = GetValue(Identifier, Identifier, DataService);
         return variableValue;
     }
 
-    internal static object? ResolveIdentifier(string Identifier, IDataRegistrationService DataService)
+    internal static object? ResolveIdentifier(string Identifier, IDataService DataService)
     {
         if (string.IsNullOrEmpty(Identifier))
         {
@@ -43,12 +43,12 @@ internal static class EvaluatorHelper
         return identifierValue;
     }
 
-    private static object? GetValue(string Left, string Right, IDataRegistrationService DataService)
+    private static object? GetValue(string Left, string Right, IDataService DataService)
     {
         return DataService.GetDataItemValue(Left, Right);
     }
 
-    private static object? ResolveOperand(Operand Op, IDataRegistrationService DataService)
+    private static object? ResolveOperand(Operand Op, IDataService DataService)
     {
         try
         {

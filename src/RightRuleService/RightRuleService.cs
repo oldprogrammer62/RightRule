@@ -1,12 +1,12 @@
-﻿using RightRule.LanguageProcessor.SyntaxChecker;
-using RightRule.Models.BaseModels;
-using RightRule.Models.RuleModels;
+﻿using RightRule.DataServices;
+using RightRule.DataServices.Data;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
-using RightRule.RegistrationServices.DataRegistration;
-using RightRule.RegistrationServices.DataRegistration.Data;
-using RightRule.RegistrationServices.DefaultRuleRegistration;
-using RightRule.RegistrationServices.RuleRegistration;
 using RightRule.RuleApplication;
+using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RightRuleService;
 
@@ -18,17 +18,17 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
-    public IRuleRegistrationService RuleRegistrationService { get; }
+    public IRuleService RuleRegistrationService { get; }
     public List<ParsedRule>? RegisteredRules => RuleRegistrationService?.GetRules();
 
-    private readonly IDataRegistrationService DataRegistrationService;
+    private readonly IDataService DataRegistrationService;
     public List<Dataset>? RegisteredDatasets => DataRegistrationService?.GetDatasets();
 
     public RightRuleService(
         IOperatorService operatorsService, 
-        IRuleRegistrationService ruleService, 
+        IRuleService ruleService, 
         IDefaultRuleRegister defaultRuleRegister, 
-        IDataRegistrationService dataService, 
+        IDataService dataService, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService
         )
