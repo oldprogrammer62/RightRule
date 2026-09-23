@@ -1,5 +1,5 @@
-﻿using RightRule.Loaders.OperatorLoader.CustomerOperators;
-using RightRule.Loaders.OperatorLoader.DefaultOperators;
+﻿using RightRule.OperatorServices.OperatorLoader.CustomOperators;
+using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.System.Common;
 
 namespace RightRule.OperatorServices;

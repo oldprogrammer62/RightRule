@@ -1,4 +1,4 @@
-﻿using RightRule.Loaders.OperatorLoader.CustomerOperators;
+﻿using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 namespace RightRuleTests;
 

@@ -1,9 +1,9 @@
 ﻿using BeSoft;
 using Newtonsoft.Json;
-using RightRule.Loaders.RuleLoader;
+using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 
-namespace RightRule.Loaders.Json;
+namespace RightRule.DataServices.DataLoaders.Json;
 
 internal class JsonLoader : IRuleLoader
 {

@@ -1,4 +1,4 @@
-﻿using RightRule.Loaders.Json;
+﻿using RightRule.DataServices.DataLoaders.Json;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;

@@ -4,7 +4,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
-namespace RightRule.RuleApplication;
+namespace RightRule.RuleServices.RuleApplication;
 
 internal class RuleApplicationService : IRuleApplicationService
 {

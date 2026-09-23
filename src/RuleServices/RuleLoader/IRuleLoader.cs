@@ -1,6 +1,6 @@
 ﻿using RightRule.RuleServices.RuleModels;
 
-namespace RightRule.Loaders.RuleLoader;
+namespace RightRule.RuleServices.RuleLoader;
 
 public interface IRuleLoader
 {

@@ -1,7 +1,7 @@
 ﻿using RightRule.Operators.DefaultOperators;
 using RightRule.System.Common;
 
-namespace RightRule.Loaders.OperatorLoader.DefaultOperators;
+namespace RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 
 internal class DefaultOperatorLoader
 {

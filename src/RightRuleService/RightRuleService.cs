@@ -2,9 +2,9 @@
 using RightRule.DataServices.Data;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
-using RightRule.RuleApplication;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 

@@ -11,9 +11,9 @@ using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
-using RightRule.RuleApplication;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleParsingServices;
 using RightRule.RuleServices.Rules;
 

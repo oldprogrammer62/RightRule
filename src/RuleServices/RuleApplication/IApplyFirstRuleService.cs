@@ -1,6 +1,6 @@
 ﻿using RightRule.RuleServices.RuleModels.BaseModels;
 
-namespace RightRule.RuleApplication
+namespace RightRule.RuleServices.RuleApplication
 {
     internal interface IApplyFirstRuleService
     {

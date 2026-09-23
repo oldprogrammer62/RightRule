@@ -1,7 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
-namespace RightRule.RuleApplication
+namespace RightRule.RuleServices.RuleApplication
 {
     internal interface IRuleApplicationService
     {

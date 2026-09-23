@@ -1,7 +1,7 @@
 ﻿using BeSoft;
 using RightRule.RuleServices.RuleModels;
 
-namespace RightRule.Loaders.RuleLoader;
+namespace RightRule.RuleServices.RuleLoader;
 
 internal static class RuleLoaderService
 {

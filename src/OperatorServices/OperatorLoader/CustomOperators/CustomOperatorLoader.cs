@@ -1,9 +1,8 @@
 ﻿using RightRule.ConfigurationService;
-using RightRule.Loaders.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices;
 using RightRule.System.Common;
 
-namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
+namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 internal class CustomOperatorLoader
 {

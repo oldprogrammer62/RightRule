@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Loader;
 
-namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
+namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 public class ExternalOperatorLoader : AssemblyLoadContext
 {

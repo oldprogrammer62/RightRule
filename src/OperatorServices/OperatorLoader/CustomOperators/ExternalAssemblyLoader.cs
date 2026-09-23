@@ -1,7 +1,7 @@
 ﻿using RightRule.System.Common;
 using System.Reflection;
 
-namespace RightRule.Loaders.OperatorLoader.CustomerOperators;
+namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 public class ExternalAssemblyLoader
 {

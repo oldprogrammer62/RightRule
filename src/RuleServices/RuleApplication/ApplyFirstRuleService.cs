@@ -2,7 +2,7 @@
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.Rules;
 
-namespace RightRule.RuleApplication;
+namespace RightRule.RuleServices.RuleApplication;
 
 internal class ApplyFirstRuleService : IApplyFirstRuleService
 {

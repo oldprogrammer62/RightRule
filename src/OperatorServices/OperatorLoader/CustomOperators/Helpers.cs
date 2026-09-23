@@ -1,4 +1,4 @@
-﻿namespace RightRule.Loaders.OperatorLoader.CustomOperators;
+﻿namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 internal class Helpers
 {

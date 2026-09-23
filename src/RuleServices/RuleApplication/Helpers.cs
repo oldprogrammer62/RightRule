@@ -2,7 +2,7 @@
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
 
-namespace RightRule.RuleApplication;
+namespace RightRule.RuleServices.RuleApplication;
 
 public static class Helpers
 {
