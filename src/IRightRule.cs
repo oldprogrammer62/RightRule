@@ -198,6 +198,7 @@ public interface IRightRule
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateTime DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateOnly DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, TimeOnly DataItemValue);
+    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
 
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.

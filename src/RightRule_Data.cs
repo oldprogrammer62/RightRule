@@ -204,6 +204,18 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
+    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
+    {
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItemName, DataItemValue);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
     /// <summary>
     /// DeRegisters all data from the RightRule engine.
     /// </summary>
