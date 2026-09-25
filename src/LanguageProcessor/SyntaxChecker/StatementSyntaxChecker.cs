@@ -61,11 +61,11 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
                 while (true)
                 {
                     var tok = _tokenizer.NextToken();
-                    if (tok.Type == TokenTypeEnum.End) break;
+                    if (tok.Type == TokenTypeEnum.END) break;
 
                     // Detect improper casing of logical keywords (AND/OR/NOT). They must be lower-case.
                     // After tokenizer change, uppercase/mixed-case logical words will be tokenized as Identifier.
-                    if (tok.Type == TokenTypeEnum.Identifier)
+                    if (tok.Type == TokenTypeEnum.IDENTIFIER)
                     {
                         var v = tok.Value ?? string.Empty;
                         if (string.Equals(v, "AND", StringComparison.OrdinalIgnoreCase) ||
@@ -90,12 +90,12 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
                         }
                     }
 
-                    if (tok.Type == TokenTypeEnum.LParen)
+                    if (tok.Type == TokenTypeEnum.LPAREN)
                     {
                         parenBalance++;
                         lastLParenPos = tok.Position;
                     }
-                    else if (tok.Type == TokenTypeEnum.RParen)
+                    else if (tok.Type == TokenTypeEnum.RPAREN)
                     {
                         parenBalance--;
                         if (parenBalance < 0)

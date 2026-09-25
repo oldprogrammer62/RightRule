@@ -33,7 +33,7 @@ internal class DataService : IDataService
         var dataset = GetDataset(DatasetName);
         if (dataset == null)
         {
-            return [];
+            return new List<string>();
         }
         return GetDataItemNames(dataset);
     }
@@ -118,19 +118,6 @@ internal class DataService : IDataService
             dataset = CreateDataSet(DatasetName);
         }
         dataset.AddDataItem(DataItemName, DataItemValue);
-        return dataset;
-    }
-
-    // Add Variable
-    // Will be discover as Key
-    public Dataset AddData(string DatasetName, object DataItemValue)
-    {
-        var dataset = GetDataset(DatasetName);
-        if (dataset == null)
-        {
-            dataset = CreateDataSet(DatasetName);
-        }
-        dataset.AddDataItem(DatasetName, DataItemValue);
         return dataset;
     }
 

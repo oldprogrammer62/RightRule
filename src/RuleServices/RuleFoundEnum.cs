@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RuleServices;
 
-internal enum RuleFound
+internal enum RuleFoundEnum
 {
     NOTFOUND = 0,
     FOUNDBYNUMBER = 1,

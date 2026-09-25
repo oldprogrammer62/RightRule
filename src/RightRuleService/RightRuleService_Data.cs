@@ -8,14 +8,14 @@ internal partial class RightRuleService : IRightRuleService
 {
     public List<Dataset>? GetDataset()
     {
-        return DataRegistrationService.GetDatasets();
+        return DataService.GetDatasets();
     }
 
     public Dataset? GetDataset(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
-        return DataRegistrationService.GetDataset(DatasetName);
+        return DataService.GetDataset(DatasetName);
     }
 
     public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
@@ -24,7 +24,7 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         // Add data to new Data Service
-        var added = DataRegistrationService.AddData(DatasetName, DataItems);
+        var added = DataService.AddData(DatasetName, DataItems);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -47,7 +47,7 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         // Add data to new Data Service
-        var added = DataRegistrationService.AddData(DatasetName, DataItem);
+        var added = DataService.AddData(DatasetName, DataItem);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -66,10 +66,39 @@ internal partial class RightRuleService : IRightRuleService
         };
     }
 
+    public List<DataRegistrationResult> RegisterData(string DatasetName, List<ValueTuple<string, object>> DataItems)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
+        var results = new List<DataRegistrationResult>();
+
+        foreach (var dataItem in DataItems)
+        {
+            // Add data to new Data Service
+            var added = DataService.AddData(DatasetName, dataItem);
+            if (added == null)
+            {
+                results.Add(new DataRegistrationResult()
+                {
+                    Status = RegistrationStatusEnum.FAILURE,
+                    DataType = DataTypes.DATASET,
+                    Name = DatasetName
+                });
+            }
+            results.Add(new DataRegistrationResult()
+            {
+                Status = RegistrationStatusEnum.SUCCESS,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            });
+        }
+        return results;
+    }
+
     public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
     {
         // Add data to new Data Service
-        var added = DataRegistrationService.AddData(DatasetName, DataItemName, DataItemValue);
+        var added = DataService.AddData(DatasetName, DataItemName, DataItemValue);
         if (added == null)
         {
             return new DataRegistrationResult()
@@ -104,11 +133,11 @@ internal partial class RightRuleService : IRightRuleService
 
     private void DeRegisterNewData()
     {
-        DataRegistrationService.Clear();
+        DataService.Clear();
     }
 
     private void DeRegisterNewData(string DatasetName)
     {
-        DataRegistrationService.DeregisterDataset(DatasetName);
+        DataService.DeregisterDataset(DatasetName);
     }
 }

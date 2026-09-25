@@ -63,6 +63,27 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
+    /// <summary>
+    /// Registers a data set with the RightRule engine for use in rule evaluation.
+    /// </summary>
+    /// <param name="DatasetName">The name of the dataset.</param>
+    /// <param name="DataItems">The data to register.</param>
+    /// <returns>True if the data was successfully registered; otherwise, false.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
+    public List<DataRegistrationResult> RegisterData(string DatasetName, List<(string, object)> DataItems)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        try
+        {
+            return RightRuleService.RegisterData(DatasetName, DataItems);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
     public DataRegistrationResult RegisterData(string DataItemName, object DataItemValue)
     {
         try

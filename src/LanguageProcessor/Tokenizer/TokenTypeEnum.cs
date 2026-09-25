@@ -2,16 +2,16 @@
 
 internal enum TokenTypeEnum
 {
-    Identifier,   // Data name with dot notation
-    Number,       // Literal Number: 123, 456
-    String,       // Literal String: "hello"
-    Boolean,      // true, false
-    Variable,     // Variable name
-    Operator,     // equals, contains, notequals (from registered Operators)
-    And,          // AND
-    Or,           // OR
-    Not,          // NOT
-    LParen,       // (
-    RParen,       // )
-    End           // End of Statement
+    IDENTIFIER,   // Data name with dot notation
+    NUMBER,       // Literal Number: 123, 456
+    STRING,       // Literal String: "hello"
+    BOOLEAN,      // true, false
+    VARIABLE,     // Variable name
+    OPERATOR,     // equals, contains, notequals (from registered Operators)
+    AND,          // AND
+    OR,           // OR
+    NOT,          // NOT
+    LPAREN,       // (
+    RPAREN,       // )
+    END           // End of Statement
 }

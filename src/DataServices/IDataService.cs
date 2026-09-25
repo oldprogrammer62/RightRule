@@ -14,9 +14,8 @@ internal interface IDataService
     void DeregisterDataset(string DatasetName);
 
     Dataset AddData(string DatasetName, (string, object) DataItem);
-    Dataset AddData(string DatasetName, Dictionary<string, object> DataItems);
     Dataset AddData(string DatasetName, List<(string, object)> DataItems);
-    Dataset AddData(string DatasetName, object DataItemValue);
+    Dataset AddData(string DatasetName, Dictionary<string, object> DataItems);
     Dataset AddData(string DatasetName, string DataItemName, object DataItemValue);
 
     DataItem? GetDataItem(string DatasetName, string DataItemName);

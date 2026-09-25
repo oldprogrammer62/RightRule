@@ -186,6 +186,7 @@ public interface IRightRule
     /// <param name="DataItem">Object reference of data to register.</param>
     /// <returns>DataRegistrationResult</returns>
     DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
+    List<DataRegistrationResult> RegisterData(string DatasetName, List<ValueTuple<string, object>> DataItems);
 
     DataRegistrationResult RegisterData(string DataItemName, object DataItemValue);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, bool DataItemValue);

@@ -51,9 +51,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        while (_current.Type == TokenTypeEnum.Or)
+        while (_current.Type == TokenTypeEnum.OR)
         {
-            Eat(TokenTypeEnum.Or);
+            Eat(TokenTypeEnum.OR);
             node = new BinaryNode { LogicOp = "OR", Left = node, Right = ParseAnd() };
         }
         return node;
@@ -66,9 +66,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        while (_current.Type == TokenTypeEnum.And)
+        while (_current.Type == TokenTypeEnum.AND)
         {
-            Eat(TokenTypeEnum.And);
+            Eat(TokenTypeEnum.AND);
             node = new BinaryNode { LogicOp = "AND", Left = node, Right = ParseNot() };
         }
         return node;
@@ -79,9 +79,9 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        if (_current.Type == TokenTypeEnum.Not)
+        if (_current.Type == TokenTypeEnum.NOT)
         {
-            Eat(TokenTypeEnum.Not);
+            Eat(TokenTypeEnum.NOT);
             return new NotNode { Inner = ParseNot() }; // right-associative
         }
         return ParsePrimary();
@@ -92,11 +92,11 @@ internal sealed class Parser : IParser
         if (_current is null)
             throw new Exception($"No current token");
 
-        if (_current.Type == TokenTypeEnum.LParen)
+        if (_current.Type == TokenTypeEnum.LPAREN)
         {
-            Eat(TokenTypeEnum.LParen);
+            Eat(TokenTypeEnum.LPAREN);
             var node = ContinueParse();
-            Eat(TokenTypeEnum.RParen);
+            Eat(TokenTypeEnum.RPAREN);
             return node;
         }
         return ParseCondition();
@@ -110,27 +110,27 @@ internal sealed class Parser : IParser
         // Left operand: allow Identifier or literal (String/Number/Boolean)
         Operand left = _current.Type switch
         {
-            TokenTypeEnum.Variable => new Operand(OperandKindEnum.VARIABLE, _current.Value),
-            TokenTypeEnum.Identifier => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
-            TokenTypeEnum.String => new Operand(OperandKindEnum.STRING, _current.Value),
-            TokenTypeEnum.Number => new Operand(OperandKindEnum.NUMBER, _current.Value),
-            TokenTypeEnum.Boolean => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
+            TokenTypeEnum.VARIABLE => new Operand(OperandKindEnum.VARIABLE, _current.Value),
+            TokenTypeEnum.IDENTIFIER => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
+            TokenTypeEnum.STRING => new Operand(OperandKindEnum.STRING, _current.Value),
+            TokenTypeEnum.NUMBER => new Operand(OperandKindEnum.NUMBER, _current.Value),
+            TokenTypeEnum.BOOLEAN => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
             _ => throw new Exception($"Expected left-hand identifier or literal at pos {_current.Position}")
         };
         Eat(_current.Type);
 
-        if (_current.Type != TokenTypeEnum.Operator)
+        if (_current.Type != TokenTypeEnum.OPERATOR)
             throw new Exception($"Expected operator at pos {_current.Position}");
         string op = _current.Value; // keep original casing; resolve case-insensitively
-        Eat(TokenTypeEnum.Operator);
+        Eat(TokenTypeEnum.OPERATOR);
 
         Operand rhs = _current.Type switch
         {
-            TokenTypeEnum.Variable => new Operand(OperandKindEnum.VARIABLE, _current.Value),
-            TokenTypeEnum.Identifier => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
-            TokenTypeEnum.String => new Operand(OperandKindEnum.STRING, _current.Value),
-            TokenTypeEnum.Number => new Operand(OperandKindEnum.NUMBER, _current.Value),
-            TokenTypeEnum.Boolean => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
+            TokenTypeEnum.VARIABLE => new Operand(OperandKindEnum.VARIABLE, _current.Value),
+            TokenTypeEnum.IDENTIFIER => new Operand(OperandKindEnum.IDENTIFIER, _current.Value),
+            TokenTypeEnum.STRING => new Operand(OperandKindEnum.STRING, _current.Value),
+            TokenTypeEnum.NUMBER => new Operand(OperandKindEnum.NUMBER, _current.Value),
+            TokenTypeEnum.BOOLEAN => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
             _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
         };
         Eat(_current.Type);

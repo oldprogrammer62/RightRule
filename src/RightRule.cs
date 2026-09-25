@@ -24,7 +24,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly IRightRuleService RightRuleService;
 
-    public IRuleService RuleRegistrationService => RightRuleService.RuleRegistrationService;
+    public IRuleService RuleRegistrationService => RightRuleService.RuleService;
 
     public RightRule()
     {

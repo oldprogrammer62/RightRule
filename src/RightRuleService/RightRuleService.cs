@@ -18,11 +18,11 @@ internal partial class RightRuleService : IRightRuleService
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
-    public IRuleService RuleRegistrationService { get; }
-    public List<ParsedRule>? RegisteredRules => RuleRegistrationService?.GetRules();
+    public IRuleService RuleService { get; }
+    public List<ParsedRule>? RegisteredRules => RuleService?.GetRules();
 
-    private readonly IDataService DataRegistrationService;
-    public List<Dataset>? RegisteredDatasets => DataRegistrationService?.GetDatasets();
+    private readonly IDataService DataService;
+    public List<Dataset>? RegisteredDatasets => DataService?.GetDatasets();
 
     public RightRuleService(
         IOperatorService operatorsService, 
@@ -34,9 +34,9 @@ internal partial class RightRuleService : IRightRuleService
         )
     {
         OperatorsService = operatorsService;
-        RuleRegistrationService = ruleService;
+        RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
-        DataRegistrationService = dataService;
+        DataService = dataService;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
     }

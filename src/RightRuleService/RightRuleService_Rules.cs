@@ -29,33 +29,33 @@ internal partial class RightRuleService : IRightRuleService
 
     public List<string>? GetRuleContexts()
     {
-        return RuleRegistrationService.GetRuleContexts();
+        return RuleService.GetRuleContexts();
     }
 
     public List<(int Number, string Name)>? GetRuleNumbers(string Context)
     {
-        return RuleRegistrationService.GetRuleNumbers(Context);
+        return RuleService.GetRuleNumbers(Context);
     }
 
     public List<string>? GetRuleNames(string Context)
     {
-        return RuleRegistrationService.GetRuleNames(Context);
+        return RuleService.GetRuleNames(Context);
     }
 
     public ParsedRule? GetRegisteredRule(string Context, string RuleName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
-        return RuleRegistrationService.GetRule(Context, RuleName);
+        return RuleService.GetRule(Context, RuleName);
     }
 
     public ParsedRule? GetRegisteredRule(string Context, int RuleNumber)
     {
-        return RuleRegistrationService.GetRule(Context, RuleNumber);
+        return RuleService.GetRule(Context, RuleNumber);
     }
 
     public List<ParsedRule> GetRegisteredRules(string Context)
     {
-        return RuleRegistrationService.GetRules(Context);
+        return RuleService.GetRules(Context);
     }
 
     public List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string JsonData)
@@ -78,7 +78,7 @@ internal partial class RightRuleService : IRightRuleService
     public List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules)
     {
         ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
-        return RuleRegistrationService.RegisterRules(Rules);
+        return RuleService.RegisterRules(Rules);
     }
 
     /// <summary>
@@ -90,28 +90,28 @@ internal partial class RightRuleService : IRightRuleService
     public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
         ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
-        return RuleRegistrationService.RegisterRule(Rule);
+        return RuleService.RegisterRule(Rule);
     }
 
     public bool DeRegisterRules()
     {
-        return RuleRegistrationService.DeRegisterRules();
+        return RuleService.DeRegisterRules();
     }
 
     public bool DeRegisterRules(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        return RuleRegistrationService.DeRegisterRules(Context);
+        return RuleService.DeRegisterRules(Context);
     }
 
     public bool DeRegisterRule(string Context, string RuleName)
     {
-        return RuleRegistrationService.DeRegisterRule(Context, RuleName);
+        return RuleService.DeRegisterRule(Context, RuleName);
     }
 
     public bool DeRegisterRule(string Context, int RuleNumber)
     {
-        return RuleRegistrationService.DeRegisterRule(Context, RuleNumber);
+        return RuleService.DeRegisterRule(Context, RuleNumber);
     }
 }

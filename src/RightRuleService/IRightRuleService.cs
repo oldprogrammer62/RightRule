@@ -14,7 +14,7 @@ namespace RightRule.RightRuleService;
 
 internal interface IRightRuleService
 {
-    IRuleService RuleRegistrationService { get; }
+    IRuleService RuleService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
@@ -44,8 +44,9 @@ internal interface IRightRuleService
     bool DeRegisterRule(string Context, string RuleName);
     bool DeRegisterRule(string Context, int RuleNumber);
 
+    DataRegistrationResult RegisterData(string DatasetName, (string, object) DataItem);
+    List<DataRegistrationResult> RegisterData(string DatasetName, List<(string, object)> DataItems);
     DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
-    DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
     DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
 
     bool DeRegisterData();

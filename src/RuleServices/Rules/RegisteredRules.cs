@@ -49,14 +49,14 @@ internal class RegisteredRules : IRegisteredRules
         var existingRule = GetRule(Rule);
         switch (existingRule)
         {
-            case RuleFound.NOTFOUND:
+            case RuleFoundEnum.NOTFOUND:
                 _rules.Add(Rule);
                 return RuleRegistrationResult.Success($"Rule: {Rule.Number}-{Rule.Name} Registered", Rule);
 
-            case RuleFound.FOUNDBYNUMBER:
+            case RuleFoundEnum.FOUNDBYNUMBER:
                 return RuleRegistrationResult.Failed($"Rule Number: {Rule.Number} already registered", Rule);
 
-            case RuleFound.FOUNDBYNAME:
+            case RuleFoundEnum.FOUNDBYNAME:
                 return RuleRegistrationResult.Failed($"Rule Name: {Rule.Name} already registered", Rule);
 
             default:
@@ -163,7 +163,7 @@ internal class RegisteredRules : IRegisteredRules
             .ToList();
     }
 
-    private RuleFound GetRule(ParsedRule Rule)
+    private RuleFoundEnum GetRule(ParsedRule Rule)
     {
         var number = Rule.Number;
         var name = Rule.Name;
@@ -171,13 +171,13 @@ internal class RegisteredRules : IRegisteredRules
 
         if (GetRule(context, number))
         {
-            return RuleFound.FOUNDBYNUMBER;
+            return RuleFoundEnum.FOUNDBYNUMBER;
         }
         if (GetRule(context, name))
         {
-            return RuleFound.FOUNDBYNAME;
+            return RuleFoundEnum.FOUNDBYNAME;
         }
-        return RuleFound.NOTFOUND;
+        return RuleFoundEnum.NOTFOUND;
     }
 
     private bool GetRule(string Context, int RuleNumber)
