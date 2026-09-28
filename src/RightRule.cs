@@ -30,9 +30,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         var services = ServiceRegister.RegisterServices(new ServiceCollection());
         ServiceProvider = services.BuildServiceProvider();
-        // Ensure the library-level service locator is configured so extension methods
-        // like DefinedRule.Register() can resolve required services without host setup.
-        ServiceLocator.SetProvider(ServiceProvider);
         RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
