@@ -8,14 +8,14 @@ namespace RightRuleTests;
 
 public class LoggerTests
 {
-    //[Fact]
-    //public void LogTest()
-    //{
-    //    var fakeLogger = new FakeLogger<BeSoft.RightRule>();
-    //    IRightRule rr = new BeSoft.RightRule();
+    [Fact]
+    public void LogTest()
+    {
+        var fakeLogger = new FakeLogger<BeSoft.RightRule>();
+        IRightRule rr = new BeSoft.RightRule(fakeLogger);
 
-    //    var dataReg = rr.RegisterData("a", 100);
+        var dataReg = rr.RegisterData("a", 100);
 
-    //    var lastRecord = fakeLogger.LatestRecord;
-    //}
+        var lastRecord = fakeLogger.LatestRecord;
+    }
 }

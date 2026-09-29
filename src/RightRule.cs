@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RightRule;
+using RightRule.DataServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleModels;
@@ -20,17 +22,37 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private bool Disposed { get; set; }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
+    private readonly ServiceCollection Services = ServiceRegister.RegisterServices(new ServiceCollection());
+
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ServiceProvider ServiceProvider;
+
 
     private readonly IRightRuleService RightRuleService;
 
-    public IRuleService RuleRegistrationService => RightRuleService.RuleService;
+    public IRuleService RuleService => RightRuleService.RuleService;
+    public IDataService DataService => RightRuleService.DataService;
 
-    public RightRule()
+    private readonly ILogger<RightRule> logger;
+
+    public RightRule() : this(initServices: false)
     {
-        var services = ServiceRegister.RegisterServices(new ServiceCollection());
-        ServiceProvider = services.BuildServiceProvider();
+    }
+
+    public RightRule(bool initServices)
+    {
+        if (initServices)
+        {
+            Services = ServiceRegister.RegisterServices(new ServiceCollection());
+        }
+        ServiceProvider = Services.BuildServiceProvider();
         RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();
+    }
+
+    public RightRule(ILogger<RightRule> logger)
+        : this(initServices: false)
+    {
+        this.logger = logger;
     }
 
     private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)

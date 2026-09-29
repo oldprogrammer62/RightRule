@@ -1,5 +1,6 @@
 ﻿using BeSoft;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
 using RightRule.Factories.ParserFactory;
@@ -28,6 +29,13 @@ internal sealed class ServiceRegister
         {
             services = new ServiceCollection();
         }
+
+        services.AddLogging(builder =>
+        {
+            builder.AddConsole();
+            builder.AddDebug();
+        });
+
         services.AddSingleton<IOperatorService, OperatorService>();
 
         services.AddSingleton<ITokenizerFactory, TokenizerFactory>();

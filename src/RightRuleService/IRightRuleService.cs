@@ -1,4 +1,5 @@
 ﻿using BeSoft;
+using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
@@ -12,9 +13,10 @@ using RightRule.System.Common;
 
 namespace RightRule.RightRuleService;
 
-internal interface IRightRuleService
+public interface IRightRuleService
 {
-    IRuleService RuleService { get; }
+    IRuleService? RuleService { get; }
+    IDataService? DataService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
@@ -22,7 +24,7 @@ internal interface IRightRuleService
     Dataset? GetDataset(string DatasetName);
 
     List<ParsedRule>? RegisteredRules { get; }
-    List<Dataset>? RegisteredDatasets { get; }
+    List<Dataset>? RegisteredData { get; }
 
     Dictionary<string, Operator> GetOperatorAliases();
     List<Operator> GetOperatorDetails();

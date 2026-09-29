@@ -2,7 +2,7 @@
 
 namespace RightRule.DataServices;
 
-internal interface IDataService
+public interface IDataService
 {
     void Clear();
 

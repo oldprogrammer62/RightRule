@@ -90,7 +90,7 @@ public class DataStructures_Test
             .FalseDecision("NOT DONE")
             .WithDataCheck(false)
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);

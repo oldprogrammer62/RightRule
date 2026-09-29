@@ -20,7 +20,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -43,7 +43,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -66,7 +66,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -89,7 +89,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -112,7 +112,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -135,7 +135,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -158,7 +158,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -181,7 +181,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -204,7 +204,7 @@ public class DataTypes_Tests
             .Decision("SAME")
             .FalseDecision("DIFF")
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);

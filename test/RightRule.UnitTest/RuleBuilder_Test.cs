@@ -22,7 +22,7 @@ public class RuleBuilder_Test
             .WithDataCheck(false)
             .WithDiagnostics(false)
             .Build()
-            .Register(rr.RuleRegistrationService);
+            .Register(rr.RuleService);
 
         var rule2 = rr.BuildRule()
             .Number(2)

@@ -8,7 +8,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRightRule(this IServiceCollection services)
     {
         // Register your library's components
-        services.AddScoped<BeSoft.RightRule>();
+        services.AddScoped<IRightRule, BeSoft.RightRule>();
 
         return services;
     }
