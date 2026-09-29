@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -105,7 +106,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule1()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         rr.RegisterData("Step1Data2", _Step1Data2);
@@ -118,7 +119,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule2()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         rr.RegisterData("Step1Data2", _Step1Data2);
@@ -131,7 +132,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule3()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         rr.RegisterData("Step1Data2", _Step1Data2);
@@ -144,7 +145,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep2()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
@@ -160,7 +161,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep2_WithDeRegistration()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);

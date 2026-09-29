@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -7,7 +7,7 @@ public class HelperTests
     [Fact]
     public void ReadFromSettings_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         const string Key = "CustomOperatorConfigPath";
 

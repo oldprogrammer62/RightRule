@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using System.Text;
 
 namespace RightRuleTests;
@@ -9,7 +9,7 @@ public class RuleGetters_Tests
 
     public RuleGetters_Tests()
     {
-        rr = new BeSoft.RightRule();
+        rr = new RightRule.RightRule();
         rr.RegisterRulesJson(JsonString());
     }
 

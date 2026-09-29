@@ -1,3 +1,4 @@
+using RightRule;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.RuleServices.RuleModels;
 
@@ -23,7 +24,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task ValidStatement_ReturnsValid()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         CheckStatementResult? result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
@@ -33,7 +34,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var stmt = "Data.name equals \"John";
         var result = await rr.SyntaxCheckAsync(stmt);
 
@@ -50,7 +51,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var stmt = "(Test.numberoforders equals 10";
         var result = await rr.SyntaxCheckAsync(stmt);
 
@@ -66,7 +67,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnexpectedCharacter_ReportsDiagnostic()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var stmt = "Test.name equals #invalid";
         var result = await rr.SyntaxCheckAsync(stmt);
 
@@ -84,7 +85,8 @@ public class SyntaxCheckTests
     {
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5";
-        var rightRule = new BeSoft.RightRule();
+
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()

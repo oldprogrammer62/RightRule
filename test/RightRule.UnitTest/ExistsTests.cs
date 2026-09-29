@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 using System.Collections;
 
 namespace RightRuleTests;
@@ -47,7 +48,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
         rr.RegisterData("Arguments", Arguments);
@@ -77,7 +78,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
         rr.RegisterData("Arguments", Arguments);
@@ -101,7 +102,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -124,7 +125,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -147,7 +148,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -170,7 +171,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -193,7 +194,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -216,7 +217,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -239,7 +240,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -262,7 +263,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 

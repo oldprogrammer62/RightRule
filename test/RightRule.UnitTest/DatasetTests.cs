@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.DataServices.Data;
 
 namespace RightRuleTests;
@@ -23,7 +23,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDataset1()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -39,7 +39,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDataset2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -55,7 +55,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDatasets()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -68,7 +68,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDatasets_Indexed()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -84,7 +84,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDataset1()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -111,7 +111,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDataset2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);
@@ -138,7 +138,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDatasets()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data1", Data1);
         rr.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.GetRegisteredData().Count);

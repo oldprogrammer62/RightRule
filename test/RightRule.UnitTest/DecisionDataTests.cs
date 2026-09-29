@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -7,7 +7,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_SameOut()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.BuildRule()
@@ -37,7 +37,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_DiffOut()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.BuildRule()
@@ -64,7 +64,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_LogStatement()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.BuildRule()

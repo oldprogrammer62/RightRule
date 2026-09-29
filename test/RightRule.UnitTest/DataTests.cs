@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -32,7 +33,7 @@ public class DataTests
             FalseDecision = "NOTEQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 

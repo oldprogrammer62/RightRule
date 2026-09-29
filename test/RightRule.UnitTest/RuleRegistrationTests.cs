@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 
@@ -9,7 +9,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_Diff()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DefinedRule rule1 = rr.BuildRule()
             .Number(1)
@@ -44,7 +44,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_ByNumber()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DefinedRule rule1 = rr.BuildRule()
             .Number(1)
@@ -79,7 +79,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_ByName()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DefinedRule rule1 = rr.BuildRule()
             .Number(1)

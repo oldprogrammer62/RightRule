@@ -1,4 +1,5 @@
-﻿using RightRule.DataServices.DataLoaders.Json;
+﻿using RightRule;
+using RightRule.DataServices.DataLoaders.Json;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;
@@ -10,7 +11,7 @@ public class LoaderJSON_Tests
     [Fact]
     public void Json_Load_Test()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory? loaderFactory = new RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory(rr);
 
@@ -26,7 +27,7 @@ public class LoaderJSON_Tests
     [Fact]
     public void Json_Load_Test2()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var json = Template.JsonString();
         List<RuleRegistrationResult>? rules = rr.RegisterRulesJson(json);
@@ -37,7 +38,7 @@ public class LoaderJSON_Tests
     [Fact]
     public void Json_Load_Test3()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         int x = 100;
         var xregistered = rr.RegisterData("x", nameof(x), x);

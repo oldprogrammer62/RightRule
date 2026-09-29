@@ -2,7 +2,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class

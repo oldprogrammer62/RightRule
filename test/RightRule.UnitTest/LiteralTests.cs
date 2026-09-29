@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -30,7 +31,7 @@ public class LiteralTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -53,7 +54,7 @@ public class LiteralTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -81,7 +82,7 @@ public class LiteralTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
         rr.RegisterData("Arguments", Arguments);
@@ -105,7 +106,7 @@ public class LiteralTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -133,7 +134,7 @@ public class LiteralTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
         rr.RegisterData("Arguments", Arguments);

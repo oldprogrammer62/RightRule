@@ -3,7 +3,7 @@ using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using System.Data;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class

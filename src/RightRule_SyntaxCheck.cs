@@ -1,6 +1,6 @@
 using RightRule.LanguageProcessor.SyntaxChecker;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class

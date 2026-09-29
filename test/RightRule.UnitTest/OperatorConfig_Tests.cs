@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.DataServices.DataRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
@@ -30,7 +30,7 @@ public class OperatorConfig_Tests
             OptionalData = OpConfig
         };
 
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
         RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
 

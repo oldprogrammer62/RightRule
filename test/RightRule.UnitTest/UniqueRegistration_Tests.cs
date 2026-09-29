@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -8,7 +8,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterSameData_Dict()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -27,7 +27,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterDiffData_Dict()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -46,7 +46,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterSameData_Object()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var data = 100;
 

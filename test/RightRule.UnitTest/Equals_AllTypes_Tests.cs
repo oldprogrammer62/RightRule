@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -25,7 +26,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Int()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData(nameof(intVal), nameof(intVal), intVal);
 
@@ -66,7 +67,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dec()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", "decVal", decVal);
 
         decimal localVal = 100.01M;
@@ -92,7 +93,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dec2()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
@@ -120,7 +121,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dbl()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(dblVal), dblVal);
 
         double localVal = dblVal;
@@ -146,7 +147,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Lng()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(lngVal), lngVal);
 
         var localVal = lngVal;
@@ -172,7 +173,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Sin()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(sinVal), sinVal);
 
         Single localVal = sinVal;
@@ -198,7 +199,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Float_Dict()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(fltVal), fltVal);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
@@ -227,7 +228,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_String()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(strVal), strVal);
 
         string localVal = strVal;
@@ -253,7 +254,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Char()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(chrVal), chrVal);
 
         char localVal = chrVal;
@@ -279,7 +280,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Bool_Bool()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(boolVal), boolVal);
 
         bool localVal = boolVal;
@@ -305,7 +306,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Bool_String()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(boolStr), boolStr);
 
         string localVal = boolStr;
@@ -331,7 +332,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_DateOnly()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(dtonlyVal), dtonlyVal);
 
         DateOnly localVal = dtonlyVal;
@@ -357,7 +358,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_TimeOnly()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(tmonlyVal), tmonlyVal);
 
         TimeOnly localVal = tmonlyVal;
@@ -383,7 +384,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_DateTime()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("testVal", nameof(dttimeVal), dttimeVal);
 
         DateTime localVal = dttimeVal;

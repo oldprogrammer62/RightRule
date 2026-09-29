@@ -1,3 +1,4 @@
+using RightRule;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -59,7 +60,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_A()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
@@ -75,7 +76,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_B()
     {
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);

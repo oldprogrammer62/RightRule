@@ -3,7 +3,7 @@ using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
-namespace BeSoft;
+namespace RightRule;
 
 public sealed partial class RightRule : IRightRule, IDisposable
 {

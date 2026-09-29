@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -23,7 +24,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
@@ -52,7 +53,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.Ordinal
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
@@ -81,7 +82,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var dataset = rr.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 

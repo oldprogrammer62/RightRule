@@ -1,7 +1,7 @@
 using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class

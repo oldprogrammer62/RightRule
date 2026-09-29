@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -10,7 +10,7 @@ public class DataDeregistrationTests
         var d = "Hello";
         var d2 = "World";
 
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("d", nameof(d), d);
         rr.RegisterData("d2", nameof(d2), d2);
         // Assert.Equal(2, rr.GetRegisteredDataObjects().Count);
@@ -32,7 +32,7 @@ public class DataDeregistrationTests
         {
             { "Name", "Harry" }
         };
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("d", d);
         rr.RegisterData("d2", d2);
         //Assert.Equal(2, rr.GetRegisteredDatasets().Count);

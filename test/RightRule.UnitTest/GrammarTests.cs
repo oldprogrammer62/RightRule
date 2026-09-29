@@ -1,3 +1,4 @@
+using RightRule;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -34,7 +35,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -57,7 +58,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -81,7 +82,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -105,7 +106,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -129,7 +130,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -152,7 +153,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -175,7 +176,7 @@ public class GrammarTests
             FalseDecision = "INCORRECTORDERCOUNT"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -198,7 +199,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -221,7 +222,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -243,7 +244,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -266,7 +267,7 @@ public class GrammarTests
             FalseDecision = "NAMEDIFFERENTFROMFULLNAME"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -289,7 +290,7 @@ public class GrammarTests
             FalseDecision = "NOTGOODPAYER"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -312,7 +313,7 @@ public class GrammarTests
             FalseDecision = "NOTGOODPAYER"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -345,7 +346,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND2"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -380,7 +381,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND2"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);

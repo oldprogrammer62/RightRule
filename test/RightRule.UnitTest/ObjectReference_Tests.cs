@@ -1,8 +1,7 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
-using RightRule.System.Common;
 
 namespace RightRuleTests;
 
@@ -11,7 +10,7 @@ public class ObjectReference_Tests
     [Fact]
     public void NewObjectRefAndData_ShouldBeEqual()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -45,7 +44,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectRefAndData_ShouldBeEqual()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -79,7 +78,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectReference_ShouldBeEqual()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var name1 = "Bob";
         var age1 = 31;
@@ -111,7 +110,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectReference_NotEqual()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var name1 = "Bob";
         var age1 = 30;
@@ -146,7 +145,7 @@ public class ObjectReference_Tests
     {
         int x = 100;
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData("x", nameof(x), x);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
 
@@ -172,7 +171,7 @@ public class ObjectReference_Tests
         int y = 200;
         string greeting = "Hello";
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData("datax", nameof(x), x);
         var added2 = rr.RegisterData("datay", nameof(y), y);
         var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);
@@ -202,7 +201,7 @@ public class ObjectReference_Tests
         int y = 200;
         string greeting = "Hello";
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData("datax", nameof(x), x);
         var added2 = rr.RegisterData("datay", nameof(y), y);
         var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);

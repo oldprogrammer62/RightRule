@@ -52,7 +52,7 @@ Dictionary<string, object> _Data = new Dictionary<string, object>(StringComparer
    { "attribute3", false },
    { "attribute4", 17 }
 };
-BeSoft.IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 bool registered = rr.RegisterData("dataset1", _Data);
 ```
 
@@ -60,13 +60,13 @@ bool registered = rr.RegisterData("dataset1", _Data);
 
 ```csharp
 int x = 100; // Intrinsic type
-BeSoft.IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 var attribute5 = rr.RegisterData("x", x);
 ```
 
 ```csharp
 var xtype = new xtype(); // Where xtype is a custom type defined with properties for name and a value
-BeSoft.IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 var attribute5 = rr.RegisterData("xtype", x);
 ```
 

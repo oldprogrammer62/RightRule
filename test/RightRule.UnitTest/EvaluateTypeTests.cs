@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
 
 namespace RightRuleTests;
@@ -8,7 +8,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRule()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef = rr.BuildRule()
             .Number(1)
@@ -29,7 +29,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -61,7 +61,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_First()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -93,7 +93,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_Any()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -126,7 +126,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_All_Success()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -159,7 +159,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_All_Fail()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)

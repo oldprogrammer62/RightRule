@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule_Demo.RuleLoader

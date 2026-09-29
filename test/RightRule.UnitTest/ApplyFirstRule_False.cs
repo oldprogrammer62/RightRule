@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -8,7 +8,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_True_Second_False_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -39,7 +39,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_False_Second_True_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -70,7 +70,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_False_Second_False_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var rule1 = rr.BuildRule()
             .Number(1)

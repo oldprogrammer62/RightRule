@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.SyntaxChecker;
+﻿using RightRule;
+using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule_SyntaxChecker;
@@ -11,14 +12,14 @@ internal class Program
         Console.WriteLine("This tool allows you to check the syntax of RightRule statements.");
         Console.WriteLine();
 
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         DoCheckProcessAsync(rr).GetAwaiter().GetResult();
 
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey();
     }
 
-    private async static Task DoCheckProcessAsync(BeSoft.RightRule rightRule)
+    private async static Task DoCheckProcessAsync(IRightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
         var result = await rightRule.SyntaxCheckAsync(statement).ConfigureAwait(false);

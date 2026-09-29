@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common;
 
@@ -40,7 +41,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
@@ -72,7 +73,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -96,7 +97,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule1);
         rr.RegisterData("Test", _Data);
 
@@ -128,7 +129,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -161,7 +162,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -194,7 +195,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -227,7 +228,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS102"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -260,7 +261,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -293,7 +294,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100_2"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);
@@ -327,7 +328,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS102"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _Data);

@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -22,7 +23,7 @@ public class ApplyRules_Async_Tests
             FalseDecision = "NOT_DONE"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var dataRegistered = rr.RegisterData("Data", data);
         var ruleRegistered = rr.RegisterRule(rule1);
 

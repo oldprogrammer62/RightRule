@@ -1,5 +1,4 @@
-﻿using BeSoft;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
@@ -65,7 +64,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
 
         services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
-        services.AddScoped<IRightRule, BeSoft.RightRule>();
+        services.AddScoped<IRightRule, RightRule>();
 
         return services;
     }

@@ -15,7 +15,7 @@ Returns additional, context-specific information that the calling application ca
 
 Initialise a Rule Definition and Register
 -----------------------------------------
-BeSoft.IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 RuleConfiguration rc = new RuleConfiguration()
 {
     DataCheck = true,
@@ -38,7 +38,7 @@ RuleRegistrationResult rule1 = rr.RegisterRule(rule);
 
 Build a Rule Definition and Register
 ------------------------------------
-BeSoft.IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 RuleDefinition rule = rr.BuildRuleDefinition()
    .Number(1)
    .Name("Rule1")

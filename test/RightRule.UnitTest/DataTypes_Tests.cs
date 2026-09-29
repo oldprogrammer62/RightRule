@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -7,7 +7,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Int()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         int a = 100;
         var data1Reg = rr.RegisterData("a", a);
@@ -30,7 +30,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Dec()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         double a = 100.001;
         var data1Reg = rr.RegisterData("a", a);
@@ -53,7 +53,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_String()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string a = "100";
         var data1Reg = rr.RegisterData("a", a);
@@ -76,7 +76,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Char()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         char a = 'C';
         var data1Reg = rr.RegisterData("a", a);
@@ -99,7 +99,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Boolean()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         bool a = true;
         var data1Reg = rr.RegisterData("a", a);
@@ -122,7 +122,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_BooleanString()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         bool a = true;
         var data1Reg = rr.RegisterData("a", a);
@@ -145,7 +145,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_DateTime()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DateTime a = new DateTime(1970, 01, 01, 12, 12, 12);
         var data1Reg = rr.RegisterData("a", a);
@@ -168,7 +168,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_DateOnly()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DateOnly a = new DateOnly(1970, 01, 01);
         var data1Reg = rr.RegisterData("a", a);
@@ -191,7 +191,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_TimeOnly()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         TimeOnly a = new TimeOnly(12, 30, 30);
         var data1Reg = rr.RegisterData("a", a);

@@ -1,5 +1,4 @@
-﻿using BeSoft;
-using RightRule.DataServices.DataLoaders.Json;
+﻿using RightRule.DataServices.DataLoaders.Json;
 using RightRule.RuleServices.RuleLoader;
 
 namespace RightRule.Factories.RuleLoaderFactory;

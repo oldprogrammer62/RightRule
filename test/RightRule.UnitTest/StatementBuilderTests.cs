@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 using System.Text;
 
 namespace RightRuleTests;
@@ -61,7 +62,7 @@ public class StatementBuilderTests
             }
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("OrderData", _OrderData);
         rr.RegisterData("CustomerData", _CustomerData);

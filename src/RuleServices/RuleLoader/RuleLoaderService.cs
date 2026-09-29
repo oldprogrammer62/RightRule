@@ -1,5 +1,4 @@
-﻿using BeSoft;
-using RightRule.RuleServices.RuleModels;
+﻿using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.RuleLoader;
 

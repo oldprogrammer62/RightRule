@@ -1,4 +1,5 @@
-﻿using RightRule.ConfigurationService;
+﻿using RightRule;
+using RightRule.ConfigurationService;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -24,7 +25,7 @@ public class EqualsTests
     [Fact]
     public void Equals_Bool()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         RightRuleConfiguration rc = new RightRuleConfiguration()
         {
             DataCheck = false,
@@ -67,7 +68,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -93,7 +94,7 @@ public class EqualsTests
             RuleConfiguration = rc
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         var data1 = rr.RegisterData("Test", _Data);
 
@@ -116,7 +117,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -139,7 +140,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -162,7 +163,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -187,7 +188,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -212,7 +213,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Test", _Data);
 
@@ -251,7 +252,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS200"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _IntData);
@@ -291,7 +292,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS200"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _IntData);
@@ -331,7 +332,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS200"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
         rr.RegisterData("Test", _IntData);

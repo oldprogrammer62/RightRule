@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -12,7 +13,7 @@ public class ExceptionTests
             { "DataItem1", "Value" }
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         
         Assert.Throws<ArgumentException>(() => rr.RegisterData("", data));
     }
@@ -24,7 +25,7 @@ public class ExceptionTests
         {
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var dataReg = rr.RegisterData("DatasetName", data);
         Assert.NotNull(dataReg);
@@ -42,7 +43,7 @@ public class ExceptionTests
             Number = 1,
             Statement = "a.b was c.d"
         };
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleReg = rr.RegisterRule(rule);
         Assert.NotNull(ruleReg);

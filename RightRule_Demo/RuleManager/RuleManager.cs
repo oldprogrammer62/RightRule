@@ -1,9 +1,7 @@
-﻿using BeSoft;
-using RightRule;
+﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.System.Common;
 
 namespace RightRule_Demo.RuleManager
 {
@@ -11,7 +9,7 @@ namespace RightRule_Demo.RuleManager
     {
         internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, EvaluationTypeEnum EvaluationType)
         {
-            BeSoft.RightRule rr = new BeSoft.RightRule();
+            IRightRule rr = new RightRule.RightRule();
 
             string Context = "Demo";
             var rules = LoadRules(rr, Context);

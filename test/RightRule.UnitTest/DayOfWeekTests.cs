@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -23,7 +24,7 @@ public class DayOfWeekTests
             FalseDecision = "NOT_SAME"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("data", data);
         var parsedRule = rr.RegisterRule(rule1);
         var appliedRule = rr.ApplyRule("context");

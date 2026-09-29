@@ -1,5 +1,4 @@
-﻿using BeSoft;
-using RightRule.RightRuleService;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -8,7 +7,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByContextAndNumber()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context = "Context";
         int RuleNumber1 = 1;
@@ -35,7 +34,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByContextAndName()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context = "Context";
         int RuleNumber1 = 1;
@@ -62,7 +61,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByContextAndNumber2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context = "Context";
         int RuleNumber1 = 1;
@@ -106,7 +105,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByContextAndName2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context = "Context";
         int RuleNumber1 = 1;
@@ -150,7 +149,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByDiffContextAndName()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context1 = "Context1";
         int RuleNumber1 = 1;
@@ -196,7 +195,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByDiffContextAndNumber()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context1 = "Context1";
         int RuleNumber1 = 1;
@@ -241,7 +240,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterByContext()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context1 = "Context1";
         int RuleNumber1 = 1;
@@ -296,7 +295,7 @@ public class RuleDeregistrationTests
     [Fact]
     public void DeregisterAll()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context1 = "Context1";
         int RuleNumber1 = 1;

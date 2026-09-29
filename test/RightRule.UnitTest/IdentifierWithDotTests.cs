@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -38,7 +39,7 @@ public class IdentifierWithDotTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("Data", _Data);
         rr.RegisterData("Constants", _Constants);
 
@@ -63,7 +64,7 @@ public class IdentifierWithDotTests
             FalseDecision = "NOT EQUALS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("Data", _Data);
         rr.RegisterData("Constants", _Constants);

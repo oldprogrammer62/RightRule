@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -8,7 +9,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuilder()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -46,7 +47,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_First()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -93,7 +94,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_Any()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -141,7 +142,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Success()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -189,7 +190,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Fail()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);

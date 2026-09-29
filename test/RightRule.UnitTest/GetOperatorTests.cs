@@ -1,11 +1,13 @@
-﻿namespace RightRuleTests;
+﻿using RightRule;
+
+namespace RightRuleTests;
 
 public class GetOperatorTests
 {
     [Fact]
     public void GetOperatorDetails()
     {
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var operatorDetails = rr.GetOperatorDetails();
         Assert.NotNull(operatorDetails);
     }

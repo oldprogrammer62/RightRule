@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -31,7 +32,7 @@ public class RegisterRulesAsync_Tests
             rule2
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var registeredRules = rr.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
@@ -60,7 +61,7 @@ public class RegisterRulesAsync_Tests
             FalseDecision = "NOT_DONE"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var registeredRule1 = rr.RegisterRule(rule1);
         var registeredRule2 = rr.RegisterRule(rule2);
         Assert.NotNull(registeredRule1);

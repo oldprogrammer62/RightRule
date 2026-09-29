@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
 
@@ -25,7 +26,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "TestDataset.A = 1 and (TestDataset.B = 2 or TestDataset.C = 3)";
-        var rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()
@@ -51,7 +52,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "TestDataset.A = 10 or TestDataset.B = 2";
-        var rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()
@@ -77,7 +78,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and TestDataset.D = 4)";
-        var rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()
@@ -103,7 +104,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and not TestDataset.D = 44)";
-        var rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()
@@ -134,7 +135,7 @@ public class ComplexStatementTests
 
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5)";
-        var rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         // Rule
         DefinedRule rule = new()

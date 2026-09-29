@@ -1,8 +1,6 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.ConfigurationService;
 using RightRule.RuleServices.RuleModels;
-using System.Data;
-using System.Text;
 
 namespace RightRuleTests;
 
@@ -11,7 +9,7 @@ public class RuleDiagnosticsTests
     [Fact]
     public void RuleBuilderTest_NoConfig()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -30,7 +28,7 @@ public class RuleDiagnosticsTests
     [Fact]
     public void RuleBuilderTest_Config()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         bool datacheck = true;
         bool diagnostics = true;

@@ -1,7 +1,4 @@
-﻿using BeSoft;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RightRule;
 
 namespace RightRuleTests
 {
@@ -21,30 +18,27 @@ namespace RightRuleTests
         [Fact]
         public void GetDataSets()
         {
-            IRightRule rr = new BeSoft.RightRule();
+            IRightRule rr = new RightRule.RightRule();
 
             var regData1 = rr.RegisterData("Data1", dictdata);
-
-            //var xxxx = rr.GetRegisteredDatasets();
-            //Assert.NotNull(xxxx);
+            Assert.NotNull(regData1);
         }
 
         [Fact]
         public void GetDataObjects()
         {
-            IRightRule rr = new BeSoft.RightRule();
+            IRightRule rr = new RightRule.RightRule();
 
             var regData1 = rr.RegisterData("A", nameof(a), a);
             var regData2 = rr.RegisterData("B", nameof(b), b);
-
-            //var xxxx = rr.GetRegisteredDataObjects();
-            //Assert.NotNull(xxxx);
+            Assert.NotNull(regData1);
+            Assert.NotNull(regData2);
         }
 
         [Fact]
         public void GetDatas()
         {
-            IRightRule rr = new BeSoft.RightRule();
+            IRightRule rr = new RightRule.RightRule();
 
             var regData1 = rr.RegisterData("Data1", dictdata);
 
@@ -60,7 +54,7 @@ namespace RightRuleTests
         [Fact]
         public void ResolveVariables()
         {
-            IRightRule rr = new BeSoft.RightRule();
+            IRightRule rr = new RightRule.RightRule();
 
             var regData1 = rr.RegisterData("Data1", dictdata);
 

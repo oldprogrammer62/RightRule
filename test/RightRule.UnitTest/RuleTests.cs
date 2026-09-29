@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -34,7 +34,7 @@ public class RuleTests
     [Fact]
     public void GetRule1()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -50,7 +50,7 @@ public class RuleTests
     [Fact]
     public void GetRule2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -66,7 +66,7 @@ public class RuleTests
     [Fact]
     public void GetRules()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -85,7 +85,7 @@ public class RuleTests
     [Fact]
     public void GetRules_Indexed()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -107,7 +107,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByName()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -125,7 +125,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByName2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -143,7 +143,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByNumber()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -161,7 +161,7 @@ public class RuleTests
     [Fact]
     public void DeregisterRule_ByNumber()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -174,7 +174,7 @@ public class RuleTests
     [Fact]
     public void DeregisterRule_ByName()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);

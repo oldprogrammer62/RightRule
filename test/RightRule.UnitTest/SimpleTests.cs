@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -7,7 +7,7 @@ public class SimpleTests
     [Fact]
     public void WithDataCheck()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var ds = rr.RegisterData("a", 100);
 
         string context = "Context";
@@ -30,7 +30,7 @@ public class SimpleTests
     [Fact]
     public void SimpleTest()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
             {"a", 100 }
@@ -57,7 +57,7 @@ public class SimpleTests
     [Fact]
     public void Test1()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
@@ -76,7 +76,7 @@ public class SimpleTests
     [Fact]
     public void TestWithDefault()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
@@ -94,7 +94,7 @@ public class SimpleTests
     [Fact]
     public void Test_WithError_Rule()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")

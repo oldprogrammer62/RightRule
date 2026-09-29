@@ -1,6 +1,6 @@
 ﻿Load Rules using a Json
 -----------------------
-IRightRule rr = new BeSoft.RightRule();
+IRightRule rr = new RightRule.RightRule();
 List<RuleRegistrationResult> rules = rr.RegisterRulesJson(json);
 
 

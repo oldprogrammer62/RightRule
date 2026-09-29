@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RightRule;
 using RightRule.DataServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
@@ -10,7 +9,7 @@ using RightRule.RuleServices.RuleRegistration;
 using RightRule.ServiceRegister;
 using System.ComponentModel;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class
@@ -22,7 +21,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private bool Disposed { get; set; }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
-    private readonly ServiceCollection Services = ServiceRegister.RegisterServices(new ServiceCollection());
+    private readonly ServiceCollection Services = ServiceRegister.ServiceRegister.RegisterServices(new ServiceCollection());
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ServiceProvider ServiceProvider;
@@ -43,7 +42,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (initServices)
         {
-            Services = ServiceRegister.RegisterServices(new ServiceCollection());
+            Services = ServiceRegister.ServiceRegister.RegisterServices(new ServiceCollection());
         }
         ServiceProvider = Services.BuildServiceProvider();
         RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();

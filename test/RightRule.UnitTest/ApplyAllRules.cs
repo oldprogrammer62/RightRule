@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -10,7 +11,7 @@ public class ApplyAllRules
     {
         int x = 10;
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         rr.RegisterData("xdata", nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()

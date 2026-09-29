@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule;
+using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -8,7 +9,7 @@ public class ExtensionTests
     [Fact]
     public void GetRules_ShouldReturnParsedRules()
     {
-        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         var rules = rightRule.GetRegisteredRules();
 
@@ -21,7 +22,7 @@ public class ExtensionTests
     {
         string specifiedContext = "TestContext";
 
-        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
 
         var result = rightRule.GetRegisteredRules(specifiedContext);
 
@@ -34,7 +35,7 @@ public class ExtensionTests
     public void RegisterRules()
     {
         // Arrange
-        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
         var rules = new List<DefinedRule>
         {
         };
@@ -49,7 +50,7 @@ public class ExtensionTests
     [Fact]
     public void RegisterRule()
     {
-        BeSoft.RightRule rightRule = new BeSoft.RightRule();
+        IRightRule rightRule = new RightRule.RightRule();
         DefinedRule rule = new DefinedRule()
         {
             Context = "TestContext",

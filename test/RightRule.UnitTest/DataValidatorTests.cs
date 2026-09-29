@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -8,7 +8,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Success()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var r1 = rr.RegisterData("a", 100);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, r1.Status);
@@ -40,7 +40,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Fail()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var r1 = rr.RegisterData("a", 100);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, r1.Status);

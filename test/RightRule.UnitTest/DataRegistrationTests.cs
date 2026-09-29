@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 
@@ -35,7 +36,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -56,7 +57,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        var rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
@@ -78,7 +79,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
@@ -94,7 +95,7 @@ public class DataRegistrationTests
         int x = 100;
         var r = ("r", x);
 
-        BeSoft.IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData("r", r);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
 

@@ -1,6 +1,6 @@
 using RightRule.System.Common;
 
-namespace BeSoft;
+namespace RightRule;
 
 /// <summary>
 /// Main RightRule class

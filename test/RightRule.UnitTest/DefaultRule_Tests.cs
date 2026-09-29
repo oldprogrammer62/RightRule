@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
@@ -10,7 +10,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRule1_SingleMatch_NoResult()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -28,7 +28,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRule2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var ruleDef1 = rr.BuildRule()
             .Number(1)
@@ -46,7 +46,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultRule()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string context = "Hello";
 
@@ -70,7 +70,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultRuleAndUseIt()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string context = "Hello";
 
@@ -106,7 +106,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultMoreThanOnce()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string context1 = "Hello";
         string context2 = "world";
@@ -169,7 +169,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRuleBuilder_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         string Context = "ContextFromBuilder";
 

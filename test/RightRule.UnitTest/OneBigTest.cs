@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 using RightRule.DataServices.DataRegistration;
 using RightRule.RuleServices.RuleRegistration;
 
@@ -32,7 +32,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_True()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         DataRegistrationResult? data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -65,7 +65,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_StdDefaultRule()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -96,7 +96,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_NewDefaultRule()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -136,7 +136,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_DefaultRuleContext2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -194,7 +194,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_NewDefaultRuleContext2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         var data1Registration = rr.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);

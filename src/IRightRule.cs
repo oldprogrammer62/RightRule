@@ -1,5 +1,4 @@
-﻿using RightRule;
-using RightRule.DataServices.Data;
+﻿using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -12,7 +11,7 @@ using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common;
 
-namespace BeSoft;
+namespace RightRule;
 
 public interface IRightRule
 {

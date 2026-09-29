@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -6,7 +7,7 @@ namespace RightRuleTests;
 public class BooleanEquals_Tests
 {
     Dictionary<string, object> _data = new Dictionary<string, object>();
-    BeSoft.IRightRule rr = new BeSoft.RightRule();
+    IRightRule rr = new RightRule.RightRule();
 
     public BooleanEquals_Tests()
     {

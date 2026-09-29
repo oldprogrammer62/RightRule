@@ -1,4 +1,4 @@
-﻿using BeSoft;
+﻿using RightRule;
 
 namespace RightRuleTests;
 
@@ -7,7 +7,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Test()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -34,7 +34,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Tuple()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Data1", "Value", 9000);
 
@@ -63,7 +63,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_ListOfTuple()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Data1", "Value", 9000);
 
@@ -100,7 +100,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Variable()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         int Value = 100;
 
@@ -125,7 +125,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Variable2()
     {
-        IRightRule rr = new BeSoft.RightRule();
+        IRightRule rr = new RightRule.RightRule();
 
         rr.RegisterData("Variable", "Hello World");
 
