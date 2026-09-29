@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Logging.Testing;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using RightRule;
+using RightRule.ServiceRegister;
 
 namespace RightRuleTests;
 
@@ -8,11 +11,24 @@ public class LoggerTests
     [Fact]
     public void LogTest()
     {
-        //var fakeLogger = new FakeLogger<RightRule.RightRule>();
-        //IRightRule rr = new RightRule.RightRule(fakeLogger);
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddRightRule();
+        var serviceProvider = services.BuildServiceProvider();
+        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        rr.RegisterData("a", 100);
+        Assert.NotNull(rr);
+    }
 
-        //var dataReg = rr.RegisterData("a", 100);
-
-        //var lastRecord = fakeLogger.LatestRecord;
+    [Fact]
+    public void LogTest_FakeLogger()
+    {
+        var services = new ServiceCollection();
+        services.AddLogging(builder => builder.AddFakeLogging());
+        services.AddRightRule();
+        var serviceProvider = services.BuildServiceProvider();
+        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        rr.RegisterData("a", 100);
+        Assert.NotNull(rr);
     }
 }

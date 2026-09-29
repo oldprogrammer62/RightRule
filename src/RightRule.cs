@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using RightRule.DataServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
-using RightRule.ServiceRegister;
 using System.ComponentModel;
 
 namespace RightRule;
@@ -20,38 +18,19 @@ public sealed partial class RightRule : IRightRule, IDisposable
     [EditorBrowsable(EditorBrowsableState.Never)]
     private bool Disposed { get; set; }
 
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    private readonly ServiceCollection Services = ServiceRegister.ServiceRegister.RegisterServices(new ServiceCollection());
-
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    private readonly ServiceProvider ServiceProvider;
-
-
     private readonly IRightRuleService RightRuleService;
 
     public IRuleService RuleService => RightRuleService.RuleService;
     public IDataService DataService => RightRuleService.DataService;
 
-    private readonly ILogger<RightRule> logger;
+    private readonly ILogger<RightRule> _logger;
 
-    public RightRule() : this(initServices: false)
-    {
-    }
+    public RightRule() => throw new InvalidOperationException("Use DI to construct RightRule. Call AddRightRule and resolve from IServiceProvider.");
 
-    public RightRule(bool initServices)
+    public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)
     {
-        if (initServices)
-        {
-            Services = ServiceRegister.ServiceRegister.RegisterServices(new ServiceCollection());
-        }
-        ServiceProvider = Services.BuildServiceProvider();
-        RightRuleService = ServiceProvider.GetRequiredService<IRightRuleService>();
-    }
-
-    public RightRule(ILogger<RightRule> logger)
-        : this(initServices: false)
-    {
-        this.logger = logger;
+        RightRuleService = rightRuleService ?? throw new ArgumentNullException(nameof(rightRuleService));
+        _logger = logger;
     }
 
     private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)
@@ -121,8 +100,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (Disposed) return;
 
-        // Properly disposes of all internal singletons/scoped services
-        ServiceProvider.Dispose();
         Disposed = true;
     }
 }

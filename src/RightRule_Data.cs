@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Logging;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
-using System.Data;
 
 namespace RightRule;
 
@@ -89,7 +88,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            // logger.LogInformation("RightRule was here");
+            _logger.LogInformation("RightRule was here");
 
             return RightRuleService.RegisterData(DataItemName, DataItemName, DataItemValue);
         }
