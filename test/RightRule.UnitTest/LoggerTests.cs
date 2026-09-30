@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using RightRule;
 using RightRule.ServiceRegister;
+using RightRuleLogger;
 
 namespace RightRuleTests;
 
@@ -29,6 +30,24 @@ public class LoggerTests
         var serviceProvider = services.BuildServiceProvider();
         var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
         rr.RegisterData("a", 100);
+        Assert.NotNull(rr);
+    }
+
+    [Fact]
+    public void LogTest_RightRuleLogger()
+    {
+        var services = new ServiceCollection();
+        
+        services.AddLogging(builder => 
+            builder.AddRightRuleLogger("logs\\wednesday\\logs2.txt"));
+        
+        services.AddRightRule();
+        
+        var serviceProvider = services.BuildServiceProvider();
+        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        
+        rr.RegisterData("a", 100);
+        
         Assert.NotNull(rr);
     }
 }

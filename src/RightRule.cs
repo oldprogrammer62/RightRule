@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.DataServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
@@ -25,12 +27,32 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly ILogger<RightRule> _logger;
 
-    public RightRule() => throw new InvalidOperationException("Use DI to construct RightRule. Call AddRightRule and resolve from IServiceProvider.");
+    private IServiceProvider? _internalServiceProvider;
+
+    public RightRule()
+    {
+        RightRuleService = GetRightRuleServiceFromDI();
+        _logger = NullLogger<RightRule>.Instance;
+    }
 
     public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)
     {
         RightRuleService = rightRuleService ?? throw new ArgumentNullException(nameof(rightRuleService));
         _logger = logger;
+    }
+
+    private IRightRuleService GetRightRuleServiceFromDI()
+    {
+        var services = new ServiceCollection();
+
+        ServiceRegister.ServiceRegister.RegisterServices(services);
+
+        services.AddLogging();
+
+        _internalServiceProvider = services.BuildServiceProvider();
+
+        // Resolve required service
+        return _internalServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
     private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)

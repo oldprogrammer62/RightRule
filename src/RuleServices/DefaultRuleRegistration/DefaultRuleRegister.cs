@@ -1,16 +1,20 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.DefaultRuleRegistration;
 
 internal class DefaultRuleRegister : IDefaultRuleRegister
 {
+    private readonly ILogger<DefaultRuleRegister> _logger;
+
     private DefaultRule DefaultRule { get; }
     private List<DefaultRulePerContext> DefaultRules {  get; }
 
-    public DefaultRuleRegister()
+    public DefaultRuleRegister(ILogger<DefaultRuleRegister> logger)
     {
         DefaultRule = DefaultRule.DefaultResult();
         DefaultRules = [];
+        _logger = logger;
     }
 
     public List<DefaultRulePerContext>? GetDefaultRules()
@@ -41,6 +45,7 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
         }
         RemoveDefaultRule(defaultRule.Context);
         AddDefaultRule(defaultRule);
+        _logger.LogInformation("Default Rule added for Context: {0}", defaultRule.Context);
         return true;
     }
 
@@ -53,6 +58,7 @@ internal class DefaultRuleRegister : IDefaultRuleRegister
         var ruleFound = GetRegisteredDefaultRulePerContext(Context);
         if (ruleFound != null)
         {
+            _logger.LogInformation($"Default Rule removed for Context: {0}", Context);
             DefaultRules.Remove(ruleFound);
         }
     }
