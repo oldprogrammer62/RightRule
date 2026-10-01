@@ -4,18 +4,30 @@ using System.Text;
 
 namespace RightRuleLogger;
 
-public class Logger : ILogger
+public sealed class RightRuleLogger<TCategoryName> : RightRuleLogger, ILogger<TCategoryName>
 {
-    private readonly string _categoryName;
+}
+
+public class RightRuleLogger : ILogger
+{
+    private readonly string _categoryName = "RightRule";
     private readonly string _filePath;
     private const string _DEFAULTFILEPATH = "rightrulelogs\\";
     private const string _DEFAULTFILENAME = "rightrule.log";
 
     private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1,1);
 
-    public Logger(IConfiguration? configuration, string categoryName)
+    public RightRuleLogger()
     {
-        _categoryName = categoryName;
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+        _filePath = MakeFilePath(configuration);
+    }
+
+    public RightRuleLogger(IConfiguration? configuration, string catgoryName)
+    {
         _filePath = MakeFilePath(configuration);
     }
 

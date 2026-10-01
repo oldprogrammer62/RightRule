@@ -33,7 +33,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public RightRule()
     {
         RightRuleService = GetRightRuleServiceFromDI();
-        _logger = NullLogger<RightRule>.Instance;
+        _logger = new RightRuleLogger.RightRuleLogger<RightRule>();
     }
 
     public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)

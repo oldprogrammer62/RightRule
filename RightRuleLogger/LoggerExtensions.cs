@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace RightRuleLogger;
@@ -12,8 +11,7 @@ public static class LoggerExtensions
     {
         try
         {
-            builder.Services.AddSingleton<ILoggerProvider>(serviceProvider => new LoggerProvider(serviceProvider.GetService<IConfiguration>()));
-
+            builder.Services.AddSingleton<ILoggerProvider>(serviceProvider => new RightRuleLoggerProvider(serviceProvider.GetService<IConfiguration>()));
             return builder;
         }
         catch (Exception ex)

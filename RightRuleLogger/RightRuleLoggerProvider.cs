@@ -3,18 +3,18 @@ using Microsoft.Extensions.Logging;
 
 namespace RightRuleLogger;
 
-public class LoggerProvider : ILoggerProvider
+public class RightRuleLoggerProvider : ILoggerProvider
 {
     private readonly IConfiguration? _configuration;
 
-    public LoggerProvider(IConfiguration configuration)
+    public RightRuleLoggerProvider(IConfiguration? configuration)
     {
         _configuration = configuration;
     }
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new Logger(_configuration, categoryName);
+        return new RightRuleLogger(_configuration, categoryName);
     }
 
     public void Dispose()
