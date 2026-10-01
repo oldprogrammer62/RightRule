@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Testing;
-using RightRule;
 using RightRule.ServiceRegister;
 using RightRuleLogger;
 
@@ -10,7 +9,15 @@ namespace RightRuleTests;
 public class LoggerTests
 {
     [Fact]
-    public void LogTest()
+    public void LogTest_New()
+    {
+        var rr = new RightRule.RightRule();
+        rr.RegisterData("a", 100);
+        Assert.NotNull(rr);
+    }
+
+    [Fact]
+    public void LogTest_DI()
     {
         var services = new ServiceCollection();
         services.AddLogging();
@@ -36,10 +43,16 @@ public class LoggerTests
     [Fact]
     public void LogTest_RightRuleLogger()
     {
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+
         var services = new ServiceCollection();
-        
+        services.AddSingleton(configuration);
+
         services.AddLogging(builder => 
-            builder.AddRightRuleLogger("logs\\wednesday\\logs2.txt"));
+            builder.AddRightRuleLogger());
         
         services.AddRightRule();
         

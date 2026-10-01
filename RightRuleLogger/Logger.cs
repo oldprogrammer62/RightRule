@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace RightRuleLogger;
@@ -6,14 +7,23 @@ namespace RightRuleLogger;
 public class Logger : ILogger
 {
     private readonly string _categoryName;
-    private string _filePath;
+    private readonly string _filePath;
+    private const string _DEFAULTFILEPATH = "rightrulelogs\\";
+    private const string _DEFAULTFILENAME = "rightrule.log";
 
-    private SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1,1);
+    private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1,1);
 
-    public Logger(string categoryName, string filePath)
+    public Logger(IConfiguration? configuration, string categoryName)
     {
-        this._categoryName = categoryName;
-        this._filePath = CheckFilePath(filePath);
+        _categoryName = categoryName;
+        _filePath = MakeFilePath(configuration);
+    }
+
+    private string MakeFilePath(IConfiguration? configuration)
+    {
+        var filePath = configuration?["File:Path"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
+        var fileName = configuration?["File:Name"] ?? _DEFAULTFILENAME;
+        return Path.Combine(filePath, fileName);
     }
 
     private string CheckFilePath(string filePath)
@@ -32,7 +42,7 @@ public class Logger : ILogger
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
-        throw new NotImplementedException();
+        return default;
     }
 
     public bool IsEnabled(LogLevel logLevel)

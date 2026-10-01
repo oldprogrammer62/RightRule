@@ -22,8 +22,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly IRightRuleService RightRuleService;
 
-    public IRuleService RuleService => RightRuleService.RuleService;
-    public IDataService DataService => RightRuleService.DataService;
+    public IRuleService RuleService => RightRuleService.RuleService ?? throw new InvalidOperationException("Rule Service is not available");
+
+    public IDataService DataService => RightRuleService.DataService ?? throw new InvalidOperationException("Data Service is not available");
 
     private readonly ILogger<RightRule> _logger;
 
@@ -46,8 +47,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         var services = new ServiceCollection();
 
         ServiceRegister.ServiceRegister.RegisterServices(services);
-
-        services.AddLogging();
 
         _internalServiceProvider = services.BuildServiceProvider();
 

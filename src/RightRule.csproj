@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\rightrule.system.common\RightRule.System.Common.csproj" />
+    <ProjectReference Include="..\RightRuleLogger\RightRuleLogger.csproj" />
   </ItemGroup>
 
   <ItemGroup>

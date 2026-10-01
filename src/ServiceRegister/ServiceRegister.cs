@@ -28,6 +28,8 @@ internal sealed class ServiceRegister
             services = new ServiceCollection();
         }
 
+        services.AddLogging();
+
         services.AddSingleton<IOperatorService, OperatorService>();
 
         services.AddSingleton<ITokenizerFactory, TokenizerFactory>();

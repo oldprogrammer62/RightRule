@@ -1,23 +1,23 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace RightRuleLogger;
 
 public class LoggerProvider : ILoggerProvider
 {
-    private readonly string _filePath;
+    private readonly IConfiguration? _configuration;
 
-    public LoggerProvider(string filePath)
+    public LoggerProvider(IConfiguration configuration)
     {
-        this._filePath = filePath;
+        _configuration = configuration;
     }
 
     public ILogger CreateLogger(string categoryName)
     {
-        return new Logger(categoryName, _filePath);
+        return new Logger(_configuration, categoryName);
     }
 
     public void Dispose()
     {
-        throw new NotImplementedException();
     }
 }
