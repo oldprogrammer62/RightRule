@@ -98,7 +98,7 @@ internal partial class RightRuleService : IRightRuleService
 
     public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
     {
-        logger.LogInformation("RightRuleService was here");
+        _logger.LogInformation("RightRuleService was here");
 
         // Add data to new Data Service
         var added = DataService.AddData(DatasetName, DataItemName, DataItemValue);

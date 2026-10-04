@@ -30,36 +30,27 @@ internal sealed class ServiceRegister
 
         services.AddLogging();
 
-        services.AddSingleton<IOperatorService, OperatorService>();
-
-        services.AddSingleton<ITokenizerFactory, TokenizerFactory>();
-        services.AddSingleton<IParserFactory, ParserFactory>();
-
+        services.AddScoped<IRightRule, RightRule>();
+        services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
+        services.AddScoped<IOperatorService, OperatorService>();
+        services.AddScoped<ITokenizerFactory, TokenizerFactory>();
+        services.AddScoped<IParserFactory, ParserFactory>();
         services.AddScoped<IInterpreter, Interpreter>();
         services.AddScoped<IEvaluator, Evaluator>();
-        services.AddTransient<IParser, Parser>();
-        services.AddTransient<ITokenizer, Tokenizer>();
-
-        services.AddSingleton<IDataService, DataService>();
-
-        services.AddSingleton<IRuleService, RuleService>();
+        services.AddScoped<IParser, Parser>();
+        services.AddScoped<ITokenizer, Tokenizer>();
+        services.AddScoped<IDataService, DataService>();
+        services.AddScoped<IRuleService, RuleService>();
         services.AddScoped<IParseRuleService, ParseRuleService>();
-        services.AddSingleton<IRegisteredRules, RegisteredRules>();
-
-        services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
-
+        services.AddScoped<IRegisteredRules, RegisteredRules>();
+        services.AddScoped<IDefaultRuleRegister, DefaultRuleRegister>();
         services.AddScoped<IStatementBuilder, StatementBuilder>();
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
-
         services.AddScoped<IDataValidatorService, DataValidatorService>();
-
         services.AddScoped<IRuleApplicationService, RuleApplicationService>();
         services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();
         services.AddScoped<IApplyAnyRulesService, ApplyAnyRulesService>();
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
-
-        services.AddSingleton<IRightRuleService, RightRuleService.RightRuleService>();
-        services.AddScoped<IRightRule, RightRule>();
 
         return services;
     }

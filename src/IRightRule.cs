@@ -13,7 +13,7 @@ using RightRule.System.Common;
 
 namespace RightRule;
 
-public interface IRightRule
+public interface IRightRule : IDisposable
 {
     IRuleService RuleService { get; }
 

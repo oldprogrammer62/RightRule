@@ -1,4 +1,5 @@
-﻿using RightRule.ConfigurationService;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.ConfigurationService;
 using RightRule.DataServices;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
@@ -13,12 +14,14 @@ internal sealed class Evaluator : IEvaluator
     private readonly IDataService _dataService;
     private readonly IOperatorService _operatorService;
     private readonly IStatementBuilder _statementBuilder;
+    private readonly ILogger<Evaluator> _logger;
 
-    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder)
+    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder, ILogger<Evaluator> logger)
     {
         _dataService = dataService;
         _operatorService = operatorService;
         _statementBuilder = statementBuilder;
+        _logger = logger;
     }
 
     public Task<EvaluationResult> EvaluateAsync(ParsedRule Rule)
@@ -120,6 +123,7 @@ internal sealed class Evaluator : IEvaluator
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Error occurred while evaluating condition");
             return OperatorResult.FailureResult(op, ex.Message);
         }
     }
@@ -129,7 +133,9 @@ internal sealed class Evaluator : IEvaluator
         var op = _operatorService.OperatorAliases.FirstOrDefault(x => x.Key == LogicOperator).Value;
         if (op == default)
         {
-            throw new KeyNotFoundException($"Unknown operator: {LogicOperator}");
+            var message = $"Unknown operator: {LogicOperator}";
+            _logger.LogError(message);
+            return OperatorResult.FailureResult(LogicOperator, message);
         }
 
         try

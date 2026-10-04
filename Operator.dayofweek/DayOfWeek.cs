@@ -59,7 +59,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
         if ( date is DateOnly)
         {
             DateOnly dDate = DateOnly.Parse(date.ToString()!);
-            var day = dDate.Day;
+            var day = (int)dDate.DayOfWeek;
             return day;
         }
         return -1;

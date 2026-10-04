@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.DataServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
@@ -18,7 +17,7 @@ namespace RightRule;
 public sealed partial class RightRule : IRightRule, IDisposable
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    private bool Disposed { get; set; }
+    private bool Disposed { get; set; } = false;
 
     private readonly IRightRuleService RightRuleService;
 
@@ -28,29 +27,52 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private readonly ILogger<RightRule> _logger;
 
-    private IServiceProvider? _internalServiceProvider;
+    private readonly IServiceProvider? _internalServiceProvider;
 
+    /// <summary>
+    /// Parameterless constructor
+    /// Called by: new RightRule();
+    /// Service Provider DI Container is hosted by RightRule
+    /// Service Provider DI Container will be disposed when RightRule is disposed
+    /// </summary>
     public RightRule()
     {
+        _internalServiceProvider = InitialiseServiceProvider();
         RightRuleService = GetRightRuleServiceFromDI();
         _logger = new RightRuleLogger.RightRuleLogger<RightRule>();
     }
 
+    /// <summary>
+    /// Called by DI container hosted by calling application
+    /// Services will have been initialised as:
+    ///   var services = new ServiceCollection();
+    ///   services.AddLogging();
+    ///   services.AddRightRule();
+    ///   using var serviceProvider = services.BuildServiceProvider();
+    ///   using var scope = serviceProvider.CreateScope();
+    ///   var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+    /// </summary>
+    /// <param name = "rightRuleService" ></param >
+    /// <param name="logger"></param>
     public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)
     {
-        RightRuleService = rightRuleService ?? throw new ArgumentNullException(nameof(rightRuleService));
+        RightRuleService = rightRuleService;
         _logger = logger;
+    }
+
+    private ServiceProvider InitialiseServiceProvider()
+    {
+        var services = new ServiceCollection();
+        ServiceRegister.ServiceRegister.RegisterServices(services);
+        return services.BuildServiceProvider();
     }
 
     private IRightRuleService GetRightRuleServiceFromDI()
     {
-        var services = new ServiceCollection();
-
-        ServiceRegister.ServiceRegister.RegisterServices(services);
-
-        _internalServiceProvider = services.BuildServiceProvider();
-
-        // Resolve required service
+        if (_internalServiceProvider == null)
+        {
+            throw new InvalidOperationException("Service provider is not initialized.");
+        }
         return _internalServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
@@ -121,6 +143,14 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (Disposed) return;
 
+        if (_internalServiceProvider is IDisposable disposableServiceProvider)
+        {
+            disposableServiceProvider.Dispose();
+        }
+        if (RightRuleService is IDisposable disposableRightRuleService)
+        {
+            disposableRightRuleService.Dispose();
+        }
         Disposed = true;
     }
 }

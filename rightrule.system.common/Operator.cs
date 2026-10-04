@@ -1,6 +1,6 @@
 ﻿namespace RightRule.System.Common;
 
-public abstract class Operator
+public abstract class Operator : IDisposable
 {
     private bool _disposed = false;
     

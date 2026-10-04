@@ -8,15 +8,19 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
+using System.ComponentModel;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal partial class RightRuleService : IRightRuleService, IDisposable
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    private bool Disposed { get; set; } = false;
+
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
-    private readonly ILogger<RightRuleService> logger;
-    private readonly IOperatorService OperatorsService;
+    private readonly ILogger<RightRuleService> _logger;
+    private readonly IOperatorService OperatorService;
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
@@ -36,13 +40,13 @@ internal partial class RightRuleService : IRightRuleService
         ILogger<RightRuleService> logger
         )
     {
-        OperatorsService = operatorsService;
+        OperatorService = operatorsService;
         RuleService = ruleService;
         DefaultRuleRegister = defaultRuleRegister;
         DataService = dataService;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
-        this.logger = logger;
+        _logger = logger;
     }
 
     public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
@@ -64,5 +68,25 @@ internal partial class RightRuleService : IRightRuleService
     {
         var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied);
         return result;
+    }
+
+    public void Dispose()
+    {
+        if (Disposed) return;
+
+        if (DataService is IDisposable disposableDataService)
+        {
+            disposableDataService.Dispose();
+        }
+        if (RuleService is IDisposable disposableRuleService)
+        {
+            disposableRuleService.Dispose();
+        }
+        if (OperatorService is IDisposable disposableOperatorService)
+        {
+            disposableOperatorService.Dispose();
+        }
+
+        Disposed = true;
     }
 }

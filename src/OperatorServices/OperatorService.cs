@@ -4,7 +4,7 @@ using RightRule.System.Common;
 
 namespace RightRule.OperatorServices;
 
-internal class OperatorService : IOperatorService
+internal class OperatorService : IOperatorService, IDisposable
 {
     private readonly List<Operator> _operators;
     public List<Operator> Operators { get { return _operators; } }
@@ -142,5 +142,13 @@ internal class OperatorService : IOperatorService
     {
         var operatorNames = new HashSet<string>(OperatorAliases.Values.SelectMany(op => op.Identifiers).Distinct(StringComparer.OrdinalIgnoreCase));
         return operatorNames;
+    }
+
+    public void Dispose()
+    {
+        foreach(var op in _operators)
+        {
+            op.Dispose();
+        }
     }
 }

@@ -33,8 +33,8 @@ public class RightRuleLogger : ILogger
 
     private string MakeFilePath(IConfiguration? configuration)
     {
-        var filePath = configuration?["File:Path"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
-        var fileName = configuration?["File:Name"] ?? _DEFAULTFILENAME;
+        var filePath = configuration?["File:FilePath"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
+        var fileName = configuration?["File:FileName"] ?? _DEFAULTFILENAME;
         return Path.Combine(filePath, fileName);
     }
 
@@ -87,6 +87,10 @@ public class RightRuleLogger : ILogger
             byte[] encodedMessage = Encoding.UTF8.GetBytes(message + Environment.NewLine);
             using FileStream fileStream = new FileStream(_filePath, FileMode.Append, FileAccess.Write, FileShare.None);
             await fileStream.WriteAsync(encodedMessage);
+        }
+        catch (Exception ex)
+        {
+            return;
         }
         finally
         {

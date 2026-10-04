@@ -11,7 +11,7 @@ public class ApplyAllRules
     {
         int x = 10;
 
-        IRightRule rr = new RightRule.RightRule();
+        using var rr = new RightRule.RightRule();
         rr.RegisterData("xdata", nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()

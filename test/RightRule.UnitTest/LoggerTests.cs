@@ -11,7 +11,7 @@ public class LoggerTests
     [Fact]
     public void LogTest_New()
     {
-        var rr = new RightRule.RightRule();
+        using var rr = new RightRule.RightRule();
         rr.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -22,8 +22,9 @@ public class LoggerTests
         var services = new ServiceCollection();
         services.AddLogging();
         services.AddRightRule();
-        var serviceProvider = services.BuildServiceProvider();
-        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        using var serviceProvider = services.BuildServiceProvider();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
         rr.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -35,7 +36,8 @@ public class LoggerTests
         services.AddLogging(builder => builder.AddFakeLogging());
         services.AddRightRule();
         var serviceProvider = services.BuildServiceProvider();
-        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
         rr.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -57,7 +59,8 @@ public class LoggerTests
         services.AddRightRule();
         
         var serviceProvider = services.BuildServiceProvider();
-        var rr = serviceProvider.GetRequiredService<RightRule.IRightRule>();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
         
         rr.RegisterData("a", 100);
         
