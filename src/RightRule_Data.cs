@@ -20,6 +20,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return RightRuleService.GetDataset(DatasetName);
     }
 
+    public bool RegisterDataProvider(object DataProvider)
+    {
+        return RightRuleService.RegisterDataProvider(DataProvider);
+    }
+
+    public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
+    {
+        return RightRuleService.RegisterData(DatasetName, Data);
+    }
+
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.
     /// </summary>
@@ -88,7 +98,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            _logger.LogInformation("RightRule was here");
+            Logger.LogInformation("RightRule was here");
 
             return RightRuleService.RegisterData(DataItemName, DataItemName, DataItemValue);
         }

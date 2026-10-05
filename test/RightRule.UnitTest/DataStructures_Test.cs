@@ -127,7 +127,7 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Variable", "Hello World");
+        var dataRegResult = rr.RegisterData("Variable", "Hello World");
 
         var rule = rr.BuildRule()
             .Number(1)

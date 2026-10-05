@@ -59,7 +59,6 @@
 
   <ItemGroup>
     <Folder Include="Licenses\" />
-    <Folder Include="Logging\" />
   </ItemGroup>
 
   <ItemGroup>

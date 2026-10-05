@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.DataProvider.DataProviderLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
 using RightRule.Factories.ParserFactory;
@@ -32,18 +33,13 @@ internal sealed class ServiceRegister
 
         services.AddScoped<IRightRule, RightRule>();
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
-        services.AddScoped<IOperatorService, OperatorService>();
         services.AddScoped<ITokenizerFactory, TokenizerFactory>();
         services.AddScoped<IParserFactory, ParserFactory>();
         services.AddScoped<IInterpreter, Interpreter>();
         services.AddScoped<IEvaluator, Evaluator>();
         services.AddScoped<IParser, Parser>();
         services.AddScoped<ITokenizer, Tokenizer>();
-        services.AddScoped<IDataService, DataService>();
-        services.AddScoped<IRuleService, RuleService>();
         services.AddScoped<IParseRuleService, ParseRuleService>();
-        services.AddScoped<IRegisteredRules, RegisteredRules>();
-        services.AddScoped<IDefaultRuleRegister, DefaultRuleRegister>();
         services.AddScoped<IStatementBuilder, StatementBuilder>();
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
         services.AddScoped<IDataValidatorService, DataValidatorService>();
@@ -51,6 +47,13 @@ internal sealed class ServiceRegister
         services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();
         services.AddScoped<IApplyAnyRulesService, ApplyAnyRulesService>();
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
+
+        services.AddSingleton<IDataService, DataService>();
+        services.AddSingleton<IRuleService, RuleService>();
+        services.AddSingleton<IOperatorService, OperatorService>();
+        services.AddSingleton<IRegisteredRules, RegisteredRules>();
+        services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
+        services.AddSingleton<IDataProviderLibraryManager, DataProviderLibraryManager>();
 
         return services;
     }

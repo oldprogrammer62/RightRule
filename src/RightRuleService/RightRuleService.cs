@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RightRule.DataProvider.DataProviderLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -19,7 +20,8 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
 
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
-    private readonly ILogger<RightRuleService> _logger;
+    private readonly IDataProviderLibraryManager DataProviderLibraryManager;
+    private readonly ILogger<RightRuleService> Logger;
     private readonly IOperatorService OperatorService;
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
@@ -37,6 +39,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         IDataService dataService, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService,
+        IDataProviderLibraryManager dataProviderLibraryManager,
         ILogger<RightRuleService> logger
         )
     {
@@ -46,7 +49,8 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         DataService = dataService;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
-        _logger = logger;
+        DataProviderLibraryManager = dataProviderLibraryManager;
+        Logger = logger;
     }
 
     public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)

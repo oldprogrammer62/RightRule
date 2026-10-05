@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using RightRule.DataProviders;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.RuleServices.RuleRegistration;
@@ -17,6 +18,29 @@ internal partial class RightRuleService : IRightRuleService
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
 
         return DataService.GetDataset(DatasetName);
+    }
+
+    public bool RegisterDataProvider(object dataProvider)
+    {
+        DataProviderLibraryManager.RegisterDataProvider(dataProvider);
+        return true;
+    }
+
+    public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
+    {
+        InternalDataStructure dataResult = DataProviderLibraryManager.ProcessIncomingData<T>(DatasetName, Data);
+
+        if (dataResult == null)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RegistrationStatusEnum.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+
+        return RegisterData(DatasetName, dataResult.Properties);
     }
 
     public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
@@ -98,7 +122,7 @@ internal partial class RightRuleService : IRightRuleService
 
     public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
     {
-        _logger.LogInformation("RightRuleService was here");
+        Logger.LogInformation("RightRuleService was here");
 
         // Add data to new Data Service
         var added = DataService.AddData(DatasetName, DataItemName, DataItemValue);

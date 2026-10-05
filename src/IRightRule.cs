@@ -1,4 +1,5 @@
-﻿using RightRule.DataServices.Data;
+﻿using RightRule.DataProviders;
+using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -169,6 +170,22 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context"></param>
     List<ParsedRule> GetRegisteredRules(string Context);
+
+    /// <summary>
+    /// Registers an external data provider with the RightRule engine.<br/>
+    /// </summary>
+    /// <param name="DataProvider"></param>
+    /// <returns></returns>
+    bool RegisterDataProvider(object DataProvider);
+
+    /// <summary>
+    /// NEW
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="DatasetName"></param>
+    /// <param name="Data"></param>
+    /// <returns></returns>
+    DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 
     /// <summary>
     /// Registers a data set with the RightRule engine for use in rule evaluation.

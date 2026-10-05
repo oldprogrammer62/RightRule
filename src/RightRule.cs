@@ -25,9 +25,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     public IDataService DataService => RightRuleService.DataService ?? throw new InvalidOperationException("Data Service is not available");
 
-    private readonly ILogger<RightRule> _logger;
+    private readonly ILogger<RightRule> Logger;
 
-    private readonly IServiceProvider? _internalServiceProvider;
+    private readonly IServiceProvider? ServiceProvider;
 
     /// <summary>
     /// Parameterless constructor
@@ -37,9 +37,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     public RightRule()
     {
-        _internalServiceProvider = InitialiseServiceProvider();
+        ServiceProvider = InitialiseServiceProvider();
         RightRuleService = GetRightRuleServiceFromDI();
-        _logger = new RightRuleLogger.RightRuleLogger<RightRule>();
+        Logger = new RightRuleLogger.RightRuleLogger<RightRule>();
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)
     {
         RightRuleService = rightRuleService;
-        _logger = logger;
+        Logger = logger;
     }
 
     private ServiceProvider InitialiseServiceProvider()
@@ -69,11 +69,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private IRightRuleService GetRightRuleServiceFromDI()
     {
-        if (_internalServiceProvider == null)
+        if (ServiceProvider == null)
         {
             throw new InvalidOperationException("Service provider is not initialized.");
         }
-        return _internalServiceProvider.GetRequiredService<IRightRuleService>();
+        return ServiceProvider.GetRequiredService<IRightRuleService>();
     }
 
     private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)
@@ -143,7 +143,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (Disposed) return;
 
-        if (_internalServiceProvider is IDisposable disposableServiceProvider)
+        if (ServiceProvider is IDisposable disposableServiceProvider)
         {
             disposableServiceProvider.Dispose();
         }
