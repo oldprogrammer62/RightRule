@@ -28,10 +28,17 @@ public interface IRightRule : IDisposable
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     /// <summary>
+    /// Register a Custom Operator with the RightRule engine.<br/>
+    /// </summary>
+    /// <param name="Operator"></param>
+    /// <returns></returns>
+    bool RegisterOperator(Operator Operator);
+
+    /// <summary>
     /// Returns the set of Logic Operators currently loaded in the RightRule engine.
     /// </summary>
     /// <returns>The list of Operators.</returns>
-    List<Operator>? GetOperatorDetails();
+    List<Operator>? GetOperators();
 
     /// <summary>
     /// Returns the set of Aliases for currently loaded Logic Operators

@@ -19,20 +19,4 @@ public class OperatorLoaderTests
         var op = ExternalAssemblyLoader.Load(path);
         Assert.NotNull(op);
     }
-
-    //[Fact]
-    //public void TestItWorks_LoadOperator_DoesNotContain()
-    //{
-    //    var path = @"C:\\Development\\RightRule\\RightRule\\src\\Operators\\CustomOperators\\Operator.doesnotcontain.dll";
-    //    var op = Loader.Load(path);
-    //    Assert.NotNull(op);
-    //}
-
-    //[Fact]
-    //public void TestItWorks_LoadOperator_GreaterThanOrEquals()
-    //{
-    //    var path = @"C:\\Development\\RightRule\\RightRule\\src\\Operators\\CustomOperators\\Operator.greaterthanorequals.dll";
-    //    var op = Loader.Load(path);
-    //    Assert.NotNull(op);
-    //}
 }

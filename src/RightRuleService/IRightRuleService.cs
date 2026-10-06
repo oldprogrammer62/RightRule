@@ -25,8 +25,9 @@ public interface IRightRuleService
     List<ParsedRule>? RegisteredRules { get; }
     List<Dataset>? RegisteredData { get; }
 
+    bool RegisterOperator(Operator Operator);
+    List<Operator> GetOperators();
     Dictionary<string, Operator> GetOperatorAliases();
-    List<Operator> GetOperatorDetails();
     bool UnloadOperator(string OperatorName);
 
     List<ParsedRule> GetRegisteredRules(string Context);

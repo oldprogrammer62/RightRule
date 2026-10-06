@@ -7,5 +7,10 @@ public interface IOperatorService
     List<Operator> Operators { get; }
     Dictionary<string, Operator> OperatorAliases { get; }
     HashSet<string> OperatorNames { get; }
+
+    bool RegisterOperator(Operator Operator);
+
+    List<Operator> GetOperators();
+
     bool DeRegisterOperator(string OperatorName);
 }

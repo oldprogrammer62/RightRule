@@ -8,13 +8,18 @@ namespace RightRule;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
+    public bool RegisterOperator(Operator Operator)
+    {
+        return RightRuleService.RegisterOperator(Operator);
+    }
+
     /// <summary>
     /// Returns the set of Operators currently loaded in the RightRule engine.
     /// </summary>
     /// <returns>The list of Operators.</returns>
-    public List<Operator>? GetOperatorDetails()
+    public List<Operator>? GetOperators()
     {
-        var operators = RightRuleService?.GetOperatorDetails();
+        var operators = RightRuleService?.GetOperators();
         return operators;
     }
 

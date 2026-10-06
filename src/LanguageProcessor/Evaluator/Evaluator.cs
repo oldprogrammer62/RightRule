@@ -111,7 +111,7 @@ internal sealed class Evaluator : IEvaluator
 
     private async Task<OperatorResult> EvaluateConditionAsync(ConditionNode Node, object? OptionalData, bool Diagnostics)
     {
-        string op = Node.Operator?.ToLowerInvariant() ?? string.Empty;
+        string op = Node.Operator ?? string.Empty;
 
         try
         {

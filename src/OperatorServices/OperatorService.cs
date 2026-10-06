@@ -22,6 +22,64 @@ internal class OperatorService : IOperatorService, IDisposable
         _operatorNames = RegisterOperatorNames(_operatorAliases);
     }
 
+    public bool RegisterOperator(Operator Operator)
+    {
+        ArgumentNullException.ThrowIfNull(Operator, nameof(Operator));
+
+        if (_operators.Any(existingOperator => ReferenceEquals(existingOperator, Operator)))
+        {
+            // throw new InvalidOperationException("This operator instance is already registered.");
+            return false;
+        }
+
+        var identifiers = Operator.Identifiers;
+        if (identifiers is null || identifiers.Count == 0)
+        {
+            // throw new ArgumentException("An operator must provide at least one identifier.", nameof(Operator));
+            return false;
+        }
+
+        var identifiersToRegister = identifiers.ToArray();
+
+        if (identifiersToRegister.Any(string.IsNullOrWhiteSpace))
+        {
+            // throw new ArgumentException("Operator identifiers cannot be null, empty, or whitespace.", nameof(Operator));
+            return false;
+        }
+
+        if (identifiersToRegister
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Count() != identifiersToRegister.Length)
+        {
+            // throw new ArgumentException("An operator cannot contain duplicate identifiers.", nameof(Operator));
+            return false;
+        }
+
+        var duplicateIdentifier = identifiersToRegister
+            .FirstOrDefault(_operatorAliases.ContainsKey);
+
+        if (duplicateIdentifier is not null)
+        {
+            // throw new InvalidOperationException(
+            //     $"An operator with identifier '{duplicateIdentifier}' is already registered.");
+            return false;
+        }
+
+        _operators.Add(Operator);
+
+        foreach (var identifier in identifiersToRegister)
+        {
+            _operatorAliases.Add(identifier, Operator);
+            _operatorNames.Add(identifier);
+        }
+        return true;
+    }
+
+    public List<Operator> GetOperators()
+    {
+        return _operators.ToList();
+    }
+
     public bool DeRegisterOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));

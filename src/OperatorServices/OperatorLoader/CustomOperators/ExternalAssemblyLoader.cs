@@ -28,7 +28,7 @@ public class ExternalAssemblyLoader
                 throw new InvalidOperationException("No valid implementation of Operator found.");
             }
 
-            var instance = Activator.CreateInstance(functionType);
+            var instance = OperatorLoader.Load(functionType);
             if (instance is Operator op)
             {
                 return op;

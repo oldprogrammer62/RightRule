@@ -5,27 +5,27 @@ namespace RightRule.DataServices;
 
 internal class DataService : IDataService
 {
-    private List<Dataset> _datasets;
-    private readonly IDataValidatorService _dataValidator;
+    private List<Dataset> Datasets;
+    private readonly IDataValidatorService DataValidator;
 
     public DataService(IDataValidatorService DataValidator)
     {
-        _datasets = new List<Dataset>();
-        _dataValidator = DataValidator;
+        Datasets = new List<Dataset>();
+        this.DataValidator = DataValidator;
     }
 
     public void Clear()
     {
-        if (_datasets == null || _datasets.Count == 0)
+        if (Datasets == null || Datasets.Count == 0)
         {
             return;
         }
-        _datasets = new List<Dataset>();
+        Datasets = new List<Dataset>();
     }
 
     public bool IsValidDataIdentifier(string DataIdentifier)
     {
-        return _dataValidator.IsValidDataIdentifier(this, DataIdentifier);
+        return DataValidator.IsValidDataIdentifier(this, DataIdentifier);
     }
 
     public List<string> GetDataItemNames(string DatasetName)
@@ -46,7 +46,7 @@ internal class DataService : IDataService
     public List<string> GetDataSetNames()
     {
         List<string> names = new List<string>();
-        foreach (Dataset dataset in _datasets)
+        foreach (Dataset dataset in Datasets)
         {
             names.AddRange(dataset.DatasetName);
         }
@@ -55,17 +55,17 @@ internal class DataService : IDataService
 
     public void DeregisterDataset(string DatasetName)
     {
-        if (_datasets == null || _datasets.Count == 0)
+        if (Datasets == null || Datasets.Count == 0)
         {
             return;
         }
-        _datasets.Remove(_datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
+        Datasets.Remove(Datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
     }
 
     public Dataset CreateDataSet(string DatasetName)
     {
         var dataset = new Dataset(DatasetName);
-        _datasets.Add(dataset);
+        Datasets.Add(dataset);
         return dataset;
     }
 
@@ -123,12 +123,12 @@ internal class DataService : IDataService
 
     public List<Dataset>? GetDatasets()
     {
-        return _datasets;
+        return Datasets;
     }
 
     public Dataset? GetDataset(string DatasetName)
     {
-        return _datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
+        return Datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
     }
 
     public DataItem? GetDataItem(string DatasetName, string DataItemName)
