@@ -196,7 +196,7 @@ internal class BespokeDataProvider : DataProviderBase<BespokeClass>
 
 public class BespokeClass()
 {
-    public int Id { get; set; } = 1001;
-    public string Name { get; set; } = "Hello World";
-    public int Value { get; set; } = 42;
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int Value { get; set; }
 }

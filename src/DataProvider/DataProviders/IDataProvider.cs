@@ -4,10 +4,10 @@ namespace RightRule.DataProvider.DataProviders;
 
 public interface IDataProvider
 {
-    InternalDataStructure Process(string DS_Name, object input);
+    InternalDataStructure Process(string DatasetName, object Data);
 }
 
 public interface IDataProvider<TInput> : IDataProvider
 {
-    InternalDataStructure Process(string DS_Name, TInput input);
+    InternalDataStructure Process(string DatasetName, TInput Data);
 }

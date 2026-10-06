@@ -29,8 +29,8 @@ namespace RightRuleTests
         {
             IRightRule rr = new RightRule.RightRule();
 
-            var regData1 = rr.RegisterData("A", nameof(a), a);
-            var regData2 = rr.RegisterData("B", nameof(b), b);
+            var regData1 = rr.RegisterData(nameof(a), a);
+            var regData2 = rr.RegisterData(nameof(b), b);
             Assert.NotNull(regData1);
             Assert.NotNull(regData2);
         }
@@ -42,10 +42,10 @@ namespace RightRuleTests
 
             var regData1 = rr.RegisterData("Data1", dictdata);
 
-            var regData2 = rr.RegisterData("A", nameof(a), a);
-            var regData3 = rr.RegisterData("B", nameof(b), b);
+            var regData2 = rr.RegisterData(nameof(a), a);
+            var regData3 = rr.RegisterData(nameof(b), b);
 
-            var regData4 = rr.RegisterData("C", datatuple);
+            var regData4 = rr.RegisterData(nameof(datatuple), datatuple);
 
             var xxxx = rr.GetRegisteredData();
             Assert.NotNull(xxxx);
@@ -58,10 +58,10 @@ namespace RightRuleTests
 
             var regData1 = rr.RegisterData("Data1", dictdata);
 
-            var regData2 = rr.RegisterData("A", nameof(a), a);
-            var regData3 = rr.RegisterData("B", nameof(b), b);
+            var regData2 = rr.RegisterData(nameof(a), a);
+            var regData3 = rr.RegisterData(nameof(b), b);
 
-            var regData4 = rr.RegisterData("C", datatuple);
+            var regData4 = rr.RegisterData(nameof(datatuple), datatuple);
 
             var xxxx = rr.GetRegisteredData();
             Assert.NotNull(xxxx);

@@ -28,22 +28,22 @@ public class Equals_AllTypes_Tests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData(nameof(intVal), nameof(intVal), intVal);
+        rr.RegisterData(nameof(intVal), intVal);
 
         int intVal1 = 101;
-        rr.RegisterData(nameof(intVal1), nameof(intVal1), intVal1);
+        rr.RegisterData(nameof(intVal1), intVal1);
 
         int intVal2 = 102;
-        rr.RegisterData(nameof(intVal2), nameof(intVal2), intVal2);
+        rr.RegisterData(nameof(intVal2), intVal2);
 
         int intVal3 = 103;
-        rr.RegisterData(nameof(intVal3), nameof(intVal3), intVal3);
+        rr.RegisterData(nameof(intVal3), intVal3);
 
         int intVal4 = 104;
-        rr.RegisterData(nameof(intVal4), nameof(intVal4), intVal4);
+        rr.RegisterData(nameof(intVal4), intVal4);
 
         int intVal5 = 105;
-        rr.RegisterData(nameof(intVal5), nameof(intVal5), intVal5);
+        rr.RegisterData(nameof(intVal5), intVal5);
 
         DefinedRule ruleDef = new DefinedRule()
         {
@@ -68,17 +68,17 @@ public class Equals_AllTypes_Tests
     public void Test_Dec()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", "decVal", decVal);
+        rr.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData("localVal", "localVal", localVal);
+        rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.localVal = testVal.decVal",
+            Statement = "localVal.localVal = decVal.decVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -94,16 +94,16 @@ public class Equals_AllTypes_Tests
     public void Test_Dec2()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(decVal), decVal);
+        rr.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData("localVal", nameof(localVal), localVal);
+        rr.RegisterData(nameof(localVal), localVal);
 
         var rule = rr.BuildRule()
             .Number(1)
             .Name("NameOfRule")
             .Context("Context")
-            .Statement("testVal.decVal = localVal.localVal")
+            .Statement("decVal.decVal = localVal.localVal")
             .Decision("GOOD")
             .FalseDecision("DIFFERENT")
             .WithDataCheck(false)
@@ -122,17 +122,17 @@ public class Equals_AllTypes_Tests
     public void Test_Dbl()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(dblVal), dblVal);
+        rr.RegisterData(nameof(dblVal), dblVal);
 
         double localVal = dblVal;
-        var registeredDat = rr.RegisterData("localVal", nameof(localVal), localVal);
+        var registeredDat = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.localVal = testVal.dblVal",
+            Statement = "localVal = dblVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -148,17 +148,17 @@ public class Equals_AllTypes_Tests
     public void Test_Lng()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(lngVal), lngVal);
+        rr.RegisterData(nameof(lngVal), lngVal);
 
         var localVal = lngVal;
-        var registeredData = rr.RegisterData("localVal", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localVal.localVal = testVal.lngVal",
+            Statement = "localVal.localVal = lngVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -171,20 +171,20 @@ public class Equals_AllTypes_Tests
     }
 
     [Fact]
-    public void Test_Sin()
+    public void Test_Single()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(sinVal), sinVal);
+        rr.RegisterData(nameof(sinVal), sinVal);
 
         Single localVal = sinVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.sinVal",
+            Statement = "localVal = sinVal.sinVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -200,7 +200,7 @@ public class Equals_AllTypes_Tests
     public void Test_Float_Dict()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(fltVal), fltVal);
+        rr.RegisterData(nameof(fltVal), fltVal);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -213,7 +213,7 @@ public class Equals_AllTypes_Tests
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.entry = testVal.fltVal",
+            Statement = "localData.entry = fltVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -229,17 +229,17 @@ public class Equals_AllTypes_Tests
     public void Test_String()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(strVal), strVal);
+        rr.RegisterData(nameof(strVal), strVal);
 
         string localVal = strVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.strVal",
+            Statement = "localVal = strVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -255,17 +255,17 @@ public class Equals_AllTypes_Tests
     public void Test_Char()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(chrVal), chrVal);
+        rr.RegisterData(nameof(chrVal), chrVal);
 
         char localVal = chrVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.chrVal",
+            Statement = "localVal = chrVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -281,17 +281,17 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_Bool()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(boolVal), boolVal);
+        rr.RegisterData(nameof(boolVal), boolVal);
 
         bool localVal = boolVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.boolVal",
+            Statement = "localVal = boolVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -307,17 +307,17 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_String()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(boolStr), boolStr);
+        rr.RegisterData(nameof(boolStr), boolStr);
 
         string localVal = boolStr;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.boolStr",
+            Statement = "localVal = boolStr",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -333,10 +333,10 @@ public class Equals_AllTypes_Tests
     public void Test_DateOnly()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(dtonlyVal), dtonlyVal);
+        rr.RegisterData(nameof(dtonlyVal), dtonlyVal);
 
         DateOnly localVal = dtonlyVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -345,7 +345,7 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Decision = "SAME",
             FalseDecision = "DIFFERENT",
-            Statement = "localData.localVal = testVal.dtonlyVal"
+            Statement = "localVal = dtonlyVal"
         };
         var registeredRule = rr.RegisterRule(rule);
 
@@ -359,17 +359,17 @@ public class Equals_AllTypes_Tests
     public void Test_TimeOnly()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(tmonlyVal), tmonlyVal);
+        rr.RegisterData(nameof(tmonlyVal), tmonlyVal);
 
         TimeOnly localVal = tmonlyVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.tmonlyVal",
+            Statement = "localVal = tmonlyVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };
@@ -385,17 +385,17 @@ public class Equals_AllTypes_Tests
     public void Test_DateTime()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("testVal", nameof(dttimeVal), dttimeVal);
+        rr.RegisterData(nameof(dttimeVal), dttimeVal);
 
         DateTime localVal = dttimeVal;
-        var registeredData = rr.RegisterData("localData", nameof(localVal), localVal);
+        var registeredData = rr.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Statement = "localData.localVal = testVal.dttimeVal",
+            Statement = "localVal = dttimeVal",
             Decision = "SAME",
             FalseDecision = "DIFFERENT"
         };

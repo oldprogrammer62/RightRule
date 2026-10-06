@@ -12,14 +12,14 @@ public class ApplyAllRules
         int x = 10;
 
         using var rr = new RightRule.RightRule();
-        rr.RegisterData("xdata", nameof(x), x);
+        rr.RegisterData(nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()
         {
             Context = "Test",
             Number = 1,
             Name = "Name",
-            Statement = "xdata.x = 20",
+            Statement = "x = 20",
             Decision = "BAD",
             FalseDecision = "BAD"
         };

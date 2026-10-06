@@ -4,11 +4,11 @@ namespace RightRule.DataProvider.DataProviders;
 
 internal class StringDataProvider : DataProviderBase<string>
 {
-    public override InternalDataStructure Process(string DS_Name, string input)
+    public override InternalDataStructure Process(string DatasetName, string Data)
     {
         var result = new InternalDataStructure();
-        result.Id = DS_Name;
-        result.Properties.Add(DS_Name, input);
+        result.Id = DatasetName;
+        result.Properties.Add(DatasetName, Data);
         return result;
     }
 }

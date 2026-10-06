@@ -11,14 +11,16 @@ public class DataDeregistrationTests
         var d2 = "World";
 
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("d", nameof(d), d);
-        rr.RegisterData("d2", nameof(d2), d2);
-        // Assert.Equal(2, rr.GetRegisteredDataObjects().Count);
-        Assert.Equal(2, rr.GetRegisteredData().Count);
+        rr.RegisterData(nameof(d), d);
+        rr.RegisterData(nameof(d2), d2);
+        var registeredData = rr.GetRegisteredData();
+        Assert.NotNull(registeredData);
+        Assert.Equal(2, registeredData.Count);
 
         rr.DeRegisterData("d");
-        // Assert.Equal(1, rr.GetRegisteredDataObjects().Count);
-        Assert.Single(rr.GetRegisteredData());
+        var deregisteredData = rr.GetRegisteredData();
+        Assert.NotNull(deregisteredData);
+        Assert.Single(deregisteredData);
     }
 
     [Fact]
@@ -33,16 +35,18 @@ public class DataDeregistrationTests
             { "Name", "Harry" }
         };
         IRightRule rr = new RightRule.RightRule();
+
         rr.RegisterData("d", d);
         rr.RegisterData("d2", d2);
-        //Assert.Equal(2, rr.GetRegisteredDatasets().Count);
-        Assert.Equal(2, rr.GetRegisteredData().Count);
+        var data = rr.GetRegisteredData();
+        Assert.NotNull(data);
+        Assert.Equal(2, data.Count);
 
         rr.DeRegisterData("d");
-        //Assert.Equal(1, rr.GetRegisteredDatasets().Count);
-        Assert.Single(rr.GetRegisteredData());
+        var deregisteredData = rr.GetRegisteredData();
+        Assert.NotNull(deregisteredData);
+        Assert.Single(deregisteredData);
     }
-
 }
 
 public class  ObjRef

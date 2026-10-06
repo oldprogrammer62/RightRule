@@ -22,15 +22,15 @@ public class ObjectReference_Tests
         var name = "Bob";
         var age = 31;
 
-        rr.RegisterData("BobData", nameof(name), name);
-        rr.RegisterData("BobData", nameof(age), age);
+        rr.RegisterData("BobsName", name);
+        rr.RegisterData("BobsAge", age);
 
         DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
             Context = "Test",
-            Statement = "BobData.name = \"Bob\" and BobData.age = 31 and OrderData.OrderCount >= 5",
+            Statement = "BobsName = \"Bob\" and BobsAge = 31 and OrderData.OrderCount >= 5",
             Decision = "Approved",
             FalseDecision = "Denied",
             OptionalData = null
@@ -50,20 +50,20 @@ public class ObjectReference_Tests
         {
             { "OrderCount", 5 }
         };
-        rr.RegisterData("Data", data);
+        rr.RegisterData(nameof(data), data);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 31 };
         var name = "Bob";
         var age = 31;
-        rr.RegisterData("obj1", nameof(name), name);
-        rr.RegisterData("obj1", nameof(age), age);
+        rr.RegisterData("BobsName", name);
+        rr.RegisterData("BobsAge", age);
 
         DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
             Context = "Test",
-            Statement = "obj1.name = \"Bob\" and obj1.age = 31 and Data.OrderCount >= 5",
+            Statement = "BobsName = \"Bob\" and BobsAge = 31 and Data.OrderCount >= 5",
             Decision = "Approved",
             FalseDecision = "Denied",
             OptionalData = null
@@ -85,17 +85,17 @@ public class ObjectReference_Tests
         var name2 = "Harry";
         var age2 = 21;
 
-        rr.RegisterData("obj1", nameof(name1), name1);
-        rr.RegisterData("obj1", nameof(age1), age1);
-        rr.RegisterData("obj2", nameof(name2), name2);
-        rr.RegisterData("obj2", nameof(age2), age2);
+        rr.RegisterData("BobsName", name1);
+        rr.RegisterData("BobsAge", age1);
+        rr.RegisterData("HarrysName", name2);
+        rr.RegisterData("HarrysAge", age2);
 
         DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
             Context = "Test",
-            Statement = "obj1.name1 = \"Bob\" and obj1.age1 = 31 and obj2.name2 = \"Harry\" and obj2.age2 = 21",
+            Statement = "BobsName = \"Bob\" and BobsAge = 31 and HarrysName = \"Harry\" and HarrysAge = 21",
             Decision = "Approved",
             FalseDecision = "Denied",
             OptionalData = null
@@ -117,17 +117,17 @@ public class ObjectReference_Tests
         var name2 = "Harry";
         var age2 = 20;
 
-        rr.RegisterData("obj1", nameof(name1), name1);
-        rr.RegisterData("obj1", nameof(age1), age1);
-        rr.RegisterData("obj2", nameof(name2), name2);
-        rr.RegisterData("obj2", nameof(age2), age2);
+        rr.RegisterData("BobsName", name1);
+        rr.RegisterData("BobsAge", age1);
+        rr.RegisterData("HarrysName", name2);
+        rr.RegisterData("HarrysAge", age2);
 
         DefinedRule rd1 = new DefinedRule()
         {
             Number = 1,
             Name = "TestRule",
             Context = "Test",
-            Statement = "obj1.name1 = \"Bob\" and obj1.age1 = 31 and obj2.name2 = \"Harry\" and obj2.age2 = 20",
+            Statement = "BobsName = \"Bob\" and BobsAge = 31 and HarrysName = \"Harry\" and HarrysAge = 20",
             Decision = "Approved",
             FalseDecision = "Denied",
             OptionalData = null
@@ -146,7 +146,7 @@ public class ObjectReference_Tests
         int x = 100;
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData("x", nameof(x), x);
+        var added1 = rr.RegisterData(nameof(x), x);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
 
         DefinedRule rule = new DefinedRule()
@@ -172,9 +172,9 @@ public class ObjectReference_Tests
         string greeting = "Hello";
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData("datax", nameof(x), x);
-        var added2 = rr.RegisterData("datay", nameof(y), y);
-        var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);
+        var added1 = rr.RegisterData(nameof(x), x);
+        var added2 = rr.RegisterData(nameof(y), y);
+        var added3 = rr.RegisterData(nameof(greeting), greeting);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
@@ -186,7 +186,7 @@ public class ObjectReference_Tests
             Number = 1,
             Decision = "GOOD",
             FalseDecision = "BAD",
-            Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\""
+            Statement = "x = 100 and y = 200 and greeting = \"Hello\""
         };
         var registeredRule = rr.RegisterRule(rule);
         var result = rr.ApplyRule("Context");
@@ -202,9 +202,9 @@ public class ObjectReference_Tests
         string greeting = "Hello";
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData("datax", nameof(x), x);
-        var added2 = rr.RegisterData("datay", nameof(y), y);
-        var added3 = rr.RegisterData("datagreeting", nameof(greeting), greeting);
+        var added1 = rr.RegisterData(nameof(x), x);
+        var added2 = rr.RegisterData(nameof(y), y);
+        var added3 = rr.RegisterData(nameof(greeting), greeting);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
@@ -212,8 +212,8 @@ public class ObjectReference_Tests
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var name = "Bob";
         var age = 30;
-        var added4 = rr.RegisterData("databob", nameof(name), name);
-        var added5 = rr.RegisterData("databob", nameof(age), age);
+        var added4 = rr.RegisterData(nameof(name), name);
+        var added5 = rr.RegisterData("BobsAge", age);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, added4.Status);
 
         DefinedRule rule = new DefinedRule()
@@ -223,7 +223,7 @@ public class ObjectReference_Tests
             Number = 1,
             Decision = "GOOD",
             FalseDecision = "BAD",
-            Statement = "datax.x = 100 and datay.y = 200 and datagreeting.greeting = \"Hello\" and databob.age = 30"
+            Statement = "x = 100 and y = 200 and greeting = \"Hello\" and BobsAge = 30"
         };
         var registeredRule = rr.RegisterRule(rule);
         var result = rr.ApplyRule("Context");

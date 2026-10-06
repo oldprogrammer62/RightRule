@@ -4,14 +4,14 @@ namespace RightRule.DataProvider.DataProviders;
 
 public abstract class DataProviderBase<TInput> : IDataProvider<TInput>
 {
-    InternalDataStructure IDataProvider.Process(string DS_Name, object input)
+    InternalDataStructure IDataProvider.Process(string DatasetName, object Data)
     {
-        if (input is not TInput typedInput)
+        if (Data is not TInput typedInput)
         {
-            throw new ArgumentException($"Expected type '{typeof(TInput).FullName}', but received '{input?.GetType().FullName ?? "null"}'.");
+            throw new ArgumentException($"Expected type '{typeof(TInput).FullName}', but received '{Data?.GetType().FullName ?? "null"}'.");
         }
-        return Process(DS_Name, typedInput);
+        return Process(DatasetName, typedInput);
     }
 
-    public abstract InternalDataStructure Process(string DS_Name, TInput input);
+    public abstract InternalDataStructure Process(string DatasetName, TInput Data);
 }

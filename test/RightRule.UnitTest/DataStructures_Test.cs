@@ -36,7 +36,7 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Data1", "Value", 9000);
+        rr.RegisterData("Data1", 9000);
 
         (string Name, int Number) data2 = (Name: "Value", Number: 100);
         rr.RegisterData("Data2", data2);
@@ -48,7 +48,7 @@ public class DataStructures_Test
             .Number(1)
             .Name("Name")
             .Context("Context")
-            .Statement("Data1.Value = 9000 and Data2.Value = 100 and Data3.Value = 200")
+            .Statement("Data1 = 9000 and Data2.Value = 100 and Data3.Value = 200")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
             .WithDataCheck(false)
@@ -65,9 +65,9 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Data1", "Value", 9000);
+        rr.RegisterData("Data1", 9000);
 
-        List<(string Name, object Number)> data2 = new()
+        List<(string Name, int Number)> data2 = new()
         {
             (Name: "Value", Number: 1001),
             (Name: "Value1", Number: 1002),
@@ -85,7 +85,7 @@ public class DataStructures_Test
             .Number(1)
             .Name("Name")
             .Context("Context")
-            .Statement("Data1.Value = 9000 and Data2.Value3 = 1004 and Data3.Value = 200")
+            .Statement("Data1 = 9000 and Data2.Value3 = 1004 and Data3.Value = 200")
             .Decision("DONE")
             .FalseDecision("NOT DONE")
             .WithDataCheck(false)

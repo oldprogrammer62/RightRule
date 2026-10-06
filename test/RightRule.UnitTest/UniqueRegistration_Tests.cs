@@ -50,10 +50,10 @@ public class UniqueRegistration_Tests
 
         var data = 100;
 
-        var first = rr.RegisterData("Data1", nameof(data), data);
+        var first = rr.RegisterData(nameof(data), data);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, first.Status);
 
-        var second = rr.RegisterData("Data1", nameof(data), data);
+        var second = rr.RegisterData(nameof(data), data);
         Assert.Equal(RegistrationStatusEnum.SUCCESS, second.Status);
 
         Assert.Single(rr.GetRegisteredData());
