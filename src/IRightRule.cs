@@ -1,5 +1,4 @@
-﻿using RightRule.DataProviders;
-using RightRule.DataServices.Data;
+﻿using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -186,36 +185,6 @@ public interface IRightRule : IDisposable
     /// <param name="Data"></param>
     /// <returns></returns>
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
-
-
-    ///// <summary>
-    ///// Registers a data set with the RightRule engine for use in rule evaluation.
-    ///// </summary>
-    ///// <param name="DatasetName">The name of the dataset.</param>
-    ///// <param name="DataItems">Dictionary of data to register.</param>
-    ///// <returns>DataRegistrationResult</returns>
-    //DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
-
-    ///// <summary>
-    ///// Registers a data set with the RightRule engine for use in rule evaluation.
-    ///// </summary>
-    ///// <param name="DatasetName">The name of the dataset.</param>
-    ///// <param name="DataItem">Object reference of data to register.</param>
-    ///// <returns>DataRegistrationResult</returns>
-    //DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem);
-    //List<DataRegistrationResult> RegisterData(string DatasetName, List<ValueTuple<string, object>> DataItems);
-
-    //DataRegistrationResult RegisterData(string DataItemName, object DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, bool DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, string DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, int DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, long DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, double DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, decimal DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateTime DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, DateOnly DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, TimeOnly DataItemValue);
-    //DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
 
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.

@@ -47,13 +47,8 @@ public interface IRightRuleService
 
 
     bool RegisterDataProvider(object dataProvider);
+
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
-
-
-    DataRegistrationResult RegisterData(string DatasetName, (string, object) DataItem);
-    List<DataRegistrationResult> RegisterData(string DatasetName, List<(string, object)> DataItems);
-    DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems);
-    DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue);
 
     bool DeRegisterData();
     bool DeRegisterData(string DatasetName);

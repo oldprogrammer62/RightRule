@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using RightRule.DataProviders;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
@@ -39,11 +38,10 @@ internal partial class RightRuleService : IRightRuleService
                 Name = DatasetName
             };
         }
-
-        return RegisterData(DatasetName, dataResult.Properties);
+        return RegisterIncomingData(DatasetName, dataResult.Properties);
     }
 
-    public DataRegistrationResult RegisterData(string DatasetName, Dictionary<string, object> DataItems)
+    private DataRegistrationResult RegisterIncomingData(string DatasetName, Dictionary<string, object> DataItems)
     {
         ArgumentNullException.ThrowIfNull(DataItems, nameof(DataItems));
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
@@ -59,83 +57,6 @@ internal partial class RightRuleService : IRightRuleService
                 Name = DatasetName
             };
         }
-        return new DataRegistrationResult()
-        {
-            Status = RegistrationStatusEnum.SUCCESS,
-            DataType = DataTypes.DATASET,
-            Name = DatasetName
-        };
-    }
-
-    public DataRegistrationResult RegisterData(string DatasetName, ValueTuple<string, object> DataItem)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-
-        // Add data to new Data Service
-        var added = DataService.AddData(DatasetName, DataItem);
-        if (added == null)
-        {
-            return new DataRegistrationResult()
-            {
-                Status = RegistrationStatusEnum.FAILURE,
-                DataType = DataTypes.DATASET,
-                Name = DatasetName
-            };
-        }
-
-        return new DataRegistrationResult()
-        {
-            Status = RegistrationStatusEnum.SUCCESS,
-            DataType = DataTypes.DATASET,
-            Name = DatasetName
-        };
-    }
-
-    public List<DataRegistrationResult> RegisterData(string DatasetName, List<ValueTuple<string, object>> DataItems)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-
-        var results = new List<DataRegistrationResult>();
-
-        foreach (var dataItem in DataItems)
-        {
-            // Add data to new Data Service
-            var added = DataService.AddData(DatasetName, dataItem);
-            if (added == null)
-            {
-                results.Add(new DataRegistrationResult()
-                {
-                    Status = RegistrationStatusEnum.FAILURE,
-                    DataType = DataTypes.DATASET,
-                    Name = DatasetName
-                });
-            }
-            results.Add(new DataRegistrationResult()
-            {
-                Status = RegistrationStatusEnum.SUCCESS,
-                DataType = DataTypes.DATASET,
-                Name = DatasetName
-            });
-        }
-        return results;
-    }
-
-    public DataRegistrationResult RegisterData(string DatasetName, string DataItemName, object DataItemValue)
-    {
-        Logger.LogInformation("RightRuleService was here");
-
-        // Add data to new Data Service
-        var added = DataService.AddData(DatasetName, DataItemName, DataItemValue);
-        if (added == null)
-        {
-            return new DataRegistrationResult()
-            {
-                Status = RegistrationStatusEnum.FAILURE,
-                DataType = DataTypes.DATASET,
-                Name = DatasetName
-            };
-        }
-
         return new DataRegistrationResult()
         {
             Status = RegistrationStatusEnum.SUCCESS,
