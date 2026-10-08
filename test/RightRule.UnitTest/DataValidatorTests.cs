@@ -1,5 +1,5 @@
 ﻿using RightRule;
-using RightRule.RuleServices.RuleRegistration;
+using RightRule.Models;
 
 namespace RightRuleTests;
 
@@ -11,10 +11,10 @@ public class DataValidatorTests
         IRightRule rr = new RightRule.RightRule();
 
         var r1 = rr.RegisterData("a", 100);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
 
         var r2 = rr.RegisterData("b", 100);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r2.Status);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -22,7 +22,7 @@ public class DataValidatorTests
             {"b", 100}
         };
         var r3 = rr.RegisterData("Data", data);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r3.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -34,7 +34,7 @@ public class DataValidatorTests
             .WithDataCheck(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1reg.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1reg.Status);
     }
 
     [Fact]
@@ -43,10 +43,10 @@ public class DataValidatorTests
         IRightRule rr = new RightRule.RightRule();
 
         var r1 = rr.RegisterData("a", 100);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
 
         var r2 = rr.RegisterData("b", 100);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r2.Status);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -54,7 +54,7 @@ public class DataValidatorTests
             {"b", 100}
         };
         var r3 = rr.RegisterData("Data", data);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, r3.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -66,7 +66,7 @@ public class DataValidatorTests
             .WithDataCheck(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
-        Assert.Equal(RegistrationStatusEnum.FAILURE, rule1reg.Status);
+        Assert.Equal(RightRuleStatusEnum.FAILURE, rule1reg.Status);
         Assert.Contains("NotFound", rule1reg.Message);
     }
 }

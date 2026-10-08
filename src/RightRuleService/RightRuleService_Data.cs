@@ -1,6 +1,6 @@
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
-using RightRule.RuleServices.RuleRegistration;
+using RightRule.Models;
 using RightRule.System.Common.DataProvider;
 
 namespace RightRule.RightRuleService;
@@ -33,7 +33,7 @@ internal partial class RightRuleService : IRightRuleService
         {
             return new DataRegistrationResult()
             {
-                Status = RegistrationStatusEnum.FAILURE,
+                Status = RightRuleStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
@@ -52,14 +52,14 @@ internal partial class RightRuleService : IRightRuleService
         {
             return new DataRegistrationResult()
             {
-                Status = RegistrationStatusEnum.FAILURE,
+                Status = RightRuleStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
         }
         return new DataRegistrationResult()
         {
-            Status = RegistrationStatusEnum.SUCCESS,
+            Status = RightRuleStatusEnum.SUCCESS,
             DataType = DataTypes.DATASET,
             Name = DatasetName
         };

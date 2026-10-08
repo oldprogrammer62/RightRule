@@ -1,6 +1,6 @@
 ﻿using RightRule.ConfigurationService;
 using RightRule.LanguageProcessor.Parser;
-using RightRule.RuleServices.RuleRegistration;
+using RightRule.Models;
 
 namespace RightRule.RuleServices.RuleModels.BaseModels;
 
@@ -21,7 +21,7 @@ public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
 
     public required string Statement { get; init; }
 
-    public required RegistrationStatusEnum Status { get; init; }
+    public required RightRuleStatusEnum Status { get; init; }
 
     ///// <summary>
     ///// The Node property represents the parsed rule statement as an abstract syntax tree (AST).

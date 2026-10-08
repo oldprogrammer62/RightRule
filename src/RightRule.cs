@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RightRule.DataServices;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.RuleServices.RuleRegistration;
 using System.ComponentModel;
 
 namespace RightRule;
@@ -101,7 +101,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> ServiceResult)
     {
         var context = ServiceResult?.Payload?.Context ?? string.Empty;
-        var status = ServiceResult?.Status ?? RegistrationStatusEnum.DEFAULT;
+        var status = ServiceResult?.Status ?? RightRuleStatusEnum.DEFAULT;
 
         var payload = ServiceResult?.Payload ?? null;
         var message = ServiceResult?.Message ?? string.Empty;
@@ -109,16 +109,16 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         return status switch
         {
-            RegistrationStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
+            RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied),
 
-            RegistrationStatusEnum.FAILURE =>
+            RightRuleStatusEnum.FAILURE =>
                 RightRuleResult<IProcessedRule>.FailureResult(message, statementApplied, payload != null ? payload : RightRuleService.GetDefaultRule(context)),
 
-            RegistrationStatusEnum.DEFAULT =>
+            RightRuleStatusEnum.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context), message),
 
-            RegistrationStatusEnum.ERROR =>
+            RightRuleStatusEnum.ERROR =>
                 RightRuleResult<IProcessedRule>.ErrorResult(ServiceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
             _ => RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context))

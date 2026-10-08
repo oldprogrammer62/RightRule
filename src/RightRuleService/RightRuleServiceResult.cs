@@ -1,5 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.RuleServices.RuleRegistration;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RightRuleService;
 
@@ -14,7 +14,7 @@ public sealed class RightRuleServiceResult<T>
 
     public required string StatementApplied { get; init; }
 
-    public RegistrationStatusEnum Status { get; init; }
+    public RightRuleStatusEnum Status { get; init; }
     public T? Payload { get; init; }
     public string Message { get; init; } = string.Empty;
     public Exception? Exception { get; init; }
@@ -37,7 +37,7 @@ public sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
-            Status = RegistrationStatusEnum.SUCCESS, 
+            Status = RightRuleStatusEnum.SUCCESS, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,
@@ -63,7 +63,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RegistrationStatusEnum.FAILURE, 
+            Status = RightRuleStatusEnum.FAILURE, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context, 
@@ -80,7 +80,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RegistrationStatusEnum.ERROR, 
+            Status = RightRuleStatusEnum.ERROR, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,
@@ -98,7 +98,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RegistrationStatusEnum.DEFAULT, 
+            Status = RightRuleStatusEnum.DEFAULT, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,

@@ -1,5 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleServices.RuleApplication;
@@ -15,7 +15,7 @@ public static class Helpers
                 parsedRule => 
                 parsedRule.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
                 &&
-                parsedRule.Status == RegistrationStatusEnum.SUCCESS
+                parsedRule.Status == RightRuleStatusEnum.SUCCESS
                 )
                 .OrderBy(pr => pr.Number)
                 .ToList();

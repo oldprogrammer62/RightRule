@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.RuleRegistration;
 
@@ -7,7 +8,7 @@ namespace RightRule.RuleServices.RuleRegistration;
 /// </summary>
 public class RuleRegistrationResult
 {
-    public required RegistrationStatusEnum Status { get; init; }
+    public required RightRuleStatusEnum Status { get; init; }
     public required ParsedRule? RegisteredRule { get; init; }
     public required string Message { get; init; }
 
@@ -27,7 +28,7 @@ public class RuleRegistrationResult
         {
             Message = Message,
             RegisteredRule = ParsedRule,
-            Status = RegistrationStatusEnum.FAILURE
+            Status = RightRuleStatusEnum.FAILURE
         };
     }
 
@@ -37,7 +38,7 @@ public class RuleRegistrationResult
         {
             Message = Message,
             RegisteredRule = null,
-            Status = RegistrationStatusEnum.FAILURE
+            Status = RightRuleStatusEnum.FAILURE
         };
     }
 }

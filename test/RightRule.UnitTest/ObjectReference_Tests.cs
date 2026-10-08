@@ -1,7 +1,7 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -147,7 +147,7 @@ public class ObjectReference_Tests
 
         IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData(nameof(x), x);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -175,9 +175,9 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData(nameof(x), x);
         var added2 = rr.RegisterData(nameof(y), y);
         var added3 = rr.RegisterData(nameof(greeting), greeting);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added3.Status);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -205,16 +205,16 @@ public class ObjectReference_Tests
         var added1 = rr.RegisterData(nameof(x), x);
         var added2 = rr.RegisterData(nameof(y), y);
         var added3 = rr.RegisterData(nameof(greeting), greeting);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added3.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added3.Status);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var name = "Bob";
         var age = 30;
         var added4 = rr.RegisterData(nameof(name), name);
         var added5 = rr.RegisterData("BobsAge", age);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added4.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added4.Status);
 
         DefinedRule rule = new DefinedRule()
         {

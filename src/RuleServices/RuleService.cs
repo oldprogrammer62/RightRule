@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingServices;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
@@ -64,23 +65,23 @@ internal class RuleService : IRuleService
             {
                 RegisteredRule = null,
                 Message = "Rule Failed to be Parsed",
-                Status = RegistrationStatusEnum.FAILURE
+                Status = RightRuleStatusEnum.FAILURE
             };
         }
-        if (parsedRule.Status == RegistrationStatusEnum.FAILURE)
+        if (parsedRule.Status == RightRuleStatusEnum.FAILURE)
         {
             return new RuleRegistrationResult()
             {
                 RegisteredRule = parsedRule,
                 Message = parsedRule.Message ?? "Registration failed, reason unknown!",
-                Status = RegistrationStatusEnum.FAILURE
+                Status = RightRuleStatusEnum.FAILURE
             };
         }
-        if (parsedRule.Status == RegistrationStatusEnum.SUCCESS)
+        if (parsedRule.Status == RightRuleStatusEnum.SUCCESS)
         {
             return RegisteredRules.AddRule(parsedRule);
         }
-        if (parsedRule.Status == RegistrationStatusEnum.DEFAULT)
+        if (parsedRule.Status == RightRuleStatusEnum.DEFAULT)
         {
             return RegisteredRules.AddRule(parsedRule);
         }
@@ -88,7 +89,7 @@ internal class RuleService : IRuleService
         {
             RegisteredRule = null,
             Message = "Rule Failed to register",
-            Status = RegistrationStatusEnum.FAILURE
+            Status = RightRuleStatusEnum.FAILURE
         };
     }
 

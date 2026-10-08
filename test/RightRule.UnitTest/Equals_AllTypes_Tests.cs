@@ -1,6 +1,6 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -56,7 +56,7 @@ public class Equals_AllTypes_Tests
         };
 
         var rrule = rr.RegisterRule(ruleDef);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, rrule.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, rrule.Status);
 
         var result = rr.ApplyRule("Context");
 

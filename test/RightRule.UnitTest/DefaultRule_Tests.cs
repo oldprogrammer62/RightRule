@@ -1,7 +1,7 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -61,7 +61,7 @@ public class DefaultRule_Tests
             DecisionData = "DefaultDecision"
         };  
         var result = rr.RegisterDefaultRule(newDefaultRule);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
 
         var defaultRule2 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
@@ -85,7 +85,7 @@ public class DefaultRule_Tests
             DecisionData = "HELLO WORLD"
         };
         var result = rr.RegisterDefaultRule(newDefaultRule);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
 
         var defaultRule2 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
@@ -122,7 +122,7 @@ public class DefaultRule_Tests
             DecisionData = "DefaultDecision"
         };
         var firstResult = rr.RegisterDefaultRule(newDefaultRule_First);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, firstResult.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, firstResult.Status);
         var foundDefaultRule_First = rr.GetDefaultRule(context1);
         Assert.NotNull(foundDefaultRule_First);
         Assert.Equal(foundDefaultRule_First.Name, newDefaultRule_First.Name);
@@ -135,7 +135,7 @@ public class DefaultRule_Tests
             DecisionData = "DefaultDecision"
         };
         var secondResult = rr.RegisterDefaultRule(newDefaultRule_Second);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, secondResult.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, secondResult.Status);
         var foundDefaultRule_Second = rr.GetDefaultRule(context1);
         Assert.NotNull(foundDefaultRule_Second);
         Assert.Equal(foundDefaultRule_Second.Name, newDefaultRule_Second.Name);
@@ -148,7 +148,7 @@ public class DefaultRule_Tests
             DecisionData = "DefaultDecision"
         };
         var thirdResult = rr.RegisterDefaultRule(newDefaultRule_Third);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, thirdResult.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, thirdResult.Status);
         var foundDefaultRule_Third = rr.GetDefaultRule(context2);
         Assert.NotNull(foundDefaultRule_Third);
         Assert.Equal(foundDefaultRule_Third.Name, newDefaultRule_Third.Name);

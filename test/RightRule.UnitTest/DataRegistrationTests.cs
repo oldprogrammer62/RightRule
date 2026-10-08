@@ -1,7 +1,7 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -97,9 +97,9 @@ public class DataRegistrationTests
 
         IRightRule rr = new RightRule.RightRule();
         var added1 = rr.RegisterData("r", r);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 
         var added2 = rr.RegisterData("r", r);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
     }
 }

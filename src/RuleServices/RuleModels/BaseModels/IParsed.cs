@@ -1,11 +1,11 @@
 ﻿using RightRule.LanguageProcessor.Parser;
-using RightRule.RuleServices.RuleRegistration;
+using RightRule.Models;
 
 namespace RightRule.RuleServices.RuleModels.BaseModels;
 
 public interface IParsed
 {
-    RegistrationStatusEnum Status { get; init; }
+    RightRuleStatusEnum Status { get; init; }
 
     /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).

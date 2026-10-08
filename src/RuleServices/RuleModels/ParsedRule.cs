@@ -1,7 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.RuleServices.RuleRegistration;
 using System.Text;
 
 namespace RightRule.RuleServices.RuleModels;
@@ -35,7 +35,7 @@ public sealed class ParsedRule : RuleParsed
             DecisionData = ruleDefinition.DecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
-            Status = RegistrationStatusEnum.SUCCESS,
+            Status = RightRuleStatusEnum.SUCCESS,
             Message = message,
             StatementPath = BuildTreeText(ruleDefinition, node),
             Node = node,
@@ -61,7 +61,7 @@ public sealed class ParsedRule : RuleParsed
             DecisionData = ruleDefinition.DecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
-            Status = RegistrationStatusEnum.FAILURE,
+            Status = RightRuleStatusEnum.FAILURE,
             StatementPath = string.Empty,
             Message = message,
             Node = null,

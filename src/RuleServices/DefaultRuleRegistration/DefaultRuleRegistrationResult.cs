@@ -1,15 +1,15 @@
-﻿using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.DefaultRuleRegistration;
 
 public class DefaultRuleRegistrationResult
 {
-    public RegistrationStatusEnum Status { get; init; }
+    public RightRuleStatusEnum Status { get; init; }
     public DefaultRule? RegisteredRule { get; init; }
     public string Message { get; init; }
 
-    private DefaultRuleRegistrationResult(RegistrationStatusEnum status, string message, DefaultRule? defaultRule)
+    private DefaultRuleRegistrationResult(RightRuleStatusEnum status, string message, DefaultRule? defaultRule)
     {
         Status = status;
         Message = message;
@@ -20,7 +20,7 @@ public class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RegistrationStatusEnum.SUCCESS,
+            RightRuleStatusEnum.SUCCESS,
             message,
             defaultRule
             );
@@ -30,7 +30,7 @@ public class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RegistrationStatusEnum.FAILURE,
+            RightRuleStatusEnum.FAILURE,
             message,
             default
             );
@@ -40,7 +40,7 @@ public class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RegistrationStatusEnum.FAILURE,
+            RightRuleStatusEnum.FAILURE,
             message,
             defaultRule
             );

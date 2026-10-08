@@ -1,6 +1,6 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
 
@@ -37,8 +37,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result1.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result2.Status);
     }
 
     [Fact]
@@ -72,8 +72,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result1.Status);
-        Assert.Equal(RegistrationStatusEnum.SUCCESS, result2.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result1.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result2.Status);
     }
 
     [Fact]
