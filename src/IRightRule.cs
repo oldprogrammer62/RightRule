@@ -9,6 +9,7 @@ using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
+using RightRule.System.Common.DataProvider;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule;
@@ -182,7 +183,7 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="DataProvider"></param>
     /// <returns></returns>
-    bool RegisterDataProvider(object DataProvider);
+    bool RegisterDataProvider(IDataProvider DataProvider);
 
     /// <summary>
     /// NEW

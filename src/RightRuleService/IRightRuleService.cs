@@ -9,6 +9,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
+using RightRule.System.Common.DataProvider;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
@@ -50,7 +51,7 @@ public interface IRightRuleService
     bool DeRegisterRule(string Context, int RuleNumber);
 
 
-    bool RegisterDataProvider(object dataProvider);
+    bool RegisterDataProvider(IDataProvider dataProvider);
 
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 

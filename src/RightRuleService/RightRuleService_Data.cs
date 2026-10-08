@@ -19,15 +19,15 @@ internal partial class RightRuleService : IRightRuleService
         return DataService.GetDataset(DatasetName);
     }
 
-    public bool RegisterDataProvider(object dataProvider)
+    public bool RegisterDataProvider(IDataProvider dataProvider)
     {
-        DataProviderLibraryManager.RegisterDataProvider(dataProvider);
+        DataProviderService.RegisterDataProvider(dataProvider);
         return true;
     }
 
     public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
     {
-        ProviderDataStructure dataResult = DataProviderLibraryManager.ProcessIncomingData<T>(DatasetName, Data);
+        ProviderDataStructure dataResult = DataProviderService.ProcessIncomingData<T>(DatasetName, Data);
 
         if (dataResult == null)
         {

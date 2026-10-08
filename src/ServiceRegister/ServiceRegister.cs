@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule.DataProvider;
 using RightRule.DataProvider.DataProviderLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
@@ -54,6 +55,7 @@ internal sealed class ServiceRegister
         services.AddSingleton<IRegisteredRules, RegisteredRules>();
         services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
         services.AddSingleton<IDataProviderLibraryManager, DataProviderLibraryManager>();
+        services.AddSingleton<IDataProviderService, DataProviderService>();
 
         return services;
     }

@@ -8,6 +8,8 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
 {
     private readonly ConcurrentDictionary<Type, IDataProvider> _activeDataMappings = new ConcurrentDictionary<Type, IDataProvider>();
 
+    public IEnumerable<Type> RegisteredDataProviders => _activeDataMappings.Keys.ToList();
+
     /// <summary>
     /// Register the default data providers for Dictionary, String, and Object types.
     /// </summary>
@@ -20,7 +22,7 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
         RegisterDataProvider(new ObjectDataProvider());
     }
 
-    public void RegisterDataProvider(object Provider)
+    public void RegisterDataProvider(IDataProvider Provider)
     {
         if (Provider == null) throw new ArgumentNullException(nameof(Provider));
 

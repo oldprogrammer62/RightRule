@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using RightRule.DataProvider.DataProviderLibrary;
+using RightRule.DataProvider;
 using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -21,8 +21,10 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
 
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
-    private readonly IDataProviderLibraryManager DataProviderLibraryManager;
     private readonly ILogger<RightRuleService> Logger;
+
+    public IDataProviderService? DataProviderService { get; }
+    public IEnumerable<Type>? RegisteredDataProviders => DataProviderService?.RegisteredDataProviders;
 
     public IOperatorService? OperatorService { get; }
     public List<Operator>? RegisteredOperators => OperatorService?.Operators;
@@ -36,7 +38,6 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
     public IDataService DataService { get; }
     public List<Dataset>? RegisteredData => DataService?.GetDatasets();
 
-
     public RightRuleService(
         IOperatorService operatorsService, 
         IRuleService ruleService, 
@@ -44,7 +45,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         IDataService dataService, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService,
-        IDataProviderLibraryManager dataProviderLibraryManager,
+        IDataProviderService dataProviderService,
         ILogger<RightRuleService> logger
         )
     {
@@ -54,7 +55,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         DataService = dataService;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
-        DataProviderLibraryManager = dataProviderLibraryManager;
+        DataProviderService = dataProviderService;
         Logger = logger;
     }
 

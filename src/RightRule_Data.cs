@@ -1,5 +1,6 @@
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
+using RightRule.System.Common.DataProvider;
 
 namespace RightRule;
 
@@ -19,7 +20,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return RightRuleService.GetDataset(DatasetName);
     }
 
-    public bool RegisterDataProvider(object DataProvider)
+    public bool RegisterDataProvider(IDataProvider DataProvider)
     {
         return RightRuleService.RegisterDataProvider(DataProvider);
     }
