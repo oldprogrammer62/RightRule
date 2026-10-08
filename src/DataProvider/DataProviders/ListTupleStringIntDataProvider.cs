@@ -7,10 +7,10 @@ internal class ListTupleStringIntDataProvider : DataProviderBase<List<(string Na
     public override ProviderDataStructure Process(string DatasetName, List<(string Name, int Value)> Data)
     {
         var result = new ProviderDataStructure();
-        result.Id = DatasetName;
+        result.DatasetName = DatasetName;
         foreach (var (Name, Value) in Data)
         {
-            result.Properties.Add(Name, Value);
+            result.Data.Add(Name, Value);
         }
         return result;
     }

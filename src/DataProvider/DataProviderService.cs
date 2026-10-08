@@ -14,14 +14,13 @@ internal class DataProviderService : IDataProviderService
         _dataProviderLibraryManager = dataProviderLibraryManager;
     }
 
-    public void RegisterDataProvider(IDataProvider Provider)
+    public DataProviderRegistrationResult RegisterDataProvider(IDataProvider Provider)
     {
-        _dataProviderLibraryManager.RegisterDataProvider(Provider);
+        return _dataProviderLibraryManager.RegisterDataProvider(Provider);
     }
 
     public ProviderDataStructure ProcessIncomingData<TInput>(string DatasetName, TInput Data) where TInput : notnull
     {
         return _dataProviderLibraryManager.ProcessIncomingData(DatasetName, Data);
     }
-
 }

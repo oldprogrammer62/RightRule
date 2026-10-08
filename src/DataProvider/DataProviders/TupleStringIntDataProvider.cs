@@ -7,8 +7,8 @@ internal class TupleStringIntDataProvider : DataProviderBase<(string Name, int V
     public override ProviderDataStructure Process(string DatasetName, (string Name, int Value) Data)
     {
         var result = new ProviderDataStructure();
-        result.Id = DatasetName;
-        result.Properties.Add(Data.Name, Data.Value);
+        result.DatasetName = DatasetName;
+        result.Data.Add(Data.Name, Data.Value);
         return result;
     }
 }

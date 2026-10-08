@@ -2,7 +2,7 @@
 
 public class ProviderDataStructure
 {
-    public string Id { get; set; } = string.Empty;
+    public string DatasetName { get; set; } = string.Empty;
 
-    public Dictionary<string, object> Properties { get; set; } = new();
+    public Dictionary<string, object> Data { get; set; } = new();
 }

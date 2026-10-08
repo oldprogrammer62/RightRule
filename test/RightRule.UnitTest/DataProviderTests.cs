@@ -112,7 +112,7 @@ public class DataProviderTests
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
         var dataProvider = new BespokeDataProvider();
-        rr.RegisterDataProvider(dataProvider);
+        var dataProviderResult = rr.RegisterDataProvider(dataProvider);
 
         var input = new BespokeClass();
         var result = rr.RegisterData<BespokeClass>("DS_Name", input);
@@ -175,7 +175,8 @@ public class DataProviderTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        rr.RegisterDataProvider(new BespokeDataProvider());
+        var DataProviderRegResult = rr.RegisterDataProvider(new BespokeDataProvider());
+
         rr.RegisterData("DS_Name", input);
     }
 }
@@ -185,10 +186,10 @@ internal class BespokeDataProvider : DataProviderBase<BespokeClass>
     public override ProviderDataStructure Process(string DS_Name, BespokeClass input)
     {
         var result = new ProviderDataStructure();
-        result.Id = DS_Name;
-        result.Properties.Add("Id", input.Id);
-        result.Properties.Add("Name", input.Name);
-        result.Properties.Add("Value", input.Value);
+        result.DatasetName = DS_Name;
+        result.Data.Add("Id", input.Id);
+        result.Data.Add("Name", input.Name);
+        result.Data.Add("Value", input.Value);
         return result;
     }
 }

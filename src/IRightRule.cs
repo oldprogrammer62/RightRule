@@ -1,4 +1,5 @@
-﻿using RightRule.DataServices.Data;
+﻿using RightRule.DataProvider;
+using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
@@ -183,7 +184,7 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="DataProvider"></param>
     /// <returns></returns>
-    bool RegisterDataProvider(IDataProvider DataProvider);
+    DataProviderRegistrationResult RegisterDataProvider(IDataProvider DataProvider);
 
     /// <summary>
     /// NEW

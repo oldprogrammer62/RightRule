@@ -1,4 +1,5 @@
-﻿using RightRule.DataServices;
+﻿using RightRule.DataProvider;
+using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
@@ -51,7 +52,7 @@ public interface IRightRuleService
     bool DeRegisterRule(string Context, int RuleNumber);
 
 
-    bool RegisterDataProvider(IDataProvider dataProvider);
+    DataProviderRegistrationResult RegisterDataProvider(IDataProvider dataProvider);
 
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 

@@ -19,16 +19,19 @@ internal partial class RightRuleService : IRightRuleService
         return DataService.GetDataset(DatasetName);
     }
 
-    public bool RegisterDataProvider(IDataProvider dataProvider)
-    {
-        DataProviderService.RegisterDataProvider(dataProvider);
-        return true;
-    }
-
     public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
     {
-        ProviderDataStructure dataResult = DataProviderService.ProcessIncomingData<T>(DatasetName, Data);
+        if (DataProviderService == null)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RightRuleStatusEnum.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
 
+        ProviderDataStructure dataResult = DataProviderService.ProcessIncomingData<T>(DatasetName, Data);
         if (dataResult == null)
         {
             return new DataRegistrationResult()
@@ -38,7 +41,7 @@ internal partial class RightRuleService : IRightRuleService
                 Name = DatasetName
             };
         }
-        return RegisterIncomingData(DatasetName, dataResult.Properties);
+        return RegisterIncomingData(DatasetName, dataResult.Data);
     }
 
     private DataRegistrationResult RegisterIncomingData(string DatasetName, Dictionary<string, object> DataItems)

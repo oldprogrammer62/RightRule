@@ -7,6 +7,7 @@ namespace RightRule.DataProvider
         IEnumerable<Type> RegisteredDataProviders { get; }
         
         ProviderDataStructure ProcessIncomingData<TInput>(string DatasetName, TInput Data) where TInput : notnull;
-        void RegisterDataProvider(IDataProvider Provider);
+
+        DataProviderRegistrationResult RegisterDataProvider(IDataProvider Provider);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using RightRule.Models;
 
-namespace RightRule.DataProvider.DataProviderLibrary;
+namespace RightRule.DataProvider;
 
 public class DataProviderRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public required string Message { get; init; }
 
-    internal DataProviderRegistrationResult Success(string Message)
+    internal static DataProviderRegistrationResult Success(string Message)
     {
         return new DataProviderRegistrationResult()
         {
@@ -16,7 +16,7 @@ public class DataProviderRegistrationResult
         };
     }
 
-    internal DataProviderRegistrationResult Failed(string Message)
+    internal static DataProviderRegistrationResult Failed(string Message)
     {
         return new DataProviderRegistrationResult()
         {

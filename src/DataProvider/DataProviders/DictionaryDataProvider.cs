@@ -7,12 +7,12 @@ internal class DictionaryDataProvider : DataProviderBase<Dictionary<string, obje
     public override ProviderDataStructure Process(string DatasetName, Dictionary<string, object> Data)
     {
         var result = new ProviderDataStructure();
-        result.Id = DatasetName;
+        result.DatasetName = DatasetName;
         if (Data.TryGetValue("Id", out var idValue))
         {
-            result.Id = idValue?.ToString() ?? string.Empty;
+            result.DatasetName = idValue?.ToString() ?? string.Empty;
         }
-        result.Properties = Data;
+        result.Data = Data;
         return result;
     }
 }

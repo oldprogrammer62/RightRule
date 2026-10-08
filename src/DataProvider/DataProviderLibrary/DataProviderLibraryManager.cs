@@ -22,9 +22,12 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
         RegisterDataProvider(new ObjectDataProvider());
     }
 
-    public void RegisterDataProvider(IDataProvider Provider)
+    public DataProviderRegistrationResult RegisterDataProvider(IDataProvider Provider)
     {
-        if (Provider == null) throw new ArgumentNullException(nameof(Provider));
+        if (Provider == null)
+        {
+            return DataProviderRegistrationResult.Failed($"Provider is null");
+        }
 
         // Look for the generic IDataProvider<TInput> interface implemented by the Provider class
         var genericInterface = Provider.GetType()
@@ -33,10 +36,7 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
 
         if (genericInterface == null)
         {
-            throw new ArgumentException(
-                $"The provided class '{Provider.GetType().Name}' does not implement IDataProvider<TInput>.",
-                nameof(Provider)
-            );
+            return DataProviderRegistrationResult.Failed($"The provided class '{Provider.GetType().Name}' does not implement IDataProvider<TInput>.");
         }
 
         // Extract the 'TInput' type argument from the generic interface definition at runtime
@@ -49,8 +49,9 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
         }
         else
         {
-            throw new InvalidOperationException($"Provider must implement the core IDataProvider interface.");
+            return DataProviderRegistrationResult.Failed($"The provided class '{Provider.GetType().Name}' does not implement the core IDataProvider interface.");
         }
+        return DataProviderRegistrationResult.Success($"DataProvider registered successfully.");
     }
 
     public ProviderDataStructure ProcessIncomingData<TInput>(string DatasetName, TInput Data) where TInput : notnull
