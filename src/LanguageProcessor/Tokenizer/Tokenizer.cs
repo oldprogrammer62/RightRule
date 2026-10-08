@@ -215,7 +215,7 @@ internal sealed class Tokenizer : ITokenizer
 
     private bool IsLogicOperator(string OpName)
     {
-        var _operatorNames = _operatorService.OperatorNames;
+        var _operatorNames = _operatorService.OperatorAliases.Keys;
         if (_operatorNames == null || _operatorNames.Count == 0)
         {
             return false;

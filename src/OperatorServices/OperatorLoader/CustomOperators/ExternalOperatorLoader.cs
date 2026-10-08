@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
-public class ExternalOperatorLoader : AssemblyLoadContext
+internal class ExternalOperatorLoader : AssemblyLoadContext
 {
     private readonly AssemblyDependencyResolver _resolver;
 

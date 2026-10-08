@@ -3,33 +3,33 @@ using System.Reflection;
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
-public class ExternalAssemblyLoader
+internal class ExternalAssemblyLoader
 {
-    public static Operator? Load(string PathToFunction)
+    internal static Operator? Load(string PathToFunction)
     {
         var _operator = Load(PathToFunction, true);
         return _operator;
     }
 
-    internal static Operator? Load(string PathToFunction, bool IsCollectible)
+    private static Operator? Load(string PathToOperator, bool IsCollectible)
     {
-        if (string.IsNullOrWhiteSpace(PathToFunction) || !File.Exists(PathToFunction))
-            throw new FileNotFoundException("Operator assembly not found", PathToFunction);
+        if (string.IsNullOrWhiteSpace(PathToOperator) || !File.Exists(PathToOperator))
+            throw new FileNotFoundException("Operator assembly not found", PathToOperator);
 
-        var loader = new ExternalOperatorLoader(PathToFunction, IsCollectible);
+        var loader = new ExternalOperatorLoader(PathToOperator, IsCollectible);
 
         try
         {
-            Assembly assem = loader.LoadFromAssemblyPath(PathToFunction);
+            Assembly operatorAssembly = loader.LoadFromAssemblyPath(PathToOperator);
 
-            Type? functionType = assem.ExportedTypes.FirstOrDefault(t => typeof(Operator).IsAssignableFrom(t));
-            if (functionType == null)
+            Type? operatorType = operatorAssembly.ExportedTypes.FirstOrDefault(t => typeof(Operator).IsAssignableFrom(t));
+            if (operatorType == null)
             {
                 throw new InvalidOperationException("No valid implementation of Operator found.");
             }
 
-            var instance = OperatorLoader.Load(functionType);
-            if (instance is Operator op)
+            var operatorInstance = LoadOperator(operatorType);
+            if (operatorInstance is Operator op)
             {
                 return op;
             }
@@ -40,5 +40,10 @@ public class ExternalAssemblyLoader
         {
             throw;
         }
+    }
+
+    private static object? LoadOperator(Type OperatorType)
+    {
+        return Activator.CreateInstance(OperatorType);
     }
 }

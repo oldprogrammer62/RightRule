@@ -4,13 +4,13 @@ namespace RightRule.Operators.DefaultOperators;
 
 public sealed class GreaterThanOrEqualsOperator : Operator
 {
-    public override List<string> Identifiers { get; } = ["greaterthanorequals", ">="];
+    public override List<string> Aliases { get; } = ["greaterthanorequals", ">="];
 
     public GreaterThanOrEqualsOperator() : base(false)
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
         if (Left == null && Right == null)
         {

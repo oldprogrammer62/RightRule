@@ -204,7 +204,7 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
     {
         try
         {
-            return _operatorService.OperatorNames ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            return _operatorService.OperatorAliases.Keys.ToHashSet(StringComparer.OrdinalIgnoreCase);
         }
         catch (Exception)
         {

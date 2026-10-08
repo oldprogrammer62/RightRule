@@ -5,7 +5,7 @@ namespace Operator.dayofweek;
 
 public class DayOfWeek : RightRule.System.Common.Operator
 {
-    public override List<string> Identifiers => ["dow", "dayofweek"];
+    public override List<string> Aliases => ["dow", "dayofweek"];
 
     private readonly List<string> ShortDays = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     private readonly List<string> LongDays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -14,7 +14,7 @@ public class DayOfWeek : RightRule.System.Common.Operator
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left is null || right is null)
         {

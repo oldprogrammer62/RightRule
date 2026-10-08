@@ -4,7 +4,7 @@ public abstract class Operator : IDisposable
 {
     private bool _disposed = false;
     
-    public abstract List<string> Identifiers { get; }
+    public abstract List<string> Aliases { get; }
 
     public bool IsCustom { get; }
 
@@ -24,7 +24,7 @@ public abstract class Operator : IDisposable
     {
         try
         {
-            return await DoOperatorProcessAsync(Left, Right, OptionalData, Diagnostics).ConfigureAwait(false);
+            return await ExecuteOperatorProcessAsync(Left, Right, OptionalData, Diagnostics).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -32,7 +32,7 @@ public abstract class Operator : IDisposable
         }
     }
 
-    protected abstract Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics);
+    protected abstract Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics);
 
     public void Dispose()
     {

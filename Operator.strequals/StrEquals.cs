@@ -5,9 +5,9 @@ namespace Operator.strequals
 {
     public class StrEquals : RightRule.System.Common.Operator
     {
-        public override List<string> Identifiers => ["strequals", "=str"];
+        public override List<string> Aliases => ["strequals", "=str"];
 
-        protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+        protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
         {
             if (left is string leftStr && right is string rightStr)
             {

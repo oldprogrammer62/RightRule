@@ -1,22 +1,106 @@
-﻿using RightRule.System.Common;
+﻿using RightRule.OperatorServices;
+using RightRule.OperatorServices.OperatorLoader;
+using RightRule.System.Common;
 
 namespace RightRuleTests;
 
 public class OperatorRegistrationTests
 {
     [Fact]
+    public void TestUniqueOperatorName_Unique()
+    {
+        var operators = new List<Operator> { new IsSmallerThan() };
+        var isbig = new IsBiggerThan();
+
+        var nameFound = Helpers.OperatorNameExists(operators, isbig);
+
+        Assert.False(nameFound);
+    }
+
+    [Fact]
+    public void TestUniqueOperatorName_False()
+    {
+        var operators = new List<Operator> { new IsBiggerThan() };
+        var isbig = new IsBiggerThan();
+
+        var nameFound = Helpers.OperatorNameExists(operators, isbig);
+        Assert.True(nameFound);
+    }
+
+    [Fact]
+    public void TestUniqueAliases()
+    {
+        Dictionary<string, Operator> aliases = new Dictionary<string, Operator>();
+        aliases.Add("IsBiggerThan", new IsBiggerThan());
+
+        var unique = Helpers.OperatorAliasesUnique(aliases, new string[] { "IsSmallerThan" });
+        Assert.True(unique);
+    }
+
+    [Fact]
+    public void TestUniqueAliases_False()
+    {
+        Dictionary<string, Operator> aliases = new Dictionary<string, Operator>();
+        aliases.Add("IsBiggerThan", new IsBiggerThan());
+
+        var unique = Helpers.OperatorAliasesUnique(aliases, new string[] { "IsBiggerThan" });
+        Assert.False(unique);
+    }
+
+    [Fact]
+    public void TestCleanAliasesByList()
+    {
+        var aliases = new List<string> { "IsBiggerThan", "IsSmallerThan", "", "  ", "IsBiggerThan" };
+        var cleanedAliases = Helpers.CleanAliases(aliases);
+        Assert.Equal(2, cleanedAliases.Length);
+        Assert.Contains("IsBiggerThan", cleanedAliases);
+        Assert.Contains("IsSmallerThan", cleanedAliases);
+    }
+
+    [Fact]
+    public void TestCleanAliasesByOperator()
+    {
+        var op = new IsBiggerThan();
+        var cleanedAliases = Helpers.MakeCleanAliases(op);
+        Assert.Single(cleanedAliases);
+        Assert.Contains("IsBiggerThan", cleanedAliases);
+    }
+
+    [Fact]
     public void RegisterOperatorTest()
     {
         var rr = new RightRule.RightRule();
+        Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService.Operators);
+        Assert.NotNull(rr.OperatorService.OperatorAliases);
+        Assert.Equal(9, rr.OperatorService.Operators.Count);
+        Assert.Equal(22, rr.OperatorService.OperatorAliases.Count);
 
         var op = new IsBiggerThan();
         Assert.NotNull(op);
 
         var isRegistered = rr.RegisterOperator(op);
         Assert.True(isRegistered);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
+        Assert.Equal(23, rr.OperatorService.OperatorAliases.Count);
 
         var ops = rr.GetOperators();
         Assert.NotNull(ops);
+        Assert.Equal(10, ops.Count);
+    }
+
+    [Fact]
+    public void RegisterOperator()
+    {
+        IOperatorService ops = new OperatorService();
+
+        var op = new IsBiggerThan();
+        Assert.NotNull(op);
+
+        ops.RegisterOperator(op);
+
+        Assert.NotNull(ops.Operators);
+        Assert.NotNull(ops.OperatorAliases);
     }
 
     [Fact]
@@ -52,9 +136,9 @@ public class OperatorRegistrationTests
 
 public class IsBiggerThan : RightRule.System.Common.Operator
 {
-    public override List<string> Identifiers => ["IsBiggerThan"];
+    public override List<string> Aliases => ["IsBiggerThan", "", "IsBiggerthan"];
 
-    protected override Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
         var result = (int)Left > (int)Right;
         if (result)
@@ -62,5 +146,20 @@ public class IsBiggerThan : RightRule.System.Common.Operator
             return Task.FromResult(OperatorResult.SuccessResult("IsBiggerThan", true));
         }
         return Task.FromResult(OperatorResult.FailureResult("IsBiggerThan", "Left is not bigger than Right"));
+    }
+}
+
+public class IsSmallerThan : RightRule.System.Common.Operator
+{
+    public override List<string> Aliases => ["IsSmallerThan"];
+
+    protected override Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    {
+        var result = (int)Left < (int)Right;
+        if (result)
+        {
+            return Task.FromResult(OperatorResult.SuccessResult("IsSmallerThan", true));
+        }
+        return Task.FromResult(OperatorResult.FailureResult("IsSmallerThan", "Left is not smaller than Right"));
     }
 }

@@ -1,29 +1,30 @@
-﻿using RightRule.ConfigurationService;
-using RightRule.OperatorServices;
-using RightRule.System.Common;
+﻿using RightRule.System.Common;
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 internal class CustomOperatorLoader
 {
-    internal static List<Operator> Load()
+    internal static List<Operator> LoadOperators(string ConfigurationFilePath)
     {
-        string configPath = GetConfigPath();
-        if (string.IsNullOrEmpty(configPath) || !File.Exists(configPath))
+        if (string.IsNullOrEmpty(ConfigurationFilePath) || !File.Exists(ConfigurationFilePath))
+        {
+            return new List<Operator>();
+        }
+        var operatorConfigs = GetOperatorConfigurations(ConfigurationFilePath);
+        return LoadOperators(operatorConfigs);
+    }
+
+    private static List<Operator> LoadOperators(OperatorConfigs OperatorConfigurations)
+    {
+        if (OperatorConfigurations.Operators == null || OperatorConfigurations.Operators.Count == 0)
         {
             return new List<Operator>();
         }
 
         List<Operator> operators = new List<Operator>();
-        var opConfigs = GetOperatorConfigs(configPath);
-        if (opConfigs.Operators == null || opConfigs.Operators.Count == 0)
+        foreach (var operatorConfiguration in OperatorConfigurations.Operators)
         {
-            return operators;
-        }
-
-        foreach (var opConfig in opConfigs.Operators)
-        {
-            var op = ExternalAssemblyLoader.Load(opConfig.Path);
+            var op = LoadOperator(operatorConfiguration.Path);
             if (op != null)
             {
                 operators.Add(op);
@@ -32,23 +33,16 @@ internal class CustomOperatorLoader
         return operators;
     }
 
-    private static string GetConfigPath()
+    internal static Operator? LoadOperator(string OperatorConfiguration)
     {
-        try
-        {
-            return ConfigurationHelper.GetSetting("CustomOperatorConfigPath") ?? string.Empty;
-        }
-        catch
-        {
-            return string.Empty;
-        }
+        return ExternalAssemblyLoader.Load(OperatorConfiguration);
     }
 
-    private static OperatorConfigs GetOperatorConfigs(string ConfigPath)
+    private static OperatorConfigs GetOperatorConfigurations(string ConfigurationFilePath)
     {
         try
         {
-            var configData = File.ReadAllText(ConfigPath);
+            var configData = File.ReadAllText(ConfigurationFilePath);
             return Helpers.DeserialiseJson<OperatorConfigs>(configData);
         }
         catch

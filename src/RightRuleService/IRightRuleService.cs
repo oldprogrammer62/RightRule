@@ -3,6 +3,7 @@ using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
+using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
@@ -16,6 +17,7 @@ public interface IRightRuleService
 {
     IRuleService? RuleService { get; }
     IDataService? DataService { get; }
+    IOperatorService? OperatorService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
@@ -24,6 +26,7 @@ public interface IRightRuleService
 
     List<ParsedRule>? RegisteredRules { get; }
     List<Dataset>? RegisteredData { get; }
+    List<Operator>? RegisteredOperators { get; }
 
     bool RegisterOperator(Operator Operator);
     List<Operator> GetOperators();

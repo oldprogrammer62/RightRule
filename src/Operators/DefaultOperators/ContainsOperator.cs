@@ -8,9 +8,9 @@ public sealed class ContainsOperator : Operator
     {
     }
 
-    public override List<string> Identifiers { get;  } = ["contains"];
+    public override List<string> Aliases { get;  } = ["contains"];
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
         if (Left is null || Right is null)
         {

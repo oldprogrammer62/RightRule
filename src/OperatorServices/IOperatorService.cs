@@ -6,11 +6,13 @@ public interface IOperatorService
 {
     List<Operator> Operators { get; }
     Dictionary<string, Operator> OperatorAliases { get; }
-    HashSet<string> OperatorNames { get; }
 
+    bool RegisterAllOperators();
     bool RegisterOperator(Operator Operator);
 
     List<Operator> GetOperators();
+    Dictionary<string, Operator> GetRegisteredAliases();
+    Dictionary<string, Operator> GetRegisteredAliases(Operator Operator);
 
     bool DeRegisterOperator(string OperatorName);
 }

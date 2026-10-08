@@ -4,13 +4,13 @@ namespace RightRule.Operators.DefaultOperators;
 
 public sealed class NotEqualsOperator : Operator
 {
-    public override List<string> Identifiers { get; } = ["notequals", "neq", "!=", "<>"];
+    public override List<string> Aliases { get; } = ["notequals", "neq", "!=", "<>"];
 
     public NotEqualsOperator() : base(false)
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
         if (Left == null && Right == null)
         {

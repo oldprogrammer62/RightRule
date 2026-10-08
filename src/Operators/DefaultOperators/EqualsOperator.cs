@@ -4,13 +4,13 @@ namespace RightRule.Operators.DefaultOperators;
 
 public class EqualsOperator : Operator
 {
-    public override List<string> Identifiers { get; } = ["equals", "eq", "=", "=="];
+    public override List<string> Aliases { get; } = ["equals", "eq", "=", "=="];
 
     public EqualsOperator() : base(false)
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
     {
         if (Left == null && Right == null)
         {

@@ -5,13 +5,13 @@ namespace Operator.Exists;
 
 public class Exists : RightRule.System.Common.Operator
 {
-    public override List<string> Identifiers => ["exists", "in", "foundin"];
+    public override List<string> Aliases => ["exists", "in", "foundin"];
 
     public Exists() : base()
     {
     }
 
-    protected override async Task<OperatorResult> DoOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
     {
         if (left == null && right == null)
         {

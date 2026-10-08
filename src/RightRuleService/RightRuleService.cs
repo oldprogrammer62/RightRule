@@ -9,6 +9,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.System.Common;
 using System.ComponentModel;
 
 namespace RightRule.RightRuleService;
@@ -22,7 +23,10 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
     private readonly IRuleApplicationService RuleApplicationService;
     private readonly IDataProviderLibraryManager DataProviderLibraryManager;
     private readonly ILogger<RightRuleService> Logger;
-    private readonly IOperatorService OperatorService;
+
+    public IOperatorService? OperatorService { get; }
+    public List<Operator>? RegisteredOperators => OperatorService?.Operators;
+
     private readonly IDefaultRuleRegister DefaultRuleRegister;
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
@@ -31,6 +35,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
 
     public IDataService DataService { get; }
     public List<Dataset>? RegisteredData => DataService?.GetDatasets();
+
 
     public RightRuleService(
         IOperatorService operatorsService, 
@@ -90,7 +95,6 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         {
             disposableOperatorService.Dispose();
         }
-
         Disposed = true;
     }
 }

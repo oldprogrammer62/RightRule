@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RightRule.DataServices;
+using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleModels;
@@ -24,6 +25,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public IRuleService RuleService => RightRuleService.RuleService ?? throw new InvalidOperationException("Rule Service is not available");
 
     public IDataService DataService => RightRuleService.DataService ?? throw new InvalidOperationException("Data Service is not available");
+
+    public IOperatorService OperatorService => RightRuleService.OperatorService ?? throw new InvalidOperationException("Operator Service is not available");
 
     private readonly ILogger<RightRule> Logger;
 
@@ -93,23 +96,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
             rightRuleResults.Add(BuildResult(serviceResult));
         }
         return rightRuleResults;
-    }
-
-    private RightRuleResult<IProcessedRule> BuildResult(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)
-    {
-        if (ServiceResults == null)
-        {
-            return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
-        }
-        if (ServiceResults.Count == 0)
-        {
-            return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
-        }
-        if (ServiceResults.Count == 1)
-        {
-            return BuildResult(ServiceResults[0]);
-        }
-        return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
     }
 
     private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> ServiceResult)
