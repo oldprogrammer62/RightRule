@@ -7,8 +7,8 @@ public interface IOperatorService
     List<Operator> Operators { get; }
     Dictionary<string, Operator> OperatorAliases { get; }
 
-    bool RegisterAllOperators();
-    bool RegisterOperator(Operator Operator);
+    OperatorRegistrationResult RegisterAllOperators();
+    OperatorRegistrationResult RegisterOperator(Operator Operator);
 
     List<Operator> GetOperators();
     Dictionary<string, Operator> GetRegisteredAliases();

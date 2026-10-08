@@ -30,7 +30,7 @@ public interface IRightRuleService
     List<Dataset>? RegisteredData { get; }
     List<Operator>? RegisteredOperators { get; }
 
-    bool RegisterOperator(Operator Operator);
+    OperatorRegistrationResult RegisterOperator(Operator Operator);
     List<Operator> GetOperators();
     Dictionary<string, Operator> GetOperatorAliases();
     bool UnloadOperator(string OperatorName);

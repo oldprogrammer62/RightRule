@@ -21,14 +21,21 @@ internal partial class OperatorService : IOperatorService, IDisposable
         RegisterAllOperators();
     }
 
-    public bool RegisterAllOperators()
+    public OperatorRegistrationResult RegisterAllOperators()
     {
-        _operators = LoadStartUpOperators();
-        _operatorAliases = MakeOperatorAliases(_operators);
-        return true;
+        try
+        {
+            _operators = LoadStartUpOperators();
+            _operatorAliases = MakeOperatorAliases(_operators);
+            return OperatorRegistrationResult.Success("All Operators registered successfully.");
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
-    public bool RegisterOperator(Operator Operator)
+    public OperatorRegistrationResult RegisterOperator(Operator Operator)
     {
         if (!OperatorExists(Operator))
         {
@@ -38,10 +45,11 @@ internal partial class OperatorService : IOperatorService, IDisposable
 
         if (!OperatorAliasesUnique(_operatorAliases, aliases))
         {
-            throw new Exception($"Operator aliases must be unique across all registered Operators. Operator '{Operator.Name}' has duplicate aliases.");
+            return OperatorRegistrationResult.Failed($"Operator aliases must be unique across all registered Operators. Operator '{Operator.Name}' has duplicate aliases.");
         }
         _operatorAliases = RegisterOperatorAliases(_operatorAliases, Operator);
-        return true;
+
+        return OperatorRegistrationResult.Success($"Operator '{Operator.Name}' registered successfully.");
     }
     
     private List<Operator> LoadStartUpOperators()

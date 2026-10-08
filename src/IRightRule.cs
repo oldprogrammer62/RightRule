@@ -3,6 +3,7 @@ using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
+using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
@@ -34,7 +35,7 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Operator"></param>
     /// <returns></returns>
-    bool RegisterOperator(Operator Operator);
+    OperatorRegistrationResult RegisterOperator(Operator Operator);
 
     /// <summary>
     /// Returns the set of Logic Operators currently loaded in the RightRule engine.

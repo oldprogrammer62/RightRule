@@ -1,3 +1,4 @@
+using RightRule.OperatorServices;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule;
@@ -8,7 +9,7 @@ namespace RightRule;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
-    public bool RegisterOperator(Operator Operator)
+    public OperatorRegistrationResult RegisterOperator(Operator Operator)
     {
         return RightRuleService.RegisterOperator(Operator);
     }

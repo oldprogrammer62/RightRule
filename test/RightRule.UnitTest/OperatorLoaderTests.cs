@@ -1,4 +1,5 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
@@ -21,7 +22,9 @@ public class OperatorLoaderTests
         IOperatorService ops = new OperatorService();
         var x = ops.RegisterAllOperators();
 
-        Assert.True(x);
+        Assert.NotNull(x);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, x.Status);
+
         Assert.NotNull(ops.Operators);
         Assert.NotNull(ops.OperatorAliases);
     }
