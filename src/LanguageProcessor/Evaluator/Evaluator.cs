@@ -5,7 +5,7 @@ using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
 using RightRule.OperatorServices;
 using RightRule.RuleServices.RuleModels;
-using RightRule.System.Common;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.LanguageProcessor.Evaluator;
 

@@ -1,9 +1,8 @@
-﻿
-using RightRule.System.Common;
+﻿using RightRule.System.Common.Operator.Models;
 
-namespace Operator.dayofweek;
+namespace dayofweek;
 
-public class DayOfWeek : RightRule.System.Common.Operator
+public class DayOfWeek : Operator
 {
     public override List<string> Aliases => ["dow", "dayofweek"];
 

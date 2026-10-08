@@ -1,5 +1,5 @@
 ﻿using RightRule.OperatorServices.OperatorLoader;
-using RightRule.System.Common;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices;
 

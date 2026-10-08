@@ -1,6 +1,6 @@
 ﻿using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader;
-using RightRule.System.Common;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRuleTests;
 
@@ -134,7 +134,7 @@ public class OperatorRegistrationTests
 }
 
 
-public class IsBiggerThan : RightRule.System.Common.Operator
+public class IsBiggerThan : Operator
 {
     public override List<string> Aliases => ["IsBiggerThan", "", "IsBiggerthan"];
 
@@ -149,7 +149,7 @@ public class IsBiggerThan : RightRule.System.Common.Operator
     }
 }
 
-public class IsSmallerThan : RightRule.System.Common.Operator
+public class IsSmallerThan : Operator
 {
     public override List<string> Aliases => ["IsSmallerThan"];
 

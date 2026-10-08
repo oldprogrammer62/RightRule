@@ -1,7 +1,7 @@
 ﻿using RightRule.OperatorServices.OperatorLoader;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
-using RightRule.System.Common;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices;
 

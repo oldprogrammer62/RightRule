@@ -1,12 +1,12 @@
-﻿using RightRule.DataProviders;
+﻿using RightRule.System.Common.DataProvider;
 
 namespace RightRule.DataProvider.DataProviders;
 
 internal class DictionaryDataProvider : DataProviderBase<Dictionary<string, object>>
 {
-    public override InternalDataStructure Process(string DatasetName, Dictionary<string, object> Data)
+    public override ProviderDataStructure Process(string DatasetName, Dictionary<string, object> Data)
     {
-        var result = new InternalDataStructure();
+        var result = new ProviderDataStructure();
         result.Id = DatasetName;
         if (Data.TryGetValue("Id", out var idValue))
         {

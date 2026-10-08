@@ -1,9 +1,9 @@
-﻿using RightRule.System.Common;
+﻿using RightRule.System.Common.Operator.Models;
 using System.Collections;
 
-namespace Operator.Exists;
+namespace Exists;
 
-public class Exists : RightRule.System.Common.Operator
+public class Exists : Operator
 {
     public override List<string> Aliases => ["exists", "in", "foundin"];
 

@@ -1,12 +1,12 @@
-﻿using RightRule.DataProviders;
+﻿using RightRule.System.Common.DataProvider;
 
 namespace RightRule.DataProvider.DataProviders;
 
 internal class ListTupleStringIntDataProvider : DataProviderBase<List<(string Name, int Value)>>
 {
-    public override InternalDataStructure Process(string DatasetName, List<(string Name, int Value)> Data)
+    public override ProviderDataStructure Process(string DatasetName, List<(string Name, int Value)> Data)
     {
-        var result = new InternalDataStructure();
+        var result = new ProviderDataStructure();
         result.Id = DatasetName;
         foreach (var (Name, Value) in Data)
         {

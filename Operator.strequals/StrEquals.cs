@@ -1,9 +1,8 @@
-﻿
-using RightRule.System.Common;
+﻿using RightRule.System.Common.Operator.Models;
 
-namespace Operator.strequals
+namespace StrEquals
 {
-    public class StrEquals : RightRule.System.Common.Operator
+    public class StrEquals : Operator
     {
         public override List<string> Aliases => ["strequals", "=str"];
 

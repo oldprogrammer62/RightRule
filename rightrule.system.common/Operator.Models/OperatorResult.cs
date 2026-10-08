@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace RightRule.System.Common;
+namespace RightRule.System.Common.Operator.Models;
 
 public class OperatorResult
 {

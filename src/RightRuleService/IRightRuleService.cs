@@ -9,7 +9,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
-using RightRule.System.Common;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
 

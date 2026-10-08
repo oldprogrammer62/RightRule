@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RightRule.DataProvider.DataProviders;
-using RightRule.DataProviders;
 using RightRule.ServiceRegister;
+using RightRule.System.Common.DataProvider;
 using RightRuleLogger;
 
 namespace RightRuleTests;
@@ -183,9 +182,9 @@ public class DataProviderTests
 
 internal class BespokeDataProvider : DataProviderBase<BespokeClass>
 {
-    public override InternalDataStructure Process(string DS_Name, BespokeClass input)
+    public override ProviderDataStructure Process(string DS_Name, BespokeClass input)
     {
-        var result = new InternalDataStructure();
+        var result = new ProviderDataStructure();
         result.Id = DS_Name;
         result.Properties.Add("Id", input.Id);
         result.Properties.Add("Name", input.Name);

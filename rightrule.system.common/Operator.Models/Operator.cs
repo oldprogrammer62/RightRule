@@ -1,4 +1,4 @@
-﻿namespace RightRule.System.Common;
+﻿namespace RightRule.System.Common.Operator.Models;
 
 public abstract class Operator : IDisposable
 {

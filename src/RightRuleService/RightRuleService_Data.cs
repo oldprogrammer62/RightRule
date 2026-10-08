@@ -1,7 +1,7 @@
-using RightRule.DataProviders;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.RuleServices.RuleRegistration;
+using RightRule.System.Common.DataProvider;
 
 namespace RightRule.RightRuleService;
 
@@ -27,7 +27,7 @@ internal partial class RightRuleService : IRightRuleService
 
     public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
     {
-        InternalDataStructure dataResult = DataProviderLibraryManager.ProcessIncomingData<T>(DatasetName, Data);
+        ProviderDataStructure dataResult = DataProviderLibraryManager.ProcessIncomingData<T>(DatasetName, Data);
 
         if (dataResult == null)
         {

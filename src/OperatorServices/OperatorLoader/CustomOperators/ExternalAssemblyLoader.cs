@@ -1,4 +1,4 @@
-﻿using RightRule.System.Common;
+﻿using RightRule.System.Common.Operator.Models;
 using System.Reflection;
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;

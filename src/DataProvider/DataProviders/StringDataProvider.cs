@@ -1,12 +1,12 @@
-﻿using RightRule.DataProviders;
+﻿using RightRule.System.Common.DataProvider;
 
 namespace RightRule.DataProvider.DataProviders;
 
 internal class StringDataProvider : DataProviderBase<string>
 {
-    public override InternalDataStructure Process(string DatasetName, string Data)
+    public override ProviderDataStructure Process(string DatasetName, string Data)
     {
-        var result = new InternalDataStructure();
+        var result = new ProviderDataStructure();
         result.Id = DatasetName;
         result.Properties.Add(DatasetName, Data);
         return result;

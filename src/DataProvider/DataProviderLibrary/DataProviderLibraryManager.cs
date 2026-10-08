@@ -1,6 +1,6 @@
 ﻿using RightRule.DataProvider.DataProviders;
-using RightRule.DataProviders;
 using System.Collections.Concurrent;
+using RightRule.System.Common.DataProvider;
 
 namespace RightRule.DataProvider.DataProviderLibrary;
 
@@ -51,7 +51,7 @@ public class DataProviderLibraryManager : IDataProviderLibraryManager
         }
     }
 
-    public InternalDataStructure ProcessIncomingData<TInput>(string DatasetName, TInput Data) where TInput : notnull
+    public ProviderDataStructure ProcessIncomingData<TInput>(string DatasetName, TInput Data) where TInput : notnull
     {
         if (Data == null) throw new ArgumentNullException(nameof(Data));
 

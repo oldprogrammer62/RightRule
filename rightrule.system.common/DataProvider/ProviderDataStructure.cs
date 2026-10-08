@@ -1,6 +1,6 @@
-﻿namespace RightRule.DataProviders;
+﻿namespace RightRule.System.Common.DataProvider;
 
-public class InternalDataStructure
+public class ProviderDataStructure
 {
     public string Id { get; set; } = string.Empty;
 

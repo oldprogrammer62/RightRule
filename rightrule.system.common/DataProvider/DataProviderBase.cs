@@ -1,10 +1,8 @@
-﻿using RightRule.DataProviders;
-
-namespace RightRule.DataProvider.DataProviders;
+﻿namespace RightRule.System.Common.DataProvider;
 
 public abstract class DataProviderBase<TInput> : IDataProvider<TInput>
 {
-    InternalDataStructure IDataProvider.Process(string DatasetName, object Data)
+    ProviderDataStructure IDataProvider.Process(string DatasetName, object Data)
     {
         if (Data is not TInput typedInput)
         {
@@ -13,5 +11,5 @@ public abstract class DataProviderBase<TInput> : IDataProvider<TInput>
         return Process(DatasetName, typedInput);
     }
 
-    public abstract InternalDataStructure Process(string DatasetName, TInput Data);
+    public abstract ProviderDataStructure Process(string DatasetName, TInput Data);
 }
