@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>RightRuleLogger</PackageId>
-    <Version>1.0.117</Version>
+    <Version>1.0.118</Version>
     <Authors>Mark Belton</Authors>
     <Description>RightRule Logger provides logging functionality for RightRule applications.</Description>
   </PropertyGroup>
