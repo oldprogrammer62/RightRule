@@ -4,7 +4,6 @@ namespace RightRule.LanguageProcessor.Parser;
 
 internal sealed class Parser : IParser
 {
-    private readonly bool _dataCheck;
     private readonly string _statement = string.Empty;
 
     private readonly ITokenizer _tokenizer;
@@ -15,11 +14,10 @@ internal sealed class Parser : IParser
         _tokenizer = tokenizer;
     }
 
-    public Parser(ITokenizer tokenizer, string statement, bool dataCheck)
+    public Parser(ITokenizer tokenizer, string statement)
     {
         _tokenizer = tokenizer;
         _statement = statement;
-        _dataCheck = dataCheck;
     }
 
     public Node Parse()

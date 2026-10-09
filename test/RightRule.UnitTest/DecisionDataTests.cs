@@ -19,7 +19,6 @@ public class DecisionDataTests
             .FalseDecision("NOT SAME")
             .DecisionData(dd)
             .OptionalData("Hello World from Optional")
-            .WithDataCheck(false)
             .Build();
 
         var rrule1 = rr.RegisterRule(rule1);
@@ -49,7 +48,6 @@ public class DecisionDataTests
             .FalseDecision("NOT SAME")
             .DecisionData(dd)
             .OptionalData("Hello World from Optional")
-            .WithDataCheck(false)
             .Build();
 
         var rrule1 = rr.RegisterRule(rule1);

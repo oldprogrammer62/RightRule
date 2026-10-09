@@ -4,15 +4,6 @@ namespace RightRule.ConfigurationService;
 
 internal class Helper
 {
-    internal static bool GetDataCheckSetting(RightRuleConfiguration? ruleConfig)
-    {
-        if (ruleConfig == null)
-        {
-            return RightRuleConfiguration.DefaultConfig().DataCheck;
-        }
-        return ruleConfig.DataCheck;
-    }
-
     internal static bool GetDiagnosticsSetting(RightRuleConfiguration? ruleConfig)
     {
         if (ruleConfig == null)

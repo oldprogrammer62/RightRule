@@ -56,8 +56,6 @@ public class RuleGetters_Tests
 
         json.Append("RuleConfiguration:");
         json.Append('{');
-        json.Append("'DataCheck': false");
-        json.Append(',');
         json.Append("'Diagnostics': true");
         json.Append('}');
         json.Append('}');
@@ -82,8 +80,6 @@ public class RuleGetters_Tests
 
         json.Append("RuleConfiguration:");
         json.Append('{');
-        json.Append("'DataCheck': false");
-        json.Append(',');
         json.Append("'Diagnostics': true");
         json.Append('}');
         json.Append('}');
@@ -108,8 +104,6 @@ public class RuleGetters_Tests
 
         json.Append("RuleConfiguration:");
         json.Append('{');
-        json.Append("'DataCheck': false");
-        json.Append(',');
         json.Append("'Diagnostics': true");
         json.Append('}');
         json.Append('}');

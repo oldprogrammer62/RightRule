@@ -16,7 +16,6 @@ namespace RightRule_Demo.RuleLoader
                 .Statement("a = b")
                 .Decision("GOOD")
                 .FalseDecision("BAD")
-                .WithDataCheck(false)
                 .Build(),
 
                 rightRule.BuildRule()
@@ -26,7 +25,6 @@ namespace RightRule_Demo.RuleLoader
                 .Statement("a = b")
                 .Decision("GOOD")
                 .FalseDecision("BAD")
-                .WithDataCheck(false)
                 .Build(),
 
                 new DefinedRule

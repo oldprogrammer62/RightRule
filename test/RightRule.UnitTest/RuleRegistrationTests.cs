@@ -18,7 +18,6 @@ public class RuleRegistrationTests
             .Statement("a = b")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         DefinedRule rule2 = rr.BuildRule()
@@ -28,7 +27,6 @@ public class RuleRegistrationTests
             .Statement("b = c")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);
@@ -53,7 +51,6 @@ public class RuleRegistrationTests
             .Statement("a = b")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         DefinedRule rule2 = rr.BuildRule()
@@ -63,7 +60,6 @@ public class RuleRegistrationTests
             .Statement("a = b")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);
@@ -88,7 +84,6 @@ public class RuleRegistrationTests
             .Statement("a = b")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         DefinedRule rule2 = rr.BuildRule()
@@ -98,7 +93,6 @@ public class RuleRegistrationTests
             .Statement("a = b")
             .Decision("Decision")
             .FalseDecision("FalseDecision")
-            .WithDataCheck(false)
             .Build();
 
         var result1 = rr.RegisterRule(rule1);

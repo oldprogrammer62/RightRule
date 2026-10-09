@@ -61,7 +61,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
 
     public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
-        return StatementSyntaxChecker.CheckAsync(Statement, false);
+        return StatementSyntaxChecker.CheckAsync(Statement);
     }
 
     private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)

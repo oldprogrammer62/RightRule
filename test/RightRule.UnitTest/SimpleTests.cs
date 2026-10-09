@@ -1,4 +1,5 @@
 ﻿using RightRule;
+using RightRule.Models;
 
 namespace RightRuleTests;
 
@@ -7,7 +8,7 @@ public class SimpleTests
     [Fact]
     public void WithDataCheck()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
         var ds = rr.RegisterData("a", 100);
 
         string context = "Context";
@@ -18,7 +19,6 @@ public class SimpleTests
             .Statement("a.a = 100")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .Build();
 
         rr.RegisterRule(rule);
@@ -30,7 +30,7 @@ public class SimpleTests
     [Fact]
     public void SimpleTest()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
             {"a", 100 }
@@ -45,7 +45,6 @@ public class SimpleTests
             .Statement("data.a = 100")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .Build();
 
         rr.RegisterRule(rule);
@@ -57,7 +56,7 @@ public class SimpleTests
     [Fact]
     public void Test1()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
         var rule1 = rr.BuildRule()
             .Number(1)
             .Name("TestRule1")
@@ -65,7 +64,6 @@ public class SimpleTests
             .Statement("1 = 1 and 2 <> 3")
             .Decision("SAME")
             .FalseDecision("NOTSAME")
-            .WithDataCheck(true)
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
 

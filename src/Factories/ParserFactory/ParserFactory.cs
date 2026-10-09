@@ -1,6 +1,7 @@
 ﻿using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.Factories.ParserFactory
@@ -14,29 +15,28 @@ namespace RightRule.Factories.ParserFactory
             _tokenizerFactory = tokenizerFactory;
         }
 
-        public IParser BuildParser(string Statement, bool DataCheck)
+        public IParser BuildParser(string Statement)
         {
             int initialPos = 0;
-            return BuildParser(Statement, DataCheck, initialPos);
+            return BuildParser(Statement, initialPos);
         }
 
         public IParser BuildParser(RuleDefinition ruleDefinition)
         {
             string statement = ruleDefinition.Statement;
-            bool dataCheck = ruleDefinition.RuleConfiguration.DataCheck;
             int initialPos = 0;
-            return BuildParser(statement, dataCheck, initialPos);
+            return BuildParser(statement, initialPos);
         }
 
-        private IParser BuildParser(string Statement, bool DataCheck, int InitialPos)
+        private IParser BuildParser(string Statement, int InitialPos)
         {
-            var tokenizer = BuildTokenizer(Statement, InitialPos, DataCheck);
-            return new Parser(tokenizer, Statement, DataCheck);
+            var tokenizer = BuildTokenizer(Statement, InitialPos);
+            return new Parser(tokenizer, Statement);
         }
 
-        private ITokenizer BuildTokenizer(string statement, int initialPos, bool dataCheck)
+        private ITokenizer BuildTokenizer(string Statement, int InitialPos)
         {
-            return _tokenizerFactory.BuildTokenizer(statement, initialPos, dataCheck);
+            return _tokenizerFactory.BuildTokenizer(Statement, InitialPos);
         }
     }
 }

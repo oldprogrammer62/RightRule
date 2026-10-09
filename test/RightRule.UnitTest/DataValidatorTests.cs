@@ -8,7 +8,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Success()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         var r1 = rr.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
@@ -31,7 +31,6 @@ public class DataValidatorTests
             .Statement("a = 100 and b.b = 100 and Data.a = 100 and Data.b = 100")
             .Decision("Decision1")
             .FalseDecision("FalseDecision1")
-            .WithDataCheck(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1reg.Status);
@@ -40,7 +39,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Fail()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         var r1 = rr.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
@@ -63,7 +62,6 @@ public class DataValidatorTests
             .Statement("a = 100 and b.b = 100 and Data.a = 100 and Data.b = 100 and NotFound = 10")
             .Decision("Decision1")
             .FalseDecision("FalseDecision1")
-            .WithDataCheck(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
         Assert.Equal(RightRuleStatusEnum.FAILURE, rule1reg.Status);

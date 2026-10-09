@@ -2,6 +2,6 @@
 {
     internal interface IStatementSyntaxChecker
     {
-        Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck);
+        Task<CheckStatementResult> CheckAsync(string Statement);
     }
 }

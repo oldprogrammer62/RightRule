@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleRegistration;
 
 namespace RightRuleTests;
@@ -20,7 +21,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDataCheck(false)
             .WithDiagnostics(false)
             .Build()
             .Register(rr.RuleService);
@@ -32,7 +32,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(false)
             .WithDiagnostics(true)
             .Build();
         var x2 = rr.RegisterRule(rule2);
@@ -47,7 +46,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_First()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -63,7 +62,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
@@ -75,7 +73,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
@@ -94,7 +91,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_Any()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -110,7 +107,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
@@ -122,7 +118,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
@@ -142,7 +137,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Success()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -158,7 +153,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
@@ -170,7 +164,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
@@ -190,7 +183,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Fail()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
         rr.RegisterData("a", 100);
         rr.RegisterData("b", 100);
@@ -206,7 +199,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
@@ -218,7 +210,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDataCheck(true)
             .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);

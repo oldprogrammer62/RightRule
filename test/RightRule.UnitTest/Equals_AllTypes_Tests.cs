@@ -106,7 +106,6 @@ public class Equals_AllTypes_Tests
             .Statement("decVal.decVal = localVal.localVal")
             .Decision("GOOD")
             .FalseDecision("DIFFERENT")
-            .WithDataCheck(false)
             .WithDiagnostics(true)
             .Build();
             

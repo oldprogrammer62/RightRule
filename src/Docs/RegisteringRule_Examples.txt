@@ -18,7 +18,6 @@ Initialise a Rule Definition and Register
 IRightRule rr = new RightRule.RightRule();
 RuleConfiguration rc = new RuleConfiguration()
 {
-    DataCheck = true,
     Diagnostics = false
 };
 
@@ -47,7 +46,6 @@ RuleDefinition rule = rr.BuildRuleDefinition()
    .Decision("EQUALS")
    .DecisionData(null)
    .OptionalData(null)
-   .WithCheckData(false)
    .WithDiagnostics(false)
    .Build();
 RuleRegistrationResult rule1 = rr.RegisterRule(rule);

@@ -2,6 +2,7 @@ using RightRule.Factories.ParserFactory;
 using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.Tokenizer;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using System.Text.RegularExpressions;
 
@@ -16,21 +17,22 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
     
     private readonly IParserFactory _parserFactory;
     private readonly ITokenizerFactory _tokenizerFactory;
-
+    private readonly RightRuleOptions _options;
     private ITokenizer? _tokenizer = default;
     private IParser? _parser = default;
 
-    public StatementSyntaxChecker(IOperatorService operatorService, IParserFactory parserFactory, ITokenizerFactory tokenizerFactory)
+    public StatementSyntaxChecker(IOperatorService operatorService, IParserFactory parserFactory, ITokenizerFactory tokenizerFactory, RightRuleOptions options)
     {
         _operatorService = operatorService;
         _parserFactory = parserFactory;
         _tokenizerFactory = tokenizerFactory;
+        _options = options;
     }
 
-    public Task<CheckStatementResult> CheckAsync(string Statement, bool DataCheck)
+    public Task<CheckStatementResult> CheckAsync(string Statement)
     {
-        _parser = BuildParser(Statement, DataCheck);
-        _tokenizer = BuildTokenizer(Statement, DataCheck);
+        _parser = BuildParser(Statement);
+        _tokenizer = BuildTokenizer(Statement);
 
         return Task.Run<CheckStatementResult>(() =>
         {
@@ -319,13 +321,14 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
         return null;
     }
 
-    private IParser BuildParser(string Statement, bool DataCheck)
+    private IParser BuildParser(string Statement)
     {
-        return _parserFactory.BuildParser(Statement, DataCheck);
+        return _parserFactory.BuildParser(Statement);
     }
 
-    private ITokenizer BuildTokenizer(string Statement, bool DataCheck)
+    private ITokenizer BuildTokenizer(string Statement)
     {
-        return _tokenizerFactory.BuildTokenizer(Statement, 0, DataCheck);
+        int pos = 0;
+        return _tokenizerFactory.BuildTokenizer(Statement, pos);
     }
 }

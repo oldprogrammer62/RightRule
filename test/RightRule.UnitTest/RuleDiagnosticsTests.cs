@@ -21,7 +21,6 @@ public class RuleDiagnosticsTests
             .Build();
 
         Assert.NotNull(rule1.RuleConfiguration);
-        Assert.Equal(RightRuleConfiguration.DEFAULT_DATACHECK, rule1.RuleConfiguration.DataCheck);
         Assert.Equal(RightRuleConfiguration.DEFAULT_DIAGNOSTICS, rule1.RuleConfiguration.Diagnostics);
     }
 
@@ -30,7 +29,6 @@ public class RuleDiagnosticsTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        bool datacheck = true;
         bool diagnostics = true;
 
         var rule1 = rr.BuildRule()
@@ -40,12 +38,10 @@ public class RuleDiagnosticsTests
             .Statement("100 = 100 and 100 <> 101")
             .Decision("SAME")
             .FalseDecision("NOTSAME")
-            .WithDataCheck(datacheck)
             .WithDiagnostics(diagnostics)
             .Build();
 
         Assert.NotNull(rule1.RuleConfiguration);
-        Assert.True(rule1.RuleConfiguration.DataCheck);
         Assert.True(rule1.RuleConfiguration.Diagnostics);
     }
 
@@ -64,7 +60,6 @@ public class RuleDiagnosticsTests
         };
 
         Assert.NotNull(rule1.RuleConfiguration);
-        Assert.Equal(RightRuleConfiguration.DEFAULT_DATACHECK, rule1.RuleConfiguration.DataCheck);
         Assert.Equal(RightRuleConfiguration.DEFAULT_DIAGNOSTICS, rule1.RuleConfiguration.Diagnostics);
     }
 
@@ -73,7 +68,6 @@ public class RuleDiagnosticsTests
     {
         RightRuleConfiguration rc = new RightRuleConfiguration()
         {
-            DataCheck = true,
             Diagnostics = true
         };
 
@@ -90,7 +84,6 @@ public class RuleDiagnosticsTests
         };
 
         Assert.NotNull(rule1.RuleConfiguration);
-        Assert.True(rule1.RuleConfiguration.DataCheck);
         Assert.True(rule1.RuleConfiguration.Diagnostics);
     }
 }

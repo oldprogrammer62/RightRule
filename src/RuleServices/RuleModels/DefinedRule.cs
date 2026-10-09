@@ -55,7 +55,6 @@ public sealed class DefinedRule : RuleDefinition
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"OptionalData: {OptionalData}");
-        sb.AppendLine($"Configuration - DataCheck: {RuleConfiguration?.DataCheck}");
         sb.AppendLine($"Configuration - Diagnostics: {RuleConfiguration?.Diagnostics}");
         return sb.ToString();
     }

@@ -44,7 +44,7 @@ public interface IRuleBuilder
     IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder FalseDecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
-    IRuleBuilder WithDataCheck(bool checkData);
+    //IRuleBuilder WithDataCheck(bool checkData);
     IRuleBuilder WithDiagnostics(bool diagnostics);
 
     DefinedRule Build();

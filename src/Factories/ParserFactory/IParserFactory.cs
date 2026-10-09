@@ -6,5 +6,5 @@ namespace RightRule.Factories.ParserFactory;
 internal interface IParserFactory
 {
     IParser BuildParser(RuleDefinition ruleDefinition);
-    IParser BuildParser(string Statement, bool DataCheck);
+    IParser BuildParser(string Statement);
 }

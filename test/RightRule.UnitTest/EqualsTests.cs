@@ -28,7 +28,6 @@ public class EqualsTests
         IRightRule rr = new RightRule.RightRule();
         RightRuleConfiguration rc = new RightRuleConfiguration()
         {
-            DataCheck = false,
             Diagnostics = false
         };
 
@@ -80,7 +79,7 @@ public class EqualsTests
     [Fact]
     public void Equals_Int()
     {
-        RightRuleConfiguration rc = new RightRuleConfiguration(false, false);
+        RightRuleConfiguration rc = new RightRuleConfiguration(false);
 
         // Rule
         DefinedRule rule = new()
