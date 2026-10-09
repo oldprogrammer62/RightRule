@@ -43,19 +43,20 @@ internal sealed class ServiceRegister
         services.AddScoped<IParseRuleService, ParseRuleService>();
         services.AddScoped<IStatementBuilder, StatementBuilder>();
         services.AddScoped<IStatementSyntaxChecker, StatementSyntaxChecker>();
-        services.AddScoped<IDataValidatorService, DataValidatorService>();
         services.AddScoped<IRuleApplicationService, RuleApplicationService>();
         services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();
         services.AddScoped<IApplyAnyRulesService, ApplyAnyRulesService>();
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
 
-        services.AddSingleton<IDataService, DataService>();
-        services.AddSingleton<IRuleService, RuleService>();
-        services.AddSingleton<IOperatorService, OperatorService>();
-        services.AddSingleton<IRegisteredRules, RegisteredRules>();
-        services.AddSingleton<IDefaultRuleRegister, DefaultRuleRegister>();
-        services.AddSingleton<IDataProviderLibraryManager, DataProviderLibraryManager>();
-        services.AddSingleton<IDataProviderService, DataProviderService>();
+        services.AddScoped<IDataService, DataService>();
+        services.AddScoped<IRuleService, RuleService>();
+        services.AddScoped<IOperatorService, OperatorService>();
+        services.AddScoped<IRegisteredRules, RegisteredRules>();
+        services.AddScoped<IDefaultRuleRegister, DefaultRuleRegister>();
+        services.AddScoped<IDataProviderLibraryManager, DataProviderLibraryManager>();
+        services.AddScoped<IDataProviderService, DataProviderService>();
+
+        services.AddScoped<IDataValidatorService, DataValidatorService>();
 
         return services;
     }

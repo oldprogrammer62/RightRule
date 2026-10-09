@@ -28,25 +28,26 @@ public interface IRightRule : IDisposable
     /// <param name="Statement">The rule statement to check.</param>
     /// <returns>The result of the syntax check.</returns>
     /// <exception cref="ArgumentException"></exception>
+    /// <returns><see cref="CheckStatementResult"/></returns>
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
     /// <summary>
     /// Register a Custom Operator with the RightRule engine.<br/>
     /// </summary>
     /// <param name="Operator"></param>
-    /// <returns></returns>
+    /// <returns><see cref="OperatorRegistrationResult"/></returns>
     OperatorRegistrationResult RegisterOperator(Operator Operator);
 
     /// <summary>
     /// Returns the set of Logic Operators currently loaded in the RightRule engine.
     /// </summary>
-    /// <returns>The list of Operators.</returns>
+    /// <see cref="List{Operator}">List&lt;Operator&gt;</see>
     List<Operator>? GetOperators();
 
     /// <summary>
     /// Returns the set of Aliases for currently loaded Logic Operators
     /// </summary>
-    /// <returns>The list of Operator Aliases.</returns>
+    /// <returns><see cref="Dictionary{TKey, TValue}">Dictionary&lt;string, Operator&gt;</see></returns>
     Dictionary<string, Operator>? GetOperatorAliases();
 
     /// <summary>
@@ -59,6 +60,7 @@ public interface IRightRule : IDisposable
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
+    /// <see cref="RightRuleResult{IProcessedRule}">RightRuleResult&lt;IProcessedRule&gt;</see>
     /// </returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="InvalidOperationException"></exception>
@@ -76,6 +78,7 @@ public interface IRightRule : IDisposable
     /// A single Applied Rule is returned.<br />
     /// If a rule returns true, that rule is returned.<br />
     /// If no rule returns true, a default rule is returned.<br />
+    /// <see cref="RightRuleResult{IProcessedRule}">RightRuleResult&lt;IProcessedRule&gt;</see>
     /// </returns>
     RightRuleResult<IProcessedRule> ApplyRule(string Context);
 
@@ -85,6 +88,9 @@ public interface IRightRule : IDisposable
     /// EvaluationType will default to First
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// List&lt;RightRuleResult&lt;<see cref="IProcessedRule"/>&gt;&gt;
+    /// </returns>
     List<RightRuleResult<IProcessedRule>> ApplyRules(string Context);
 
     /// <summary>
@@ -93,6 +99,9 @@ public interface IRightRule : IDisposable
     /// EvaluationType will default to First
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// List&lt;RightRuleResult&lt;<see cref="IProcessedRule"/>&gt;&gt;
+    /// </returns>
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context);
 
     /// <summary>
@@ -101,6 +110,9 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="EvaluationType">Used to indicate if the results should be first positive rule or all rules</param>
+    /// <returns>
+    /// List&lt;RightRuleResult&lt;<see cref="IProcessedRule"/>&gt;&gt;
+    /// </returns>
     List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
@@ -109,30 +121,40 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context">Used to identify the set of rules to apply</param>
     /// <param name="EvaluationType">Used to indicate if the results should be first positive rule or all rules</param>
+    /// <returns>
+    /// List&lt;RightRuleResult&lt;<see cref="IProcessedRule"/>&gt;&gt;
+    /// </returns>
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
     /// DeRegisters all data from the RightRule engine.
     /// </summary>
+    /// <returns>bool</returns>
     bool DeRegisterData();
 
     /// <summary>
     /// DeRegisters the specified data from the RightRule engine.
     /// </summary>
     /// <param name="DatasetName">The name of the dataset to deregister.</param>
+    /// <returns>bool</returns>
     bool DeRegisterData(string DatasetName);
 
     /// <summary>
     /// Deregisters all Rules from the RightRule engine.
     /// </summary>
-    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
+    /// <returns>
+    /// bool<br></br>
+    /// True if the rules were successfully deregistered; otherwise, false.
+    /// </returns>
     bool DeRegisterRules();
 
     /// <summary>
     /// Deregisters all Rules associated with the specified Context from the RightRule engine.
     /// </summary>
     /// <param name="Context">The Context for which to deregister rules.</param>
-    /// <returns>True if the rules were successfully deregistered; otherwise, false.</returns>
+    /// <returns>
+    /// bool <br></br>
+    /// True if the rules were successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRules(string Context);
 
     /// <summary>
@@ -140,7 +162,9 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context"></param>
     /// <param name="RuleName">The Name of the Rule to deregister.</param>
-    /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
+    /// <returns>
+    /// bool<br></br>
+    /// True if the rule is successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRule(string Context, string RuleName);
 
     /// <summary>
@@ -148,16 +172,33 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context"></param>
     /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
-    /// <returns>True if the rule is successfully deregistered; otherwise, false.</returns>
+    /// <returns>
+    /// bool<br></br>
+    /// True if the rule is successfully deregistered; otherwise, false.</returns>
     bool DeRegisterRule(string Context, int RuleNumber);
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>
+    /// List&lt;<see cref="Dataset"/>&gt;&gt;
+    /// </returns>
     List<Dataset>? GetRegisteredData();
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>
+    /// <see cref="Dataset"/>
+    /// </returns>
     Dataset? GetRegisteredData(string DatasetName);
 
     /// <summary>
     /// Returns the set of Registered Rules.
     /// </summary>
+    /// <returns>
+    /// <see cref="List{ParsedRule}">List&lt;ParsedRule&gt;</see>
+    /// </returns>
     List<ParsedRule> GetRegisteredRules();
 
     /// <summary>
@@ -165,6 +206,7 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context"></param>
     /// <param name="RuleName"></param>
+    /// <returns><see cref="ParsedRule"/></returns>
     ParsedRule? GetRegisteredRule(string Context, string RuleName);
 
     /// <summary>
@@ -172,19 +214,21 @@ public interface IRightRule : IDisposable
     /// </summary>
     /// <param name="Context"></param>
     /// <param name="RuleNumber"></param>
+    /// <returns><see cref="ParsedRule"/></returns>
     ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
 
     /// <summary>
     /// Returns the set of Registered Rules for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
+    /// <returns><see cref="List{ParsedRule}">List&lt;ParsedRule&gt;</see></returns>
     List<ParsedRule> GetRegisteredRules(string Context);
 
     /// <summary>
-    /// Registers an external data provider with the RightRule engine.<br/>
+    /// Registers a custom Data Provider with the RightRule engine.<br/>
     /// </summary>
     /// <param name="DataProvider"></param>
-    /// <returns></returns>
+    /// <returns><see cref="DataProviderRegistrationResult"/></returns>
     DataProviderRegistrationResult RegisterDataProvider(IDataProvider DataProvider);
 
     /// <summary>
@@ -193,13 +237,14 @@ public interface IRightRule : IDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="DatasetName"></param>
     /// <param name="Data"></param>
-    /// <returns></returns>
+    /// <returns><see cref="DataRegistrationResult"/></returns>
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.
     /// </summary>
     /// <param name="Context"></param>
+    /// <returns><see cref="DefaultRule"/></returns>
     DefaultRule GetDefaultRule(string Context);
 
     /// <summary>
@@ -213,6 +258,7 @@ public interface IRightRule : IDisposable
     /// The Rule parameter will define the Context for the Default Rule registration.
     /// </summary>
     /// <param name="Rule">The Rule definition to register.</param>
+    /// <returns><see cref="DefaultRuleRegistrationResult"/></returns>
     DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
 
     /// <summary>
@@ -224,13 +270,16 @@ public interface IRightRule : IDisposable
     /// Registers a Rule with the RightRule engine.
     /// </summary>
     /// <param name="Rule">The Rule definition to register.</param>
+    /// <returns><see cref="RuleRegistrationResult"/></returns>
     RuleRegistrationResult RegisterRule(DefinedRule Rule);
 
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
     /// </summary>
     /// <param name="Rules">The Rule definitions to register.</param>
-    /// <returns>The set of Parsed Rules.</returns>
+    /// <returns>
+    /// <see cref = "List{RuleRegistrationResult}">List&lt;RuleRegistrationResult&gt;</see>
+    /// </returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
@@ -239,7 +288,9 @@ public interface IRightRule : IDisposable
     /// Registers a set of Rules with the RightRule engine from a JSON string.
     /// </summary>
     /// <param name="JsonData">The Rule definitions to register.</param>
-    /// <returns>The set of Parsed Rules.</returns>
+    /// <returns>
+    /// <see cref = "List{RuleRegistrationResult}">List&lt;RuleRegistrationResult&gt;</see>
+    /// </returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
     List<RuleRegistrationResult> RegisterRulesJson(string JsonData);
@@ -255,15 +306,24 @@ public interface IRightRule : IDisposable
     /// <summary>
     /// Get the set of Contexts for which rules are registered
     /// </summary>
+    /// <returns>
+    /// <see cref="List{T}">List&lt;string&gt;</see>
+    /// </returns>
     List<string>? GetRuleContexts();
 
     /// <summary>
     /// Get the set of Rule Numbers registered
     /// </summary>
+    /// <returns>
+    /// A <see cref="List{T}">List&lt;(int Number, string Name)&gt;</see> containing indexed pairs.
+    /// </returns>    
     List<(int Number, string Name)>? GetRuleNumbers(string Context);
 
     /// <summary>
     /// Get the set of Rule Names registered
     /// </summary>
+    /// <returns>
+    /// <see cref="List{T}">List&lt;string&gt;</see>
+    /// </returns>
     List<string>? GetRuleNames(string Context);
 }
