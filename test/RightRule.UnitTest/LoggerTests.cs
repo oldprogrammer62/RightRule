@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RightRule.Models;
 using RightRule.ServiceRegister;
 using RightRuleLogger;
 
@@ -17,11 +18,21 @@ public class LoggerTests
     }
 
     [Fact]
+    public void LogTest_NewWithOptions()
+    {
+        RightRuleOptions options = new() { LoadDefaultOperators = false };
+
+        using var rr = new RightRule.RightRule(options);
+        rr.RegisterData("a", 100);
+        Assert.NotNull(rr);
+    }
+
+    [Fact]
     public void LogTest_DI()
     {
         var services = new ServiceCollection();
         services.AddLogging();
-        services.AddRightRule();
+        services.AddRightRule(options => options.LoadDefaultOperators = false);
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();

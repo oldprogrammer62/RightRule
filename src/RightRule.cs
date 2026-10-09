@@ -38,22 +38,22 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Service Provider DI Container is hosted by RightRule
     /// Service Provider DI Container will be disposed when RightRule is disposed
     /// </summary>
-    public RightRule()
+    public RightRule() : 
+        this(new RightRuleOptions { LoadDefaultOperators = true })
     {
-        ServiceProvider = InitialiseServiceProvider();
+    }
+
+    public RightRule(RightRuleOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        ServiceProvider = InitialiseServiceProvider(options);
         RightRuleService = GetRightRuleServiceFromDI();
         Logger = new RightRuleLogger.RightRuleLogger<RightRule>();
     }
 
     /// <summary>
     /// Called by DI container hosted by calling application
-    /// Services will have been initialised as:
-    ///   var services = new ServiceCollection();
-    ///   services.AddLogging();
-    ///   services.AddRightRule();
-    ///   using var serviceProvider = services.BuildServiceProvider();
-    ///   using var scope = serviceProvider.CreateScope();
-    ///   var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
     /// </summary>
     /// <param name = "rightRuleService" ></param >
     /// <param name="logger"></param>
@@ -63,9 +63,10 @@ public sealed partial class RightRule : IRightRule, IDisposable
         Logger = logger;
     }
 
-    private ServiceProvider InitialiseServiceProvider()
+    private ServiceProvider InitialiseServiceProvider(RightRuleOptions options)
     {
         var services = new ServiceCollection();
+        services.AddSingleton(options);
         ServiceRegister.ServiceRegister.RegisterServices(services);
         return services.BuildServiceProvider();
     }

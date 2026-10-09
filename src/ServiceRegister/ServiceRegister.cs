@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RightRule.DataProvider;
 using RightRule.DataProvider.DataProviderLibrary;
 using RightRule.DataServices;
@@ -23,7 +24,7 @@ namespace RightRule.ServiceRegister;
 
 internal sealed class ServiceRegister
 {
-    internal static ServiceCollection RegisterServices(ServiceCollection services)
+    internal static IServiceCollection RegisterServices(IServiceCollection services)
     {
         if (services is null)
         {
@@ -32,7 +33,11 @@ internal sealed class ServiceRegister
 
         services.AddLogging();
 
-        services.AddScoped<IRightRule, RightRule>();
+        services.AddScoped<IRightRule>(sp =>
+            new RightRule(
+        sp.GetRequiredService<IRightRuleService>(),
+        sp.GetRequiredService<ILogger<RightRule>>()));
+
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
         services.AddScoped<ITokenizerFactory, TokenizerFactory>();
         services.AddScoped<IParserFactory, ParserFactory>();

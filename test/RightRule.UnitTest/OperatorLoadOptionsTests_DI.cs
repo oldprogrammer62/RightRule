@@ -1,0 +1,84 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using RightRule;
+using RightRule.Models;
+using RightRule.ServiceRegister;
+
+namespace RightRuleTests;
+
+public class OperatorLoadOptionsTests_DI
+{
+    [Fact]
+    public void RightRule_WithoutOptions()
+    {
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddRightRule();
+        using var serviceProvider = services.BuildServiceProvider();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+
+        Assert.NotNull(rr);
+
+        var operators = rr.GetOperators();
+        Assert.NotNull(operators);
+        Assert.Equal(9, operators.Count);
+
+        var defaultOperators = operators.Where(op => op.IsCustom == false).ToList();
+        Assert.NotNull(defaultOperators);
+        Assert.Equal(6, defaultOperators.Count);
+
+        var customOperators = operators.Where(op => op.IsCustom == true).ToList();
+        Assert.NotNull(customOperators);
+        Assert.Equal(3, customOperators.Count);
+    }
+
+    [Fact]
+    public void RightRule_WithOptions_True()
+    {
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddRightRule(options => options.LoadDefaultOperators = true);
+        using var serviceProvider = services.BuildServiceProvider();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+
+        Assert.NotNull(rr);
+
+        var operators = rr.GetOperators();
+        Assert.NotNull(operators);
+        Assert.Equal(9, operators.Count);
+
+        var defaultOperators = operators.Where(op => op.IsCustom == false).ToList();
+        Assert.NotNull(defaultOperators);
+        Assert.Equal(6, defaultOperators.Count);
+
+        var customOperators = operators.Where(op => op.IsCustom == true).ToList();
+        Assert.NotNull(customOperators);
+        Assert.Equal(3, customOperators.Count);
+    }
+
+    [Fact]
+    public void RightRule_WithOptions_False()
+    {
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddRightRule(options => options.LoadDefaultOperators = false);
+        using var serviceProvider = services.BuildServiceProvider();
+        using var scope = serviceProvider.CreateScope();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+
+        Assert.NotNull(rr);
+
+        var operators = rr.GetOperators();
+        Assert.NotNull(operators);
+        Assert.Equal(3, operators.Count);
+
+        var defaultOperators = operators.Where(op => op.IsCustom == false).ToList();
+        Assert.NotNull(defaultOperators);
+        Assert.Equal(0, defaultOperators?.Count ?? 0);
+
+        var customOperators = operators.Where(op => op.IsCustom == true).ToList();
+        Assert.NotNull(customOperators);
+        Assert.Equal(3, customOperators.Count);
+    }
+}

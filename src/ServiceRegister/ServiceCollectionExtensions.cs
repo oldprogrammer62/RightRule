@@ -1,12 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using RightRule.Models;
 
 namespace RightRule.ServiceRegister;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRightRule(this IServiceCollection services)
+    public static IServiceCollection AddRightRule(this IServiceCollection services,
+        Action<RightRuleOptions>? configure = null)
     {
+        ArgumentNullException.ThrowIfNull(services);
+
+        var options = new RightRuleOptions();
+        configure?.Invoke(options);
+        services.AddSingleton(options);
+
         if (services is ServiceCollection sc)
         {
             var servicesCollection = ServiceRegister.RegisterServices(sc);

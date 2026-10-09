@@ -1,4 +1,5 @@
-﻿using RightRule.System.Common.Operator.Models;
+﻿using RightRule.Models;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices;
 
@@ -8,6 +9,7 @@ public interface IOperatorService
     Dictionary<string, Operator> OperatorAliases { get; }
 
     OperatorRegistrationResult RegisterAllOperators();
+    OperatorRegistrationResult RegisterAllOperators(RightRuleOptions options);
     OperatorRegistrationResult RegisterOperator(Operator Operator);
 
     List<Operator> GetOperators();

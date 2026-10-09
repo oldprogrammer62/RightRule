@@ -1,4 +1,5 @@
-﻿using RightRule.OperatorServices.OperatorLoader;
+﻿using RightRule.Models;
+using RightRule.OperatorServices.OperatorLoader;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.System.Common.Operator.Models;
@@ -11,21 +12,31 @@ internal partial class OperatorService : IOperatorService, IDisposable
     public List<Operator> Operators { get { return _operators; } }
 
     private Dictionary<string, Operator> _operatorAliases;
+
     public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
-    public OperatorService()
+    public OperatorService() : this(new RightRuleOptions { LoadDefaultOperators = true })
+    {
+    }
+
+    public OperatorService(RightRuleOptions options)
     {
         _operators = new List<Operator>();
         _operatorAliases = new Dictionary<string, Operator>(StringComparer.OrdinalIgnoreCase);
 
-        RegisterAllOperators();
+        RegisterAllOperators(options);
     }
 
     public OperatorRegistrationResult RegisterAllOperators()
     {
+        return RegisterAllOperators(new RightRuleOptions { LoadDefaultOperators = true });
+    }
+
+    public OperatorRegistrationResult RegisterAllOperators(RightRuleOptions options)
+    {
         try
         {
-            _operators = LoadStartUpOperators();
+            _operators = LoadStartUpOperators(options);
             _operatorAliases = MakeOperatorAliases(_operators);
             return OperatorRegistrationResult.Success("All Operators registered successfully.");
         }
@@ -52,9 +63,9 @@ internal partial class OperatorService : IOperatorService, IDisposable
         return OperatorRegistrationResult.Success($"Operator '{Operator.Name}' registered successfully.");
     }
     
-    private List<Operator> LoadStartUpOperators()
+    private List<Operator> LoadStartUpOperators(RightRuleOptions options)
     {
-        var operators = LoadAllOperators();
+        var operators = LoadAllOperators(options);
 
         if (operators == null || operators.Count == 0)
             throw new Exception("No Operators found.");
@@ -65,11 +76,18 @@ internal partial class OperatorService : IOperatorService, IDisposable
         return operators;
     }
 
-    private static List<Operator> LoadAllOperators()
+    private static List<Operator> LoadAllOperators(RightRuleOptions options)
     {
-        return
-            [
-            .. LoadDefaultOperators(),
+        var loadDefaultOperators = options.LoadDefaultOperators;
+
+        if (loadDefaultOperators)
+        {
+            return [
+                .. LoadDefaultOperators(),
+                .. LoadCustomOperators()
+                ];
+        }
+        return [
             .. LoadCustomOperators()
             ];
     }
