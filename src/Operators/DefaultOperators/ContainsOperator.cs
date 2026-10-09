@@ -10,7 +10,7 @@ public sealed class ContainsOperator : Operator
 
     public override List<string> Aliases { get;  } = ["contains"];
 
-    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteAsync(object Left, object Right, object? OptionalData)
     {
         if (Left is null || Right is null)
         {

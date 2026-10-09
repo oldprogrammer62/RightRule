@@ -1,9 +1,9 @@
 ﻿namespace RightRule.System.Common.Operator.Models;
 
-public abstract class Operator : IDisposable
+public abstract class Operator : IOperator, IDisposable
 {
     private bool _disposed = false;
-    
+
     public abstract List<string> Aliases { get; }
 
     public bool IsCustom { get; }
@@ -20,11 +20,11 @@ public abstract class Operator : IDisposable
         IsCustom = isCustom;
     }
 
-    public async Task<OperatorResult> ProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    public async Task<OperatorResult> ProcessAsync(object Left, object Right, object? OptionalData)
     {
         try
         {
-            return await ExecuteOperatorProcessAsync(Left, Right, OptionalData, Diagnostics).ConfigureAwait(false);
+            return await ExecuteAsync(Left, Right, OptionalData).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -32,7 +32,7 @@ public abstract class Operator : IDisposable
         }
     }
 
-    protected abstract Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics);
+    protected abstract Task<OperatorResult> ExecuteAsync(object Left, object Right, object? OptionalData);
 
     public void Dispose()
     {
@@ -40,7 +40,7 @@ public abstract class Operator : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    protected virtual void Dispose(bool Disposing) 
+    protected virtual void Dispose(bool Disposing)
     {
         if (_disposed) return;
 

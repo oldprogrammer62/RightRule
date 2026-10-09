@@ -1,1 +1,20 @@
 ﻿
+Your Operator
+Overrides the ExecuteAsync() method, implementing the required logic on Left and Right.
+OptionalData can be passed by the Rule to the Operator Execute process.
+
+public class IsSmallerThan : Operator
+{
+    public override List<string> Aliases => ["IsSmallerThan"];
+
+    protected override Task<OperatorResult> ExecuteAsync(object Left, object Right, object? OptionalData)
+    {
+        var result = (int)Left < (int)Right;
+        if (result)
+        {
+            return Task.FromResult(OperatorResult.SuccessResult("IsSmallerThan", true));
+        }
+        return Task.FromResult(OperatorResult.FailureResult("IsSmallerThan", "Left is not smaller than Right"));
+    }
+}
+

@@ -13,7 +13,7 @@ public class DayOfWeek : Operator
     {
     }
 
-    protected override async Task<OperatorResult> ExecuteOperatorProcessAsync(object left, object right, object? OptionalData, bool Diagnostics)
+    protected override async Task<OperatorResult> ExecuteAsync(object left, object right, object? OptionalData)
     {
         if (left is null || right is null)
         {

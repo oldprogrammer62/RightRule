@@ -138,7 +138,7 @@ public class IsBiggerThan : Operator
 {
     public override List<string> Aliases => ["IsBiggerThan", "", "IsBiggerthan"];
 
-    protected override Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override Task<OperatorResult> ExecuteAsync(object Left, object Right, object? OptionalData)
     {
         var result = (int)Left > (int)Right;
         if (result)
@@ -153,7 +153,7 @@ public class IsSmallerThan : Operator
 {
     public override List<string> Aliases => ["IsSmallerThan"];
 
-    protected override Task<OperatorResult> ExecuteOperatorProcessAsync(object Left, object Right, object? OptionalData, bool Diagnostics)
+    protected override Task<OperatorResult> ExecuteAsync(object Left, object Right, object? OptionalData)
     {
         var result = (int)Left < (int)Right;
         if (result)

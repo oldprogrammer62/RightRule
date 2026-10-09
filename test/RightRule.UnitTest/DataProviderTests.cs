@@ -177,7 +177,7 @@ public class DataProviderTests
 
         var DataProviderRegResult = rr.RegisterDataProvider(new BespokeDataProvider());
 
-        rr.RegisterData("DS_Name", input);
+        var result = rr.RegisterData("DS_Name", input);
     }
 }
 
