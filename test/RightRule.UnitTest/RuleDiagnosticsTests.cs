@@ -1,6 +1,5 @@
 ﻿using RightRule;
-using RightRule.ConfigurationService;
-using RightRule.RuleServices.RuleModels;
+using RightRule.Models;
 
 namespace RightRuleTests;
 
@@ -20,16 +19,23 @@ public class RuleDiagnosticsTests
             .FalseDecision("NOT_SAME")
             .Build();
 
-        Assert.NotNull(rule1.RuleConfiguration);
-        Assert.Equal(RightRuleConfiguration.DEFAULT_DIAGNOSTICS, rule1.RuleConfiguration.Diagnostics);
+        Assert.NotNull(rule1);
+
+        var options = new RightRuleOptions();
+        var configurations = rr.GetRightRuleOptions();
+
+        Assert.NotNull(configurations);
+        Assert.Equal(options.DataCheck, configurations.DataCheck);
+        Assert.Equal(options.Diagnostics, configurations.Diagnostics);
+        Assert.Equal(options.LoadDefaultOperators, configurations.LoadDefaultOperators);
     }
 
     [Fact]
-    public void RuleBuilderTest_Config()
+    public void RuleBuilderTest_DefaultConfig()
     {
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions();
 
-        bool diagnostics = true;
+        IRightRule rr = new RightRule.RightRule(options);
 
         var rule1 = rr.BuildRule()
             .Number(1)
@@ -38,52 +44,40 @@ public class RuleDiagnosticsTests
             .Statement("100 = 100 and 100 <> 101")
             .Decision("SAME")
             .FalseDecision("NOTSAME")
-            .WithDiagnostics(diagnostics)
             .Build();
 
-        Assert.NotNull(rule1.RuleConfiguration);
-        Assert.True(rule1.RuleConfiguration.Diagnostics);
+        var configurations = rr.GetRightRuleOptions();
+        Assert.NotNull(configurations);
+        Assert.Equal(options.DataCheck, configurations.DataCheck);
+        Assert.Equal(options.Diagnostics, configurations.Diagnostics);
+        Assert.Equal(options.LoadDefaultOperators, configurations.LoadDefaultOperators);
     }
 
     [Fact]
-    public void RuleDefnTest_NoConfig()
+    public void RuleBuilderTest_ModifiedConfig()
     {
-        // Rule
-        DefinedRule rule1 = new()
+        RightRuleOptions options = new RightRuleOptions()
         {
-            Number = 1,
-            Name = "Equals Int Value Rule",
-            Statement = "Test.intvalue equals Test.intvalue",
-            Context = "Context",
-            Decision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = false
         };
 
-        Assert.NotNull(rule1.RuleConfiguration);
-        Assert.Equal(RightRuleConfiguration.DEFAULT_DIAGNOSTICS, rule1.RuleConfiguration.Diagnostics);
-    }
+        IRightRule rr = new RightRule.RightRule(options);
 
-    [Fact]
-    public void RuleDefnTest_Config()
-    {
-        RightRuleConfiguration rc = new RightRuleConfiguration()
-        {
-            Diagnostics = true
-        };
+        var rule1 = rr.BuildRule()
+            .Number(1)
+            .Name("Name1")
+            .Context("Context")
+            .Statement("100 = 100 and 100 <> 101")
+            .Decision("SAME")
+            .FalseDecision("NOTSAME")
+            .Build();
 
-        // Rule
-        DefinedRule rule1 = new()
-        {
-            Number = 1,
-            Name = "Equals Int Value Rule",
-            Statement = "Test.intvalue equals Test.intvalue",
-            Context = "Context",
-            Decision = "EQUALS",
-            FalseDecision = "NOT_EQUALS",
-            RuleConfiguration = rc,
-        };
-
-        Assert.NotNull(rule1.RuleConfiguration);
-        Assert.True(rule1.RuleConfiguration.Diagnostics);
+        var configurations = rr.GetRightRuleOptions();
+        Assert.NotNull(configurations);
+        Assert.Equal(options.DataCheck, configurations.DataCheck);
+        Assert.Equal(options.Diagnostics, configurations.Diagnostics);
+        Assert.Equal(options.LoadDefaultOperators, configurations.LoadDefaultOperators);
     }
 }

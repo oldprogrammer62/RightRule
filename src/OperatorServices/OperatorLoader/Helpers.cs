@@ -1,22 +1,9 @@
-﻿using RightRule.ConfigurationService;
-using RightRule.System.Common.Operator.Models;
+﻿using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices.OperatorLoader;
 
 internal class Helpers
 {
-    internal static string GetConfigurationPath()
-    {
-        try
-        {
-            return ConfigurationHelper.GetSetting("CustomOperatorConfigPath") ?? string.Empty;
-        }
-        catch
-        {
-            return string.Empty;
-        }
-    }
-
     internal static T DeserialiseJson<T>(string Json)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Json, nameof(Json));

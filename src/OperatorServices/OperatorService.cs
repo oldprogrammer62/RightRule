@@ -12,6 +12,7 @@ internal partial class OperatorService : IOperatorService, IDisposable
     public List<Operator> Operators { get { return _operators; } }
 
     private Dictionary<string, Operator> _operatorAliases;
+    private readonly RightRuleOptions _options;
 
     public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
@@ -23,6 +24,8 @@ internal partial class OperatorService : IOperatorService, IDisposable
     {
         _operators = new List<Operator>();
         _operatorAliases = new Dictionary<string, Operator>(StringComparer.OrdinalIgnoreCase);
+
+        _options = options;
 
         RegisterAllOperators(options);
     }
@@ -76,7 +79,7 @@ internal partial class OperatorService : IOperatorService, IDisposable
         return operators;
     }
 
-    private static List<Operator> LoadAllOperators(RightRuleOptions options)
+    private List<Operator> LoadAllOperators(RightRuleOptions options)
     {
         var loadDefaultOperators = options.LoadDefaultOperators;
 
@@ -97,9 +100,9 @@ internal partial class OperatorService : IOperatorService, IDisposable
         return DefaultOperatorLoader.Load();
     }
 
-    internal static List<Operator> LoadCustomOperators()
+    internal List<Operator> LoadCustomOperators()
     {
-        string configurationPath = Helpers.GetConfigurationPath();
+        string configurationPath = _options.CustomOperatorLibraryPath;
         if (string.IsNullOrEmpty(configurationPath) || !File.Exists(configurationPath))
         {
             return new List<Operator>();

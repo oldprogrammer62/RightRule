@@ -31,6 +31,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly ILogger<RightRule> Logger;
 
     private readonly IServiceProvider? ServiceProvider;
+    private readonly RightRuleOptions _options;
 
     /// <summary>
     /// Parameterless constructor
@@ -39,13 +40,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Service Provider DI Container will be disposed when RightRule is disposed
     /// </summary>
     public RightRule() : 
-        this(new RightRuleOptions { LoadDefaultOperators = true })
+        this(new RightRuleOptions())
     {
     }
 
     public RightRule(RightRuleOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
+
+        _options = options;
 
         ServiceProvider = InitialiseServiceProvider(options);
         RightRuleService = GetRightRuleServiceFromDI();
@@ -61,6 +64,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         RightRuleService = rightRuleService;
         Logger = logger;
+    }
+
+    public RightRuleOptions GetRightRuleOptions()
+    {
+        return _options;
     }
 
     private ServiceProvider InitialiseServiceProvider(RightRuleOptions options)

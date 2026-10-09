@@ -18,7 +18,7 @@ public sealed class ParsedRule : RuleParsed
     {
     }
 
-    internal static ParsedRule? SuccessResult(DefinedRule? ruleDefinition, Node node, string message)
+    internal static ParsedRule? SuccessResult(DefinedRule? ruleDefinition, Node node, string message, bool Diagnostics)
     {
         if (ruleDefinition == null)
         {
@@ -37,10 +37,9 @@ public sealed class ParsedRule : RuleParsed
             FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.SUCCESS,
             Message = message,
-            StatementPath = BuildTreeText(ruleDefinition, node),
+            StatementPath = BuildTreeText(node, Diagnostics),
             Node = node,
-            OptionalData = ruleDefinition.OptionalData,
-            RuleConfiguration = ruleDefinition.RuleConfiguration
+            OptionalData = ruleDefinition.OptionalData
         };
     }
 
@@ -65,8 +64,7 @@ public sealed class ParsedRule : RuleParsed
             StatementPath = string.Empty,
             Message = message,
             Node = null,
-            OptionalData = ruleDefinition.OptionalData,
-            RuleConfiguration = ruleDefinition.RuleConfiguration
+            OptionalData = ruleDefinition.OptionalData
         };
     }
 
@@ -88,10 +86,9 @@ public sealed class ParsedRule : RuleParsed
         return sb.ToString();
     }
 
-    private static string BuildTreeText(DefinedRule? ruleDefinition, Node node)
+    private static string BuildTreeText(Node node, bool Diagnostics)
     {
-        bool diagnostics = ConfigurationService.Helper.GetDiagnosticsSetting(ruleDefinition);
-        if (diagnostics)
+        if (Diagnostics)
         {
             return StatementPathBuilder.BuildTreeText(node);
         }

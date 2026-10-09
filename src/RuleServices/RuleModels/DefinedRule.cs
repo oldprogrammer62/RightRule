@@ -1,5 +1,4 @@
-﻿using RightRule.ConfigurationService;
-using RightRule.RuleServices.RuleModels.BaseModels;
+﻿using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;
 
@@ -26,7 +25,7 @@ public sealed class DefinedRule : RuleDefinition
         return ruleRegistrationService.RegisterRule(this);
     }
 
-    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData, RightRuleConfiguration ruleConfiguration)
+    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData)
     {
         return new DefinedRule()
         {
@@ -38,8 +37,7 @@ public sealed class DefinedRule : RuleDefinition
             DecisionData = DecisionData,
             FalseDecision = FalseDecision,
             FalseDecisionData = FalseDecisionData,
-            OptionalData = OptionalData,
-            RuleConfiguration = ruleConfiguration
+            OptionalData = OptionalData
         };
     }
 
@@ -55,7 +53,6 @@ public sealed class DefinedRule : RuleDefinition
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"OptionalData: {OptionalData}");
-        sb.AppendLine($"Configuration - Diagnostics: {RuleConfiguration?.Diagnostics}");
         return sb.ToString();
     }
 }

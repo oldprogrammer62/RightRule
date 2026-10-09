@@ -93,7 +93,13 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dec2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions()
+        {
+            DataCheck = false,
+            LoadDefaultOperators = true,
+            Diagnostics = true
+        }
+        );
         rr.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
@@ -106,7 +112,6 @@ public class Equals_AllTypes_Tests
             .Statement("decVal.decVal = localVal.localVal")
             .Decision("GOOD")
             .FalseDecision("DIFFERENT")
-            .WithDiagnostics(true)
             .Build();
             
         var prule = rr.RegisterRule(rule);

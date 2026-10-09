@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using RightRule.ConfigurationService;
 using RightRule.DataServices;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common.Operator.Models;
@@ -15,13 +15,15 @@ internal sealed class Evaluator : IEvaluator
     private readonly IOperatorService _operatorService;
     private readonly IStatementBuilder _statementBuilder;
     private readonly ILogger<Evaluator> _logger;
+    private readonly RightRuleOptions _options;
 
-    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder, ILogger<Evaluator> logger)
+    public Evaluator(IDataService dataService, IOperatorService operatorService, IStatementBuilder statementBuilder, ILogger<Evaluator> logger, RightRuleOptions options)
     {
         _dataService = dataService;
         _operatorService = operatorService;
         _statementBuilder = statementBuilder;
         _logger = logger;
+        _options = options;
     }
 
     public Task<EvaluationResult> EvaluateAsync(ParsedRule Rule)
@@ -56,7 +58,7 @@ internal sealed class Evaluator : IEvaluator
     {
         var node = Rule.Node;
 
-        var diagnostics = Rule.RuleConfiguration?.Diagnostics ?? RightRuleConfiguration.DEFAULT_DIAGNOSTICS;
+        var diagnostics = _options.Diagnostics;
         var statement = Rule.Statement;
         return diagnostics ? await BuildStatementAsync(statement, node!).ConfigureAwait(false) : string.Empty;
     }

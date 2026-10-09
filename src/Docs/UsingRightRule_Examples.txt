@@ -15,7 +15,13 @@ Using RightRule with a self hosted Dependency Injection service collection
 With Options
         var services = new ServiceCollection();
         services.AddLogging();
-        services.AddRightRule(options => options.LoadDefaultOperators = true);
+        services.AddRightRule(options =>
+        {
+            options.LoadDefaultOperators = true;
+            options.DataCheck = true;
+            options.Diagnostics = true;
+            options.CustomOperatorLibraryPath = @"C:\public\customoperatorconfig.json";
+        });
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
@@ -24,5 +30,11 @@ With Options
 Using RightRule with a system (asp.net) hosted Dependence Injection service collection
         builder.Services.AddRightRule();
 With Options
-        builder.Services.AddRightRule(options => options.LoadDefaultOperators = true);
+        builder.Services.AddRightRule(options =>
+        {
+            options.LoadDefaultOperators = true;
+            options.DataCheck = true;
+            options.Diagnostics = true;
+            options.CustomOperatorLibraryPath = @"C:\public\customoperatorconfig.json";
+        });
 

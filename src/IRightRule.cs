@@ -3,6 +3,7 @@ using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
@@ -18,9 +19,9 @@ namespace RightRule;
 
 public interface IRightRule : IDisposable
 {
-    IRuleService RuleService { get; }
+    RightRuleOptions GetRightRuleOptions();
 
-    string GetConfigSettings(string key);
+    IRuleService RuleService { get; }
 
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.

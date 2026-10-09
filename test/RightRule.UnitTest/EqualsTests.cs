@@ -1,5 +1,5 @@
 ﻿using RightRule;
-using RightRule.ConfigurationService;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -25,11 +25,13 @@ public class EqualsTests
     [Fact]
     public void Equals_Bool()
     {
-        IRightRule rr = new RightRule.RightRule();
-        RightRuleConfiguration rc = new RightRuleConfiguration()
+        IRightRule rr = new RightRule.RightRule(new RightRuleOptions()
         {
-            Diagnostics = false
-        };
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        } 
+        );
 
         // Rule
         DefinedRule rule = new()
@@ -39,7 +41,6 @@ public class EqualsTests
             Statement = @"Test.boolvalue equals true",
             Context = "Context",
             OptionalData = null,
-            RuleConfiguration = rc,
             Decision = "EQUALS",
             DecisionData = null,
             FalseDecision = "NOT EQUALS"
@@ -79,8 +80,6 @@ public class EqualsTests
     [Fact]
     public void Equals_Int()
     {
-        RightRuleConfiguration rc = new RightRuleConfiguration(false);
-
         // Rule
         DefinedRule rule = new()
         {
@@ -89,8 +88,7 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             Decision = "EQUALS",
-            FalseDecision = "NOT EQUALS",
-            RuleConfiguration = rc
+            FalseDecision = "NOT EQUALS"
         };
 
         IRightRule rr = new RightRule.RightRule();

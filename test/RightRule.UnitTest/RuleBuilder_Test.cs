@@ -21,7 +21,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDiagnostics(false)
             .Build()
             .Register(rr.RuleService);
 
@@ -32,7 +31,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDiagnostics(true)
             .Build();
         var x2 = rr.RegisterRule(rule2);
 
@@ -62,7 +60,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
 
@@ -73,7 +70,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
 
@@ -107,7 +103,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
 
@@ -118,7 +113,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
 
@@ -153,7 +147,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
 
@@ -164,7 +157,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
 
@@ -199,7 +191,6 @@ public class RuleBuilder_Test
             .FalseDecision("BAD")
             .DecisionData(null)
             .OptionalData(null)
-            .WithDiagnostics(true)
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
 
@@ -210,7 +201,6 @@ public class RuleBuilder_Test
             .Statement("a = b")
             .Decision("GOOD")
             .FalseDecision("BAD")
-            .WithDiagnostics(true)
             .Build();
         var rule2reg = rr.RegisterRule(rule2);
 

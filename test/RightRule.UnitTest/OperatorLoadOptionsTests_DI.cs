@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RightRule;
-using RightRule.Models;
 using RightRule.ServiceRegister;
 
 namespace RightRuleTests;
@@ -37,7 +35,14 @@ public class OperatorLoadOptionsTests_DI
     {
         var services = new ServiceCollection();
         services.AddLogging();
-        services.AddRightRule(options => options.LoadDefaultOperators = true);
+        services.AddRightRule(options =>
+        {
+            options.LoadDefaultOperators = true;
+            options.DataCheck = true;
+            options.Diagnostics = true;
+            options.CustomOperatorLibraryPath = @"C:\Development\BSoft\RightRule\src\Operators\CustomOperators\customoperatorconfig.json";
+        });
+
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
@@ -62,7 +67,15 @@ public class OperatorLoadOptionsTests_DI
     {
         var services = new ServiceCollection();
         services.AddLogging();
-        services.AddRightRule(options => options.LoadDefaultOperators = false);
+
+        services.AddRightRule(options =>
+        {
+            options.LoadDefaultOperators = false;
+            options.DataCheck = false;
+            options.Diagnostics = false;
+            options.CustomOperatorLibraryPath = @"C:\Development\BSoft\RightRule\src\Operators\CustomOperators\customoperatorconfig.json";
+        });
+
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();

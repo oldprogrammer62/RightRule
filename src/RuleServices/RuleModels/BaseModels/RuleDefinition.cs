@@ -1,6 +1,4 @@
-﻿using RightRule.ConfigurationService;
-
-namespace RightRule.RuleServices.RuleModels.BaseModels;
+﻿namespace RightRule.RuleServices.RuleModels.BaseModels;
 
 public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
 {
@@ -57,9 +55,4 @@ public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
     /// It is the responsibility of the Operator to validate the configuration details and use it as required.
     /// </summary>
     public object? OptionalData { get; init; }
-
-    /// <summary>
-    /// Configuration details
-    /// </summary>
-    public RightRuleConfiguration RuleConfiguration { get; init; } = new RightRuleConfiguration();
 }

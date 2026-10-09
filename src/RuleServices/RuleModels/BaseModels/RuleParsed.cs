@@ -1,5 +1,4 @@
-﻿using RightRule.ConfigurationService;
-using RightRule.LanguageProcessor.Parser;
+﻿using RightRule.LanguageProcessor.Parser;
 using RightRule.Models;
 
 namespace RightRule.RuleServices.RuleModels.BaseModels;
@@ -40,6 +39,4 @@ public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
     public string? Message { get; init; }
 
     public object? OptionalData { get; init; }
-
-    public RightRuleConfiguration? RuleConfiguration { get; init; }
 }

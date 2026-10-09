@@ -9,13 +9,15 @@ namespace RightRule.RuleServices;
 
 internal class RuleService : IRuleService
 {
+    private readonly RightRuleOptions _options;
     private readonly IParseRuleService _parseRuleService;
 
     private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
+    public RuleService(RightRuleOptions options, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
     {
+        _options = options;
         _parseRuleService = ParseRuleService;
         _registeredRules = RegisteredRules;
     }
@@ -51,14 +53,17 @@ internal class RuleService : IRuleService
     {
         ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
 
-        var parsedRules = _parseRuleService.ParseRules(Rules);
+        var diagnostics = _options.Diagnostics;
+        var parsedRules = _parseRuleService.ParseRules(Rules, diagnostics);
         return RegisteredRules.AddRules(parsedRules);
     }
 
     public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
         ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
-        var parsedRule = _parseRuleService.ParseRule(Rule);
+
+        var diagnostics = _options.Diagnostics;
+        var parsedRule = _parseRuleService.ParseRule(Rule, diagnostics);
         if (parsedRule == null)
         {
             return new RuleRegistrationResult()
