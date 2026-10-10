@@ -12,6 +12,14 @@ public static class ServiceCollectionExtensions
 
         var options = new RightRuleOptions();
         configure?.Invoke(options);
+
+        // Make sure the Path to Custom Operators has a value
+        if (string.IsNullOrWhiteSpace(options.CustomOperatorLibraryPath))
+        {
+            options.CustomOperatorLibraryPath =
+                RightRuleLibraryDefaults.CustomOperatorLibraryPath;
+        }
+
         services.AddSingleton(options);
 
         if (services is ServiceCollection sc)

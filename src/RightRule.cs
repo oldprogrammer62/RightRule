@@ -74,6 +74,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private ServiceProvider InitialiseServiceProvider(RightRuleOptions options)
     {
         var services = new ServiceCollection();
+
+        options = CheckOptions(options);
+
         services.AddSingleton(options);
         ServiceRegister.ServiceRegister.RegisterServices(services);
         return services.BuildServiceProvider();
@@ -87,53 +90,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
         return ServiceProvider.GetRequiredService<IRightRuleService>();
     }
-
-    private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)
-    {
-        if (ServiceResults == null)
-        {
-            return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
-        }
-        if (ServiceResults.Count == 0)
-        {
-            return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
-        }
-        List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
-
-        foreach (var serviceResult in ServiceResults)
-        {
-            rightRuleResults.Add(BuildResult(serviceResult));
-        }
-        return rightRuleResults;
-    }
-
-    private RightRuleResult<IProcessedRule> BuildResult(RightRuleServiceResult<IProcessedRule> ServiceResult)
-    {
-        var context = ServiceResult?.Payload?.Context ?? string.Empty;
-        var status = ServiceResult?.Status ?? RightRuleStatusEnum.DEFAULT;
-
-        var payload = ServiceResult?.Payload ?? null;
-        var message = ServiceResult?.Message ?? string.Empty;
-        var statementApplied = ServiceResult?.Payload?.StatementApplied ?? string.Empty;
-
-        return status switch
-        {
-            RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
-                RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied),
-
-            RightRuleStatusEnum.FAILURE =>
-                RightRuleResult<IProcessedRule>.FailureResult(message, statementApplied, payload != null ? payload : RightRuleService.GetDefaultRule(context)),
-
-            RightRuleStatusEnum.DEFAULT =>
-                RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context), message),
-
-            RightRuleStatusEnum.ERROR =>
-                RightRuleResult<IProcessedRule>.ErrorResult(ServiceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
-
-            _ => RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(context))
-        };
-    }
-
     public void Dispose()
     {
         if (Disposed) return;

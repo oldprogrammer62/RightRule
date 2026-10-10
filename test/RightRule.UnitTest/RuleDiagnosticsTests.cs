@@ -28,6 +28,7 @@ public class RuleDiagnosticsTests
         Assert.Equal(options.DataCheck, configurations.DataCheck);
         Assert.Equal(options.Diagnostics, configurations.Diagnostics);
         Assert.Equal(options.LoadDefaultOperators, configurations.LoadDefaultOperators);
+        Assert.Equal(options.CustomOperatorLibraryPath, configurations.CustomOperatorLibraryPath);
     }
 
     [Fact]
@@ -51,6 +52,7 @@ public class RuleDiagnosticsTests
         Assert.Equal(options.DataCheck, configurations.DataCheck);
         Assert.Equal(options.Diagnostics, configurations.Diagnostics);
         Assert.Equal(options.LoadDefaultOperators, configurations.LoadDefaultOperators);
+        Assert.Equal(options.CustomOperatorLibraryPath, configurations.CustomOperatorLibraryPath);
     }
 
     [Fact]
@@ -60,7 +62,8 @@ public class RuleDiagnosticsTests
         {
             DataCheck = false,
             Diagnostics = true,
-            LoadDefaultOperators = false
+            LoadDefaultOperators = false,
+            CustomOperatorLibraryPath = string.Empty
         };
 
         IRightRule rr = new RightRule.RightRule(options);
