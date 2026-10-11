@@ -17,29 +17,14 @@ public sealed class InOperator : Operator
             return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
-        // String contains (case-insensitive)
-        if (Left is string lStr && Right is Array rStrArray)
+        if (Right is Array values)
         {
-            return OperatorResult.SuccessResult(
-                this.Name,
-                rStrArray.Cast<object?>().Any(value =>
-                    string.Equals(value?.ToString(), lStr, StringComparison.OrdinalIgnoreCase)));
-        }
+            var found = values.Cast<object?>().Any(value =>
+        value is string item && Left is string leftString
+            ? string.Equals(item, leftString, StringComparison.OrdinalIgnoreCase)
+            : object.Equals(value, Left));
 
-        if (Left is int lInt && Right is Array rIntArray)
-        {
-            return OperatorResult.SuccessResult(
-                this.Name,
-                rIntArray.Cast<object?>().Any(value =>
-                    int.Equals(value, lInt)));
-        }
-
-        if (Left is double lDbl && Right is Array rDblArray)
-        {
-            return OperatorResult.SuccessResult(
-                this.Name,
-                rDblArray.Cast<object?>().Any(value =>
-                    int.Equals(value, lDbl)));
+            return OperatorResult.SuccessResult(this.Name, found);
         }
         return OperatorResult.FailureResult(this.Name, "Invalid Array Datatypes");
     }
