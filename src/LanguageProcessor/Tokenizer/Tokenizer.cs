@@ -50,6 +50,7 @@ internal sealed class Tokenizer : ITokenizer
         // Parentheses
         if (c == '(') { _pos++; return new Token(TokenTypeEnum.LPAREN, "(", _pos - 1); }
         if (c == ')') { _pos++; return new Token(TokenTypeEnum.RPAREN, ")", _pos - 1); }
+        if (c == '[') return ReadArrayToken();
 
         // Number (simple integer support)
         // Must start with a digit, and can contain digits
@@ -211,6 +212,47 @@ internal sealed class Tokenizer : ITokenizer
             throw new FormatException($"Unexpected '{sb}' at position {_pos}.");
         }
         throw new FormatException($"Unexpected character '{c}' at position {_pos}.");
+    }
+
+    private Token ReadArrayToken()
+    {
+        int start = _pos;
+        char quote = '\0';
+        _pos++; // Skip '['
+        while (_pos < _statement.Length)
+        {
+            char current = _statement[_pos];
+            if (quote != '\0')
+            {
+                if (current == '\\' && _pos + 1 < _statement.Length)
+                {
+                    _pos += 2; // Skip escaped character
+                    continue;
+                }
+                if (current == quote)
+                    quote = '\0';
+                _pos++;
+                continue;
+            }
+            if (current is '\'' or '"')
+            {
+                quote = current;
+                _pos++;
+                continue;
+            }
+            if (current == '[')
+                throw new FormatException($"Nested arrays are not supported at position {_pos}.");
+
+            if (current == ']')
+            {
+                _pos++;
+                string literal = _statement[start.._pos];
+                _ = ArrayLiteralParser.Parse(literal); // Validate the literal now.
+                return new Token(TokenTypeEnum.ARRAY, literal, start);
+            }
+            _pos++;
+        }
+        throw new FormatException($"Unterminated array literal at position {start}.");
     }
 
     private bool IsLogicOperator(string OpName)

@@ -113,6 +113,7 @@ internal sealed class Parser : IParser
             TokenTypeEnum.STRING => new Operand(OperandKindEnum.STRING, _current.Value),
             TokenTypeEnum.NUMBER => new Operand(OperandKindEnum.NUMBER, _current.Value),
             TokenTypeEnum.BOOLEAN => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
+            TokenTypeEnum.ARRAY => new Operand(OperandKindEnum.ARRAY, _current.Value),
             _ => throw new Exception($"Expected left-hand identifier or literal at pos {_current.Position}")
         };
         Eat(_current.Type);
@@ -129,6 +130,7 @@ internal sealed class Parser : IParser
             TokenTypeEnum.STRING => new Operand(OperandKindEnum.STRING, _current.Value),
             TokenTypeEnum.NUMBER => new Operand(OperandKindEnum.NUMBER, _current.Value),
             TokenTypeEnum.BOOLEAN => new Operand(OperandKindEnum.BOOLEAN, _current.Value),
+            TokenTypeEnum.ARRAY => new Operand(OperandKindEnum.ARRAY, _current.Value),
             _ => throw new Exception($"Expected right-hand value at pos {_current.Position}")
         };
         Eat(_current.Type);

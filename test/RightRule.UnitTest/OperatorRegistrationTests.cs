@@ -73,7 +73,7 @@ public class OperatorRegistrationTests
         Assert.NotNull(rr);
         Assert.NotNull(rr.OperatorService.Operators);
         Assert.NotNull(rr.OperatorService.OperatorAliases);
-        Assert.Equal(9, rr.OperatorService.Operators.Count);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
         Assert.Equal(22, rr.OperatorService.OperatorAliases.Count);
 
         var op = new IsBiggerThan();
@@ -81,12 +81,12 @@ public class OperatorRegistrationTests
 
         var isRegistered = rr.RegisterOperator(op);
         Assert.Equal(RightRule.Models.RightRuleStatusEnum.SUCCESS, isRegistered.Status);
-        Assert.Equal(10, rr.OperatorService.Operators.Count);
+        Assert.Equal(11, rr.OperatorService.Operators.Count);
         Assert.Equal(23, rr.OperatorService.OperatorAliases.Count);
 
         var ops = rr.GetOperators();
         Assert.NotNull(ops);
-        Assert.Equal(10, ops.Count);
+        Assert.Equal(11, ops.Count);
     }
 
     [Fact]

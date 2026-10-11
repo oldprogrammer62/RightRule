@@ -210,4 +210,73 @@ public class DataTypes_Tests
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
     }
+
+    [Fact]
+    public void Equals_ArrayIntegers()
+    {
+        IRightRule rr = new RightRule.RightRule();
+
+        int a = 2;
+        var data1Reg = rr.RegisterData("a", a);
+
+        var rule1Reg = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1")
+            .Context("Context")
+            .Statement("a in [1,2,3]")
+            .Decision("SAME")
+            .FalseDecision("DIFF")
+            .Build()
+            .Register(rr.RuleService);
+
+        var result = rr.ApplyRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+    }
+
+    [Fact]
+    public void Equals_ArrayDoubles()
+    {
+        IRightRule rr = new RightRule.RightRule();
+
+        double a = 2.2;
+        var data1Reg = rr.RegisterData("a", a);
+
+        var rule1Reg = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1")
+            .Context("Context")
+            .Statement("a in [1.1,2.2,3.3]")
+            .Decision("SAME")
+            .FalseDecision("DIFF")
+            .Build()
+            .Register(rr.RuleService);
+
+        var result = rr.ApplyRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+    }
+
+    [Fact]
+    public void Equals_ArrayStrings()
+    {
+        IRightRule rr = new RightRule.RightRule();
+
+        string a = "2";
+        var data1Reg = rr.RegisterData("a", a);
+
+        var rule1Reg = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1")
+            .Context("Context")
+            .Statement("a in [\"1\",\"2\",\"3\"]")
+            .Decision("SAME")
+            .FalseDecision("DIFF")
+            .Build()
+            .Register(rr.RuleService);
+
+        var result = rr.ApplyRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+    }
 }

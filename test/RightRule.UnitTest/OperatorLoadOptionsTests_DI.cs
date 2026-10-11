@@ -19,11 +19,11 @@ public class OperatorLoadOptionsTests_DI
 
         var operators = rr.GetOperators();
         Assert.NotNull(operators);
-        Assert.Equal(9, operators.Count);
+        Assert.Equal(10, operators.Count);
 
         var defaultOperators = operators.Where(op => op.IsCustom == false).ToList();
         Assert.NotNull(defaultOperators);
-        Assert.Equal(6, defaultOperators.Count);
+        Assert.Equal(7, defaultOperators.Count);
 
         var customOperators = operators.Where(op => op.IsCustom == true).ToList();
         Assert.NotNull(customOperators);
@@ -51,11 +51,11 @@ public class OperatorLoadOptionsTests_DI
 
         var operators = rr.GetOperators();
         Assert.NotNull(operators);
-        Assert.Equal(9, operators.Count);
+        Assert.Equal(10, operators.Count);
 
         var defaultOperators = operators.Where(op => op.IsCustom == false).ToList();
         Assert.NotNull(defaultOperators);
-        Assert.Equal(6, defaultOperators.Count);
+        Assert.Equal(7, defaultOperators.Count);
 
         var customOperators = operators.Where(op => op.IsCustom == true).ToList();
         Assert.NotNull(customOperators);

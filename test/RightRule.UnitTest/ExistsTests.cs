@@ -42,7 +42,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"Arguments.number in Arguments.numbers",
+            Statement = @"Arguments.number foundin Arguments.numbers",
             Context = "Context",
             Decision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
@@ -72,7 +72,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists String Value Rule",
-            Statement = @"""dd"" in Arguments.strings",
+            Statement = @"""dd"" foundin Arguments.strings",
             Context = "Context",
             Decision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
@@ -96,7 +96,7 @@ public class ExistsTests
         {
             Number = 1,
             Name = "Exists Int Value Rule",
-            Statement = @"Test.intvalue in Test.ints",
+            Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
             Decision = "EXISTS",
             FalseDecision = "NOT_EXISTS"

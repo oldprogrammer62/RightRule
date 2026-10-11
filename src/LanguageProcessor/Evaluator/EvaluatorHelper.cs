@@ -61,6 +61,7 @@ internal static class EvaluatorHelper
                 OperandKindEnum.NUMBER => opValue is string sNum ? ParseNumber(sNum) : opValue,
                 OperandKindEnum.BOOLEAN => opValue is string sBool ? ParseBoolean(sBool) : opValue,
                 OperandKindEnum.STRING => opValue is string s ? s : opValue?.ToString() ?? string.Empty,
+                OperandKindEnum.ARRAY => ArrayLiteralParser.Parse(Op.Raw),
                 _ => opValue
             };
         }

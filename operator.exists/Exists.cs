@@ -5,7 +5,7 @@ namespace Exists;
 
 public class Exists : Operator
 {
-    public override List<string> Aliases => ["exists", "in", "foundin"];
+    public override List<string> Aliases => ["exists", "foundin"];
 
     public Exists() : base()
     {

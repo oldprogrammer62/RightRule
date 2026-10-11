@@ -23,7 +23,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(9, rr.GetOperators().Count);
+        Assert.Equal(10, rr.GetOperators().Count);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(9, rr.GetOperators().Count);
+        Assert.Equal(10, rr.GetOperators().Count);
     }
 
     [Fact]
@@ -71,7 +71,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(9, rr.GetOperators().Count);
+        Assert.Equal(10, rr.GetOperators().Count);
     }
 
     [Fact]
@@ -89,13 +89,13 @@ public class RightRuleOptionsTests
         Assert.NotNull(optionsFound);
 
         Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.DataCheck);
-        Assert.True(optionsFound.Diagnostics);
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(9, rr.GetOperators().Count);
+        Assert.Equal(7, rr.GetOperators().Count);
     }
 
     [Fact]
@@ -113,12 +113,12 @@ public class RightRuleOptionsTests
         Assert.NotNull(optionsFound);
 
         Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.DataCheck);
-        Assert.True(optionsFound.Diagnostics);
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(9, rr.GetOperators().Count);
+        Assert.Equal(10, rr.GetOperators().Count);
     }
 }

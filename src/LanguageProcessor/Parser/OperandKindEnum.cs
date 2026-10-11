@@ -6,5 +6,6 @@ internal enum OperandKindEnum
     VARIABLE, 
     NUMBER, 
     STRING, 
-    BOOLEAN 
+    BOOLEAN ,
+    ARRAY
 }
