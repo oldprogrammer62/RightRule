@@ -32,6 +32,26 @@ public class SyntaxCheckTests
     }
 
     [Fact]
+    public async Task ValidStatement_WithArray()
+    {
+        IRightRule rr = new RightRule.RightRule();
+        CheckStatementResult? result = await rr.SyntaxCheckAsync("number in [1,2,3,4,5]");
+
+        Assert.True(result.IsValid);
+        Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
+    }
+
+    [Fact]
+    public async Task ValidStatement_WithArrayInvalid()
+    {
+        IRightRule rr = new RightRule.RightRule();
+        CheckStatementResult? result = await rr.SyntaxCheckAsync("number in [1,2,3,4,5");
+
+        Assert.False(result.IsValid);
+        Assert.Contains(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
+    }
+
+    [Fact]
     public async Task UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
         IRightRule rr = new RightRule.RightRule();

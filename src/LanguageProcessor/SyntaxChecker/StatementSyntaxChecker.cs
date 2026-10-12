@@ -175,11 +175,11 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
                     diagnostics.Add(new Diagnostic
                     {
                         Severity = DiagnosticSeverityEnum.INFO,
-                        Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean).",
+                        Message = "Left-hand side must be a variable identifier or a literal (string/number/boolean/array).",
                         Position = diag.Position,
                         Length = diag.Length,
                         Snippet = diag.Snippet,
-                        Suggestion = "Use an identifier or literal as the left operand, e.g. fieldName or \"text\".",
+                        Suggestion = "Use an identifier or literal as the left operand, e.g. fieldName or \"text\", or 123 or [1,2].",
                         Code = "HINT_LEFT_OPERAND"
                     });
                 }
@@ -188,11 +188,11 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
                     diagnostics.Add(new Diagnostic
                     {
                         Severity = DiagnosticSeverityEnum.INFO,
-                        Message = "Right-hand side must be a variable identifier or literal.",
+                        Message = "Right-hand side must be a variable identifier or literal (string/number/boollean/array).",
                         Position = diag.Position,
                         Length = diag.Length,
                         Snippet = diag.Snippet,
-                        Suggestion = "Use an identifier or literal as the right operand, e.g. 123.",
+                        Suggestion = "Use an identifier or literal as the right operand, e.g. fieldName or \"text\" or 123 or [1,2].",
                         Code = "HINT_RIGHT_OPERAND"
                     });
                 }
@@ -272,6 +272,45 @@ internal sealed class StatementSyntaxChecker : IStatementSyntaxChecker
     private static int GetTokenLengthAtPosition(string statement, int pos)
     {
         if (pos < 0 || pos >= statement.Length) return 0;
+
+        // Include the full array literal, including whitespace and quoted values.
+        if (statement[pos] == '[')
+        {
+            int i = pos + 1;
+            char quote = '\0';
+
+            while (i < statement.Length)
+            {
+                char current = statement[i];
+
+                if (quote != '\0')
+                {
+                    if (current == '\\' && i + 1 < statement.Length)
+                    {
+                        i += 2;
+                        continue;
+                    }
+
+                    if (current == quote)
+                        quote = '\0';
+
+                    i++;
+                    continue;
+                }
+
+                if (current is '\'' or '"')
+                {
+                    quote = current;
+                    i++;
+                    continue;
+                }
+
+                i++;
+                if (current == ']')
+                    break;
+            }
+            return Math.Max(1, i - pos);
+        }
 
         // If char is quote, find string token length (up to next quote or end)
         if (statement[pos] == '"')
