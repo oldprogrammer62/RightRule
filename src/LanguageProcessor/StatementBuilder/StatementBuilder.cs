@@ -76,6 +76,10 @@ internal class StatementBuilder : IStatementBuilder
                     var parsed = Helper.ParseBoolean(Op.Raw);
                     return FormatValue(parsed);
                 }
+            case OperandKindEnum.ARRAY:
+                {
+                    return FormatValue(ArrayLiteralParser.Parse(Op.Raw));
+                }
             default:
                 return Op.Raw;
         }
@@ -95,6 +99,15 @@ internal class StatementBuilder : IStatementBuilder
 
         if (Value is bool b)
             return b ? "true" : "false";
+
+        if (Value is Array array)
+        {
+            var elements = new List<string>();
+            foreach (var element in array)
+                elements.Add(FormatValue(element));
+
+            return $"[{string.Join(", ", elements)}]";
+        }
 
         if (Value is IFormattable f)
             return f.ToString(null, CultureInfo.InvariantCulture) ?? Value.ToString() ?? string.Empty;

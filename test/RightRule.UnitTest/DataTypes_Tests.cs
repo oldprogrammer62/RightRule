@@ -1,5 +1,6 @@
 ﻿using Microsoft.Testing.Platform.Extensions.Messages;
 using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 using System.Collections;
 using System.Net.Security;
@@ -328,7 +329,14 @@ public class DataTypes_Tests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("number", number);
         rr.RegisterData("numbers", numbers);
@@ -356,7 +364,14 @@ public class DataTypes_Tests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("value", value);
         rr.RegisterData("values", values);
