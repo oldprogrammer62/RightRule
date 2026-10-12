@@ -1,4 +1,8 @@
-﻿using RightRule;
+﻿using Microsoft.Testing.Platform.Extensions.Messages;
+using RightRule;
+using RightRule.RuleServices.RuleModels;
+using System.Collections;
+using System.Net.Security;
 
 namespace RightRuleTests;
 
@@ -278,5 +282,87 @@ public class DataTypes_Tests
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+    }
+
+    [Fact]
+    public void Int_in_ArrayList()
+    {
+        int number = 4;
+        ArrayList numbers = new ArrayList() { 1, 2, 3, 100, 4, 5 };
+
+        // Rule
+        DefinedRule rule = new()
+        {
+            Number = 1,
+            Name = "Int In Value Rule",
+            Statement = @"number in numbers",
+            Context = "Context",
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
+        };
+
+        IRightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("number", number);
+        rr.RegisterData("numbers", numbers);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+    [Fact]
+    public void Int_in_Array()
+    {
+        int number = 4;
+        int[] numbers = [1,2,3,4,5];
+
+        // Rule
+        DefinedRule rule = new()
+        {
+            Number = 1,
+            Name = "Int In Value Rule",
+            Statement = @"number in numbers",
+            Context = "Context",
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
+        };
+
+        IRightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("number", number);
+        rr.RegisterData("numbers", numbers);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
+    }
+
+
+    [Fact]
+    public void String_in_Array()
+    {
+        string value = "Hello";
+        string[] values = ["Not", "Here", "Yet", "Hello", "World"];
+
+        // Rule
+        DefinedRule rule = new()
+        {
+            Number = 1,
+            Name = "String In Value Rule",
+            Statement = @"value in values",
+            Context = "Context",
+            Decision = "EXISTS",
+            FalseDecision = "NOT_EXISTS"
+        };
+
+        IRightRule rr = new RightRule.RightRule();
+        var newRule = rr.RegisterRule(rule);
+        rr.RegisterData("value", value);
+        rr.RegisterData("values", values);
+
+        var appliedRule = rr.ApplyRule("Context");
+
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

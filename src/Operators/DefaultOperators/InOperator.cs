@@ -1,4 +1,5 @@
 ﻿using RightRule.System.Common.Operator.Models;
+using System.Collections;
 
 namespace RightRule.Operators.DefaultOperators;
 
@@ -17,15 +18,26 @@ public sealed class InOperator : Operator
             return OperatorResult.FailureResult(this.Name, "One or both operands are null.");
         }
 
-        if (Right is Array values)
+        if (Right is Array arrayValues)
         {
-            var found = values.Cast<object?>().Any(value =>
+            var found = arrayValues.Cast<object?>().Any(value =>
         value is string item && Left is string leftString
             ? string.Equals(item, leftString, StringComparison.OrdinalIgnoreCase)
             : object.Equals(value, Left));
 
             return OperatorResult.SuccessResult(this.Name, found);
         }
+
+        if (Right is ArrayList arrayListValues)
+        {
+            var found = arrayListValues.Cast<object?>().Any(value =>
+        value is string item && Left is string leftString
+            ? string.Equals(item, leftString, StringComparison.OrdinalIgnoreCase)
+            : object.Equals(value, Left));
+
+            return OperatorResult.SuccessResult(this.Name, found);
+        }
+
         return OperatorResult.FailureResult(this.Name, "Invalid Array Datatypes");
     }
 }
