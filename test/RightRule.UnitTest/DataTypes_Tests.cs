@@ -217,9 +217,16 @@ public class DataTypes_Tests
     }
 
     [Fact]
-    public void Equals_ArrayIntegers()
+    public void In_ArrayIntegers()
     {
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
 
         int a = 2;
         var data1Reg = rr.RegisterData("a", a);
@@ -234,15 +241,23 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
-        Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        var appliedRule = rr.ApplyRule("Context");
+        Assert.NotNull(appliedRule);
+        Assert.NotNull(appliedRule.StatementApplied);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
     }
 
     [Fact]
-    public void Equals_ArrayDoubles()
+    public void In_ArrayDoubles()
     {
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
 
         double a = 2.2;
         var data1Reg = rr.RegisterData("a", a);
@@ -257,15 +272,23 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
-        Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        var appliedRule = rr.ApplyRule("Context");
+        Assert.NotNull(appliedRule);
+        Assert.NotNull(appliedRule.StatementApplied);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
     }
 
     [Fact]
-    public void Equals_ArrayStrings()
+    public void In_ArrayStrings()
     {
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
 
         string a = "2";
         var data1Reg = rr.RegisterData("a", a);
@@ -280,9 +303,10 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
-        Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        var appliedRule = rr.ApplyRule("Context");
+        Assert.NotNull(appliedRule);
+        Assert.NotNull(appliedRule.StatementApplied);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
     }
 
     [Fact]
@@ -302,13 +326,22 @@ public class DataTypes_Tests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
+
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("number", number);
         rr.RegisterData("numbers", numbers);
 
         var appliedRule = rr.ApplyRule("Context");
 
+        Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
@@ -343,6 +376,7 @@ public class DataTypes_Tests
 
         var appliedRule = rr.ApplyRule("Context");
 
+        Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
@@ -378,6 +412,7 @@ public class DataTypes_Tests
 
         var appliedRule = rr.ApplyRule("Context");
 
+        Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }
