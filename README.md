@@ -1,6 +1,6 @@
 ## RightRule overview
 
-RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, use the returned decision, then dispose the instance.  
+RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, and use the returned decision to control your application flow.  
 RightRule can be instantiated directly with new RightRule() (which creates and owns its service provider), or registered as a scoped service in an application’s IServiceCollection using AddRightRule() and resolved from the application’s service provider.
 
 The basic steps for using RightRule are:  
