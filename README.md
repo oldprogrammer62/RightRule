@@ -1,6 +1,6 @@
 ## RightRule overview
 
-RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, and use the returned decision to control your application flow.  
+RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, use the returned decision, then dispose the instance.  
 RightRule can be instantiated directly with new RightRule() (which creates and owns its service provider), or registered as a scoped service in an application’s IServiceCollection using AddRightRule() and resolved from the application’s service provider.
 
 The basic steps for using RightRule are:  
@@ -91,4 +91,17 @@ Examples are:
 `List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ANY);`  
 `List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ALL);`
 
-Rules are ordered by rule number, from low to high. A result includes the decision and may include **decision data**. Decision data can contain replaceable elements identified with a dollar sign prefix, such as `$name.name`; RightRule substitutes the referenced value from registered data when it builds the result.
+Rules are ordered by rule number, from low to high. A result includes the decision and may include **decision data**.
+  
+Decision data can contain replaceable elements identified with a dollar sign prefix, such as `$datasetname.itemname`; RightRule substitutes the referenced value from registered data when it builds the result.
+
+### Rule application results
+Applying rules returns a RightRuleResult<IProcessedRule> for a single result or a list of results, depending on the selected evaluation type. Each result describes the evaluated rule and its outcome:
+•	RuleNumber and RuleName identify the rule.
+•	Result indicates whether the rule’s statement evaluated to true.
+•	Decision contains the rule’s true decision when it matches, or its false decision when it does not.
+•	DecisionData contains the corresponding true or false decision data. Replaceable values in that data are interpolated from registered data.
+•	StatementApplied contains the evaluated statement when diagnostics are enabled; otherwise, it is empty.
+•	Message provides additional information, such as a failure or error message.
+When no rule matches in FIRST mode, RightRule returns the context’s default rule result. ANY returns results for the evaluated rules, while ALL returns results only if every rule succeeds; otherwise, it returns the default rule result.
+
