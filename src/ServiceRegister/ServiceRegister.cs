@@ -4,6 +4,7 @@ using RightRule.DataProvider;
 using RightRule.DataProvider.DataProviderLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
+using RightRule.DataTransformer;
 using RightRule.Factories.ParserFactory;
 using RightRule.Factories.TokenizerFactory;
 using RightRule.LanguageProcessor.Evaluator;
@@ -60,6 +61,9 @@ internal sealed class ServiceRegister
         services.AddScoped<IDefaultRuleRegister, DefaultRuleRegister>();
         services.AddScoped<IDataProviderLibraryManager, DataProviderLibraryManager>();
         services.AddScoped<IDataProviderService, DataProviderService>();
+
+        services.AddScoped<IInterpolatorService, InterpolatorService>();
+        services.AddScoped<IInterpolate, StringInterpolator>();
 
         services.AddScoped<IDataValidatorService, DataValidatorService>();
 

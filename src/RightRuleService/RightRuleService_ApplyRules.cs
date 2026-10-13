@@ -5,31 +5,31 @@ namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context)
+    public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        var rulesApplied = await ApplyRulesAsync(Context, EvaluationTypeEnum.FIRST).ConfigureAwait(false);
+        var rulesApplied = await ApplyRules_MultipleResultAsync(Context, EvaluationType).ConfigureAwait(false);
         if (rulesApplied == null || rulesApplied.Count == 0)
         {
-            return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+            return BuildDefaultResult(Context);
         }
         var result = rulesApplied.FirstOrDefault();
         if (result != null)
         {
             return result;
         }
-        return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+        return BuildDefaultResult(Context);
     }
 
-    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
         var rulesApplied = await RuleApplicationService.ApplyRulesAsync(Context, EvaluationType).ConfigureAwait(false);
         if (rulesApplied == null)
         {
-            return [RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
+            return [BuildDefaultResult(Context)];
         }
         return BuildResult(rulesApplied);
     }

@@ -18,7 +18,7 @@ public sealed class RightRuleResult<T>
 
     private RightRuleResult() { }
 
-    public static RightRuleResult<IProcessedRule> SuccessResult(IProcessedRule? Payload, string StatementApplied)
+    public static RightRuleResult<IProcessedRule> SuccessResult(IProcessedRule? Payload, string StatementApplied, object? DecisionData)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
@@ -27,12 +27,12 @@ public sealed class RightRuleResult<T>
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
             Decision = Payload.Decision, 
-            DecisionData = Payload.DecisionData, 
+            DecisionData = DecisionData, 
             StatementApplied = StatementApplied 
         };
     }
 
-    public static RightRuleResult<IProcessedRule> FailureResult(string Message, string StatementApplied, IProcessedRule? Payload = default)
+    public static RightRuleResult<IProcessedRule> FailureResult(IProcessedRule? Payload, string StatementApplied, object? DecisionData, string Message)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
@@ -41,7 +41,7 @@ public sealed class RightRuleResult<T>
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
             Decision = Payload.FalseDecision, 
-            DecisionData = Payload?.FalseDecisionData, 
+            DecisionData = DecisionData, 
             StatementApplied = StatementApplied,
             Message = Message 
         };

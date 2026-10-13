@@ -230,6 +230,28 @@ public class ObjectReference_Tests
         Assert.NotNull(result);
         Assert.Equal(rule.Decision, result.Decision);
     }
+
+    [Fact]
+    public void ObjectRef_PassedThru()
+    {
+        var obj = new RefObject();
+
+        IRightRule rr = new RightRule.RightRule();
+        rr.RegisterData("obj", obj);
+
+        rr.BuildRule()
+            .Number(1)
+            .Name("Name1")
+            .Context("Context")
+            .Statement("obj = 21")
+            .Decision("GOOD")
+            .FalseDecision("BAD")
+            .Build()
+            .Register(rr.RuleService);
+
+        var appliedRule = rr.ApplyRule("Context");
+        Assert.NotNull(appliedRule);
+    }
 }
 
 public class RefObject

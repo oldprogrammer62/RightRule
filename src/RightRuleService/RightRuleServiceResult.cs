@@ -21,19 +21,7 @@ public sealed class RightRuleServiceResult<T>
 
     private RightRuleServiceResult() { }
 
-    public static List<RightRuleServiceResult<IProcessedRule>> SuccessResult(List<IProcessedRule> Payloads)
-    {
-        List<RightRuleServiceResult<IProcessedRule>> results = [];
-
-        foreach (var payload in Payloads)
-        {
-            var result = SuccessResult(payload);
-            results.Add(result);
-        }
-        return results;
-    }
-
-    public static RightRuleServiceResult<IProcessedRule> SuccessResult(IProcessedRule Payload)
+    public static RightRuleServiceResult<IProcessedRule> SuccessResult(IProcessedRule Payload, object? DecisionData)
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
@@ -43,22 +31,13 @@ public sealed class RightRuleServiceResult<T>
             Context = Payload.Context,
             StatementApplied = Payload.StatementApplied, 
             Decision = Payload.Decision, 
-            DecisionData = Payload.DecisionData, 
+            DecisionData = DecisionData, 
             Payload = Payload,
             Message = string.Empty
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> Build(IProcessedRule Payload)
-    {
-        return Payload.Result switch
-        {
-            true => SuccessResult(Payload),
-            false => FailureResult(Payload)
-        };
-    }
-
-    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule? Payload)
+    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule? Payload, object? DecisionData)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
@@ -69,13 +48,13 @@ public sealed class RightRuleServiceResult<T>
             Context = Payload.Context, 
             StatementApplied = Payload.StatementApplied, 
             Decision = Payload.FalseDecision, 
-            DecisionData = Payload.FalseDecisionData, 
+            DecisionData = DecisionData, 
             Payload = Payload,
             Message = Payload.Message
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload)
+    internal static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
@@ -93,7 +72,7 @@ public sealed class RightRuleServiceResult<T>
         };
     }
 
-    public static RightRuleServiceResult<IProcessedRule> DefaultResult(IProcessedRule? Payload, string Message = "Default")
+    internal static RightRuleServiceResult<IProcessedRule> DefaultResult(IProcessedRule? Payload, string Message = "Default")
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 

@@ -2,13 +2,13 @@
 using RightRule.DataProvider;
 using RightRule.DataServices;
 using RightRule.DataServices.Data;
+using RightRule.DataTransformer;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.System.Common.Operator.Models;
 using System.ComponentModel;
 
@@ -21,6 +21,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
 
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
+    private readonly IInterpolatorService InterpolatorService;
     private readonly ILogger<RightRuleService> Logger;
 
     public IDataProviderService? DataProviderService { get; }
@@ -46,6 +47,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService,
         IDataProviderService dataProviderService,
+        IInterpolatorService transformerService,
         ILogger<RightRuleService> logger
         )
     {
@@ -56,28 +58,13 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
         DataProviderService = dataProviderService;
+        InterpolatorService = transformerService;
         Logger = logger;
     }
 
     public Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
     {
         return StatementSyntaxChecker.CheckAsync(Statement);
-    }
-
-    private static List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
-    {
-        List<RightRuleServiceResult<IProcessedRule>> results = new List<RightRuleServiceResult<IProcessedRule>>();
-        foreach (var ruleApplied in RulesApplied)
-        {
-            results.Add(BuildResult(ruleApplied));
-        }
-        return results;
-    }
-
-    private static RightRuleServiceResult<IProcessedRule> BuildResult(IProcessedRule RuleApplied)
-    {
-        var result = RightRuleServiceResult<IProcessedRule>.Build(RuleApplied);
-        return result;
     }
 
     public void Dispose()

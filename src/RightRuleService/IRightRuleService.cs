@@ -59,8 +59,8 @@ public interface IRightRuleService
     bool DeRegisterData();
     bool DeRegisterData(string DatasetName);
 
-    Task<RightRuleServiceResult<IProcessedRule>> ApplyRulesAsync(string Context);
-    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum evaluationType);
+    Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
+    Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
 
     List<string>? GetRuleContexts();
     List<(int Number, string Name)>? GetRuleNumbers(string Context);

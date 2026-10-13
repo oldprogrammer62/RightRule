@@ -387,6 +387,8 @@ public class DataTypes_Tests
         string value = "Hello";
         string[] values = ["Not", "Here", "Yet", "Hello", "World"];
 
+
+
         // Rule
         DefinedRule rule = new()
         {
@@ -395,7 +397,9 @@ public class DataTypes_Tests
             Statement = @"value in values",
             Context = "Context",
             Decision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
+            DecisionData = "Hello $name.name World",
+            FalseDecision = "NOT_EXISTS",
+            FalseDecisionData = "Goodbye Cruel $name.name World"
         };
 
         RightRuleOptions options = new RightRuleOptions()
@@ -406,6 +410,11 @@ public class DataTypes_Tests
         };
 
         IRightRule rr = new RightRule.RightRule(options);
+
+        string name = "Harry";
+        rr.RegisterData("name", name);
+
+
         var newRule = rr.RegisterRule(rule);
         rr.RegisterData("value", value);
         rr.RegisterData("values", values);
@@ -414,5 +423,6 @@ public class DataTypes_Tests
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.DoesNotContain("$name.name", appliedRule.DecisionData.ToString());
     }
 }

@@ -206,8 +206,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context);
-            return BuildResult(rulesApplied);
+            var rulesApplied = await RightRuleService.ApplyRules_SingleResultAsync(Context, EvaluationTypeEnum.FIRST);
+            return BuildResult(Context, rulesApplied);
         }
         catch (Exception ex)
         {
@@ -219,7 +219,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRulesAsync(Context, EvaluationType);
+            var rulesApplied = await RightRuleService.ApplyRules_MultipleResultAsync(Context, EvaluationType);
             return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)
