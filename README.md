@@ -97,11 +97,12 @@ Decision data can contain replaceable elements identified with a dollar sign pre
 
 ### Rule application results
 Applying rules returns a RightRuleResult<IProcessedRule> for a single result or a list of results, depending on the selected evaluation type. Each result describes the evaluated rule and its outcome:
-•	RuleNumber and RuleName identify the rule.
-•	Result indicates whether the rule’s statement evaluated to true.
-•	Decision contains the rule’s true decision when it matches, or its false decision when it does not.
-•	DecisionData contains the corresponding true or false decision data. Replaceable values in that data are interpolated from registered data.
-•	StatementApplied contains the evaluated statement when diagnostics are enabled; otherwise, it is empty.
-•	Message provides additional information, such as a failure or error message.
+- **RuleNumber** and **RuleName** identify the rule.
+- **Result** indicates whether the rule’s statement evaluated to true.
+- **Decision** contains the rule’s true decision when it matches, or its false decision when it does not.
+- **DecisionData** contains the corresponding true or false decision data. Replaceable values in that data are interpolated from registered data.
+- **StatementApplied** contains the evaluated statement when diagnostics are enabled; otherwise, it is empty.
+- **Message** provides additional information, such as a failure or error message.
+
 When no rule matches in FIRST mode, RightRule returns the context’s default rule result. ANY returns results for the evaluated rules, while ALL returns results only if every rule succeeds; otherwise, it returns the default rule result.
 
