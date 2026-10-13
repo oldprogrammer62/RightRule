@@ -40,6 +40,11 @@ internal partial class OperatorService : IOperatorService, IDisposable
         try
         {
             _operators = LoadStartUpOperators(options);
+            if (_operators.Count == 0)
+            {
+                return OperatorRegistrationResult.Success("No Operators registered. RightRule Options expect no Operators to be loaded");
+            }
+
             _operatorAliases = MakeOperatorAliases(_operators);
             return OperatorRegistrationResult.Success("All Operators registered successfully.");
         }
@@ -71,7 +76,7 @@ internal partial class OperatorService : IOperatorService, IDisposable
         var operators = LoadAllOperators(options);
 
         if (operators == null || operators.Count == 0)
-            throw new Exception("No Operators found.");
+            return [];
 
         if (!OperatorAliasesUnique(operators))
             throw new Exception("Operator aliases must be unique across all registered Operators.");
@@ -82,17 +87,28 @@ internal partial class OperatorService : IOperatorService, IDisposable
     private List<Operator> LoadAllOperators(RightRuleOptions options)
     {
         var loadDefaultOperators = options.LoadDefaultOperators;
+        var loadCustomOperators = options.LoadCustomOperators;
 
-        if (loadDefaultOperators)
+        if (loadDefaultOperators && loadCustomOperators)
         {
             return [
                 .. LoadDefaultOperators(),
                 .. LoadCustomOperators()
                 ];
         }
-        return [
-            .. LoadCustomOperators()
-            ];
+        if (loadDefaultOperators)
+        {
+            return [
+                .. LoadDefaultOperators()
+                ];
+        }
+        if (loadCustomOperators)
+        {
+            return [
+                .. LoadCustomOperators()
+                ];
+        }
+        return [];
     }
 
     internal static List<Operator> LoadDefaultOperators()
