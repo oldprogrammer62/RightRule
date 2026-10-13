@@ -79,7 +79,7 @@ public class OperatorRegistrationTests
         var op = new IsBiggerThan();
         Assert.NotNull(op);
 
-        var isRegistered = rr.RegisterOperator(op);
+        OperatorRegistrationResult? isRegistered = rr.RegisterOperator(op);
         Assert.Equal(RightRule.Models.RightRuleStatusEnum.SUCCESS, isRegistered.Status);
         Assert.Equal(11, rr.OperatorService.Operators.Count);
         Assert.Equal(23, rr.OperatorService.OperatorAliases.Count);

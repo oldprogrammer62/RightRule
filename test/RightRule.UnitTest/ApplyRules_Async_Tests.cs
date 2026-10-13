@@ -25,7 +25,7 @@ public class ApplyRules_Async_Tests
 
         IRightRule rr = new RightRule.RightRule();
         var dataRegistered = rr.RegisterData("Data", data);
-        var ruleRegistered = rr.RegisterRule(rule1);
+        RightRule.RuleServices.RuleRegistration.RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule1);
 
         var appliedRule = await rr.ApplyRuleAsync("Context");
 

@@ -30,7 +30,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
-        var result = rr.ApplyRule("Context");
+        RightRuleResult<RightRule.RuleServices.RuleModels.BaseModels.IProcessedRule>? result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(1, result.RuleNumber);

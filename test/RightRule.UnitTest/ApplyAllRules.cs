@@ -37,7 +37,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
+        List<RightRuleResult<RightRule.RuleServices.RuleModels.BaseModels.IProcessedRule>>? result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }

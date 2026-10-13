@@ -12,7 +12,7 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var rule1 = rr.BuildRule()
+        RuleRegistrationResult? rule1 = rr.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")

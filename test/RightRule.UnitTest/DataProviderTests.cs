@@ -112,7 +112,7 @@ public class DataProviderTests
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
         var dataProvider = new BespokeDataProvider();
-        var dataProviderResult = rr.RegisterDataProvider(dataProvider);
+        RightRule.DataProvider.DataProviderRegistrationResult? dataProviderResult = rr.RegisterDataProvider(dataProvider);
 
         var input = new BespokeClass();
         var result = rr.RegisterData<BespokeClass>("DS_Name", input);
