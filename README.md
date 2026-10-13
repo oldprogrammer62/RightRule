@@ -56,12 +56,11 @@ Rules are registered for a context and evaluated against the data available to t
 The context will be specified from your code base to indicate which set of rules to apply.  
 Rules are registered as follows:
   
-Define a rule object:
-DefinedRule rule = new DefinedRule()
-{...}
+Define a rule object:  
+`DefinedRule rule = new DefinedRule() {...}`
 
-Register the rule:
-RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule);
+Register the rule:  
+`RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule);`
 
 Or a fluent builder can be used to build and register the rule.  
 ```plaintext
