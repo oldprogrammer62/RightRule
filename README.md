@@ -1,129 +1,107 @@
-# RightRule
-### Overview
-C# Rules Engine with a simple Rule grammar and extensible operator library.
+## RightRule overview
 
-It consists of the following parts:
-- Data.
-- Rules.
-- Internal logic Operators, like 'Equals' and 'NotEquals'.
-- External logic Operators, that can be developed and integrated in to Right Rule.
-- An Interpreter responsible for evaluating a Rule statement.
-- An Evaluator responsible for applying the interpreted rules over the Data.
+RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, use the returned decision, then dispose the instance.  
+RightRule can be instantiated directly with new RightRule() (which creates and owns its service provider), or registered as a scoped service in an application’s IServiceCollection using AddRightRule() and resolved from the application’s service provider.
 
-### How to use
-There are 3 main steps to implement RightRule in your application:
-1. Register your Data.
-2. Register your Rule(s).
-3. Apply the specified Rule(s) to your Data.
-4. Act on the result.
+The basic steps for using RightRule are:  
+- Register Data(s)
+- Register Rules
+- Apply Rules
+- Obtain result
+- Act on the result
 
-### Data can be registered in different formats:
-- Dictionary<string, object>
-- Variable
-- Tuple
+### Data providers and Data registration
 
-### A Rule is defined as follows
-Number: Identifies the Rule and is used to order the set of rules to be applied.
-Name: Description of the Rule.
-Context: A word that indicates when this Rule will be applied.
-Statement: A syntactically correct statement that defines the Rule criteria to be evaluated.
-Decision: A string that will be returned when the Rule statement evaluates to true.
-DecisionData: Additional details that will be returned when the Rule statement evaluates to true.
-FalseDecision: A string that will be returned when the Rule statement evaluates to false.
-FalseDecisionData: Additional details that will be returned when the Rule statement evaluates to false.
-(Note: False details are used only when a set of rule results are returned.)
+Rules evaluate against data registered with RightRule. A rule can refer to a value by its dataset and item name, such as `Customer.Name`, or use a standalone registered value such as `name`.
 
-Rules can be registered early.  
-This allows for Rule registration at startup, potentially with multiple Context words.
+`RegisterData<T>(datasetName, data)` accepts input through a data provider. Built-in providers handle dictionaries, strings, tuples, lists of tuples, and objects.
+  
+For other application-specific data types, the library user can implement and register an `IDataProvider<TInput>` that converts the input into RightRule’s dataset-and-items structure. This lets the application decide how its data is shaped for rules.  
+`DataProviderRegistrationResult? dataProviderResult = rr.RegisterDataProvider(dataProvider);`
 
-Rules can be registered late.  
-This allows a subset of rules to be registered when needed.
 
-### The Rule Statement
-A Rule Statement must follow the RightRule grammar (See below).  
-Examples of syntactically correct statements are as follows:
-- age equals 20
-- age = 20
-- age = 20 AND name = "Harry"
-- age = 20 OR name = "Harry"
+Data can be registered as follows:
 
-### Applying Rules
-The Data upon which the rules will be applied must be declared as Dictionary<string, object>  
-This data can then be sent to RightRule for rules to be applied.  
-The rules will be selected for the specified Context and applied in order of the Rule number.
-When applying Rules, it is also possible to specify if the first successful Rule provides the result, or if all rules need to be successful to provide a result
+- Through `RegisterData<T>`, passing a dataset name and a supported or custom-provider input.
 
-### Specifying a Context
-At the point in your logic where the rules need to be applied, you will define a Context word.  
-The Context word will be passed to RightRule so it can select the correct set of rules to apply.
+Datasets can also be inspected and deregistered.
 
-### The RightRule process
-When the Rules have been registered and the Data has been provided, RightRule will apply each Rule in turn and evaluate the result of the Rule statement
-(Note: Some dependency on RulesToApply needs to be considered).  
-If the Rule statement evaluates to false, the next Rule will be applied.  
-If the Rule statement evaluates to true, the details of that Rule will be returned. No more rules will be applied.  
-If no rules exists for the specified Context, or no Rule evaluates to true, a default Rule will be returned.
+### Rule statements and grammar
 
-### Example Rule
-```csharp
-new RuleDefinition()
-{
-  Number = 1,
-  Name = "FindHarryRule",
-  Context = "FindPerson",
-  Decision = "FOUND",
-  Statement = @"name == ""Harry"" and surname equals ""Potter"" and age = 28",
-  DecisionData = null
-};
+A RightRule statement is made up of conditions combined with logical keywords and, optionally, parentheses. Its core principle is that an **operator acts on its left and right operands**:
+```plaintext
+Customer.OrderValue >= 50
 ```
 
-### Example implementation of RightRule
-```csharp
-{
-  var rightRule = new RightRule.RightRule();
-  Dictionary<string, object> data = MakeData();
+Here, `Customer.OrderValue` is the left operand, `>=` is the operator, and `50` is the right operand. Operands may be registered data references, literals, booleans, or arrays.
 
-  Rule rule = MakeRule();
-  var registeredRule = rightRule.RegisterRule(rule);
+The logical keywords are **AND**, **OR**, and **NOT**. The parser supports grouping with parentheses; its precedence is `NOT`, then `AND`, then `OR`. The current tokenizer recognizes the keywords in lowercase (`and`, `or`, `not`).
 
-  string context = "FindPerson";
-  var appliedRule = rightRule.ApplyRules(context, data, RulesToApply.First);
-}
+RightRule’s default operators include equality (`equals`, `eq`, `=`, `==`), inequality (`notequals`, `neq`, `!=`, `<>`), `contains`, `doesnotcontain`, less-than (`<`), greater-than-or-equal (`>=`), and `in`.  
+Each Operator can register one or more aliases that can be used in a statement. This improves the readability of a rule statement by all stakeholders.  
+
+The language includes an array type for membership checks with `IN`. For example, a rule can compare a registered value to an array literal (`number in [1,2,3]`) or to a registered array (`value in values`).
+
+### Custom operators
+
+Custom operators extend the operators available in rule statements. An operator developer derives from RightRule’s `Operator` type, supplies its aliases, and implements the operation on the **left** and **right** operands; optional rule data can also be supplied to the operator.
+
+Custom operators can be loaded automatically from a JSON configuration that lists operator assembly paths. RightRule’s library configuration provides the default configuration path, and `RightRuleOptions` can control whether default or custom operators are loaded and can override the custom-operator path. Alternatively, an application can load or construct an operator itself and register it through the RightRule API. The operator’s aliases then become available for use in rule statements.
+
+`OperatorRegistrationResult? registered = rr.RegisterOperator(op);`
+
+### Applying rules and decisions
+
+Rules are registered for a context and evaluated against the data available to that RightRule instance.  
+The context will be specified from your code base to indicate which set of rules to apply.  
+Rules are registered as follows:
+  
+Define a rule object:  
+`DefinedRule rule = new DefinedRule() {...}`
+
+Register the rule:  
+`RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule);`
+
+Or a fluent builder can be used to build and register the rule.  
+```plaintext
+RuleRegistrationResult? rule = rr.BuildRule()
+     .Number(1)
+     .Name("Rule1")
+     .Context("ContextWord")
+     .Statement("a = b")
+     .Decision("GOOD")
+     .FalseDecision("BAD")
+     .DecisionData("{}")
+     .OptionalData("{}")
+     .Build() 
+     .Register(rr.RuleService);
 ```
 
-### Definition of the Default Rule
-```csharp
-new AppliedRule()
-{
-  Number = -1,
-  Name = "DefaultRule",
-  Statement = string.Empty,
-  Context = string.Empty,
-  Decision = "NODECISION",
-  DecisionData = null
-};
-```
+The caller can also choose how rule results are returned:
 
-## The RightRule grammar
-expr       = or_expr ;
+- **FIRST** returns the first successful rule, or the context’s default rule if none succeeds.
+- **ANY** evaluates and returns the applied rules, including each rule’s result and corresponding true or false decision.
+- **ALL** returns all applied rules only when every rule succeeds; otherwise it returns the default rule.
 
-or_expr    = and_expr { "OR" and_expr } ;
+Examples are:  
+`RightRuleResult<IProcessedRule>? result = rr.ApplyRule("ContextWord");`  
+  
+`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.FIRST);`  
+`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ANY);`  
+`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ALL);`
 
-and_expr   = not_expr { "AND" not_expr } ;
+Rules are ordered by rule number, from low to high. A result includes the decision and may include **decision data**.
+  
+Decision data can contain replaceable elements identified with a dollar sign prefix, such as `$datasetname.itemname`; RightRule substitutes the referenced value from registered data when it builds the result.
 
-not_expr   = [ "NOT" ] primary ;
+### Rule application results
+Applying rules returns a RightRuleResult<IProcessedRule> for a single result or a list of results, depending on the selected evaluation type. Each result describes the evaluated rule and its outcome:
+- **RuleNumber** and **RuleName** identify the rule.
+- **Result** indicates whether the rule’s statement evaluated to true.
+- **Decision** contains the rule’s true decision when it matches, or its false decision when it does not.
+- **DecisionData** contains the corresponding true or false decision data. Replaceable values in that data are interpolated from registered data.
+- **StatementApplied** contains the evaluated statement when diagnostics are enabled; otherwise, it is empty.
+- **Message** provides additional information, such as a failure or error message.
 
-primary    = "(" expr ")"
-           | condition ;
-
-condition  = variable operator value ;  
-condition  = variable operator variable ;
-
-operator   = "contains"
-           | "equals"
-           | "notequals" ;
-
-value      = number
-           | string
-           | boolean ;
+When no rule matches in FIRST mode, RightRule returns the context’s default rule result. ANY returns results for the evaluated rules, while ALL returns results only if every rule succeeds; otherwise, it returns the default rule result.
 
