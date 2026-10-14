@@ -1,7 +1,7 @@
-using RightRule.DataProvider;
+using RightRule.DataAdaptors;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
-using RightRule.System.Common.DataProvider;
+using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule;
 
@@ -21,9 +21,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return RightRuleService.GetDataset(DatasetName);
     }
 
-    public DataProviderRegistrationResult RegisterDataProvider(IDataProvider DataProvider)
+    public DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor)
     {
-        return RightRuleService.RegisterDataProvider(DataProvider);
+        return RightRuleService.RegisterDataAdaptor(DataAdaptor);
     }
 
     public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull

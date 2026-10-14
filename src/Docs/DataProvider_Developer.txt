@@ -1,17 +1,17 @@
 ﻿
-Using a custom Data Provider
-        DataProviderRegistrationResult dpResult = rr.RegisterDataProvider(new BespokeDataProvider());
+Using a custom Data Adaptor
+        DataAdaptorRegistrationResult daResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
         DataRegistrationResult drResult = rr.RegisterData("DS_Name", input);
 
 
-The Data Provider that transforms BespokeClass data into the required data structure.
+The Data Adaptor that transforms BespokeClass data into the required data structure.
 PoviderDataStructure will be ingested by RightRule
 
-internal class BespokeDataProvider : DataProviderBase<BespokeClass>
+internal class BespokeDataProvider : DataAdaptorBase<BespokeClass>
 {
-    public override ProviderDataStructure Process(string DatasetName, BespokeClass input)
+    public override AdaptorDataStructure Process(string DatasetName, BespokeClass input)
     {
-        var result = new ProviderDataStructure();
+        var result = new AdaptorDataStructure();
         result.DatasetName = DatasetName;
         result.Data.Add("Id", input.Id);
         result.Data.Add("Name", input.Name);

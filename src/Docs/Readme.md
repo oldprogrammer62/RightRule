@@ -14,15 +14,15 @@ The basic steps for using RightRule are:
 
 Rules evaluate against data registered with RightRule. A rule can refer to a value by its dataset and item name, such as `Customer.Name`, or use a standalone registered value such as `name`.
 
-`RegisterData<T>(datasetName, data)` accepts input through a data provider. Built-in providers handle dictionaries, strings, tuples, lists of tuples, and objects.
+`RegisterData<T>(datasetName, data)` accepts input through a Data Adaptor. Built-in adaptors handle dictionaries, strings, tuples, lists of tuples, and objects.
   
-For other application-specific data types, the library user can implement and register an `IDataProvider<TInput>` that converts the input into RightRule’s dataset-and-items structure. This lets the application decide how its data is shaped for rules.  
-`DataProviderRegistrationResult? dataProviderResult = rr.RegisterDataProvider(dataProvider);`
+For other application-specific data types, the library user can implement and register an `IDataAdaptor<TInput>` that converts the input into RightRule’s dataset-and-items structure. This lets the application decide how its data is shaped for rules.  
+`DataAdaptorRegistrationResult? dataAdaptorResult = rr.RegisterDataAdaptor(dataAdaptor);`
 
 
 Data can be registered as follows:
 
-- Through `RegisterData<T>`, passing a dataset name and a supported or custom-provider input.
+- Through `RegisterData<T>`, passing a dataset name and a supported or custom-adaptor input.
 
 Datasets can also be inspected and deregistered.
 

@@ -1,6 +1,6 @@
-﻿namespace RightRule.System.Common.DataProvider;
+﻿namespace RightRule.System.Common.DataAdaptor;
 
-public class ProviderDataStructure
+public class AdaptorDataStructure
 {
     public string DatasetName { get; set; } = string.Empty;
 

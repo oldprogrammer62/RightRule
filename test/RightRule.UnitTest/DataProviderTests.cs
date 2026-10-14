@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RightRule.DataAdaptors;
 using RightRule.ServiceRegister;
-using RightRule.System.Common.DataProvider;
+using RightRule.System.Common.DataAdaptor;
 using RightRuleLogger;
 
 namespace RightRuleTests;
@@ -111,8 +112,8 @@ public class DataProviderTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        var dataProvider = new BespokeDataProvider();
-        RightRule.DataProvider.DataProviderRegistrationResult? dataProviderResult = rr.RegisterDataProvider(dataProvider);
+        var dataAdaptor = new BespokeDataAdaptor();
+        DataAdaptorRegistrationResult? dataAdaptorResult = rr.RegisterDataAdaptor(dataAdaptor);
 
         var input = new BespokeClass();
         var result = rr.RegisterData<BespokeClass>("DS_Name", input);
@@ -175,17 +176,17 @@ public class DataProviderTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        var DataProviderRegResult = rr.RegisterDataProvider(new BespokeDataProvider());
+        var DataProviderRegResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
 
         var result = rr.RegisterData("DS_Name", input);
     }
 }
 
-internal class BespokeDataProvider : DataProviderBase<BespokeClass>
+internal class BespokeDataAdaptor : DataAdaptorBase<BespokeClass>
 {
-    public override ProviderDataStructure Process(string DS_Name, BespokeClass input)
+    public override AdaptorDataStructure Process(string DS_Name, BespokeClass input)
     {
-        var result = new ProviderDataStructure();
+        var result = new AdaptorDataStructure();
         result.DatasetName = DS_Name;
         result.Data.Add("Id", input.Id);
         result.Data.Add("Name", input.Name);

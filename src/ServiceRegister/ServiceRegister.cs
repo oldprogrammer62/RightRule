@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RightRule.DataProvider;
-using RightRule.DataProvider.DataProviderLibrary;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
 using RightRule.DataTransformer;
@@ -59,8 +59,8 @@ internal sealed class ServiceRegister
         services.AddScoped<IOperatorService, OperatorService>();
         services.AddScoped<IRegisteredRules, RegisteredRules>();
         services.AddScoped<IDefaultRuleRegister, DefaultRuleRegister>();
-        services.AddScoped<IDataProviderLibraryManager, DataProviderLibraryManager>();
-        services.AddScoped<IDataProviderService, DataProviderService>();
+        services.AddScoped<IDataAdaptorLibraryManager, DataAdaptorLibraryManager>();
+        services.AddScoped<IDataAdaptorService, DataAdaptorService>();
 
         services.AddScoped<IInterpolatorService, InterpolatorService>();
         services.AddScoped<IInterpolate, StringInterpolator>();

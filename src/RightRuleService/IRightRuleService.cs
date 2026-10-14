@@ -1,4 +1,4 @@
-﻿using RightRule.DataProvider;
+﻿using RightRule.DataAdaptors;
 using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
@@ -10,7 +10,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
-using RightRule.System.Common.DataProvider;
+using RightRule.System.Common.DataAdaptor;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
@@ -52,7 +52,7 @@ public interface IRightRuleService
     bool DeRegisterRule(string Context, int RuleNumber);
 
 
-    DataProviderRegistrationResult RegisterDataProvider(IDataProvider dataProvider);
+    DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor);
 
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 

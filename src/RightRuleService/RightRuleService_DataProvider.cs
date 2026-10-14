@@ -1,30 +1,30 @@
-using RightRule.DataProvider;
+using RightRule.DataAdaptors;
 using RightRule.Models;
-using RightRule.System.Common.DataProvider;
+using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.RightRuleService;
 
 internal partial class RightRuleService : IRightRuleService
 {
-    public DataProviderRegistrationResult RegisterDataProvider(IDataProvider dataProvider)
+    public DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor)
     {
-        if (dataProvider == null)
+        if (dataAdaptor == null)
         {
-            return new DataProviderRegistrationResult()
+            return new DataAdaptorRegistrationResult()
             {
                 Status = RightRuleStatusEnum.FAILURE,
-                Message = "DataProvider is null"
+                Message = "DataAdaptor is null"
             };
         }
 
-        if (DataProviderService == null)
+        if (DataAdaptorService == null)
         {
-            return new DataProviderRegistrationResult()
+            return new DataAdaptorRegistrationResult()
             {
                 Status = RightRuleStatusEnum.FAILURE,
-                Message = "DataProviderService is not initialized"
+                Message = "DataAdaptorService is not initialized"
             };
         }
-        return DataProviderService.RegisterDataProvider(dataProvider);
+        return DataAdaptorService.RegisterDataAdaptor(dataAdaptor);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using RightRule.DataProvider;
+using RightRule.DataAdaptors;
 using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.DataTransformer;
@@ -24,8 +24,8 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
     private readonly IInterpolatorService InterpolatorService;
     private readonly ILogger<RightRuleService> Logger;
 
-    public IDataProviderService? DataProviderService { get; }
-    public IEnumerable<Type>? RegisteredDataProviders => DataProviderService?.RegisteredDataProviders;
+    public IDataAdaptorService? DataAdaptorService { get; }
+    public IEnumerable<Type>? RegisteredDataProviders => DataAdaptorService?.RegisteredDataAdaptors;
 
     public IOperatorService? OperatorService { get; }
     public List<Operator>? RegisteredOperators => OperatorService?.Operators;
@@ -46,7 +46,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         IDataService dataService, 
         IStatementSyntaxChecker statementSyntaxChecker,
         IRuleApplicationService ruleApplicationService,
-        IDataProviderService dataProviderService,
+        IDataAdaptorService dataProviderService,
         IInterpolatorService transformerService,
         ILogger<RightRuleService> logger
         )
@@ -57,7 +57,7 @@ internal partial class RightRuleService : IRightRuleService, IDisposable
         DataService = dataService;
         StatementSyntaxChecker = statementSyntaxChecker;
         RuleApplicationService = ruleApplicationService;
-        DataProviderService = dataProviderService;
+        DataAdaptorService = dataProviderService;
         InterpolatorService = transformerService;
         Logger = logger;
     }

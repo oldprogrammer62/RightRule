@@ -1,24 +1,24 @@
 ﻿using RightRule.Models;
 
-namespace RightRule.DataProvider;
+namespace RightRule.DataAdaptors;
 
-public class DataProviderRegistrationResult
+public class DataAdaptorRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public required string Message { get; init; }
 
-    internal static DataProviderRegistrationResult Success(string Message)
+    internal static DataAdaptorRegistrationResult Success(string Message)
     {
-        return new DataProviderRegistrationResult()
+        return new DataAdaptorRegistrationResult()
         {
             Message = Message,
             Status = RightRuleStatusEnum.SUCCESS
         };
     }
 
-    internal static DataProviderRegistrationResult Failed(string Message)
+    internal static DataAdaptorRegistrationResult Failed(string Message)
     {
-        return new DataProviderRegistrationResult()
+        return new DataAdaptorRegistrationResult()
         {
             Message = Message,
             Status = RightRuleStatusEnum.FAILURE

@@ -1,4 +1,4 @@
-﻿using RightRule.DataProvider;
+﻿using RightRule.DataAdaptors;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
@@ -12,7 +12,7 @@ using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
-using RightRule.System.Common.DataProvider;
+using RightRule.System.Common.DataAdaptor;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule;
@@ -226,11 +226,11 @@ public interface IRightRule : IDisposable
     List<ParsedRule> GetRegisteredRules(string Context);
 
     /// <summary>
-    /// Registers a custom Data Provider with the RightRule engine.<br/>
+    /// Registers a custom Data Adaptor with the RightRule engine.<br/>
     /// </summary>
-    /// <param name="DataProvider"></param>
-    /// <returns><see cref="DataProviderRegistrationResult"/></returns>
-    DataProviderRegistrationResult RegisterDataProvider(IDataProvider DataProvider);
+    /// <param name="DataAdaptor"></param>
+    /// <returns><see cref="DataAdaptorRegistrationResult"/></returns>
+    DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor);
 
     /// <summary>
     /// NEW
