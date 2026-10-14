@@ -1,0 +1,43 @@
+﻿What is the purpose of DecisionData?
+
+When your application calls RightRule to make a decision you will likely use the decision in a switch statemwent.
+Example:
+switch (decision)
+{
+   case "GOOD":
+       // Follow the path in your code for a successful outcome
+       break;
+       
+   case "BAD":
+       // Follow the path in your code for an unsuccessful outcome
+       break;
+
+   default:
+       // Follow the path in your code for an unknown outcome
+       break;
+}
+
+RightRule provides a way for you to get richer data back when it makes a decision.
+This is in the field called: DecisionData.
+
+DecisionData is configured for both success and failure results.
+For success, the rule definition includes DecisionData.
+For failure, the rule definition includes FalseDecisionData.
+
+When a rule is applied the appropriate decision data will be returned.
+
+RightRule can also modify the content of the decision data that gets returned.
+It does this by a process of string replacement, by replacing key parts of the string with registered data values.
+
+For example:
+If you have a rule with DecisionData of: {"discount": $order.discount}
+And you have registered data of: order.discount = 15
+
+Then the decision data returned will become:
+{"discount": 15}
+
+This allows you to configure external details, given to RightRule at run-time that drive the rule result.
+You could register different discounts for different order conditions.
+Register rules for each condition, and get back the appropriate decision data for each result.
+
+

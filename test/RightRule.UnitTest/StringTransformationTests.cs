@@ -227,4 +227,27 @@ public class StringTransformationTests
 
         Assert.Equal(expected, output);
     }
+
+    [Fact]
+    public void TransformJsonStringAndNumbers_Dotted()
+    {
+        var json = "{\"firstname\": \"$person.firstname\",\"surname\": \"$person.surname\",\"postcode\": \"$person.postcode\",\"discount\": $order.discount}";
+
+        IDataValidatorService dvs = new DataValidatorService();
+        DataService ds = new DataService(dvs);
+        IInterpolate sInt = new StringInterpolator(ds);
+        var trans = new InterpolatorService(sInt);
+
+        ds.AddData("person", "firstname", "John");
+        ds.AddData("person", "surname", "Doe");
+        ds.AddData("person", "postcode", "IP6 0NL");
+        ds.AddData("order", "discount", 15);
+
+        var input = json;
+        var output = trans.Interpolate(input).ToString();
+
+        var expected = "{\"firstname\": \"John\",\"surname\": \"Doe\",\"postcode\": \"IP6 0NL\",\"discount\": 15}";
+
+        Assert.Equal(expected, output);
+    }
 }
