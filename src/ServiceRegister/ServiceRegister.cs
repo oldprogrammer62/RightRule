@@ -35,9 +35,12 @@ internal sealed class ServiceRegister
         services.AddLogging();
 
         services.AddScoped<IRightRule>(sp =>
-            new RightRule(
-        sp.GetRequiredService<IRightRuleService>(),
-        sp.GetRequiredService<ILogger<RightRule>>()));
+            new RightRule
+            (
+                sp.GetRequiredService<IRightRuleService>(),
+                sp.GetRequiredService<ILogger<RightRule>>()
+            )
+        );
 
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
         services.AddScoped<ITokenizerFactory, TokenizerFactory>();

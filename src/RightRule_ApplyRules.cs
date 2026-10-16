@@ -60,7 +60,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context));
+                return RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
@@ -123,7 +123,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationTypeEnum.FIRST).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
@@ -188,7 +188,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationType).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.DefaultResult(RightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
@@ -206,7 +206,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRules_SingleResultAsync(Context, EvaluationTypeEnum.FIRST);
+            var rulesApplied = await _rightRuleService.ApplyRules_SingleResultAsync(Context, EvaluationTypeEnum.FIRST);
             return BuildResult(Context, rulesApplied);
         }
         catch (Exception ex)
@@ -219,7 +219,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            var rulesApplied = await RightRuleService.ApplyRules_MultipleResultAsync(Context, EvaluationType);
+            var rulesApplied = await _rightRuleService.ApplyRules_MultipleResultAsync(Context, EvaluationType);
             return BuildResults(Context, rulesApplied);
         }
         catch (Exception ex)

@@ -11,7 +11,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 {
     public OperatorRegistrationResult RegisterOperator(Operator Operator)
     {
-        return RightRuleService.RegisterOperator(Operator);
+        return _rightRuleService.RegisterOperator(Operator);
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The list of Operators.</returns>
     public List<Operator>? GetOperators()
     {
-        var operators = RightRuleService?.GetOperators();
+        var operators = _rightRuleService?.GetOperators();
         return operators;
     }
 
@@ -30,7 +30,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <returns>The list of Operator Aliases.</returns>
     public Dictionary<string, Operator>? GetOperatorAliases()
     {
-        var operators = RightRuleService?.GetOperatorAliases();
+        var operators = _rightRuleService?.GetOperatorAliases();
         return operators;
     }
 
@@ -46,7 +46,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return RightRuleService.UnloadOperator(OperatorName);
+            return _rightRuleService.UnloadOperator(OperatorName);
         }
         catch
         {

@@ -72,7 +72,9 @@ public class LoggerTests
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
-        
+
+        var logger = scope.ServiceProvider.GetRequiredService<ILoggerProvider>();
+
         rr.RegisterData("a", 100);
         
         Assert.NotNull(rr);

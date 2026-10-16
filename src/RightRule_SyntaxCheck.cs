@@ -20,6 +20,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             return CheckStatementResult.FailureResult();
         }
-        return await RightRuleService.SyntaxCheckAsync(Statement).ConfigureAwait(false);
+        return await _rightRuleService.SyntaxCheckAsync(Statement).ConfigureAwait(false);
     }
 }

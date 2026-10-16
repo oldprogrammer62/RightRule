@@ -13,22 +13,22 @@ public sealed partial class RightRule : IRightRule, IDisposable
 {
     public List<Dataset>? GetRegisteredData()
     {
-        return RightRuleService.GetDataset();
+        return _rightRuleService.GetDataset();
     }
 
     public Dataset? GetRegisteredData(string DatasetName)
     {
-        return RightRuleService.GetDataset(DatasetName);
+        return _rightRuleService.GetDataset(DatasetName);
     }
 
     public DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor)
     {
-        return RightRuleService.RegisterDataAdaptor(DataAdaptor);
+        return _rightRuleService.RegisterDataAdaptor(DataAdaptor);
     }
 
     public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
     {
-        return RightRuleService.RegisterData(DatasetName, Data);
+        return _rightRuleService.RegisterData(DatasetName, Data);
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         try
         {
-            return RightRuleService.DeRegisterData();
+            return _rightRuleService.DeRegisterData();
         }
         catch
         {
@@ -57,7 +57,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         try
         {
-            return RightRuleService.DeRegisterData(DatasetName);
+            return _rightRuleService.DeRegisterData(DatasetName);
         }
         catch
         {

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.Models;
@@ -41,7 +42,16 @@ internal partial class RightRuleService : IRightRuleService
                 Name = DatasetName
             };
         }
-        return RegisterIncomingData(DatasetName, dataResult.Data);
+        var dataRegistrationResult = RegisterIncomingData(DatasetName, dataResult.Data);
+
+        if (dataRegistrationResult.Status == RightRuleStatusEnum.SUCCESS)
+        {
+            if (Logger.IsEnabled(LogLevel.Information))
+            {
+                Logger.LogInformation(message: "Data Registration Success for Datset: {datasetName}", DatasetName);
+            }
+        }
+        return dataRegistrationResult;
     }
 
     private DataRegistrationResult RegisterIncomingData(string DatasetName, Dictionary<string, object> DataItems)
