@@ -16,10 +16,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.LoadCustomOperators);
         Assert.False(optionsFound.DataCheck);
         Assert.False(optionsFound.Diagnostics);
+        Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
@@ -38,10 +38,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.LoadCustomOperators);
         Assert.False(optionsFound.DataCheck);
         Assert.False(optionsFound.Diagnostics);
+        Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
@@ -67,10 +67,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.LoadCustomOperators);
         Assert.True(optionsFound.DataCheck);
         Assert.True(optionsFound.Diagnostics);
+        Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
@@ -92,10 +92,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.LoadCustomOperators);
         Assert.False(optionsFound.DataCheck);
         Assert.False(optionsFound.Diagnostics);
+        Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
@@ -117,10 +117,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.True(optionsFound.LoadCustomOperators);
         Assert.False(optionsFound.DataCheck);
         Assert.False(optionsFound.Diagnostics);
+        Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
         Assert.NotNull(optionsFound.CustomOperatorLibraryPath);
 
         // This confirms the Operators were loaded
@@ -134,8 +134,8 @@ public class RightRuleOptionsTests
         // Path to Custom Operators left as default
         RightRuleOptions options = new RightRuleOptions()
         {
-            LoadDefaultOperators = true,
-            LoadCustomOperators = true
+            LoadCustomOperators = true,
+            LoadDefaultOperators = true
         };
 
         var rr = new RightRule.RightRule(options);
@@ -144,8 +144,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.True(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
@@ -158,8 +160,8 @@ public class RightRuleOptionsTests
         // Path to Custom Operators left as default
         RightRuleOptions options = new RightRuleOptions()
         {
-            LoadDefaultOperators = true,
-            LoadCustomOperators = false
+            LoadCustomOperators = false,
+            LoadDefaultOperators = true
         };
 
         var rr = new RightRule.RightRule(options);
@@ -168,8 +170,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.True(optionsFound.LoadDefaultOperators);
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.False(optionsFound.LoadCustomOperators);
+        Assert.True(optionsFound.LoadDefaultOperators);
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
@@ -182,8 +186,8 @@ public class RightRuleOptionsTests
         // Path to Custom Operators left as default
         RightRuleOptions options = new RightRuleOptions()
         {
-            LoadDefaultOperators = false,
-            LoadCustomOperators = true
+            LoadCustomOperators = true,
+            LoadDefaultOperators = false
         };
 
         var rr = new RightRule.RightRule(options);
@@ -192,6 +196,8 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.False(optionsFound.LoadDefaultOperators);
         Assert.True(optionsFound.LoadCustomOperators);
 
@@ -206,8 +212,8 @@ public class RightRuleOptionsTests
         // Path to Custom Operators left as default
         RightRuleOptions options = new RightRuleOptions()
         {
-            LoadDefaultOperators = false,
-            LoadCustomOperators = false
+            LoadCustomOperators = false,
+            LoadDefaultOperators = false
         };
 
         var rr = new RightRule.RightRule(options);
@@ -216,8 +222,10 @@ public class RightRuleOptionsTests
         var optionsFound = rr.GetRightRuleOptions();
         Assert.NotNull(optionsFound);
 
-        Assert.False(optionsFound.LoadDefaultOperators);
+        Assert.False(optionsFound.DataCheck);
+        Assert.False(optionsFound.Diagnostics);
         Assert.False(optionsFound.LoadCustomOperators);
+        Assert.False(optionsFound.LoadDefaultOperators);
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid

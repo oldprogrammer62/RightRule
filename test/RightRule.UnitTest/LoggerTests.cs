@@ -37,6 +37,7 @@ public class LoggerTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
         rr.RegisterData("a", 100);
+        Assert.False(rr.GetRightRuleOptions().LoadDefaultOperators);
         Assert.NotNull(rr);
     }
 

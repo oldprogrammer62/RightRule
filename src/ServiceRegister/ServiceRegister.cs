@@ -13,6 +13,7 @@ using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
@@ -38,7 +39,8 @@ internal sealed class ServiceRegister
             new RightRule
             (
                 sp.GetRequiredService<IRightRuleService>(),
-                sp.GetRequiredService<ILogger<RightRule>>()
+                sp.GetRequiredService<ILogger<RightRule>>(),
+                sp.GetRequiredService<RightRuleOptions>()
             )
         );
 

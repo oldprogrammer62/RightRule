@@ -28,7 +28,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public IOperatorService OperatorService => _rightRuleService.OperatorService ?? throw new InvalidOperationException("Operator Service is not available");
 
     private readonly ILogger<RightRule> _logger;
-
     private readonly IServiceProvider? _serviceProvider;
     private readonly RightRuleOptions _options;
 
@@ -57,7 +56,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNull(options);
 
         _options = options;
-
         _serviceProvider = InitialiseServiceProvider(
             options,
             logger ?? NullLogger<RightRule>.Instance
@@ -72,10 +70,14 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     /// <param name = "rightRuleService" ></param >
     /// <param name="logger"></param>
-    public RightRule(IRightRuleService rightRuleService, ILogger<RightRule> logger)
+    /// <param name="options"></param>
+    public RightRule(
+        IRightRuleService rightRuleService, 
+        ILogger<RightRule> logger,
+        RightRuleOptions options
+        )
     {
-        _options = new RightRuleOptions();
-
+        _options = options;
         _rightRuleService = rightRuleService;
         _logger = logger ?? NullLogger<RightRule>.Instance;
     }
@@ -115,6 +117,15 @@ public sealed partial class RightRule : IRightRule, IDisposable
             throw new InvalidOperationException("Service provider is not initialized.");
         }
         return _serviceProvider.GetRequiredService<ILogger<RightRule>>();
+    }
+
+    private RightRuleOptions GetOptionsFromDI()
+    {
+        if (_serviceProvider == null)
+        {
+            throw new InvalidOperationException("Service provider is not initialized.");
+        }
+        return _serviceProvider.GetRequiredService<RightRuleOptions>();
     }
 
     public void Dispose()
