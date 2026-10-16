@@ -10,7 +10,7 @@ public sealed class RightRuleServiceResult<T>
     public required bool Result { get; init; }
 
     public required string Decision { get; init; }
-    public object? DecisionData {  get; init; }
+    public object? DecisionData {  get; set; } // Needs to be settable. DecisionData can change by string interpolation process.
 
     public required string StatementApplied { get; init; }
 

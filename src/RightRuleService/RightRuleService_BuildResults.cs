@@ -6,7 +6,11 @@ internal partial class RightRuleService : IRightRuleService
 {
     private RightRuleServiceResult<IProcessedRule> BuildDefaultResult(string Context)
     {
-        return RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+        var rule =  RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+
+        var decisionData = InterpolatorService.Interpolate(rule.DecisionData);
+        rule.DecisionData = decisionData;
+        return rule;
     }
 
     private List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)

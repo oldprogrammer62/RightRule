@@ -53,12 +53,14 @@ public class DefaultRule_Tests
         var defaultRule1 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
+        rr.RegisterData("x", 100);
+
         var newDefaultRule = new DefaultRule()
         {
             Name = "DefaultRule1",
             Context = context,
             Decision = "dec",
-            DecisionData = "DefaultDecision"
+            DecisionData = "DefaultDecision $x"
         };  
         var result = rr.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
@@ -77,12 +79,14 @@ public class DefaultRule_Tests
         var defaultRule1 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
+        rr.RegisterData("x", 100);
+
         var newDefaultRule = new DefaultRule()
         {
             Name = "HOWDYDOODY",
             Context = context,
             Decision = "GOTITNOW",
-            DecisionData = "HELLO WORLD"
+            DecisionData = "HELLO $x WORLD"
         };
         var result = rr.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
