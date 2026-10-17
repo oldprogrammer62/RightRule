@@ -184,6 +184,13 @@ public class DataProviderTests
 
 internal class BespokeDataAdaptor : DataAdaptorBase<BespokeClass>
 {
+    public override string AdaptorName { get; init; }
+
+    public BespokeDataAdaptor()
+    {
+        AdaptorName = "Bespoke Class DataAdaptor";
+    }
+
     public override AdaptorDataStructure Process(string DS_Name, BespokeClass input)
     {
         var result = new AdaptorDataStructure();

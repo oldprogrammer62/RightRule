@@ -4,6 +4,13 @@ namespace RightRule.DataAdaptors.DataAdaptors;
 
 internal class TupleStringIntDataAdaptor : DataAdaptorBase<(string Name, int Value)>
 {
+    public override string AdaptorName { get; init; }
+
+    public TupleStringIntDataAdaptor()
+    {
+        AdaptorName = "(string,int) DataAdaptor";
+        
+    }
     public override AdaptorDataStructure Process(string DatasetName, (string Name, int Value) Data)
     {
         var result = new AdaptorDataStructure();

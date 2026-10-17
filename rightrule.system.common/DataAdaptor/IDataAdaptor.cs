@@ -2,6 +2,8 @@
 
 public interface IDataAdaptor
 {
+    string AdaptorName { get; init; }
+
     AdaptorDataStructure Process(string DatasetName, object Data);
 }
 

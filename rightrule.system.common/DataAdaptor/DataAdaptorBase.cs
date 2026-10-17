@@ -2,6 +2,8 @@
 
 public abstract class DataAdaptorBase<TInput> : IDataProvider<TInput>
 {
+    public abstract string AdaptorName { get; init; }
+
     AdaptorDataStructure IDataAdaptor.Process(string DatasetName, object Data)
     {
         if (Data is not TInput typedInput)

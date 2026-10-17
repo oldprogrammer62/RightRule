@@ -4,6 +4,13 @@ namespace RightRule.DataAdaptors.DataAdaptors;
 
 internal class StringDataAdaptor : DataAdaptorBase<string>
 {
+    public override string AdaptorName { get; init; }
+
+    public StringDataAdaptor()
+    {
+        AdaptorName = "StringDataAdaptor";
+    }
+
     public override AdaptorDataStructure Process(string DatasetName, string Data)
     {
         var result = new AdaptorDataStructure();
