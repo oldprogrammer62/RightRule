@@ -19,8 +19,8 @@ public interface IDataService
     Dataset AddData(string DatasetName, string DataItemName, object DataItemValue);
 
     DataItem? GetDataItem(string DatasetName, string DataItemName);
-    List<string> GetDataItemNames(string DatasetName);
-    List<string> GetDataItemNames(Dataset Dataset);
+    List<string>? GetDataItemNames(string DatasetName);
+    List<string>? GetDataItemNames(Dataset Dataset);
     object? GetDataItemValue(string DatasetName, string DataItemName);
 
     bool IsValidDataIdentifier(string name);

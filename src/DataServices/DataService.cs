@@ -1,34 +1,43 @@
-﻿using RightRule.DataServices.Data;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.DataServices.Data;
 using RightRule.DataServices.DataValidator;
 
 namespace RightRule.DataServices;
 
 internal class DataService : IDataService
 {
-    private List<Dataset> Datasets;
-    private readonly IDataValidatorService DataValidator;
+    private List<Dataset> _Datasets;
+    private readonly ILogger<DataService> _logger;
+    private readonly IDataValidatorService _DataValidator;
 
-    public DataService(IDataValidatorService DataValidator)
+    public DataService(ILogger<DataService> logger, IDataValidatorService DataValidator)
     {
-        Datasets = new List<Dataset>();
-        this.DataValidator = DataValidator;
+        _logger = logger;
+
+        _Datasets = new List<Dataset>();
+        _DataValidator = DataValidator;
     }
 
     public void Clear()
     {
-        if (Datasets == null || Datasets.Count == 0)
+        if (_Datasets == null || _Datasets.Count == 0)
         {
             return;
         }
-        Datasets = new List<Dataset>();
+        _Datasets = new List<Dataset>();
+
+        if (_logger.IsEnabled(LogLevel.Information))
+        {
+            _logger.LogInformation("Datasets Cleared");
+        }
     }
 
     public bool IsValidDataIdentifier(string DataIdentifier)
     {
-        return DataValidator.IsValidDataIdentifier(this, DataIdentifier);
+        return _DataValidator.IsValidDataIdentifier(this, DataIdentifier);
     }
 
-    public List<string> GetDataItemNames(string DatasetName)
+    public List<string>? GetDataItemNames(string DatasetName)
     {
         var dataset = GetDataset(DatasetName);
         if (dataset == null)
@@ -38,15 +47,22 @@ internal class DataService : IDataService
         return GetDataItemNames(dataset);
     }
 
-    public List<string> GetDataItemNames(Dataset Dataset)
+    public List<string>? GetDataItemNames(Dataset Dataset)
     {
-        return Dataset.DataItemNames;
+        var names = Dataset.DataItemNames;
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var countOfNames = names?.Count ?? 0;
+            var datasetName = Dataset.DatasetName;
+            _logger.LogInformation("{countOfNames} DataItem Names found in {dataset}", countOfNames, datasetName);
+        }
+        return names;
     }
 
     public List<string> GetDataSetNames()
     {
         List<string> names = new List<string>();
-        foreach (Dataset dataset in Datasets)
+        foreach (Dataset dataset in _Datasets)
         {
             names.AddRange(dataset.DatasetName);
         }
@@ -55,17 +71,28 @@ internal class DataService : IDataService
 
     public void DeregisterDataset(string DatasetName)
     {
-        if (Datasets == null || Datasets.Count == 0)
+        if (_Datasets == null || _Datasets.Count == 0)
         {
             return;
         }
-        Datasets.Remove(Datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
+        _Datasets.Remove(_Datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogInformation("{DatasetName} deregistered", DatasetName);
+        }
     }
 
     public Dataset CreateDataSet(string DatasetName)
     {
         var dataset = new Dataset(DatasetName);
-        Datasets.Add(dataset);
+        _Datasets.Add(dataset);
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogInformation("{DatasetName} created", DatasetName);
+        }
+
         return dataset;
     }
 
@@ -79,6 +106,15 @@ internal class DataService : IDataService
             dataset = CreateDataSet(DatasetName);
         }
         dataset.AddDataItems(DataItems);
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var countOfData = DataItems.Count;
+            _logger.LogInformation("Dictionary Data. {countOfData} Data Items added to {DatasetName}",
+                    countOfData,
+                    DatasetName);
+        }
+
         return dataset;
     }
 
@@ -92,6 +128,15 @@ internal class DataService : IDataService
             dataset = CreateDataSet(DatasetName);
         }
         dataset.AddDataItem(DataItem.Item1, DataItem.Item2);
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var countOfData = 1;
+            _logger.LogInformation("(string,object) Data. {countOfData} Data Item added to {DatasetName}",
+                    countOfData,
+                    DatasetName);
+        }
+
         return dataset;
     }
 
@@ -105,6 +150,15 @@ internal class DataService : IDataService
             dataset = CreateDataSet(DatasetName);
         }
         dataset.AddDataItems(DataItems);
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var countOfData = DataItems.Count;
+            _logger.LogInformation("List<(string,object)> Data. {countOfData} Data Items added to {DatasetName}",
+                    countOfData,
+                    DatasetName);
+        }
+
         return dataset;
     }
 
@@ -118,17 +172,26 @@ internal class DataService : IDataService
             dataset = CreateDataSet(DatasetName);
         }
         dataset.AddDataItem(DataItemName, DataItemValue);
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            var countOfData = 1;
+            _logger.LogInformation("Simple Variable. {countOfData} Data Item added to {DatasetName}",
+                    countOfData,
+                    DatasetName);
+        }
+
         return dataset;
     }
 
     public List<Dataset>? GetDatasets()
     {
-        return Datasets;
+        return _Datasets;
     }
 
     public Dataset? GetDataset(string DatasetName)
     {
-        return Datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
+        return _Datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
     }
 
     public DataItem? GetDataItem(string DatasetName, string DataItemName)

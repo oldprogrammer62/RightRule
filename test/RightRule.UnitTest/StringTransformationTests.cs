@@ -1,4 +1,6 @@
-﻿using RightRule.DataServices;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
 using RightRule.DataTransformer;
 
@@ -10,7 +12,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoChange()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -26,7 +29,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoChangeNoData()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -42,7 +46,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoChangeNoData2()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -58,7 +63,8 @@ public class StringTransformationTests
     public void TransformSimpleString_DottedDataInMiddle()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -76,7 +82,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoDotDataInMiddle()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -94,7 +101,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoDotDataStart()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -113,7 +121,8 @@ public class StringTransformationTests
     public void TransformSimpleString_DottedDataStart()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -131,7 +140,8 @@ public class StringTransformationTests
     public void TransformSimpleString_NoDotDataEnd()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -149,7 +159,8 @@ public class StringTransformationTests
     public void TransformSimpleString_DottedDataEnd()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -167,7 +178,8 @@ public class StringTransformationTests
     public void TransformComplexString()
     {
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -190,7 +202,8 @@ public class StringTransformationTests
         var json = "{\"firstname\": \"$firstname\",\"surname\": \"$surname\",\"postcode\": \"$postcode\"}";
 
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -212,7 +225,8 @@ public class StringTransformationTests
         var json = "{\"firstname\": \"$person.firstname\",\"surname\": \"$person.surname\",\"postcode\": \"$person.postcode\"}";
 
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -234,7 +248,8 @@ public class StringTransformationTests
         var json = "{\"firstname\": \"$person.firstname\",\"surname\": \"$person.surname\",\"postcode\": \"$person.postcode\",\"discount\": $order.discount}";
 
         IDataValidatorService dvs = new DataValidatorService();
-        DataService ds = new DataService(dvs);
+        ILogger<DataService> logger = new FakeLogger<DataService>();
+        DataService ds = new DataService(logger, dvs);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
