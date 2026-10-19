@@ -37,6 +37,7 @@ public class OperatorLoadOptionsTests_DI
         services.AddLogging();
         services.AddRightRule(options =>
         {
+            options.LoadCustomOperators = true;
             options.LoadDefaultOperators = true;
             options.DataCheck = true;
             options.Diagnostics = true;
@@ -70,6 +71,7 @@ public class OperatorLoadOptionsTests_DI
 
         services.AddRightRule(options =>
         {
+            options.LoadCustomOperators = true;
             options.LoadDefaultOperators = false;
             options.DataCheck = false;
             options.Diagnostics = false;
