@@ -1,4 +1,5 @@
-﻿using RightRule.Models;
+﻿using RightRule.DataServices.Data;
+using RightRule.Models;
 
 namespace RightRule.DataServices.DataRegistration;
 
@@ -12,25 +13,25 @@ public class DataRegistrationResult
     public string DataType { get; init; } = string.Empty;
     public string Message { get; init; } = string.Empty;
 
-    internal static DataRegistrationResult SuccessResult(string name, string dataType, string message)
+    public static DataRegistrationResult SuccessResult(string DatasetName, string Message)
     {
         return new DataRegistrationResult()
         {
             Status = RightRuleStatusEnum.SUCCESS,
-            Name = name,
-            DataType = dataType,
-            Message = message
+            Name = DatasetName,
+            DataType = DataTypes.DATASET,
+            Message = Message
         };
     }
 
-    internal static DataRegistrationResult FailureResult(string name, string dataType, string message)
+    public static DataRegistrationResult FailureResult(string DatasetName, string Message)
     {
         return new DataRegistrationResult()
         {
             Status = RightRuleStatusEnum.FAILURE,
-            Name = name,
-            DataType = dataType,
-            Message = message
+            Name = DatasetName,
+            DataType = DataTypes.DATASET,
+            Message = Message
         };
     }
 }

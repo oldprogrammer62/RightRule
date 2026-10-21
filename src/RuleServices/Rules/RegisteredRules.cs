@@ -51,16 +51,16 @@ internal class RegisteredRules : IRegisteredRules
         {
             case RuleFoundEnum.NOTFOUND:
                 _rules.Add(Rule);
-                return RuleRegistrationResult.Success($"Rule: {Rule.Number}-{Rule.Name} Registered", Rule);
+                return RuleRegistrationResult.Success(Rule, $"Rule: {Rule.Number}-{Rule.Name} Registered");
 
             case RuleFoundEnum.FOUNDBYNUMBER:
-                return RuleRegistrationResult.Failed($"Rule Number: {Rule.Number} already registered", Rule);
+                return RuleRegistrationResult.Failed(Rule, $"Rule Number: {Rule.Number} already registered");
 
             case RuleFoundEnum.FOUNDBYNAME:
-                return RuleRegistrationResult.Failed($"Rule Name: {Rule.Name} already registered", Rule);
+                return RuleRegistrationResult.Failed(Rule, $"Rule Name: {Rule.Name} already registered");
 
             default:
-                return RuleRegistrationResult.Failed($"Rule: {Rule.Number}-{Rule.Name} not registered", Rule);
+                return RuleRegistrationResult.Failed(Rule, $"Rule: {Rule.Number}-{Rule.Name} not registered");
         }
     }
 

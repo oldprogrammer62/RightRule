@@ -9,7 +9,7 @@
     <PackageId>RightRule</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.118</Version>
+    <Version>1.0.1-beta.1</Version>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
   </PropertyGroup>
@@ -35,15 +35,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>

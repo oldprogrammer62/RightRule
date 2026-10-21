@@ -12,7 +12,7 @@ public class RuleRegistrationResult
     public required ParsedRule? RegisteredRule { get; init; }
     public required string Message { get; init; }
 
-    internal static RuleRegistrationResult Success(string Message, ParsedRule ParsedRule)
+    public static RuleRegistrationResult Success(ParsedRule ParsedRule, string Message)
     {
         return new RuleRegistrationResult()
         {
@@ -22,7 +22,7 @@ public class RuleRegistrationResult
         };
     }
 
-    internal static RuleRegistrationResult Failed(string Message, ParsedRule ParsedRule)
+    public static RuleRegistrationResult Failed(ParsedRule ParsedRule, string Message)
     {
         return new RuleRegistrationResult()
         {
