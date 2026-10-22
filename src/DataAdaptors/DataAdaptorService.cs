@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using RightRule.DataAdaptors.DataAdaptorLibrary;
+﻿using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.DataAdaptors;

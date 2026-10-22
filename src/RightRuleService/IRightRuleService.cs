@@ -20,6 +20,7 @@ public interface IRightRuleService
     IRuleService? RuleService { get; }
     IDataService? DataService { get; }
     IOperatorService? OperatorService { get; }
+    IDataAdaptorService? DataAdaptorService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 

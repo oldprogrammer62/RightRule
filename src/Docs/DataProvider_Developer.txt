@@ -7,7 +7,7 @@ Using a custom Data Adaptor
 The Data Adaptor that transforms BespokeClass data into the required data structure.
 PoviderDataStructure will be ingested by RightRule
 
-internal class BespokeDataProvider : DataAdaptorBase<BespokeClass>
+internal class BespokeDataAdaptor : DataAdaptorBase<BespokeClass>
 {
     public override AdaptorDataStructure Process(string DatasetName, BespokeClass input)
     {

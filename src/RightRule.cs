@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using RightRule.DataAdaptors;
 using RightRule.DataServices;
 using RightRule.Models;
 using RightRule.OperatorServices;
@@ -26,6 +27,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public IDataService DataService => _rightRuleService.DataService ?? throw new InvalidOperationException("Data Service is not available");
 
     public IOperatorService OperatorService => _rightRuleService.OperatorService ?? throw new InvalidOperationException("Operator Service is not available");
+
+    public IDataAdaptorService DataAdaptorService => _rightRuleService.DataAdaptorService ?? throw new InvalidOperationException("Data Adaptor Service is not available");
 
     private readonly ILogger<RightRule> _logger;
     private readonly IServiceProvider? _serviceProvider;

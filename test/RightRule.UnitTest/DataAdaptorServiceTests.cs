@@ -1,6 +1,7 @@
 ﻿using RightRule.DataAdaptors;
 using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.System.Common.DataAdaptor;
+using Xunit;
 
 namespace RightRuleTests;
 
