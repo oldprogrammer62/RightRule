@@ -1,6 +1,6 @@
 ﻿namespace RightRule.DataTransformer;
 
-public class InterpolatorService : IInterpolatorService
+internal class InterpolatorService : IInterpolatorService
 {
     private readonly IInterpolate _stringInterpolator;
 
