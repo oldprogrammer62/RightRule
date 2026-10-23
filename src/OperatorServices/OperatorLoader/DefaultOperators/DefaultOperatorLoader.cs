@@ -3,7 +3,7 @@ using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 
-internal class DefaultOperatorLoader
+internal sealed class DefaultOperatorLoader
 {
     internal static List<Operator> Load()
     {

@@ -2,7 +2,7 @@
 
 namespace RightRule.DataAdaptors;
 
-public class DataAdaptorRegistrationResult
+public sealed class DataAdaptorRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public required string Message { get; init; }

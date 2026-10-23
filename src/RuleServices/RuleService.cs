@@ -7,7 +7,7 @@ using System.Data;
 
 namespace RightRule.RuleServices;
 
-internal class RuleService : IRuleService
+internal sealed class RuleService : IRuleService
 {
     private readonly RightRuleOptions _options;
     private readonly IParseRuleService _parseRuleService;

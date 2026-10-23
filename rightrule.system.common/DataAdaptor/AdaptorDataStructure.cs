@@ -1,6 +1,6 @@
 ﻿namespace RightRule.System.Common.DataAdaptor;
 
-public class AdaptorDataStructure
+public sealed class AdaptorDataStructure
 {
     public string DatasetName { get; set; } = string.Empty;
 

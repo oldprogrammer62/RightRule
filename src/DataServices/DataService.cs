@@ -4,7 +4,7 @@ using RightRule.DataServices.DataValidator;
 
 namespace RightRule.DataServices;
 
-internal class DataService : IDataService
+internal sealed class DataService : IDataService
 {
     private List<Dataset> _Datasets;
     private readonly ILogger<DataService> _logger;

@@ -4,7 +4,7 @@ using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     public DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor)
     {

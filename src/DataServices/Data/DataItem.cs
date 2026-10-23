@@ -1,6 +1,6 @@
 ﻿namespace RightRule.DataServices.Data;
 
-public class DataItem
+public sealed class DataItem
 {
     public string Key { get; init; }
     public object Value { get; init; }

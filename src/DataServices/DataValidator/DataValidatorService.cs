@@ -2,7 +2,7 @@
 
 namespace RightRule.DataServices.DataValidator;
 
-internal class DataValidatorService : IDataValidatorService
+internal sealed class DataValidatorService : IDataValidatorService
 {
     public DataValidatorService()
     {

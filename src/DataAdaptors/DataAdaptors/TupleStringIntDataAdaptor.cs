@@ -2,7 +2,7 @@
 
 namespace RightRule.DataAdaptors.DataAdaptors;
 
-internal class TupleStringIntDataAdaptor : DataAdaptorBase<(string Name, int Value)>
+internal sealed class TupleStringIntDataAdaptor : DataAdaptorBase<(string Name, int Value)>
 {
     public override string AdaptorName { get; init; }
 

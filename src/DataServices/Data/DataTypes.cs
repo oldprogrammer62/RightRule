@@ -1,6 +1,6 @@
 ﻿namespace RightRule.DataServices.Data;
 
-internal class DataTypes
+internal sealed class DataTypes
 {
     public const string DATASET = "DATASET";
 }

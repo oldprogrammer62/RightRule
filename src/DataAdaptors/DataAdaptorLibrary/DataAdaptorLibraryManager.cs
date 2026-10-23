@@ -5,7 +5,7 @@ using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.DataAdaptors.DataAdaptorLibrary;
 
-internal class DataAdaptorLibraryManager : IDataAdaptorLibraryManager
+internal sealed class DataAdaptorLibraryManager : IDataAdaptorLibraryManager
 {
     private readonly ConcurrentDictionary<Type, IDataAdaptor> _activeDataMappings = new();
     public IEnumerable<Type> RegisteredDataAdaptors => [.. _activeDataMappings.Keys];

@@ -2,7 +2,7 @@
 
 namespace RightRule.DataAdaptors.DataAdaptors;
 
-internal class ListTupleStringIntDataAdaptor : DataAdaptorBase<List<(string Name, int Value)>>
+internal sealed class ListTupleStringIntDataAdaptor : DataAdaptorBase<List<(string Name, int Value)>>
 {
     public override string AdaptorName { get; init; }
 

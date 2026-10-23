@@ -6,7 +6,7 @@ namespace RightRule.DataServices.DataRegistration;
 /// <summary>
 /// Result of registering Data with RightRule
 /// </summary>
-public class DataRegistrationResult
+public sealed class DataRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public string Name { get; init; } = string.Empty;

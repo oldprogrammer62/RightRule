@@ -6,7 +6,7 @@ using RightRule.OperatorServices;
 
 namespace RightRule.Factories.TokenizerFactory;
 
-internal class TokenizerFactory : ITokenizerFactory
+internal sealed class TokenizerFactory : ITokenizerFactory
 {
     private readonly IOperatorService _operatorService;
     private readonly IDataService _dataService;

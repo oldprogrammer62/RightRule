@@ -1,6 +1,6 @@
 ﻿namespace RightRule.DataServices.Data;
 
-public class Dataset
+public sealed class Dataset
 {
     public string DatasetName { get; init; }
 

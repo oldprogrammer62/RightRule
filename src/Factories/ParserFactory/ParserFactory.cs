@@ -5,7 +5,7 @@ using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.Factories.ParserFactory;
 
-internal class ParserFactory : IParserFactory
+internal sealed class ParserFactory : IParserFactory
 {
     private readonly ITokenizerFactory _tokenizerFactory;
 

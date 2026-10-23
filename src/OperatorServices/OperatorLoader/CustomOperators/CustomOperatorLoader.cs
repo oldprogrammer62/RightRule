@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
-internal class CustomOperatorLoader
+internal sealed class CustomOperatorLoader
 {
     internal static List<Operator> LoadOperators(string ConfigurationFilePath)
     {

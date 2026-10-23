@@ -4,7 +4,7 @@ using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.DataServices.DataLoaders.Json;
 
-internal class JsonLoader : IRuleLoader
+internal sealed class JsonLoader : IRuleLoader
 {
     private readonly IRightRule _rightRule;
 

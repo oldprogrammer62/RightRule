@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService, IDisposable
+internal sealed partial class RightRuleService : IRightRuleService, IDisposable
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     private bool Disposed { get; set; } = false;

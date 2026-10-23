@@ -5,7 +5,7 @@ using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleServices.RuleApplication;
 
-internal class ApplyAnyRulesService : IApplyAnyRulesService
+internal sealed class ApplyAnyRulesService : IApplyAnyRulesService
 {
     private readonly IInterpreter _interpreter;
     private readonly IRegisteredRules _registeredRules;

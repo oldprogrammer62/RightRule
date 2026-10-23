@@ -4,7 +4,7 @@ using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleServices.RuleApplication;
 
-internal class ApplyFirstRuleService : IApplyFirstRuleService
+internal sealed class ApplyFirstRuleService : IApplyFirstRuleService
 {
     private readonly IInterpreter _interpreter;
     private readonly IRegisteredRules _registeredRules;

@@ -3,7 +3,7 @@ using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices;
 
-internal partial class OperatorService : IOperatorService, IDisposable
+internal sealed partial class OperatorService : IOperatorService, IDisposable
 {
     public Dictionary<string, Operator> GetRegisteredAliases()
     {

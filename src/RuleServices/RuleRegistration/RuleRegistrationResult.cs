@@ -6,7 +6,7 @@ namespace RightRule.RuleServices.RuleRegistration;
 /// <summary>
 /// Result of registering a Rule with RightRule
 /// </summary>
-public class RuleRegistrationResult
+public sealed class RuleRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public required ParsedRule? RegisteredRule { get; init; }

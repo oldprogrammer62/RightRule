@@ -6,7 +6,7 @@ using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RuleServices.RuleParsingServices;
 
-internal class ParseRuleService : IParseRuleService
+internal sealed class ParseRuleService : IParseRuleService
 {
     private readonly IParserFactory _parserFactory;
     private readonly RightRuleOptions _options;

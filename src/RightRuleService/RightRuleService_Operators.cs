@@ -3,7 +3,7 @@ using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     public OperatorRegistrationResult RegisterOperator(Operator Operator)
     {

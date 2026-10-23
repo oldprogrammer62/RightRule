@@ -5,7 +5,7 @@ using RightRule.RuleServices.RuleLoader;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule)
     {

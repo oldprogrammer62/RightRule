@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices.OperatorLoader;
 
-internal class Helpers
+internal static class Helpers
 {
     internal static T DeserialiseJson<T>(string Json)
     {

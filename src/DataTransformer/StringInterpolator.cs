@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace RightRule.DataTransformer;
 
-internal class StringInterpolator : IInterpolate
+internal sealed class StringInterpolator : IInterpolate
 {
     private const char variablePointer = '$';
 

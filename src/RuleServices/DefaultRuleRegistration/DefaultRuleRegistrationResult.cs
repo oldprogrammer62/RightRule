@@ -3,7 +3,7 @@ using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.DefaultRuleRegistration;
 
-public class DefaultRuleRegistrationResult
+public sealed class DefaultRuleRegistrationResult
 {
     public RightRuleStatusEnum Status { get; init; }
     public DefaultRule? RegisteredRule { get; init; }

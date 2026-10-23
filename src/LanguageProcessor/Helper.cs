@@ -2,7 +2,7 @@
 
 namespace RightRule.LanguageProcessor;
 
-internal class Helper
+internal sealed class Helper
 {
     internal static object ParseBoolean(string Value)
     {

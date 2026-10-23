@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices;
 
-internal partial class OperatorService : IOperatorService, IDisposable
+internal sealed partial class OperatorService : IOperatorService, IDisposable
 {
     public bool DeRegisterOperator(string OperatorName)
     {

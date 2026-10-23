@@ -2,7 +2,7 @@
 
 namespace RightRule.Operators.DefaultOperators;
 
-public class EqualsOperator : Operator
+public sealed class EqualsOperator : Operator
 {
     public override List<string> Aliases { get; } = ["equals", "eq", "=", "=="];
 

@@ -3,7 +3,7 @@ using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType)
     {

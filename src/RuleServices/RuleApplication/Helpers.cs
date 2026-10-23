@@ -4,7 +4,7 @@ using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleServices.RuleApplication;
 
-public static class Helpers
+internal static class Helpers
 {
     internal static IRegisteredRules FilterRules(string Context, List<ParsedRule> Rules)
     {

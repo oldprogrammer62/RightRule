@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
-internal class ExternalAssemblyLoader
+internal sealed class ExternalAssemblyLoader
 {
     internal static Operator? Load(string PathToFunction)
     {

@@ -2,7 +2,7 @@
 
 namespace RightRule.OperatorServices;
 
-public class OperatorRegistrationResult
+public sealed class OperatorRegistrationResult
 {
     public required RightRuleStatusEnum Status { get; init; }
     public required string Message { get; init; }

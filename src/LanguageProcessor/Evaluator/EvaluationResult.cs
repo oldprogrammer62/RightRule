@@ -2,7 +2,7 @@
 
 namespace RightRule.LanguageProcessor.Evaluator;
 
-public class EvaluationResult
+public sealed class EvaluationResult
 {
     public required bool Success { get; init; }
     public required bool Result { get; init; }

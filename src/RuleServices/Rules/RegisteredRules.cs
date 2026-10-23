@@ -11,7 +11,7 @@ namespace RightRule.RuleServices.Rules;
 /// The RightRules property allows the interpreter to access the list of parsed rules and evaluate them accordingly.
 /// This class is internal
 /// </summary>
-internal class RegisteredRules : IRegisteredRules
+internal sealed class RegisteredRules : IRegisteredRules
 {
     private readonly List<ParsedRule> _rules;
     public List<ParsedRule> Rules { get { return _rules; } }

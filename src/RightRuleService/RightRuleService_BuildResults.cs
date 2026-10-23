@@ -2,7 +2,7 @@
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     private RightRuleServiceResult<IProcessedRule> BuildDefaultResult(string Context)
     {

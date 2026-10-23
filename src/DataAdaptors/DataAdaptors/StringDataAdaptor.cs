@@ -2,7 +2,7 @@
 
 namespace RightRule.DataAdaptors.DataAdaptors;
 
-internal class StringDataAdaptor : DataAdaptorBase<string>
+internal sealed class StringDataAdaptor : DataAdaptorBase<string>
 {
     public override string AdaptorName { get; init; }
 

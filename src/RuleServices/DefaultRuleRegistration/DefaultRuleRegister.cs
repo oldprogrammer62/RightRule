@@ -3,7 +3,7 @@ using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.DefaultRuleRegistration;
 
-internal class DefaultRuleRegister : IDefaultRuleRegister
+internal sealed class DefaultRuleRegister : IDefaultRuleRegister
 {
     private readonly ILogger<DefaultRuleRegister> _logger;
 

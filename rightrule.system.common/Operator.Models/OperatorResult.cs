@@ -2,7 +2,7 @@
 
 namespace RightRule.System.Common.Operator.Models;
 
-public class OperatorResult
+public sealed class OperatorResult
 {
     public required string OperatorName { get; init; }
     public required bool Success { get; init; }

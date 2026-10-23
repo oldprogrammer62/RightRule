@@ -3,7 +3,7 @@ using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.DataAdaptors;
 
-internal class DataAdaptorService : IDataAdaptorService
+internal sealed class DataAdaptorService : IDataAdaptorService
 {
     private readonly IDataAdaptorLibraryManager _dataProviderLibraryManager;
 

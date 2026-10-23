@@ -6,7 +6,7 @@ using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RuleServices.RuleApplication;
 
-internal class RuleApplicationService : IRuleApplicationService
+internal sealed class RuleApplicationService : IRuleApplicationService
 {
     private readonly IRuleService _ruleService;
     private readonly IApplyFirstRuleService _applyFirstRuleService;

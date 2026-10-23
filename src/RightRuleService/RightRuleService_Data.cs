@@ -6,7 +6,7 @@ using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule.RightRuleService;
 
-internal partial class RightRuleService : IRightRuleService
+internal sealed partial class RightRuleService : IRightRuleService
 {
     public List<Dataset>? GetDataset()
     {

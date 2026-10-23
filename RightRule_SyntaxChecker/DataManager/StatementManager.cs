@@ -1,6 +1,6 @@
 ﻿namespace RightRule_SyntaxChecker.DataManager;
 
-internal class StatementManager
+internal sealed class StatementManager
 {
     internal static string GetRuleStatement()
     {
