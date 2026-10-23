@@ -1,4 +1,5 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -20,6 +21,37 @@ public class ComplexStatementTests
         };
     }
 
+    [Fact]
+    public void ComplexLiteralsTest()
+    {
+        string statement = "1 = 1";
+        //string statement = "1 = 1 and 2 = 2";
+        //string statement = "1 = 1 or 2 = 2";
+        //string statement = "1 = 1 and not 2 = 2";
+        //string statement = "1 = 1 and (2 = 2 or 3 = 3)";
+        //string statement = "1 = 1 and 2 = 2 and not 3 = 3";
+
+        IRightRule rr = new RightRule.RightRule();
+        var rule1 = rr.BuildRule()
+            .Number(1)
+            .Name("Rule1")
+            .Context("Context")
+            .Statement(statement)
+            .Decision("GOOD")
+            .FalseDecision("BAD")
+            .DecisionData(null)
+            .FalseDecisionData(null)
+            .OptionalData(null)
+            .Build()
+            .Register(rr.RuleService);
+        Assert.NotNull(rule1);
+        Assert.NotNull(rule1.RegisteredRule);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+
+        var result = rr.ApplyRule("Context");
+        Assert.NotNull(result);
+        Assert.Equal(rule1.RegisteredRule.Decision, result.Decision);
+    }
 
     [Fact]
     public void AllValid_SomeEquals()

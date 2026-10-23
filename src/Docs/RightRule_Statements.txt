@@ -5,3 +5,5 @@
 data1 = data2
 data1 = data2 and data3 = data4
 data1 = data2 or data3 = data4
+data1 = data2 and not data3 = data4
+data1 = data2 and (data3 = data4 or data5 = data6)
