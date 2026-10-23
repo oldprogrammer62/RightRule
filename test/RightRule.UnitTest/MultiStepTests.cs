@@ -1,4 +1,5 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -172,7 +173,7 @@ public class MultiStepTests
         rr.DeRegisterRules("Step1");
 
         var rule1result_v2 = rr.ApplyRule("Step1");
-        Assert.Equal(DefaultRule.DECISIONWORD, rule1result_v2.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, rule1result_v2.Decision);
 
         rr.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);

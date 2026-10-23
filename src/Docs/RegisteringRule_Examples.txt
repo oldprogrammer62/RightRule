@@ -2,24 +2,17 @@
 for both true and false outcomes.
 
 Decision Word:
-Tells the calling application which decision was made so it can route the next logical step.
+Tells the calling application which decision was made so it can route to the next logical step.
+Recommended to use a switch statement to handle all possible decision words for the current 'context'. Should also include the 'NODECISION' result.
 
 Decision Data: 
 Returns additional, context-specific information that the calling application can use during downstream processing.
 
 
 
-
-
-
-
 Initialise a Rule Definition and Register
 -----------------------------------------
 IRightRule rr = new RightRule.RightRule();
-RuleConfiguration rc = new RuleConfiguration()
-{
-    Diagnostics = false
-};
 
 RuleDefinition rule = new()
 {
@@ -28,9 +21,10 @@ RuleDefinition rule = new()
     Context = "Context",
     Statement = "Test.boolvalue equals true",
     Decision = "EQUALS",
+    FalseDecision = "NOTEQUALS",
     DecisionData = null,
-    OptionalData = null,
-    RuleConfiguration = rc
+    FalseDecisionData = null,
+    OptionalData = null
 };
 RuleRegistrationResult rule1 = rr.RegisterRule(rule);
 
@@ -38,14 +32,15 @@ RuleRegistrationResult rule1 = rr.RegisterRule(rule);
 Build a Rule Definition and Register
 ------------------------------------
 IRightRule rr = new RightRule.RightRule();
-RuleDefinition rule = rr.BuildRuleDefinition()
+RuleDefinition rule = rr.BuildRule()
    .Number(1)
    .Name("Rule1")
    .Context("Context")
    .Statement("Test.boolvalue equals true")
    .Decision("EQUALS")
+   .FalseDecision("NOTEQUALS")
    .DecisionData(null)
+   .FalseDecisionData(null)
    .OptionalData(null)
-   .WithDiagnostics(false)
-   .Build();
-RuleRegistrationResult rule1 = rr.RegisterRule(rule);
+   .Build()
+   .Register(rr.RuleService);

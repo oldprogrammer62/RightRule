@@ -1,4 +1,5 @@
-﻿using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule.Exceptions;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
@@ -29,7 +30,8 @@ internal sealed class RuleApplicationService : IRuleApplicationService
 
         if (_ruleService.RegisteredRules.Rules == null || _ruleService.RegisteredRules.Rules.Count == 0)
         {
-            return [GetDefaultRule(Context)];
+            // Throw exception to indicate No Rules Registered
+            throw new NoRulesRegisteredException();
         }
 
         return EvaluationType switch

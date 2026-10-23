@@ -134,8 +134,8 @@ public sealed class EqualsOperator : Operator
         {
             string sTrue = "true";
             string sFalse = "false";
-            if (stringInput.Equals(sTrue, StringComparison.Ordinal)) return true;
-            if (stringInput.Equals(sFalse, StringComparison.Ordinal)) return true;
+            if (stringInput.ToLower().Equals(sTrue, StringComparison.Ordinal)) return true;
+            if (stringInput.ToLower().Equals(sFalse, StringComparison.Ordinal)) return true;
             return false;
         }
         return false;

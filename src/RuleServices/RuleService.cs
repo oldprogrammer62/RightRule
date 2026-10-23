@@ -69,17 +69,8 @@ internal sealed class RuleService : IRuleService
             return new RuleRegistrationResult()
             {
                 RegisteredRule = null,
-                Message = "Rule Failed to be Parsed",
-                Status = RightRuleStatusEnum.FAILURE
-            };
-        }
-        if (parsedRule.Status == RightRuleStatusEnum.FAILURE)
-        {
-            return new RuleRegistrationResult()
-            {
-                RegisteredRule = parsedRule,
-                Message = parsedRule.Message ?? "Registration failed, reason unknown!",
-                Status = RightRuleStatusEnum.FAILURE
+                Message = "Error: Rule Failed to be Parsed",
+                Status = RightRuleStatusEnum.ERROR
             };
         }
         if (parsedRule.Status == RightRuleStatusEnum.SUCCESS)
@@ -89,6 +80,24 @@ internal sealed class RuleService : IRuleService
         if (parsedRule.Status == RightRuleStatusEnum.DEFAULT)
         {
             return RegisteredRules.AddRule(parsedRule);
+        }
+        if (parsedRule.Status == RightRuleStatusEnum.FAILURE)
+        {
+            return new RuleRegistrationResult()
+            {
+                RegisteredRule = parsedRule,
+                Message = parsedRule.Message ?? "Registration failed, reason unknown!",
+                Status = parsedRule.Status
+            };
+        }
+        if (parsedRule.Status == RightRuleStatusEnum.ERROR)
+        {
+            return new RuleRegistrationResult()
+            {
+                RegisteredRule = parsedRule,
+                Message = parsedRule.Message ?? "Error: Registration failed, reason unknown!",
+                Status = parsedRule.Status
+            };
         }
         return new RuleRegistrationResult()
         {

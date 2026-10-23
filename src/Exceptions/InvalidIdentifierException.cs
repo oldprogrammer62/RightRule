@@ -20,7 +20,7 @@ public class InvalidIdentifierException : Exception
     }
 
     public InvalidIdentifierException(string identifier, int position)
-        : base($"Invalid identifier '{identifier}' at position {position}. Identifiers must start with a letter or underscore and can contain letters, digits, underscores. Identifiers can refer directly to a registered variable, or contain a single dot to refer to a data set and variable.")
+        : base($"Invalid identifier '{identifier}' at position {position}. Keywords must be lower case. Identifiers must start with a letter or underscore and can contain letters, digits, underscores. Identifiers can refer directly to a registered variable, or contain a single dot to refer to a data set and variable.")
     {
         Identifier = identifier;
         Position = position;

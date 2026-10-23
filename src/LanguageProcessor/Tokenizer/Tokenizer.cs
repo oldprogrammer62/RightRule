@@ -81,18 +81,32 @@ internal sealed class Tokenizer : ITokenizer
             var value = sb.ToString();
 
             // Logical keywords - case sensitive: valid only as lower-case
-            if (value == "and")
+            if (value.Equals("and", StringComparison.Ordinal))
                 return new Token(TokenTypeEnum.AND, value, start);
-            if (value == "or")
+            if (value.Equals("or", StringComparison.Ordinal))
                 return new Token(TokenTypeEnum.OR, value, start);
-            if (value == "not")
+            if (value.Equals("not", StringComparison.Ordinal))
                 return new Token(TokenTypeEnum.NOT, value, start);
 
-            // boolean
+            // Logical keywords - wrong case
+            if (value.ToUpper().Equals("AND", StringComparison.Ordinal))
+                throw new InvalidIdentifierException(value, start);
+            if (value.ToUpper().Equals("OR", StringComparison.Ordinal))
+                throw new InvalidIdentifierException(value, start);
+            if (value.ToUpper().Equals("NOT", StringComparison.Ordinal))
+                throw new InvalidIdentifierException(value, start);
+
+            // boolean - case sensitive: valid only as lower-case
             if (value.Equals("true", StringComparison.Ordinal))
                 return new Token(TokenTypeEnum.BOOLEAN, value, start);
             if (value.Equals("false", StringComparison.Ordinal))
                 return new Token(TokenTypeEnum.BOOLEAN, value, start);
+
+            // boolean - wrong case
+            if (value.ToUpper().Equals("TRUE", StringComparison.Ordinal))
+                throw new InvalidIdentifierException(value, start);
+            if (value.ToUpper().Equals("FALSE", StringComparison.Ordinal))
+                throw new InvalidIdentifierException(value, start);
 
             // External operator names
             if (IsLogicOperator(value))

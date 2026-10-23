@@ -1,1 +1,7 @@
-﻿
+﻿Valid statements
+
+(Note: The Operator in each of these examples can be replaced by any of the Operator aliases)
+
+data1 = data2
+data1 = data2 and data3 = data4
+data1 = data2 or data3 = data4

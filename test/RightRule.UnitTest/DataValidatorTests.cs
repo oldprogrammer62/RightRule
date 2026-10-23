@@ -64,7 +64,7 @@ public class DataValidatorTests
             .FalseDecision("FalseDecision1")
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, rule1reg.Status);
+        Assert.Equal(RightRuleStatusEnum.ERROR, rule1reg.Status);
         Assert.Contains("NotFound", rule1reg.Message);
     }
 }

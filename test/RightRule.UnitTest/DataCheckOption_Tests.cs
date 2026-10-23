@@ -28,7 +28,11 @@ public class DataCheckOption_Tests
     [Fact]
     public void DataCheck_True()
     {
-        RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = true, DataCheck = true };
+        RightRuleOptions options = new RightRuleOptions 
+        { 
+            LoadDefaultOperators = true, 
+            DataCheck = true 
+        };
 
         IRightRule rr = new RightRule.RightRule(options);
 
@@ -42,6 +46,6 @@ public class DataCheckOption_Tests
             .Build()
             .Register(rr.RuleService);
 
-        Assert.Equal(RightRuleStatusEnum.FAILURE, rule1.Status);
+        Assert.Equal(RightRuleStatusEnum.ERROR, rule1.Status);
     }
 }

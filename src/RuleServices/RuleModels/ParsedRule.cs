@@ -43,7 +43,7 @@ public sealed class ParsedRule : RuleParsed
         };
     }
 
-    internal static ParsedRule? ErrorResult(DefinedRule? ruleDefinition, string message)
+    internal static ParsedRule? FailureResult(DefinedRule? ruleDefinition, Node node, string message, bool Diagnostics)
     {
         if (ruleDefinition == null)
         {
@@ -61,10 +61,35 @@ public sealed class ParsedRule : RuleParsed
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.FAILURE,
+            Message = message,
+            StatementPath = BuildTreeText(node, Diagnostics),
+            Node = node,
+            OptionalData = ruleDefinition.OptionalData
+        };
+    }
+
+    internal static ParsedRule? ErrorResult(DefinedRule? ruleDefinition, string message)
+    {
+        if (ruleDefinition == null)
+        {
+            return null;
+        }
+
+        return new ParsedRule()
+        {
+            Number = ruleDefinition.Number,
+            Name = ruleDefinition.Name,
+            Context = ruleDefinition.Context,
+            Statement = ruleDefinition.Statement,
+            Decision = ErrorRule.DECISIONWORD,
+            DecisionData = null,
+            FalseDecision = ErrorRule.FALSEDECISIONWORD,
+            FalseDecisionData = null,
+            Status = RightRuleStatusEnum.ERROR,
             StatementPath = string.Empty,
             Message = message,
             Node = null,
-            OptionalData = ruleDefinition.OptionalData
+            OptionalData = null
         };
     }
 

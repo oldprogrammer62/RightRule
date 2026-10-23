@@ -1,6 +1,6 @@
 ﻿What is the purpose of DecisionData?
 
-When your application calls RightRule to make a decision you will likely use the decision in a switch statemwent.
+When your application calls RightRule to make a decision you will likely use the decision in a switch statement.
 Example:
 switch (decision)
 {

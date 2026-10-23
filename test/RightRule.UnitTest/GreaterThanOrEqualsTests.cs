@@ -303,6 +303,6 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
+        Assert.Equal(ErrorRule.DECISIONWORD, appliedRule.Decision);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -31,8 +32,9 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
 
+        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal("Good", result[0].Decision);
     }
@@ -51,8 +53,9 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRule("Context");
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
 
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
     }
@@ -71,8 +74,9 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRule("Context");
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
 
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
     }
@@ -91,8 +95,9 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRule("Context");
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
 
+        var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal("Good", result.Decision);
     }
@@ -111,18 +116,16 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
-        var result = rr.ApplyRule("Context");
-
-        Assert.NotNull(result);
-        Assert.Equal(ErrorRule.DECISIONWORD, result.Decision);
+        Assert.Equal(RightRuleStatusEnum.ERROR, pr.Status);
     }
 
     [Fact]
     public void BooleanEquals6()
     {
-        // False is case sensitive - lower case
-        // This will return a false result - Converted to Default
-        // Boolean false does not equal string False
+        // Boolean false is case sensitive - lower case
+        // Boolean as a string is nopt case sensitive
+        // Result will be true
+        // Decision will be returned
 
         DefinedRule rule1 = new DefinedRule
         {
@@ -135,10 +138,12 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
+        Assert.Equal(rule1.Decision, result.Decision);
     }
 
     [Fact]
@@ -157,6 +162,8 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RegisterRule(rule1);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
