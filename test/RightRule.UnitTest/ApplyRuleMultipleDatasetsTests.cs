@@ -1,5 +1,6 @@
 using RightRule;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRuleTests;
 
@@ -68,7 +69,7 @@ public class ApplyRuleMultipleDatasetsTests
         rr.RegisterData("TestA", _DataA);
         rr.RegisterData("TestB", _DataB);
 
-        var appliedA = rr.ApplyRule("AllContext");
+        RightRuleResult<IProcessedRule>? appliedA = rr.ApplyRule("AllContext");
 
         Assert.Equal(rule1.Decision, appliedA.Decision);
     }

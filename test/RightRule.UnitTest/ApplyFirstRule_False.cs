@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRuleTests;
 
@@ -30,7 +31,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule2 = rr.RegisterRule(rule2);
 
-        RightRuleResult<RightRule.RuleServices.RuleModels.BaseModels.IProcessedRule>? result = rr.ApplyRule("Context");
+        RightRuleResult<IProcessedRule> result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(1, result.RuleNumber);

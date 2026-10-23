@@ -19,16 +19,14 @@ public static class Template
         json.Append(',');
         json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'DecisionData': null");
+        json.Append("'DecisionData': '{}'");
+        json.Append(',');
+        json.Append("'FalseDecision': 'FAIL'");
+        json.Append(',');
+        json.Append("'FalseDecisionData': '{}'");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');
-
-        json.Append("RuleConfiguration:");
-        json.Append('{');
-        json.Append("'Diagnostics': true");
-        json.Append('}');
-
         json.Append('}');
         json.Append(']');
         return json.ToString();

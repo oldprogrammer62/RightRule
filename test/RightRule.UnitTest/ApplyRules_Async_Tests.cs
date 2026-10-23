@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRuleTests;
 
@@ -27,7 +28,7 @@ public class ApplyRules_Async_Tests
         var dataRegistered = rr.RegisterData("Data", data);
         RightRule.RuleServices.RuleRegistration.RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule1);
 
-        var appliedRule = await rr.ApplyRuleAsync("Context");
+        RightRuleResult<IProcessedRule>? appliedRule = await rr.ApplyRuleAsync("Context");
 
         Assert.Equal(appliedRule.Decision, rule1.Decision);
     }

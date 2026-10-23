@@ -5,7 +5,7 @@
 /// </summary>
 /// <remarks>
 /// FIRST
-/// All rules will be processed until a rule returns a true result.
+/// All rules will be processed.
 /// The first rule that returns 'true' will be the result of the evaluation.
 /// If no rule returns a true result, the Default rule will be returned.
 /// Only one rule will be returned.
@@ -18,7 +18,6 @@
 /// <br></br>
 /// ALL
 /// All rules will be processed.
-/// The result attribute of each rule will indicate rule success.
 /// All rules applied will be returned only if all rules returned a true result.
 /// If a rule returns a false result, the Default rule will be returned.
 /// </remarks>

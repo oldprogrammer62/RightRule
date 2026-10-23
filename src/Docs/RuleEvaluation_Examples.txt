@@ -1,22 +1,33 @@
 ﻿### Rule Evaluation Methods
 
-The RightRule engine exposes two distinct evaluation paths based on your required output structure:
+RightRuleResult<IProcessedRule> result = rr.ApplyRule("Context");
 
-EvaluateFirstMatch...
-Evaluates the ruleset sequentially and returns the result of the first rule that resolves to true.
-Execution short-circuits immediately upon the first match.
-If no rules evaluate to true, the engine returns a system default result.
-Developers can override this behavior by registering a custom default result object via the builder's dedicated registration method.
-
-EvaluateAll...
-Evaluates the entire ruleset and returns a List containing every applied rule along with its individual boolean outcome (true or false).
+Which registered data will be available? ALL
+Which rules will be applied? All registered rules for the specified "Context".
+What will the result object contain?
+A single rule will be returned that is either:
+- The first rule (ordered numercially, based on Rule Number) to evaluate to true.
+- Or, the default rule for the Context.
 
 
+List<RightRuleResult<IProcessedRule>> result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-AppliedRule result = rr.EvaluateFirstRule("Context");
+Which registered data will be available? ALL
+Which rules will be applied? All registered rules for the specified "Context".
+What will the result object contain?
+A set of rules will be returned, dependent on the specified Evaluation Type:
+EvaluationTypeEnum.FIRST
+Will return a List containing a single rule.
+The returned rule will be either:
+- The first rule (ordered numercially, based on Rule Number) to evaluate to true.
+- Or, the Default rule for the Context.
 
-List<AppliedRule>? results = rr.EvaluateAllRules("Test");
+EvaluationTypeEnum.ANY
+Will return a List containing all rules processed.
+The result attribute of each rule will indicate rule success.
+Each Rule will return either its true Decision details or False Decision details.
 
-        var appliedRules = rr.EvaluateAllRules("AllContext", RightRule.System.Common.RulesToReturn.First);
-
-            Task<List<AppliedRule>> EvaluateAllRulesAsync(string Context, string DatasetName, Dictionary<string, object> Data);
+EvaluationTypeEnum.ALL
+Will return a List containing rules as follows.
+All rules applied will be returned only if all rules returned a true result.
+The Default rule for the Context will be returned if any rule returns a false result.

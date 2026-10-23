@@ -1,0 +1,47 @@
+﻿RightRule Operators are loaded and registered when RightRule starts up.
+
+RightRule has 2 types of Operators:
+Default Operators
+Loading can be cancelled with the option to load default operators set to false.
+RightRuleOptions options = new RightRuleOptions()
+{
+    LoadDefaultOperators = false,
+    LoadCustomOperators = true
+};
+
+Default Operators provided:
+- Contains
+- DoesNotContain
+- Equals
+- GraterThanOrEquals
+- In
+- LessThan
+- NotEquals
+
+Custom Operators
+Loading can be cancelled with the option to load custom operators set to false.
+RightRuleOptions options = new RightRuleOptions()
+{
+    LoadDefaultOperators = true,
+    LoadCustomOperators = false
+};
+
+Custom Operators are held as c# libraries (.dll) in a folder.
+The folder path is specified in either:
+Configuration file RightRule.dll.config, key "CustomOperatorConfigPath"
+Or
+Provided in the start up Options, key "CustomOperatorLibraryPath"
+
+Custom Operators are held in a file called: customoperatorconfig.json
+The Configuration of a Custom Operator looks like:
+{
+  "operators": [
+    {
+      "name": "Exists",
+      "path": ""
+    }
+  ]
+}
+Where:
+- name: provides a friendly operator name
+- path: provies the location of the operator library (Operator.exists.dll)

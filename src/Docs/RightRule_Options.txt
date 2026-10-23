@@ -1,0 +1,52 @@
+﻿RightRule can accept some initialisation settings.
+
+Defaults are stored in: RightRule.dll.config
+<add key="DataCheck" value="false" />
+<add key="Diagnostics" value="false" />
+<add key="LoadCustomOperators" value="true" />
+<add key="LoadDefaultOperators" value="true" />
+<add key="CustomOperatorConfigPath" value="** path to configuration file **"/>
+
+- DataCheck
+Datatype: Boolean
+If true, RightRule will attempt to discover values from registered data for each data reference in the rule statement.
+
+- Diagnostics
+Datatype: Boolean
+If true, the result from rules application will include a representation of the statement applied.
+
+- LoadDefaultOperators
+Datatype: Boolean
+If true, all Default operators will be loaded.
+
+- LoadCustomOperators
+Datatype: Boolean
+If true, all Custom operators will be loaded.
+
+- CustomOperatorLibraryPath
+Datatype: String
+Specifies the path to the configuration file that provides details of Custom Operators to load
+
+Options can be provided to RightRule as follows:
+
+RightRuleOptions options = new RightRuleOptions()
+{
+    DataCheck = false,
+    Diagnostics = false,
+    LoadDefaultOperators = true,
+    LoadCustomOperators = true,
+    CustomOperatorLibraryPath = ""
+};
+var rr = new RightRule.RightRule(options);
+
+Or...
+
+services.AddRightRule(options =>
+{
+    options.DataCheck = false;
+    options.Diagnostics = false;
+    options.LoadCustomOperators = true;
+    options.LoadDefaultOperators = true;
+    options.CustomOperatorLibraryPath = "";
+});
+

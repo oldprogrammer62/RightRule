@@ -1,17 +1,26 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRuleTests;
 
-public class ApplyAllRules
+public class ApplyAllRules_Tests
 {
     [Fact]
     public void TestAllRules()
     {
         int x = 10;
 
-        using var rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            LoadCustomOperators = true,
+            LoadDefaultOperators = true,
+            Diagnostics = true
+        };
+        using var rr = new RightRule.RightRule(options);
         rr.RegisterData(nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()
@@ -37,7 +46,7 @@ public class ApplyAllRules
         rr.RegisterRule(rule1);
         rr.RegisterRule(rule2);
 
-        List<RightRuleResult<RightRule.RuleServices.RuleModels.BaseModels.IProcessedRule>>? result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
+        List<RightRuleResult<IProcessedRule>> result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }
