@@ -1,13 +1,19 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataValidator;
+using System.ComponentModel;
 
 namespace RightRule.DataServices;
 
 internal sealed class DataService : IDataService
 {
     private List<Dataset> _Datasets;
+    public List<Dataset> RegisteredDatasets => _Datasets;
+
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ILogger<DataService> _logger;
+
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IDataValidatorService _DataValidator;
 
     public DataService(ILogger<DataService> logger, IDataValidatorService DataValidator)

@@ -4,6 +4,8 @@ namespace RightRule.DataServices;
 
 public interface IDataService
 {
+    List<Dataset> RegisteredDatasets { get; }
+
     void Clear();
 
     Dataset CreateDataSet(string DatasetName);

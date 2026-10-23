@@ -3,15 +3,20 @@ using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingServices;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
+using System.ComponentModel;
 using System.Data;
 
 namespace RightRule.RuleServices;
 
 internal sealed class RuleService : IRuleService
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
+
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IParseRuleService _parseRuleService;
 
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
