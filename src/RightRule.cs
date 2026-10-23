@@ -20,19 +20,26 @@ public sealed partial class RightRule : IRightRule, IDisposable
     [EditorBrowsable(EditorBrowsableState.Never)]
     private bool Disposed { get; set; } = false;
 
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRightRuleService _rightRuleService;
 
-    public IRuleService RuleService => _rightRuleService.RuleService ?? throw new InvalidOperationException("Rule Service is not available");
-
-    public IDataService DataService => _rightRuleService.DataService ?? throw new InvalidOperationException("Data Service is not available");
-
-    public IOperatorService OperatorService => _rightRuleService.OperatorService ?? throw new InvalidOperationException("Operator Service is not available");
-
-    public IDataAdaptorService DataAdaptorService => _rightRuleService.DataAdaptorService ?? throw new InvalidOperationException("Data Adaptor Service is not available");
-
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ILogger<RightRule> _logger;
+
+    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IServiceProvider? _serviceProvider;
+
+
+    public IRuleService? RuleService => _rightRuleService.RuleService;
+
+    public IDataService? DataService => _rightRuleService.DataService;
+
+    public IOperatorService? OperatorService => _rightRuleService.OperatorService;
+
+    public IDataAdaptorService? DataAdaptorService => _rightRuleService.DataAdaptorService;
+
     private readonly RightRuleOptions _options;
+    public RightRuleOptions Options => GetRightRuleOptions();
 
     /// <summary>
     /// Parameterless constructor

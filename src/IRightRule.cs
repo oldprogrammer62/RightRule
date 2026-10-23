@@ -1,4 +1,5 @@
 ﻿using RightRule.DataAdaptors;
+using RightRule.DataServices;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
@@ -21,7 +22,11 @@ public interface IRightRule : IDisposable
 {
     RightRuleOptions GetRightRuleOptions();
 
-    IRuleService RuleService { get; }
+    IRuleService? RuleService { get; }
+    IDataService? DataService { get; }
+    IOperatorService? OperatorService { get; }
+    IDataAdaptorService? DataAdaptorService { get; }
+    RightRuleOptions Options { get; }
 
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
