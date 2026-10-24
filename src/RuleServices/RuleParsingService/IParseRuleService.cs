@@ -1,10 +1,8 @@
 ﻿using RightRule.RuleServices.RuleModels;
 
-namespace RightRule.RuleServices.RuleParsingServices
+namespace RightRule.RuleServices.RuleParsingService;
+
+internal interface IParseRuleService
 {
-    internal interface IParseRuleService
-    {
-        ParsedRule? ParseRule(DefinedRule Rule, bool Diagnostics);
-        List<ParsedRule> ParseRules(IEnumerable<DefinedRule> Rules, bool Diagnostics);
-    }
+    ParsedRule? ParseRule(DefinedRule Rule, bool Diagnostics);
 }

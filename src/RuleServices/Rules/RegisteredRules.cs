@@ -30,16 +30,6 @@ internal sealed class RegisteredRules : IRegisteredRules
         _rules = rules;
     }
 
-    public List<RuleRegistrationResult> AddRules(List<ParsedRule> rules)
-    {
-        List<RuleRegistrationResult> results = new List<RuleRegistrationResult>();
-        foreach (ParsedRule rule in rules)
-        {
-            results.Add(AddRule(rule));
-        }
-        return results;
-    }
-
     public RuleRegistrationResult AddRule(ParsedRule Rule)
     {
         if (Rule == null)

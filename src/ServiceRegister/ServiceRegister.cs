@@ -19,7 +19,7 @@ using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
-using RightRule.RuleServices.RuleParsingServices;
+using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.Rules;
 using RightRule.RuleServices.RuleValidation;
 

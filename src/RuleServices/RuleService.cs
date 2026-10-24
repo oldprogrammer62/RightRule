@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleParsingServices;
+using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
 using RightRule.RuleServices.RuleValidation;
