@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
@@ -9,7 +10,14 @@ namespace RightRule_Demo.RuleManager
     {
         internal static List<RightRuleResult<IProcessedRule>> ApplyRules(Dictionary<string, object> Data, decimal HighValue, EvaluationTypeEnum EvaluationType)
         {
-            IRightRule rr = new RightRule.RightRule();
+            RightRuleOptions options = new RightRuleOptions()
+            {
+                DataCheck = false,
+                Diagnostics = true,
+                LoadCustomOperators = true,
+                LoadDefaultOperators = true
+            };
+            IRightRule rr = new RightRule.RightRule(options);
 
             string Context = "Demo";
             var rules = LoadRules(rr, Context);
