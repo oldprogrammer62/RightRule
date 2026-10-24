@@ -1,8 +1,10 @@
-﻿using RightRule.Models;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingServices;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
+using RightRule.RuleServices.RuleValidation;
 using System.ComponentModel;
 using System.Data;
 
@@ -12,19 +14,24 @@ internal sealed class RuleService : IRuleService
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
-
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    private readonly IRuleValidationService _ruleValidationService;
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IParseRuleService _parseRuleService;
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRegisteredRules _registeredRules;
+    private readonly ILogger<RuleService> _logger;
+
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(RightRuleOptions options, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules)
+    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, ILogger<RuleService> logger)
     {
         _options = options;
-        _parseRuleService = ParseRuleService;
         _registeredRules = RegisteredRules;
+        _logger = logger;
+        _ruleValidationService = RuleValidationService;
+        _parseRuleService = ParseRuleService;
     }
 
     public ParsedRule? GetRule(string Context, string RuleName)
@@ -58,17 +65,37 @@ internal sealed class RuleService : IRuleService
     {
         ArgumentNullException.ThrowIfNull(Rules, nameof(Rules));
 
-        var diagnostics = _options.Diagnostics;
-        var parsedRules = _parseRuleService.ParseRules(Rules, diagnostics);
-        return RegisteredRules.AddRules(parsedRules);
+        List<RuleRegistrationResult> registeredRules = [];
+        foreach (var rule in Rules)
+        {
+            var ruleRegistration = RegisterRule(rule);
+            if (ruleRegistration.Status == RightRuleStatusEnum.SUCCESS)
+            {
+                registeredRules.Add(ruleRegistration);
+            }
+        }
+        return registeredRules;
     }
 
     public RuleRegistrationResult RegisterRule(DefinedRule Rule)
     {
         ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
 
-        var diagnostics = _options.Diagnostics;
-        var parsedRule = _parseRuleService.ParseRule(Rule, diagnostics);
+        var ruleValidationResult = ValidateRule(Rule);
+        if (ruleValidationResult.Valid == RightRuleStatusEnum.ERROR)
+        {
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError("Rule: {number} - {name} not registered. {message}", Rule.Number, Rule.Name, ruleValidationResult.Message);
+            }
+            return new RuleRegistrationResult()
+            {
+                RegisteredRule = null,
+                Message = ruleValidationResult.Message,
+                Status = ruleValidationResult.Valid
+            };
+        }
+        var parsedRule = ParseRule(Rule);
         if (parsedRule == null)
         {
             return new RuleRegistrationResult()
@@ -146,5 +173,16 @@ internal sealed class RuleService : IRuleService
     public List<string>? GetRuleNames(string Context)
     {
         return RegisteredRules.GetRuleNames(Context);
+    }
+
+    private RuleValidationResult ValidateRule(DefinedRule Rule)
+    {
+        return _ruleValidationService.ValidateRule(Rule);
+    }
+
+    private ParsedRule? ParseRule(DefinedRule Rule)
+    {
+        var diagnostics = _options.Diagnostics;
+        return _parseRuleService.ParseRule(Rule, diagnostics);
     }
 }

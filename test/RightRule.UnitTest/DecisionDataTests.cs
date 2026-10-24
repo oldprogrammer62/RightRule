@@ -15,9 +15,9 @@ public class DecisionDataTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOT SAME")
-            .DecisionData(dd)
+            .TrueDecisionData(dd)
             .OptionalData("Hello World from Optional")
             .Build();
 
@@ -44,9 +44,9 @@ public class DecisionDataTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOT SAME")
-            .DecisionData(dd)
+            .TrueDecisionData(dd)
             .OptionalData("Hello World from Optional")
             .Build();
 
@@ -70,9 +70,9 @@ public class DecisionDataTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOT SAME")
-            .DecisionData(dd)
+            .TrueDecisionData(dd)
             .OptionalData("Hello World from Optional")
             .Build();
 

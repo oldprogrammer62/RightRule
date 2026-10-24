@@ -54,7 +54,7 @@ public class ExtensionTests
         DefinedRule rule = new DefinedRule()
         {
             Context = "TestContext",
-            Decision = "TestDecision",
+            TrueDecision = "TestDecision",
             FalseDecision = "TestFalseDecision",
             Name = "TestRule",
             Number = 1,

@@ -25,7 +25,7 @@ public class OperatorConfig_Tests
             Name = "Name",
             Number = 1,
             Statement = "Data.key1 = 'value1' and Data.key2 = \'value2\' and Data.key3 = \"value3\"",
-            Decision = "Decision",
+            TrueDecision = "Decision",
             FalseDecision = "FalseDecision",
             OptionalData = OpConfig
         };

@@ -37,8 +37,8 @@ public sealed class ErrorRule : RuleError
         sb.AppendLine($"Number: {Number}");
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"Decision: {TrueDecision}");
+        sb.AppendLine($"DecisionData: {TrueDecisionData}");
         sb.AppendLine($"StatementApplied: {StatementApplied}");
         sb.AppendLine($"Message: {Message}");
         return sb.ToString();

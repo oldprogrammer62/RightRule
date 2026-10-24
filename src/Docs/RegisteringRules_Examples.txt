@@ -20,9 +20,9 @@ RuleDefinition rule = new()
     Name = "Rule1",
     Context = "Context",
     Statement = "Test.boolvalue equals true",
-    Decision = "EQUALS",
+    TrueDecision = "EQUALS",
+    TrueDecisionData = null,
     FalseDecision = "NOTEQUALS",
-    DecisionData = null,
     FalseDecisionData = null,
     OptionalData = null
 };
@@ -37,9 +37,9 @@ RuleDefinition rule = rr.BuildRule()
    .Name("Rule1")
    .Context("Context")
    .Statement("Test.boolvalue equals true")
-   .Decision("EQUALS")
+   .TrueDecision("EQUALS")
+   .TrueDecisionData(null)
    .FalseDecision("NOTEQUALS")
-   .DecisionData(null)
    .FalseDecisionData(null)
    .OptionalData(null)
    .Build()

@@ -13,8 +13,8 @@ public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
     public required string Name { get; init; }
     public required string Context { get; init; }
 
-    public required string Decision { get; init; }
-    public object? DecisionData { get; init; }
+    public required string TrueDecision { get; init; }
+    public object? TrueDecisionData { get; init; }
     public required string FalseDecision { get; init; }
     public object? FalseDecisionData { get; init; }
 

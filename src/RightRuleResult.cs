@@ -22,11 +22,11 @@ public sealed class RightRuleResult<T>
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
-        { 
+        {
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.Decision, 
+            Decision = Payload.TrueDecision, 
             DecisionData = DecisionData, 
             StatementApplied = StatementApplied 
         };
@@ -55,7 +55,7 @@ public sealed class RightRuleResult<T>
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.Decision, 
+            Decision = Payload.TrueDecision, 
             DecisionData = null, 
             StatementApplied = string.Empty,
             Message = ex.Message
@@ -70,8 +70,8 @@ public sealed class RightRuleResult<T>
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.Decision, 
-            DecisionData = Payload.DecisionData, 
+            Decision = Payload.TrueDecision, 
+            DecisionData = Payload.TrueDecisionData, 
             StatementApplied = string.Empty,
             Message = Message
         };

@@ -29,7 +29,7 @@ public class DataValidatorTests
             .Name("Name1")
             .Context("Context")
             .Statement("a = 100 and b.b = 100 and Data.a = 100 and Data.b = 100")
-            .Decision("Decision1")
+            .TrueDecision("Decision1")
             .FalseDecision("FalseDecision1")
             .Build();
         var rule1reg = rr.RegisterRule(rule1);
@@ -60,7 +60,7 @@ public class DataValidatorTests
             .Name("Name1")
             .Context("Context")
             .Statement("a = 100 and b.b = 100 and Data.a = 100 and Data.b = 100 and NotFound = 10")
-            .Decision("Decision1")
+            .TrueDecision("Decision1")
             .FalseDecision("FalseDecision1")
             .Build();
         var rule1reg = rr.RegisterRule(rule1);

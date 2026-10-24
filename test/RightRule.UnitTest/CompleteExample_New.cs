@@ -16,8 +16,8 @@ public class CompleteExample_New
         // They describe the customers current order situation
         //  Order Value
         //  Previous Orders
-        decimal orderValue = 20m;
-        int previousOrders = 0;
+        decimal orderValue = 200m;
+        int previousOrders = 5;
 
         RightRuleOptions options = new RightRuleOptions()
         {
@@ -57,8 +57,8 @@ public class CompleteExample_New
         {
             Name = "DefaultCustomer",
             Context = context,
-            Decision = "NoDiscount",
-            DecisionData = """{"discount":"$Discount.Default%"}"""
+            TrueDecision = "NoDiscount",
+            TrueDecisionData = """{"discount":"$Discount.Default%"}"""
         };
         rr.RegisterDefaultRule(newDefaultRule);
 
@@ -70,8 +70,8 @@ public class CompleteExample_New
                 Name = "NewCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders < OrderThresholds.ReturningPreviousOrders",
-                Decision = "Discount",
-                DecisionData = """{"discount":"$Discount.GoodWill%"}""",
+                TrueDecision = "Discount",
+                TrueDecisionData = """{"discount":"$Discount.GoodWill%"}""",
                 FalseDecision = "Ineligible"
             },
             new()
@@ -80,8 +80,8 @@ public class CompleteExample_New
                 Name = "LoyalCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.LoyaltyValue and Order.PreviousOrders >= OrderThresholds.LoyaltyPreviousOrders",
-                Decision = "Discount",
-                DecisionData = """{"discount":"$Discount.Loyalty%"}""",
+                TrueDecision = "Discount",
+                TrueDecisionData = """{"discount":"$Discount.Loyalty%"}""",
                 FalseDecision = "Ineligible"
             },
             new()
@@ -90,8 +90,8 @@ public class CompleteExample_New
                 Name = "ReturningCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders >= OrderThresholds.ReturningPreviousOrders",
-                Decision = "Discount",
-                DecisionData = """{"discount":"$Discount.Returning%"}""",
+                TrueDecision = "Discount",
+                TrueDecisionData = """{"discount":"$Discount.Returning%"}""",
                 FalseDecision = "Ineligible"
             }
         });

@@ -55,7 +55,7 @@ public class MultiStepTests
             Name = "Step 1 Rule 1",
             Statement = @"Step1Data1.surname = ""One"" and Step1Data1.numberoforders equals 10",
             Context = "Step1",
-            Decision = "GOOD",
+            TrueDecision = "GOOD",
             FalseDecision = "BAD"
         };
 
@@ -66,7 +66,7 @@ public class MultiStepTests
             Name = "Step 1 Rule 2",
             Statement = @"Step1Data1.surname = ""One"" and Step1Data2.numberoforders equals 11",
             Context = "Step1",
-            Decision = "GOOD",
+            TrueDecision = "GOOD",
             FalseDecision = "BAD"
         };
 
@@ -77,7 +77,7 @@ public class MultiStepTests
             Name = "Step 1 Rule 3",
             Statement = @"Step1Data3.surname = ""One"" and Step1Data3.numberoforders equals 12",
             Context = "Step1",
-            Decision = "GOOD",
+            TrueDecision = "GOOD",
             FalseDecision = "BAD"
         };
 
@@ -99,7 +99,7 @@ public class MultiStepTests
             Name = "Step 2 Rule",
             Statement = @"Step2Data1.surname equals ""Two"" and Step2Data1.numberoforders equals 100",
             Context = "Step2",
-            Decision = "GOOD",
+            TrueDecision = "GOOD",
             FalseDecision = "BAD"
         };
     }

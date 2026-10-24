@@ -29,7 +29,7 @@ public class LessThanTests
             Name = "Less Than Int Value Rule",
             Statement = @"Test.intvalue lessthan 1000",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -39,7 +39,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class LessThanTests
             Name = "Less Than Int Value Rule",
             Statement = @"Test.intvalue lessthan 1000.00",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -63,7 +63,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class LessThanTests
             Name = "Not Less Than Int Value Rule",
             Statement = @"Test.intvalue lessthan 5",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -99,7 +99,7 @@ public class LessThanTests
             Name = "Less Than Float Value Rule",
             Statement = @"Test.floatvalue lessthan 1000.001",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -109,7 +109,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -124,7 +124,7 @@ public class LessThanTests
             Name = "Less Than Date Only Value Rule",
             Statement = @$"Test.datevalue lessthan ""{date}""",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -134,7 +134,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -149,7 +149,7 @@ public class LessThanTests
             Name = "Less Than Datetime Value Rule",
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -159,7 +159,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -174,7 +174,7 @@ public class LessThanTests
             Name = "Less Than Datetime Value Rule",
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 
@@ -184,7 +184,7 @@ public class LessThanTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class LessThanTests
             Name = "Less Than Float Value Rule",
             Statement = @"'abc' < 'abcd'",
             Context = "Context",
-            Decision = "LESSTHAN",
+            TrueDecision = "LESSTHAN",
             FalseDecision = "NOT_LESSTHAN"
         };
 

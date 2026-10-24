@@ -7,8 +7,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>RightRule.System.Common</PackageId>
+    <Version>1.0.1-beta.3</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.1-beta.2</Version>
     <Authors>Mark Belton</Authors>
     <Description>RightRule Common provides details to support the RightRule system.</Description>
   </PropertyGroup>

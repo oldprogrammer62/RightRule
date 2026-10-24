@@ -15,8 +15,8 @@ public abstract class RuleError : IProcessedRule
     public string StatementApplied { get; init; } = string.Empty;
     public required string Message { get; init; } = string.Empty;
 
-    public string Decision { get; } = DECISIONWORD;
-    public object? DecisionData { get; }
+    public string TrueDecision { get; } = DECISIONWORD;
+    public object? TrueDecisionData { get; }
 
     public string FalseDecision { get; } = FALSEDECISIONWORD;
     public object? FalseDecisionData { get; }

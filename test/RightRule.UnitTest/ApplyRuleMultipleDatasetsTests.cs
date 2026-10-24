@@ -42,7 +42,7 @@ public class ApplyRuleMultipleDatasetsTests
             Name = "Number of orders Rule",
             Statement = @"TestA.numberoforders equals 10",
             Context = "AllContext",
-            Decision = "GOODRULE1",
+            TrueDecision = "GOODRULE1",
             FalseDecision = "BADRULE1"
         };
 
@@ -53,7 +53,7 @@ public class ApplyRuleMultipleDatasetsTests
             Name = "Surname is Smith Rule",
             Statement = @"TestB.surname equals ""Smith""",
             Context = "AllContext",
-            Decision = "GOODRULE2",
+            TrueDecision = "GOODRULE2",
             FalseDecision = "BADRULE2"
         };
     }
@@ -71,7 +71,7 @@ public class ApplyRuleMultipleDatasetsTests
 
         RightRuleResult<IProcessedRule>? appliedA = rr.ApplyRule("AllContext");
 
-        Assert.Equal(rule1.Decision, appliedA.Decision);
+        Assert.Equal(rule1.TrueDecision, appliedA.Decision);
     }
 
     [Fact]
@@ -87,6 +87,6 @@ public class ApplyRuleMultipleDatasetsTests
 
         var appliedB = rr.ApplyRule("AllContext");
 
-        Assert.Equal(rule1.Decision, appliedB.Decision);
+        Assert.Equal(rule1.TrueDecision, appliedB.Decision);
     }
 }

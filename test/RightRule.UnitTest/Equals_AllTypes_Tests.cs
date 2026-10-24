@@ -51,7 +51,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
 
@@ -61,7 +61,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rrule.RegisteredRule.Decision, result.Decision);
+        Assert.Equal(rrule.RegisteredRule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal.localVal = decVal.decVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         rr.RegisterRule(rule);
@@ -87,7 +87,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class Equals_AllTypes_Tests
             .Name("NameOfRule")
             .Context("Context")
             .Statement("decVal.decVal = localVal.localVal")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("DIFFERENT")
             .Build();
             
@@ -119,7 +119,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -137,7 +137,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = dblVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -145,7 +145,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -163,7 +163,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal.localVal = lngVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -171,7 +171,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -189,7 +189,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = sinVal.sinVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -197,7 +197,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -218,7 +218,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localData.entry = fltVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -226,7 +226,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -244,7 +244,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = strVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -252,7 +252,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -270,7 +270,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = chrVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -278,7 +278,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -296,7 +296,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = boolVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -304,7 +304,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -322,7 +322,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = boolStr",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -330,7 +330,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -347,7 +347,7 @@ public class Equals_AllTypes_Tests
             Number = 1,
             Name = "Rule1",
             Context = "Context",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT",
             Statement = "localVal = dtonlyVal"
         };
@@ -356,7 +356,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -374,7 +374,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = tmonlyVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -382,7 +382,7 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -400,7 +400,7 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             Statement = "localVal = dttimeVal",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RegisterRule(rule);
@@ -408,6 +408,6 @@ public class Equals_AllTypes_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule.Decision, result.Decision);
+        Assert.Equal(rule.TrueDecision, result.Decision);
     }
 }

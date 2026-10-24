@@ -21,6 +21,7 @@ using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleParsingServices;
 using RightRule.RuleServices.Rules;
+using RightRule.RuleServices.RuleValidation;
 
 namespace RightRule.ServiceRegister;
 
@@ -71,6 +72,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IInterpolate, StringInterpolator>();
 
         services.AddScoped<IDataValidatorService, DataValidatorService>();
+        services.AddScoped<IRuleValidationService, RuleValidationService>();
 
         return services;
     }

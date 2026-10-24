@@ -20,7 +20,7 @@ public class DataTypesTests_Array
             Name = "Int In Value Rule",
             Statement = @"number in numbers",
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
 
@@ -40,7 +40,7 @@ public class DataTypesTests_Array
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public class DataTypesTests_Array
             Name = "Int In Array Rule",
             Statement = "number in [1,2,3]",
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RegisterRule(rule);
@@ -72,7 +72,7 @@ public class DataTypesTests_Array
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -101,7 +101,7 @@ public class DataTypesTests_Array
             Name = "Int In Array Rule",
             Statement = statement,
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RegisterRule(rule);
@@ -109,7 +109,7 @@ public class DataTypesTests_Array
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -138,7 +138,7 @@ public class DataTypesTests_Array
             Name = "String In Array Rule",
             Statement = statement,
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RegisterRule(rule);
@@ -146,6 +146,6 @@ public class DataTypesTests_Array
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 }

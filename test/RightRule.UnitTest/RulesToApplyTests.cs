@@ -30,7 +30,7 @@ public class RulesToApplyTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
-            Decision = "GOODRULE1",
+            TrueDecision = "GOODRULE1",
             FalseDecision = "BADRULE1"
         };
 
@@ -41,7 +41,7 @@ public class RulesToApplyTests
             Name = "Name Rule",
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "GOODRULE2",
+            TrueDecision = "GOODRULE2",
             FalseDecision = "BADRULE2"
         };
     }
@@ -55,7 +55,7 @@ public class RulesToApplyTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class RulesToApplyTests
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class RulesToApplyTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -93,7 +93,7 @@ public class RulesToApplyTests
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -107,7 +107,7 @@ public class RulesToApplyTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class RulesToApplyTests
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();
-        Assert.Equal(appliedRule.Decision, rule2.Decision);
+        Assert.Equal(appliedRule.Decision, rule2.TrueDecision);
     }
 
     [Fact]
@@ -134,7 +134,7 @@ public class RulesToApplyTests
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.Decision);
+        Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.TrueDecision);
     }
 
     [Fact]
@@ -148,6 +148,6 @@ public class RulesToApplyTests
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();
 
-        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.Decision);
+        Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.TrueDecision);
     }
 }

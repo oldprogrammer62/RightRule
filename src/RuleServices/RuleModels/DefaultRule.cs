@@ -23,8 +23,8 @@ public sealed class DefaultRule : RuleDefault
         {
             Name = Name,
             Context = Context,
-            Decision = Decision,
-            DecisionData = DecisionData
+            TrueDecision = Decision,
+            TrueDecisionData = DecisionData
         };
     }
 
@@ -34,8 +34,8 @@ public sealed class DefaultRule : RuleDefault
         sb.AppendLine($"Number: {(int)RuleNumberEnum.DEFAULTRULE}");
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"Decision: {TrueDecision}");
+        sb.AppendLine($"DecisionData: {TrueDecisionData}");
         return sb.ToString();
     }
 }

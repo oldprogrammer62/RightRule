@@ -20,7 +20,7 @@ public class DayOfWeekTests
             Number = 1,
             Name = "rule1",
             Statement = "data.date dow \"wednesday\"",
-            Decision = "SAME",
+            TrueDecision = "SAME",
             FalseDecision = "NOT_SAME"
         };
 

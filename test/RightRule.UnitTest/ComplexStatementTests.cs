@@ -37,9 +37,9 @@ public class ComplexStatementTests
             .Name("Rule1")
             .Context("Context")
             .Statement(statement)
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("BAD")
-            .DecisionData(null)
+            .TrueDecisionData(null)
             .FalseDecisionData(null)
             .OptionalData(null)
             .Build()
@@ -50,7 +50,7 @@ public class ComplexStatementTests
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule1.RegisteredRule.Decision, result.Decision);
+        Assert.Equal(rule1.RegisteredRule.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -76,7 +76,7 @@ public class ComplexStatementTests
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -93,7 +93,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -102,7 +102,7 @@ public class ComplexStatementTests
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -119,7 +119,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -128,7 +128,7 @@ public class ComplexStatementTests
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -145,7 +145,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -154,7 +154,7 @@ public class ComplexStatementTests
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -176,7 +176,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -185,6 +185,6 @@ public class ComplexStatementTests
         rightRule.RegisterRule(rule);
         var appliedRule = rightRule.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 }

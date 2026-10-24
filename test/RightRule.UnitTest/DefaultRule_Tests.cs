@@ -17,7 +17,7 @@ public class DefaultRule_Tests
             .Name("Rule1")
             .Context("Test")
             .Statement("11 >= 19")
-            .Decision("true")
+            .TrueDecision("true")
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
@@ -35,7 +35,7 @@ public class DefaultRule_Tests
             .Name("Rule1")
             .Context("Test")
             .Statement("11 >= 19")
-            .Decision("true")
+            .TrueDecision("true")
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
@@ -59,8 +59,8 @@ public class DefaultRule_Tests
         {
             Name = "DefaultRule1",
             Context = context,
-            Decision = "dec",
-            DecisionData = "DefaultDecision $x"
+            TrueDecision = "dec",
+            TrueDecisionData = "DefaultDecision $x"
         };  
         var result = rr.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
@@ -85,8 +85,8 @@ public class DefaultRule_Tests
         {
             Name = "HOWDYDOODY",
             Context = context,
-            Decision = "GOTITNOW",
-            DecisionData = "HELLO $x WORLD"
+            TrueDecision = "GOTITNOW",
+            TrueDecisionData = "HELLO $x WORLD"
         };
         var result = rr.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
@@ -99,7 +99,7 @@ public class DefaultRule_Tests
             .Name("Rule1")
             .Context(context)
             .Statement("11 >= 19")
-            .Decision("true")
+            .TrueDecision("true")
             .FalseDecision("False")
             .Build();
         var rule1 = rr.RegisterRule(ruleDef1);
@@ -122,8 +122,8 @@ public class DefaultRule_Tests
         {
             Name = "DefaultRuleContext_First",
             Context = context1,
-            Decision = "DecisionContext_First",
-            DecisionData = "DefaultDecision"
+            TrueDecision = "DecisionContext_First",
+            TrueDecisionData = "DefaultDecision"
         };
         var firstResult = rr.RegisterDefaultRule(newDefaultRule_First);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, firstResult.Status);
@@ -135,8 +135,8 @@ public class DefaultRule_Tests
         {
             Name = "DefaultRuleContext_Second",
             Context = context1,
-            Decision = "DecisionContext_Second",
-            DecisionData = "DefaultDecision"
+            TrueDecision = "DecisionContext_Second",
+            TrueDecisionData = "DefaultDecision"
         };
         var secondResult = rr.RegisterDefaultRule(newDefaultRule_Second);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, secondResult.Status);
@@ -148,8 +148,8 @@ public class DefaultRule_Tests
         {
             Name = "DefaultRuleContext_Third",
             Context = context2,
-            Decision = "DecisionContext_Third",
-            DecisionData = "DefaultDecision"
+            TrueDecision = "DecisionContext_Third",
+            TrueDecisionData = "DefaultDecision"
         };
         var thirdResult = rr.RegisterDefaultRule(newDefaultRule_Third);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, thirdResult.Status);

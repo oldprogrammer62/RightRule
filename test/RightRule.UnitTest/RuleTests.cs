@@ -16,7 +16,7 @@ public class RuleTests
             Name = "Rule1",
             Context = "Rule1_Context",
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE",
         };
 
@@ -26,7 +26,7 @@ public class RuleTests
             Name = "Rule2",
             Context = "Rule2_Context",
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE",
         };
     }

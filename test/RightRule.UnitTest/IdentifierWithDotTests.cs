@@ -35,7 +35,7 @@ public class IdentifierWithDotTests
             Name = "Equals Int Value Rule",
             Statement = "Data.ordervalue equals Constants.highvalue",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -47,7 +47,7 @@ public class IdentifierWithDotTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class IdentifierWithDotTests
             Name = "Equals Int Value Rule",
             Statement = @"Data.NewCust = true and Data.ordervalue = Constants.highvalue and ""123"" = Constants.name",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -71,6 +71,6 @@ public class IdentifierWithDotTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 }

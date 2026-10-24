@@ -14,7 +14,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule1",
             Number = 1,
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE",
         };
         DefinedRule rule2 = new DefinedRule()
@@ -23,13 +23,23 @@ public class RegisterRulesAsync_Tests
             Name = "Rule2",
             Number = 2,
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE",
+        };
+        DefinedRule rule3 = new DefinedRule()
+        {
+            Context = "Context",
+            Name = "Rule3",
+            Number = 3,
+            Statement = "a.b = c.d",
+            TrueDecision = "DONE",
+            FalseDecision = ""
         };
         List<DefinedRule> rules = new List<DefinedRule>()
         {
             rule1,
-            rule2
+            rule2,
+            rule3 // This rule will fail validation - Missing False Decision
         };
 
         IRightRule rr = new RightRule.RightRule();
@@ -48,7 +58,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule1",
             Number = 1,
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE"
         };
         DefinedRule rule2 = new DefinedRule()
@@ -57,7 +67,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule2",
             Number = 2,
             Statement = "a.b = c.d",
-            Decision = "DONE",
+            TrueDecision = "DONE",
             FalseDecision = "NOT_DONE"
         };
 

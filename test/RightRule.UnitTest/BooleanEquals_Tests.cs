@@ -27,7 +27,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Statement = "Data.IsTrue = \"true\"",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood"
         };
 
@@ -48,7 +48,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Statement = "true = Data.IsTrue",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood"
         };
 
@@ -69,7 +69,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Statement = "true = true",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood"
         };
 
@@ -90,7 +90,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Statement = "false = false",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood"
         };
 
@@ -111,7 +111,7 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             Statement = "False = false",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood"
         };
 
@@ -132,7 +132,7 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals6",
             Number = 1,
             Context = "Context",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood",
             Statement = "false = \"False\""
         };
@@ -143,7 +143,7 @@ public class BooleanEquals_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule1.Decision, result.Decision);
+        Assert.Equal(rule1.TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -156,7 +156,7 @@ public class BooleanEquals_Tests
             Name = "BooleanEquals6",
             Number = 1,
             Context = "Context",
-            Decision = "Good",
+            TrueDecision = "Good",
             FalseDecision = "NotGood",
             Statement = "false = \"false\""
         };
@@ -167,6 +167,6 @@ public class BooleanEquals_Tests
         var result = rr.ApplyRule("Context");
 
         Assert.NotNull(result);
-        Assert.Equal(rule1.Decision, result.Decision);
+        Assert.Equal(rule1.TrueDecision, result.Decision);
     }
 }

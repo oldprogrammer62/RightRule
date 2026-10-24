@@ -13,7 +13,7 @@
 /// ANY
 /// All rules will be processed.
 /// The result attribute of each rule will indicate rule success.
-/// Each Rule will return either its true Decision details or False Decision details.
+/// Each Rule will return either its True Decision details or False Decision details.
 /// All rules applied will be returned.
 /// <br></br>
 /// ALL

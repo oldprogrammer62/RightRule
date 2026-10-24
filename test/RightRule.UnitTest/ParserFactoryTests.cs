@@ -32,7 +32,7 @@ public class ParserFactoryTests
             Name = "Adult customer",
             Context = "Customer",
             Statement = statement,
-            Decision = "Eligible",
+            TrueDecision = "Eligible",
             FalseDecision = "Not eligible"
         };
         var tokenizerFactory = new RecordingTokenizerFactory();

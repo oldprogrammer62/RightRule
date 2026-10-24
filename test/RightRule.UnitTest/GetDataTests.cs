@@ -71,7 +71,7 @@ namespace RightRuleTests
                 .Name("Name1")
                 .Context("Context")
                 .Statement("A = B")
-                .Decision("TRUE")
+                .TrueDecision("TRUE")
                 .FalseDecision("FALSE")
                 .Build();
 

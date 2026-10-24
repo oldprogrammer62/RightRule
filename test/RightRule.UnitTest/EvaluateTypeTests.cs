@@ -15,7 +15,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -36,7 +36,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 0")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -45,7 +45,7 @@ public class EvaluateTypeTests
             .Name("Name2")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello2")
+            .TrueDecision("Hello2")
             .FalseDecision("Goodbye2")
             .Build();
 
@@ -55,7 +55,7 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Single(result);
-        Assert.Equal(result[0].Decision, ruleDef2.Decision);
+        Assert.Equal(result[0].Decision, ruleDef2.TrueDecision);
     }
 
     [Fact]
@@ -68,7 +68,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 0")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -77,7 +77,7 @@ public class EvaluateTypeTests
             .Name("Name2")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello2")
+            .TrueDecision("Hello2")
             .FalseDecision("Goodbye2")
             .Build();
 
@@ -87,7 +87,7 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
         Assert.NotNull(result);
         Assert.Single(result);
-        Assert.Equal(result[0].Decision, ruleDef2.Decision);
+        Assert.Equal(result[0].Decision, ruleDef2.TrueDecision);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -109,7 +109,7 @@ public class EvaluateTypeTests
             .Name("Name2")
             .Context("Context")
             .Statement("1 = 0")
-            .Decision("Hello2")
+            .TrueDecision("Hello2")
             .FalseDecision("Goodbye2")
             .Build();
 
@@ -119,7 +119,7 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
-        Assert.Equal(result[0].Decision, ruleDef1.Decision);
+        Assert.Equal(result[0].Decision, ruleDef1.TrueDecision);
         Assert.Equal(result[1].Decision, ruleDef2.FalseDecision);
     }
 
@@ -133,7 +133,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -142,7 +142,7 @@ public class EvaluateTypeTests
             .Name("Name2")
             .Context("Context")
             .Statement("9 = 9")
-            .Decision("Hello2")
+            .TrueDecision("Hello2")
             .FalseDecision("Goodbye2")
             .Build();
 
@@ -152,8 +152,8 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
-        Assert.Equal(result[0].Decision, ruleDef1.Decision);
-        Assert.Equal(result[1].Decision, ruleDef2.Decision);
+        Assert.Equal(result[0].Decision, ruleDef1.TrueDecision);
+        Assert.Equal(result[1].Decision, ruleDef2.TrueDecision);
     }
 
     [Fact]
@@ -166,7 +166,7 @@ public class EvaluateTypeTests
             .Name("Name1")
             .Context("Context")
             .Statement("1 = 1")
-            .Decision("Hello")
+            .TrueDecision("Hello")
             .FalseDecision("Goodbye")
             .Build();
 
@@ -175,7 +175,7 @@ public class EvaluateTypeTests
             .Name("Name2")
             .Context("Context")
             .Statement("9 = 999")
-            .Decision("Hello2")
+            .TrueDecision("Hello2")
             .FalseDecision("Goodbye2")
             .Build();
 
@@ -185,6 +185,6 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Single(result);
-        Assert.Equal(result[0].Decision, rr.GetDefaultRule("Context").Decision);
+        Assert.Equal(result[0].Decision, rr.GetDefaultRule("Context").TrueDecision);
     }
 }

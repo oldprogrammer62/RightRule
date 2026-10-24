@@ -15,7 +15,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOT_SAME")
             .Build();
 
@@ -43,7 +43,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
 
@@ -73,7 +73,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
 

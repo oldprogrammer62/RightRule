@@ -22,14 +22,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = 100")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -45,14 +45,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = 100.001")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -68,14 +68,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \"100\"")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -91,14 +91,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \'C\'")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -114,14 +114,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = true")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -137,14 +137,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \"true\"")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -160,14 +160,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \"01/01/1970 12:12:12\"")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -183,14 +183,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \"01/01/1970\"")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -206,14 +206,14 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a = \"12:30:30\"")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -236,7 +236,7 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a in [1,2,3]")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
@@ -244,7 +244,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -267,7 +267,7 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a in [1.1,2.2,3.3]")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
@@ -275,7 +275,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -298,7 +298,7 @@ public class DataTypes_Tests
             .Name("Rule1")
             .Context("Context")
             .Statement("a in [\"1\",\"2\",\"3\"]")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
@@ -306,7 +306,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.Decision);
+        Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
 
     [Fact]
@@ -322,7 +322,7 @@ public class DataTypes_Tests
             Name = "Int In Value Rule",
             Statement = @"number in numbers",
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
 
@@ -342,7 +342,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -358,7 +358,7 @@ public class DataTypes_Tests
             Name = "Int In Value Rule",
             Statement = @"number in numbers",
             Context = "Context",
-            Decision = "EXISTS",
+            TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
 
@@ -377,7 +377,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
 
@@ -396,8 +396,8 @@ public class DataTypes_Tests
             Name = "String In Value Rule",
             Statement = @"value in values",
             Context = "Context",
-            Decision = "EXISTS",
-            DecisionData = "Hello $name.name World",
+            TrueDecision = "EXISTS",
+            TrueDecisionData = "Hello $name.name World",
             FalseDecision = "NOT_EXISTS",
             FalseDecisionData = "Goodbye Cruel $name.name World"
         };
@@ -422,7 +422,7 @@ public class DataTypes_Tests
         var appliedRule = rr.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
         Assert.DoesNotContain("$name.name", appliedRule.DecisionData.ToString());
     }
 }

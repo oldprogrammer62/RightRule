@@ -17,9 +17,9 @@ public static class Template
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'Decision': 'SUCCESS'");
+        json.Append("'TrueDecision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'DecisionData': '{}'");
+        json.Append("'TrueDecisionData': '{}'");
         json.Append(',');
         json.Append("'FalseDecision': 'FAIL'");
         json.Append(',');

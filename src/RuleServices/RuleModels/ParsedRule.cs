@@ -31,8 +31,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            Decision = ruleDefinition.Decision,
-            DecisionData = ruleDefinition.DecisionData,
+            TrueDecision = ruleDefinition.TrueDecision,
+            TrueDecisionData = ruleDefinition.TrueDecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.SUCCESS,
@@ -56,8 +56,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            Decision = ruleDefinition.Decision,
-            DecisionData = ruleDefinition.DecisionData,
+            TrueDecision = ruleDefinition.TrueDecision,
+            TrueDecisionData = ruleDefinition.TrueDecisionData,
             FalseDecision = ruleDefinition.FalseDecision,
             FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.FAILURE,
@@ -81,8 +81,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            Decision = ErrorRule.DECISIONWORD,
-            DecisionData = null,
+            TrueDecision = ErrorRule.DECISIONWORD,
+            TrueDecisionData = null,
             FalseDecision = ErrorRule.FALSEDECISIONWORD,
             FalseDecisionData = null,
             Status = RightRuleStatusEnum.ERROR,
@@ -100,8 +100,8 @@ public sealed class ParsedRule : RuleParsed
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"TrueDecision: {TrueDecision}");
+        sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"Status: {Status}");

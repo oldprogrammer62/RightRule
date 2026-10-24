@@ -48,7 +48,7 @@ public class OperatorUnloadTests
             Name = "Equals Value Rule",
             Statement = @"Test.value = 10",
             Context = "Context",
-            Decision = "VALUEEQUALS",
+            TrueDecision = "VALUEEQUALS",
             FalseDecision = "VALUEUNEQUALS"
         };
 
@@ -58,7 +58,7 @@ public class OperatorUnloadTests
 
         // Use EQUALS
         var appliedRuleBefore = rr.ApplyRule("Context");
-        Assert.Equal(rule.Decision, appliedRuleBefore.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRuleBefore.Decision);
 
         // Unload the "Equals" operator
         bool result = rr.UnloadOperator("Equals");

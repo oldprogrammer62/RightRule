@@ -16,7 +16,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 
@@ -25,7 +25,7 @@ public class RuleRegistrationTests
             .Name("Name2")
             .Context("Context2")
             .Statement("b = c")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 
@@ -49,7 +49,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 
@@ -58,7 +58,7 @@ public class RuleRegistrationTests
             .Name("Name2")
             .Context("Context2")
             .Statement("a = b")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 
@@ -82,7 +82,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 
@@ -91,7 +91,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context2")
             .Statement("a = b")
-            .Decision("Decision")
+            .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
 

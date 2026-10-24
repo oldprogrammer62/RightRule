@@ -17,7 +17,7 @@ public class SimpleTests
             .Name("Name")
             .Context(context)
             .Statement("a.a = 100")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
 
@@ -43,7 +43,7 @@ public class SimpleTests
             .Name("Name")
             .Context(context)
             .Statement("data.a = 100")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
 
@@ -62,7 +62,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
@@ -80,7 +80,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 2")
-            .Decision("SAME")
+            .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
@@ -98,7 +98,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
         var rule1Result = rr.RegisterRule(rule1);
@@ -108,7 +108,7 @@ public class SimpleTests
             .Name("TestRule2")
             .Context("TestContext")
             .Statement("1 <> 1 and 2 <> 3")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
         var rule2Result = rr.RegisterRule(rule2);
@@ -118,7 +118,7 @@ public class SimpleTests
             .Name("TestRule3")
             .Context("TestContext")
             .Statement("1 <>  and 2 <> 3")
-            .Decision("GOOD")
+            .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
         var rule3Result = rr.RegisterRule(rule3);

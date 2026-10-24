@@ -31,7 +31,7 @@ public class DoesNotContainTests
             Name = "Name Rule",
             Statement = @"Test.fullname doesnotcontain ""XXDoeXX""",
             Context = "NameContext",
-            Decision = "NAMEDECISION",
+            TrueDecision = "NAMEDECISION",
             FalseDecision = "FALSEDECISION"
         };
 
@@ -41,7 +41,7 @@ public class DoesNotContainTests
 
         var appliedRule = rr.ApplyRule("NameContext");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class DoesNotContainTests
             Name = "Name Rule",
             Statement = @"Test.fullname notc ""Doe""",
             Context = "NameContext",
-            Decision = "NAMEDECISION",
+            TrueDecision = "NAMEDECISION",
             FalseDecision = "FALSEDECISION"
         };
 

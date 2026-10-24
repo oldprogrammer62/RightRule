@@ -27,7 +27,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"Test.stringvalue equals ""A_String""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -37,7 +37,7 @@ public class LiteralTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public class LiteralTests
             Name = "Equals Literal Number Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -60,7 +60,7 @@ public class LiteralTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"""A_String"" equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -89,7 +89,7 @@ public class LiteralTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class LiteralTests
             Name = "Equals Literal Number Rule",
             Statement = @"100 equals 100",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -112,7 +112,7 @@ public class LiteralTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -130,7 +130,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"Test.stringvalue equals Arguments.string",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -141,6 +141,6 @@ public class LiteralTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 }

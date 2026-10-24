@@ -30,7 +30,7 @@ public class ApplyRuleWithDatasetTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
-            Decision = "GOODRULE1",
+            TrueDecision = "GOODRULE1",
             FalseDecision = "BADRULE1"
         };
 
@@ -41,7 +41,7 @@ public class ApplyRuleWithDatasetTests
             Name = "Name Rule",
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "GOODRULE2",
+            TrueDecision = "GOODRULE2",
             FalseDecision = "BADRULE2"
         };
 
@@ -52,7 +52,7 @@ public class ApplyRuleWithDatasetTests
             Name = "Name Rule",
             Statement = @"XXTest.surname equals ""Doe""",
             Context = "AllContext",
-            Decision = "GOODRULE3",
+            TrueDecision = "GOODRULE3",
             FalseDecision = "BADRULE3"
         };
     }
@@ -66,7 +66,7 @@ public class ApplyRuleWithDatasetTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class ApplyRuleWithDatasetTests
 
         var appliedRule = rr.ApplyRule("AllContext");
 
-        Assert.Equal(appliedRule.Decision, rule1.Decision);
+        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
 
     [Fact]

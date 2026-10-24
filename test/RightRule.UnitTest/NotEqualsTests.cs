@@ -31,7 +31,7 @@ public class NotEqualsTests
             Name = "NotEquals Bool Value Rule",
             Statement = @"Test.boolvalue notequals true",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -41,7 +41,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class NotEqualsTests
             Name = "NotEquals Int Value Rule",
             Statement = @"Test.intvalue notequals 100",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -64,7 +64,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -77,7 +77,7 @@ public class NotEqualsTests
             Name = "NotEquals Float Value Rule",
             Statement = @"Test.floatvalue notequals 100.01",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -87,7 +87,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class NotEqualsTests
             Name = "NotEquals String Value Rule",
             Statement = @"Test.stringvalue notequals ""Hello World""",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -110,7 +110,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public class NotEqualsTests
             Name = "NotEquals Date Only Value Rule",
             Statement = @$"Test.datevalue notequals ""{date}""",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -135,7 +135,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -150,7 +150,7 @@ public class NotEqualsTests
             Name = "NotEquals Date Time Value Rule",
             Statement = @$"Test.datetimevalue notequals ""{date}""",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
 
@@ -160,7 +160,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -173,7 +173,7 @@ public class NotEqualsTests
             Name = "NotNotEquals Bool Value Rule",
             Statement = @"not Test.boolvalue equals true",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
         IRightRule rr = new RightRule.RightRule();
@@ -182,7 +182,7 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -195,7 +195,7 @@ public class NotEqualsTests
             Name = "Not Equals Bool Value Rule",
             Statement = @"Test.boolvalue equals false and not Test.intvalue = 100",
             Context = "Context",
-            Decision = "NOTEQUALS",
+            TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
         IRightRule rr = new RightRule.RightRule();
@@ -204,6 +204,6 @@ public class NotEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 }

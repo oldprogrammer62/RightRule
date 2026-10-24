@@ -11,8 +11,8 @@ namespace RightRule.RuleServices.RuleModels;
 /// <para>Context: Binds the Rule to a specific event context defined in code.</para>
 /// <para>Statement: The logic of the Rule, evaluated to determine if the rule is true or false. The statement must conform to the RightRule statement syntax.</para>
 /// <para>OptionalData: Optional data that will be passed to the Operator when evaluating the Rule. It is the responsibility of the Operator to validate the configuration details and use it as required.</para>
-/// <para>Decision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
-/// <para>DecisionData: Optional data returned when the Rule is evaluated to true. Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.</para>
+/// <para>TrueDecision: String value returned if the Rule evaluates to True. Note: the calling application should handle all possible decision strings for the specified Context.</para>
+/// <para>TrueDecisionData: Optional data returned when the Rule is evaluated to true. Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.</para>
 /// </summary> 
 public sealed class DefinedRule : RuleDefinition
 {
@@ -25,7 +25,7 @@ public sealed class DefinedRule : RuleDefinition
         return ruleRegistrationService.RegisterRule(this);
     }
 
-    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string Decision, object? DecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData)
+    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string TrueDecision, object? TrueDecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData)
     {
         return new DefinedRule()
         {
@@ -33,8 +33,8 @@ public sealed class DefinedRule : RuleDefinition
             Name = Name,
             Context = Context,
             Statement = Statement,
-            Decision = Decision,
-            DecisionData = DecisionData,
+            TrueDecision = TrueDecision,
+            TrueDecisionData = TrueDecisionData,
             FalseDecision = FalseDecision,
             FalseDecisionData = FalseDecisionData,
             OptionalData = OptionalData
@@ -48,8 +48,8 @@ public sealed class DefinedRule : RuleDefinition
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"TrueDecision: {TrueDecision}");
+        sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"OptionalData: {OptionalData}");

@@ -14,7 +14,7 @@ namespace RightRule_Demo.RuleLoader
                 .Name("Rule10")
                 .Context("Context")
                 .Statement("a = b")
-                .Decision("GOOD")
+                .TrueDecision("GOOD")
                 .FalseDecision("BAD")
                 .Build(),
 
@@ -23,7 +23,7 @@ namespace RightRule_Demo.RuleLoader
                 .Name("Rule11")
                 .Context("Context")
                 .Statement("a = b")
-                .Decision("GOOD")
+                .TrueDecision("GOOD")
                 .FalseDecision("BAD")
                 .Build(),
 
@@ -33,8 +33,8 @@ namespace RightRule_Demo.RuleLoader
                     Number = 1,
                     Name = "New Customer Rule - Exact Prize Value Order",
                     Statement = "Demo.NewCust = true and Demo.OrderValue equals 750",
-                    Decision = "NEWCUST_EXACT_PRIZEVALUE",
-                    DecisionData = "{discount: 50, unit: '%'}",
+                    TrueDecision = "NEWCUST_EXACT_PRIZEVALUE",
+                    TrueDecisionData = "{discount: 50, unit: '%'}",
                     FalseDecision = "False Decision"
                 },
                 new DefinedRule
@@ -43,8 +43,8 @@ namespace RightRule_Demo.RuleLoader
                     Number = 2,
                     Name = "New Customer Rule - Low Value Order",
                     Statement = "Demo.NewCust = true and Demo.OrderValue >= 0 and Demo.OrderValue < hv.value",
-                    Decision = "NEWCUST_LOWVALUE",
-                    DecisionData = "{discount: 5, unit: '%'}",
+                    TrueDecision = "NEWCUST_LOWVALUE",
+                    TrueDecisionData = "{discount: 5, unit: '%'}",
                     FalseDecision = "False Decision"
                 },
                 new DefinedRule
@@ -53,8 +53,8 @@ namespace RightRule_Demo.RuleLoader
                     Number = 3,
                     Name = "New Customer Rule - High Value Order",
                     Statement = "Demo.NewCust = true and Demo.OrderValue >= hv.value",
-                    Decision = "NEWCUST_HIGHVALUE",
-                    DecisionData = "{discount: 20, unit: '%'}",
+                    TrueDecision = "NEWCUST_HIGHVALUE",
+                    TrueDecisionData = "{discount: 20, unit: '%'}",
                     FalseDecision = "False Decision"
                 },
                 new DefinedRule
@@ -63,8 +63,8 @@ namespace RightRule_Demo.RuleLoader
                     Number = 4,
                     Name = "Existing Customer Rule - Low Value Order",
                     Statement = "Demo.NewCust = false and Demo.OrderValue >= 0 and Demo.OrderValue < hv.value",
-                    Decision = "EXISTINGCUST_LOWVALUE",
-                    DecisionData = "{discount: 15, unit: '%'}",
+                    TrueDecision = "EXISTINGCUST_LOWVALUE",
+                    TrueDecisionData = "{discount: 15, unit: '%'}",
                     FalseDecision = "False Decision"
                 },
                 new DefinedRule
@@ -73,8 +73,8 @@ namespace RightRule_Demo.RuleLoader
                     Number = 5,
                     Name = "Existing Customer Rule - High Value Order",
                     Statement = "Demo.NewCust = false and Demo.OrderValue >= hv.value",
-                    Decision = "EXISTINGCUST_HIGHVALUE",
-                    DecisionData = "{discount: 25, unit: '%'}",
+                    TrueDecision = "EXISTINGCUST_HIGHVALUE",
+                    TrueDecisionData = "{discount: 25, unit: '%'}",
                     FalseDecision = "False Decision"
                 }
             };

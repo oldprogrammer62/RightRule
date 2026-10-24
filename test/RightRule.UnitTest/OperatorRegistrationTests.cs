@@ -120,7 +120,7 @@ public class OperatorRegistrationTests
            .Name("BiggerThanRule")
            .Context("TestContext")
            .Statement("left IsBiggerThan right")
-           .Decision("Success")
+           .TrueDecision("Success")
            .FalseDecision("Failure")
            .Build()
            .Register(rr.RuleService);
@@ -129,7 +129,7 @@ public class OperatorRegistrationTests
         var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
 
-        Assert.Equal(rule!.RegisteredRule!.Decision, result.Decision);
+        Assert.Equal(rule!.RegisteredRule!.TrueDecision, result.Decision);
     }
 }
 

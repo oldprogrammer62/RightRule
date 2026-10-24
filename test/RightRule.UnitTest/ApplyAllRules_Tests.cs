@@ -29,7 +29,7 @@ public class ApplyAllRules_Tests
             Number = 1,
             Name = "Name",
             Statement = "x = 20",
-            Decision = "BAD",
+            TrueDecision = "BAD",
             FalseDecision = "BAD"
         };
 
@@ -39,7 +39,7 @@ public class ApplyAllRules_Tests
             Number = 2,
             Name = "Name2",
             Statement = "xdata.x = 10",
-            Decision = "GOOD",
+            TrueDecision = "GOOD",
             FalseDecision = "BAD"
         };
 

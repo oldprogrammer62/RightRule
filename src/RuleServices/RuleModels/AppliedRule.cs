@@ -22,8 +22,8 @@ public sealed class AppliedRule : RuleApplied
             Context = parsedRule.Context,
             Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
-            Decision = parsedRule.Decision,
-            DecisionData = parsedRule.DecisionData,
+            TrueDecision = parsedRule.TrueDecision,
+            TrueDecisionData = parsedRule.TrueDecisionData,
             FalseDecision = parsedRule.FalseDecision,
             FalseDecisionData = parsedRule.FalseDecisionData,
             Success = result.Success,
@@ -41,8 +41,8 @@ public sealed class AppliedRule : RuleApplied
             Context = parsedRule.Context,
             Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
-            Decision = parsedRule.Decision,
-            DecisionData = parsedRule.DecisionData,
+            TrueDecision = parsedRule.TrueDecision,
+            TrueDecisionData = parsedRule.TrueDecisionData,
             FalseDecision = parsedRule.FalseDecision,
             FalseDecisionData = parsedRule.FalseDecisionData,
             Success = result.Success,
@@ -61,8 +61,8 @@ public sealed class AppliedRule : RuleApplied
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
+        sb.AppendLine($"TrueDecision: {TrueDecision}");
+        sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
         sb.AppendLine($"FalseDecision: {FalseDecision}");
         sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"Success: {Success}");

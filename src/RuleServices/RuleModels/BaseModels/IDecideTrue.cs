@@ -2,6 +2,6 @@
 
 public interface IDecideTrue
 {
-    string Decision { get; }
-    object? DecisionData { get; }
+    string TrueDecision { get; }
+    object? TrueDecisionData { get; }
 }

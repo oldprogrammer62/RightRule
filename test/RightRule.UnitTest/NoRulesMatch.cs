@@ -28,7 +28,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
@@ -37,7 +37,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
 
@@ -47,7 +47,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule1.Decision, appliedRule.Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
@@ -69,7 +69,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT_EQUALS100"
         };
 
@@ -80,7 +80,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule2.Decision, appliedRule.Decision);
+        Assert.Equal(rule2.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -93,7 +93,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -116,7 +116,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
         DefinedRule rule2 = new()
@@ -125,7 +125,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -149,7 +149,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
@@ -158,7 +158,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
 
@@ -169,7 +169,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
-        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -182,7 +182,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
@@ -191,7 +191,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT_EQUALS100"
         };
 
@@ -202,7 +202,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
-        Assert.Equal(rule2.Decision, appliedRules[0].Decision);
+        Assert.Equal(rule2.TrueDecision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -215,7 +215,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
@@ -224,7 +224,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
-            Decision = "EQUALS102",
+            TrueDecision = "EQUALS102",
             FalseDecision = "NOT_EQUALS102"
         };
 
@@ -248,7 +248,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
@@ -257,7 +257,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
 
@@ -268,7 +268,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -281,7 +281,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100_1",
+            TrueDecision = "EQUALS100_1",
             FalseDecision = "NOT_EQUALS100_1"
         };
         DefinedRule rule2 = new()
@@ -290,7 +290,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100_2",
+            TrueDecision = "EQUALS100_2",
             FalseDecision = "NOT_EQUALS100_2"
         };
 
@@ -301,8 +301,8 @@ public class NoRulesMatch
 
         var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
-        Assert.Equal(rule2.Decision, appliedRules[1].Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
+        Assert.Equal(rule2.TrueDecision, appliedRules[1].Decision);
     }
 
     [Fact]
@@ -315,7 +315,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            Decision = "EQUALS101",
+            TrueDecision = "EQUALS101",
             FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
@@ -324,7 +324,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
-            Decision = "EQUALS102",
+            TrueDecision = "EQUALS102",
             FalseDecision = "NOT_EQUALS102"
         };
 

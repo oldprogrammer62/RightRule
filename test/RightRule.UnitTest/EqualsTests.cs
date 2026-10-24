@@ -41,8 +41,8 @@ public class EqualsTests
             Statement = @"Test.boolvalue equals true",
             Context = "Context",
             OptionalData = null,
-            Decision = "EQUALS",
-            DecisionData = null,
+            TrueDecision = "EQUALS",
+            TrueDecisionData = null,
             FalseDecision = "NOT EQUALS"
         };
 
@@ -51,7 +51,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 100.00",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -74,7 +74,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -87,7 +87,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -97,7 +97,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -120,7 +120,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -133,7 +133,7 @@ public class EqualsTests
             Name = "Equals Float Value Rule",
             Statement = @"Test.floatvalue equals 100.01",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -143,7 +143,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -156,7 +156,7 @@ public class EqualsTests
             Name = "Equals String Value Rule",
             Statement = @"Test.stringvalue equals ""Hello World""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -166,7 +166,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -181,7 +181,7 @@ public class EqualsTests
             Name = "Equals Date Only Value Rule",
             Statement = @$"Test.datevalue equals ""{date}""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -191,7 +191,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -206,7 +206,7 @@ public class EqualsTests
             Name = "Equals Date Time Value Rule",
             Statement = @$"Test.datetimevalue equals ""{date}""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT EQUALS"
         };
 
@@ -216,7 +216,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -235,7 +235,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT EQUALS100"
         };
         // Rule
@@ -245,7 +245,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
-            Decision = "EQUALS200",
+            TrueDecision = "EQUALS200",
             FalseDecision = "NOT EQUALS200"
         };
 
@@ -256,7 +256,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule1.Decision, appliedRule.Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -275,7 +275,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule1",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT EQUALS100"
         };
         // Rule
@@ -285,7 +285,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule2",
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
-            Decision = "EQUALS200",
+            TrueDecision = "EQUALS200",
             FalseDecision = "NOT EQUALS200"
         };
 
@@ -296,7 +296,7 @@ public class EqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule2.Decision, appliedRule.Decision);
+        Assert.Equal(rule2.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -315,7 +315,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            Decision = "EQUALS100",
+            TrueDecision = "EQUALS100",
             FalseDecision = "NOT EQUALS100"
         };
         // Rule
@@ -325,7 +325,7 @@ public class EqualsTests
             Name = "Equals Int Value Rule",
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
-            Decision = "EQUALS200",
+            TrueDecision = "EQUALS200",
             FalseDecision = "NOT EQUALS200"
         };
 

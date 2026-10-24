@@ -18,10 +18,10 @@ switch (decision)
 }
 
 RightRule provides a way for you to get richer data back when it makes a decision.
-This is in the field called: DecisionData.
+This is in the field called: TrueDecisionData.
 
 DecisionData is configured for both success and failure results.
-For success, the rule definition includes DecisionData.
+For success, the rule definition includes TrueDecisionData.
 For failure, the rule definition includes FalseDecisionData.
 
 When a rule is applied the appropriate decision data will be returned.

@@ -30,7 +30,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Int Value Rule",
             Statement = @"Test.intvalue greaterthanorequals 10.00",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 
@@ -40,7 +40,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Int Value Rule",
             Statement = @"Test.intvalue greaterthanorequals 10",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
+            TrueDecision = "GREATERTHANOREQUALS",
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
@@ -63,7 +63,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Equals Int Value Rule",
             Statement = @"Test.intvalue greaterthanorequals 100",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
+            TrueDecision = "GREATERTHANOREQUALS",
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
@@ -86,7 +86,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Float Value Rule",
             Statement = @"Test.floatvalue greaterthanorequals 99.9",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
+            TrueDecision = "GREATERTHANOREQUALS",
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
@@ -109,7 +109,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -122,7 +122,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Equals Float Value Rule",
             Statement = @"Test.floatvalue greaterthanorequals 100.01",
             Context = "Context",
-            Decision = "GREATERTHANOREQUALS",
+            TrueDecision = "GREATERTHANOREQUALS",
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
@@ -132,7 +132,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class GreaterThanOrEqualsTests
             Name = "Less Than Date Only Value Rule",
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 
@@ -157,7 +157,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -172,7 +172,7 @@ public class GreaterThanOrEqualsTests
             Name = "Less Than Date Only Value Rule",
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -182,7 +182,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -197,7 +197,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Datetime Value Rule",
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 
@@ -207,7 +207,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -222,7 +222,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Datetime Value Rule",
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 
@@ -232,7 +232,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -247,7 +247,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Datetime Value Rule",
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
-            Decision = "EQUALS",
+            TrueDecision = "EQUALS",
             FalseDecision = "NOT_EQUALS"
         };
 
@@ -257,7 +257,7 @@ public class GreaterThanOrEqualsTests
 
         var appliedRule = rr.ApplyRule("Context");
 
-        Assert.Equal(rule.Decision, appliedRule.Decision);
+        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
 
     [Fact]
@@ -270,7 +270,7 @@ public class GreaterThanOrEqualsTests
             Name = "Not Greater Than Value Rule",
             Statement = @"Test.intvalue greaterthanorequals 1010",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 
@@ -293,7 +293,7 @@ public class GreaterThanOrEqualsTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.intvalue >== 10",
             Context = "Context",
-            Decision = "GREATERTHAN",
+            TrueDecision = "GREATERTHAN",
             FalseDecision = "NOT_GREATERTHAN"
         };
 

@@ -38,7 +38,7 @@ internal sealed partial class RightRuleService : IRightRuleService
     {
         var decisionData = rule.Result switch
         {
-            true => InterpolatorService.Interpolate(rule.DecisionData),
+            true => InterpolatorService.Interpolate(rule.TrueDecisionData),
             false => InterpolatorService.Interpolate(rule.FalseDecisionData)
         };
         return decisionData;
