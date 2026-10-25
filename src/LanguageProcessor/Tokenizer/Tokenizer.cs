@@ -281,7 +281,7 @@ internal sealed class Tokenizer : ITokenizer
 
     private bool IsValidData(string DatasetName)
     {
-        return _dataValidator.IsValidDataIdentifier(_dataService, DatasetName);
+        return _dataValidator.IsDataIdentifier(_dataService, DatasetName);
     }
 
     private void SkipWhitespace()

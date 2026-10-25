@@ -3,7 +3,7 @@ using RightRule.RuleServices.RuleLoader;
 
 namespace RightRule.Factories.RuleLoaderFactory;
 
-internal sealed class RuleLoaderFactory
+internal sealed class RuleLoaderFactory : IRuleLoaderFactory
 {
     private readonly IRightRule _rightRule;
 

@@ -8,16 +8,16 @@ internal sealed class DataValidatorService : IDataValidatorService
     {
     }
 
-    public bool IsValidDataIdentifier(IDataService DataService, string DataIdentifier)
+    public bool IsDataIdentifier(IDataService DataService, string DataIdentifier)
     {
         if (DataIdentifier.Contains('.')) // dotted
         {
-            return IsValidDataDotted(DataService, DataIdentifier);
+            return DataDotted(DataService, DataIdentifier);
         }
-        return IsValidDataNotDotted(DataService, DataIdentifier);
+        return DataNotDotted(DataService, DataIdentifier);
     }
 
-    private bool IsValidDataNotDotted(IDataService DataService, string DataIdentifier)
+    private bool DataNotDotted(IDataService DataService, string DataIdentifier)
     {
         var ds = GetDataSet(DataService, DataIdentifier);
         if (ds == null)
@@ -25,20 +25,24 @@ internal sealed class DataValidatorService : IDataValidatorService
             return false;
         }
         var dataItemNames = DataService.GetDataItemNames(ds);
+        if (dataItemNames is null)
+        {
+            return false;
+        }
         return (dataItemNames.Contains(DataIdentifier));
     }
 
-    private bool IsValidDataDotted(IDataService DataService, string DataIdentifier)
+    private bool DataDotted(IDataService DataService, string DataIdentifier)
     {
         var parts = DataIdentifier.Split('.');
         if (parts != null && parts.Length == 2)
         {
-            return IsValidDataItem(DataService, parts[0], parts[1]);
+            return ValidDataItem(DataService, parts[0], parts[1]);
         }
         return false;
     }
 
-    private bool IsValidDataItem(IDataService DataService, string DatasetName, string DataItemName)
+    private bool ValidDataItem(IDataService DataService, string DatasetName, string DataItemName)
     {
         var ds = DataService.GetDataset(DatasetName);
         if (ds == null)
@@ -46,15 +50,19 @@ internal sealed class DataValidatorService : IDataValidatorService
             return false;
         }
         var dataItemNames = DataService.GetDataItemNames(ds);
+        if (dataItemNames is null)
+        {
+            return false;
+        }
         return dataItemNames.Contains(DataItemName);
     }
 
-    private Dataset? IsValidDataset(IDataService DataService, string DatasetName)
+    private Dataset? ValidDataset(IDataService DataService, string DatasetName)
     {
         return GetDataSet(DataService, DatasetName);
     }
 
-    private Dataset? GetDataSet(IDataService DataService, string DatasetName)
+    private static Dataset? GetDataSet(IDataService DataService, string DatasetName)
     {
         if (string.IsNullOrWhiteSpace(DatasetName))
         {

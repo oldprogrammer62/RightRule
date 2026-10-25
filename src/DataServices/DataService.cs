@@ -2,6 +2,7 @@
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataValidator;
 using System.ComponentModel;
+using System.Data;
 
 namespace RightRule.DataServices;
 
@@ -40,7 +41,7 @@ internal sealed class DataService : IDataService
 
     public bool IsValidDataIdentifier(string DataIdentifier)
     {
-        return _DataValidator.IsValidDataIdentifier(this, DataIdentifier);
+        return _DataValidator.IsDataIdentifier(this, DataIdentifier);
     }
 
     public List<string>? GetDataItemNames(string DatasetName)
@@ -48,7 +49,7 @@ internal sealed class DataService : IDataService
         var dataset = GetDataset(DatasetName);
         if (dataset == null)
         {
-            return new List<string>();
+            return [];
         }
         return GetDataItemNames(dataset);
     }
@@ -58,9 +59,9 @@ internal sealed class DataService : IDataService
         var names = Dataset.DataItemNames;
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            var countOfNames = names?.Count ?? 0;
-            var datasetName = Dataset.DatasetName;
-            _logger.LogInformation("{countOfNames} DataItem Names found in {dataset}", countOfNames, datasetName);
+            _logger.LogDebug("{CountOfNames} DataItem Names found in {DatasetName}",
+                names?.Count ?? 0,
+                Dataset.DatasetName);
         }
         return names;
     }
@@ -85,7 +86,7 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            _logger.LogInformation("{DatasetName} deregistered", DatasetName);
+            _logger.LogDebug("{DatasetName} deregistered", DatasetName);
         }
     }
 
@@ -96,7 +97,7 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            _logger.LogInformation("{DatasetName} created", DatasetName);
+            _logger.LogDebug("{DatasetName} created", DatasetName);
         }
 
         return dataset;
@@ -115,9 +116,8 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            var countOfData = DataItems.Count;
-            _logger.LogInformation("Dictionary Data. {countOfData} Data Items added to {DatasetName}",
-                    countOfData,
+            _logger.LogDebug("Dictionary Data. {CountOfData} Data Items added to {DatasetName}",
+                    DataItems?.Count ?? 0,
                     DatasetName);
         }
 
@@ -137,9 +137,8 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            var countOfData = 1;
             _logger.LogInformation("(string,object) Data. {countOfData} Data Item added to {DatasetName}",
-                    countOfData,
+                    1,
                     DatasetName);
         }
 
@@ -159,9 +158,8 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            var countOfData = DataItems.Count;
-            _logger.LogInformation("List<(string,object)> Data. {countOfData} Data Items added to {DatasetName}",
-                    countOfData,
+            _logger.LogInformation("List<(string,object)> Data. {CountOfData} Data Items added to {DatasetName}",
+                    DataItems?.Count ?? 0,
                     DatasetName);
         }
 
@@ -181,9 +179,8 @@ internal sealed class DataService : IDataService
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
-            var countOfData = 1;
-            _logger.LogInformation("Simple Variable. {countOfData} Data Item added to {DatasetName}",
-                    countOfData,
+            _logger.LogInformation("Simple Variable. {CountOfData} Data Item added to {DatasetName}",
+                    1,
                     DatasetName);
         }
 
