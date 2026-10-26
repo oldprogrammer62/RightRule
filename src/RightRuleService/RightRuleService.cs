@@ -8,6 +8,7 @@ using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
+using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common.Operator.Models;
 using System.ComponentModel;
@@ -22,6 +23,7 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
     private readonly IStatementSyntaxChecker StatementSyntaxChecker;
     private readonly IRuleApplicationService RuleApplicationService;
     private readonly IInterpolatorService InterpolatorService;
+    private readonly IRuleLoaderService ruleLoaderService;
     private readonly ILogger<RightRuleService> Logger;
 
     public IDataAdaptorService? DataAdaptorService { get; }
@@ -48,6 +50,7 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
         IRuleApplicationService ruleApplicationService,
         IDataAdaptorService dataProviderService,
         IInterpolatorService transformerService,
+        IRuleLoaderService ruleLoaderService,
         ILogger<RightRuleService> logger
         )
     {
@@ -59,6 +62,7 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
         RuleApplicationService = ruleApplicationService;
         DataAdaptorService = dataProviderService;
         InterpolatorService = transformerService;
+        this.ruleLoaderService = ruleLoaderService;
         Logger = logger;
     }
 

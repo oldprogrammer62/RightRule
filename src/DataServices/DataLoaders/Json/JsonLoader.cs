@@ -1,16 +1,13 @@
 ﻿using Newtonsoft.Json;
-using RightRule.RuleServices.RuleLoader;
+using RightRule.Factories.RuleLoaderFactory;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.DataServices.DataLoaders.Json;
 
 internal sealed class JsonLoader : IRuleLoader
 {
-    private readonly IRightRule _rightRule;
-
-    public JsonLoader(IRightRule rightRule)
+    public JsonLoader()
     {
-        _rightRule = rightRule;
     }
 
     public List<DefinedRule>? LoadFromJson(string JsonData)

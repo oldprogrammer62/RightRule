@@ -59,7 +59,7 @@ internal sealed partial class RightRuleService : IRightRuleService
 
     public List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string JsonData)
     {
-        var ruleDefn = RuleLoaderService.LoadRulesFromJson(RightRule, JsonData);
+        var ruleDefn = ruleLoaderService.LoadRulesFromJson(JsonData);
         if (ruleDefn == null)
         {
             return [RuleRegistrationResult.Failed("Rule Definitions not build from Json")];

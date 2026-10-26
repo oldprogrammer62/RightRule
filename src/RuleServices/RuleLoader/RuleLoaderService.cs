@@ -1,26 +1,32 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule.Factories.RuleLoaderFactory;
+using RightRule.RuleServices.RuleModels;
 
 namespace RightRule.RuleServices.RuleLoader;
 
-internal static class RuleLoaderService
+internal class RuleLoaderService : IRuleLoaderService
 {
-    public static List<DefinedRule>? LoadRulesFromJson(IRightRule RightRule, string JsonData)
+    private readonly IRuleLoaderFactory _ruleLoaderFactory;
+
+    public RuleLoaderService(IRuleLoaderFactory ruleLoaderFactory)
+    {
+        _ruleLoaderFactory = ruleLoaderFactory;
+    }
+
+    public List<DefinedRule>? LoadRulesFromJson(string JsonData)
     {
         string loaderType = "JSON";
-        var loader = GetLoader(RightRule, loaderType);
+        var loader = GetLoader(loaderType);
         if (loader == null)
         {
-            return null;
+            return [];
         }
-
         var rules = loader.LoadFromJson(JsonData);
         return rules;
     }
 
-    private static IRuleLoader GetLoader(IRightRule RightRule, string LoaderType)
+    private IRuleLoader? GetLoader(string LoaderType)
     {
-        var loaderFactory = new Factories.RuleLoaderFactory.RuleLoaderFactory(RightRule);
-        var loader = loaderFactory.BuildLoader(LoaderType);
+        var loader = _ruleLoaderFactory.BuildLoader(LoaderType);
         return loader;
     }
 }

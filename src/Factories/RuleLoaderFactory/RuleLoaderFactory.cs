@@ -1,24 +1,28 @@
-﻿using RightRule.DataServices.DataLoaders.Json;
-using RightRule.RuleServices.RuleLoader;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.DataServices.DataLoaders.Json;
 
 namespace RightRule.Factories.RuleLoaderFactory;
 
 internal sealed class RuleLoaderFactory : IRuleLoaderFactory
 {
-    private readonly IRightRule _rightRule;
+    private readonly ILogger<RuleLoaderFactory> _logger;
 
-    public RuleLoaderFactory(IRightRule rightRule)
+    public RuleLoaderFactory(ILogger<RuleLoaderFactory> logger)
     {
-        _rightRule = rightRule;
+        _logger = logger;
     }
 
-    public IRuleLoader BuildLoader(string LoaderType)
+    public IRuleLoader? BuildLoader(string LoaderType)
     {
-        switch (LoaderType)
+        switch (LoaderType.ToUpper())
         {
             case "JSON":
-                return new JsonLoader(_rightRule);
+                return new JsonLoader();
         }
-        throw new NotImplementedException($"Not Implemented: {LoaderType}");
+        if (_logger.IsEnabled(LogLevel.Error))
+        {
+            _logger.LogError("{LoaderType} - Not available", LoaderType);
+        }
+        return null;
     }
 }

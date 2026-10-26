@@ -1,5 +1,8 @@
-﻿using RightRule;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
+using RightRule;
 using RightRule.DataServices.DataLoaders.Json;
+using RightRule.Factories.RuleLoaderFactory;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;
@@ -12,8 +15,9 @@ public class LoaderJSON_Tests
     public void Json_Load_Test()
     {
         IRightRule rr = new RightRule.RightRule();
+        ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
 
-        RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory? loaderFactory = new RightRule.Factories.RuleLoaderFactory.RuleLoaderFactory(rr);
+        RuleLoaderFactory? loaderFactory = new RuleLoaderFactory(logger);
 
         var loader = loaderFactory.BuildLoader("JSON");
         Assert.NotNull(loader);

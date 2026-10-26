@@ -1,8 +1,8 @@
 ﻿using RightRule.RuleServices.RuleModels;
 
-namespace RightRule.RuleServices.RuleLoader;
+namespace RightRule.Factories.RuleLoaderFactory;
 
-public interface IRuleLoader
+internal interface IRuleLoader
 {
     List<DefinedRule>? LoadFromJson(string JsonData);
 }
