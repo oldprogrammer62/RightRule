@@ -49,6 +49,11 @@ internal sealed class Evaluator : IEvaluator
             }
             catch (Exception ex)
             {
+                if (_logger.IsEnabled(LogLevel.Error))
+                {
+                    var statement = Rule.Statement;
+                    _logger.LogError(ex, "Error occurred while evaluating condition - Statement: {Statement}", statement);
+                }
                 return EvaluationResult.ErrorResult(ex.Message);
             }
         });
@@ -123,7 +128,10 @@ internal sealed class Evaluator : IEvaluator
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred while evaluating condition");
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError(ex, "Error occurred while evaluating condition");
+            }
             return OperatorResult.FailureResult(op, ex.Message);
         }
     }
@@ -133,8 +141,11 @@ internal sealed class Evaluator : IEvaluator
         var op = _operatorService.OperatorAliases.FirstOrDefault(x => x.Key == LogicOperator).Value;
         if (op == default)
         {
-            var message = $"Unknown operator: {LogicOperator}";
-            _logger.LogError(message);
+            string message = $"Unknown operator: {LogicOperator}";
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError(message);
+            }
             return OperatorResult.FailureResult(LogicOperator, message);
         }
 

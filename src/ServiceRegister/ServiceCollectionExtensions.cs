@@ -5,8 +5,11 @@ namespace RightRule.ServiceRegister;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRightRule(this IServiceCollection services,
-        Action<RightRuleOptions>? configure = null)
+    public static IServiceCollection AddRightRule
+        (
+        this IServiceCollection services,
+        Action<RightRuleOptions>? configure = null
+        )
     {
         ArgumentNullException.ThrowIfNull(services);
 

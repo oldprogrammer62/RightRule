@@ -4,34 +4,49 @@ using System.Text;
 
 namespace RightRuleLogger;
 
-public sealed class RightRuleLogger<TCategoryName> : RightRuleLogger, ILogger<TCategoryName>
+public sealed class RightRuleLogger<TCategoryName> : 
+    RightRuleLogger, 
+    ILogger<TCategoryName>
 {
 }
 
 public class RightRuleLogger : ILogger
 {
     private readonly string _categoryName = "RightRule";
+    private const string _DEFAULTCATEGORY = "rightrule";
+
     private readonly string _filePath;
     private const string _DEFAULTFILEPATH = "rightrulelogs\\";
     private const string _DEFAULTFILENAME = "rightrule.log";
 
     private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1,1);
 
-    public RightRuleLogger()
+    public RightRuleLogger() :
+        this(_DEFAULTCATEGORY)
     {
-        IConfiguration configuration = new ConfigurationBuilder()
+    }
+
+    public RightRuleLogger(string categoryName) : 
+        this(categoryName, new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false)
-            .Build();
-        _filePath = MakeFilePath(configuration);
-    }
-
-    public RightRuleLogger(IConfiguration? configuration, string catgoryName)
+            .Build()
+        )
     {
+    }
+
+    public RightRuleLogger(IConfiguration? configuration) :
+        this(_DEFAULTCATEGORY, configuration)
+    {
+    }
+
+    public RightRuleLogger(string categoryName, IConfiguration? configuration)
+    {
+        _categoryName = categoryName;
         _filePath = MakeFilePath(configuration);
     }
 
-    private string MakeFilePath(IConfiguration? configuration)
+    private static string MakeFilePath(IConfiguration? configuration)
     {
         var filePath = configuration?["File:FilePath"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
         var fileName = configuration?["File:FileName"] ?? _DEFAULTFILENAME;
@@ -59,6 +74,7 @@ public class RightRuleLogger : ILogger
 
     public bool IsEnabled(LogLevel logLevel)
     {
+        var level = (LogLevel)logLevel;
         return logLevel >= LogLevel.Debug;
     }
 

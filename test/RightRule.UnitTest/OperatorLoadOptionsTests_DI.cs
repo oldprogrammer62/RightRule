@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using RightRule.ServiceRegister;
 
 namespace RightRuleTests;
@@ -34,7 +35,12 @@ public class OperatorLoadOptionsTests_DI
     public void RightRule_WithOptions_True()
     {
         var services = new ServiceCollection();
-        services.AddLogging();
+        services.AddLogging(builder =>
+        {
+            builder.AddConsole();
+            builder.AddFakeLogging();
+        });
+
         services.AddRightRule(options =>
         {
             options.LoadCustomOperators = true;

@@ -12,9 +12,9 @@ public class RightRuleLoggerProvider : ILoggerProvider
         _configuration = configuration;
     }
 
-    public ILogger CreateLogger(string categoryName)
+    public ILogger CreateLogger(string category)
     {
-        return new RightRuleLogger(_configuration, categoryName);
+        return new RightRuleLogger(category, _configuration);
     }
 
     public void Dispose()

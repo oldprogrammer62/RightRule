@@ -57,11 +57,12 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
     }
 
-    public RightRule(ILogger<RightRule> logger) : this(new RightRuleOptions(), logger)
+    public RightRule(ILogger<RightRule>? logger = null) : 
+        this(new RightRuleOptions(), logger)
     {
     }
 
-    public RightRule(RightRuleOptions options, ILogger<RightRule> logger)
+    public RightRule(RightRuleOptions options, ILogger<RightRule>? logger)
     {
         ArgumentNullException.ThrowIfNull(options);
 
@@ -72,7 +73,12 @@ public sealed partial class RightRule : IRightRule, IDisposable
             );
 
         _rightRuleService = GetRightRuleServiceFromDI();
-        _logger = GetLoggerServiceFromDI(); ;
+
+        _logger = GetLoggerServiceFromDI();
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogDebug("new RightRule() Started");
+        }
     }
 
     /// <summary>
@@ -82,14 +88,19 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="logger"></param>
     /// <param name="options"></param>
     public RightRule(
-        IRightRuleService rightRuleService, 
-        ILogger<RightRule> logger,
+        IRightRuleService rightRuleService,
+        ILogger<RightRule>? logger,
         RightRuleOptions options
         )
     {
         _options = options;
         _rightRuleService = rightRuleService;
+
         _logger = logger ?? NullLogger<RightRule>.Instance;
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogDebug("RightRule DI Service Started");
+        }
     }
 
     public RightRuleOptions GetRightRuleOptions()
@@ -127,15 +138,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
             throw new InvalidOperationException("Service provider is not initialized.");
         }
         return _serviceProvider.GetRequiredService<ILogger<RightRule>>();
-    }
-
-    private RightRuleOptions GetOptionsFromDI()
-    {
-        if (_serviceProvider == null)
-        {
-            throw new InvalidOperationException("Service provider is not initialized.");
-        }
-        return _serviceProvider.GetRequiredService<RightRuleOptions>();
     }
 
     public void Dispose()
