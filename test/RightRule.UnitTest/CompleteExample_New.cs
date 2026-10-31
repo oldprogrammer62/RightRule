@@ -20,14 +20,17 @@ public class CompleteExample_New
         decimal orderValue = 200m;
         int previousOrders = 5;
 
+        // Create Logger / Custom Logger instance
+        RightRuleLogger<RightRule.RightRule> logger = new RightRuleLogger<RightRule.RightRule>();
+
         RightRuleOptions options = new RightRuleOptions()
         {
             DataCheck = false,
             Diagnostics = true,
             LoadCustomOperators = true,
-            LoadDefaultOperators = true
+            LoadDefaultOperators = true,
+            // CustomOperatorLibraryPath = ""
         };
-        RightRuleLogger<RightRule.RightRule> logger = new RightRuleLogger<RightRule.RightRule>();
 
         using var rr = new RightRule.RightRule(options, logger);
 
