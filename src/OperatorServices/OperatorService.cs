@@ -47,6 +47,8 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
             _operators = LoadStartUpOperators(options);
             if (_operators.Count == 0)
             {
+                _operatorAliases = [];
+
                 return OperatorRegistrationResult.Success("No Operators registered. RightRule Options expect no Operators to be loaded");
             }
 
@@ -148,7 +150,7 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
 
     private bool OperatorAliasesUnique(Dictionary<string, Operator> RegisteredAliases, Dictionary<string, Operator> OperatorAliases)
     {
-        string[] aliases = [.. OperatorAliases.Select(a => a.Key)];
+        string[] aliases = [.. OperatorAliases.Select(a => a.Key.ToLower())];
         return Helpers.OperatorAliasesUnique(RegisteredAliases, aliases);
     }
 
