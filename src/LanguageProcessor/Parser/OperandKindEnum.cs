@@ -1,6 +1,6 @@
 ﻿namespace RightRule.LanguageProcessor.Parser;
 
-internal enum OperandKindEnum 
+public enum OperandKindEnum 
 { 
     IDENTIFIER, 
     VARIABLE, 
