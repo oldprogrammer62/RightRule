@@ -9,3 +9,4 @@
 
 ## Testing Instructions
 - When generating tests, provide the actual test code as edits in the response rather than a file-location placeholder.
+- In the RuleService test helper, use `Enqueue` to enqueue values into the parse-result queue, which is a `Queue<ParsedRule?>`, instead of using `Add`.
