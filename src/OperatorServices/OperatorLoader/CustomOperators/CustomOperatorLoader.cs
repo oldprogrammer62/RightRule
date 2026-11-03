@@ -11,11 +11,17 @@ internal sealed class CustomOperatorLoader
             return new List<Operator>();
         }
         var operatorConfigs = GetOperatorConfigurations(ConfigurationFilePath);
-        return LoadOperators(operatorConfigs);
+        return LoadOperators(operatorConfigs, 
+            Path.GetDirectoryName(ConfigurationFilePath));
     }
 
-    private static List<Operator> LoadOperators(OperatorConfigs OperatorConfigurations)
+    private static List<Operator> LoadOperators(OperatorConfigs OperatorConfigurations, string? BaseDirectory)
     {
+        if (string.IsNullOrWhiteSpace(BaseDirectory))
+        {
+            BaseDirectory = AppContext.BaseDirectory;
+        }
+
         if (OperatorConfigurations.Operators == null || OperatorConfigurations.Operators.Count == 0)
         {
             return new List<Operator>();
@@ -24,7 +30,7 @@ internal sealed class CustomOperatorLoader
         List<Operator> operators = new List<Operator>();
         foreach (var operatorConfiguration in OperatorConfigurations.Operators)
         {
-            var op = LoadOperator(operatorConfiguration.Path);
+            var op = LoadOperator(Path.Combine(BaseDirectory, operatorConfiguration.Path));
             if (op != null)
             {
                 operators.Add(op);
@@ -33,9 +39,9 @@ internal sealed class CustomOperatorLoader
         return operators;
     }
 
-    internal static Operator? LoadOperator(string OperatorConfiguration)
+    internal static Operator? LoadOperator(string PathToOperator)
     {
-        return ExternalAssemblyLoader.Load(OperatorConfiguration);
+        return ExternalAssemblyLoader.Load(PathToOperator);
     }
 
     private static OperatorConfigs GetOperatorConfigurations(string ConfigurationFilePath)

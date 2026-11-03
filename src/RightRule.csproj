@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>RightRule</PackageId>
-    <Version>1.0.1-beta.6</Version>
+    <Version>1.0.1-beta.10</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
@@ -51,6 +51,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Operators\CustomOperators\customoperatorconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Operators\CustomOperators\Operator.dayofweek.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Operators\CustomOperators\Operator.exists.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Operators\CustomOperators\Operator.strequals.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="RightRule.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

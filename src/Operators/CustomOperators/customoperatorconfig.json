@@ -2,15 +2,15 @@
   "operators": [
     {
       "name": "Exists",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll"
+      "path": "Operator.exists.dll",
     },
     {
       "name": "DayOfWeek",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll"
+      "path": "Operator.dayofweek.dll",
     },
     {
       "name": "StrEquals",
-      "path": "C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.strequals.dll"
+      "path": "Operator.strequals.dll",
     }
   ]
 }
