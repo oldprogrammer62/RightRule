@@ -4,6 +4,7 @@
 - For RightRule, the library itself should own its configuration and provide defaults from its own config file; host applications should be able to override settings, but if they omit a setting, RightRule should use its library-owned default.
 - RightRule is intended to be used as a per-session instance: construct it, register data and rules, apply rules, then dispose it when the instance leaves scope.
 - The custom operator projects in the solution are test/proof-of-concept examples, not production operators to be shipped or deployed by RightRule.
+- When advising on RightRule construction, account for manually constructed instances: `new RightRule(...)` bypasses the `AddScoped<IRightRule>` factory, so logging intended for all construction paths belongs in the RightRule constructors (or common constructor logic), not only the DI registration factory. Manual construction should use the host's ILoggerFactory to share logging filters/providers with DI. Directly instantiating RightRuleLogger bypasses factory-level filters, while the custom RightRuleLogger has an IsEnabled Debug floor, and AddRightRuleLogger applies LoggerFilterOptions from configuration.
 
 ## Code Style
 - When composing token sequences for a `params Token[]` helper, expand each `Token[]` sequence instead of passing it as a single argument.

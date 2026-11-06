@@ -1,6 +1,9 @@
 ﻿using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 using RightRuleLogger;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace RightRuleTests;
 
@@ -20,8 +23,17 @@ public class CompleteExample_New
         decimal orderValue = 200m;
         int previousOrders = 5;
 
-        // Create Logger / Custom Logger instance
-        RightRuleLogger<RightRule.RightRule> logger = new RightRuleLogger<RightRule.RightRule>();
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: true)
+            .Build();
+
+        var loggingServices = new ServiceCollection();
+        loggingServices.AddSingleton<IConfiguration>(configuration);
+        loggingServices.AddLogging(builder => builder.AddRightRuleLogger());
+
+        using var loggingProvider = loggingServices.BuildServiceProvider();
+        var loggerFactory = loggingProvider.GetRequiredService<ILoggerFactory>();
 
         RightRuleOptions options = new RightRuleOptions()
         {
@@ -32,7 +44,7 @@ public class CompleteExample_New
             // CustomOperatorLibraryPath = ""
         };
 
-        using var rr = new RightRule.RightRule(options, logger);
+        using var rr = new RightRule.RightRule(options, loggerFactory);
 
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";

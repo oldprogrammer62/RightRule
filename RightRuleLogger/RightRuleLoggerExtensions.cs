@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace RightRuleLogger;
 
@@ -18,16 +19,22 @@ public static class RightRuleLoggerExtensions
         builder.Services.AddOptions<LoggerFilterOptions>()
             .Configure<IServiceProvider>((options, serviceProvider) =>
             {
-                var value = serviceProvider
-                    .GetService<IConfiguration>()?["Logging:LogLevel:Default"];
+                var configuration = serviceProvider.GetService<IConfiguration>();
+                var configuredLevel = configuration?["Logging:LogLevel:Default"];
 
                 if (Enum.TryParse<LogLevel>(
-                        value,
+                        configuredLevel,
                         ignoreCase: true,
                         out var level))
                 {
                     options.MinLevel = level;
                 }
+
+                Trace.WriteLine(
+                    $"RightRuleLogger settings applied: " +
+                    $"MinLevel={options.MinLevel}; " +
+                    $"LogFile:Path={configuration?["LogFile:Path"] ?? "<default>"}; " +
+                    $"LogFile:Name={configuration?["LogFile:Name"] ?? "<default>"}");
             });
         return builder;
     }

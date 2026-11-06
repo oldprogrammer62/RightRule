@@ -48,28 +48,32 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// Service Provider DI Container will be disposed when RightRule is disposed
     /// </summary>
     public RightRule() : 
-        this(new RightRuleOptions(), NullLogger<RightRule>.Instance)
+        this(new RightRuleOptions(), NullLoggerFactory.Instance)
     {
     }
 
     public RightRule(RightRuleOptions options) :
-        this(options, NullLogger<RightRule>.Instance)
+        this(options, NullLoggerFactory.Instance)
     {
     }
 
-    public RightRule(ILogger<RightRule>? logger = null) : 
-        this(new RightRuleOptions(), logger)
+    public RightRule(ILoggerFactory loggerFactory) : 
+        this(new RightRuleOptions(), loggerFactory)
     {
     }
 
-    public RightRule(RightRuleOptions options, ILogger<RightRule>? logger)
+    public RightRule(
+        RightRuleOptions options, 
+        ILoggerFactory loggerFactory
+        )
     {
         ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(loggerFactory);
 
         _options = options;
         _serviceProvider = InitialiseServiceProvider(
             options,
-            logger ?? NullLogger<RightRule>.Instance
+            loggerFactory
             );
 
         _rightRuleService = GetRightRuleServiceFromDI();
@@ -79,6 +83,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             _logger.LogDebug("new RightRule() Started");
         }
+
+        // Log Options
+        LogOptions(_logger, options);
     }
 
     /// <summary>
@@ -101,6 +108,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
         {
             _logger.LogDebug("RightRule DI Service Started");
         }
+
+        // Log Options
+        LogOptions(_logger, options);
     }
 
     public RightRuleOptions GetRightRuleOptions()
@@ -110,15 +120,18 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
     private static ServiceProvider InitialiseServiceProvider(
         RightRuleOptions options,
-        ILogger<RightRule> logger
+        ILoggerFactory loggerFactory
         )
     {
         options = CheckOptions(options);
 
         var services = new ServiceCollection();
+
         services.AddSingleton(options);
+        services.AddSingleton<ILoggerFactory>(loggerFactory);
+
         ServiceRegister.ServiceRegister.RegisterServices(services);
-        services.AddSingleton<ILogger<RightRule>>(logger);
+
         return services.BuildServiceProvider();
     }
 
@@ -138,6 +151,24 @@ public sealed partial class RightRule : IRightRule, IDisposable
             throw new InvalidOperationException("Service provider is not initialized.");
         }
         return _serviceProvider.GetRequiredService<ILogger<RightRule>>();
+    }
+
+    private static void LogOptions(ILogger<RightRule> logger, RightRuleOptions options)
+    {
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation(
+                "Creating RightRule with options: DataCheck={DataCheck}, " +
+                "Diagnostics={Diagnostics}, " +
+                "LoadCustomOperators={LoadCustomOperators}, " +
+                "LoadDefaultOperators={LoadDefaultOperators}, " +
+                "CustomOperatorLibraryPath={CustomOperatorLibraryPath}",
+                options.DataCheck,
+                options.Diagnostics,
+                options.LoadCustomOperators,
+                options.LoadDefaultOperators,
+                options.CustomOperatorLibraryPath);
+        }
     }
 
     public void Dispose()

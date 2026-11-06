@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>RightRule</PackageId>
-    <Version>1.0.1-beta.10</Version>
+    <Version>1.0.1-beta.12</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
@@ -15,19 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="DataServices\DataRegistration\InewGetDataService.cs" />
-    <Compile Remove="DataServices\DataRegistration\newGetDataService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Include="RightRule.dll.config" Pack="true" PackagePath="contentFiles\any\$(TargetFramework);content\any\$(TargetFramework)" BuildAction="None" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
     <None Include="docs\README.md" Pack="true" PackagePath="\" />
     <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="RightRule.dll.config" Pack="true" PackagePath="contentFiles\any\$(TargetFramework);content\any\$(TargetFramework)" BuildAction="None" CopyToOutputDirectory="PreserveNewest" PackageCopyToOutput="true" />
-  </ItemGroup>
-  
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>1591</NoWarn>

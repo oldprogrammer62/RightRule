@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RightRule.Models;
 using RightRule.ServiceRegister;
 using RightRuleLogger;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RightRuleTests;
 
@@ -28,28 +26,36 @@ public class CompleteExample_DI
             builder.AddRightRuleLogger();
         });
 
-        // Register RightRule with specified options
-        services.AddRightRule (options =>
+        RightRuleOptions rightRuleOptions = new RightRuleOptions
         {
-            options.DataCheck = false;
-            options.Diagnostics = true;
-            options.LoadDefaultOperators = true;
-            options.LoadCustomOperators = true;
-            // options.CustomOperatorLibraryPath = "Hello/world"; // Use default
-        });
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true,
+            LoadCustomOperators = true,
+            // CustomOperatorLibraryPath = "Hello/world" // Use default
+        };
+
+        // Register RightRule with specified options
+        services.AddRightRule(rightRuleOptions);
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
-
-        rr.RegisterData("a", 100);
         Assert.NotNull(rr);
 
+        var dataResult = rr.RegisterData("a", 100);
+        Assert.NotNull(dataResult);
+
         var loadedOptions = rr.GetRightRuleOptions();
-        Assert.False(loadedOptions.DataCheck);
-        Assert.True(loadedOptions.Diagnostics);
-        Assert.True(loadedOptions.LoadDefaultOperators);
-        Assert.True(loadedOptions.LoadCustomOperators);
+        Assert.Same(rightRuleOptions, loadedOptions);
+
+        Assert.Equal(rightRuleOptions.DataCheck, loadedOptions.DataCheck);
+
+        Assert.Equal(rightRuleOptions.Diagnostics, loadedOptions.Diagnostics);
+
+        Assert.Equal(rightRuleOptions.LoadDefaultOperators, loadedOptions.LoadDefaultOperators);
+
+        Assert.Equal(rightRuleOptions.LoadCustomOperators, loadedOptions.LoadCustomOperators);
     }
 
     [Fact]

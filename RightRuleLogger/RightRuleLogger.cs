@@ -48,8 +48,8 @@ public class RightRuleLogger : ILogger
 
     private static string MakeFilePath(IConfiguration? configuration)
     {
-        var filePath = configuration?["File:FilePath"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
-        var fileName = configuration?["File:FileName"] ?? _DEFAULTFILENAME;
+        var filePath = configuration?["LogFile:Path"] ?? Path.Combine(AppContext.BaseDirectory, _DEFAULTFILEPATH);
+        var fileName = configuration?["LogFile:Name"] ?? _DEFAULTFILENAME;
         return Path.Combine(filePath, fileName);
     }
 
@@ -75,7 +75,7 @@ public class RightRuleLogger : ILogger
     public bool IsEnabled(LogLevel logLevel)
     {
         var level = (LogLevel)logLevel;
-        return logLevel >= LogLevel.Debug;
+        return logLevel >= LogLevel.Trace;
     }
 
     public async void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
