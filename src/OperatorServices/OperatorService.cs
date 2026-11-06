@@ -19,15 +19,25 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
+    private readonly IDefaultOperatorLoader _defaultOperatorLoader;
     private readonly ICustomOperatorLoader _customOperatorLoader;
 
-    public OperatorService(ICustomOperatorLoader customOperatorLoader) : this(customOperatorLoader, new RightRuleOptions { LoadDefaultOperators = true })
+    public OperatorService(
+        IDefaultOperatorLoader defaultOperatorLoader, 
+        ICustomOperatorLoader customOperatorLoader) : 
+        this(
+            defaultOperatorLoader,
+            customOperatorLoader, 
+            new RightRuleOptions { LoadDefaultOperators = true }
+            )
     {
+        this._defaultOperatorLoader = defaultOperatorLoader;
         _customOperatorLoader = customOperatorLoader;
     }
 
-    public OperatorService(ICustomOperatorLoader customOperatorLoader, RightRuleOptions options)
+    public OperatorService(IDefaultOperatorLoader defaultOperatorLoader, ICustomOperatorLoader customOperatorLoader, RightRuleOptions options)
     {
+        _defaultOperatorLoader = defaultOperatorLoader;
         _customOperatorLoader = customOperatorLoader;
 
         _operators = new List<Operator>();
@@ -121,9 +131,9 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         return [];
     }
 
-    internal static List<Operator> LoadDefaultOperators()
+    internal List<Operator> LoadDefaultOperators()
     {
-        return DefaultOperatorLoader.Load();
+        return _defaultOperatorLoader.Load();
     }
 
     internal List<Operator> LoadCustomOperators()

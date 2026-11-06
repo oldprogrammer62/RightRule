@@ -1,11 +1,19 @@
-﻿using RightRule.Operators.DefaultOperators;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.Operators.DefaultOperators;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 
-internal sealed class DefaultOperatorLoader
+internal sealed class DefaultOperatorLoader : IDefaultOperatorLoader
 {
-    internal static List<Operator> Load()
+    private readonly ILogger<DefaultOperatorLoader> _logger;
+
+    public DefaultOperatorLoader(ILogger<DefaultOperatorLoader> logger)
+    {
+        _logger = logger;
+    }
+
+    public List<Operator> Load()
     {
         return new List<Operator>()
         {

@@ -7,13 +7,17 @@ using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
+using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 
 namespace RightRuleTests;
 
 public sealed class TokenizerFactoryTests
 {
-    private static CustomOperatorLoader CreateLoader() =>
+    private static CustomOperatorLoader CreateCustomLoader() =>
         new(NullLogger<CustomOperatorLoader>.Instance);
+
+    private static DefaultOperatorLoader CreateDefaultLoader() =>
+        new(NullLogger<DefaultOperatorLoader>.Instance);
 
     [Fact]
     public void BuildTokenizer_PassesStatementAndStartingPosition()
@@ -59,7 +63,7 @@ public sealed class TokenizerFactoryTests
             LoadCustomOperators = false
         };
 
-        var operatorService = new OperatorService(CreateLoader(), options);
+        var operatorService = new OperatorService(CreateDefaultLoader(), CreateCustomLoader(), options);
         var dataValidator = new DataValidatorService();
         var dataService = new DataService(
             NullLogger<DataService>.Instance,

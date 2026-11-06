@@ -1,15 +1,18 @@
-﻿using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.Operators.DefaultOperators;
-using Xunit;
+using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 
 namespace RightRuleTests;
 
 public sealed class DefaultOperatorLoaderTests
 {
+    private static DefaultOperatorLoader CreateDefaultLoader() =>
+        new(NullLogger<DefaultOperatorLoader>.Instance);
+
     [Fact]
     public void Load_ReturnsDefaultOperatorsInExpectedOrder()
     {
-        var operators = DefaultOperatorLoader.Load();
+        var operators = CreateDefaultLoader().Load();
 
         var expectedTypes = new[]
         {
@@ -28,8 +31,8 @@ public sealed class DefaultOperatorLoaderTests
     [Fact]
     public void Load_ReturnsNewListAndOperatorInstancesOnEachCall()
     {
-        var firstLoad = DefaultOperatorLoader.Load();
-        var secondLoad = DefaultOperatorLoader.Load();
+        var firstLoad = CreateDefaultLoader().Load();
+        var secondLoad = CreateDefaultLoader().Load();
 
         Assert.NotSame(firstLoad, secondLoad);
         Assert.Equal(firstLoad.Count, secondLoad.Count);
