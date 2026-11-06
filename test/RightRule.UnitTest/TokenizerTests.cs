@@ -5,11 +5,15 @@ using RightRule.Exceptions;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.Models;
 using RightRule.OperatorServices;
+using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
 namespace RightRuleTests;
 
 public sealed class TokenizerTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+        new(NullLogger<CustomOperatorLoader>.Instance);
+
     [Fact]
     public void NextToken_ReturnsEndForEmptyOrWhitespaceInput()
     {
@@ -216,7 +220,7 @@ public sealed class TokenizerTests
 
     private static OperatorService CreateOperatorService()
     {
-        return new OperatorService(new RightRuleOptions
+        return new OperatorService(CreateLoader(), new RightRuleOptions
         {
             LoadDefaultOperators = false,
             LoadCustomOperators = false

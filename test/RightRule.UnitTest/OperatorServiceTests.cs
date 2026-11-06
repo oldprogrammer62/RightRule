@@ -1,11 +1,16 @@
-﻿using RightRule.Models;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using RightRule.Models;
 using RightRule.OperatorServices;
+using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRuleTests;
 
 public class OperatorServiceTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+        new(NullLogger<CustomOperatorLoader>.Instance);
+
     private static RightRuleOptions NoOperatorsOptions() => new()
     {
         LoadDefaultOperators = false,
@@ -15,7 +20,7 @@ public class OperatorServiceTests
     [Fact]
     public void Constructor_WithLoadingDisabled_StartsEmpty()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
 
         Assert.Empty(service.Operators);
         Assert.Empty(service.OperatorAliases);
@@ -24,7 +29,7 @@ public class OperatorServiceTests
     [Fact]
     public void RegisterOperator_AddsOperatorAndAliases()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         var op = new FirstTestOperator();
 
         var result = service.RegisterOperator(op);
@@ -38,7 +43,7 @@ public class OperatorServiceTests
     [Fact]
     public void RegisterOperator_AliasLookupIsCaseInsensitive()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         var op = new FirstTestOperator();
 
         service.RegisterOperator(op);
@@ -49,7 +54,7 @@ public class OperatorServiceTests
     [Fact]
     public void RegisterOperator_WhenAliasIsAlreadyRegistered_FailsAndKeepsExistingAlias()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         var first = new FirstTestOperator();
         var conflicting = new ConflictingTestOperator();
 
@@ -63,7 +68,7 @@ public class OperatorServiceTests
     [Fact]
     public void GetOperators_ReturnsCopyOfRegisteredList()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         var op = new FirstTestOperator();
         service.RegisterOperator(op);
 
@@ -77,7 +82,7 @@ public class OperatorServiceTests
     [Fact]
     public void GetRegisteredAliases_ForOperator_ReturnsOnlyItsAliases()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         var first = new FirstTestOperator();
         var second = new SecondTestOperator();
         service.RegisterOperator(first);
@@ -93,7 +98,7 @@ public class OperatorServiceTests
     [Fact]
     public void RegisterAllOperators_WithLoadingDisabled_ClearsRegisteredOperators()
     {
-        using var service = new OperatorService(NoOperatorsOptions());
+        using var service = new OperatorService(CreateLoader(), NoOperatorsOptions());
         service.RegisterOperator(new FirstTestOperator());
 
         var result = service.RegisterAllOperators(NoOperatorsOptions());

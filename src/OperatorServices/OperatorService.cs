@@ -19,14 +19,17 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
+    private readonly ICustomOperatorLoader _customOperatorLoader;
 
-
-    public OperatorService() : this(new RightRuleOptions { LoadDefaultOperators = true })
+    public OperatorService(ICustomOperatorLoader customOperatorLoader) : this(customOperatorLoader, new RightRuleOptions { LoadDefaultOperators = true })
     {
+        _customOperatorLoader = customOperatorLoader;
     }
 
-    public OperatorService(RightRuleOptions options)
+    public OperatorService(ICustomOperatorLoader customOperatorLoader, RightRuleOptions options)
     {
+        _customOperatorLoader = customOperatorLoader;
+
         _operators = new List<Operator>();
         _operatorAliases = new Dictionary<string, Operator>(StringComparer.OrdinalIgnoreCase);
 
@@ -130,7 +133,7 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         {
             return new List<Operator>();
         }
-        return CustomOperatorLoader.LoadOperators(configurationPath);
+        return _customOperatorLoader.LoadOperators(configurationPath);
     }
 
     public List<Operator> GetOperators()

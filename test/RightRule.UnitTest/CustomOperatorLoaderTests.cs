@@ -1,24 +1,25 @@
-﻿using System;
-using System.IO;
+﻿using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
-using Xunit;
 
 namespace RightRuleTests;
 
 public class CustomOperatorLoaderTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+        new(NullLogger<CustomOperatorLoader>.Instance);
+
     [Theory]
     [InlineData("")]
     [InlineData("  ")]
     public void LoadOperators_WithEmptyOrWhitespacePath_ReturnsEmptyList(string path)
     {
-        Assert.Empty(CustomOperatorLoader.LoadOperators(path));
+        Assert.Empty(CreateLoader().LoadOperators(path));
     }
 
     [Fact]
     public void LoadOperators_WithNullPath_ReturnsEmptyList()
     {
-        Assert.Empty(CustomOperatorLoader.LoadOperators(null!));
+        Assert.Empty(CreateLoader().LoadOperators(null!));
     }
 
     [Fact]
@@ -26,7 +27,7 @@ public class CustomOperatorLoaderTests
     {
         var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.json");
 
-        Assert.Empty(CustomOperatorLoader.LoadOperators(path));
+        Assert.Empty(CreateLoader().LoadOperators(path));
     }
 
     [Theory]
@@ -38,7 +39,7 @@ public class CustomOperatorLoaderTests
 
         try
         {
-            Assert.Empty(CustomOperatorLoader.LoadOperators(path));
+            Assert.Empty(CreateLoader().LoadOperators(path));
         }
         finally
         {
@@ -55,7 +56,7 @@ public class CustomOperatorLoaderTests
 
         try
         {
-            Assert.Empty(CustomOperatorLoader.LoadOperators(path));
+            Assert.Empty(CreateLoader().LoadOperators(path));
         }
         finally
         {
@@ -68,7 +69,7 @@ public class CustomOperatorLoaderTests
     {
         var path = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid():N}.dll");
 
-        Assert.Throws<FileNotFoundException>(() => CustomOperatorLoader.LoadOperator(path));
+        Assert.Throws<FileNotFoundException>(() => CreateLoader().LoadOperator(path));
     }
 
     private static string CreateConfigFile(string configuration)

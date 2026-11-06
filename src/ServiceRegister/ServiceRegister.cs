@@ -16,6 +16,7 @@ using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.Models;
 using RightRule.OperatorServices;
+using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
@@ -77,6 +78,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
 
         services.AddScoped<IOperatorService, OperatorService>();
+        services.AddScoped<ICustomOperatorLoader, CustomOperatorLoader>();
 
         services.AddScoped<IDataService, DataService>();
         services.AddScoped<IDataAdaptorLibraryManager, DataAdaptorLibraryManager>();

@@ -1,11 +1,16 @@
-﻿using RightRule.OperatorServices;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader;
+using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.System.Common.Operator.Models;
 
 namespace RightRuleTests;
 
 public class OperatorRegistrationTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+        new(NullLogger<CustomOperatorLoader>.Instance);
+
     [Fact]
     public void TestUniqueOperatorName_Unique()
     {
@@ -92,7 +97,7 @@ public class OperatorRegistrationTests
     [Fact]
     public void RegisterOperator()
     {
-        IOperatorService ops = new OperatorService();
+        IOperatorService ops = new OperatorService(CreateLoader());
 
         var op = new IsBiggerThan();
         Assert.NotNull(op);

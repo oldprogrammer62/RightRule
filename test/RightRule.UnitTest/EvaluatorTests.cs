@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging.Testing;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Testing;
 using RightRule.DataServices;
 using RightRule.DataServices.DataValidator;
 using RightRule.LanguageProcessor.Evaluator;
@@ -6,6 +7,7 @@ using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
 using RightRule.Models;
 using RightRule.OperatorServices;
+using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common.Operator.Models;
 
@@ -13,6 +15,9 @@ namespace RightRuleTests;
 
 public class EvaluatorTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+new(NullLogger<CustomOperatorLoader>.Instance);
+
     [Fact]
     public async Task EvaluateAsync_EvaluatesConditionAndPassesOperandsAndOptionalData()
     {
@@ -138,7 +143,7 @@ public class EvaluatorTests
             IStatementBuilder? statementBuilder = null)
     {
         var dataService = new DataService(new FakeLogger<DataService>(), new DataValidatorService());
-        var operatorService = new OperatorService(new RightRuleOptions
+        var operatorService = new OperatorService(CreateLoader(), new RightRuleOptions
         {
             LoadDefaultOperators = false,
             LoadCustomOperators = false

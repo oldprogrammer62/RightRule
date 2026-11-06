@@ -1,21 +1,29 @@
-﻿using RightRule.System.Common.Operator.Models;
+﻿using Microsoft.Extensions.Logging;
+using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.OperatorServices.OperatorLoader.CustomOperators;
 
-internal sealed class CustomOperatorLoader
+internal sealed class CustomOperatorLoader : ICustomOperatorLoader
 {
-    internal static List<Operator> LoadOperators(string ConfigurationFilePath)
+    private readonly ILogger<CustomOperatorLoader> _logger;
+
+    public CustomOperatorLoader(ILogger<CustomOperatorLoader> logger)
+    {
+        _logger = logger;
+    }
+
+    public List<Operator> LoadOperators(string ConfigurationFilePath)
     {
         if (string.IsNullOrEmpty(ConfigurationFilePath) || !File.Exists(ConfigurationFilePath))
         {
             return new List<Operator>();
         }
         var operatorConfigs = GetOperatorConfigurations(ConfigurationFilePath);
-        return LoadOperators(operatorConfigs, 
+        return LoadOperators(operatorConfigs,
             Path.GetDirectoryName(ConfigurationFilePath));
     }
 
-    private static List<Operator> LoadOperators(OperatorConfigs OperatorConfigurations, string? BaseDirectory)
+    private List<Operator> LoadOperators(OperatorConfigs OperatorConfigurations, string? BaseDirectory)
     {
         if (string.IsNullOrWhiteSpace(BaseDirectory))
         {
@@ -33,13 +41,17 @@ internal sealed class CustomOperatorLoader
             var op = LoadOperator(Path.Combine(BaseDirectory, operatorConfiguration.Path));
             if (op != null)
             {
+                if (_logger.IsEnabled(LogLevel.Debug))
+                {
+                    _logger.LogDebug("Custom Operator Loaded: {OperatorName}", op.Name);
+                }
                 operators.Add(op);
             }
         }
         return operators;
     }
 
-    internal static Operator? LoadOperator(string PathToOperator)
+    public Operator? LoadOperator(string PathToOperator)
     {
         return ExternalAssemblyLoader.Load(PathToOperator);
     }

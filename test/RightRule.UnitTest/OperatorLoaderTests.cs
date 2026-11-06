@@ -1,4 +1,5 @@
-﻿using RightRule;
+﻿using Microsoft.Extensions.Logging.Abstractions;
+using RightRule;
 using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
@@ -7,6 +8,9 @@ namespace RightRuleTests;
 
 public class OperatorLoaderTests
 {
+    private static CustomOperatorLoader CreateLoader() =>
+        new(NullLogger<CustomOperatorLoader>.Instance);
+
     [Fact]
     public void RegisterAll_StartUp()
     {
@@ -19,7 +23,7 @@ public class OperatorLoaderTests
     [Fact]
     public void RegisterAll_Manually()
     {
-        IOperatorService ops = new OperatorService();
+        IOperatorService ops = new OperatorService(CreateLoader());
         var x = ops.RegisterAllOperators();
 
         Assert.NotNull(x);
@@ -33,7 +37,7 @@ public class OperatorLoaderTests
     public void LoadAll_FromJsonConfig()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\customoperatorconfig.json";
-        var op = CustomOperatorLoader.LoadOperators(path);
+        var op = CreateLoader().LoadOperators(path);
         Assert.NotNull(op);
     }
 
@@ -41,7 +45,7 @@ public class OperatorLoaderTests
     public void LoadCustomOperator_Exists()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.exists.dll";
-        var op = CustomOperatorLoader.LoadOperator(path);
+        var op = CreateLoader().LoadOperator(path);
         Assert.NotNull(op);
         Assert.Equal("exists", op.Name.ToLower());
     }
@@ -50,7 +54,7 @@ public class OperatorLoaderTests
     public void LoadCustomOperator_DayOfWeek()
     {
         var path = @"C:\\Development\\BSoft\\RightRule\\src\\Operators\\CustomOperators\\Operator.dayofweek.dll";
-        var op = CustomOperatorLoader.LoadOperator(path);
+        var op = CreateLoader().LoadOperator(path);
         Assert.NotNull(op);
         Assert.Equal("dayofweek", op.Name.ToLower());
     }
