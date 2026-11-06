@@ -26,7 +26,7 @@ public class CompleteExample_DI
             builder.AddRightRuleLogger();
         });
 
-        RightRuleOptions rightRuleOptions = new RightRuleOptions
+        RightRuleOptions options = new RightRuleOptions
         {
             DataCheck = false,
             Diagnostics = true,
@@ -36,7 +36,7 @@ public class CompleteExample_DI
         };
 
         // Register RightRule with specified options
-        services.AddRightRule(rightRuleOptions);
+        services.AddRightRule(options);
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
@@ -47,15 +47,15 @@ public class CompleteExample_DI
         Assert.NotNull(dataResult);
 
         var loadedOptions = rr.GetRightRuleOptions();
-        Assert.Same(rightRuleOptions, loadedOptions);
+        Assert.Same(options, loadedOptions);
 
-        Assert.Equal(rightRuleOptions.DataCheck, loadedOptions.DataCheck);
+        Assert.Equal(options.DataCheck, loadedOptions.DataCheck);
 
-        Assert.Equal(rightRuleOptions.Diagnostics, loadedOptions.Diagnostics);
+        Assert.Equal(options.Diagnostics, loadedOptions.Diagnostics);
 
-        Assert.Equal(rightRuleOptions.LoadDefaultOperators, loadedOptions.LoadDefaultOperators);
+        Assert.Equal(options.LoadDefaultOperators, loadedOptions.LoadDefaultOperators);
 
-        Assert.Equal(rightRuleOptions.LoadCustomOperators, loadedOptions.LoadCustomOperators);
+        Assert.Equal(options.LoadCustomOperators, loadedOptions.LoadCustomOperators);
     }
 
     [Fact]

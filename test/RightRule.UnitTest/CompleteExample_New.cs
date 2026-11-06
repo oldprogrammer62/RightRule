@@ -23,17 +23,20 @@ public class CompleteExample_New
         decimal orderValue = 200m;
         int previousOrders = 5;
 
+        var services = new ServiceCollection();
+
+        // Create and register the appsettings details
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: true)
             .Build();
+        services.AddSingleton<IConfiguration>(configuration);
 
-        var loggingServices = new ServiceCollection();
-        loggingServices.AddSingleton<IConfiguration>(configuration);
-        loggingServices.AddLogging(builder => builder.AddRightRuleLogger());
-
-        using var loggingProvider = loggingServices.BuildServiceProvider();
-        var loggerFactory = loggingProvider.GetRequiredService<ILoggerFactory>();
+        // Configure logging to use Custom RightRuleLogger
+        services.AddLogging(builder =>
+        {
+            builder.AddRightRuleLogger();
+        });
 
         RightRuleOptions options = new RightRuleOptions()
         {
@@ -43,6 +46,9 @@ public class CompleteExample_New
             LoadDefaultOperators = true,
             // CustomOperatorLibraryPath = ""
         };
+
+        using var loggingProvider = services.BuildServiceProvider();
+        var loggerFactory = loggingProvider.GetRequiredService<ILoggerFactory>();
 
         using var rr = new RightRule.RightRule(options, loggerFactory);
 

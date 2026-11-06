@@ -1,34 +1,29 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using RightRule;
-using RightRule.ServiceRegister;
-using RightRule.LanguageProcessor.Evaluator;
-using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleModels.BaseModels;
-
-
+﻿
      ServiceCollection? services = new ServiceCollection();
 
-     // Logging?
+     // Configure and set up Custom Logger
      var configuration = new ConfigurationBuilder()
          .SetBasePath(AppContext.BaseDirectory)
          .AddJsonFile("appsettings.json", optional: true)
          .Build();
      services.AddSingleton<IConfiguration>(configuration);
+
      services.AddLogging(builder =>
      {
          builder.AddRightRuleLogger(); // Custom Logger?
      });
 
+     RightRuleOptions rightRuleOptions = new RightRuleOptions
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true,
+            LoadCustomOperators = true,
+            // CustomOperatorLibraryPath = ""
+        };
+
      // Register RightRule and associated services
-     services.AddRightRule(options =>
-     {
-         options.DataCheck = false;
-         options.Diagnostics = true;
-         options.LoadCustomOperators = true;
-         options.LoadDefaultOperators = true;
-         // options.CustomOperatorLibraryPath = "";
-     });
+     services.AddRightRule(rightRuleOptions);
 
      // Add any other required services
 
