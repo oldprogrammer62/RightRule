@@ -72,7 +72,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         _options = options;
         _serviceProvider = InitialiseServiceProvider(
-            options,
+            _options,
             loggerFactory
             );
 

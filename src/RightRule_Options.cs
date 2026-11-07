@@ -1,6 +1,4 @@
 using RightRule.Models;
-using RightRule.OperatorServices;
-using RightRule.System.Common.Operator.Models;
 
 namespace RightRule;
 
@@ -12,11 +10,10 @@ public sealed partial class RightRule : IRightRule, IDisposable
 {
     private static RightRuleOptions CheckOptions(RightRuleOptions options)
     {
-        if (string.IsNullOrWhiteSpace(options.CustomOperatorLibraryPath))
-        {
-            options.CustomOperatorLibraryPath =
-                RightRuleLibraryDefaults.CustomOperatorLibraryPath;
-        }
+        //if (string.IsNullOrWhiteSpace(options.CustomOperatorLibraryPath))
+        //{
+        //    options.CustomOperatorLibraryPath = RightRuleLibraryDefaults.CustomOperatorLibraryPath;
+        //}
         return options;
     }
 }
