@@ -1,16 +1,25 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using RightRule;
-using RightRule.DataServices.DataLoaders.Json;
 using RightRule.Factories.RuleLoaderFactory;
+using RightRule.RuleServices.RuleLoader.Json;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;
+using System.Text.Json;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRuleTests;
 
 public class LoaderJSON_Tests
 {
+    [Fact]
+    public void Json_Object_Test()
+    {
+
+    }
+
     [Fact]
     public void Json_Load_Test()
     {
@@ -19,7 +28,7 @@ public class LoaderJSON_Tests
 
         RuleLoaderFactory? loaderFactory = new RuleLoaderFactory(logger);
 
-        var loader = loaderFactory.BuildLoader("JSON");
+        var loader = loaderFactory.BuildRuleLoader("JSON");
         Assert.NotNull(loader);
 
         var json = Template.JsonString();
@@ -34,7 +43,7 @@ public class LoaderJSON_Tests
         IRightRule rr = new RightRule.RightRule();
 
         var json = Template.JsonString();
-        List<RuleRegistrationResult>? rules = rr.RegisterRulesJson(json);
+        List<RuleRegistrationResult>? rules = rr.LoadRules(json);
 
         Assert.NotNull(rules);
     }
@@ -48,12 +57,35 @@ public class LoaderJSON_Tests
         var xregistered = rr.RegisterData(nameof(x), x);
 
         var json = JsonString();
-        var rules = rr.RegisterRulesJson(json);
+        var rules = rr.LoadRules(json);
         Assert.NotNull(rules);
 
         var appliedRule = rr.ApplyRule("RuleContext");
         Assert.NotNull(appliedRule);
     }
+
+    [Fact]
+    public void Json_Load_Test4()
+    {
+        IRightRule rr = new RightRule.RightRule();
+
+        int number = 1;
+        string name = "RuleName";
+        string statement = "a = b";
+        string context = "RuleContext";
+        string trueDecision = "SUCCESS";
+        object? trueDecisionData = null;
+        string falseDecision = "FAIL";
+        object? falseDecisionData = null;
+        object? optionalData = null;
+
+        var json = JsonString(number, name, statement, context, trueDecision, trueDecisionData, falseDecision, falseDecisionData, optionalData);
+
+        List<RuleRegistrationResult>? rules = rr.LoadRules(json);
+
+        Assert.NotNull(rules);
+    }
+
 
     private static string JsonString()
     {
@@ -83,5 +115,48 @@ public class LoaderJSON_Tests
         json.Append('}');
         json.Append(']');
         return json.ToString();
+    }
+
+    public static string JsonString(
+        int number = 1,
+        string name = "RuleName",
+        string statement = "a = b",
+        string context = "RuleContext",
+        string trueDecision = "SUCCESS",
+        object? trueDecisionData = null,
+        string falseDecision = "FAIL",
+        object? falseDecisionData = null,
+        object? optionalData = null)
+    {
+        var x = MakeRule(number, name, statement, context, trueDecision, trueDecisionData, falseDecision, falseDecisionData, optionalData);
+        return JsonSerializer.Serialize(x);
+    }
+
+    private static dynamic MakeRule(
+        int number = 1,
+        string name = "RuleName",
+        string statement = "a = b",
+        string context = "RuleContext",
+        string trueDecision = "SUCCESS",
+        object? trueDecisionData = null,
+        string falseDecision = "FAIL",
+        object? falseDecisionData = null,
+        object? optionalData = null)
+    {
+        return new[]
+        {
+            new
+            {
+                Number = number,
+                Name = name,
+                Statement = statement,
+                Context = context,
+                TrueDecision = trueDecision,
+                TrueDecisionData = trueDecisionData,
+                FalseDecision = falseDecision,
+                FalseDecisionData = falseDecisionData,
+                OptionalData = optionalData
+            }
+        };
     }
 }

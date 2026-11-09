@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using RightRule.DataServices.DataLoaders.Json;
+using RightRule.RuleServices.RuleLoader.Json;
 
 namespace RightRule.Factories.RuleLoaderFactory;
 
@@ -12,16 +12,16 @@ internal sealed class RuleLoaderFactory : IRuleLoaderFactory
         _logger = logger;
     }
 
-    public IRuleLoader? BuildLoader(string LoaderType)
+    public IRuleLoader? BuildRuleLoader(string RuleLoaderType)
     {
-        switch (LoaderType.ToUpper())
+        switch (RuleLoaderType.ToUpper())
         {
             case "JSON":
-                return new JsonLoader();
+                return new JsonRuleLoader();
         }
         if (_logger.IsEnabled(LogLevel.Error))
         {
-            _logger.LogError("{LoaderType} - Not available", LoaderType);
+            _logger.LogError("{LoaderType} - Not available", RuleLoaderType);
         }
         return null;
     }

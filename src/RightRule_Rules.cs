@@ -125,7 +125,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    public List<RuleRegistrationResult> RegisterRulesJson(string JsonData)
+    public List<RuleRegistrationResult> LoadRules(string JsonData)
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
         try

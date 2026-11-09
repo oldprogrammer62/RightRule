@@ -26,7 +26,7 @@ internal class RuleLoaderService : IRuleLoaderService
 
     private IRuleLoader? GetLoader(string LoaderType)
     {
-        var loader = _ruleLoaderFactory.BuildLoader(LoaderType);
+        var loader = _ruleLoaderFactory.BuildRuleLoader(LoaderType);
         return loader;
     }
 }

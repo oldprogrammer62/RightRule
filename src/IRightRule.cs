@@ -299,7 +299,7 @@ public interface IRightRule : IDisposable
     /// </returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
-    List<RuleRegistrationResult> RegisterRulesJson(string JsonData);
+    List<RuleRegistrationResult> LoadRules(string JsonData);
 
     /// <summary>
     /// Unloads an Operator from the RightRule engine.<br/>

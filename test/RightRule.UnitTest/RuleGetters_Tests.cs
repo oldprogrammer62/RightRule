@@ -10,7 +10,7 @@ public class RuleGetters_Tests
     public RuleGetters_Tests()
     {
         rr = new RightRule.RightRule();
-        rr.RegisterRulesJson(JsonString());
+        rr.LoadRules(JsonString());
     }
 
     [Fact]

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using RightRule;
-using RightRule.DataServices.DataLoaders.Json;
 using RightRule.Factories.RuleLoaderFactory;
+using RightRule.RuleServices.RuleLoader.Json;
 
 namespace RightRuleTests;
 
@@ -18,9 +18,9 @@ public class RuleLoaderFactoryTests
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
         var factory = new RuleLoaderFactory(logger);
 
-        var loader = factory.BuildLoader(loaderType);
+        var loader = factory.BuildRuleLoader(loaderType);
 
-        Assert.IsType<JsonLoader>(loader);
+        Assert.IsType<JsonRuleLoader>(loader);
     }
 
     [Theory]
@@ -32,7 +32,7 @@ public class RuleLoaderFactoryTests
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
         var factory = new RuleLoaderFactory(logger);
 
-        var loader = factory.BuildLoader(loaderType);
+        var loader = factory.BuildRuleLoader(loaderType);
         Assert.Null(loader);
     }
 }

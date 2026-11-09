@@ -2,5 +2,5 @@
 
 internal interface IRuleLoaderFactory
 {
-    IRuleLoader? BuildLoader(string LoaderType);
+    IRuleLoader? BuildRuleLoader(string LoaderType);
 }
