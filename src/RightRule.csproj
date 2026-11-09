@@ -61,7 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataServices\Loaders\RuleLoader\" />
     <Folder Include="Licenses\" />
   </ItemGroup>
 

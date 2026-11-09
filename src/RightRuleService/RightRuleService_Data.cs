@@ -92,6 +92,16 @@ internal sealed partial class RightRuleService : IRightRuleService
         return true;
     }
 
+    public string DeserializeData()
+    {
+        return DataService.DeserializeData();
+    }
+
+    public string DeserializeData(string DatasetName)
+    {
+        return DataService.DeserializeData(DatasetName);
+    }
+
     private void DeRegisterNewData()
     {
         DataService.Clear();
@@ -100,5 +110,10 @@ internal sealed partial class RightRuleService : IRightRuleService
     private void DeRegisterNewData(string DatasetName)
     {
         DataService.DeregisterDataset(DatasetName);
+    }
+
+    public List<DataRegistrationResult> LoadData(string JsonData)
+    {
+        return DataService.LoadData(JsonData);
     }
 }

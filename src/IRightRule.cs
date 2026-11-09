@@ -246,6 +246,11 @@ public interface IRightRule : IDisposable
     /// <returns><see cref="DataRegistrationResult"/></returns>
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 
+    string DeserializeData();
+    string DeserializeData(string DatasetName);
+
+    List<DataRegistrationResult> LoadData(string JsonData);
+
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.
     /// </summary>

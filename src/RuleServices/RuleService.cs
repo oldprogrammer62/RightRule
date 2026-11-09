@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.Models;
+using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
@@ -21,15 +22,18 @@ internal sealed class RuleService : IRuleService
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRegisteredRules _registeredRules;
+    private readonly IRuleLoaderService _ruleLoaderService;
     private readonly ILogger<RuleService> _logger;
 
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, ILogger<RuleService> logger)
+    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService ruleLoaderService, ILogger<RuleService> logger)
     {
+        _logger = logger;
+
         _options = options;
         _registeredRules = RegisteredRules;
-        _logger = logger;
+        _ruleLoaderService = ruleLoaderService;
         _ruleValidationService = RuleValidationService;
         _parseRuleService = ParseRuleService;
     }
@@ -75,6 +79,16 @@ internal sealed class RuleService : IRuleService
             }
         }
         return registeredRules;
+    }
+
+    public List<RuleRegistrationResult> LoadRules(string JsonData)
+    {
+        var ruleDefn = _ruleLoaderService.LoadRules(JsonData);
+        if (ruleDefn == null)
+        {
+            return [RuleRegistrationResult.Failed("Rule Definitions not built from Json")];
+        }
+        return RegisterRules(ruleDefn);
     }
 
     public RuleRegistrationResult RegisterRule(DefinedRule Rule)

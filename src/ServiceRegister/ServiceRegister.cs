@@ -3,8 +3,11 @@ using Microsoft.Extensions.Logging;
 using RightRule.DataAdaptors;
 using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
+using RightRule.DataServices.DataLoader;
+using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
 using RightRule.DataTransformer;
+using RightRule.Factories.DataLoaderFactory;
 using RightRule.Factories.ParserFactory;
 using RightRule.Factories.RuleLoaderFactory;
 using RightRule.Factories.TokenizerFactory;
@@ -86,6 +89,9 @@ internal sealed class ServiceRegister
         services.AddScoped<IDataAdaptorLibraryManager, DataAdaptorLibraryManager>();
         services.AddScoped<IDataAdaptorService, DataAdaptorService>();
         services.AddScoped<IDataValidatorService, DataValidatorService>();
+        services.AddScoped<IDataLoaderFactory, DataLoaderFactory>();
+        services.AddScoped<IDataLoaderService, DataLoaderService>();
+        services.AddScoped<IDataSerializerService, DataSerializerService>();
 
         services.AddScoped<IInterpolatorService, InterpolatorService>();
         services.AddScoped<IInterpolate, StringInterpolator>();

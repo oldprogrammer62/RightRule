@@ -130,7 +130,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
         try
         {
-            return _rightRuleService.RegisterRulesJson(this, JsonData);
+            return _rightRuleService.LoadRules(JsonData);
         }
         catch
         {

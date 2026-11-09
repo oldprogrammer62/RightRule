@@ -4,5 +4,5 @@ namespace RightRule.Factories.RuleLoaderFactory;
 
 internal interface IRuleLoader
 {
-    List<DefinedRule>? LoadFromJson(string JsonData);
+    List<DefinedRule>? Load(string JsonData);
 }

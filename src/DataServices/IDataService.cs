@@ -1,4 +1,5 @@
 ﻿using RightRule.DataServices.Data;
+using RightRule.DataServices.DataRegistration;
 
 namespace RightRule.DataServices;
 
@@ -26,4 +27,9 @@ public interface IDataService
     object? GetDataItemValue(string DatasetName, string DataItemName);
 
     bool IsValidDataIdentifier(string name);
+
+    string DeserializeData();
+    string DeserializeData(string DatasetName);
+
+    List<DataRegistrationResult> LoadData(string JsonData);
 }

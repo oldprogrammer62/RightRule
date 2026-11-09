@@ -8,6 +8,10 @@ public sealed class Dataset
 
     public List<string> DataItemNames => GetDataItemNames();
 
+    public Dataset() : this("DefaultDatasetName")
+    {
+    }
+
     public Dataset(string DatasetName)
     {
         this.DatasetName = DatasetName;

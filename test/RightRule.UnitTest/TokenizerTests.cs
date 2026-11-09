@@ -1,7 +1,11 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Testing;
 using RightRule.DataServices;
+using RightRule.DataServices.DataLoader;
+using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
 using RightRule.Exceptions;
+using RightRule.Factories.DataLoaderFactory;
 using RightRule.LanguageProcessor.Tokenizer;
 using RightRule.Models;
 using RightRule.OperatorServices;
@@ -179,7 +183,11 @@ public sealed class TokenizerTests
     public void NextToken_ValidatesDatasetIdentifiersWhenDataCheckIsEnabled()
     {
         var validator = new DataValidatorService();
-        var dataService = new DataService(NullLogger<DataService>.Instance, validator);
+        IDataSerializerService dss = new DataSerializerService();
+        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+
+        var dataService = new DataService(validator, dss, dls, NullLogger<DataService>.Instance);
+
         dataService.AddData("customer", ("age", (object)42));
 
         var token = CreateTokenizer(
@@ -196,7 +204,10 @@ public sealed class TokenizerTests
     public void NextToken_RejectsUnknownDatasetIdentifiersWhenDataCheckIsEnabled()
     {
         var validator = new DataValidatorService();
-        var dataService = new DataService(NullLogger<DataService>.Instance, validator);
+        IDataSerializerService dss = new DataSerializerService();
+        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+
+        var dataService = new DataService(validator, dss, dls, NullLogger<DataService>.Instance);
 
         Assert.Throws<InvalidIdentifierException>(() =>
             CreateTokenizer(

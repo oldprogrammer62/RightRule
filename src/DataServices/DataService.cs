@@ -1,37 +1,44 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.DataServices.Data;
+using RightRule.DataServices.DataLoader;
+using RightRule.DataServices.DataRegistration;
+using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
+using RightRule.Models;
 using System.ComponentModel;
-using System.Data;
 
 namespace RightRule.DataServices;
 
 internal sealed class DataService : IDataService
 {
-    private List<Dataset> _Datasets;
-    public List<Dataset> RegisteredDatasets => _Datasets;
+    private List<Dataset> _datasets;
+    public List<Dataset> RegisteredDatasets => _datasets;
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ILogger<DataService> _logger;
 
     [EditorBrowsable(EditorBrowsableState.Never)]
-    private readonly IDataValidatorService _DataValidator;
+    private readonly IDataValidatorService _dataValidator;
+    private readonly IDataSerializerService _dataSerializerService;
+    private readonly IDataLoaderService _dataLoaderService;
 
-    public DataService(ILogger<DataService> logger, IDataValidatorService DataValidator)
+    public DataService(IDataValidatorService DataValidator, IDataSerializerService DataSerializerService, IDataLoaderService dataLoaderService, ILogger<DataService> logger)
     {
         _logger = logger;
 
-        _Datasets = new List<Dataset>();
-        _DataValidator = DataValidator;
+        _datasets = new List<Dataset>();
+        _dataValidator = DataValidator;
+        _dataSerializerService = DataSerializerService;
+        _dataLoaderService = dataLoaderService;
     }
 
     public void Clear()
     {
-        if (_Datasets == null || _Datasets.Count == 0)
+        if (_datasets == null || _datasets.Count == 0)
         {
             return;
         }
-        _Datasets = new List<Dataset>();
+        _datasets = new List<Dataset>();
 
         if (_logger.IsEnabled(LogLevel.Information))
         {
@@ -41,7 +48,7 @@ internal sealed class DataService : IDataService
 
     public bool IsValidDataIdentifier(string DataIdentifier)
     {
-        return _DataValidator.IsDataIdentifier(this, DataIdentifier);
+        return _dataValidator.IsDataIdentifier(this, DataIdentifier);
     }
 
     public List<string>? GetDataItemNames(string DatasetName)
@@ -69,7 +76,7 @@ internal sealed class DataService : IDataService
     public List<string> GetDataSetNames()
     {
         List<string> names = new List<string>();
-        foreach (Dataset dataset in _Datasets)
+        foreach (Dataset dataset in _datasets)
         {
             names.AddRange(dataset.DatasetName);
         }
@@ -78,11 +85,11 @@ internal sealed class DataService : IDataService
 
     public void DeregisterDataset(string DatasetName)
     {
-        if (_Datasets == null || _Datasets.Count == 0)
+        if (_datasets == null || _datasets.Count == 0)
         {
             return;
         }
-        _Datasets.Remove(_Datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
+        _datasets.Remove(_datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
@@ -93,7 +100,7 @@ internal sealed class DataService : IDataService
     public Dataset CreateDataSet(string DatasetName)
     {
         var dataset = new Dataset(DatasetName);
-        _Datasets.Add(dataset);
+        _datasets.Add(dataset);
 
         if (_logger.IsEnabled(LogLevel.Debug))
         {
@@ -187,14 +194,41 @@ internal sealed class DataService : IDataService
         return dataset;
     }
 
+    public List<DataRegistrationResult> LoadData(string JsonData)
+    {
+        var dataDef = _dataLoaderService.LoadData(JsonData);
+        if (dataDef == null)
+        {
+            return [];
+        }
+        return AddData(dataDef);
+    }
+
+    private List<DataRegistrationResult> AddData(List<Dataset> Datasets)
+    {
+        var results = new List<DataRegistrationResult>();
+        foreach (var dataset in Datasets)
+        {
+            _datasets.Add(dataset);
+            var result = new DataRegistrationResult()
+            {
+                Status = RightRuleStatusEnum.SUCCESS,
+                DataType = DataTypes.DATASET,
+                Name = dataset.DatasetName
+            };
+            results.Add(result);
+        }
+        return results;
+    }
+
     public List<Dataset>? GetDatasets()
     {
-        return _Datasets;
+        return _datasets;
     }
 
     public Dataset? GetDataset(string DatasetName)
     {
-        return _Datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
+        return _datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
     }
 
     public DataItem? GetDataItem(string DatasetName, string DataItemName)
@@ -219,5 +253,21 @@ internal sealed class DataService : IDataService
             }
         }
         return null;
+    }
+
+    public string DeserializeData()
+    {
+        var datasets = this._datasets;
+        return _dataSerializerService.SerializeData(datasets);
+    }
+
+    public string DeserializeData(string DatasetName)
+    {
+        var dataset = GetDataset(DatasetName);
+        if (dataset != null)
+        {
+            return _dataSerializerService.SerializeData(dataset);
+        }
+        return string.Empty;
     }
 }

@@ -12,7 +12,7 @@ internal class RuleLoaderService : IRuleLoaderService
         _ruleLoaderFactory = ruleLoaderFactory;
     }
 
-    public List<DefinedRule>? LoadRulesFromJson(string JsonData)
+    public List<DefinedRule>? LoadRules(string JsonData)
     {
         string loaderType = "JSON";
         var loader = GetLoader(loaderType);
@@ -20,7 +20,7 @@ internal class RuleLoaderService : IRuleLoaderService
         {
             return [];
         }
-        var rules = loader.LoadFromJson(JsonData);
+        var rules = loader.Load(JsonData);
         return rules;
     }
 

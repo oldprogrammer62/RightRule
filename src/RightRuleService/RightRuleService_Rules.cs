@@ -1,7 +1,6 @@
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
-using RightRule.RuleServices.RuleLoader;
 
 namespace RightRule.RightRuleService;
 
@@ -57,14 +56,9 @@ internal sealed partial class RightRuleService : IRightRuleService
         return RuleService.GetRules(Context);
     }
 
-    public List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string JsonData)
+    public List<RuleRegistrationResult> LoadRules(string JsonData)
     {
-        var ruleDefn = ruleLoaderService.LoadRulesFromJson(JsonData);
-        if (ruleDefn == null)
-        {
-            return [RuleRegistrationResult.Failed("Rule Definitions not build from Json")];
-        }
-        return RightRule.RegisterRules(ruleDefn);
+        return RuleService.LoadRules(JsonData);
     }
 
     /// <summary>

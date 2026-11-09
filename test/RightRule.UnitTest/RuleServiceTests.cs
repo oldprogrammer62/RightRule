@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.Models;
 using RightRule.RuleServices;
+using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
@@ -17,6 +18,12 @@ public sealed class RuleServiceTests
     private readonly StubParseRuleService _parseService = new();
     private readonly RuleService _sut;
 
+    // Add inside RuleServiceTests:
+    private sealed class StubRuleLoaderService : IRuleLoaderService
+    {
+        public List<DefinedRule>? LoadRules(string JsonData) => [];
+    }
+
     public RuleServiceTests()
     {
         _sut = new RuleService(
@@ -24,6 +31,7 @@ public sealed class RuleServiceTests
             _validationService,
             _parseService,
             _registeredRules,
+            new StubRuleLoaderService(),
             NullLogger<RuleService>.Instance);
     }
 

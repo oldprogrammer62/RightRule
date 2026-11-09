@@ -4,6 +4,6 @@ namespace RightRule.RuleServices.RuleLoader
 {
     internal interface IRuleLoaderService
     {
-        List<DefinedRule>? LoadRulesFromJson(string JsonData);
+        List<DefinedRule>? LoadRules(string JsonData);
     }
 }

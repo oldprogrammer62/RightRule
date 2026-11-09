@@ -43,7 +43,7 @@ public interface IRightRuleService
     DefaultRule GetDefaultRule(string Context);
     DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
 
-    List<RuleRegistrationResult> RegisterRulesJson(IRightRule RightRule, string Data);
+    List<RuleRegistrationResult> LoadRules(string JsonData);
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
     RuleRegistrationResult RegisterRule(DefinedRule Rule);
 
@@ -59,6 +59,11 @@ public interface IRightRuleService
 
     bool DeRegisterData();
     bool DeRegisterData(string DatasetName);
+
+    string DeserializeData();
+    string DeserializeData(string DatasetName);
+
+    List<DataRegistrationResult> LoadData(string JsonData);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
     Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType);

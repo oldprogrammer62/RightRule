@@ -1,13 +1,16 @@
 ﻿using Microsoft.Extensions.Logging.Testing;
 using RightRule.DataServices;
+using RightRule.DataServices.DataLoader;
+using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
+using RightRule.Factories.DataLoaderFactory;
 
 namespace RightRuleTests;
 
 public class DataServiceTests
 {
     private static DataService CreateService() =>
-        new(new FakeLogger<DataService>(), new DataValidatorService());
+        new(new DataValidatorService(), new DataSerializerService(), new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), new FakeLogger<DataService>());
 
     [Fact]
     public void CreateDataSet_AddsAndReturnsDataset()

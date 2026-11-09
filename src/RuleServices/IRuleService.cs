@@ -20,6 +20,8 @@ public interface IRuleService
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
     RuleRegistrationResult RegisterRule(DefinedRule Rule);
 
+    List<RuleRegistrationResult> LoadRules(string JsonData);
+
     bool DeRegisterRules();
     bool DeRegisterRules(string Context);
     bool DeRegisterRule(string Context, string RuleName);

@@ -109,7 +109,7 @@ public class RightRuleServiceTests
 
     private sealed class RuleLoaderServiceStub : IRuleLoaderService
     {
-        public List<DefinedRule>? LoadRulesFromJson(string JsonData) => [];
+        public List<DefinedRule>? LoadRules(string JsonData) => [];
     }
 
     private sealed class OperatorServiceStub : IOperatorService, IDisposable

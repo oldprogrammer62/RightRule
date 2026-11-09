@@ -10,7 +10,7 @@ internal sealed class JsonRuleLoader : IRuleLoader
     {
     }
 
-    public List<DefinedRule>? LoadFromJson(string JsonData)
+    public List<DefinedRule>? Load(string JsonData)
     {
         var ruleDefs = ConvertJson(JsonData);
         return ruleDefs;

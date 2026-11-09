@@ -7,38 +7,29 @@ using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using System.Text;
 using System.Text.Json;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RightRuleTests;
 
-public class LoaderJSON_Tests
+public class RuleLoader_Tests
 {
     [Fact]
-    public void Json_Object_Test()
-    {
-
-    }
-
-    [Fact]
-    public void Json_Load_Test()
+    public void Json_LoadRules_Test()
     {
         IRightRule rr = new RightRule.RightRule();
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
 
         RuleLoaderFactory? loaderFactory = new RuleLoaderFactory(logger);
-
         var loader = loaderFactory.BuildRuleLoader("JSON");
         Assert.NotNull(loader);
 
         var json = Template.JsonString();
-        List<DefinedRule>? rules = loader.LoadFromJson(json);
+        List<DefinedRule>? rules = loader.Load(json);
 
         Assert.NotNull(rules);
     }
 
     [Fact]
-    public void Json_Load_Test2()
+    public void Json_LoadRules_Test2()
     {
         IRightRule rr = new RightRule.RightRule();
 
@@ -49,7 +40,7 @@ public class LoaderJSON_Tests
     }
 
     [Fact]
-    public void Json_Load_Test3()
+    public void Json_LoadRules_Test3()
     {
         IRightRule rr = new RightRule.RightRule();
 
@@ -65,7 +56,7 @@ public class LoaderJSON_Tests
     }
 
     [Fact]
-    public void Json_Load_Test4()
+    public void Json_LoadRules_Test4()
     {
         IRightRule rr = new RightRule.RightRule();
 
@@ -85,7 +76,6 @@ public class LoaderJSON_Tests
 
         Assert.NotNull(rules);
     }
-
 
     private static string JsonString()
     {
