@@ -60,8 +60,8 @@ public interface IRightRuleService
     bool DeRegisterData();
     bool DeRegisterData(string DatasetName);
 
-    string DeserializeData();
-    string DeserializeData(string DatasetName);
+    string SerializeData();
+    string SerializeData(string DatasetName);
 
     List<DataRegistrationResult> LoadData(string JsonData);
 
@@ -71,4 +71,6 @@ public interface IRightRuleService
     List<string>? GetRuleContexts();
     List<(int Number, string Name)>? GetRuleNumbers(string Context);
     List<string>? GetRuleNames(string Context);
+    string SerializeRules();
+    string SerializeRules(string Context);
 }

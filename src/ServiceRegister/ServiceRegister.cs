@@ -28,6 +28,7 @@ using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.Rules;
+using RightRule.RuleServices.RuleSerializer;
 using RightRule.RuleServices.RuleValidation;
 
 namespace RightRule.ServiceRegister;
@@ -80,6 +81,7 @@ internal sealed class ServiceRegister
         services.AddScoped<IApplyFirstRuleService, ApplyFirstRuleService>();
         services.AddScoped<IApplyAnyRulesService, ApplyAnyRulesService>();
         services.AddScoped<IApplyAllRulesService, ApplyAllRulesService>();
+        services.AddScoped<IRuleSerializerService, RuleSerializerService>();
 
         services.AddScoped<IOperatorService, OperatorService>();
         services.AddScoped<ICustomOperatorLoader, CustomOperatorLoader>();

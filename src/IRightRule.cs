@@ -246,8 +246,8 @@ public interface IRightRule : IDisposable
     /// <returns><see cref="DataRegistrationResult"/></returns>
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
 
-    string DeserializeData();
-    string DeserializeData(string DatasetName);
+    string SerializeData();
+    string SerializeData(string DatasetName);
 
     List<DataRegistrationResult> LoadData(string JsonData);
 
@@ -305,6 +305,10 @@ public interface IRightRule : IDisposable
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="FormatException"></exception>
     List<RuleRegistrationResult> LoadRules(string JsonData);
+
+    string SerializeRules();
+    string SerializeRules(string Context);
+
 
     /// <summary>
     /// Unloads an Operator from the RightRule engine.<br/>

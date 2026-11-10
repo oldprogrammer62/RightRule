@@ -5,7 +5,7 @@ namespace RightRuleTests;
 public class DataSerializationTests
 {
     [Fact]
-    public void DeserializeData_ReturnsSerializedRegisteredData()
+    public void SerializeData_ReturnsSerializedRegisteredData()
     {
         using var rightRule = new RightRule.RightRule();
 
@@ -29,7 +29,7 @@ public class DataSerializationTests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
 
-        var serializedData = rightRule.DeserializeData();
+        var serializedData = rightRule.SerializeData();
 
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedData);
         Assert.Contains("\"Key\":\"name\"", serializedData);

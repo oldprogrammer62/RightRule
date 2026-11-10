@@ -1,9 +1,5 @@
-﻿
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Testing;
-using RightRule;
+﻿using RightRule;
 using RightRule.DataServices.DataRegistration;
-using RightRule.Factories.DataLoaderFactory;
 using RightRule.Models;
 
 namespace RightRuleTests;
@@ -14,11 +10,6 @@ public class DataLoader_Tests
     public void Json_LoadData_Test()
     {
         IRightRule rr = new RightRule.RightRule();
-        ILogger<DataLoaderFactory> logger = new FakeLogger<DataLoaderFactory>();
-
-        DataLoaderFactory? loaderFactory = new DataLoaderFactory(logger);
-        var loader = loaderFactory.BuildDataLoader("JSON");
-        Assert.NotNull(loader);
 
         var json = JsonData();
         List<DataRegistrationResult>? data = rr.LoadData(json);
@@ -26,9 +17,11 @@ public class DataLoader_Tests
     }
 
     [Fact]
-    public void DeserializeThenLoadData()
+    public void SerializeThenLoadData_MultipleDatasets()
     {
         using var rightRule = new RightRule.RightRule();
+        Assert.NotNull(rightRule);
+        Assert.NotNull(rightRule.DataService);
 
         var registration = rightRule.RegisterData(
             "Customer",
@@ -49,22 +42,56 @@ public class DataLoader_Tests
                 ["isPaid"] = true
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(2, rightRule.DataService.GetDatasets().Count);
 
-        var serializedData = rightRule.DeserializeData();
+        var serializedData = rightRule.SerializeData();
 
         // Clear all the data from the data service so we can test loading it back in
         rightRule.DataService.Clear();
+        Assert.Empty(rightRule.DataService.GetDatasets());
 
-        // Now try and load the data
-        ILogger<DataLoaderFactory> logger = new FakeLogger<DataLoaderFactory>();
-
-        DataLoaderFactory? loaderFactory = new DataLoaderFactory(logger);
-        var loader = loaderFactory.BuildDataLoader("JSON");
-        Assert.NotNull(loader);
-
-        var json = serializedData;
-        List<DataRegistrationResult>? data = rightRule.LoadData(json);
+        List<DataRegistrationResult>? data = rightRule.LoadData(serializedData);
         Assert.NotNull(data);
+        Assert.Equal(2, rightRule.DataService.GetDatasets().Count);
+    }
+
+    [Fact]
+    public void SerializeThenLoadData_SingleDatasets()
+    {
+        using var rightRule = new RightRule.RightRule();
+        Assert.NotNull(rightRule);
+        Assert.NotNull(rightRule.DataService);
+
+        var registration = rightRule.RegisterData(
+            "Customer",
+            new Dictionary<string, object>
+            {
+                ["name"] = "Alice",
+                ["age"] = 30,
+                ["isActive"] = true
+            });
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
+
+        var registration2 = rightRule.RegisterData(
+            "Order",
+            new Dictionary<string, object>
+            {
+                ["orderValue"] = 123.99,
+                ["orderDate"] = "01.10.2026",
+                ["isPaid"] = true
+            });
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(2, rightRule.DataService.GetDatasets().Count);
+
+        var serializedData = rightRule.SerializeData("Customer");
+
+        // Clear all the data from the data service so we can test loading it back in
+        rightRule.DataService.Clear();
+        Assert.Empty(rightRule.DataService.GetDatasets());
+
+        List<DataRegistrationResult>? data = rightRule.LoadData(serializedData);
+        Assert.NotNull(data);
+        Assert.Single(rightRule.DataService.GetDatasets());
     }
 
     private static string JsonData()

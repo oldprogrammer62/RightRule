@@ -92,14 +92,14 @@ internal sealed partial class RightRuleService : IRightRuleService
         return true;
     }
 
-    public string DeserializeData()
+    public string SerializeData()
     {
-        return DataService.DeserializeData();
+        return DataService.SerializeData();
     }
 
-    public string DeserializeData(string DatasetName)
+    public string SerializeData(string DatasetName)
     {
-        return DataService.DeserializeData(DatasetName);
+        return DataService.SerializeData(DatasetName);
     }
 
     private void DeRegisterNewData()

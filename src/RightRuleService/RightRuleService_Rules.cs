@@ -56,6 +56,16 @@ internal sealed partial class RightRuleService : IRightRuleService
         return RuleService.GetRules(Context);
     }
 
+    public string SerializeRules()
+    {
+        return RuleService.SerializeRules();
+    }
+
+    public string SerializeRules(string Context)
+    {
+        return RuleService.SerializeRules(Context);
+    }
+
     public List<RuleRegistrationResult> LoadRules(string JsonData)
     {
         return RuleService.LoadRules(JsonData);

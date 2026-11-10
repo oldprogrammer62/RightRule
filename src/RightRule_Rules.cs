@@ -138,6 +138,31 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
+    public string SerializeRules()
+    {
+        try
+        {
+            return _rightRuleService.SerializeRules();
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
+    public string SerializeRules(string Context)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        try
+        {
+            return _rightRuleService.SerializeRules(Context);
+        }
+        catch
+        {
+            throw;
+        }
+    }
+
     /// <summary>
     /// Registers a set of Rules with the RightRule engine.
     /// </summary>

@@ -11,7 +11,7 @@ public interface IDataService
 
     Dataset CreateDataSet(string DatasetName);
     List<string> GetDataSetNames();
-    List<Dataset>? GetDatasets();
+    List<Dataset> GetDatasets();
     Dataset? GetDataset(string DatasetName);
 
     void DeregisterDataset(string DatasetName);
@@ -28,8 +28,8 @@ public interface IDataService
 
     bool IsValidDataIdentifier(string name);
 
-    string DeserializeData();
-    string DeserializeData(string DatasetName);
+    string SerializeData();
+    string SerializeData(string DatasetName);
 
     List<DataRegistrationResult> LoadData(string JsonData);
 }

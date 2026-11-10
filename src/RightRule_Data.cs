@@ -65,16 +65,29 @@ public sealed partial class RightRule : IRightRule, IDisposable
         }
     }
 
-    public string DeserializeData()
+    public string SerializeData()
     {
-        return _rightRuleService.DeserializeData();
+        try
+        {
+            return _rightRuleService.SerializeData();
+        }
+        catch
+        {
+            throw;
+        }
     }
 
-    public string DeserializeData(string DatasetName)
+    public string SerializeData(string DatasetName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
-
-        return _rightRuleService.DeserializeData(DatasetName);
+        try
+        {
+            return _rightRuleService.SerializeData(DatasetName);
+        }
+        catch
+        {
+            throw;
+        }
     }
 
     public List<DataRegistrationResult> LoadData(string JsonData)

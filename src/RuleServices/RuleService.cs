@@ -5,6 +5,7 @@ using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
+using RightRule.RuleServices.RuleSerializer;
 using RightRule.RuleServices.RuleValidation;
 using System.ComponentModel;
 using System.Data;
@@ -23,19 +24,51 @@ internal sealed class RuleService : IRuleService
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRegisteredRules _registeredRules;
     private readonly IRuleLoaderService _ruleLoaderService;
+    private readonly IRuleSerializerService _ruleSerializerService;
     private readonly ILogger<RuleService> _logger;
 
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService ruleLoaderService, ILogger<RuleService> logger)
+    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService ruleLoaderService, IRuleSerializerService ruleSerializerService, ILogger<RuleService> logger)
     {
         _logger = logger;
 
         _options = options;
         _registeredRules = RegisteredRules;
         _ruleLoaderService = ruleLoaderService;
+        _ruleSerializerService = ruleSerializerService;
         _ruleValidationService = RuleValidationService;
         _parseRuleService = ParseRuleService;
+    }
+
+    public string SerializeRules()
+    {
+        var rules = GetRules();
+        if (rules == null || rules.Count == 0)
+        {
+            return string.Empty;
+        }
+        return _ruleSerializerService.SerializeRules(rules);
+    }
+
+    public string SerializeRules(string Context)
+    {
+        var rules = GetRules(Context);
+        if (rules == null || rules.Count == 0)
+        {
+            return string.Empty;
+        }
+        return _ruleSerializerService.SerializeRules(rules);
+    }
+
+    public List<RuleRegistrationResult> LoadRules(string JsonData)
+    {
+        var ruleDef = _ruleLoaderService.LoadRules(JsonData);
+        if (ruleDef == null)
+        {
+            return [];
+        }
+        return RegisterRules(ruleDef);
     }
 
     public ParsedRule? GetRule(string Context, string RuleName)
@@ -79,16 +112,6 @@ internal sealed class RuleService : IRuleService
             }
         }
         return registeredRules;
-    }
-
-    public List<RuleRegistrationResult> LoadRules(string JsonData)
-    {
-        var ruleDefn = _ruleLoaderService.LoadRules(JsonData);
-        if (ruleDefn == null)
-        {
-            return [RuleRegistrationResult.Failed("Rule Definitions not built from Json")];
-        }
-        return RegisterRules(ruleDefn);
     }
 
     public RuleRegistrationResult RegisterRule(DefinedRule Rule)

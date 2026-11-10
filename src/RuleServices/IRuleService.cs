@@ -26,4 +26,7 @@ public interface IRuleService
     bool DeRegisterRules(string Context);
     bool DeRegisterRule(string Context, string RuleName);
     bool DeRegisterRule(string Context, int RuleNumber);
+
+    string SerializeRules();
+    string SerializeRules(string Context);
 }

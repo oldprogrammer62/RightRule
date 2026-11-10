@@ -32,6 +32,16 @@ internal sealed class DataService : IDataService
         _dataLoaderService = dataLoaderService;
     }
 
+    public List<DataRegistrationResult> LoadData(string JsonData)
+    {
+        var dataDef = _dataLoaderService.LoadData(JsonData);
+        if (dataDef == null)
+        {
+            return [];
+        }
+        return AddData(dataDef);
+    }
+
     public void Clear()
     {
         if (_datasets == null || _datasets.Count == 0)
@@ -194,16 +204,6 @@ internal sealed class DataService : IDataService
         return dataset;
     }
 
-    public List<DataRegistrationResult> LoadData(string JsonData)
-    {
-        var dataDef = _dataLoaderService.LoadData(JsonData);
-        if (dataDef == null)
-        {
-            return [];
-        }
-        return AddData(dataDef);
-    }
-
     private List<DataRegistrationResult> AddData(List<Dataset> Datasets)
     {
         var results = new List<DataRegistrationResult>();
@@ -221,9 +221,9 @@ internal sealed class DataService : IDataService
         return results;
     }
 
-    public List<Dataset>? GetDatasets()
+    public List<Dataset> GetDatasets()
     {
-        return _datasets;
+        return _datasets ?? [];
     }
 
     public Dataset? GetDataset(string DatasetName)
@@ -255,19 +255,24 @@ internal sealed class DataService : IDataService
         return null;
     }
 
-    public string DeserializeData()
+    public string SerializeData()
     {
         var datasets = this._datasets;
+        if (datasets == null || datasets.Count == 0)
+        {
+            return string.Empty;
+        }
         return _dataSerializerService.SerializeData(datasets);
     }
 
-    public string DeserializeData(string DatasetName)
+    public string SerializeData(string DatasetName)
     {
         var dataset = GetDataset(DatasetName);
-        if (dataset != null)
+        if (dataset == null)
         {
-            return _dataSerializerService.SerializeData(dataset);
+            return string.Empty;
         }
-        return string.Empty;
+        // Must wrap the dataset in a list to serialize it correctly
+        return _dataSerializerService.SerializeData([dataset]);
     }
 }
