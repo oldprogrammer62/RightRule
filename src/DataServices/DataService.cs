@@ -73,7 +73,7 @@ internal sealed class DataService : IDataService
 
     public List<string>? GetDataItemNames(Dataset Dataset)
     {
-        var names = Dataset.DataItemNames;
+        var names = Dataset.GetDataItemNames();
         if (_logger.IsEnabled(LogLevel.Debug))
         {
             _logger.LogDebug("{CountOfNames} DataItem Names found in {DatasetName}",

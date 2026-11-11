@@ -21,6 +21,10 @@ public class DataLoader_Tests
         Assert.NotNull(data);
         Assert.Single(rr.DataService.GetDatasets());
 
+        var dataNames = rr.DataService.GetDataItemNames(rr.DataService.GetDatasets()[0]);
+        Assert.NotNull(dataNames);
+        Assert.Equal(3, dataNames.Count);
+
         var serializedRules = rr.SerializeData();
         Assert.NotNull(serializedRules);
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedRules);
@@ -131,6 +135,11 @@ public class DataLoader_Tests
         List<DataRegistrationResult>? data = rr.LoadData(serializedData);
         Assert.NotNull(data);
         Assert.Single(rr.DataService.GetDatasets());
+
+        var regisisteredData = rr.GetRegisteredData();
+        Assert.NotNull(regisisteredData);
+        Assert.Single(regisisteredData);
+ 
         Assert.Equal("Customer", rr.DataService.GetDatasets()[0].DatasetName);
     }
 
@@ -138,7 +147,7 @@ public class DataLoader_Tests
     {
         StringBuilder sb = new StringBuilder();
         sb.Append('[');
-        sb.Append("{\"DatasetName\":\"Customer\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}],\"DataItemNames\":[\"name\",\"age\",\"isActive\"]}");
+        sb.Append("{\"DatasetName\":\"Customer\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}]}");
         sb.Append(']');
         return sb.ToString();
     }
@@ -147,9 +156,9 @@ public class DataLoader_Tests
     {
         StringBuilder sb = new StringBuilder();
         sb.Append('[');
-        sb.Append("{\"DatasetName\":\"Customer1\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}],\"DataItemNames\":[\"name\",\"age\",\"isActive\"]}");
+        sb.Append("{\"DatasetName\":\"Customer1\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}]}");
         sb.Append(',');
-        sb.Append("{\"DatasetName\":\"Customer2\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}],\"DataItemNames\":[\"name\",\"age\",\"isActive\"]}");
+        sb.Append("{\"DatasetName\":\"Customer2\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}]}");
         sb.Append(']');
         return sb.ToString();
     }

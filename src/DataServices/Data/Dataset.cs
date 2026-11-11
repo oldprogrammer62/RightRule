@@ -6,8 +6,6 @@ public sealed class Dataset
 
     public List<DataItem> DataItems { get; init; }
 
-    public List<string> DataItemNames => GetDataItemNames();
-
     public Dataset() : this("DefaultDatasetName")
     {
     }
@@ -30,7 +28,7 @@ public sealed class Dataset
         AddDataItems(DataItems);
     }
 
-    private List<string> GetDataItemNames()
+    public List<string> GetDataItemNames()
     {
         return this.DataItems.Select(x => x.Key).ToList();
     }

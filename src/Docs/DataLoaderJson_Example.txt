@@ -1,0 +1,14 @@
+﻿Load Data using a Json
+----------------------
+IRightRule rr = new RightRule.RightRule();
+List<DataRegistrationResult>? dataRegistrations = rr.LoadData(json);
+List<Dataset> datasets = rr.GetRegisteredData();
+
+
+Json Template
+-------------
+StringBuilder json = new StringBuilder();
+json.Append('[');
+json.Append("{\"DatasetName\":\"Customer\",\"DataItems\":[{\"Key\":\"name\",\"Value\":\"Alice\"},{\"Key\":\"age\",\"Value\":30},{\"Key\":\"isActive\",\"Value\":true}]}");
+json.Append(']');
+return json.ToString();

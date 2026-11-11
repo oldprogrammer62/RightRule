@@ -90,7 +90,12 @@ public class RuleLoader_Tests
     [Fact]
     public void Json_LoadRules_Test4()
     {
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            Diagnostics = true
+        };
+
+        IRightRule rr = new RightRule.RightRule(options);
         Assert.NotNull(rr);
         Assert.NotNull(rr.RuleService);
 

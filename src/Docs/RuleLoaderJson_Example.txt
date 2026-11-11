@@ -1,7 +1,8 @@
 ﻿Load Rules using a Json
 -----------------------
 IRightRule rr = new RightRule.RightRule();
-List<RuleRegistrationResult> rules = rr.RegisterRulesJson(json);
+List<RuleRegistrationResult> ruleRegistrations = rr.LoadRules(json);
+List<ParsedRule> rules = rr.GetRegisteredRules();
 
 
 Json Template
@@ -17,9 +18,9 @@ json.Append("'Statement': 'x = 100'");
 json.Append(',');
 json.Append("'Context': 'RuleContext'");
 json.Append(',');
-json.Append("'Decision': 'SUCCESS'");
+json.Append("'TrueDecision': 'SUCCESS'");
 json.Append(',');
-json.Append("'DecisionData': '{}'");
+json.Append("'TrueDecisionData': '{}'");
 json.Append(',');
 json.Append("'FalseDecision': 'FAIL'");
 json.Append(',');
