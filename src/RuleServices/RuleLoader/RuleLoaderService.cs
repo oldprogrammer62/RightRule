@@ -20,7 +20,7 @@ internal class RuleLoaderService : IRuleLoaderService
         {
             return [];
         }
-        var rules = loader.Load(JsonData);
+        var rules = loader.Deserialize(JsonData);
         return rules;
     }
 

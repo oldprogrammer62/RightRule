@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RightRule.DataServices.Data;
-using RightRule.Factories.DataLoaderFactory;
-using RightRule.RuleServices.RuleModels;
 
-namespace RightData.DataServices.DataLoader.Json;
+namespace RightRule.DataServices.DataLoader.Json;
 
 internal sealed class JsonDataLoader : IDataLoader
 {
@@ -11,13 +9,13 @@ internal sealed class JsonDataLoader : IDataLoader
     {
     }
 
-    public List<Dataset>? Load(string JsonData)
+    public List<Dataset>? Deserialize(string JsonData)
     {
         var ruleDefs = ConvertJson(JsonData);
         return ruleDefs;
     }
 
-    private List<Dataset>? ConvertJson(string JsonData)
+    private static List<Dataset>? ConvertJson(string JsonData)
     {
         if (string.IsNullOrWhiteSpace(JsonData))
         {

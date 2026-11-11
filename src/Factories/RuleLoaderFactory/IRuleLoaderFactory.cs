@@ -1,4 +1,6 @@
-﻿namespace RightRule.Factories.RuleLoaderFactory;
+﻿using RightRule.RuleServices.RuleLoader;
+
+namespace RightRule.Factories.RuleLoaderFactory;
 
 internal interface IRuleLoaderFactory
 {

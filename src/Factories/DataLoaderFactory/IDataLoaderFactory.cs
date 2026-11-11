@@ -1,4 +1,6 @@
-﻿namespace RightRule.Factories.DataLoaderFactory;
+﻿using RightRule.DataServices.DataLoader;
+
+namespace RightRule.Factories.DataLoaderFactory;
 
 internal interface IDataLoaderFactory
 {

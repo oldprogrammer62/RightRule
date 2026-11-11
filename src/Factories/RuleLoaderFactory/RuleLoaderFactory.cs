@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleLoader.Json;
 
 namespace RightRule.Factories.RuleLoaderFactory;
@@ -21,7 +22,7 @@ internal sealed class RuleLoaderFactory : IRuleLoaderFactory
         }
         if (_logger.IsEnabled(LogLevel.Error))
         {
-            _logger.LogError("{LoaderType} - Not available", RuleLoaderType);
+            _logger.LogError("Rule Loader: {LoaderType} - Not available", RuleLoaderType);
         }
         return null;
     }

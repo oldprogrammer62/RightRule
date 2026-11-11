@@ -46,7 +46,15 @@ public class RegisterRulesAsync_Tests
         var registeredRules = rr.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
-        Assert.Equal(2, registeredRules.Count);
+        Assert.Equal(3, registeredRules.Count);
+
+        var success = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.SUCCESS);
+        Assert.NotNull(success);
+        Assert.Equal(2, success.Count());
+
+        var failed = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.ERROR);
+        Assert.NotNull(failed);
+        Assert.Single(failed);
     }
 
     [Fact]

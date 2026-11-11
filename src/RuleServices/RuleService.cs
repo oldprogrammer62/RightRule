@@ -109,7 +109,9 @@ internal sealed class RuleService : IRuleService
             if (ruleRegistration.Status == RightRuleStatusEnum.SUCCESS)
             {
                 registeredRules.Add(ruleRegistration);
+                continue;
             }
+            registeredRules.Add(ruleRegistration);
         }
         return registeredRules;
     }

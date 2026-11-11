@@ -26,7 +26,7 @@ public sealed class ErrorRule : RuleError
         return new ErrorRule()
         {
             Context = parsedRule.Context,
-            StatementApplied = result.StatementApplied,
+            StatementApplied = string.IsNullOrWhiteSpace(result.StatementApplied) ? parsedRule.Statement : result.StatementApplied,
             Message = result.Message
         };
     }

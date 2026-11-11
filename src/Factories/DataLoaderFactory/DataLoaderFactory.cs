@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using RightData.DataServices.DataLoader.Json;
+using RightRule.DataServices.DataLoader;
+using RightRule.DataServices.DataLoader.Json;
 
 namespace RightRule.Factories.DataLoaderFactory;
 
@@ -21,7 +22,7 @@ internal sealed class DataLoaderFactory : IDataLoaderFactory
         }
         if (_logger.IsEnabled(LogLevel.Error))
         {
-            _logger.LogError("{LoaderType} - Not available", DataLoaderType);
+            _logger.LogError("Data Loader: {LoaderType} - Not available", DataLoaderType);
         }
         return null;
     }

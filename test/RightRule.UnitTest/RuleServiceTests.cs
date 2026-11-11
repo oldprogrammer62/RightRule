@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
+using RightRule;
 using RightRule.Models;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleLoader;
@@ -156,7 +157,7 @@ public sealed class RuleServiceTests
     }
 
     [Fact]
-    public void RegisterRules_ReturnsOnlySuccessfulRegistrations()
+    public void RegisterRules_ReturnsAllRegistrationsSuccessAndFailures()
     {
         var successfulRule = CreateParsedRule(1, "Success", "Sales", RightRuleStatusEnum.SUCCESS);
         var failedRule = CreateParsedRule(2, "Failure", "Sales", RightRuleStatusEnum.FAILURE);
@@ -172,9 +173,50 @@ public sealed class RuleServiceTests
             CreateDefinedRule(2, "Failure")
         ]);
 
-        Assert.Single(results);
+        Assert.Equal(2, results.Count);
         Assert.Same(successfulRule, results[0].RegisteredRule);
+        Assert.Same(failedRule, results[1].RegisteredRule);
+
         Assert.Equal(2, _parseService.CallCount);
+    }
+
+    [Fact]
+    public void RegisterRules_ReturnsAllRegistrationsApplyOnlySuccess()
+    {
+        IRightRule rr = new RightRule.RightRule();
+        Assert.NotNull(rr);
+
+        var definedRule1 = new DefinedRule
+        {
+            Context = "Sales",
+            Name = "Rule1",
+            Number = 1,
+            Statement = "a.b = c.d",
+            TrueDecision = "DONE",
+            FalseDecision = "NOT_DONE"
+        };
+        var definedRule2 = new DefinedRule
+        {
+            Context = "Sales",
+            Name = "Rule2",
+            Number = 2,
+            Statement = "a.b = c.d",
+            TrueDecision = "DONE",
+            FalseDecision = "" // Fail registration
+        };
+        var ruleRegistrations = rr.RegisterRules(
+        [
+            definedRule1,
+            definedRule2
+        ]);
+
+        Assert.NotNull(ruleRegistrations);
+        Assert.Equal(2, ruleRegistrations.Count);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, ruleRegistrations[0].Status);
+        Assert.Equal(RightRuleStatusEnum.ERROR, ruleRegistrations[1].Status);
+
+        var outcome = rr.ApplyRulesAsync("Sales");
+        Assert.NotNull(outcome);
     }
 
     [Fact]
