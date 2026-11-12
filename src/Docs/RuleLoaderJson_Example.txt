@@ -1,31 +1,63 @@
-﻿Load Rules using a Json
------------------------
-IRightRule rr = new RightRule.RightRule();
-List<RuleRegistrationResult> ruleRegistrations = rr.LoadRules(json);
-List<ParsedRule> rules = rr.GetRegisteredRules();
+﻿Load Rules from JSON
+====================
+Create a RightRule instance, pass it a JSON array of rule definitions, and
+inspect the result for each rule. The instance owns the rules registered during
+its lifetime; dispose it when the session is finished.
+
+C# example
+----------
+
+using var rr = new RightRule.RightRule();
+string json = """
+[
+  {
+    "Number": 1,
+    "Name": "RuleName",
+    "Statement": "x = 100",
+    "Context": "RuleContext",
+    "TrueDecision": "SUCCESS",
+    "TrueDecisionData": {
+      "message": "Rule matched"
+    },
+    "FalseDecision": "FAIL",
+    "FalseDecisionData": null,
+    "OptionalData": null
+  }
+]
+""";
+
+var registrationResults = rr.LoadRules(json);
+
+foreach (var result in registrationResults)
+{
+    Console.WriteLine($"{result.Status}: {result.Message}");
+}
 
 
-Json Template
--------------
-StringBuilder json = new StringBuilder();
-json.Append('[');
-json.Append('{');
-json.Append("'Number': 1");
-json.Append(',');
-json.Append("'Name': 'RuleName'");
-json.Append(',');
-json.Append("'Statement': 'x = 100'");
-json.Append(',');
-json.Append("'Context': 'RuleContext'");
-json.Append(',');
-json.Append("'TrueDecision': 'SUCCESS'");
-json.Append(',');
-json.Append("'TrueDecisionData': '{}'");
-json.Append(',');
-json.Append("'FalseDecision': 'FAIL'");
-json.Append(',');
-json.Append("'FalseDecisionData': '{}'");
-json.Append(',');
-json.Append("'OptionalData': null");
-json.Append('}');
-json.Append(']');
+JSON format
+-----------
+The JSON value must be an array of rule objects.
+Each object defines a rule using these properties:
+
+- Number: Rule number, used to order rules for evaluation.
+- Name: Rule name.
+- Statement: RightRule statement to evaluate.
+- Context: Context in which the rule is registered.
+- TrueDecision: Decision value returned when the statement is true.
+- TrueDecisionData: Optional data associated with the true decision.
+- FalseDecision: Decision value returned when the statement is false.
+- FalseDecisionData: Optional data associated with the false decision.
+- OptionalData: Optional configuration data for the rule.
+
+Decision data and optional data can be JSON objects, arrays, strings, numbers,
+booleans, or null, as appropriate for the application and operators.
+
+JSON requires double quotes around property names and string values. Single
+quotes are not valid JSON.
+
+Registration results
+--------------------
+LoadRules returns one RuleRegistrationResult per rule. Check each result's
+Status and Message to determine whether registration succeeded. A successful
+registration result includes the registered rule; a failed result may include
+an explanation in Message.

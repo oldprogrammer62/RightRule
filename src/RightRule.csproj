@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>RightRule</PackageId>
-    <Version>1.0.1-beta.12</Version>
+    <Version>1.0.1-beta.15</Version>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Authors>Mark Belton</Authors>
     <Description>RightRule allows you to externalise and configure business rules.</Description>
