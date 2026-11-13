@@ -43,7 +43,7 @@ public class RegisterRulesAsync_Tests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var registeredRules = rr.RegisterRules(rules);
+        var registeredRules = rr.RuleService.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
         Assert.Equal(3, registeredRules.Count);
@@ -80,12 +80,12 @@ public class RegisterRulesAsync_Tests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var registeredRule1 = rr.RegisterRule(rule1);
-        var registeredRule2 = rr.RegisterRule(rule2);
+        var registeredRule1 = rr.RuleService.RegisterRule(rule1);
+        var registeredRule2 = rr.RuleService.RegisterRule(rule2);
         Assert.NotNull(registeredRule1);
         Assert.NotNull(registeredRule2);
 
-        var registeredRules = rr.GetRegisteredRules();
+        var registeredRules = rr.RuleService.RegisteredRules;
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
     }

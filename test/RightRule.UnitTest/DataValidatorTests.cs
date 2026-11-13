@@ -32,7 +32,7 @@ public class DataValidatorTests
             .TrueDecision("Decision1")
             .FalseDecision("FalseDecision1")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1reg.Status);
     }
 
@@ -63,7 +63,7 @@ public class DataValidatorTests
             .TrueDecision("Decision1")
             .FalseDecision("FalseDecision1")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
         Assert.Equal(RightRuleStatusEnum.ERROR, rule1reg.Status);
         Assert.Contains("NotFound", rule1reg.Message);
     }

@@ -19,7 +19,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -29,7 +29,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule2 = rr.RegisterRule(rule2);
+        var rrule2 = rr.RuleService.RegisterRule(rule2);
 
         RightRuleResult<IProcessedRule> result = rr.ApplyRule("Context");
 
@@ -50,7 +50,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -60,7 +60,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule2 = rr.RegisterRule(rule2);
+        var rrule2 = rr.RuleService.RegisterRule(rule2);
 
         var result = rr.ApplyRule("Context");
 
@@ -81,7 +81,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -91,7 +91,7 @@ public class ApplyFirstRule_False
             .TrueDecision("CORRECT")
             .FalseDecision("INCORRECT")
             .Build();
-        var rrule2 = rr.RegisterRule(rule2);
+        var rrule2 = rr.RuleService.RegisterRule(rule2);
 
         var result = rr.ApplyRule("Context");
 

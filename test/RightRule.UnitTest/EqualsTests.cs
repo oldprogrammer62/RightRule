@@ -46,7 +46,7 @@ public class EqualsTests
             FalseDecision = "NOT EQUALS"
         };
 
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -69,7 +69,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -92,7 +92,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         var data1 = rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -115,7 +115,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -138,7 +138,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -161,7 +161,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -186,7 +186,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -211,7 +211,7 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -250,8 +250,8 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
+        var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -290,8 +290,8 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
+        var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -330,8 +330,8 @@ public class EqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
+        var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
         var appliedRule = rr.ApplyRule("Context");

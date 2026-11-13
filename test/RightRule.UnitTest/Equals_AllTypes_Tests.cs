@@ -55,7 +55,7 @@ public class Equals_AllTypes_Tests
             FalseDecision = "DIFFERENT"
         };
 
-        var rrule = rr.RegisterRule(ruleDef);
+        var rrule = rr.RuleService.RegisterRule(ruleDef);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rrule.Status);
 
         var result = rr.ApplyRule("Context");
@@ -82,7 +82,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        rr.RegisterRule(rule);
+        rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -114,7 +114,7 @@ public class Equals_AllTypes_Tests
             .FalseDecision("DIFFERENT")
             .Build();
             
-        var prule = rr.RegisterRule(rule);
+        var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -140,7 +140,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -166,7 +166,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -192,7 +192,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -221,7 +221,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -247,7 +247,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -273,7 +273,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -299,7 +299,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -325,7 +325,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -351,7 +351,7 @@ public class Equals_AllTypes_Tests
             FalseDecision = "DIFFERENT",
             Statement = "localVal = dtonlyVal"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -377,7 +377,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 
@@ -403,7 +403,7 @@ public class Equals_AllTypes_Tests
             TrueDecision = "SAME",
             FalseDecision = "DIFFERENT"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
 

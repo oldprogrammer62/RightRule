@@ -21,7 +21,7 @@ public class DecisionDataTests
             .OptionalData("Hello World from Optional")
             .Build();
 
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("Context");
 
@@ -50,7 +50,7 @@ public class DecisionDataTests
             .OptionalData("Hello World from Optional")
             .Build();
 
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("Context");
 
@@ -76,7 +76,7 @@ public class DecisionDataTests
             .OptionalData("Hello World from Optional")
             .Build();
 
-        var rrule1 = rr.RegisterRule(rule1);
+        var rrule1 = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("Context");
 

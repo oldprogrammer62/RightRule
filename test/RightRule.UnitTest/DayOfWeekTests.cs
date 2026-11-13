@@ -26,7 +26,7 @@ public class DayOfWeekTests
 
         IRightRule rr = new RightRule.RightRule();
         rr.DataService.RegisterData("data", data);
-        var parsedRule = rr.RegisterRule(rule1);
+        var parsedRule = rr.RuleService.RegisterRule(rule1);
         var appliedRule = rr.ApplyRule("context");
 
         Assert.NotNull(appliedRule);

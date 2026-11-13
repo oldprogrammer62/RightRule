@@ -86,7 +86,7 @@ public class CompleteExample_New
         };
         rr.RegisterDefaultRule(newDefaultRule);
 
-        rr.RegisterRules(new List<DefinedRule>
+        rr.RuleService.RegisterRules(new List<DefinedRule>
         {
             new()
             {
@@ -178,7 +178,7 @@ public class CompleteExample_New
         };
         rr.RegisterDefaultRule(newDefaultRule);
 
-        rr.RegisterRules(new List<DefinedRule>
+        rr.RuleService.RegisterRules(new List<DefinedRule>
         {
             new()
             {

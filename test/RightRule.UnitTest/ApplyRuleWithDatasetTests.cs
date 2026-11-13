@@ -62,7 +62,7 @@ public class ApplyRuleWithDatasetTests
     {
         IRightRule rr = new RightRule.RightRule();
         rr.DataService.RegisterData("Test", _Data);
-        var newRule1 = rr.RegisterRule(rule1);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -73,8 +73,8 @@ public class ApplyRuleWithDatasetTests
     public void TwoRules_WithDataSet()
     {
         IRightRule rr = new RightRule.RightRule();
-        var newRule1 = rr.RegisterRule(rule1);
-        var newRule2 = rr.RegisterRule(rule2);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
+        var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
@@ -86,7 +86,7 @@ public class ApplyRuleWithDatasetTests
     public void TwoRules_WithInvalidDataSet()
     {
         IRightRule rr = new RightRule.RightRule();
-        var newRule3 = rr.RegisterRule(rule3);
+        var newRule3 = rr.RuleService.RegisterRule(rule3);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");

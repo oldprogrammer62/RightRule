@@ -24,6 +24,8 @@ internal sealed class DefaultRuleRegister : IDefaultRuleRegister
 
     public DefaultRule GetDefaultRule(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         if (string.IsNullOrWhiteSpace(Context))
         {
             return DefaultRule;

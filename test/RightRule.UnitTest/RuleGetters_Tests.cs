@@ -10,27 +10,27 @@ public class RuleGetters_Tests
     public RuleGetters_Tests()
     {
         rr = new RightRule.RightRule();
-        rr.LoadRules(JsonString());
+        rr.RuleService.LoadRules(JsonString());
     }
 
     [Fact]
     public void GetRuleNumbers()
     {
-        var numbers = rr.GetRuleNumbers("RuleContext");
+        var numbers = rr.RuleService.GetRuleNumbers("RuleContext");
         Assert.NotNull(numbers);
     }
 
     [Fact]
     public void GetRuleNames()
     {
-        var names = rr.GetRuleNames("RuleContext");
+        var names = rr.RuleService.GetRuleNames("RuleContext");
         Assert.NotNull(names);
     }
 
     [Fact]
     public void GetRuleContexts()
     {
-        var contexts = rr.GetRuleContexts();
+        var contexts = rr.RuleService.GetRuleContexts();
         Assert.NotNull(contexts);
     }
 

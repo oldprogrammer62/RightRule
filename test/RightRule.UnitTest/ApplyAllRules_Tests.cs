@@ -43,8 +43,8 @@ public class ApplyAllRules_Tests
             FalseDecision = "BAD"
         };
 
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
 
         List<RightRuleResult<IProcessedRule>> result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);

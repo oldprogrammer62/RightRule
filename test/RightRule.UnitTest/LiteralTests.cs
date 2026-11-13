@@ -32,7 +32,7 @@ public class LiteralTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -55,7 +55,7 @@ public class LiteralTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -83,7 +83,7 @@ public class LiteralTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
         rr.DataService.RegisterData("Arguments", Arguments);
 
@@ -107,7 +107,7 @@ public class LiteralTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
@@ -135,7 +135,7 @@ public class LiteralTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
         rr.DataService.RegisterData("Arguments", Arguments);
 

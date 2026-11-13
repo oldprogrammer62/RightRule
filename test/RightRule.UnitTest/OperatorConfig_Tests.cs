@@ -32,7 +32,7 @@ public class OperatorConfig_Tests
 
         IRightRule rr = new RightRule.RightRule();
         DataRegistrationResult? data1Registered = rr.DataService.RegisterData("Data", data);
-        RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
+        RuleRegistrationResult? rule1Registered = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("Context");
 

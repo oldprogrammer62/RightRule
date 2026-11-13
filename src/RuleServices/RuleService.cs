@@ -43,7 +43,7 @@ internal sealed class RuleService : IRuleService
 
     public string SerializeRules()
     {
-        var rules = GetRules();
+        var rules = GetRegisteredRules();
         if (rules == null || rules.Count == 0)
         {
             return string.Empty;
@@ -53,7 +53,9 @@ internal sealed class RuleService : IRuleService
 
     public string SerializeRules(string Context)
     {
-        var rules = GetRules(Context);
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        var rules = GetRegisteredRules(Context);
         if (rules == null || rules.Count == 0)
         {
             return string.Empty;
@@ -63,6 +65,8 @@ internal sealed class RuleService : IRuleService
 
     public List<RuleRegistrationResult> LoadRules(string JsonData)
     {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
+
         var ruleDef = _ruleLoaderService.LoadRules(JsonData);
         if (ruleDef == null)
         {
@@ -71,30 +75,36 @@ internal sealed class RuleService : IRuleService
         return RegisterRules(ruleDef);
     }
 
-    public ParsedRule? GetRule(string Context, string RuleName)
+    public ParsedRule? GetRegisteredRule(string Context, string RuleName)
     {
-        ArgumentNullException.ThrowIfNull(RuleName, nameof(RuleName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
+
         return _registeredRules.Rules.FirstOrDefault(r =>
         r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)
         &&
         string.Equals(r.Name, RuleName, StringComparison.OrdinalIgnoreCase));
     }
 
-    public ParsedRule? GetRule(string Context, int RuleNumber)
+    public ParsedRule? GetRegisteredRule(string Context, int RuleNumber)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return _registeredRules.Rules.FirstOrDefault(r => 
         r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)
         &&
         r.Number == RuleNumber);
     }
 
-    public List<ParsedRule> GetRules()
+    public List<ParsedRule> GetRegisteredRules()
     {
         return _registeredRules.Rules;
     }
 
-    public List<ParsedRule> GetRules(string Context)
+    public List<ParsedRule> GetRegisteredRules(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
         return _registeredRules.Rules.Where(r => r.Context.Equals(Context, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 
@@ -191,11 +201,15 @@ internal sealed class RuleService : IRuleService
 
     public bool DeRegisterRule(string Context, string RuleName)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+        ArgumentException.ThrowIfNullOrWhiteSpace(RuleName, nameof(RuleName));
+
         return RegisteredRules.RemoveRule(Context, RuleName);
     }
 
     public bool DeRegisterRule(string Context, int RuleNumber)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.RemoveRule(Context, RuleNumber);
     }
 
@@ -206,11 +220,13 @@ internal sealed class RuleService : IRuleService
 
     public List<(int Number, string Name)>? GetRuleNumbers(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.GetRuleNumbers(Context);
     }
 
     public List<string>? GetRuleNames(string Context)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.GetRuleNames(Context);
     }
 

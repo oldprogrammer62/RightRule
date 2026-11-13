@@ -11,7 +11,7 @@ public class ExtensionTests
     {
         IRightRule rightRule = new RightRule.RightRule();
 
-        var rules = rightRule.GetRegisteredRules();
+        var rules = rightRule.RuleService.GetRegisteredRules();
 
         Assert.NotNull(rules);
         Assert.IsType<List<ParsedRule>>(rules);
@@ -24,7 +24,7 @@ public class ExtensionTests
 
         IRightRule rightRule = new RightRule.RightRule();
 
-        var result = rightRule.GetRegisteredRules(specifiedContext);
+        var result = rightRule.RuleService.GetRegisteredRules(specifiedContext);
 
         Assert.NotNull(result);
         Assert.IsType<List<ParsedRule>>(result);
@@ -40,7 +40,7 @@ public class ExtensionTests
         {
         };
 
-        var result = rightRule.RegisterRules(rules);
+        var result = rightRule.RuleService.RegisterRules(rules);
 
         // Assert
         Assert.NotNull(result);
@@ -61,7 +61,7 @@ public class ExtensionTests
             Statement = "Test.hello equals \"hello\""
         };
 
-        var result = rightRule.RegisterRule(rule);
+        var result = rightRule.RuleService.RegisterRule(rule);
 
         // Assert
         Assert.NotNull(result);

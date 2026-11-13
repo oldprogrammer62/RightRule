@@ -35,11 +35,11 @@ public class RuleTests
     public void GetRule1()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        var rules = rr.GetRegisteredRules("Rule1_Context");
+        var rules = rr.RuleService.GetRegisteredRules("Rule1_Context");
         Assert.NotNull(rules);
         Assert.Single(rules);
 
@@ -51,11 +51,11 @@ public class RuleTests
     public void GetRule2()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        var rules = rr.GetRegisteredRules("Rule2_Context");
+        var rules = rr.RuleService.GetRegisteredRules("Rule2_Context");
         Assert.NotNull(rules);
         Assert.Single(rules);
 
@@ -67,8 +67,8 @@ public class RuleTests
     public void GetRules()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
@@ -86,8 +86,8 @@ public class RuleTests
     public void GetRules_Indexed()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         List<ParsedRule> registeredRules = rr.GetRegisteredRules();
@@ -108,8 +108,8 @@ public class RuleTests
     public void GetRule_ByName()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
@@ -117,7 +117,7 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         string RuleName = "Rule1";
-        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleName);
+        ParsedRule? pr1 = rr.RuleService.GetRegisteredRule("Rule1_Context", RuleName);
         Assert.NotNull(pr1);
         Assert.Equal(RuleName, pr1.Name);
     }
@@ -126,16 +126,16 @@ public class RuleTests
     public void GetRule_ByName2()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
         string RuleName = "RULE1";
-        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleName);
+        ParsedRule? pr1 = rr.RuleService.GetRegisteredRule("Rule1_Context", RuleName);
         Assert.NotNull(pr1);
         Assert.Equal(RuleName, pr1.Name.ToUpper());
     }
@@ -144,8 +144,8 @@ public class RuleTests
     public void GetRule_ByNumber()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
@@ -153,7 +153,7 @@ public class RuleTests
         Assert.Equal(2, registeredRules.Count);
 
         int RuleNumber = 1;
-        ParsedRule? pr1 = rr.GetRegisteredRule("Rule1_Context", RuleNumber);
+        ParsedRule? pr1 = rr.RuleService.GetRegisteredRule("Rule1_Context", RuleNumber);
         Assert.NotNull(pr1);
         Assert.Equal(RuleNumber, pr1.Number);
     }
@@ -162,25 +162,25 @@ public class RuleTests
     public void DeregisterRule_ByNumber()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
-        var done = rr.DeRegisterRule(rule1.Context, rule1.Number);
+        var done = rr.RuleService.DeRegisterRule(rule1.Context, rule1.Number);
         Assert.True(done);
-        Assert.Equal(1, rr.GetRegisteredRules().Count);
+        Assert.Equal(1, rr.RuleService.GetRegisteredRules().Count);
     }
 
     [Fact]
     public void DeregisterRule_ByName()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        var done = rr.DeRegisterRule(rule2.Context, rule2.Name);
+        var done = rr.RuleService.DeRegisterRule(rule2.Context, rule2.Name);
         Assert.True(done);
-        Assert.Equal(1, rr.GetRegisteredRules().Count);
+        Assert.Equal(1, rr.RuleService.GetRegisteredRules().Count);
     }
 }

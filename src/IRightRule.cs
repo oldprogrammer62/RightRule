@@ -10,7 +10,6 @@ using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule;
@@ -111,73 +110,12 @@ public interface IRightRule : IDisposable
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
-    /// Deregisters all Rules from the RightRule engine.
-    /// </summary>
-    /// <returns>
-    /// bool<br></br>
-    /// True if the rules were successfully deregistered; otherwise, false.
-    /// </returns>
-    bool DeRegisterRules();
-
-    /// <summary>
-    /// Deregisters all Rules associated with the specified Context from the RightRule engine.
-    /// </summary>
-    /// <param name="Context">The Context for which to deregister rules.</param>
-    /// <returns>
-    /// bool <br></br>
-    /// True if the rules were successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRules(string Context);
-
-    /// <summary>
-    /// Deregister the specified Rule from the RightRule engine.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <param name="RuleName">The Name of the Rule to deregister.</param>
-    /// <returns>
-    /// bool<br></br>
-    /// True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(string Context, string RuleName);
-
-    /// <summary>
-    /// Deregister the specified Rule from the RightRule engine.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <param name="RuleNumber">The Number of the Rule to deregister.</param>
-    /// <returns>
-    /// bool<br></br>
-    /// True if the rule is successfully deregistered; otherwise, false.</returns>
-    bool DeRegisterRule(string Context, int RuleNumber);
-
-    /// <summary>
     /// Returns the set of Registered Rules.
     /// </summary>
     /// <returns>
     /// <see cref="List{ParsedRule}">List&lt;ParsedRule&gt;</see>
     /// </returns>
     List<ParsedRule> GetRegisteredRules();
-
-    /// <summary>
-    /// Returns the Registered Rules with the specified Name.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <param name="RuleName"></param>
-    /// <returns><see cref="ParsedRule"/></returns>
-    ParsedRule? GetRegisteredRule(string Context, string RuleName);
-
-    /// <summary>
-    /// Returns the Registered Rules with the specified Number.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <param name="RuleNumber"></param>
-    /// <returns><see cref="ParsedRule"/></returns>
-    ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
-
-    /// <summary>
-    /// Returns the set of Registered Rules for the specified Context.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <returns><see cref="List{ParsedRule}">List&lt;ParsedRule&gt;</see></returns>
-    List<ParsedRule> GetRegisteredRules(string Context);
 
     /// <summary>
     /// Registers a custom Data Adaptor with the RightRule engine.<br/>
@@ -211,60 +149,4 @@ public interface IRightRule : IDisposable
     /// Build a Standard Rule definition
     /// </summary>
     INumberStep BuildRule();
-
-    /// <summary>
-    /// Registers a Rule with the RightRule engine.
-    /// </summary>
-    /// <param name="Rule">The Rule definition to register.</param>
-    /// <returns><see cref="RuleRegistrationResult"/></returns>
-    RuleRegistrationResult RegisterRule(DefinedRule Rule);
-
-    /// <summary>
-    /// Registers a set of Rules with the RightRule engine.
-    /// </summary>
-    /// <param name="Rules">The Rule definitions to register.</param>
-    /// <returns>
-    /// <see cref = "List{RuleRegistrationResult}">List&lt;RuleRegistrationResult&gt;</see>
-    /// </returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
-
-    /// <summary>
-    /// Registers a set of Rules with the RightRule engine from a JSON string.
-    /// </summary>
-    /// <param name="JsonData">The Rule definitions to register.</param>
-    /// <returns>
-    /// <see cref = "List{RuleRegistrationResult}">List&lt;RuleRegistrationResult&gt;</see>
-    /// </returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="FormatException"></exception>
-    List<RuleRegistrationResult> LoadRules(string JsonData);
-
-    string SerializeRules();
-    string SerializeRules(string Context);
-
-    /// <summary>
-    /// Get the set of Contexts for which rules are registered
-    /// </summary>
-    /// <returns>
-    /// <see cref="List{T}">List&lt;string&gt;</see>
-    /// </returns>
-    List<string>? GetRuleContexts();
-
-    /// <summary>
-    /// Get the set of Rule Numbers registered
-    /// </summary>
-    /// <returns>
-    /// A <see cref="List{T}">List&lt;(int Number, string Name)&gt;</see> containing indexed pairs.
-    /// </returns>    
-    List<(int Number, string Name)>? GetRuleNumbers(string Context);
-
-    /// <summary>
-    /// Get the set of Rule Names registered
-    /// </summary>
-    /// <returns>
-    /// <see cref="List{T}">List&lt;string&gt;</see>
-    /// </returns>
-    List<string>? GetRuleNames(string Context);
 }

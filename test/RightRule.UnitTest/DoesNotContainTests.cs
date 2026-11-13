@@ -36,7 +36,7 @@ public class DoesNotContainTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");
@@ -59,7 +59,7 @@ public class DoesNotContainTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");

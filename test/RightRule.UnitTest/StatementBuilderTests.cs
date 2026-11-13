@@ -63,7 +63,7 @@ public class StatementBuilderTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("OrderData", _OrderData);
         rr.DataService.RegisterData("CustomerData", _CustomerData);
         rr.DataService.RegisterData("StaticData", _StaticData);

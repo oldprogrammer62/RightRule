@@ -23,7 +23,7 @@ public class DataStructures_Test
             .TrueDecision("DONE")
             .FalseDecision("NOT DONE")
             .Build();
-        var prule = rr.RegisterRule(rule);
+        var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -51,7 +51,7 @@ public class DataStructures_Test
             .TrueDecision("DONE")
             .FalseDecision("NOT DONE")
             .Build();
-        var prule = rr.RegisterRule(rule);
+        var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -111,7 +111,7 @@ public class DataStructures_Test
             .TrueDecision("DONE")
             .FalseDecision("NOT DONE")
             .Build();
-        var prule = rr.RegisterRule(rule);
+        var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
@@ -133,7 +133,7 @@ public class DataStructures_Test
             .TrueDecision("DONE")
             .FalseDecision("NOT DONE")
             .Build();
-        var prule = rr.RegisterRule(rule);
+        var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);

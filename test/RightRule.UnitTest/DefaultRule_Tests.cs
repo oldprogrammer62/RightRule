@@ -20,7 +20,7 @@ public class DefaultRule_Tests
             .TrueDecision("true")
             .FalseDecision("False")
             .Build();
-        var rule1 = rr.RegisterRule(ruleDef1);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.ApplyRule("Test");
         Assert.NotNull(result1);
     }
@@ -38,7 +38,7 @@ public class DefaultRule_Tests
             .TrueDecision("true")
             .FalseDecision("False")
             .Build();
-        var rule1 = rr.RegisterRule(ruleDef1);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result1);
     }
@@ -102,7 +102,7 @@ public class DefaultRule_Tests
             .TrueDecision("true")
             .FalseDecision("False")
             .Build();
-        var rule1 = rr.RegisterRule(ruleDef1);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.ApplyRule(context);
         Assert.NotNull(result1);
     }

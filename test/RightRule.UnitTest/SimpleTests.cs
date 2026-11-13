@@ -21,7 +21,7 @@ public class SimpleTests
             .FalseDecision("BAD")
             .Build();
 
-        rr.RegisterRule(rule);
+        rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule(context);
         Assert.NotNull(result);
@@ -47,7 +47,7 @@ public class SimpleTests
             .FalseDecision("BAD")
             .Build();
 
-        rr.RegisterRule(rule);
+        rr.RuleService.RegisterRule(rule);
 
         var result = rr.ApplyRule(context);
         Assert.NotNull(result);
@@ -65,7 +65,7 @@ public class SimpleTests
             .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
-        var rule1Result = rr.RegisterRule(rule1);
+        var rule1Result = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
@@ -83,7 +83,7 @@ public class SimpleTests
             .TrueDecision("SAME")
             .FalseDecision("NOTSAME")
             .Build();
-        var rule1Result = rr.RegisterRule(rule1);
+        var rule1Result = rr.RuleService.RegisterRule(rule1);
 
         var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);
@@ -101,7 +101,7 @@ public class SimpleTests
             .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
-        var rule1Result = rr.RegisterRule(rule1);
+        var rule1Result = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -111,7 +111,7 @@ public class SimpleTests
             .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
-        var rule2Result = rr.RegisterRule(rule2);
+        var rule2Result = rr.RuleService.RegisterRule(rule2);
 
         var rule3 = rr.BuildRule()
             .Number(3)
@@ -121,7 +121,7 @@ public class SimpleTests
             .TrueDecision("GOOD")
             .FalseDecision("NOTGOOD")
             .Build();
-        var rule3Result = rr.RegisterRule(rule3);
+        var rule3Result = rr.RuleService.RegisterRule(rule3);
 
         var result = rr.ApplyRule("TestContext");
         Assert.NotNull(result);

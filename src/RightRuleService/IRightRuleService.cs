@@ -7,9 +7,7 @@ using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
-using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common.DataAdaptor;
-using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
 
@@ -24,38 +22,11 @@ public interface IRightRuleService
 
     List<ParsedRule>? RegisteredRules { get; }
     
-    // List<Operator>? RegisteredOperators { get; }
-
-    // OperatorRegistrationResult RegisterOperator(Operator Operator);
-    // List<Operator> GetOperators();
-    // Dictionary<string, Operator> GetOperatorAliases();
-    //bool UnloadOperator(string OperatorName);
-
-    List<ParsedRule> GetRegisteredRules(string Context);
-    ParsedRule? GetRegisteredRule(string Context, string RuleName);
-    ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
-
     DefaultRule GetDefaultRule(string Context);
     DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
-
-    List<RuleRegistrationResult> LoadRules(string JsonData);
-    List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
-    RuleRegistrationResult RegisterRule(DefinedRule Rule);
-
-    bool DeRegisterRules();
-    bool DeRegisterRules(string Context);
-    bool DeRegisterRule(string Context, string RuleName);
-    bool DeRegisterRule(string Context, int RuleNumber);
-
 
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
     Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
-
-    List<string>? GetRuleContexts();
-    List<(int Number, string Name)>? GetRuleNumbers(string Context);
-    List<string>? GetRuleNames(string Context);
-    string SerializeRules();
-    string SerializeRules(string Context);
 }

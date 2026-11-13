@@ -45,7 +45,7 @@ public class ExceptionTests
         };
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleReg = rr.RegisterRule(rule);
+        var ruleReg = rr.RuleService.RegisterRule(rule);
         Assert.NotNull(ruleReg);
     }
 }

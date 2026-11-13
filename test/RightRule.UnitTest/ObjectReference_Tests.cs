@@ -35,7 +35,7 @@ public class ObjectReference_Tests
             FalseDecision = "Denied",
             OptionalData = null
         };
-        rr.RegisterRule(rd1);
+        rr.RuleService.RegisterRule(rd1);
         var result = rr.ApplyRule("Test");
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result.Decision);
@@ -69,7 +69,7 @@ public class ObjectReference_Tests
             OptionalData = null
         };
 
-        rr.RegisterRule(rd1);
+        rr.RuleService.RegisterRule(rd1);
         var result = rr.ApplyRule("Test");
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result.Decision);
@@ -101,7 +101,7 @@ public class ObjectReference_Tests
             OptionalData = null
         };
 
-        rr.RegisterRule(rd1);
+        rr.RuleService.RegisterRule(rd1);
         var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result[0].Decision);
@@ -133,7 +133,7 @@ public class ObjectReference_Tests
             OptionalData = null
         };
 
-        rr.RegisterRule(rd1);
+        rr.RuleService.RegisterRule(rd1);
         var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
 
@@ -158,7 +158,7 @@ public class ObjectReference_Tests
             FalseDecision = "BAD",
             Statement = "x.x = 100"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -188,7 +188,7 @@ public class ObjectReference_Tests
             FalseDecision = "BAD",
             Statement = "x = 100 and y = 200 and greeting = \"Hello\""
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -225,7 +225,7 @@ public class ObjectReference_Tests
             FalseDecision = "BAD",
             Statement = "x = 100 and y = 200 and greeting = \"Hello\" and BobsAge = 30"
         };
-        var registeredRule = rr.RegisterRule(rule);
+        var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);

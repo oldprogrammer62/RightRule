@@ -50,7 +50,7 @@ public sealed class RuleServiceTests
         var rule = CreateParsedRule(1, "First", "Sales", RightRuleStatusEnum.SUCCESS);
         _registeredRules.AddRule(rule);
 
-        Assert.Same(_registeredRules.Rules, _sut.GetRules());
+        Assert.Same(_registeredRules.Rules, _sut.GetRegisteredRules());
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public sealed class RuleServiceTests
         var rule = CreateParsedRule(1, "FirstRule", "Sales", RightRuleStatusEnum.SUCCESS);
         _registeredRules.AddRule(rule);
 
-        Assert.Same(rule, _sut.GetRule("sAlEs", "fIrStRuLe"));
+        Assert.Same(rule, _sut.GetRegisteredRule("sAlEs", "fIrStRuLe"));
     }
 
     [Fact]
@@ -68,14 +68,14 @@ public sealed class RuleServiceTests
         var rule = CreateParsedRule(42, "FirstRule", "Sales", RightRuleStatusEnum.SUCCESS);
         _registeredRules.AddRule(rule);
 
-        Assert.Same(rule, _sut.GetRule("SALES", 42));
+        Assert.Same(rule, _sut.GetRegisteredRule("SALES", 42));
     }
 
     [Fact]
     public void GetRule_ByName_ThrowsWhenNameIsNull()
     {
         var exception = Assert.Throws<ArgumentNullException>(
-            () => _sut.GetRule("Sales", (string)null!));
+            () => _sut.GetRegisteredRule("Sales", (string)null!));
 
         Assert.Equal("RuleName", exception.ParamName);
     }
@@ -87,7 +87,7 @@ public sealed class RuleServiceTests
         _registeredRules.AddRule(salesRule);
         _registeredRules.AddRule(CreateParsedRule(2, "SupportRule", "Support", RightRuleStatusEnum.SUCCESS));
 
-        Assert.Equal([salesRule], _sut.GetRules("sAlEs"));
+        Assert.Equal([salesRule], _sut.GetRegisteredRules("sAlEs"));
     }
 
     [Fact]
@@ -204,7 +204,7 @@ public sealed class RuleServiceTests
             TrueDecision = "DONE",
             FalseDecision = "" // Fail registration
         };
-        var ruleRegistrations = rr.RegisterRules(
+        var ruleRegistrations = rr.RuleService.RegisterRules(
         [
             definedRule1,
             definedRule2

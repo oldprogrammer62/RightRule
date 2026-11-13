@@ -22,7 +22,7 @@ namespace RightRule_Demo.RuleManager
             string Context = "Demo";
             var rules = LoadRules(rr, Context);
 
-            var registeredRules = rr.RegisterRules(rules);
+            var registeredRules = rr.RuleService.RegisterRules(rules);
             var done = rr.DataService.RegisterData(Context, Data);
 
             var hvData = MakeHvData(HighValue);

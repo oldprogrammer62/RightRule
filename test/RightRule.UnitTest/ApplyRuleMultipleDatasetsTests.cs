@@ -63,8 +63,8 @@ public class ApplyRuleMultipleDatasetsTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
 
         rr.DataService.RegisterData("TestA", _DataA);
         rr.DataService.RegisterData("TestB", _DataB);
@@ -79,8 +79,8 @@ public class ApplyRuleMultipleDatasetsTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterRule(rule1);
-        rr.RegisterRule(rule2);
+        rr.RuleService.RegisterRule(rule1);
+        rr.RuleService.RegisterRule(rule2);
 
         rr.DataService.RegisterData("TestA", _DataA);
         rr.DataService.RegisterData("TestB", _DataB);

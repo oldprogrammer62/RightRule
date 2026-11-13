@@ -19,10 +19,10 @@ public class RuleSerializerTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result1 = rr.RegisterRule(rule1);
+        var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
-        var serializedRules = rr.SerializeRules();
+        var serializedRules = rr.RuleService.SerializeRules();
         Assert.Contains("\"Number\":1", serializedRules);
     }
 
@@ -39,7 +39,7 @@ public class RuleSerializerTests
             .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
-        var result1 = rr.RegisterRule(rule1);
+        var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
         DefinedRule rule2 = rr.BuildRule()
@@ -51,10 +51,10 @@ public class RuleSerializerTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result2 = rr.RegisterRule(rule2);
+        var result2 = rr.RuleService.RegisterRule(rule2);
         Assert.NotNull(result2);
 
-        var serializedRules = rr.SerializeRules();
+        var serializedRules = rr.RuleService.SerializeRules();
         Assert.Contains("\"Number\":1", serializedRules);
         Assert.Contains("\"Number\":2", serializedRules);
     }
@@ -72,7 +72,7 @@ public class RuleSerializerTests
             .TrueDecision("Decision")
             .FalseDecision("FalseDecision")
             .Build();
-        var result1 = rr.RegisterRule(rule1);
+        var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
         DefinedRule rule2 = rr.BuildRule()
@@ -84,10 +84,10 @@ public class RuleSerializerTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result2 = rr.RegisterRule(rule2);
+        var result2 = rr.RuleService.RegisterRule(rule2);
         Assert.NotNull(result2);
 
-        var serializedRules = rr.SerializeRules("Context");
+        var serializedRules = rr.RuleService.SerializeRules("Context");
         Assert.Contains("\"Number\":1", serializedRules);
     }
 
@@ -105,16 +105,16 @@ public class RuleSerializerTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result1 = rr.RegisterRule(rule1);
+        var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
-        var serializedRules = rr.SerializeRules();
+        var serializedRules = rr.RuleService.SerializeRules();
         Assert.Contains("\"Number\":1", serializedRules);
 
         // Remove all rules
-        var done = rr.DeRegisterRules();
+        var done = rr.RuleService.DeRegisterRules();
 
-        var loadedRules = rr.LoadRules(serializedRules);
+        var loadedRules = rr.RuleService.LoadRules(serializedRules);
         Assert.NotNull(loadedRules);
     }
 }

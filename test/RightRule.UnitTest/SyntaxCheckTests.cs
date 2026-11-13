@@ -121,7 +121,7 @@ public class SyntaxCheckTests
 
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
-        var regRule = rightRule.RegisterRule(rule);
+        var regRule = rightRule.RuleService.RegisterRule(rule);
         
         Assert.NotNull(regRule);
     }

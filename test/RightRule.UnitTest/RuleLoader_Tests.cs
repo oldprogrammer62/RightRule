@@ -45,11 +45,11 @@ public class RuleLoader_Tests
         var json = Template.JsonString();
         Assert.NotNull(json);
 
-        List<RuleRegistrationResult>? rules = rr.LoadRules(json);
+        List<RuleRegistrationResult>? rules = rr.RuleService.LoadRules(json);
         Assert.NotNull(rules);
         Assert.Single(rules);
 
-        var loadedRules = rr.GetRegisteredRules();
+        var loadedRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(loadedRules);
         Assert.Single(loadedRules);
         Assert.Equal("RuleName", loadedRules[0].Name);
@@ -74,17 +74,17 @@ public class RuleLoader_Tests
 
         Assert.NotNull(rule);
         Assert.Single(rr.GetRegisteredRules());
-        Assert.Single(rr.GetRegisteredRules("NewContext"));
+        Assert.Single(rr.RuleService.GetRegisteredRules("NewContext"));
 
         var json = JsonString(); // Context = "RuleContext"
-        var rules = rr.LoadRules(json);
+        var rules = rr.RuleService.LoadRules(json);
         Assert.NotNull(rules);
         Assert.Single(rules);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rules[0].Status);
 
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
-        Assert.Single(rr.GetRegisteredRules("NewContext"));
-        Assert.Single(rr.GetRegisteredRules("RuleContext"));
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
+        Assert.Single(rr.RuleService.GetRegisteredRules("NewContext"));
+        Assert.Single(rr.RuleService.GetRegisteredRules("RuleContext"));
     }
 
     [Fact]
@@ -112,7 +112,7 @@ public class RuleLoader_Tests
         var json = JsonString(number, name, statement, context, trueDecision, trueDecisionData, falseDecision, falseDecisionData, optionalData);
         Assert.NotNull(json);
 
-        List<RuleRegistrationResult>? rules = rr.LoadRules(json);
+        List<RuleRegistrationResult>? rules = rr.RuleService.LoadRules(json);
         Assert.NotNull(rules);
         Assert.Single(rules);
     }

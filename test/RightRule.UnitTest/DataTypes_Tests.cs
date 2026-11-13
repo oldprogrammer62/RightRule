@@ -335,7 +335,7 @@ public class DataTypes_Tests
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
@@ -370,7 +370,7 @@ public class DataTypes_Tests
         };
 
         IRightRule rr = new RightRule.RightRule(options);
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
@@ -415,7 +415,7 @@ public class DataTypes_Tests
         rr.DataService.RegisterData("name", name);
 
 
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("value", value);
         rr.DataService.RegisterData("values", values);
 

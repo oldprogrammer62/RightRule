@@ -51,7 +51,7 @@ public class OneBigTest
             .TrueDecision("Decision1")
             .FalseDecision("NotDecision1")
             .Build();
-        RuleRegistrationResult? rule1Registration = rr.RegisterRule(rule1Defn);
+        RuleRegistrationResult? rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
         var rule1TS = rule1Registration.RegisteredRule.ToString();
@@ -84,7 +84,7 @@ public class OneBigTest
             .TrueDecision("Decision1")
             .FalseDecision("NotDecision1")
             .Build();
-        var rule1Registration = rr.RegisterRule(rule1Defn);
+        var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
@@ -115,7 +115,7 @@ public class OneBigTest
             .TrueDecision("Decision1")
             .FalseDecision("NotDecision1")
             .Build();
-        var rule1Registration = rr.RegisterRule(rule1Defn);
+        var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
@@ -155,7 +155,7 @@ public class OneBigTest
             .TrueDecision("Decision1")
             .FalseDecision("NotDecision1")
             .Build();
-        var rule1Registration = rr.RegisterRule(rule1Defn);
+        var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
@@ -182,7 +182,7 @@ public class OneBigTest
             .TrueDecision("Decision2")
             .FalseDecision("NotDecision2")
             .Build();
-        var rule2Registration = rr.RegisterRule(rule2Defn);
+        var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
@@ -213,7 +213,7 @@ public class OneBigTest
             .TrueDecision("Decision1")
             .FalseDecision("NotDecision1")
             .Build();
-        var rule1Registration = rr.RegisterRule(rule1Defn);
+        var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
@@ -241,7 +241,7 @@ public class OneBigTest
             .TrueDecision("Decision2")
             .FalseDecision("NotDecision2")
             .Build();
-        var rule2Registration = rr.RegisterRule(rule2Defn);
+        var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 

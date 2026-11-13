@@ -45,9 +45,9 @@ internal class Program
                 TrueDecision = "Default Decision",
                 FalseDecision = "False Decision"
             };
-            _ = rightRule.RegisterRule(rule);
+            _ = rightRule.RuleService.RegisterRule(rule);
 
-            ShowResult(statement, result, rightRule.GetRegisteredRules());
+            ShowResult(statement, result, rightRule.RuleService.GetRegisteredRules());
         }
 
         Console.WriteLine("Check another statement? (y/n)");
@@ -56,7 +56,7 @@ internal class Program
         {
             return;
         }
-        rightRule.DeRegisterRules(); // Clear registered rules before checking another statement
+        rightRule.RuleService.DeRegisterRules(); // Clear registered rules before checking another statement
         await DoCheckProcessAsync(rightRule).ConfigureAwait(false); // Restart the process
     }
 

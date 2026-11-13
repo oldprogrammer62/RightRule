@@ -36,7 +36,7 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
     public List<DefaultRulePerContext>? DefaultRules => DefaultRuleRegister.GetDefaultRules();
 
     public IRuleService RuleService { get; }
-    public List<ParsedRule>? RegisteredRules => RuleService?.GetRules();
+    public List<ParsedRule>? RegisteredRules => RuleService?.GetRegisteredRules();
 
     public IDataService DataService { get; }
     public List<Dataset>? RegisteredData => DataService?.GetRegisteredData();

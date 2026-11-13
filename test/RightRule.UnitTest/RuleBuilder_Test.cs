@@ -32,7 +32,7 @@ public class RuleBuilder_Test
             .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
-        var x2 = rr.RegisterRule(rule2);
+        var x2 = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(rule1);
         Assert.IsType<RuleRegistrationResult>(rule1);
@@ -61,7 +61,7 @@ public class RuleBuilder_Test
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -71,7 +71,7 @@ public class RuleBuilder_Test
             .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2);
+        var rule2reg = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(rule1);
         Assert.IsType<RuleRegistrationResult>(rule1reg);
@@ -104,7 +104,7 @@ public class RuleBuilder_Test
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -114,7 +114,7 @@ public class RuleBuilder_Test
             .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2);
+        var rule2reg = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(rule1);
         Assert.IsType<RuleRegistrationResult>(rule1reg);
@@ -148,7 +148,7 @@ public class RuleBuilder_Test
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -158,7 +158,7 @@ public class RuleBuilder_Test
             .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2);
+        var rule2reg = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(rule1);
         Assert.IsType<RuleRegistrationResult>(rule1reg);
@@ -192,7 +192,7 @@ public class RuleBuilder_Test
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
-        var rule1reg = rr.RegisterRule(rule1);
+        var rule1reg = rr.RuleService.RegisterRule(rule1);
 
         var rule2 = rr.BuildRule()
             .Number(2)
@@ -202,7 +202,7 @@ public class RuleBuilder_Test
             .TrueDecision("GOOD")
             .FalseDecision("BAD")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2);
+        var rule2reg = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(rule1);
         Assert.IsType<RuleRegistrationResult>(rule1reg);

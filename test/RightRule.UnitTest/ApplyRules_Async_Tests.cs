@@ -27,7 +27,7 @@ public class ApplyRules_Async_Tests
             TrueDecision = "DONE",
             FalseDecision = "NOT_DONE"
         };
-        RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
+        RuleRegistrationResult? rule1Registered = rr.RuleService.RegisterRule(rule1);
 
         DefinedRule rule2 = new DefinedRule()
         {
@@ -38,7 +38,7 @@ public class ApplyRules_Async_Tests
             TrueDecision = "DONE",
             FalseDecision = ""
         };
-        RuleRegistrationResult? rule2Registered = rr.RegisterRule(rule2);
+        RuleRegistrationResult? rule2Registered = rr.RuleService.RegisterRule(rule2);
 
         DataRegistrationResult? dataRegistered = rr.DataService.RegisterData("Data", data);
 

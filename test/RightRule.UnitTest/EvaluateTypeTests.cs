@@ -19,7 +19,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef);
 
         var result = rr.ApplyRule("Context");
         result.ToString();
@@ -49,8 +49,8 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye2")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef1);
-        var rule2 = rr.RegisterRule(ruleDef2);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
+        var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
         var result = rr.ApplyRules("Context");
         Assert.NotNull(result);
@@ -81,8 +81,8 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye2")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef1);
-        var rule2 = rr.RegisterRule(ruleDef2);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
+        var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
         Assert.NotNull(result);
@@ -113,8 +113,8 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye2")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef1);
-        var rule2 = rr.RegisterRule(ruleDef2);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
+        var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
@@ -146,8 +146,8 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye2")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef1);
-        var rule2 = rr.RegisterRule(ruleDef2);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
+        var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
@@ -179,8 +179,8 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye2")
             .Build();
 
-        var rule1 = rr.RegisterRule(ruleDef1);
-        var rule2 = rr.RegisterRule(ruleDef2);
+        var rule1 = rr.RuleService.RegisterRule(ruleDef1);
+        var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);

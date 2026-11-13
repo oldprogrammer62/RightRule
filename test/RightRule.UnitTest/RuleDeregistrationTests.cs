@@ -22,13 +22,13 @@ public class RuleDeregistrationTests
             .FalseDecision("Bad")
             .Build();
 
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule1Dereg = rr.DeRegisterRule(Context, RuleNumber1);
+        var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleNumber1);
         Assert.True(rule1Dereg);
-        Assert.Empty(rr.GetRegisteredRules());
+        Assert.Empty(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -49,13 +49,13 @@ public class RuleDeregistrationTests
             .FalseDecision("Bad")
             .Build();
 
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule1Dereg = rr.DeRegisterRule(Context, RuleName1);
+        var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleName1);
         Assert.True(rule1Dereg);
-        Assert.Empty(rr.GetRegisteredRules());
+        Assert.Empty(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -78,10 +78,10 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -91,15 +91,15 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         // Deregister first rule
-        var rule1Dereg = rr.DeRegisterRule(Context, RuleNumber1);
+        var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleNumber1);
         Assert.True(rule1Dereg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -122,7 +122,7 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
         Assert.Single(rr.GetRegisteredRules());
@@ -135,15 +135,15 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         // Deregister first rule
-        var rule1Dereg = rr.DeRegisterRule(Context, RuleName1);
+        var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleName1);
         Assert.True(rule1Dereg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -167,10 +167,10 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -180,15 +180,15 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         // Deregister first rule
-        var rule1Dereg = rr.DeRegisterRule(Context1, RuleName1);
+        var rule1Dereg = rr.RuleService.DeRegisterRule(Context1, RuleName1);
         Assert.True(rule1Dereg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
     }
 
 
@@ -213,10 +213,10 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -226,15 +226,15 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
 
         // Deregister first rule
-        var ruleDereg = rr.DeRegisterRule(Context2, RuleNumber2);
+        var ruleDereg = rr.RuleService.DeRegisterRule(Context2, RuleNumber2);
         Assert.True(ruleDereg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -258,10 +258,10 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -271,7 +271,7 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -284,12 +284,12 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule3reg = rr.RegisterRule(rule3Def);
+        var rule3reg = rr.RuleService.RegisterRule(rule3Def);
 
         // Deregister first rule
-        var ruleDereg = rr.DeRegisterRules(Context2);
+        var ruleDereg = rr.RuleService.DeRegisterRules(Context2);
         Assert.True(ruleDereg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
     }
 
     [Fact]
@@ -313,7 +313,7 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule1reg = rr.RegisterRule(rule1Def);
+        var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
         Assert.Single(rr.GetRegisteredRules());
@@ -326,7 +326,7 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule2reg = rr.RegisterRule(rule2Def);
+        var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.GetRegisteredRules().Count);
@@ -339,11 +339,11 @@ public class RuleDeregistrationTests
             .TrueDecision("Good")
             .FalseDecision("Bad")
             .Build();
-        var rule3reg = rr.RegisterRule(rule3Def);
+        var rule3reg = rr.RuleService.RegisterRule(rule3Def);
 
         // Deregister first rule
-        var ruleDereg = rr.DeRegisterRules();
+        var ruleDereg = rr.RuleService.DeRegisterRules();
         Assert.True(ruleDereg);
-        Assert.Empty(rr.GetRegisteredRules());
+        Assert.Empty(rr.RuleService.GetRegisteredRules());
     }
 }

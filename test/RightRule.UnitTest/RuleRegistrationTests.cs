@@ -29,8 +29,8 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result1 = rr.RegisterRule(rule1);
-        var result2 = rr.RegisterRule(rule2);
+        var result1 = rr.RuleService.RegisterRule(rule1);
+        var result2 = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(result1);
         Assert.NotNull(result2);
@@ -62,8 +62,8 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result1 = rr.RegisterRule(rule1);
-        var result2 = rr.RegisterRule(rule2);
+        var result1 = rr.RuleService.RegisterRule(rule1);
+        var result2 = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(result1);
         Assert.NotNull(result2);
@@ -95,8 +95,8 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        var result1 = rr.RegisterRule(rule1);
-        var result2 = rr.RegisterRule(rule2);
+        var result1 = rr.RuleService.RegisterRule(rule1);
+        var result2 = rr.RuleService.RegisterRule(rule2);
 
         Assert.NotNull(result1);
         Assert.NotNull(result2);

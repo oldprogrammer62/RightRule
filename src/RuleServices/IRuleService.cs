@@ -8,10 +8,10 @@ public interface IRuleService
 {
     IRegisteredRules RegisteredRules { get; }
 
-    List<ParsedRule> GetRules();
-    List<ParsedRule> GetRules(string Context);
-    ParsedRule? GetRule(string Context, string RuleName);
-    ParsedRule? GetRule(string Context, int RuleNumber);
+    List<ParsedRule> GetRegisteredRules();
+    List<ParsedRule> GetRegisteredRules(string Context);
+    ParsedRule? GetRegisteredRule(string Context, string RuleName);
+    ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
 
     List<string>? GetRuleContexts();
     List<(int Number, string Name)>? GetRuleNumbers(string Context);

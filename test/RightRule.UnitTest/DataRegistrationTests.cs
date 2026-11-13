@@ -39,7 +39,7 @@ public class DataRegistrationTests
         IRightRule rr = new RightRule.RightRule();
 
         rr.DataService.RegisterData("Test", _Data);
-        var registeredRule = rr.RegisterRule(rule1);
+        var registeredRule = rr.RuleService.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
     }
@@ -60,7 +60,7 @@ public class DataRegistrationTests
         IRightRule rr = new RightRule.RightRule();
 
         rr.DataService.RegisterData("Test", _Data);
-        var registeredRule = rr.RegisterRule(rule1);
+        var registeredRule = rr.RuleService.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
     }
@@ -82,7 +82,7 @@ public class DataRegistrationTests
         IRightRule rr = new RightRule.RightRule();
 
         rr.DataService.RegisterData("Test", _Data);
-        var newRule1 = rr.RegisterRule(rule1);
+        var newRule1 = rr.RuleService.RegisterRule(rule1);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
         var appliedRule = appliedRules.FirstOrDefault();

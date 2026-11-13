@@ -33,7 +33,7 @@ public class DataTypesTests_Array
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
@@ -67,7 +67,7 @@ public class DataTypesTests_Array
             TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -104,7 +104,7 @@ public class DataTypesTests_Array
             TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -141,7 +141,7 @@ public class DataTypesTests_Array
             TrueDecision = "EXISTS",
             FalseDecision = "NOT_EXISTS"
         };
-        var newRule = rr.RegisterRule(rule);
+        var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.ApplyRule("Context");
 
