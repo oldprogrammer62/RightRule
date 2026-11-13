@@ -76,6 +76,8 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
 
     public OperatorRegistrationResult RegisterOperator(Operator Operator)
     {
+        ArgumentNullException.ThrowIfNull(Operator, nameof(Operator));
+
         if (!OperatorExists(Operator))
         {
             _operators.Add(Operator);

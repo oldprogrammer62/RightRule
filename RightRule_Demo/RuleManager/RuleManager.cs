@@ -23,10 +23,10 @@ namespace RightRule_Demo.RuleManager
             var rules = LoadRules(rr, Context);
 
             var registeredRules = rr.RegisterRules(rules);
-            var done = rr.RegisterData(Context, Data);
+            var done = rr.DataService.RegisterData(Context, Data);
 
             var hvData = MakeHvData(HighValue);
-            rr.RegisterData("hv", hvData);
+            rr.DataService.RegisterData("hv", hvData);
 
             var x = rr.ApplyRule(Context);
 

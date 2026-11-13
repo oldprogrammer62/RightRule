@@ -53,7 +53,7 @@ public class DefaultRule_Tests
         var defaultRule1 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
-        rr.RegisterData("x", 100);
+        rr.DataService.RegisterData("x", 100);
 
         var newDefaultRule = new DefaultRule()
         {
@@ -79,7 +79,7 @@ public class DefaultRule_Tests
         var defaultRule1 = rr.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
-        rr.RegisterData("x", 100);
+        rr.DataService.RegisterData("x", 100);
 
         var newDefaultRule = new DefaultRule()
         {

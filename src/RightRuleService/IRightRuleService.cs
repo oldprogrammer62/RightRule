@@ -1,7 +1,5 @@
 ﻿using RightRule.DataAdaptors;
 using RightRule.DataServices;
-using RightRule.DataServices.Data;
-using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
@@ -24,17 +22,14 @@ public interface IRightRuleService
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
-    List<Dataset>? GetDataset();
-    Dataset? GetDataset(string DatasetName);
-
     List<ParsedRule>? RegisteredRules { get; }
-    List<Dataset>? RegisteredData { get; }
-    List<Operator>? RegisteredOperators { get; }
+    
+    // List<Operator>? RegisteredOperators { get; }
 
-    OperatorRegistrationResult RegisterOperator(Operator Operator);
-    List<Operator> GetOperators();
-    Dictionary<string, Operator> GetOperatorAliases();
-    bool UnloadOperator(string OperatorName);
+    // OperatorRegistrationResult RegisterOperator(Operator Operator);
+    // List<Operator> GetOperators();
+    // Dictionary<string, Operator> GetOperatorAliases();
+    //bool UnloadOperator(string OperatorName);
 
     List<ParsedRule> GetRegisteredRules(string Context);
     ParsedRule? GetRegisteredRule(string Context, string RuleName);
@@ -54,16 +49,6 @@ public interface IRightRuleService
 
 
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor);
-
-    DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
-
-    bool DeRegisterData();
-    bool DeRegisterData(string DatasetName);
-
-    string SerializeData();
-    string SerializeData(string DatasetName);
-
-    List<DataRegistrationResult> LoadData(string JsonData);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
     Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType);

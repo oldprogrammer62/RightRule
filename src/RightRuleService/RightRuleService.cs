@@ -39,7 +39,7 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
     public List<ParsedRule>? RegisteredRules => RuleService?.GetRules();
 
     public IDataService DataService { get; }
-    public List<Dataset>? RegisteredData => DataService?.GetDatasets();
+    public List<Dataset>? RegisteredData => DataService?.GetRegisteredData();
 
     public RightRuleService(
         IOperatorService operatorsService, 

@@ -53,7 +53,7 @@ Dictionary<string, object> _Data = new Dictionary<string, object>(StringComparer
    { "attribute4", 17 }
 };
 IRightRule rr = new RightRule.RightRule();
-bool registered = rr.RegisterData("dataset1", _Data);
+bool registered = rr.DataService.RegisterData("dataset1", _Data);
 ```
 
 2. A Data Object - Contains a single name value pair, made up of a string name, and an object value.
@@ -61,13 +61,13 @@ bool registered = rr.RegisterData("dataset1", _Data);
 ```csharp
 int x = 100; // Intrinsic type
 IRightRule rr = new RightRule.RightRule();
-var attribute5 = rr.RegisterData("x", x);
+var attribute5 = rr.DataService.RegisterData("x", x);
 ```
 
 ```csharp
 var xtype = new xtype(); // Where xtype is a custom type defined with properties for name and a value
 IRightRule rr = new RightRule.RightRule();
-var attribute5 = rr.RegisterData("xtype", x);
+var attribute5 = rr.DataService.RegisterData("xtype", x);
 ```
 
 Each data is registered so the values can be discovered whilst RightRule is evaluating a rule statement.

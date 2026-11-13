@@ -16,14 +16,14 @@ public class ObjectReference_Tests
         {
             { "OrderCount", 5 }
         };
-        rr.RegisterData("OrderData", data);
+        rr.DataService.RegisterData("OrderData", data);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 31 };
         var name = "Bob";
         var age = 31;
 
-        rr.RegisterData("BobsName", name);
-        rr.RegisterData("BobsAge", age);
+        rr.DataService.RegisterData("BobsName", name);
+        rr.DataService.RegisterData("BobsAge", age);
 
         DefinedRule rd1 = new DefinedRule()
         {
@@ -50,13 +50,13 @@ public class ObjectReference_Tests
         {
             { "OrderCount", 5 }
         };
-        rr.RegisterData(nameof(data), data);
+        rr.DataService.RegisterData(nameof(data), data);
 
         var obj1 = new RefObject() { Name = "Bob", Age = 31 };
         var name = "Bob";
         var age = 31;
-        rr.RegisterData("BobsName", name);
-        rr.RegisterData("BobsAge", age);
+        rr.DataService.RegisterData("BobsName", name);
+        rr.DataService.RegisterData("BobsAge", age);
 
         DefinedRule rd1 = new DefinedRule()
         {
@@ -85,10 +85,10 @@ public class ObjectReference_Tests
         var name2 = "Harry";
         var age2 = 21;
 
-        rr.RegisterData("BobsName", name1);
-        rr.RegisterData("BobsAge", age1);
-        rr.RegisterData("HarrysName", name2);
-        rr.RegisterData("HarrysAge", age2);
+        rr.DataService.RegisterData("BobsName", name1);
+        rr.DataService.RegisterData("BobsAge", age1);
+        rr.DataService.RegisterData("HarrysName", name2);
+        rr.DataService.RegisterData("HarrysAge", age2);
 
         DefinedRule rd1 = new DefinedRule()
         {
@@ -117,10 +117,10 @@ public class ObjectReference_Tests
         var name2 = "Harry";
         var age2 = 20;
 
-        rr.RegisterData("BobsName", name1);
-        rr.RegisterData("BobsAge", age1);
-        rr.RegisterData("HarrysName", name2);
-        rr.RegisterData("HarrysAge", age2);
+        rr.DataService.RegisterData("BobsName", name1);
+        rr.DataService.RegisterData("BobsAge", age1);
+        rr.DataService.RegisterData("HarrysName", name2);
+        rr.DataService.RegisterData("HarrysAge", age2);
 
         DefinedRule rd1 = new DefinedRule()
         {
@@ -146,7 +146,7 @@ public class ObjectReference_Tests
         int x = 100;
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData(nameof(x), x);
+        var added1 = rr.DataService.RegisterData(nameof(x), x);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 
         DefinedRule rule = new DefinedRule()
@@ -172,9 +172,9 @@ public class ObjectReference_Tests
         string greeting = "Hello";
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData(nameof(x), x);
-        var added2 = rr.RegisterData(nameof(y), y);
-        var added3 = rr.RegisterData(nameof(greeting), greeting);
+        var added1 = rr.DataService.RegisterData(nameof(x), x);
+        var added2 = rr.DataService.RegisterData(nameof(y), y);
+        var added3 = rr.DataService.RegisterData(nameof(greeting), greeting);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added3.Status);
@@ -202,9 +202,9 @@ public class ObjectReference_Tests
         string greeting = "Hello";
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData(nameof(x), x);
-        var added2 = rr.RegisterData(nameof(y), y);
-        var added3 = rr.RegisterData(nameof(greeting), greeting);
+        var added1 = rr.DataService.RegisterData(nameof(x), x);
+        var added2 = rr.DataService.RegisterData(nameof(y), y);
+        var added3 = rr.DataService.RegisterData(nameof(greeting), greeting);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added3.Status);
@@ -212,8 +212,8 @@ public class ObjectReference_Tests
         var obj1 = new RefObject() { Name = "Bob", Age = 30 };
         var name = "Bob";
         var age = 30;
-        var added4 = rr.RegisterData(nameof(name), name);
-        var added5 = rr.RegisterData("BobsAge", age);
+        var added4 = rr.DataService.RegisterData(nameof(name), name);
+        var added5 = rr.DataService.RegisterData("BobsAge", age);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added4.Status);
 
         DefinedRule rule = new DefinedRule()
@@ -237,7 +237,7 @@ public class ObjectReference_Tests
         var obj = new RefObject();
 
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("obj", obj);
+        rr.DataService.RegisterData("obj", obj);
 
         rr.BuildRule()
             .Number(1)

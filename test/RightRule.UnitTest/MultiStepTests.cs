@@ -109,9 +109,9 @@ public class MultiStepTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data1", _Step1Data1);
-        rr.RegisterData("Step1Data2", _Step1Data2);
-        rr.RegisterData("Step1Data3", _Step1Data3);
+        rr.DataService.RegisterData("Step1Data1", _Step1Data1);
+        rr.DataService.RegisterData("Step1Data2", _Step1Data2);
+        rr.DataService.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
@@ -122,9 +122,9 @@ public class MultiStepTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data1", _Step1Data1);
-        rr.RegisterData("Step1Data2", _Step1Data2);
-        rr.RegisterData("Step1Data3", _Step1Data3);
+        rr.DataService.RegisterData("Step1Data1", _Step1Data1);
+        rr.DataService.RegisterData("Step1Data2", _Step1Data2);
+        rr.DataService.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule2);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
@@ -135,9 +135,9 @@ public class MultiStepTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data1", _Step1Data1);
-        rr.RegisterData("Step1Data2", _Step1Data2);
-        rr.RegisterData("Step1Data3", _Step1Data3);
+        rr.DataService.RegisterData("Step1Data1", _Step1Data1);
+        rr.DataService.RegisterData("Step1Data2", _Step1Data2);
+        rr.DataService.RegisterData("Step1Data3", _Step1Data3);
         var rule1 = rr.RegisterRule(_Step1Rule3);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
@@ -148,12 +148,12 @@ public class MultiStepTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data1", _Step1Data1);
+        rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
-        rr.RegisterData("Step2Data1", _Step2Data1);
+        rr.DataService.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRule("Step2");
         Assert.Equal("GOOD", rule2result.Decision);
@@ -164,18 +164,18 @@ public class MultiStepTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Step1Data1", _Step1Data1);
+        rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RegisterRule(_Step1Rule1);
         var rule1result = rr.ApplyRule("Step1");
         Assert.Equal("GOOD", rule1result.Decision);
 
-        rr.DeRegisterData("Step1Data1");
+        rr.DataService.DeRegisterData("Step1Data1");
         rr.DeRegisterRules("Step1");
 
         var rule1result_v2 = rr.ApplyRule("Step1");
         Assert.Equal(ErrorRule.DECISIONWORD, rule1result_v2.Decision);
 
-        rr.RegisterData("Step2Data1", _Step2Data1);
+        rr.DataService.RegisterData("Step2Data1", _Step2Data1);
         var rule2 = rr.RegisterRule(_Step2Rule);
         var rule2result = rr.ApplyRule("Step2");
         Assert.Equal("GOOD", rule2result.Decision);

@@ -9,7 +9,7 @@ public class DataSerializationTests
     {
         using var rightRule = new RightRule.RightRule();
 
-        var registration = rightRule.RegisterData(
+        var registration = rightRule.DataService.RegisterData(
             "Customer",
             new Dictionary<string, object>
             {
@@ -19,7 +19,7 @@ public class DataSerializationTests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
 
-        var registration2 = rightRule.RegisterData(
+        var registration2 = rightRule.DataService.RegisterData(
             "Order",
             new Dictionary<string, object>
             {
@@ -29,7 +29,7 @@ public class DataSerializationTests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
 
-        var serializedData = rightRule.SerializeData();
+        var serializedData = rightRule.DataService.SerializeData();
 
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedData);
         Assert.Contains("\"Key\":\"name\"", serializedData);
@@ -45,7 +45,7 @@ public class DataSerializationTests
     {
         using var rightRule = new RightRule.RightRule();
 
-        var registration = rightRule.RegisterData(
+        var registration = rightRule.DataService.RegisterData(
             "Customer",
             new Dictionary<string, object>
             {
@@ -55,7 +55,7 @@ public class DataSerializationTests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
 
-        var registration2 = rightRule.RegisterData(
+        var registration2 = rightRule.DataService.RegisterData(
             "Order",
             new Dictionary<string, object>
             {
@@ -65,7 +65,7 @@ public class DataSerializationTests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
 
-        var serializedData = rightRule.SerializeData("Order");
+        var serializedData = rightRule.DataService.SerializeData("Order");
 
         Assert.DoesNotContain("\"DatasetName\":\"Customer\"", serializedData);
         Assert.DoesNotContain("\"Key\":\"name\"", serializedData);

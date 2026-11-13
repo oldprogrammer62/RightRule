@@ -135,7 +135,7 @@ public class RightRuleServiceTests
         public Dictionary<string, Operator> GetRegisteredAliases(Operator Operator) =>
             throw new NotSupportedException();
 
-        public bool DeRegisterOperator(string OperatorName) =>
+        public bool UnloadOperator(string OperatorName) =>
             throw new NotSupportedException();
 
         public void Dispose() => DisposeCount++;

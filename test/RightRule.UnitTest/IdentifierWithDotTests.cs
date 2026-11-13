@@ -40,8 +40,8 @@ public class IdentifierWithDotTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("Data", _Data);
-        rr.RegisterData("Constants", _Constants);
+        rr.DataService.RegisterData("Data", _Data);
+        rr.DataService.RegisterData("Constants", _Constants);
 
         var newRule = rr.RegisterRule(rule);
 
@@ -66,8 +66,8 @@ public class IdentifierWithDotTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Data", _Data);
-        rr.RegisterData("Constants", _Constants);
+        rr.DataService.RegisterData("Data", _Data);
+        rr.DataService.RegisterData("Constants", _Constants);
 
         var appliedRule = rr.ApplyRule("Context");
 

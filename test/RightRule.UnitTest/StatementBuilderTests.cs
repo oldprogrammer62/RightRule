@@ -64,9 +64,9 @@ public class StatementBuilderTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("OrderData", _OrderData);
-        rr.RegisterData("CustomerData", _CustomerData);
-        rr.RegisterData("StaticData", _StaticData);
+        rr.DataService.RegisterData("OrderData", _OrderData);
+        rr.DataService.RegisterData("CustomerData", _CustomerData);
+        rr.DataService.RegisterData("StaticData", _StaticData);
 
         var appliedRule = rr.ApplyRule("DiscountDecision");
 

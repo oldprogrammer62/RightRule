@@ -38,7 +38,7 @@ public class DataRegistrationTests
 
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -59,7 +59,7 @@ public class DataRegistrationTests
 
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
         var registeredRule = rr.RegisterRule(rule1);
 
         Assert.NotNull(registeredRule);
@@ -81,7 +81,7 @@ public class DataRegistrationTests
 
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
         var newRule1 = rr.RegisterRule(rule1);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
@@ -96,10 +96,10 @@ public class DataRegistrationTests
         var r = ("r", x);
 
         IRightRule rr = new RightRule.RightRule();
-        var added1 = rr.RegisterData("r", r);
+        var added1 = rr.DataService.RegisterData("r", r);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 
-        var added2 = rr.RegisterData("r", r);
+        var added2 = rr.DataService.RegisterData("r", r);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
     }
 }

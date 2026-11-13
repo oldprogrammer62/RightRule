@@ -25,7 +25,7 @@ public class StrEqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var dataset = rr.RegisterData("Data", data);
+        var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.ApplyRule("TestContext");
@@ -54,7 +54,7 @@ public class StrEqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var dataset = rr.RegisterData("Data", data);
+        var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.ApplyRule("TestContext");
@@ -83,7 +83,7 @@ public class StrEqualsTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        var dataset = rr.RegisterData("Data", data);
+        var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RegisterRule(rule1);
 
         var result = rr.ApplyRule("TestContext");

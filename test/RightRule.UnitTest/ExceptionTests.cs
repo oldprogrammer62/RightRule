@@ -15,7 +15,7 @@ public class ExceptionTests
 
         IRightRule rr = new RightRule.RightRule();
         
-        Assert.Throws<ArgumentException>(() => rr.RegisterData("", data));
+        Assert.Throws<ArgumentException>(() => rr.DataService.RegisterData("", data));
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class ExceptionTests
 
         IRightRule rr = new RightRule.RightRule();
 
-        var dataReg = rr.RegisterData("DatasetName", data);
+        var dataReg = rr.DataService.RegisterData("DatasetName", data);
         Assert.NotNull(dataReg);
     }
 

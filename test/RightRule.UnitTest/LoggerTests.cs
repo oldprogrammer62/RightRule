@@ -13,7 +13,7 @@ public class LoggerTests
     public void LogTest_New()
     {
         using var rr = new RightRule.RightRule();
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
 
@@ -23,7 +23,7 @@ public class LoggerTests
         RightRuleOptions options = new() { LoadDefaultOperators = false };
 
         using var rr = new RightRule.RightRule(options);
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
 
@@ -36,7 +36,7 @@ public class LoggerTests
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         Assert.False(rr.GetRightRuleOptions().LoadDefaultOperators);
         Assert.NotNull(rr);
     }
@@ -50,7 +50,7 @@ public class LoggerTests
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
 
@@ -76,7 +76,7 @@ public class LoggerTests
 
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerProvider>();
 
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         
         Assert.NotNull(rr);
     }

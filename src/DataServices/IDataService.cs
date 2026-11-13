@@ -5,16 +5,18 @@ namespace RightRule.DataServices;
 
 public interface IDataService
 {
+    DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
+    
     List<Dataset> RegisteredDatasets { get; }
 
-    void Clear();
-
+    bool DeRegisterData();
+    
     Dataset CreateDataSet(string DatasetName);
     List<string> GetDataSetNames();
-    List<Dataset> GetDatasets();
-    Dataset? GetDataset(string DatasetName);
+    List<Dataset> GetRegisteredData();
+    Dataset? GetRegisteredData(string DatasetName);
 
-    void DeregisterDataset(string DatasetName);
+    bool DeRegisterData(string DatasetName);
 
     Dataset AddData(string DatasetName, (string, object) DataItem);
     Dataset AddData(string DatasetName, List<(string, object)> DataItems);

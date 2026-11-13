@@ -1,7 +1,5 @@
 ﻿using RightRule.DataAdaptors;
 using RightRule.DataServices;
-using RightRule.DataServices.Data;
-using RightRule.DataServices.DataRegistration;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models;
@@ -14,7 +12,6 @@ using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.System.Common.DataAdaptor;
-using RightRule.System.Common.Operator.Models;
 
 namespace RightRule;
 
@@ -36,25 +33,6 @@ public interface IRightRule : IDisposable
     /// <exception cref="ArgumentException"></exception>
     /// <returns><see cref="CheckStatementResult"/></returns>
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
-
-    /// <summary>
-    /// Register a Custom Operator with the RightRule engine.<br/>
-    /// </summary>
-    /// <param name="Operator"></param>
-    /// <returns><see cref="OperatorRegistrationResult"/></returns>
-    OperatorRegistrationResult RegisterOperator(Operator Operator);
-
-    /// <summary>
-    /// Returns the set of Logic Operators currently loaded in the RightRule engine.
-    /// </summary>
-    /// <see cref="List{Operator}">List&lt;Operator&gt;</see>
-    List<Operator>? GetOperators();
-
-    /// <summary>
-    /// Returns the set of Aliases for currently loaded Logic Operators
-    /// </summary>
-    /// <returns><see cref="Dictionary{TKey, TValue}">Dictionary&lt;string, Operator&gt;</see></returns>
-    Dictionary<string, Operator>? GetOperatorAliases();
 
     /// <summary>
     /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
@@ -133,19 +111,6 @@ public interface IRightRule : IDisposable
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType);
 
     /// <summary>
-    /// DeRegisters all data from the RightRule engine.
-    /// </summary>
-    /// <returns>bool</returns>
-    bool DeRegisterData();
-
-    /// <summary>
-    /// DeRegisters the specified data from the RightRule engine.
-    /// </summary>
-    /// <param name="DatasetName">The name of the dataset to deregister.</param>
-    /// <returns>bool</returns>
-    bool DeRegisterData(string DatasetName);
-
-    /// <summary>
     /// Deregisters all Rules from the RightRule engine.
     /// </summary>
     /// <returns>
@@ -184,22 +149,6 @@ public interface IRightRule : IDisposable
     bool DeRegisterRule(string Context, int RuleNumber);
 
     /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>
-    /// List&lt;<see cref="Dataset"/>&gt;&gt;
-    /// </returns>
-    List<Dataset>? GetRegisteredData();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>
-    /// <see cref="Dataset"/>
-    /// </returns>
-    Dataset? GetRegisteredData(string DatasetName);
-
-    /// <summary>
     /// Returns the set of Registered Rules.
     /// </summary>
     /// <returns>
@@ -236,20 +185,6 @@ public interface IRightRule : IDisposable
     /// <param name="DataAdaptor"></param>
     /// <returns><see cref="DataAdaptorRegistrationResult"/></returns>
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor);
-
-    /// <summary>
-    /// NEW
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="DatasetName"></param>
-    /// <param name="Data"></param>
-    /// <returns><see cref="DataRegistrationResult"/></returns>
-    DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
-
-    string SerializeData();
-    string SerializeData(string DatasetName);
-
-    List<DataRegistrationResult> LoadData(string JsonData);
 
     /// <summary>
     /// Returns the set of Registered Default Rule for the specified Context.
@@ -308,15 +243,6 @@ public interface IRightRule : IDisposable
 
     string SerializeRules();
     string SerializeRules(string Context);
-
-
-    /// <summary>
-    /// Unloads an Operator from the RightRule engine.<br/>
-    /// The Operator will no longer be valid in a Rule Statement
-    /// </summary>
-    /// <param name="OperatorName">The name of the Operator to unload.</param>
-    /// <exception cref="ArgumentException"></exception>
-    bool UnloadOperator(string OperatorName);
 
     /// <summary>
     /// Get the set of Contexts for which rules are registered

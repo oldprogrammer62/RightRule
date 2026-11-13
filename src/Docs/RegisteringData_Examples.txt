@@ -12,7 +12,7 @@ long localVal = 1000;
 
 // Register Data
 // Registration name "localData"
-DataRegistrationResult registeredData = rr.RegisterData("localData", localVal);
+DataRegistrationResult registeredData = rr.DataService.RegisterData("localData", localVal);
 
 // Rule Statement refers to Registered name "localData"
 Statement = "localData = 1000"
@@ -28,7 +28,7 @@ Dictionary<string, object> data = new Dictionary<string, object>()
 
 // Register Data
 // Registration name "localData"
-DataRegistrationResult registeredData = rr.RegisterData("localData", data);
+DataRegistrationResult registeredData = rr.DataService.RegisterData("localData", data);
 
 // Rule statement refers to Registered name "localData" with registered value "entry"
 Statement = "localData.entry = 1000"

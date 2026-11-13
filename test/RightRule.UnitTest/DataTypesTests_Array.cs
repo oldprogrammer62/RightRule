@@ -34,8 +34,8 @@ public class DataTypesTests_Array
         IRightRule rr = new RightRule.RightRule(options);
 
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("number", number);
-        rr.RegisterData("numbers", numbers);
+        rr.DataService.RegisterData("number", number);
+        rr.DataService.RegisterData("numbers", numbers);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -55,7 +55,7 @@ public class DataTypesTests_Array
         IRightRule rr = new RightRule.RightRule(options);
 
         int number1 = 1;
-        rr.RegisterData("number", number1);
+        rr.DataService.RegisterData("number", number1);
 
         // Rule
         DefinedRule rule = new()
@@ -90,7 +90,7 @@ public class DataTypesTests_Array
         int number2 = 2;
         int number3 = 3;
         int number4 = 4;
-        rr.RegisterData("number", number1);
+        rr.DataService.RegisterData("number", number1);
 
         var statement = string.Format("number in [{0},{1},{2},{3}]",number1,number2,number3,number4);
 
@@ -127,7 +127,7 @@ public class DataTypesTests_Array
         string s2 = "name";
         string s3 = "is";
         string s4 = "mikey";
-        rr.RegisterData("string", "name");
+        rr.DataService.RegisterData("string", "name");
 
         var statement = string.Format("string in [\"{0}\",\"{1}\",\"{2}\",\"{3}\"]", s1, s2, s3, s4);
 

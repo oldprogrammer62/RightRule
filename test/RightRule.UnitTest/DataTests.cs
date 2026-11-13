@@ -34,7 +34,7 @@ public class DataTests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
         var newRule = rr.RegisterRule(rule);
 
         var ap = rr.ApplyRule("Context");

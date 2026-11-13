@@ -43,7 +43,7 @@ public class CompleteExample_DI
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
         Assert.NotNull(rr);
 
-        var dataResult = rr.RegisterData("a", 100);
+        var dataResult = rr.DataService.RegisterData("a", 100);
         Assert.NotNull(dataResult);
 
         var loadedOptions = rr.GetRightRuleOptions();
@@ -84,7 +84,7 @@ public class CompleteExample_DI
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        rr.RegisterData("a", 100);
+        rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
 
         var loadedOptions = rr.GetRightRuleOptions();

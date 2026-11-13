@@ -20,7 +20,7 @@ namespace RightRuleTests
         {
             IRightRule rr = new RightRule.RightRule();
 
-            var regData1 = rr.RegisterData("Data1", dictdata);
+            var regData1 = rr.DataService.RegisterData("Data1", dictdata);
             Assert.NotNull(regData1);
         }
 
@@ -29,8 +29,8 @@ namespace RightRuleTests
         {
             IRightRule rr = new RightRule.RightRule();
 
-            var regData1 = rr.RegisterData(nameof(a), a);
-            var regData2 = rr.RegisterData(nameof(b), b);
+            var regData1 = rr.DataService.RegisterData(nameof(a), a);
+            var regData2 = rr.DataService.RegisterData(nameof(b), b);
             Assert.NotNull(regData1);
             Assert.NotNull(regData2);
         }
@@ -40,14 +40,14 @@ namespace RightRuleTests
         {
             IRightRule rr = new RightRule.RightRule();
 
-            var regData1 = rr.RegisterData("Data1", dictdata);
+            var regData1 = rr.DataService.RegisterData("Data1", dictdata);
 
-            var regData2 = rr.RegisterData(nameof(a), a);
-            var regData3 = rr.RegisterData(nameof(b), b);
+            var regData2 = rr.DataService.RegisterData(nameof(a), a);
+            var regData3 = rr.DataService.RegisterData(nameof(b), b);
 
-            var regData4 = rr.RegisterData(nameof(datatuple), datatuple);
+            var regData4 = rr.DataService.RegisterData(nameof(datatuple), datatuple);
 
-            var xxxx = rr.GetRegisteredData();
+            var xxxx = rr.DataService.GetRegisteredData();
             Assert.NotNull(xxxx);
         }
 
@@ -56,14 +56,14 @@ namespace RightRuleTests
         {
             IRightRule rr = new RightRule.RightRule();
 
-            var regData1 = rr.RegisterData("Data1", dictdata);
+            var regData1 = rr.DataService.RegisterData("Data1", dictdata);
 
-            var regData2 = rr.RegisterData(nameof(a), a);
-            var regData3 = rr.RegisterData(nameof(b), b);
+            var regData2 = rr. DataService.RegisterData(nameof(a), a);
+            var regData3 = rr.DataService.RegisterData(nameof(b), b);
 
-            var regData4 = rr.RegisterData(nameof(datatuple), datatuple);
+            var regData4 = rr.DataService.RegisterData(nameof(datatuple), datatuple);
 
-            var xxxx = rr.GetRegisteredData();
+            var xxxx = rr.DataService.GetRegisteredData();
             Assert.NotNull(xxxx);
 
             var rule1def = rr.BuildRule()

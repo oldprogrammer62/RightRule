@@ -11,14 +11,14 @@ public class DataDeregistrationTests
         var d2 = "World";
 
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(d), d);
-        rr.RegisterData(nameof(d2), d2);
-        var registeredData = rr.GetRegisteredData();
+        rr.DataService.RegisterData(nameof(d), d);
+        rr.DataService.RegisterData(nameof(d2), d2);
+        var registeredData = rr.DataService.GetRegisteredData();
         Assert.NotNull(registeredData);
         Assert.Equal(2, registeredData.Count);
 
-        rr.DeRegisterData("d");
-        var deregisteredData = rr.GetRegisteredData();
+        rr.DataService.DeRegisterData("d");
+        var deregisteredData = rr.DataService.GetRegisteredData();
         Assert.NotNull(deregisteredData);
         Assert.Single(deregisteredData);
     }
@@ -36,14 +36,14 @@ public class DataDeregistrationTests
         };
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("d", d);
-        rr.RegisterData("d2", d2);
-        var data = rr.GetRegisteredData();
+        rr.DataService.RegisterData("d", d);
+        rr.DataService.RegisterData("d2", d2);
+        var data = rr.DataService.GetRegisteredData();
         Assert.NotNull(data);
         Assert.Equal(2, data.Count);
 
-        rr.DeRegisterData("d");
-        var deregisteredData = rr.GetRegisteredData();
+        rr.DataService.DeRegisterData("d");
+        var deregisteredData = rr.DataService.GetRegisteredData();
         Assert.NotNull(deregisteredData);
         Assert.Single(deregisteredData);
     }

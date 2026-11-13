@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using RightRule.DataAdaptors;
 using RightRule.DataServices.Data;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataRegistration;
 using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
 using RightRule.Models;
+using RightRule.System.Common.DataAdaptor;
 using System.ComponentModel;
 
 namespace RightRule.DataServices;
@@ -19,10 +21,12 @@ internal sealed class DataService : IDataService
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IDataValidatorService _dataValidator;
+
     private readonly IDataSerializerService _dataSerializerService;
     private readonly IDataLoaderService _dataLoaderService;
+    private readonly IDataAdaptorService _dataAdaptorService;
 
-    public DataService(IDataValidatorService DataValidator, IDataSerializerService DataSerializerService, IDataLoaderService dataLoaderService, ILogger<DataService> logger)
+    public DataService(IDataValidatorService DataValidator, IDataSerializerService DataSerializerService, IDataLoaderService dataLoaderService, IDataAdaptorService dataAdaptorService, ILogger<DataService> logger)
     {
         _logger = logger;
 
@@ -30,10 +34,13 @@ internal sealed class DataService : IDataService
         _dataValidator = DataValidator;
         _dataSerializerService = DataSerializerService;
         _dataLoaderService = dataLoaderService;
+        _dataAdaptorService = dataAdaptorService;
     }
 
     public List<DataRegistrationResult> LoadData(string JsonData)
     {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
+
         var dataDef = _dataLoaderService.LoadData(JsonData);
         if (dataDef == null)
         {
@@ -42,11 +49,11 @@ internal sealed class DataService : IDataService
         return AddData(dataDef);
     }
 
-    public void Clear()
+    public bool DeRegisterData()
     {
         if (_datasets == null || _datasets.Count == 0)
         {
-            return;
+            return true;
         }
         _datasets = new List<Dataset>();
 
@@ -54,6 +61,24 @@ internal sealed class DataService : IDataService
         {
             _logger.LogInformation("Datasets Cleared");
         }
+        return true;
+    }
+
+    public bool DeRegisterData(string DatasetName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
+        if (_datasets == null || _datasets.Count == 0)
+        {
+            return true;
+        }
+        _datasets.Remove(_datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
+
+        if (_logger.IsEnabled(LogLevel.Debug))
+        {
+            _logger.LogDebug("{DatasetName} deregistered", DatasetName);
+        }
+        return true;
     }
 
     public bool IsValidDataIdentifier(string DataIdentifier)
@@ -63,7 +88,7 @@ internal sealed class DataService : IDataService
 
     public List<string>? GetDataItemNames(string DatasetName)
     {
-        var dataset = GetDataset(DatasetName);
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             return [];
@@ -93,20 +118,6 @@ internal sealed class DataService : IDataService
         return names;
     }
 
-    public void DeregisterDataset(string DatasetName)
-    {
-        if (_datasets == null || _datasets.Count == 0)
-        {
-            return;
-        }
-        _datasets.Remove(_datasets.First(x => x.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase)));
-
-        if (_logger.IsEnabled(LogLevel.Debug))
-        {
-            _logger.LogDebug("{DatasetName} deregistered", DatasetName);
-        }
-    }
-
     public Dataset CreateDataSet(string DatasetName)
     {
         var dataset = new Dataset(DatasetName);
@@ -120,11 +131,69 @@ internal sealed class DataService : IDataService
         return dataset;
     }
 
+    public DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull
+    {
+        if (_dataAdaptorService == null)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RightRuleStatusEnum.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+
+        AdaptorDataStructure dataResult = _dataAdaptorService.ProcessIncomingData<T>(DatasetName, Data);
+        if (dataResult == null)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RightRuleStatusEnum.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+        var dataRegistrationResult = RegisterIncomingData(DatasetName, dataResult.Data);
+
+        if (dataRegistrationResult.Status == RightRuleStatusEnum.SUCCESS)
+        {
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation(message: "Data Registration Success for Datset: {datasetName}", DatasetName);
+            }
+        }
+        return dataRegistrationResult;
+    }
+
+    private DataRegistrationResult RegisterIncomingData(string DatasetName, Dictionary<string, object> DataItems)
+    {
+        ArgumentNullException.ThrowIfNull(DataItems, nameof(DataItems));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
+        // Add data to new Data Service
+        var added = AddData(DatasetName, DataItems);
+        if (added == null)
+        {
+            return new DataRegistrationResult()
+            {
+                Status = RightRuleStatusEnum.FAILURE,
+                DataType = DataTypes.DATASET,
+                Name = DatasetName
+            };
+        }
+        return new DataRegistrationResult()
+        {
+            Status = RightRuleStatusEnum.SUCCESS,
+            DataType = DataTypes.DATASET,
+            Name = DatasetName
+        };
+    }
+
     // Add Dictionary of data
     // Will be discover as DatasetName.Identifier
     public Dataset AddData(string DatasetName, Dictionary<string, object> DataItems)
     {
-        var dataset = GetDataset(DatasetName);
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             dataset = CreateDataSet(DatasetName);
@@ -145,7 +214,7 @@ internal sealed class DataService : IDataService
     // Will be discover as DatasetName.Identifier
     public Dataset AddData(string DatasetName, ValueTuple<string, object> DataItem)
     {
-        var dataset = GetDataset(DatasetName);
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             dataset = CreateDataSet(DatasetName);
@@ -166,7 +235,7 @@ internal sealed class DataService : IDataService
     // Will be discover as DatasetName.Identifier
     public Dataset AddData(string DatasetName, List<ValueTuple<string, object>> DataItems)
     {
-        var dataset = GetDataset(DatasetName);
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             dataset = CreateDataSet(DatasetName);
@@ -187,7 +256,10 @@ internal sealed class DataService : IDataService
     // Will be discover as DatasetName.Identifier
     public Dataset AddData(string DatasetName, string DataItemName, object DataItemValue)
     {
-        var dataset = GetDataset(DatasetName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+        ArgumentException.ThrowIfNullOrWhiteSpace(DataItemName, nameof(DataItemName));
+
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             dataset = CreateDataSet(DatasetName);
@@ -221,19 +293,20 @@ internal sealed class DataService : IDataService
         return results;
     }
 
-    public List<Dataset> GetDatasets()
+    public List<Dataset> GetRegisteredData()
     {
         return _datasets ?? [];
     }
 
-    public Dataset? GetDataset(string DatasetName)
+    public Dataset? GetRegisteredData(string DatasetName)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
         return _datasets.FirstOrDefault(d => d.DatasetName.Equals(DatasetName, StringComparison.OrdinalIgnoreCase));
     }
 
     public DataItem? GetDataItem(string DatasetName, string DataItemName)
     {
-        var ds = GetDataset(DatasetName);
+        var ds = GetRegisteredData(DatasetName);
         if (ds != null)
         {
             return ds.GetDataItem(DataItemName);
@@ -243,7 +316,7 @@ internal sealed class DataService : IDataService
 
     public object? GetDataItemValue(string DatasetName, string DataItemName)
     {
-        var ds = GetDataset(DatasetName);
+        var ds = GetRegisteredData(DatasetName);
         if (ds != null)
         {
             var di = ds.GetDataItem(DataItemName);
@@ -267,7 +340,9 @@ internal sealed class DataService : IDataService
 
     public string SerializeData(string DatasetName)
     {
-        var dataset = GetDataset(DatasetName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(DatasetName, nameof(DatasetName));
+
+        var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
         {
             return string.Empty;

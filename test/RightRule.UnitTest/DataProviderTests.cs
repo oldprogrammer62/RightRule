@@ -35,7 +35,7 @@ public class DataProviderTests
             { "Name", "Test" },
             { "Value", 42 }
         };
-        var result = rr.RegisterData<Dictionary<string, object>>("DS_Name", input);
+        var result = rr.DataService.RegisterData<Dictionary<string, object>>("DS_Name", input);
 
         Assert.NotNull(result);
     }
@@ -61,7 +61,7 @@ public class DataProviderTests
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
         string input = "HelloWorld";
-        var result = rr.RegisterData<string>("DS_Name", input);
+        var result = rr.DataService.RegisterData<string>("DS_Name", input);
 
         Assert.NotNull(result);
     }
@@ -87,7 +87,7 @@ public class DataProviderTests
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
         int input = 1023;
-        var result = rr.RegisterData("DS_Name", input);
+        var result = rr.DataService.RegisterData("DS_Name", input);
 
         Assert.NotNull(result);
     }
@@ -116,7 +116,7 @@ public class DataProviderTests
         DataAdaptorRegistrationResult? dataAdaptorResult = rr.RegisterDataAdaptor(dataAdaptor);
 
         var input = new BespokeClass();
-        var result = rr.RegisterData<BespokeClass>("DS_Name", input);
+        var result = rr.DataService.RegisterData<BespokeClass>("DS_Name", input);
 
         Assert.NotNull(result);
     }
@@ -148,7 +148,7 @@ public class DataProviderTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        rr.RegisterData<Dictionary<string, object>>("DS_Name", input);
+        rr.DataService.RegisterData<Dictionary<string, object>>("DS_Name", input);
     }
 
     [Fact]
@@ -178,7 +178,7 @@ public class DataProviderTests
 
         var DataProviderRegResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
 
-        var result = rr.RegisterData("DS_Name", input);
+        var result = rr.DataService.RegisterData("DS_Name", input);
     }
 }
 

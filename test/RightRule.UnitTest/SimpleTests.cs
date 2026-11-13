@@ -9,7 +9,7 @@ public class SimpleTests
     public void WithDataCheck()
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
-        var ds = rr.RegisterData("a", 100);
+        var ds = rr.DataService.RegisterData("a", 100);
 
         string context = "Context";
         var rule = rr.BuildRule()
@@ -35,7 +35,7 @@ public class SimpleTests
         {
             {"a", 100 }
         };
-        var ds = rr.RegisterData("data", data);
+        var ds = rr.DataService.RegisterData("data", data);
 
         string context = "Context";
         var rule = rr.BuildRule()

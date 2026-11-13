@@ -15,13 +15,13 @@ public class UniqueRegistration_Tests
             { "Name", "Hello" }
         };
 
-        var first = rr.RegisterData("Data1", data);
+        var first = rr.DataService.RegisterData("Data1", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, first.Status);
 
-        var second = rr.RegisterData("Data1", data);
+        var second = rr.DataService.RegisterData("Data1", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, second.Status);
 
-        Assert.Single(rr.GetRegisteredData());
+        Assert.Single(rr.DataService.GetRegisteredData());
     }
 
     [Fact]
@@ -34,13 +34,13 @@ public class UniqueRegistration_Tests
             { "Name", "Hello" }
         };
 
-        var first = rr.RegisterData("Data1", data);
+        var first = rr.DataService.RegisterData("Data1", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, first.Status);
 
-        var second = rr.RegisterData("Data2", data);
+        var second = rr.DataService.RegisterData("Data2", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, second.Status);
 
-        Assert.Equal(2, rr.GetRegisteredData().Count);
+        Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
     }
 
     [Fact]
@@ -50,12 +50,12 @@ public class UniqueRegistration_Tests
 
         var data = 100;
 
-        var first = rr.RegisterData(nameof(data), data);
+        var first = rr.DataService.RegisterData(nameof(data), data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, first.Status);
 
-        var second = rr.RegisterData(nameof(data), data);
+        var second = rr.DataService.RegisterData(nameof(data), data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, second.Status);
 
-        Assert.Single(rr.GetRegisteredData());
+        Assert.Single(rr.DataService.GetRegisteredData());
     }
 }

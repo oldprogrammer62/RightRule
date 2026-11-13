@@ -16,5 +16,5 @@ public interface IOperatorService
     Dictionary<string, Operator> GetRegisteredAliases();
     Dictionary<string, Operator> GetRegisteredAliases(Operator Operator);
 
-    bool DeRegisterOperator(string OperatorName);
+    bool UnloadOperator(string OperatorName);
 }

@@ -55,13 +55,13 @@ public class CompleteExample_New
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";
 
-        rr.RegisterData("Order", new Dictionary<string, object>
+        rr.DataService.RegisterData("Order", new Dictionary<string, object>
         {
             ["Value"] = orderValue,
             ["PreviousOrders"] = previousOrders
         });
 
-        rr.RegisterData("OrderThresholds", new Dictionary<string, object>
+        rr.DataService.RegisterData("OrderThresholds", new Dictionary<string, object>
         {
             ["LoyaltyValue"] = 100m,
             ["ReturningValue"] = 50m,
@@ -69,7 +69,7 @@ public class CompleteExample_New
             ["ReturningPreviousOrders"] = 2
         });
 
-        rr.RegisterData("Discount", new Dictionary<string, object>
+        rr.DataService.RegisterData("Discount", new Dictionary<string, object>
         {
             ["Default"] = 2,
             ["GoodWill"] = 5,
@@ -147,13 +147,13 @@ public class CompleteExample_New
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";
 
-        rr.RegisterData("Order", new Dictionary<string, object>
+        rr.DataService.RegisterData("Order", new Dictionary<string, object>
         {
             ["Value"] = orderValue,
             ["PreviousOrders"] = previousOrders
         });
 
-        rr.RegisterData("OrderThresholds", new Dictionary<string, object>
+        rr.DataService.RegisterData("OrderThresholds", new Dictionary<string, object>
         {
             ["LoyaltyValue"] = 100m,
             ["ReturningValue"] = 50m,
@@ -161,7 +161,7 @@ public class CompleteExample_New
             ["ReturningPreviousOrders"] = 2
         });
 
-        rr.RegisterData("Discount", new Dictionary<string, object>
+        rr.DataService.RegisterData("Discount", new Dictionary<string, object>
         {
             ["Default"] = 2,
             ["GoodWill"] = 5,

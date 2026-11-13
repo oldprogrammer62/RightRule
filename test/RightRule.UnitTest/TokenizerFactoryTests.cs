@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
@@ -71,11 +73,13 @@ public sealed class TokenizerFactoryTests
         var dataValidator = new DataValidatorService();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
         var dataService = new DataService(
             dataValidator,
             dss,
             dls,
+            das,
             NullLogger<DataService>.Instance
             );
 

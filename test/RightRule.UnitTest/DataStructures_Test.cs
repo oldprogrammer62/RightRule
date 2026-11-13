@@ -13,7 +13,7 @@ public class DataStructures_Test
         {
             { "Value", 100 }
         };
-        rr.RegisterData("Data", data);
+        rr.DataService.RegisterData("Data", data);
 
         var rule = rr.BuildRule()
             .Number(1)
@@ -35,13 +35,13 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Data1", 9000);
+        rr.DataService.RegisterData("Data1", 9000);
 
         (string Name, int Number) data2 = (Name: "Value", Number: 100);
-        rr.RegisterData("Data2", data2);
+        rr.DataService.RegisterData("Data2", data2);
 
         (string Name, int Number) data3 = (Name: "Value", Number: 200);
-        rr.RegisterData("Data3", data3);
+        rr.DataService.RegisterData("Data3", data3);
 
         var rule = rr.BuildRule()
             .Number(1)
@@ -63,7 +63,7 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData("Data1", 9000);
+        rr.DataService.RegisterData("Data1", 9000);
 
         List<(string Name, int Number)> data2 = new()
         {
@@ -74,10 +74,10 @@ public class DataStructures_Test
             (Name: "Value4", Number: 1005),
         };
 
-        rr.RegisterData("Data2", data2);
+        rr.DataService.RegisterData("Data2", data2);
 
         (string Name, int Number) data3 = (Name: "Value", Number: 200);
-        rr.RegisterData("Data3", data3);
+        rr.DataService.RegisterData("Data3", data3);
 
         var rule = rr.BuildRule()
             .Number(1)
@@ -101,7 +101,7 @@ public class DataStructures_Test
 
         int Value = 100;
 
-        rr.RegisterData(nameof(Value), Value);
+        rr.DataService.RegisterData(nameof(Value), Value);
 
         var rule = rr.BuildRule()
             .Number(1)
@@ -123,7 +123,7 @@ public class DataStructures_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var dataRegResult = rr.RegisterData("Variable", "Hello World");
+        var dataRegResult = rr.DataService.RegisterData("Variable", "Hello World");
 
         var rule = rr.BuildRule()
             .Number(1)

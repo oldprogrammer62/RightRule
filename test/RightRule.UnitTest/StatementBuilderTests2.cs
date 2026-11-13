@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
@@ -155,7 +157,14 @@ public class StatementBuilderTests2
         new(CreateDataService());
 
     private static DataService CreateDataService() =>
-        new(new DataValidatorService(), new DataSerializerService(), new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), new FakeLogger<DataService>());
+        new
+        (
+            new DataValidatorService(), 
+            new DataSerializerService(), 
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>()
+            );
 
     private static ConditionNode Condition(
         OperandKindEnum leftKind,

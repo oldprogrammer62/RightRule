@@ -17,15 +17,15 @@ public class DataLoader_Tests
         var json = SingleDatasetJsonData();
         Assert.NotNull(json);
 
-        List<DataRegistrationResult>? data = rr.LoadData(json);
+        List<DataRegistrationResult>? data = rr.DataService.LoadData(json);
         Assert.NotNull(data);
-        Assert.Single(rr.DataService.GetDatasets());
+        Assert.Single(rr.DataService.GetRegisteredData());
 
-        var dataNames = rr.DataService.GetDataItemNames(rr.DataService.GetDatasets()[0]);
+        var dataNames = rr.DataService.GetDataItemNames(rr.DataService.GetRegisteredData()[0]);
         Assert.NotNull(dataNames);
         Assert.Equal(3, dataNames.Count);
 
-        var serializedRules = rr.SerializeData();
+        var serializedRules = rr.DataService.SerializeData();
         Assert.NotNull(serializedRules);
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedRules);
     }
@@ -40,11 +40,11 @@ public class DataLoader_Tests
         var json = MultipleDatasetJsonData();
         Assert.NotNull(json);
 
-        List<DataRegistrationResult>? data = rr.LoadData(json);
+        List<DataRegistrationResult>? data = rr.DataService.LoadData(json);
         Assert.NotNull(data);
-        Assert.Equal(2, rr.DataService.GetDatasets().Count);
+        Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
 
-        var serializedRules = rr.SerializeData();
+        var serializedRules = rr.DataService.SerializeData();
         Assert.NotNull(serializedRules);
         Assert.Contains("\"DatasetName\":\"Customer1\"", serializedRules);
         Assert.Contains("\"DatasetName\":\"Customer2\"", serializedRules);
@@ -57,7 +57,7 @@ public class DataLoader_Tests
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 
-        var registration = rr.RegisterData(
+        var registration = rr.DataService.RegisterData(
             "Customer",
             new Dictionary<string, object>
             {
@@ -67,7 +67,7 @@ public class DataLoader_Tests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
 
-        var registration2 = rr.RegisterData(
+        var registration2 = rr.DataService.RegisterData(
             "Order",
             new Dictionary<string, object>
             {
@@ -77,22 +77,22 @@ public class DataLoader_Tests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
 
-        Assert.Equal(2, rr.DataService.GetDatasets().Count);
+        Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
 
-        var serializedData = rr.SerializeData();
+        var serializedData = rr.DataService.SerializeData();
         Assert.NotNull(serializedData);
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedData);
         Assert.Contains("\"DatasetName\":\"Order\"", serializedData);
 
         // Clear all the data from the data service so we can test loading it back in
-        rr.DataService.Clear();
-        Assert.Empty(rr.DataService.GetDatasets());
+        rr.DataService.DeRegisterData();
+        Assert.Empty(rr.DataService.GetRegisteredData());
 
-        List<DataRegistrationResult>? data = rr.LoadData(serializedData);
+        List<DataRegistrationResult>? data = rr.DataService.LoadData(serializedData);
         Assert.NotNull(data);
-        Assert.Equal(2, rr.DataService.GetDatasets().Count);
-        Assert.Equal("Customer", rr.DataService.GetDatasets()[0].DatasetName);
-        Assert.Equal("Order", rr.DataService.GetDatasets()[1].DatasetName);
+        Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
+        Assert.Equal("Customer", rr.DataService.GetRegisteredData()[0].DatasetName);
+        Assert.Equal("Order", rr.DataService.GetRegisteredData()[1].DatasetName);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class DataLoader_Tests
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 
-        var registration = rr.RegisterData(
+        var registration = rr.DataService.RegisterData(
             "Customer",
             new Dictionary<string, object>
             {
@@ -112,7 +112,7 @@ public class DataLoader_Tests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
 
-        var registration2 = rr.RegisterData(
+        var registration2 = rr.DataService.RegisterData(
             "Order",
             new Dictionary<string, object>
             {
@@ -122,25 +122,25 @@ public class DataLoader_Tests
             });
         Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
 
-        Assert.Equal(2, rr.DataService.GetDatasets().Count);
+        Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
 
-        var serializedData = rr.SerializeData("Customer");
+        var serializedData = rr.DataService.SerializeData("Customer");
         Assert.NotNull(serializedData);
         Assert.Contains("\"DatasetName\":\"Customer\"", serializedData);
 
         // Clear all the data from the data service so we can test loading it back in
-        rr.DataService.Clear();
-        Assert.Empty(rr.DataService.GetDatasets());
+        rr.DataService.DeRegisterData();
+        Assert.Empty(rr.DataService.GetRegisteredData());
 
-        List<DataRegistrationResult>? data = rr.LoadData(serializedData);
+        List<DataRegistrationResult>? data = rr.DataService.LoadData(serializedData);
         Assert.NotNull(data);
-        Assert.Single(rr.DataService.GetDatasets());
+        Assert.Single(rr.DataService.GetRegisteredData());
 
-        var regisisteredData = rr.GetRegisteredData();
+        var regisisteredData = rr.DataService.GetRegisteredData();
         Assert.NotNull(regisisteredData);
         Assert.Single(regisisteredData);
  
-        Assert.Equal("Customer", rr.DataService.GetDatasets()[0].DatasetName);
+        Assert.Equal("Customer", rr.DataService.GetRegisteredData()[0].DatasetName);
     }
 
     private static string SingleDatasetJsonData()

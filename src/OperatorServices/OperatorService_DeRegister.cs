@@ -4,9 +4,10 @@ namespace RightRule.OperatorServices;
 
 internal sealed partial class OperatorService : IOperatorService, IDisposable
 {
-    public bool DeRegisterOperator(string OperatorName)
+    public bool UnloadOperator(string OperatorName)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(OperatorName, nameof(OperatorName));
+
         var opToRemove = _operators.FirstOrDefault(op => op.Aliases.Contains(OperatorName, StringComparer.OrdinalIgnoreCase));
         if (opToRemove != null)
         {

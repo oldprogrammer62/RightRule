@@ -28,22 +28,22 @@ public class Equals_AllTypes_Tests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        rr.RegisterData(nameof(intVal), intVal);
+        rr.DataService.RegisterData(nameof(intVal), intVal);
 
         int intVal1 = 101;
-        rr.RegisterData(nameof(intVal1), intVal1);
+        rr.DataService.RegisterData(nameof(intVal1), intVal1);
 
         int intVal2 = 102;
-        rr.RegisterData(nameof(intVal2), intVal2);
+        rr.DataService.RegisterData(nameof(intVal2), intVal2);
 
         int intVal3 = 103;
-        rr.RegisterData(nameof(intVal3), intVal3);
+        rr.DataService.RegisterData(nameof(intVal3), intVal3);
 
         int intVal4 = 104;
-        rr.RegisterData(nameof(intVal4), intVal4);
+        rr.DataService.RegisterData(nameof(intVal4), intVal4);
 
         int intVal5 = 105;
-        rr.RegisterData(nameof(intVal5), intVal5);
+        rr.DataService.RegisterData(nameof(intVal5), intVal5);
 
         DefinedRule ruleDef = new DefinedRule()
         {
@@ -68,10 +68,10 @@ public class Equals_AllTypes_Tests
     public void Test_Dec()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(decVal), decVal);
+        rr.DataService.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData(nameof(localVal), localVal);
+        rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -100,10 +100,10 @@ public class Equals_AllTypes_Tests
             Diagnostics = true
         }
         );
-        rr.RegisterData(nameof(decVal), decVal);
+        rr.DataService.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
-        rr.RegisterData(nameof(localVal), localVal);
+        rr.DataService.RegisterData(nameof(localVal), localVal);
 
         var rule = rr.BuildRule()
             .Number(1)
@@ -126,10 +126,10 @@ public class Equals_AllTypes_Tests
     public void Test_Dbl()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(dblVal), dblVal);
+        rr.DataService.RegisterData(nameof(dblVal), dblVal);
 
         double localVal = dblVal;
-        var registeredDat = rr.RegisterData(nameof(localVal), localVal);
+        var registeredDat = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -152,10 +152,10 @@ public class Equals_AllTypes_Tests
     public void Test_Lng()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(lngVal), lngVal);
+        rr.DataService.RegisterData(nameof(lngVal), lngVal);
 
         var localVal = lngVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -178,10 +178,10 @@ public class Equals_AllTypes_Tests
     public void Test_Single()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(sinVal), sinVal);
+        rr.DataService.RegisterData(nameof(sinVal), sinVal);
 
         Single localVal = sinVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -204,13 +204,13 @@ public class Equals_AllTypes_Tests
     public void Test_Float_Dict()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(fltVal), fltVal);
+        rr.DataService.RegisterData(nameof(fltVal), fltVal);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
             { "entry", fltVal }
         };
-        var registeredData = rr.RegisterData("localData", data);
+        var registeredData = rr.DataService.RegisterData("localData", data);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -233,10 +233,10 @@ public class Equals_AllTypes_Tests
     public void Test_String()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(strVal), strVal);
+        rr.DataService.RegisterData(nameof(strVal), strVal);
 
         string localVal = strVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -259,10 +259,10 @@ public class Equals_AllTypes_Tests
     public void Test_Char()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(chrVal), chrVal);
+        rr.DataService.RegisterData(nameof(chrVal), chrVal);
 
         char localVal = chrVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -285,10 +285,10 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_Bool()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(boolVal), boolVal);
+        rr.DataService.RegisterData(nameof(boolVal), boolVal);
 
         bool localVal = boolVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -311,10 +311,10 @@ public class Equals_AllTypes_Tests
     public void Test_Bool_String()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(boolStr), boolStr);
+        rr.DataService.RegisterData(nameof(boolStr), boolStr);
 
         string localVal = boolStr;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -337,10 +337,10 @@ public class Equals_AllTypes_Tests
     public void Test_DateOnly()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(dtonlyVal), dtonlyVal);
+        rr.DataService.RegisterData(nameof(dtonlyVal), dtonlyVal);
 
         DateOnly localVal = dtonlyVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -363,10 +363,10 @@ public class Equals_AllTypes_Tests
     public void Test_TimeOnly()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(tmonlyVal), tmonlyVal);
+        rr.DataService.RegisterData(nameof(tmonlyVal), tmonlyVal);
 
         TimeOnly localVal = tmonlyVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {
@@ -389,10 +389,10 @@ public class Equals_AllTypes_Tests
     public void Test_DateTime()
     {
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData(nameof(dttimeVal), dttimeVal);
+        rr.DataService.RegisterData(nameof(dttimeVal), dttimeVal);
 
         DateTime localVal = dttimeVal;
-        var registeredData = rr.RegisterData(nameof(localVal), localVal);
+        var registeredData = rr.DataService.RegisterData(nameof(localVal), localVal);
 
         DefinedRule rule = new DefinedRule()
         {

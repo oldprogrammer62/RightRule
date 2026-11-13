@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
@@ -149,7 +151,15 @@ public class EvaluatorTests
             bool diagnostics = false,
             IStatementBuilder? statementBuilder = null)
     {
-        var dataService = new DataService(new DataValidatorService(), new DataSerializerService(), new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), new FakeLogger<DataService>());
+        var dataService = new DataService
+            (
+            new DataValidatorService(), 
+            new DataSerializerService(), 
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>()
+            );
+        
         var operatorService = new OperatorService(CreateDefaultLoader(), CreateCustomLoader(), new RightRuleOptions
         {
             LoadDefaultOperators = false,

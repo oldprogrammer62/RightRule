@@ -23,7 +23,7 @@ public class OperatorUnloadTests
         IRightRule rr = new RightRule.RightRule();
 
         // Unload the "Contains" operator
-        bool result = rr.UnloadOperator("DoesNotContain");
+        bool result = rr.OperatorService.UnloadOperator("DoesNotContain");
         Assert.True(result);
     }
 
@@ -34,7 +34,7 @@ public class OperatorUnloadTests
         IRightRule rr = new RightRule.RightRule();
 
         // Unload the "GreaterThanOrEquals" operator
-        bool result = rr.UnloadOperator("GreaterThanOrEquals");
+        bool result = rr.OperatorService.UnloadOperator("GreaterThanOrEquals");
         Assert.True(result);
     }
 
@@ -54,14 +54,14 @@ public class OperatorUnloadTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         // Use EQUALS
         var appliedRuleBefore = rr.ApplyRule("Context");
         Assert.Equal(rule.TrueDecision, appliedRuleBefore.Decision);
 
         // Unload the "Equals" operator
-        bool result = rr.UnloadOperator("Equals");
+        bool result = rr.OperatorService.UnloadOperator("Equals");
         Assert.True(result);
 
         // Use EQUALS

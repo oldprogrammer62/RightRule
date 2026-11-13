@@ -21,7 +21,7 @@ public class ApplyAllRules_Tests
             Diagnostics = true
         };
         using var rr = new RightRule.RightRule(options);
-        rr.RegisterData(nameof(x), x);
+        rr.DataService.RegisterData(nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()
         {

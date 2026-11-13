@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
@@ -18,7 +20,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -37,8 +41,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -57,8 +62,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -77,8 +83,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -99,8 +106,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -121,8 +129,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -144,8 +153,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -166,8 +176,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -188,8 +199,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -210,8 +222,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -237,8 +250,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -263,8 +277,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 
@@ -289,8 +304,9 @@ public class StringTransformationTests
         ILogger<DataService> logger = new FakeLogger<DataService>();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
+        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
 
-        DataService ds = new DataService(dvs, dss, dls, logger);
+        DataService ds = new DataService(dvs, dss, dls, das, logger);
         IInterpolate sInt = new StringInterpolator(ds);
         var trans = new InterpolatorService(sInt);
 

@@ -12,7 +12,7 @@ public class OperatorLoadOptionsTests_Manual
 
         Assert.NotNull(rr);
 
-        var operators = rr.GetOperators();
+        var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
         Assert.Equal(10, operators.Count);
 
@@ -33,7 +33,7 @@ public class OperatorLoadOptionsTests_Manual
 
         Assert.NotNull(rr);
 
-        var operators = rr.GetOperators();
+        var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
         Assert.Equal(10, operators.Count);
 
@@ -54,7 +54,7 @@ public class OperatorLoadOptionsTests_Manual
 
         Assert.NotNull(rr);
 
-        var operators = rr.GetOperators();
+        var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
         Assert.Equal(3, operators.Count);
 

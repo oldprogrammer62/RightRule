@@ -29,7 +29,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(10, rr.GetOperators().Count);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -67,7 +67,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(10, rr.GetOperators().Count);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -105,7 +105,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(10, rr.GetOperators().Count);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(7, rr.GetOperators().Count);
+        Assert.Equal(7, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -189,7 +189,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were not loaded
         // Empty Path to the Operator Library
-        Assert.Equal(7, rr?.GetOperators()!.Count ?? 0);
+        Assert.Equal(7, rr?.OperatorService.Operators.Count ?? 0);
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(10, rr.GetOperators().Count);
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -273,7 +273,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(7, rr.GetOperators().Count);
+        Assert.Equal(7, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -315,7 +315,7 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Equal(3, rr.GetOperators().Count);
+        Assert.Equal(3, rr.OperatorService.Operators.Count);
     }
 
     [Fact]
@@ -357,6 +357,6 @@ public class RightRuleOptionsTests
 
         // This confirms the Operators were loaded
         // Assumes the path to the Operator Library was valid
-        Assert.Empty(rr.GetOperators());
+        Assert.Empty(rr.OperatorService.Operators);
     }
 }

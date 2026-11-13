@@ -15,7 +15,7 @@ public class BooleanEquals_Tests
         _data.Add("IsTrue", true);
         _data.Add("IsFalse", false);
 
-        var x = rr.RegisterData("Data", _data);
+        var x = rr.DataService.RegisterData("Data", _data);
     }
 
     [Fact]

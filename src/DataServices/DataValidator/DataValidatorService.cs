@@ -44,7 +44,7 @@ internal sealed class DataValidatorService : IDataValidatorService
 
     private bool ValidDataItem(IDataService DataService, string DatasetName, string DataItemName)
     {
-        var ds = DataService.GetDataset(DatasetName);
+        var ds = DataService.GetRegisteredData(DatasetName);
         if (ds == null)
         {
             return false;
@@ -68,6 +68,6 @@ internal sealed class DataValidatorService : IDataValidatorService
         {
             return default;
         }
-        return DataService.GetDataset(DatasetName);
+        return DataService.GetRegisteredData(DatasetName);
     }
 }

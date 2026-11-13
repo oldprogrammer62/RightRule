@@ -37,7 +37,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -60,7 +60,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -83,7 +83,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -106,7 +106,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -131,7 +131,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -156,7 +156,7 @@ public class NotEqualsTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -178,7 +178,7 @@ public class NotEqualsTests
         };
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -199,7 +199,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
         IRightRule rr = new RightRule.RightRule();
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
         rr.RegisterRule(rule);
 
         var appliedRule = rr.ApplyRule("Context");

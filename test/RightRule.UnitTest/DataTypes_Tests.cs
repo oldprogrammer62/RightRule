@@ -15,7 +15,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         int a = 100;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -38,7 +38,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         double a = 100.001;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -61,7 +61,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         string a = "100";
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -84,7 +84,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         char a = 'C';
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -107,7 +107,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         bool a = true;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -130,7 +130,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         bool a = true;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -153,7 +153,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         DateTime a = new DateTime(1970, 01, 01, 12, 12, 12);
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -176,7 +176,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         DateOnly a = new DateOnly(1970, 01, 01);
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -199,7 +199,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule();
 
         TimeOnly a = new TimeOnly(12, 30, 30);
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -229,7 +229,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule(options);
 
         int a = 2;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -260,7 +260,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule(options);
 
         double a = 2.2;
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -291,7 +291,7 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule(options);
 
         string a = "2";
-        var data1Reg = rr.RegisterData("a", a);
+        var data1Reg = rr.DataService.RegisterData("a", a);
 
         var rule1Reg = rr.BuildRule()
             .Number(1)
@@ -336,8 +336,8 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule(options);
 
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("number", number);
-        rr.RegisterData("numbers", numbers);
+        rr.DataService.RegisterData("number", number);
+        rr.DataService.RegisterData("numbers", numbers);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -371,8 +371,8 @@ public class DataTypes_Tests
 
         IRightRule rr = new RightRule.RightRule(options);
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("number", number);
-        rr.RegisterData("numbers", numbers);
+        rr.DataService.RegisterData("number", number);
+        rr.DataService.RegisterData("numbers", numbers);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -412,12 +412,12 @@ public class DataTypes_Tests
         IRightRule rr = new RightRule.RightRule(options);
 
         string name = "Harry";
-        rr.RegisterData("name", name);
+        rr.DataService.RegisterData("name", name);
 
 
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("value", value);
-        rr.RegisterData("values", values);
+        rr.DataService.RegisterData("value", value);
+        rr.DataService.RegisterData("values", values);
 
         var appliedRule = rr.ApplyRule("Context");
 

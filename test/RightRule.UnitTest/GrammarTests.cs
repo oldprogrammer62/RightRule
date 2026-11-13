@@ -37,7 +37,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -60,7 +60,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -84,7 +84,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -108,7 +108,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -132,7 +132,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -155,7 +155,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -178,7 +178,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -201,7 +201,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
 
@@ -224,7 +224,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NumberOfOrdersContext");
         Assert.NotNull(appliedRule);
@@ -246,7 +246,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");
 
@@ -269,7 +269,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NameContext");
 
@@ -292,7 +292,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("GoodPayerContext");
 
@@ -315,7 +315,7 @@ public class GrammarTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NotGoodPayerContext");
 
@@ -349,7 +349,7 @@ public class GrammarTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NAMECONTEXT1");
 
@@ -384,7 +384,7 @@ public class GrammarTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("NAMECONTEXT2");
 

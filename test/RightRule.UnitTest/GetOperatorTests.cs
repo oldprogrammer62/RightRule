@@ -8,7 +8,7 @@ public class GetOperatorTests
     public void GetOperatorDetails()
     {
         IRightRule rr = new RightRule.RightRule();
-        var operatorDetails = rr.GetOperators();
+        var operatorDetails = rr.OperatorService.GetOperators();
         Assert.NotNull(operatorDetails);
     }
 }

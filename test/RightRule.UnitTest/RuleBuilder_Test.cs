@@ -46,8 +46,8 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        rr.RegisterData("a", 100);
-        rr.RegisterData("b", 100);
+        rr.DataService.RegisterData("a", 100);
+        rr.DataService.RegisterData("b", 100);
 
         string context = "Context";
 
@@ -89,8 +89,8 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        rr.RegisterData("a", 100);
-        rr.RegisterData("b", 100);
+        rr.DataService.RegisterData("a", 100);
+        rr.DataService.RegisterData("b", 100);
 
         string context = "Context";
 
@@ -133,8 +133,8 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        rr.RegisterData("a", 100);
-        rr.RegisterData("b", 100);
+        rr.DataService.RegisterData("a", 100);
+        rr.DataService.RegisterData("b", 100);
 
         string context = "ContextXXX";
 
@@ -177,8 +177,8 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        rr.RegisterData("a", 100);
-        rr.RegisterData("b", 100);
+        rr.DataService.RegisterData("a", 100);
+        rr.DataService.RegisterData("b", 100);
 
         string context = "Context";
 

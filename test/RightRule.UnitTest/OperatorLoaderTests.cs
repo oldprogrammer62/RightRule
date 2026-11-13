@@ -21,7 +21,7 @@ public class OperatorLoaderTests
         IRightRule rr = new RightRule.RightRule();
 
         Assert.NotNull(rr);
-        Assert.NotNull(rr.GetOperatorAliases());
+        Assert.NotNull(rr.OperatorService.OperatorAliases);
     }
 
     [Fact]

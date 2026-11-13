@@ -35,7 +35,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -59,7 +59,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -82,7 +82,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -105,7 +105,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -130,7 +130,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -155,7 +155,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 
@@ -180,7 +180,7 @@ public class LessThanTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RegisterRule(rule);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("Context");
 

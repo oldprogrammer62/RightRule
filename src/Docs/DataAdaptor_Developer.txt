@@ -2,7 +2,7 @@
 Using a custom Data Adaptor
         DataAdaptorRegistrationResult daResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
         BespokeClass input = new BespokeClass();
-        DataRegistrationResult drResult = rr.RegisterData("DS_Name", input);
+        DataRegistrationResult drResult = rr.DataService.RegisterData("DS_Name", input);
 
 
 The Data Adaptor that transforms BespokeClass data into the required data structure.

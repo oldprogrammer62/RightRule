@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging.Testing;
+using RightRule.DataAdaptors;
+using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
@@ -10,7 +12,14 @@ namespace RightRuleTests;
 public class DataServiceTests
 {
     private static DataService CreateService() =>
-        new(new DataValidatorService(), new DataSerializerService(), new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), new FakeLogger<DataService>());
+        new
+        (
+            new DataValidatorService(), 
+            new DataSerializerService(), 
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), 
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>()
+        );
 
     [Fact]
     public void CreateDataSet_AddsAndReturnsDataset()
@@ -19,8 +28,8 @@ public class DataServiceTests
 
         var dataset = service.CreateDataSet("Customer");
 
-        Assert.Same(dataset, service.GetDataset("Customer"));
-        Assert.Single(service.GetDatasets()!);
+        Assert.Same(dataset, service.GetRegisteredData("Customer"));
+        Assert.Single(service.GetRegisteredData()!);
     }
 
     [Fact]
@@ -29,7 +38,7 @@ public class DataServiceTests
         var service = CreateService();
         var created = service.CreateDataSet("Customer");
 
-        Assert.Same(created, service.GetDataset("CUSTOMER"));
+        Assert.Same(created, service.GetRegisteredData("CUSTOMER"));
     }
 
     [Fact]
@@ -113,11 +122,11 @@ public class DataServiceTests
         service.CreateDataSet("Customer");
         service.CreateDataSet("Order");
 
-        service.DeregisterDataset("CUSTOMER");
+        service.DeRegisterData("CUSTOMER");
 
-        Assert.Null(service.GetDataset("Customer"));
-        Assert.NotNull(service.GetDataset("Order"));
-        Assert.Single(service.GetDatasets()!);
+        Assert.Null(service.GetRegisteredData("Customer"));
+        Assert.NotNull(service.GetRegisteredData("Order"));
+        Assert.Single(service.GetRegisteredData()!);
     }
 
     [Fact]
@@ -126,14 +135,14 @@ public class DataServiceTests
         var service = CreateService();
         service.AddData("Customer", "Name", "Ada");
 
-        service.Clear();
+        service.DeRegisterData();
 
-        Assert.Empty(service.GetDatasets()!);
+        Assert.Empty(service.GetRegisteredData()!);
         Assert.Empty(service.GetDataSetNames());
 
-        service.Clear();
+        service.DeRegisterData();
 
-        Assert.Empty(service.GetDatasets()!);
+        Assert.Empty(service.GetRegisteredData()!);
     }
 
     [Fact]

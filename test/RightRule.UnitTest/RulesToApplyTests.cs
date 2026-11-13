@@ -51,7 +51,7 @@ public class RulesToApplyTests
     {
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -63,7 +63,7 @@ public class RulesToApplyTests
     {
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
@@ -76,7 +76,7 @@ public class RulesToApplyTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -89,7 +89,7 @@ public class RulesToApplyTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
@@ -103,7 +103,7 @@ public class RulesToApplyTests
 
         IRightRule rr = new RightRule.RightRule();
         var newRules = rr.RegisterRules(rules);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.ApplyRule("AllContext");
 
@@ -116,7 +116,7 @@ public class RulesToApplyTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data); 
+        rr.DataService.RegisterData("Test", _Data); 
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();
@@ -129,7 +129,7 @@ public class RulesToApplyTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
@@ -143,7 +143,7 @@ public class RulesToApplyTests
         IRightRule rr = new RightRule.RightRule();
         var newRule1 = rr.RegisterRule(rule1);
         var newRule2 = rr.RegisterRule(rule2);
-        rr.RegisterData("Test", _Data);
+        rr.DataService.RegisterData("Test", _Data);
 
         var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();

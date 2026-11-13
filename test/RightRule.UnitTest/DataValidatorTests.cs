@@ -10,10 +10,10 @@ public class DataValidatorTests
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        var r1 = rr.RegisterData("a", 100);
+        var r1 = rr.DataService.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
 
-        var r2 = rr.RegisterData("b", 100);
+        var r2 = rr.DataService.RegisterData("b", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r2.Status);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
@@ -21,7 +21,7 @@ public class DataValidatorTests
             {"a", 100},
             {"b", 100}
         };
-        var r3 = rr.RegisterData("Data", data);
+        var r3 = rr.DataService.RegisterData("Data", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
         var rule1 = rr.BuildRule()
@@ -41,10 +41,10 @@ public class DataValidatorTests
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
 
-        var r1 = rr.RegisterData("a", 100);
+        var r1 = rr.DataService.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
 
-        var r2 = rr.RegisterData("b", 100);
+        var r2 = rr.DataService.RegisterData("b", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r2.Status);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
@@ -52,7 +52,7 @@ public class DataValidatorTests
             {"a", 100},
             {"b", 100}
         };
-        var r3 = rr.RegisterData("Data", data);
+        var r3 = rr.DataService.RegisterData("Data", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
         var rule1 = rr.BuildRule()

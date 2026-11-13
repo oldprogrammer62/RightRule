@@ -35,11 +35,11 @@ public class OneBigTest
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DataRegistrationResult? data1Registration = rr.RegisterData("data1", data1);
+        DataRegistrationResult? data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data1Registration.Status);
 
-        var data2Registration = rr.RegisterData("data2", data2);
+        var data2Registration = rr.DataService.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
@@ -68,11 +68,11 @@ public class OneBigTest
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var data1Registration = rr.RegisterData("data1", data1);
+        var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data1Registration.Status);
 
-        var data2Registration = rr.RegisterData("data2", data2);
+        var data2Registration = rr.DataService.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
@@ -99,11 +99,11 @@ public class OneBigTest
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var data1Registration = rr.RegisterData("data1", data1);
+        var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data1Registration.Status);
 
-        var data2Registration = rr.RegisterData("data2", data2);
+        var data2Registration = rr.DataService.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
@@ -139,11 +139,11 @@ public class OneBigTest
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var data1Registration = rr.RegisterData("data1", data1);
+        var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data1Registration.Status);
 
-        var data2Registration = rr.RegisterData("data2", data2);
+        var data2Registration = rr.DataService.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
@@ -197,11 +197,11 @@ public class OneBigTest
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var data1Registration = rr.RegisterData("data1", data1);
+        var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data1Registration.Status);
 
-        var data2Registration = rr.RegisterData("data2", data2);
+        var data2Registration = rr.DataService.RegisterData("data2", data2);
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 

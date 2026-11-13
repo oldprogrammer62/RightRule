@@ -31,7 +31,7 @@ public class OperatorConfig_Tests
         };
 
         IRightRule rr = new RightRule.RightRule();
-        DataRegistrationResult? data1Registered = rr.RegisterData("Data", data);
+        DataRegistrationResult? data1Registered = rr.DataService.RegisterData("Data", data);
         RuleRegistrationResult? rule1Registered = rr.RegisterRule(rule1);
 
         var result = rr.ApplyRule("Context");
