@@ -73,7 +73,7 @@ public class RuleLoader_Tests
             .Register(rr.RuleService);
 
         Assert.NotNull(rule);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
         Assert.Single(rr.RuleService.GetRegisteredRules("NewContext"));
 
         var json = JsonString(); // Context = "RuleContext"

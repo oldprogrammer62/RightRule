@@ -6,7 +6,6 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
 using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
-using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.System.Common.DataAdaptor;
 
@@ -16,10 +15,11 @@ public interface IRightRule : IDisposable
 {
     RightRuleOptions GetRightRuleOptions();
 
-    IRuleService? RuleService { get; }
-    IDataService? DataService { get; }
+    IRuleService RuleService { get; }
+    IDataService DataService { get; }
     IOperatorService? OperatorService { get; }
     IDataAdaptorService? DataAdaptorService { get; }
+
     RightRuleOptions Options { get; }
 
     /// <summary>
@@ -106,14 +106,6 @@ public interface IRightRule : IDisposable
     /// List&lt;RightRuleResult&lt;<see cref="IProcessedRule"/>&gt;&gt;
     /// </returns>
     Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType);
-
-    /// <summary>
-    /// Returns the set of Registered Rules.
-    /// </summary>
-    /// <returns>
-    /// <see cref="List{ParsedRule}">List&lt;ParsedRule&gt;</see>
-    /// </returns>
-    List<ParsedRule> GetRegisteredRules();
 
     /// <summary>
     /// Registers a custom Data Adaptor with the RightRule engine.<br/>

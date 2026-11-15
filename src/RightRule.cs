@@ -30,9 +30,9 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly IServiceProvider? _serviceProvider;
 
 
-    public IRuleService? RuleService => _rightRuleService.RuleService;
+    public IRuleService RuleService => _rightRuleService.RuleService;
 
-    public IDataService? DataService => _rightRuleService.DataService;
+    public IDataService DataService => _rightRuleService.DataService;
 
     public IOperatorService? OperatorService => _rightRuleService.OperatorService;
 

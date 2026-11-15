@@ -69,9 +69,9 @@ public class RuleTests
         IRightRule rr = new RightRule.RightRule();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -88,9 +88,9 @@ public class RuleTests
         IRightRule rr = new RightRule.RightRule();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        List<ParsedRule> registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule> registeredRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -110,9 +110,9 @@ public class RuleTests
         IRightRule rr = new RightRule.RightRule();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -146,9 +146,9 @@ public class RuleTests
         IRightRule rr = new RightRule.RightRule();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        List<ParsedRule>? registeredRules = rr.GetRegisteredRules();
+        List<ParsedRule>? registeredRules = rr.RuleService.GetRegisteredRules();
         Assert.NotNull(registeredRules);
         Assert.Equal(2, registeredRules.Count);
 
@@ -164,7 +164,7 @@ public class RuleTests
         IRightRule rr = new RightRule.RightRule();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         var done = rr.RuleService.DeRegisterRule(rule1.Context, rule1.Number);
         Assert.True(done);

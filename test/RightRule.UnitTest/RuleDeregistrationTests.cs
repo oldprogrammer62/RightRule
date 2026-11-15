@@ -94,7 +94,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         // Deregister first rule
         var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleNumber1);
@@ -125,7 +125,7 @@ public class RuleDeregistrationTests
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -138,7 +138,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         // Deregister first rule
         var rule1Dereg = rr.RuleService.DeRegisterRule(Context, RuleName1);
@@ -183,7 +183,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         // Deregister first rule
         var rule1Dereg = rr.RuleService.DeRegisterRule(Context1, RuleName1);
@@ -229,7 +229,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         // Deregister first rule
         var ruleDereg = rr.RuleService.DeRegisterRule(Context2, RuleNumber2);
@@ -274,7 +274,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         var rule3Def = rr.BuildRule()
             .Number(22)
@@ -316,7 +316,7 @@ public class RuleDeregistrationTests
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
         Assert.NotNull(rule1reg);
-        Assert.Single(rr.GetRegisteredRules());
+        Assert.Single(rr.RuleService.GetRegisteredRules());
 
         var rule2Def = rr.BuildRule()
             .Number(RuleNumber2)
@@ -329,7 +329,7 @@ public class RuleDeregistrationTests
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
         Assert.NotNull(rule2reg);
-        Assert.Equal(2, rr.GetRegisteredRules().Count);
+        Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
         var rule3Def = rr.BuildRule()
             .Number(22)

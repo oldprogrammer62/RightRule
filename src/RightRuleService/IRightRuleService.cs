@@ -4,7 +4,6 @@ using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
-using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.System.Common.DataAdaptor;
 
@@ -12,15 +11,13 @@ namespace RightRule.RightRuleService;
 
 public interface IRightRuleService
 {
-    IRuleService? RuleService { get; }
-    IDataService? DataService { get; }
+    IRuleService RuleService { get; }
+    IDataService DataService { get; }
     IOperatorService? OperatorService { get; }
     IDataAdaptorService? DataAdaptorService { get; }
 
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 
-    List<ParsedRule>? RegisteredRules { get; }
-    
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);
