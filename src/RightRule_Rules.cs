@@ -1,4 +1,3 @@
-using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule;
@@ -9,20 +8,6 @@ namespace RightRule;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
-    public DefaultRule GetDefaultRule(string Context)
-    {
-        return _rightRuleService.GetDefaultRule(Context);
-    }
-
-    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule)
-    {
-        if (Rule == null)
-        {
-            return DefaultRuleRegistrationResult.Failed("Default Rule Registration Failed");
-        }
-        return _rightRuleService.RegisterDefaultRule(Rule);
-    }
-
     /// <summary>
     /// Returns the set of Registered (Parsed) Rules.
     /// </summary>

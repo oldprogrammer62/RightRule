@@ -6,7 +6,7 @@ internal sealed partial class RightRuleService : IRightRuleService
 {
     private RightRuleServiceResult<IProcessedRule> BuildDefaultResult(string Context)
     {
-        var rule =  RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+        var rule =  RightRuleServiceResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context));
 
         var decisionData = InterpolatorService.Interpolate(rule.DecisionData);
         rule.DecisionData = decisionData;

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.Models;
+using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingService;
@@ -25,20 +27,46 @@ internal sealed class RuleService : IRuleService
     private readonly IRegisteredRules _registeredRules;
     private readonly IRuleLoaderService _ruleLoaderService;
     private readonly IRuleSerializerService _ruleSerializerService;
+    private readonly IDefaultRuleRegister _defaultRuleRegister;
     private readonly ILogger<RuleService> _logger;
 
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService ruleLoaderService, IRuleSerializerService ruleSerializerService, ILogger<RuleService> logger)
+    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService RuleLoaderService, IRuleSerializerService RuleSerializerService, IDefaultRuleRegister defaultRuleRegister, ILogger<RuleService> logger)
     {
         _logger = logger;
 
         _options = options;
         _registeredRules = RegisteredRules;
-        _ruleLoaderService = ruleLoaderService;
-        _ruleSerializerService = ruleSerializerService;
+        _ruleLoaderService = RuleLoaderService;
+        _ruleSerializerService = RuleSerializerService;
+        _defaultRuleRegister = defaultRuleRegister;
         _ruleValidationService = RuleValidationService;
         _parseRuleService = ParseRuleService;
+    }
+
+    public IDefaultNameStep BuildDefaultRule()
+    {
+        return DefaultRuleBuilder.Create();
+    }
+
+    public DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule)
+    {
+        if (Rule == null)
+        {
+            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed");
+        }
+        var result = _defaultRuleRegister.SetDefaultRule(Rule);
+        if (!result)
+        {
+            return DefaultRuleRegistrationResult.Failed("Default Rule registration failed", Rule);
+        }
+        return DefaultRuleRegistrationResult.Success("Default Rule registration success", Rule);
+    }
+
+    public DefaultRule GetDefaultRule(string Context)
+    {
+        return _defaultRuleRegister.GetDefaultRule(Context);
     }
 
     public string SerializeRules()

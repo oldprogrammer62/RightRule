@@ -212,6 +212,6 @@ public class RuleBuilder_Test
 
         var result = rr.ApplyRules(context, EvaluationTypeEnum.ALL);
         Assert.Single(result);
-        Assert.Equal(result[0].Decision, rr.GetDefaultRule(context).TrueDecision);
+        Assert.Equal(result[0].Decision, rr.RuleService.GetDefaultRule(context).TrueDecision);
     }
 }

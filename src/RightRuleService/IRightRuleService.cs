@@ -4,7 +4,6 @@ using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
-using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.System.Common.DataAdaptor;
@@ -22,9 +21,6 @@ public interface IRightRuleService
 
     List<ParsedRule>? RegisteredRules { get; }
     
-    DefaultRule GetDefaultRule(string Context);
-    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
-
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor dataAdaptor);
 
     Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType);

@@ -50,7 +50,7 @@ public class DefaultRule_Tests
 
         string context = "Hello";
 
-        var defaultRule1 = rr.GetDefaultRule(context);
+        var defaultRule1 = rr.RuleService.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
         rr.DataService.RegisterData("x", 100);
@@ -62,10 +62,10 @@ public class DefaultRule_Tests
             TrueDecision = "dec",
             TrueDecisionData = "DefaultDecision $x"
         };  
-        var result = rr.RegisterDefaultRule(newDefaultRule);
+        var result = rr.RuleService.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
 
-        var defaultRule2 = rr.GetDefaultRule(context);
+        var defaultRule2 = rr.RuleService.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
     }
 
@@ -76,7 +76,7 @@ public class DefaultRule_Tests
 
         string context = "Hello";
 
-        var defaultRule1 = rr.GetDefaultRule(context);
+        var defaultRule1 = rr.RuleService.GetDefaultRule(context);
         Assert.NotNull(defaultRule1);
 
         rr.DataService.RegisterData("x", 100);
@@ -88,10 +88,10 @@ public class DefaultRule_Tests
             TrueDecision = "GOTITNOW",
             TrueDecisionData = "HELLO $x WORLD"
         };
-        var result = rr.RegisterDefaultRule(newDefaultRule);
+        var result = rr.RuleService.RegisterDefaultRule(newDefaultRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
 
-        var defaultRule2 = rr.GetDefaultRule(context);
+        var defaultRule2 = rr.RuleService.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
 
         var ruleDef1 = rr.BuildRule()
@@ -115,7 +115,7 @@ public class DefaultRule_Tests
         string context1 = "Hello";
         string context2 = "world";
 
-        var originalDefaultRule = rr.GetDefaultRule(context1);
+        var originalDefaultRule = rr.RuleService.GetDefaultRule(context1);
         Assert.NotNull(originalDefaultRule);
 
         var newDefaultRule_First = new DefaultRule()
@@ -125,9 +125,9 @@ public class DefaultRule_Tests
             TrueDecision = "DecisionContext_First",
             TrueDecisionData = "DefaultDecision"
         };
-        var firstResult = rr.RegisterDefaultRule(newDefaultRule_First);
+        var firstResult = rr.RuleService.RegisterDefaultRule(newDefaultRule_First);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, firstResult.Status);
-        var foundDefaultRule_First = rr.GetDefaultRule(context1);
+        var foundDefaultRule_First = rr.RuleService.GetDefaultRule(context1);
         Assert.NotNull(foundDefaultRule_First);
         Assert.Equal(foundDefaultRule_First.Name, newDefaultRule_First.Name);
 
@@ -138,9 +138,9 @@ public class DefaultRule_Tests
             TrueDecision = "DecisionContext_Second",
             TrueDecisionData = "DefaultDecision"
         };
-        var secondResult = rr.RegisterDefaultRule(newDefaultRule_Second);
+        var secondResult = rr.RuleService.RegisterDefaultRule(newDefaultRule_Second);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, secondResult.Status);
-        var foundDefaultRule_Second = rr.GetDefaultRule(context1);
+        var foundDefaultRule_Second = rr.RuleService.GetDefaultRule(context1);
         Assert.NotNull(foundDefaultRule_Second);
         Assert.Equal(foundDefaultRule_Second.Name, newDefaultRule_Second.Name);
 
@@ -151,21 +151,21 @@ public class DefaultRule_Tests
             TrueDecision = "DecisionContext_Third",
             TrueDecisionData = "DefaultDecision"
         };
-        var thirdResult = rr.RegisterDefaultRule(newDefaultRule_Third);
+        var thirdResult = rr.RuleService.RegisterDefaultRule(newDefaultRule_Third);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, thirdResult.Status);
-        var foundDefaultRule_Third = rr.GetDefaultRule(context2);
+        var foundDefaultRule_Third = rr.RuleService.GetDefaultRule(context2);
         Assert.NotNull(foundDefaultRule_Third);
         Assert.Equal(foundDefaultRule_Third.Name, newDefaultRule_Third.Name);
 
-        var DefaultRuleContext1 = rr.GetDefaultRule(context1);
+        var DefaultRuleContext1 = rr.RuleService.GetDefaultRule(context1);
         Assert.NotNull(DefaultRuleContext1);
         Assert.Equal(DefaultRuleContext1.Context, context1);
 
-        var DefaultRuleContext2 = rr.GetDefaultRule(context2);
+        var DefaultRuleContext2 = rr.RuleService.GetDefaultRule(context2);
         Assert.NotNull(DefaultRuleContext2);
         Assert.Equal(DefaultRuleContext2.Context, context2);
 
-        var DefaultRuleContext3 = rr.GetDefaultRule("NotFound");
+        var DefaultRuleContext3 = rr.RuleService.GetDefaultRule("NotFound");
         Assert.NotNull(DefaultRuleContext3);
         Assert.Equal(DefaultRuleContext3.Context, string.Empty);
     }
@@ -177,14 +177,14 @@ public class DefaultRule_Tests
 
         string Context = "ContextFromBuilder";
 
-        var defaultRuleDefn = rr.BuildDefaultRule()
+        var defaultRuleDefn = rr.RuleService.BuildDefaultRule()
             .Name("DefaultName")
             .Context(Context)
             .Decision("WhatEver")
             .Build();
 
-        var defRuleRegistered = rr.RegisterDefaultRule(defaultRuleDefn);
-        var defaultRule = rr.GetDefaultRule(Context);
+        var defRuleRegistered = rr.RuleService.RegisterDefaultRule(defaultRuleDefn);
+        var defaultRule = rr.RuleService.GetDefaultRule(Context);
         Assert.NotNull(defaultRule);
     }
 }

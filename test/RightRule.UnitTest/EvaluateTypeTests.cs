@@ -185,6 +185,6 @@ public class EvaluateTypeTests
         var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Single(result);
-        Assert.Equal(result[0].Decision, rr.GetDefaultRule("Context").TrueDecision);
+        Assert.Equal(result[0].Decision, rr.RuleService.GetDefaultRule("Context").TrueDecision);
     }
 }

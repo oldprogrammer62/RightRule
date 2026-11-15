@@ -1,4 +1,6 @@
-﻿using RightRule.RuleServices.RuleModels;
+﻿using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
+using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
 
@@ -29,4 +31,20 @@ public interface IRuleService
 
     string SerializeRules();
     string SerializeRules(string Context);
+
+    /// <summary>
+    /// Build a Default Rule definition<br></br>
+    /// Used when a single rule result is requested, but no rule evaluated a true result
+    /// </summary>
+    IDefaultNameStep BuildDefaultRule();
+
+    /// <summary>
+    /// Registers a Default Rule with the RightRule engine.<br/>
+    /// The Rule parameter will define the Context for the Default Rule registration.
+    /// </summary>
+    /// <param name="Rule">The Rule definition to register.</param>
+    /// <returns><see cref="DefaultRuleRegistrationResult"/></returns>
+    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
+
+    DefaultRule GetDefaultRule(string Context);
 }

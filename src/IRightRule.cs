@@ -5,8 +5,6 @@ using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
-using RightRule.RuleServices.DefaultRuleRegistration;
-using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
@@ -123,27 +121,6 @@ public interface IRightRule : IDisposable
     /// <param name="DataAdaptor"></param>
     /// <returns><see cref="DataAdaptorRegistrationResult"/></returns>
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor);
-
-    /// <summary>
-    /// Returns the set of Registered Default Rule for the specified Context.
-    /// </summary>
-    /// <param name="Context"></param>
-    /// <returns><see cref="DefaultRule"/></returns>
-    DefaultRule GetDefaultRule(string Context);
-
-    /// <summary>
-    /// Build a Default Rule definition<br></br>
-    /// Used when a single rule result is requested, but no rule evaluated a true result
-    /// </summary>
-    IDefaultNameStep BuildDefaultRule();
-
-    /// <summary>
-    /// Registers a Default Rule with the RightRule engine.<br/>
-    /// The Rule parameter will define the Context for the Default Rule registration.
-    /// </summary>
-    /// <param name="Rule">The Rule definition to register.</param>
-    /// <returns><see cref="DefaultRuleRegistrationResult"/></returns>
-    DefaultRuleRegistrationResult RegisterDefaultRule(DefaultRule Rule);
 
     /// <summary>
     /// Build a Standard Rule definition

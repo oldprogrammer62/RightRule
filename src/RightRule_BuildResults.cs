@@ -15,11 +15,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (ServiceResults == null)
         {
-            return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
+            return [RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context))];
         }
         if (ServiceResults.Count == 0)
         {
-            return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
+            return [RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context))];
         }
         List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
 
@@ -48,12 +48,12 @@ public sealed partial class RightRule : IRightRule, IDisposable
                 RightRuleResult<IProcessedRule>.FailureResult(payload, statementApplied, decisionData, message),
 
             RightRuleStatusEnum.DEFAULT =>
-                RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context), message),
+                RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context), message),
 
             RightRuleStatusEnum.ERROR =>
                 RightRuleResult<IProcessedRule>.ErrorResult(ServiceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
-            _ => RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))
+            _ => RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context))
         };
     }
 }

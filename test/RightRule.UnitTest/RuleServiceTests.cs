@@ -2,6 +2,7 @@
 using RightRule;
 using RightRule.Models;
 using RightRule.RuleServices;
+using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleParsingService;
@@ -35,6 +36,7 @@ public sealed class RuleServiceTests
             _registeredRules,
             new StubRuleLoaderService(),
             new RuleSerializerService(),
+            new DefaultRuleRegister(NullLogger<DefaultRuleRegister>.Instance),
             NullLogger<RuleService>.Instance);
     }
 

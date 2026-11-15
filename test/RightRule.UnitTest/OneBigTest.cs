@@ -91,7 +91,7 @@ public class OneBigTest
         var result = rr.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
-        Assert.Equal(rr.GetDefaultRule(Context1).TrueDecision, result.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -119,19 +119,19 @@ public class OneBigTest
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var defaultRuleDefn = rr.BuildDefaultRule()
+        var defaultRuleDefn = rr.RuleService.BuildDefaultRule()
             .Name(DefaultRule1Name)
             .Context(Context1)
             .Decision(DefaultRule1Decision)
             .Build();
-        var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
+        var defaultRule1Registration = rr.RuleService.RegisterDefaultRule(defaultRuleDefn);
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
         var result = rr.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
-        Assert.Equal(rr.GetDefaultRule(Context1).TrueDecision, result.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result.Decision);
     }
 
     [Fact]
@@ -159,19 +159,19 @@ public class OneBigTest
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var defaultRuleDefn = rr.BuildDefaultRule()
+        var defaultRuleDefn = rr.RuleService.BuildDefaultRule()
             .Name(DefaultRule1Name)
             .Context(Context1)
             .Decision(DefaultRule1Decision)
             .Build();
-        var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
+        var defaultRule1Registration = rr.RuleService.RegisterDefaultRule(defaultRuleDefn);
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
         var result1 = rr.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
-        Assert.Equal(rr.GetDefaultRule(Context1).TrueDecision, result1.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
 
 
         var rule2Defn = rr.BuildRule()
@@ -189,7 +189,7 @@ public class OneBigTest
         var result2 = rr.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
-        Assert.Equal(rr.GetDefaultRule(Context2).TrueDecision, result2.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).TrueDecision, result2.Decision);
     }
 
     [Fact]
@@ -217,20 +217,20 @@ public class OneBigTest
         Assert.NotNull(rule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var defaultRuleDefn = rr.BuildDefaultRule()
+        var defaultRuleDefn = rr.RuleService.BuildDefaultRule()
             .Name(DefaultRule1Name)
             .Context(Context1)
             .Decision(DefaultRule1Decision)
             .DecisionData("Hello World Do Something Now1")
             .Build();
-        var defaultRule1Registration = rr.RegisterDefaultRule(defaultRuleDefn);
+        var defaultRule1Registration = rr.RuleService.RegisterDefaultRule(defaultRuleDefn);
         Assert.NotNull(defaultRule1Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, defaultRule1Registration.Status);
 
         var result1 = rr.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
-        Assert.Equal(rr.GetDefaultRule(Context1).TrueDecision, result1.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
 
 
         var rule2Defn = rr.BuildRule()
@@ -245,19 +245,19 @@ public class OneBigTest
         Assert.NotNull(rule2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1Registration.Status);
 
-        var defaultRule2Defn = rr.BuildDefaultRule()
+        var defaultRule2Defn = rr.RuleService.BuildDefaultRule()
             .Name(DefaultRule2Name)
             .Context(Context2)
             .Decision(DefaultRule2Decision)
             .DecisionData("Hello World Do Something Now2")
             .Build();
-        var defaultRule2Registration = rr.RegisterDefaultRule(defaultRule2Defn);
+        var defaultRule2Registration = rr.RuleService.RegisterDefaultRule(defaultRule2Defn);
         Assert.NotNull(defaultRule2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, defaultRule2Registration.Status);
 
         var result2 = rr.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
-        Assert.Equal(rr.GetDefaultRule(Context2).TrueDecision, result2.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).TrueDecision, result2.Decision);
     }
 }

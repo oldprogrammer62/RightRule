@@ -1,4 +1,3 @@
-using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 
 namespace RightRule;
@@ -17,10 +16,5 @@ public sealed partial class RightRule : IRightRule, IDisposable
     public INumberStep BuildRule()
     {
         return RuleBuilder.Create();
-    }
-
-    public IDefaultNameStep BuildDefaultRule()
-    {
-        return DefaultRuleBuilder.Create();
     }
 }

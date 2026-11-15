@@ -1,5 +1,4 @@
-﻿using RightRule;
-using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 
@@ -60,7 +59,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context));
+                return RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context));
             }
             return svcResult;
         }
@@ -123,7 +122,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationTypeEnum.FIRST).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }
@@ -188,7 +187,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
             var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationType).ConfigureAwait(false);
             if (svcResult == null)
             {
-                return [RightRuleResult<IProcessedRule>.DefaultResult(_rightRuleService.GetDefaultRule(Context))];
+                return [RightRuleResult<IProcessedRule>.DefaultResult(RuleService.GetDefaultRule(Context))];
             }
             return svcResult;
         }

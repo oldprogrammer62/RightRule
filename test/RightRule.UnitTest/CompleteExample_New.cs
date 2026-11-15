@@ -84,7 +84,7 @@ public class CompleteExample_New
             TrueDecision = "NoDiscount",
             TrueDecisionData = """{"discount":"$Discount.Default%"}"""
         };
-        rr.RegisterDefaultRule(newDefaultRule);
+        rr.RuleService.RegisterDefaultRule(newDefaultRule);
 
         rr.RuleService.RegisterRules(new List<DefinedRule>
         {
@@ -176,7 +176,7 @@ public class CompleteExample_New
             TrueDecision = "NoDiscount",
             TrueDecisionData = """{"discount":"$Discount.Default%"}"""
         };
-        rr.RegisterDefaultRule(newDefaultRule);
+        rr.RuleService.RegisterDefaultRule(newDefaultRule);
 
         rr.RuleService.RegisterRules(new List<DefinedRule>
         {
