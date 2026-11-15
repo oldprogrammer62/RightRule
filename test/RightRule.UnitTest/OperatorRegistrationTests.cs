@@ -135,7 +135,7 @@ public class OperatorRegistrationTests
            .Register(rr.RuleService);
         Assert.NotNull(rule);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
         Assert.NotNull(result);
 
         Assert.Equal(rule!.RegisteredRule!.TrueDecision, result.Decision);

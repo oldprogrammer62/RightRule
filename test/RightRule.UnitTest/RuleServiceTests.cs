@@ -1,10 +1,15 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
 using RightRule;
+using RightRule.DataServices;
+using RightRule.DataTransformer;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
@@ -31,12 +36,14 @@ public sealed class RuleServiceTests
     {
         _sut = new RuleService(
             new RightRuleOptions(),
+            new StubRuleApplicationService(),
             _validationService,
             _parseService,
             _registeredRules,
             new StubRuleLoaderService(),
             new RuleSerializerService(),
             new DefaultRuleRegister(NullLogger<DefaultRuleRegister>.Instance),
+            new StubInterpolatorService(),
             NullLogger<RuleService>.Instance);
     }
 
@@ -217,7 +224,7 @@ public sealed class RuleServiceTests
         Assert.Equal(RightRuleStatusEnum.SUCCESS, ruleRegistrations[0].Status);
         Assert.Equal(RightRuleStatusEnum.ERROR, ruleRegistrations[1].Status);
 
-        var outcome = rr.ApplyRulesAsync("Sales");
+        var outcome = rr.RuleService.ApplyRulesAsync("Sales");
         Assert.NotNull(outcome);
     }
 
@@ -340,5 +347,18 @@ public sealed class RuleServiceTests
 
             return Result;
         }
+    }
+
+    private sealed class StubRuleApplicationService : IRuleApplicationService
+    {
+        public Task<List<IProcessedRule>> ApplyRulesAsync(
+            string Context,
+            EvaluationTypeEnum evaluationType) =>
+            Task.FromResult<List<IProcessedRule>>([]);
+    }
+
+    private sealed class StubInterpolatorService : IInterpolatorService
+    {
+        public object? Interpolate(object? DataToInterpolate) => DataToInterpolate;
     }
 }

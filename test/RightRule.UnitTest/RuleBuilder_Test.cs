@@ -79,7 +79,7 @@ public class RuleBuilder_Test
         Assert.NotNull(rule2);
         Assert.IsType<RuleRegistrationResult>(rule2reg);
 
-        var result = rr.ApplyRules(context, EvaluationTypeEnum.FIRST);
+        var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.FIRST);
         Assert.Single(result);
         Assert.Equal(result[0].Decision, rule2reg?.RegisteredRule?.TrueDecision);
     }
@@ -122,7 +122,7 @@ public class RuleBuilder_Test
         Assert.NotNull(rule2);
         Assert.IsType<RuleRegistrationResult>(rule2reg);
 
-        var result = rr.ApplyRules(context, EvaluationTypeEnum.ANY);
+        var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.ANY);
         Assert.Equal(2, result.Count);
         Assert.Equal(result[0].Decision, rule1reg?.RegisteredRule?.FalseDecision);
         Assert.Equal(result[1].Decision, rule2reg?.RegisteredRule?.TrueDecision);
@@ -166,7 +166,7 @@ public class RuleBuilder_Test
         Assert.NotNull(rule2);
         Assert.IsType<RuleRegistrationResult>(rule2reg);
 
-        var result = rr.ApplyRules(context, EvaluationTypeEnum.ALL);
+        var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.ALL);
         Assert.Equal(2, result.Count);
         Assert.Equal(result[0].Decision, rule1reg?.RegisteredRule?.TrueDecision);
         Assert.Equal(result[1].Decision, rule2reg?.RegisteredRule?.TrueDecision);
@@ -210,7 +210,7 @@ public class RuleBuilder_Test
         Assert.NotNull(rule2);
         Assert.IsType<RuleRegistrationResult>(rule2reg);
 
-        var result = rr.ApplyRules(context, EvaluationTypeEnum.ALL);
+        var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.ALL);
         Assert.Single(result);
         Assert.Equal(result[0].Decision, rr.RuleService.GetDefaultRule(context).TrueDecision);
     }

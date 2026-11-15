@@ -53,7 +53,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
@@ -65,7 +65,7 @@ public class RulesToApplyTests
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
@@ -78,7 +78,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
@@ -91,7 +91,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
@@ -105,7 +105,7 @@ public class RulesToApplyTests
         var newRules = rr.RuleService.RegisterRules(rules);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("AllContext");
+        var appliedRule = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }
@@ -118,7 +118,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data); 
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();
         Assert.Equal(appliedRule.Decision, rule2.TrueDecision);
     }
@@ -131,7 +131,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.FirstOrDefault();
 
         Assert.Equal(appliedRule.Decision, newRule1.RegisteredRule.TrueDecision);
@@ -145,7 +145,7 @@ public class RulesToApplyTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.ANY);
         var appliedRule = appliedRules.LastOrDefault();
 
         Assert.Equal(appliedRule.Decision, newRule2.RegisteredRule.TrueDecision);

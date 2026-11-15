@@ -37,7 +37,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -61,7 +61,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -84,7 +84,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -107,7 +107,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -132,7 +132,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -157,7 +157,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -182,7 +182,7 @@ public class LessThanTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -204,7 +204,7 @@ public class LessThanTests
         IRightRule rr = new RightRule.RightRule();
         var newRule = rr.RuleService.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(ErrorRule.DECISIONWORD, appliedRule.Decision);
     }

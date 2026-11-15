@@ -45,7 +45,7 @@ public class IdentifierWithDotTests
 
         var newRule = rr.RuleService.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -69,7 +69,7 @@ public class IdentifierWithDotTests
         rr.DataService.RegisterData("Data", _Data);
         rr.DataService.RegisterData("Constants", _Constants);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }

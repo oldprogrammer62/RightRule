@@ -58,7 +58,7 @@ public class Equals_AllTypes_Tests
         var rrule = rr.RuleService.RegisterRule(ruleDef);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rrule.Status);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rrule.RegisteredRule.TrueDecision, result.Decision);
@@ -84,7 +84,7 @@ public class Equals_AllTypes_Tests
         };
         rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -116,7 +116,7 @@ public class Equals_AllTypes_Tests
             
         var prule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -142,7 +142,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -168,7 +168,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -194,7 +194,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -223,7 +223,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -249,7 +249,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -275,7 +275,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -301,7 +301,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -327,7 +327,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -353,7 +353,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -379,7 +379,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
@@ -405,7 +405,7 @@ public class Equals_AllTypes_Tests
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);

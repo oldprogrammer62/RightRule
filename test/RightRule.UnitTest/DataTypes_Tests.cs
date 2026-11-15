@@ -27,7 +27,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -50,7 +50,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -73,7 +73,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -96,7 +96,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -119,7 +119,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -142,7 +142,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -165,7 +165,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -188,7 +188,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -211,7 +211,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(result.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
     }
@@ -241,7 +241,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
@@ -272,7 +272,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
@@ -303,7 +303,7 @@ public class DataTypes_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(appliedRule);
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(appliedRule.Decision, rule1Reg?.RegisteredRule?.TrueDecision);
@@ -339,7 +339,7 @@ public class DataTypes_Tests
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
@@ -374,7 +374,7 @@ public class DataTypes_Tests
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
@@ -419,7 +419,7 @@ public class DataTypes_Tests
         rr.DataService.RegisterData("value", value);
         rr.DataService.RegisterData("values", values);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);

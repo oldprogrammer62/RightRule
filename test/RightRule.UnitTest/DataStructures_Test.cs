@@ -25,7 +25,7 @@ public class DataStructures_Test
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -53,7 +53,7 @@ public class DataStructures_Test
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -89,7 +89,7 @@ public class DataStructures_Test
             .Build()
             .Register(rr.RuleService);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule?.RegisteredRule?.TrueDecision, result.Decision);
     }
@@ -113,7 +113,7 @@ public class DataStructures_Test
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -135,7 +135,7 @@ public class DataStructures_Test
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }

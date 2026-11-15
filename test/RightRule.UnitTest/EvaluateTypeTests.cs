@@ -21,7 +21,7 @@ public class EvaluateTypeTests
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         result.ToString();
         Assert.NotNull(result);
     }
@@ -52,7 +52,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context");
+        var result = rr.RuleService.ApplyRules("Context");
         Assert.NotNull(result);
         Assert.Single(result);
         Assert.Equal(result[0].Decision, ruleDef2.TrueDecision);
@@ -84,7 +84,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
+        var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
         Assert.NotNull(result);
         Assert.Single(result);
         Assert.Equal(result[0].Decision, ruleDef2.TrueDecision);
@@ -116,7 +116,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+        var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
         Assert.Equal(result[0].Decision, ruleDef1.TrueDecision);
@@ -149,7 +149,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
+        var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
         Assert.Equal(result[0].Decision, ruleDef1.TrueDecision);
@@ -182,7 +182,7 @@ public class EvaluateTypeTests
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var rule2 = rr.RuleService.RegisterRule(ruleDef2);
 
-        var result = rr.ApplyRules("Context", EvaluationTypeEnum.ALL);
+        var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Single(result);
         Assert.Equal(result[0].Decision, rr.RuleService.GetDefaultRule("Context").TrueDecision);

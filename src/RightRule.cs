@@ -30,9 +30,11 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly IServiceProvider? _serviceProvider;
 
 
-    public IRuleService RuleService => _rightRuleService.RuleService;
+    private readonly IRuleService _ruleService;
+    public IRuleService RuleService => _ruleService;
 
-    public IDataService DataService => _rightRuleService.DataService;
+    private readonly IDataService _dataService;
+    public IDataService DataService => _dataService;
 
     public IOperatorService? OperatorService => _rightRuleService.OperatorService;
 
@@ -77,6 +79,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
             );
 
         _rightRuleService = GetRightRuleServiceFromDI();
+        _ruleService = GetRuleServiceFromDI();
+        _dataService = GetDataServiceFromDI();
 
         _logger = GetLoggerServiceFromDI();
         if (_logger.IsEnabled(LogLevel.Debug))
@@ -91,16 +95,22 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <summary>
     /// Called by DI container hosted by calling application
     /// </summary>
+    /// <param name="ruleService"></param>
+    /// <param name="dataService"></param>
     /// <param name = "rightRuleService" ></param >
     /// <param name="logger"></param>
     /// <param name="options"></param>
     public RightRule(
+        IRuleService ruleService,
+        IDataService dataService,
         IRightRuleService rightRuleService,
         ILogger<RightRule>? logger,
         RightRuleOptions options
         )
     {
         _options = options;
+        _ruleService = ruleService;
+        _dataService = dataService;
         _rightRuleService = rightRuleService;
 
         _logger = logger ?? NullLogger<RightRule>.Instance;
@@ -139,9 +149,27 @@ public sealed partial class RightRule : IRightRule, IDisposable
     {
         if (_serviceProvider == null)
         {
-            throw new InvalidOperationException("Service provider is not initialized.");
+            throw new InvalidOperationException("Right Rule Service is not initialized.");
         }
         return _serviceProvider.GetRequiredService<IRightRuleService>();
+    }
+
+    private IRuleService GetRuleServiceFromDI()
+    {
+        if (_serviceProvider == null)
+        {
+            throw new InvalidOperationException("Rule Service is not initialized.");
+        }
+        return _serviceProvider.GetRequiredService<IRuleService>();
+    }
+
+    private IDataService GetDataServiceFromDI()
+    {
+        if (_serviceProvider == null)
+        {
+            throw new InvalidOperationException("Data Service is not initialized.");
+        }
+        return _serviceProvider.GetRequiredService<IDataService>();
     }
 
     private ILogger<RightRule> GetLoggerServiceFromDI()

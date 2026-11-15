@@ -39,7 +39,7 @@ public class DoesContainTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("NameContext");
+        var appliedRule = rr.RuleService.ApplyRule("NameContext");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -62,7 +62,7 @@ public class DoesContainTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("NameContext");
+        var appliedRule = rr.RuleService.ApplyRule("NameContext");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }

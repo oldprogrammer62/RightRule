@@ -48,7 +48,7 @@ public class ComplexStatementTests
         Assert.NotNull(rule1.RegisteredRule);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
 
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule1.RegisteredRule.TrueDecision, result.Decision);
     }
@@ -74,7 +74,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
         rightRule.RuleService.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRule("Context");
+        var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -100,7 +100,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
         rightRule.RuleService.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRule("Context");
+        var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -126,7 +126,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
         rightRule.RuleService.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRule("Context");
+        var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -152,7 +152,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
         rightRule.RuleService.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRule("Context");
+        var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -183,7 +183,7 @@ public class ComplexStatementTests
         // Register the data
         rightRule.DataService.RegisterData("TestDataset", _Data);
         rightRule.RuleService.RegisterRule(rule);
-        var appliedRule = rightRule.ApplyRule("Context");
+        var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }

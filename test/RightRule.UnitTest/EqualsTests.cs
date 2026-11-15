@@ -49,7 +49,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -72,7 +72,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -95,7 +95,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         var data1 = rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -118,7 +118,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -141,7 +141,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -164,7 +164,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -189,7 +189,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -214,7 +214,7 @@ public class EqualsTests
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
     }
@@ -254,7 +254,7 @@ public class EqualsTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule1.TrueDecision, appliedRule.Decision);
     }
@@ -294,7 +294,7 @@ public class EqualsTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule2.TrueDecision, appliedRule.Decision);
     }
@@ -334,7 +334,7 @@ public class EqualsTests
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _IntData);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule);
     }

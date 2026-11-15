@@ -42,7 +42,7 @@ public class ApplyRules_Async_Tests
 
         DataRegistrationResult? dataRegistered = rr.DataService.RegisterData("Data", data);
 
-        RightRuleResult<IProcessedRule>? appliedRule = await rr.ApplyRuleAsync("Context");
+        RightRuleResult<IProcessedRule>? appliedRule = await rr.RuleService.ApplyRuleAsync("Context");
 
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }

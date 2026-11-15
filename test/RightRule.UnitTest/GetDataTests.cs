@@ -76,7 +76,7 @@ namespace RightRuleTests
                 .Build();
 
             var rule1reg = rr.RuleService.RegisterRule(rule1def);
-            var result = rr.ApplyRule("Context");
+            var result = rr.RuleService.ApplyRule("Context");
             Assert.NotNull(result);
         }
     }

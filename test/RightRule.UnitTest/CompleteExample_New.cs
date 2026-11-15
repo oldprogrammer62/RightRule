@@ -120,7 +120,7 @@ public class CompleteExample_New
             }
         });
 
-        var result = rr.ApplyRule(context);
+        var result = rr.RuleService.ApplyRule(context);
         Assert.NotNull(result);
     }
 
@@ -212,7 +212,7 @@ public class CompleteExample_New
             }
         });
 
-        var result = rr.ApplyRule(context);
+        var result = rr.RuleService.ApplyRule(context);
         Assert.NotNull(result);
     }
 }

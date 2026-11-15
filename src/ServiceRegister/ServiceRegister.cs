@@ -47,10 +47,14 @@ internal sealed class ServiceRegister
         services.AddScoped<IRightRule>(sp =>
         {
             var logger = sp.GetRequiredService<ILogger<RightRule>>();
+            var ruleService = sp.GetRequiredService<IRuleService>();
+            var dataService = sp.GetRequiredService<IDataService>();
             var rightRuleService = sp.GetRequiredService<IRightRuleService>();
             var options = sp.GetRequiredService<RightRuleOptions>();
 
             return new RightRule(
+                ruleService,
+                dataService,
                 rightRuleService,
                 logger,
                 options);

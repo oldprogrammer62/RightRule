@@ -36,7 +36,7 @@ public class ObjectReference_Tests
             OptionalData = null
         };
         rr.RuleService.RegisterRule(rd1);
-        var result = rr.ApplyRule("Test");
+        var result = rr.RuleService.ApplyRule("Test");
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result.Decision);
     }
@@ -70,7 +70,7 @@ public class ObjectReference_Tests
         };
 
         rr.RuleService.RegisterRule(rd1);
-        var result = rr.ApplyRule("Test");
+        var result = rr.RuleService.ApplyRule("Test");
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result.Decision);
     }
@@ -102,7 +102,7 @@ public class ObjectReference_Tests
         };
 
         rr.RuleService.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
+        var result = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(rd1.TrueDecision, result[0].Decision);
     }
@@ -134,7 +134,7 @@ public class ObjectReference_Tests
         };
 
         rr.RuleService.RegisterRule(rd1);
-        var result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
+        var result = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
 
         Assert.Equal(rd1.FalseDecision, result[0].Decision);
@@ -159,7 +159,7 @@ public class ObjectReference_Tests
             Statement = "x.x = 100"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -189,7 +189,7 @@ public class ObjectReference_Tests
             Statement = "x = 100 and y = 200 and greeting = \"Hello\""
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -226,7 +226,7 @@ public class ObjectReference_Tests
             Statement = "x = 100 and y = 200 and greeting = \"Hello\" and BobsAge = 30"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
-        var result = rr.ApplyRule("Context");
+        var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
         Assert.Equal(rule.TrueDecision, result.Decision);
     }
@@ -249,7 +249,7 @@ public class ObjectReference_Tests
             .Build()
             .Register(rr.RuleService);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(appliedRule);
     }
 }

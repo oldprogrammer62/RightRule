@@ -69,7 +69,7 @@ public class ApplyRuleMultipleDatasetsTests
         rr.DataService.RegisterData("TestA", _DataA);
         rr.DataService.RegisterData("TestB", _DataB);
 
-        RightRuleResult<IProcessedRule>? appliedA = rr.ApplyRule("AllContext");
+        RightRuleResult<IProcessedRule>? appliedA = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(rule1.TrueDecision, appliedA.Decision);
     }
@@ -85,7 +85,7 @@ public class ApplyRuleMultipleDatasetsTests
         rr.DataService.RegisterData("TestA", _DataA);
         rr.DataService.RegisterData("TestB", _DataB);
 
-        var appliedB = rr.ApplyRule("AllContext");
+        var appliedB = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(rule1.TrueDecision, appliedB.Decision);
     }

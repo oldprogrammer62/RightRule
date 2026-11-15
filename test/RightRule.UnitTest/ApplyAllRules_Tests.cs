@@ -46,7 +46,7 @@ public class ApplyAllRules_Tests
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
 
-        List<RightRuleResult<IProcessedRule>> result = rr.ApplyRules("Test", EvaluationTypeEnum.ANY);
+        List<RightRuleResult<IProcessedRule>> result = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }

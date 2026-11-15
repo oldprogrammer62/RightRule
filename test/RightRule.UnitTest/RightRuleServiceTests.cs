@@ -57,15 +57,12 @@ public class RightRuleServiceTests
     {
         return new RightRuleService(
             operatorService,
-            CreateProxy<IRuleService>(),
-            // new DefaultRuleRegisterStub(),
-            CreateProxy<IDataService>(),
+            // CreateProxy<IRuleService>(),
+            // CreateProxy<IDataService>(),
             statementSyntaxChecker,
-            new RuleApplicationServiceStub(),
-            CreateProxy<IDataAdaptorService>(),
-            CreateProxy<IInterpolatorService>());
-            // new RuleLoaderServiceStub(),
-            // NullLogger<RightRuleService>.Instance);
+            // new RuleApplicationServiceStub(),
+            CreateProxy<IDataAdaptorService>());
+            // CreateProxy<IInterpolatorService>());
     }
 
     private static T CreateProxy<T>() where T : class

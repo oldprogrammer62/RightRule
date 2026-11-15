@@ -37,7 +37,7 @@ public class DataTypesTests_Array
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
@@ -69,7 +69,7 @@ public class DataTypesTests_Array
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
@@ -106,7 +106,7 @@ public class DataTypesTests_Array
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);
@@ -143,7 +143,7 @@ public class DataTypesTests_Array
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
         Assert.Equal(rule.TrueDecision, appliedRule.Decision);

@@ -45,7 +45,7 @@ public class NoRulesMatch
         var newRule = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule1.TrueDecision, appliedRule.Decision);
     }
@@ -78,7 +78,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(rule2.TrueDecision, appliedRule.Decision);
     }
@@ -101,7 +101,7 @@ public class NoRulesMatch
         var newRule = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD , appliedRule.Decision);
     }
@@ -134,7 +134,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRule = rr.ApplyRule("Context");
+        var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRule.Decision);
     }
@@ -167,7 +167,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
         Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
     }
@@ -200,7 +200,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
         Assert.Equal(rule2.TrueDecision, appliedRules[0].Decision);
     }
@@ -233,7 +233,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.FIRST);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
         Assert.Equal(DefaultRule.DECISIONWORD, appliedRules[0].Decision);
     }
@@ -266,7 +266,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
         Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
     }
@@ -299,7 +299,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
         Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
         Assert.Equal(rule2.TrueDecision, appliedRules[1].Decision);
@@ -333,7 +333,7 @@ public class NoRulesMatch
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
 
-        var appliedRules = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+        var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
         Assert.Equal(rule1.FalseDecision, appliedRules[0].Decision);
         Assert.Equal(rule2.FalseDecision, appliedRules[1].Decision);

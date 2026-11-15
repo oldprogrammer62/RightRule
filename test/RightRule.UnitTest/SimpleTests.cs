@@ -23,7 +23,7 @@ public class SimpleTests
 
         rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule(context);
+        var result = rr.RuleService.ApplyRule(context);
         Assert.NotNull(result);
     }
 
@@ -49,7 +49,7 @@ public class SimpleTests
 
         rr.RuleService.RegisterRule(rule);
 
-        var result = rr.ApplyRule(context);
+        var result = rr.RuleService.ApplyRule(context);
         Assert.NotNull(result);
     }
 
@@ -67,7 +67,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 
@@ -85,7 +85,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 
@@ -123,7 +123,7 @@ public class SimpleTests
             .Build();
         var rule3Result = rr.RuleService.RegisterRule(rule3);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
         Assert.NotNull(result);
     }
 }

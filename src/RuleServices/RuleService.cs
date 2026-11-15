@@ -1,9 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
+using RightRule.DataTransformer;
+using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models;
+using RightRule.RightRuleService;
 using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
 using RightRule.RuleServices.RuleLoader;
 using RightRule.RuleServices.RuleModels;
+using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleParsingService;
 using RightRule.RuleServices.RuleRegistration;
 using RightRule.RuleServices.Rules;
@@ -18,6 +23,7 @@ internal sealed class RuleService : IRuleService
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
+    private readonly IRuleApplicationService _ruleApplicationService;
     [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRuleValidationService _ruleValidationService;
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -28,21 +34,284 @@ internal sealed class RuleService : IRuleService
     private readonly IRuleLoaderService _ruleLoaderService;
     private readonly IRuleSerializerService _ruleSerializerService;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
+    private readonly IInterpolatorService _interpolatorService;
     private readonly ILogger<RuleService> _logger;
 
     public IRegisteredRules RegisteredRules => _registeredRules;
 
-    public RuleService(RightRuleOptions options, IRuleValidationService RuleValidationService, IParseRuleService ParseRuleService, IRegisteredRules RegisteredRules, IRuleLoaderService RuleLoaderService, IRuleSerializerService RuleSerializerService, IDefaultRuleRegister defaultRuleRegister, ILogger<RuleService> logger)
+    public RuleService(RightRuleOptions options, IRuleApplicationService ruleApplicationService, IRuleValidationService ruleValidationService, IParseRuleService parseRuleService, IRegisteredRules registeredRules, IRuleLoaderService ruleLoaderService, IRuleSerializerService ruleSerializerService, IDefaultRuleRegister defaultRuleRegister, IInterpolatorService interpolatorService, ILogger<RuleService> logger)
     {
         _logger = logger;
 
         _options = options;
-        _registeredRules = RegisteredRules;
-        _ruleLoaderService = RuleLoaderService;
-        _ruleSerializerService = RuleSerializerService;
+        _ruleApplicationService = ruleApplicationService;
+        _registeredRules = registeredRules;
+        _ruleLoaderService = ruleLoaderService;
+        _ruleSerializerService = ruleSerializerService;
         _defaultRuleRegister = defaultRuleRegister;
-        _ruleValidationService = RuleValidationService;
-        _parseRuleService = ParseRuleService;
+        _interpolatorService = interpolatorService;
+        _ruleValidationService = ruleValidationService;
+        _parseRuleService = parseRuleService;
+    }
+
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return ApplyRulesAsync(Context, EvaluationTypeEnum.FIRST).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public RightRuleResult<IProcessedRule> ApplyRule(string Context)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return ApplyRuleAsync(Context).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public async Task<RightRuleResult<IProcessedRule>> ApplyRuleAsync(string Context)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            var svcResult = await ApplyRulesAsync_SVC(Context).ConfigureAwait(false);
+            if (svcResult == null)
+            {
+                return RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+            }
+            return svcResult;
+        }
+        catch (Exception ex)
+        {
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    //public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context)
+    //{
+    //    ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+    //    try
+    //    {
+    //        return ApplyRulesAsync(Context, EvaluationTypeEnum.FIRST).GetAwaiter().GetResult();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+    //    }
+    //}
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationTypeEnum.FIRST).ConfigureAwait(false);
+            if (svcResult == null)
+            {
+                return [RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
+            }
+            return svcResult;
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="EvaluationType"></param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public List<RightRuleResult<IProcessedRule>> ApplyRules(string Context, EvaluationTypeEnum EvaluationType)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            return ApplyRulesAsync(Context, EvaluationType).GetAwaiter().GetResult();
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    /// <summary>
+    /// Apply all Registered Rules for the given Context to the registered data set(s).<br/>
+    /// The first Rule to return a positive (true) result will be returned.<br/>
+    /// If no rule returns a positive result, a default rule will be returned.
+    /// </summary>
+    /// <param name="Context">Used to identify the set of rules to apply</param>
+    /// <param name="EvaluationType"></param>
+    /// <returns>
+    /// A single Applied Rule is returned.<br />
+    /// If a rule returns true, that rule is returned.<br />
+    /// If no rule returns true, a default rule is returned.<br />
+    /// </returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="KeyNotFoundException"></exception>
+    /// <exception cref="Exception"></exception>
+    public async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync(string Context, EvaluationTypeEnum EvaluationType)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        try
+        {
+            var svcResult = await ApplyRulesAsync_SVC(Context, EvaluationType).ConfigureAwait(false);
+            if (svcResult == null)
+            {
+                return [RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
+            }
+            return svcResult;
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    private async Task<RightRuleResult<IProcessedRule>> ApplyRulesAsync_SVC(string Context)
+    {
+        try
+        {
+            var rulesApplied = await ApplyRules_SingleResultAsync(Context, EvaluationTypeEnum.FIRST);
+            return BuildResult(Context, rulesApplied);
+        }
+        catch (Exception ex)
+        {
+            return RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message));
+        }
+    }
+
+    private async Task<List<RightRuleResult<IProcessedRule>>> ApplyRulesAsync_SVC(string Context, EvaluationTypeEnum EvaluationType)
+    {
+        try
+        {
+            var rulesApplied = await ApplyRules_MultipleResultAsync(Context, EvaluationType);
+            return BuildResults(Context, rulesApplied);
+        }
+        catch (Exception ex)
+        {
+            return [RightRuleResult<IProcessedRule>.ErrorResult(ex, ErrorRule.ErrorResult(ex.Message))];
+        }
+    }
+
+    public async Task<RightRuleServiceResult<IProcessedRule>> ApplyRules_SingleResultAsync(string Context, EvaluationTypeEnum EvaluationType)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        var rulesApplied = await ApplyRules_MultipleResultAsync(Context, EvaluationType).ConfigureAwait(false);
+        if (rulesApplied == null || rulesApplied.Count == 0)
+        {
+            return BuildDefaultResult(Context);
+        }
+        var result = rulesApplied.FirstOrDefault();
+        if (result != null)
+        {
+            return result;
+        }
+        return BuildDefaultResult(Context);
+    }
+
+    public async Task<List<RightRuleServiceResult<IProcessedRule>>> ApplyRules_MultipleResultAsync(string Context, EvaluationTypeEnum EvaluationType)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
+
+        var rulesApplied = await _ruleApplicationService.ApplyRulesAsync(Context, EvaluationType).ConfigureAwait(false);
+        if (rulesApplied == null)
+        {
+            return [BuildDefaultResult(Context)];
+        }
+        return BuildResult(rulesApplied);
     }
 
     public IDefaultNameStep BuildDefaultRule()
@@ -267,5 +536,91 @@ internal sealed class RuleService : IRuleService
     {
         var diagnostics = _options.Diagnostics;
         return _parseRuleService.ParseRule(Rule, diagnostics);
+    }
+
+    private RightRuleServiceResult<IProcessedRule> BuildDefaultResult(string Context)
+    {
+        var rule = RightRuleServiceResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context));
+
+        var decisionData = _interpolatorService.Interpolate(rule.DecisionData);
+        rule.DecisionData = decisionData;
+        return rule;
+    }
+
+    private List<RightRuleResult<IProcessedRule>> BuildResults(string Context, List<RightRuleServiceResult<IProcessedRule>> ServiceResults)
+    {
+        if (ServiceResults == null)
+        {
+            return [RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
+        }
+        if (ServiceResults.Count == 0)
+        {
+            return [RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))];
+        }
+        List<RightRuleResult<IProcessedRule>> rightRuleResults = new List<RightRuleResult<IProcessedRule>>();
+
+        foreach (var serviceResult in ServiceResults)
+        {
+            rightRuleResults.Add(BuildResult(Context, serviceResult));
+        }
+        return rightRuleResults;
+    }
+
+    private RightRuleResult<IProcessedRule> BuildResult(string Context, RightRuleServiceResult<IProcessedRule> ServiceResult)
+    {
+        var status = ServiceResult?.Status ?? RightRuleStatusEnum.DEFAULT;
+
+        var payload = ServiceResult?.Payload ?? null;
+        var message = ServiceResult?.Message ?? string.Empty;
+        var statementApplied = ServiceResult?.Payload?.StatementApplied ?? string.Empty;
+        var decisionData = ServiceResult?.DecisionData ?? string.Empty;
+
+        return status switch
+        {
+            RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
+                RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied, decisionData),
+
+            RightRuleStatusEnum.FAILURE =>
+                RightRuleResult<IProcessedRule>.FailureResult(payload, statementApplied, decisionData, message),
+
+            RightRuleStatusEnum.DEFAULT =>
+                RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context), message),
+
+            RightRuleStatusEnum.ERROR =>
+                RightRuleResult<IProcessedRule>.ErrorResult(ServiceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
+
+            _ => RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))
+        };
+    }
+
+    private List<RightRuleServiceResult<IProcessedRule>> BuildResult(List<IProcessedRule> RulesApplied)
+    {
+        List<RightRuleServiceResult<IProcessedRule>> results = new List<RightRuleServiceResult<IProcessedRule>>();
+        foreach (var ruleApplied in RulesApplied)
+        {
+            var decisionData = MakeDecisionData(ruleApplied);
+            results.Add(BuildResultObject(ruleApplied, decisionData));
+        }
+        return results;
+    }
+
+    private static RightRuleServiceResult<IProcessedRule> BuildResultObject(IProcessedRule processedRule, object? DecisionData)
+    {
+        var result = processedRule.Result switch
+        {
+            true => RightRuleServiceResult<IProcessedRule>.SuccessResult(processedRule, DecisionData),
+            false => RightRuleServiceResult<IProcessedRule>.FailureResult(processedRule, DecisionData)
+        };
+        return result;
+    }
+
+    private object? MakeDecisionData(IProcessedRule rule)
+    {
+        var decisionData = rule.Result switch
+        {
+            true => _interpolatorService.Interpolate(rule.TrueDecisionData),
+            false => _interpolatorService.Interpolate(rule.FalseDecisionData)
+        };
+        return decisionData;
     }
 }

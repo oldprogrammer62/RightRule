@@ -84,7 +84,7 @@ public class DataRegistrationTests
         rr.DataService.RegisterData("Test", _Data);
         var newRule1 = rr.RuleService.RegisterRule(rule1);
 
-        var appliedRules = rr.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
+        var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
         var appliedRule = appliedRules.FirstOrDefault();
         Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
     }

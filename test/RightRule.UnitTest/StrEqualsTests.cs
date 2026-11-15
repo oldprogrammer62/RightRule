@@ -28,7 +28,7 @@ public class StrEqualsTests
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(rule1.TrueDecision, result.Decision);
@@ -57,7 +57,7 @@ public class StrEqualsTests
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(DefaultRule.DECISIONWORD, result.Decision);
@@ -86,7 +86,7 @@ public class StrEqualsTests
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 
-        var result = rr.ApplyRule("TestContext");
+        var result = rr.RuleService.ApplyRule("TestContext");
 
         Assert.NotNull(result);
         Assert.Equal(rule1.TrueDecision, result.Decision);

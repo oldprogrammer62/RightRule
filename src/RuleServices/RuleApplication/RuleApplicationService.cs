@@ -4,20 +4,21 @@ using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
+using RightRule.RuleServices.Rules;
 
 namespace RightRule.RuleServices.RuleApplication;
 
 internal sealed class RuleApplicationService : IRuleApplicationService
 {
-    private readonly IRuleService _ruleService;
+    private readonly IRegisteredRules _registeredRules;
     private readonly IApplyFirstRuleService _applyFirstRuleService;
     private readonly IApplyAnyRulesService _applyAnyRulesService;
     private readonly IApplyAllRulesService _applyAllRulesService;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
 
-    public RuleApplicationService(IRuleService ruleService, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
+    public RuleApplicationService(IRegisteredRules registeredRules, IApplyFirstRuleService applyFirstRuleService, IApplyAnyRulesService applyAnyRulesService, IApplyAllRulesService applyAllRulesService, IDefaultRuleRegister defaultRuleRegister)
     {
-        this._ruleService = ruleService;
+        this._registeredRules = registeredRules;
         this._applyFirstRuleService = applyFirstRuleService;
         this._applyAnyRulesService = applyAnyRulesService;
         this._applyAllRulesService = applyAllRulesService;
@@ -28,7 +29,7 @@ internal sealed class RuleApplicationService : IRuleApplicationService
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
 
-        if (_ruleService.RegisteredRules.Rules == null || _ruleService.RegisteredRules.Rules.Count == 0)
+        if (_registeredRules.Rules == null || _registeredRules.Rules.Count == 0)
         {
             // Throw exception to indicate No Rules Registered
             throw new NoRulesRegisteredException();
