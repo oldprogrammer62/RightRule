@@ -21,23 +21,18 @@ namespace RightRule.RuleServices;
 
 internal sealed class RuleService : IRuleService
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
+    private readonly IRegisteredRules _registeredRules;
+    public IRegisteredRules RegisteredRules => _registeredRules;
+
     private readonly RightRuleOptions _options;
     private readonly IRuleApplicationService _ruleApplicationService;
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRuleValidationService _ruleValidationService;
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IParseRuleService _parseRuleService;
-
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    private readonly IRegisteredRules _registeredRules;
     private readonly IRuleLoaderService _ruleLoaderService;
     private readonly IRuleSerializerService _ruleSerializerService;
     private readonly IDefaultRuleRegister _defaultRuleRegister;
     private readonly IInterpolatorService _interpolatorService;
     private readonly ILogger<RuleService> _logger;
-
-    public IRegisteredRules RegisteredRules => _registeredRules;
 
     public RuleService(RightRuleOptions options, IRuleApplicationService ruleApplicationService, IRuleValidationService ruleValidationService, IParseRuleService parseRuleService, IRegisteredRules registeredRules, IRuleLoaderService ruleLoaderService, IRuleSerializerService ruleSerializerService, IDefaultRuleRegister defaultRuleRegister, IInterpolatorService interpolatorService, ILogger<RuleService> logger)
     {
