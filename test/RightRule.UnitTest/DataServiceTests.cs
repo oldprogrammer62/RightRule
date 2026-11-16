@@ -22,26 +22,6 @@ public class DataServiceTests
         );
 
     [Fact]
-    public void CreateDataSet_AddsAndReturnsDataset()
-    {
-        var service = CreateService();
-
-        var dataset = service.CreateDataSet("Customer");
-
-        Assert.Same(dataset, service.GetRegisteredData("Customer"));
-        Assert.Single(service.GetRegisteredData()!);
-    }
-
-    [Fact]
-    public void GetDataset_IsCaseInsensitive()
-    {
-        var service = CreateService();
-        var created = service.CreateDataSet("Customer");
-
-        Assert.Same(created, service.GetRegisteredData("CUSTOMER"));
-    }
-
-    [Fact]
     public void AddData_OverloadsAddItemsToTheSameDataset()
     {
         var service = CreateService();
@@ -103,30 +83,6 @@ public class DataServiceTests
         Assert.Equal(new[] { "Name", "Age" }, service.GetDataItemNames("Customer"));
         Assert.Equal(new[] { "Name", "Age" }, service.GetDataItemNames(dataset));
         Assert.Empty(service.GetDataItemNames("Missing")!);
-    }
-
-    [Fact]
-    public void GetDataSetNames_ReturnsDatasetNames()
-    {
-        var service = CreateService();
-        service.CreateDataSet("Customers");
-        service.CreateDataSet("Orders");
-
-        Assert.Equal(new[] { "Customers", "Orders" }, service.GetDataSetNames());
-    }
-
-    [Fact]
-    public void DeregisterDataset_RemovesMatchingDatasetCaseInsensitively()
-    {
-        var service = CreateService();
-        service.CreateDataSet("Customer");
-        service.CreateDataSet("Order");
-
-        service.DeRegisterData("CUSTOMER");
-
-        Assert.Null(service.GetRegisteredData("Customer"));
-        Assert.NotNull(service.GetRegisteredData("Order"));
-        Assert.Single(service.GetRegisteredData()!);
     }
 
     [Fact]

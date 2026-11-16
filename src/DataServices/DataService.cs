@@ -34,16 +34,16 @@ internal sealed partial class DataService : IDataService
         return _dataValidator.IsDataIdentifier(this, DataIdentifier);
     }
 
-    internal Dataset CreateDataSet(string DatasetName)
-    {
-        var dataset = new Dataset(DatasetName);
-        _datasets.Add(dataset);
+    //internal Dataset CreateDataSet(string DatasetName)
+    //{
+    //    var dataset = new Dataset(DatasetName);
+    //    _datasets.Add(dataset);
 
-        if (_logger.IsEnabled(LogLevel.Debug))
-        {
-            _logger.LogDebug("{DatasetName} created", DatasetName);
-        }
+    //    if (_logger.IsEnabled(LogLevel.Debug))
+    //    {
+    //        _logger.LogDebug("{DatasetName} created", DatasetName);
+    //    }
 
-        return dataset;
-    }
+    //    return dataset;
+    //}
 }
