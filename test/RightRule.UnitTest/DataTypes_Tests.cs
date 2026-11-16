@@ -17,7 +17,7 @@ public class DataTypes_Tests
         int a = 100;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -40,7 +40,7 @@ public class DataTypes_Tests
         double a = 100.001;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -63,7 +63,7 @@ public class DataTypes_Tests
         string a = "100";
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -86,7 +86,7 @@ public class DataTypes_Tests
         char a = 'C';
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -109,7 +109,7 @@ public class DataTypes_Tests
         bool a = true;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -132,7 +132,7 @@ public class DataTypes_Tests
         bool a = true;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -155,7 +155,7 @@ public class DataTypes_Tests
         DateTime a = new DateTime(1970, 01, 01, 12, 12, 12);
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -178,7 +178,7 @@ public class DataTypes_Tests
         DateOnly a = new DateOnly(1970, 01, 01);
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -201,7 +201,7 @@ public class DataTypes_Tests
         TimeOnly a = new TimeOnly(12, 30, 30);
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -231,7 +231,7 @@ public class DataTypes_Tests
         int a = 2;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -262,7 +262,7 @@ public class DataTypes_Tests
         double a = 2.2;
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -293,7 +293,7 @@ public class DataTypes_Tests
         string a = "2";
         var data1Reg = rr.DataService.RegisterData("a", a);
 
-        var rule1Reg = rr.BuildRule()
+        var rule1Reg = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")

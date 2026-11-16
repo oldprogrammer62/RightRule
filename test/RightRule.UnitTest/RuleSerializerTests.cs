@@ -10,7 +10,7 @@ public class RuleSerializerTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -31,7 +31,7 @@ public class RuleSerializerTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -42,7 +42,7 @@ public class RuleSerializerTests
         var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
-        DefinedRule rule2 = rr.BuildRule()
+        DefinedRule rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context2")
@@ -64,7 +64,7 @@ public class RuleSerializerTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -75,7 +75,7 @@ public class RuleSerializerTests
         var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
 
-        DefinedRule rule2 = rr.BuildRule()
+        DefinedRule rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context2")
@@ -96,7 +96,7 @@ public class RuleSerializerTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context1")

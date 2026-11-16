@@ -10,7 +10,7 @@ public class RuleDiagnosticsTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -38,7 +38,7 @@ public class RuleDiagnosticsTests
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -68,7 +68,7 @@ public class RuleDiagnosticsTests
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

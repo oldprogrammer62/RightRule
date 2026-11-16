@@ -12,7 +12,7 @@ public class SimpleTests
         var ds = rr.DataService.RegisterData("a", 100);
 
         string context = "Context";
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context(context)
@@ -38,7 +38,7 @@ public class SimpleTests
         var ds = rr.DataService.RegisterData("data", data);
 
         string context = "Context";
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context(context)
@@ -57,7 +57,7 @@ public class SimpleTests
     public void Test1()
     {
         IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -75,7 +75,7 @@ public class SimpleTests
     public void TestWithDefault()
     {
         IRightRule rr = new RightRule.RightRule();
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -93,7 +93,7 @@ public class SimpleTests
     public void Test_WithError_Rule()
     {
         IRightRule rr = new RightRule.RightRule();
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")
             .Context("TestContext")
@@ -103,7 +103,7 @@ public class SimpleTests
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("TestRule2")
             .Context("TestContext")
@@ -113,7 +113,7 @@ public class SimpleTests
             .Build();
         var rule2Result = rr.RuleService.RegisterRule(rule2);
 
-        var rule3 = rr.BuildRule()
+        var rule3 = rr.RuleService.BuildRule()
             .Number(3)
             .Name("TestRule3")
             .Context("TestContext")

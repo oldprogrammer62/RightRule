@@ -1,6 +1,7 @@
 ﻿using RightRule.LanguageProcessor.Evaluator;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleBuilders.DefaultRuleBuilder;
+using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 using RightRule.RuleServices.RuleRegistration;
@@ -11,6 +12,8 @@ namespace RightRule.RuleServices;
 public interface IRuleService
 {
     IRegisteredRules RegisteredRules { get; }
+
+    INumberStep BuildRule();
 
     List<ParsedRule> GetRegisteredRules();
     List<ParsedRule> GetRegisteredRules(string Context);

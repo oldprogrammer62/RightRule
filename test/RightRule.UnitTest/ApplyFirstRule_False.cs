@@ -11,7 +11,7 @@ public class ApplyFirstRule_False
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -21,7 +21,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -42,7 +42,7 @@ public class ApplyFirstRule_False
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -52,7 +52,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -73,7 +73,7 @@ public class ApplyFirstRule_False
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -83,7 +83,7 @@ public class ApplyFirstRule_False
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")

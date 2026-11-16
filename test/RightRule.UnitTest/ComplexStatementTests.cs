@@ -32,7 +32,7 @@ public class ComplexStatementTests
         //string statement = "1 = 1 and 2 = 2 and not 3 = 3";
 
         IRightRule rr = new RightRule.RightRule();
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")

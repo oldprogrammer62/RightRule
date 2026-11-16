@@ -24,7 +24,7 @@ public class DataValidatorTests
         var r3 = rr.DataService.RegisterData("Data", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -55,7 +55,7 @@ public class DataValidatorTests
         var r3 = rr.DataService.RegisterData("Data", data);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r3.Status);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

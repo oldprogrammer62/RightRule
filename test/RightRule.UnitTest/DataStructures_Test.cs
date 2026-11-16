@@ -15,7 +15,7 @@ public class DataStructures_Test
         };
         rr.DataService.RegisterData("Data", data);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -43,7 +43,7 @@ public class DataStructures_Test
         (string Name, int Number) data3 = (Name: "Value", Number: 200);
         rr.DataService.RegisterData("Data3", data3);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -79,7 +79,7 @@ public class DataStructures_Test
         (string Name, int Number) data3 = (Name: "Value", Number: 200);
         rr.DataService.RegisterData("Data3", data3);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -103,7 +103,7 @@ public class DataStructures_Test
 
         rr.DataService.RegisterData(nameof(Value), Value);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")
@@ -125,7 +125,7 @@ public class DataStructures_Test
 
         var dataRegResult = rr.DataService.RegisterData("Variable", "Hello World");
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name")
             .Context("Context")

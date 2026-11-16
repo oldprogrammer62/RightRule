@@ -10,7 +10,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef = rr.BuildRule()
+        var ruleDef = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -31,7 +31,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -40,7 +40,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRule()
+        var ruleDef2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -63,7 +63,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -72,7 +72,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRule()
+        var ruleDef2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -95,7 +95,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -104,7 +104,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRule()
+        var ruleDef2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -128,7 +128,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -137,7 +137,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRule()
+        var ruleDef2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -161,7 +161,7 @@ public class EvaluateTypeTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -170,7 +170,7 @@ public class EvaluateTypeTests
             .FalseDecision("Goodbye")
             .Build();
 
-        var ruleDef2 = rr.BuildRule()
+        var ruleDef2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")

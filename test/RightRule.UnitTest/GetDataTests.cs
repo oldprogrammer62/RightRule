@@ -66,7 +66,7 @@ namespace RightRuleTests
             var xxxx = rr.DataService.GetRegisteredData();
             Assert.NotNull(xxxx);
 
-            var rule1def = rr.BuildRule()
+            var rule1def = rr.RuleService.BuildRule()
                 .Number(1)
                 .Name("Name1")
                 .Context("Context")

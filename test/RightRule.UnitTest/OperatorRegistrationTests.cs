@@ -124,7 +124,7 @@ public class OperatorRegistrationTests
         var leftReg = rr.DataService.RegisterData(nameof(left), left);
         var rightReg = rr.DataService.RegisterData(nameof(right), right);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
            .Number(1)
            .Name("BiggerThanRule")
            .Context("TestContext")

@@ -35,9 +35,4 @@ public interface IRightRule : IDisposable
     /// <param name="DataAdaptor"></param>
     /// <returns><see cref="DataAdaptorRegistrationResult"/></returns>
     DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor);
-
-    /// <summary>
-    /// Build a Standard Rule definition
-    /// </summary>
-    INumberStep BuildRule();
 }

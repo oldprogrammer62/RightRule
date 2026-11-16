@@ -1,12 +1,8 @@
-using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
+﻿using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
 
-namespace RightRule;
+namespace RightRule.RuleServices;
 
-/// <summary>
-/// Main RightRule class
-/// Provides all public entry points to the RightRule system
-/// </summary>
-public sealed partial class RightRule : IRightRule, IDisposable
+internal sealed partial class RuleService : IRuleService
 {
     /// <summary>
     /// Build an enhanced Rule Definition

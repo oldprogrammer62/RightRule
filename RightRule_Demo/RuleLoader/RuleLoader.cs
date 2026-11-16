@@ -5,11 +5,11 @@ namespace RightRule_Demo.RuleLoader
 {
     internal class RuleLoader
     {
-        internal static List<DefinedRule> Load(IRightRule rightRule, string Context)
+        internal static List<DefinedRule> Load(IRightRule rr, string Context)
         {
             return new List<DefinedRule>
             {
-                rightRule.BuildRule()
+                rr.RuleService.BuildRule()
                 .Number(10)
                 .Name("Rule10")
                 .Context("Context")
@@ -18,7 +18,7 @@ namespace RightRule_Demo.RuleLoader
                 .FalseDecision("BAD")
                 .Build(),
 
-                rightRule.BuildRule()
+                rr.RuleService.BuildRule()
                 .Number(11)
                 .Name("Rule11")
                 .Context("Context")

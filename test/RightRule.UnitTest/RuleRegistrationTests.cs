@@ -11,7 +11,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -20,7 +20,7 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        DefinedRule rule2 = rr.BuildRule()
+        DefinedRule rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context2")
@@ -44,7 +44,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -53,7 +53,7 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        DefinedRule rule2 = rr.BuildRule()
+        DefinedRule rule2 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name2")
             .Context("Context2")
@@ -77,7 +77,7 @@ public class RuleRegistrationTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        DefinedRule rule1 = rr.BuildRule()
+        DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context1")
@@ -86,7 +86,7 @@ public class RuleRegistrationTests
             .FalseDecision("FalseDecision")
             .Build();
 
-        DefinedRule rule2 = rr.BuildRule()
+        DefinedRule rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name1")
             .Context("Context2")

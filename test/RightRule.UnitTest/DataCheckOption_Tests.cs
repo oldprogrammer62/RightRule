@@ -12,7 +12,7 @@ public class DataCheckOption_Tests
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -36,7 +36,7 @@ public class DataCheckOption_Tests
 
         IRightRule rr = new RightRule.RightRule(options);
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")

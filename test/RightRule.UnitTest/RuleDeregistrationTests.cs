@@ -13,7 +13,7 @@ public class RuleDeregistrationTests
         int RuleNumber1 = 1;
         string RuleName1 = "Rule1";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context)
@@ -40,7 +40,7 @@ public class RuleDeregistrationTests
         int RuleNumber1 = 1;
         string RuleName1 = "Rule1";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context)
@@ -70,7 +70,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 2;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context)
@@ -83,7 +83,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context)
@@ -114,7 +114,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 2;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context)
@@ -127,7 +127,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context)
@@ -159,7 +159,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 1;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context1)
@@ -172,7 +172,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context2)
@@ -205,7 +205,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 1;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context1)
@@ -218,7 +218,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context2)
@@ -250,7 +250,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 1;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context1)
@@ -263,7 +263,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context2)
@@ -276,7 +276,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        var rule3Def = rr.BuildRule()
+        var rule3Def = rr.RuleService.BuildRule()
             .Number(22)
             .Name("22")
             .Context(Context2)
@@ -305,7 +305,7 @@ public class RuleDeregistrationTests
         int RuleNumber2 = 1;
         string RuleName2 = "Rule2";
 
-        var rule1Def = rr.BuildRule()
+        var rule1Def = rr.RuleService.BuildRule()
             .Number(RuleNumber1)
             .Name(RuleName1)
             .Context(Context1)
@@ -318,7 +318,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule1reg);
         Assert.Single(rr.RuleService.GetRegisteredRules());
 
-        var rule2Def = rr.BuildRule()
+        var rule2Def = rr.RuleService.BuildRule()
             .Number(RuleNumber2)
             .Name(RuleName2)
             .Context(Context2)
@@ -331,7 +331,7 @@ public class RuleDeregistrationTests
         Assert.NotNull(rule2reg);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
 
-        var rule3Def = rr.BuildRule()
+        var rule3Def = rr.RuleService.BuildRule()
             .Number(22)
             .Name("22")
             .Context(Context2)

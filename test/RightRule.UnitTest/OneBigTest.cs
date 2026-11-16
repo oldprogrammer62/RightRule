@@ -43,7 +43,7 @@ public class OneBigTest
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
-        var rule1Defn = rr.BuildRule()
+        var rule1Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1Name")
             .Context(Context1)
@@ -76,7 +76,7 @@ public class OneBigTest
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
-        var rule1Defn = rr.BuildRule()
+        var rule1Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1Name")
             .Context(Context1)
@@ -107,7 +107,7 @@ public class OneBigTest
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
-        var rule1Defn = rr.BuildRule()
+        var rule1Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1Name")
             .Context(Context1)
@@ -147,7 +147,7 @@ public class OneBigTest
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
-        var rule1Defn = rr.BuildRule()
+        var rule1Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1Name")
             .Context(Context1)
@@ -174,7 +174,7 @@ public class OneBigTest
         Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
 
 
-        var rule2Defn = rr.BuildRule()
+        var rule2Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule2Name")
             .Context(Context2)
@@ -205,7 +205,7 @@ public class OneBigTest
         Assert.NotNull(data2Registration);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, data2Registration.Status);
 
-        var rule1Defn = rr.BuildRule()
+        var rule1Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1Name")
             .Context(Context1)
@@ -233,7 +233,7 @@ public class OneBigTest
         Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
 
 
-        var rule2Defn = rr.BuildRule()
+        var rule2Defn = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule2Name")
             .Context(Context2)

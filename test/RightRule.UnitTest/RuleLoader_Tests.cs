@@ -62,7 +62,7 @@ public class RuleLoader_Tests
         Assert.NotNull(rr);
         Assert.NotNull(rr.RuleService);
 
-        var rule = rr.BuildRule()
+        var rule = rr.RuleService.BuildRule()
             .Number(2)
             .Name("RuleName")
             .Context("NewContext")

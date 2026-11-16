@@ -12,7 +12,7 @@ public class RuleBuilder_Test
     {
         IRightRule rr = new RightRule.RightRule();
 
-        RuleRegistrationResult? rule1 = rr.BuildRule()
+        RuleRegistrationResult? rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Context")
@@ -24,7 +24,7 @@ public class RuleBuilder_Test
             .Build()
             .Register(rr.RuleService);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context("Context")
@@ -51,7 +51,7 @@ public class RuleBuilder_Test
 
         string context = "Context";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
@@ -63,7 +63,7 @@ public class RuleBuilder_Test
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context(context)
@@ -94,7 +94,7 @@ public class RuleBuilder_Test
 
         string context = "Context";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
@@ -106,7 +106,7 @@ public class RuleBuilder_Test
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context(context)
@@ -138,7 +138,7 @@ public class RuleBuilder_Test
 
         string context = "ContextXXX";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
@@ -150,7 +150,7 @@ public class RuleBuilder_Test
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context(context)
@@ -182,7 +182,7 @@ public class RuleBuilder_Test
 
         string context = "Context";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
@@ -194,7 +194,7 @@ public class RuleBuilder_Test
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1);
 
-        var rule2 = rr.BuildRule()
+        var rule2 = rr.RuleService.BuildRule()
             .Number(2)
             .Name("Name2")
             .Context(context)

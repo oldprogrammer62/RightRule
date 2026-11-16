@@ -10,7 +10,7 @@ public class DecisionDataTests
         IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -39,7 +39,7 @@ public class DecisionDataTests
         IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")
@@ -65,7 +65,7 @@ public class DecisionDataTests
         IRightRule rr = new RightRule.RightRule();
         string dd = "Hello World from Decision";
 
-        var rule1 = rr.BuildRule()
+        var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

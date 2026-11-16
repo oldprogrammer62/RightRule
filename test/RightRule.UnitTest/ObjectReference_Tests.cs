@@ -239,7 +239,7 @@ public class ObjectReference_Tests
         IRightRule rr = new RightRule.RightRule();
         rr.DataService.RegisterData("obj", obj);
 
-        rr.BuildRule()
+        rr.RuleService.BuildRule()
             .Number(1)
             .Name("Name1")
             .Context("Context")

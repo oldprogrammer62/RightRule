@@ -12,7 +12,7 @@ public class DefaultRule_Tests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Test")
@@ -30,7 +30,7 @@ public class DefaultRule_Tests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context("Test")
@@ -94,7 +94,7 @@ public class DefaultRule_Tests
         var defaultRule2 = rr.RuleService.GetDefaultRule(context);
         Assert.NotNull(defaultRule2);
 
-        var ruleDef1 = rr.BuildRule()
+        var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
             .Context(context)
