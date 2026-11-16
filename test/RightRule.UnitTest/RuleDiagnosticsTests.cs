@@ -22,7 +22,7 @@ public class RuleDiagnosticsTests
         Assert.NotNull(rule1);
 
         var options = new RightRuleOptions();
-        var configurations = rr.GetRightRuleOptions();
+        var configurations = rr.RightRuleOptions;
 
         Assert.NotNull(configurations);
         Assert.Equal(options.DataCheck, configurations.DataCheck);
@@ -47,7 +47,7 @@ public class RuleDiagnosticsTests
             .FalseDecision("NOTSAME")
             .Build();
 
-        var configurations = rr.GetRightRuleOptions();
+        var configurations = rr.RightRuleOptions;
         Assert.NotNull(configurations);
         Assert.Equal(options.DataCheck, configurations.DataCheck);
         Assert.Equal(options.Diagnostics, configurations.Diagnostics);
@@ -77,7 +77,7 @@ public class RuleDiagnosticsTests
             .FalseDecision("NOTSAME")
             .Build();
 
-        var configurations = rr.GetRightRuleOptions();
+        var configurations = rr.RightRuleOptions;
         Assert.NotNull(configurations);
         Assert.Equal(options.DataCheck, configurations.DataCheck);
         Assert.Equal(options.Diagnostics, configurations.Diagnostics);

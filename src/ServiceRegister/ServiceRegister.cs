@@ -49,12 +49,14 @@ internal sealed class ServiceRegister
             var logger = sp.GetRequiredService<ILogger<RightRule>>();
             var ruleService = sp.GetRequiredService<IRuleService>();
             var dataService = sp.GetRequiredService<IDataService>();
+            var dataAdaptorService = sp.GetRequiredService<IDataAdaptorService>();
             var rightRuleService = sp.GetRequiredService<IRightRuleService>();
             var options = sp.GetRequiredService<RightRuleOptions>();
 
             return new RightRule(
                 ruleService,
                 dataService,
+                dataAdaptorService,
                 rightRuleService,
                 logger,
                 options);

@@ -18,7 +18,7 @@ public class RightRuleOptionsTests
         var rr = new RightRule.RightRule();
         Assert.NotNull(rr);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -56,7 +56,7 @@ public class RightRuleOptionsTests
         var rr = new RightRule.RightRule(options);
         Assert.NotNull(rr);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -94,7 +94,7 @@ public class RightRuleOptionsTests
         var rr = new RightRule.RightRule(options);
         Assert.NotNull(rr);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.True(optionsFound.DataCheck);
@@ -136,7 +136,7 @@ public class RightRuleOptionsTests
         Assert.True(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, customPath);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -178,7 +178,7 @@ public class RightRuleOptionsTests
         Assert.True(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, customPath);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -220,7 +220,7 @@ public class RightRuleOptionsTests
         Assert.True(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, path);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -262,7 +262,7 @@ public class RightRuleOptionsTests
         Assert.True(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, path);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -304,7 +304,7 @@ public class RightRuleOptionsTests
         Assert.False(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, path);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);
@@ -346,7 +346,7 @@ public class RightRuleOptionsTests
         Assert.False(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, path);
 
-        var optionsFound = rr.GetRightRuleOptions();
+        var optionsFound = rr.RightRuleOptions;
 
         Assert.NotNull(optionsFound);
         Assert.False(optionsFound.DataCheck);

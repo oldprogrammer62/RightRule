@@ -113,7 +113,7 @@ public class DataProviderTests
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
         var dataAdaptor = new BespokeDataAdaptor();
-        DataAdaptorRegistrationResult? dataAdaptorResult = rr.RegisterDataAdaptor(dataAdaptor);
+        DataAdaptorRegistrationResult? dataAdaptorResult = rr.DataAdaptorService.RegisterDataAdaptor(dataAdaptor);
 
         var input = new BespokeClass();
         var result = rr.DataService.RegisterData<BespokeClass>("DS_Name", input);
@@ -176,7 +176,7 @@ public class DataProviderTests
         using var scope = serviceProvider.CreateScope();
         var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        var DataProviderRegResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
+        var DataProviderRegResult = rr.DataAdaptorService.RegisterDataAdaptor(new BespokeDataAdaptor());
 
         var result = rr.DataService.RegisterData("DS_Name", input);
     }

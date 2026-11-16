@@ -7,7 +7,6 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
-using System.ComponentModel;
 
 namespace RightRule;
 
@@ -17,16 +16,9 @@ namespace RightRule;
 /// </summary>
 public sealed partial class RightRule : IRightRule, IDisposable
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private bool Disposed { get; set; } = false;
-
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IRightRuleService _rightRuleService;
-
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly ILogger<RightRule> _logger;
-
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly IServiceProvider? _serviceProvider;
 
 
@@ -36,12 +28,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly IDataService _dataService;
     public IDataService DataService => _dataService;
 
+    private readonly IDataAdaptorService _dataAdaptorService;
+    public IDataAdaptorService DataAdaptorService => _dataAdaptorService;
+
     public IOperatorService? OperatorService => _rightRuleService.OperatorService;
 
-    public IDataAdaptorService? DataAdaptorService => _rightRuleService.DataAdaptorService;
-
-    private readonly RightRuleOptions _options;
-    public RightRuleOptions Options => GetRightRuleOptions();
+    private readonly RightRuleOptions _rightRuleOptions;
+    public RightRuleOptions RightRuleOptions => _rightRuleOptions;
 
     /// <summary>
     /// Parameterless constructor
@@ -72,17 +65,18 @@ public sealed partial class RightRule : IRightRule, IDisposable
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(loggerFactory);
 
-        _options = options;
+        _rightRuleOptions = options;
         _serviceProvider = InitialiseServiceProvider(
-            _options,
+            _rightRuleOptions,
             loggerFactory
             );
 
-        _rightRuleService = GetRightRuleServiceFromDI();
-        _ruleService = GetRuleServiceFromDI();
-        _dataService = GetDataServiceFromDI();
+        _rightRuleService = GetServiceFromDI<IRightRuleService>();
+        _ruleService = GetServiceFromDI<IRuleService>();
+        _dataService = GetServiceFromDI<IDataService>();
+        _dataAdaptorService = GetServiceFromDI<IDataAdaptorService>();
 
-        _logger = GetLoggerServiceFromDI();
+        _logger = GetServiceFromDI<ILogger<RightRule>>();
         if (_logger.IsEnabled(LogLevel.Debug))
         {
             _logger.LogDebug("new RightRule() Started");
@@ -97,20 +91,23 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// </summary>
     /// <param name="ruleService"></param>
     /// <param name="dataService"></param>
+    /// <param name="dataAdaptorService"></param>
     /// <param name = "rightRuleService" ></param >
     /// <param name="logger"></param>
     /// <param name="options"></param>
     public RightRule(
         IRuleService ruleService,
         IDataService dataService,
+        IDataAdaptorService dataAdaptorService,
         IRightRuleService rightRuleService,
         ILogger<RightRule>? logger,
         RightRuleOptions options
         )
     {
-        _options = options;
+        _rightRuleOptions = options;
         _ruleService = ruleService;
         _dataService = dataService;
+        _dataAdaptorService = dataAdaptorService;
         _rightRuleService = rightRuleService;
 
         _logger = logger ?? NullLogger<RightRule>.Instance;
@@ -121,11 +118,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
 
         // Log Options
         LogOptions(_logger, options);
-    }
-
-    public RightRuleOptions GetRightRuleOptions()
-    {
-        return _options;
     }
 
     private static ServiceProvider InitialiseServiceProvider(
@@ -145,40 +137,13 @@ public sealed partial class RightRule : IRightRule, IDisposable
         return services.BuildServiceProvider();
     }
 
-    private IRightRuleService GetRightRuleServiceFromDI()
-    {
-        if (_serviceProvider == null)
-        {
-            throw new InvalidOperationException("Right Rule Service is not initialized.");
-        }
-        return _serviceProvider.GetRequiredService<IRightRuleService>();
-    }
-
-    private IRuleService GetRuleServiceFromDI()
-    {
-        if (_serviceProvider == null)
-        {
-            throw new InvalidOperationException("Rule Service is not initialized.");
-        }
-        return _serviceProvider.GetRequiredService<IRuleService>();
-    }
-
-    private IDataService GetDataServiceFromDI()
-    {
-        if (_serviceProvider == null)
-        {
-            throw new InvalidOperationException("Data Service is not initialized.");
-        }
-        return _serviceProvider.GetRequiredService<IDataService>();
-    }
-
-    private ILogger<RightRule> GetLoggerServiceFromDI()
+    private T GetServiceFromDI<T>() where T : notnull
     {
         if (_serviceProvider == null)
         {
             throw new InvalidOperationException("Service provider is not initialized.");
         }
-        return _serviceProvider.GetRequiredService<ILogger<RightRule>>();
+        return _serviceProvider.GetRequiredService<T>();
     }
 
     private static void LogOptions(ILogger<RightRule> logger, RightRuleOptions options)

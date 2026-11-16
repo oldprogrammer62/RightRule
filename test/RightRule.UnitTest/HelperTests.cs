@@ -9,7 +9,7 @@ public class HelperTests
     {
         IRightRule rr = new RightRule.RightRule();
 
-        var setting = rr.GetRightRuleOptions().CustomOperatorLibraryPath;
+        var setting = rr.RightRuleOptions.CustomOperatorLibraryPath;
 
         Assert.NotNull(setting);
     }

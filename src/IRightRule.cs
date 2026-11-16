@@ -4,21 +4,17 @@ using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
-using RightRule.RuleServices.RuleBuilders.RightRuleBuilder;
-using RightRule.System.Common.DataAdaptor;
 
 namespace RightRule;
 
 public interface IRightRule : IDisposable
 {
-    RightRuleOptions GetRightRuleOptions();
-
     IRuleService RuleService { get; }
     IDataService DataService { get; }
     IOperatorService? OperatorService { get; }
     IDataAdaptorService? DataAdaptorService { get; }
 
-    RightRuleOptions Options { get; }
+    RightRuleOptions RightRuleOptions { get; }
 
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
@@ -28,11 +24,4 @@ public interface IRightRule : IDisposable
     /// <exception cref="ArgumentException"></exception>
     /// <returns><see cref="CheckStatementResult"/></returns>
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
-
-    /// <summary>
-    /// Registers a custom Data Adaptor with the RightRule engine.<br/>
-    /// </summary>
-    /// <param name="DataAdaptor"></param>
-    /// <returns><see cref="DataAdaptorRegistrationResult"/></returns>
-    DataAdaptorRegistrationResult RegisterDataAdaptor(IDataAdaptor DataAdaptor);
 }

@@ -17,8 +17,7 @@ public class RightRuleConstructionTests
 
         using var sut = new RightRule.RightRule(options);
 
-        Assert.Same(options, sut.Options);
-        Assert.Same(options, sut.GetRightRuleOptions());
+        Assert.Same(options, sut.RightRuleOptions);
         Assert.NotNull(sut.RuleService);
         Assert.NotNull(sut.DataService);
         Assert.NotNull(sut.OperatorService);
@@ -60,9 +59,8 @@ public class RightRuleConstructionTests
         using var scope = serviceProvider.CreateScope();
         var sut = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
 
-        Assert.Same(sut.Options, sut.GetRightRuleOptions());
-        Assert.False(sut.Options.LoadCustomOperators);
-        Assert.False(sut.Options.LoadDefaultOperators);
+        Assert.False(sut.RightRuleOptions.LoadCustomOperators);
+        Assert.False(sut.RightRuleOptions.LoadDefaultOperators);
         Assert.NotNull(sut.RuleService);
         Assert.NotNull(sut.DataService);
         Assert.NotNull(sut.OperatorService);

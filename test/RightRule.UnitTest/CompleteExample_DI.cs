@@ -46,7 +46,7 @@ public class CompleteExample_DI
         var dataResult = rr.DataService.RegisterData("a", 100);
         Assert.NotNull(dataResult);
 
-        var loadedOptions = rr.GetRightRuleOptions();
+        var loadedOptions = rr.RightRuleOptions;
         Assert.Same(options, loadedOptions);
 
         Assert.Equal(options.DataCheck, loadedOptions.DataCheck);
@@ -87,7 +87,7 @@ public class CompleteExample_DI
         rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
 
-        var loadedOptions = rr.GetRightRuleOptions();
+        var loadedOptions = rr.RightRuleOptions;
         Assert.False(loadedOptions.DataCheck);
         Assert.True(loadedOptions.Diagnostics);
         Assert.True(loadedOptions.LoadDefaultOperators);

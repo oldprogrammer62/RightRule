@@ -59,9 +59,9 @@ public class RightRuleServiceTests
             operatorService,
             // CreateProxy<IRuleService>(),
             // CreateProxy<IDataService>(),
-            statementSyntaxChecker,
+            statementSyntaxChecker);
             // new RuleApplicationServiceStub(),
-            CreateProxy<IDataAdaptorService>());
+            //CreateProxy<IDataAdaptorService>());
             // CreateProxy<IInterpolatorService>());
     }
 
