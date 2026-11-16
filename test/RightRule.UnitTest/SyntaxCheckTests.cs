@@ -25,7 +25,7 @@ public class SyntaxCheckTests
     public async Task ValidStatement_ReturnsValid()
     {
         IRightRule rr = new RightRule.RightRule();
-        CheckStatementResult? result = await rr.SyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
+        CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
@@ -35,7 +35,7 @@ public class SyntaxCheckTests
     public async Task ValidStatement_WithArray()
     {
         IRightRule rr = new RightRule.RightRule();
-        CheckStatementResult? result = await rr.SyntaxCheckAsync("number in [1,2,3,4,5]");
+        CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("number in [1,2,3,4,5]");
 
         Assert.True(result.IsValid);
         Assert.DoesNotContain(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
@@ -45,7 +45,7 @@ public class SyntaxCheckTests
     public async Task ValidStatement_WithArrayInvalid()
     {
         IRightRule rr = new RightRule.RightRule();
-        CheckStatementResult? result = await rr.SyntaxCheckAsync("number in [1,2,3,4,5");
+        CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("number in [1,2,3,4,5");
 
         Assert.False(result.IsValid);
         Assert.Contains(result.Diagnostics, d => d.Severity == DiagnosticSeverityEnum.ERROR);
@@ -56,7 +56,7 @@ public class SyntaxCheckTests
     {
         IRightRule rr = new RightRule.RightRule();
         var stmt = "Data.name equals \"John";
-        var result = await rr.SyntaxCheckAsync(stmt);
+        var result = await rr.StatementSyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();
@@ -73,7 +73,7 @@ public class SyntaxCheckTests
     {
         IRightRule rr = new RightRule.RightRule();
         var stmt = "(Test.numberoforders equals 10";
-        var result = await rr.SyntaxCheckAsync(stmt);
+        var result = await rr.StatementSyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault(d => d.Code == "PAR_UNMATCHED_LPAREN");
@@ -89,7 +89,7 @@ public class SyntaxCheckTests
     {
         IRightRule rr = new RightRule.RightRule();
         var stmt = "Test.name equals #invalid";
-        var result = await rr.SyntaxCheckAsync(stmt);
+        var result = await rr.StatementSyntaxCheckAsync(stmt);
 
         Assert.False(result.IsValid);
         var diag = result.Diagnostics.FirstOrDefault();

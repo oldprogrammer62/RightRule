@@ -14,7 +14,22 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="Statement">The rule statement to check.</param>
     /// <returns>The result of the syntax check.</returns>
     /// <exception cref="ArgumentException"></exception>
-    public async Task<CheckStatementResult> SyntaxCheckAsync(string Statement)
+    public CheckStatementResult StatementSyntaxCheck(string Statement)
+    {
+        if (string.IsNullOrWhiteSpace(Statement))
+        {
+            return CheckStatementResult.FailureResult();
+        }
+        return StatementSyntaxCheckAsync(Statement).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
+    /// </summary>
+    /// <param name="Statement">The rule statement to check.</param>
+    /// <returns>The result of the syntax check.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    public async Task<CheckStatementResult> StatementSyntaxCheckAsync(string Statement)
     {
         if (string.IsNullOrWhiteSpace(Statement))
         {

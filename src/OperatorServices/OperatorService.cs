@@ -3,22 +3,19 @@ using RightRule.OperatorServices.OperatorLoader;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.System.Common.Operator.Models;
-using System.ComponentModel;
 
 namespace RightRule.OperatorServices;
 
 internal sealed partial class OperatorService : IOperatorService, IDisposable
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private List<Operator> _operators;
     public List<Operator> Operators { get { return _operators; } }
 
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private Dictionary<string, Operator> _operatorAliases;
     public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
-    [EditorBrowsable(EditorBrowsableState.Never)]
     private readonly RightRuleOptions _options;
+
     private readonly IDefaultOperatorLoader _defaultOperatorLoader;
     private readonly ICustomOperatorLoader _customOperatorLoader;
 
@@ -33,6 +30,11 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
     {
         this._defaultOperatorLoader = defaultOperatorLoader;
         _customOperatorLoader = customOperatorLoader;
+    }
+
+    public List<Operator> GetOperators()
+    {
+        return [.. _operators];
     }
 
     public OperatorService(IDefaultOperatorLoader defaultOperatorLoader, ICustomOperatorLoader customOperatorLoader, RightRuleOptions options)
@@ -146,11 +148,6 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
             return new List<Operator>();
         }
         return _customOperatorLoader.LoadOperators(configurationPath);
-    }
-
-    public List<Operator> GetOperators()
-    {
-        return [.. _operators];
     }
 
     private bool OperatorExists(Operator Operator)

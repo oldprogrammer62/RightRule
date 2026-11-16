@@ -21,7 +21,6 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly ILogger<RightRule> _logger;
     private readonly IServiceProvider? _serviceProvider;
 
-
     private readonly IRuleService _ruleService;
     public IRuleService RuleService => _ruleService;
 
@@ -31,7 +30,8 @@ public sealed partial class RightRule : IRightRule, IDisposable
     private readonly IDataAdaptorService _dataAdaptorService;
     public IDataAdaptorService DataAdaptorService => _dataAdaptorService;
 
-    public IOperatorService? OperatorService => _rightRuleService.OperatorService;
+    private readonly IOperatorService? _operatorService;
+    public IOperatorService? OperatorService => _operatorService;
 
     private readonly RightRuleOptions _rightRuleOptions;
     public RightRuleOptions RightRuleOptions => _rightRuleOptions;
@@ -75,6 +75,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _ruleService = GetServiceFromDI<IRuleService>();
         _dataService = GetServiceFromDI<IDataService>();
         _dataAdaptorService = GetServiceFromDI<IDataAdaptorService>();
+        _operatorService = GetServiceFromDI<IOperatorService>();
 
         _logger = GetServiceFromDI<ILogger<RightRule>>();
         if (_logger.IsEnabled(LogLevel.Debug))
@@ -92,6 +93,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
     /// <param name="ruleService"></param>
     /// <param name="dataService"></param>
     /// <param name="dataAdaptorService"></param>
+    /// <param name="operatorService"></param>
     /// <param name = "rightRuleService" ></param >
     /// <param name="logger"></param>
     /// <param name="options"></param>
@@ -99,6 +101,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         IRuleService ruleService,
         IDataService dataService,
         IDataAdaptorService dataAdaptorService,
+        IOperatorService operatorService,
         IRightRuleService rightRuleService,
         ILogger<RightRule>? logger,
         RightRuleOptions options
@@ -107,6 +110,7 @@ public sealed partial class RightRule : IRightRule, IDisposable
         _rightRuleOptions = options;
         _ruleService = ruleService;
         _dataService = dataService;
+        _operatorService = operatorService;
         _dataAdaptorService = dataAdaptorService;
         _rightRuleService = rightRuleService;
 

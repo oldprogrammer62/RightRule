@@ -50,6 +50,7 @@ internal sealed class ServiceRegister
             var ruleService = sp.GetRequiredService<IRuleService>();
             var dataService = sp.GetRequiredService<IDataService>();
             var dataAdaptorService = sp.GetRequiredService<IDataAdaptorService>();
+            var operatorService = sp.GetRequiredService<IOperatorService>();
             var rightRuleService = sp.GetRequiredService<IRightRuleService>();
             var options = sp.GetRequiredService<RightRuleOptions>();
 
@@ -57,6 +58,7 @@ internal sealed class ServiceRegister
                 ruleService,
                 dataService,
                 dataAdaptorService,
+                operatorService,
                 rightRuleService,
                 logger,
                 options);

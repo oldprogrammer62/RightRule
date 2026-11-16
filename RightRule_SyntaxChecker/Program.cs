@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.SyntaxChecker;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule_SyntaxChecker;
@@ -12,7 +13,15 @@ internal class Program
         Console.WriteLine("This tool allows you to check the syntax of RightRule statements.");
         Console.WriteLine();
 
-        IRightRule rr = new RightRule.RightRule();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            DataCheck = false,
+            Diagnostics = true,
+            LoadDefaultOperators = true,
+            LoadCustomOperators = true
+        };
+        IRightRule rr = new RightRule.RightRule(options);
+
         DoCheckProcessAsync(rr).GetAwaiter().GetResult();
 
         Console.WriteLine("Press any key to exit...");
@@ -22,7 +31,7 @@ internal class Program
     private async static Task DoCheckProcessAsync(IRightRule rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
-        var result = await rightRule.SyntaxCheckAsync(statement).ConfigureAwait(false);
+        var result = await rightRule.StatementSyntaxCheckAsync(statement).ConfigureAwait(false);
 
         if (result == null)
         {

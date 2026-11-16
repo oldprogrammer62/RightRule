@@ -23,5 +23,14 @@ public interface IRightRule : IDisposable
     /// <returns>The result of the syntax check.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <returns><see cref="CheckStatementResult"/></returns>
-    Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
+    CheckStatementResult StatementSyntaxCheck(string Statement);
+
+    /// <summary>
+    /// Syntax check a Rule Statement to ensure it is valid and can be parsed.
+    /// </summary>
+    /// <param name="Statement">The rule statement to check.</param>
+    /// <returns>The result of the syntax check.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns><see cref="CheckStatementResult"/></returns>
+    Task<CheckStatementResult> StatementSyntaxCheckAsync(string Statement);
 }

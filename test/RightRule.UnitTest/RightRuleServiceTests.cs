@@ -1,13 +1,8 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
-using RightRule.DataAdaptors;
-using RightRule.DataServices;
-using RightRule.DataTransformer;
-using RightRule.LanguageProcessor.Evaluator;
+﻿using RightRule.LanguageProcessor.Evaluator;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
-using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
 using RightRule.RuleServices.RuleLoader;
@@ -27,7 +22,7 @@ public class RightRuleServiceTests
         var expectedResult = CheckStatementResult.FailureResult();
         var expectedTask = Task.FromResult(expectedResult);
         var checker = new StatementSyntaxCheckerStub(expectedTask);
-        using var service = CreateService(checker, new OperatorServiceStub());
+        using var service = CreateService(checker);
 
         var actualTask = service.SyntaxCheckAsync(statement);
         var actualResult = await actualTask;
@@ -37,32 +32,11 @@ public class RightRuleServiceTests
         Assert.Equal(expectedResult, actualResult);
     }
 
-    [Fact]
-    public void Dispose_DisposesOperatorServiceOnlyOnce()
-    {
-        var operators = new OperatorServiceStub();
-        using var service = CreateService(
-            new StatementSyntaxCheckerStub(Task.FromResult(CheckStatementResult.FailureResult())),
-            operators);
-
-        service.Dispose();
-        service.Dispose();
-
-        Assert.Equal(1, operators.DisposeCount);
-    }
-
     private static RightRuleService CreateService(
-        IStatementSyntaxChecker statementSyntaxChecker,
-        IOperatorService operatorService)
+        IStatementSyntaxChecker statementSyntaxChecker)
     {
         return new RightRuleService(
-            operatorService,
-            // CreateProxy<IRuleService>(),
-            // CreateProxy<IDataService>(),
             statementSyntaxChecker);
-            // new RuleApplicationServiceStub(),
-            //CreateProxy<IDataAdaptorService>());
-            // CreateProxy<IInterpolatorService>());
     }
 
     private static T CreateProxy<T>() where T : class

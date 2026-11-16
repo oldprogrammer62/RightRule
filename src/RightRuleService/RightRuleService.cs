@@ -1,6 +1,4 @@
 ﻿using RightRule.LanguageProcessor.SyntaxChecker;
-using RightRule.OperatorServices;
-using RightRule.System.Common.Operator.Models;
 
 namespace RightRule.RightRuleService;
 
@@ -10,16 +8,9 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
 
     private readonly IStatementSyntaxChecker _statementSyntaxChecker;
 
-    public IOperatorService? OperatorService { get; }
-
-    public List<Operator>? RegisteredOperators => OperatorService?.Operators;
-
-    public RightRuleService(
-        IOperatorService operatorsService, 
-        IStatementSyntaxChecker statementSyntaxChecker
+    public RightRuleService(IStatementSyntaxChecker statementSyntaxChecker
         )
     {
-        OperatorService = operatorsService;
         _statementSyntaxChecker = statementSyntaxChecker;
     }
 
@@ -32,10 +23,11 @@ internal sealed partial class RightRuleService : IRightRuleService, IDisposable
     {
         if (Disposed) return;
 
-        if (OperatorService is IDisposable disposableOperatorService)
+        if (_statementSyntaxChecker is IDisposable disposableSyntaxCheckerService)
         {
-            disposableOperatorService.Dispose();
+            disposableSyntaxCheckerService.Dispose();
         }
+
         Disposed = true;
     }
 }
