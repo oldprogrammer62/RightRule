@@ -1,4 +1,5 @@
-﻿
+﻿## Data Adaptor Developer Guide
+
 Using a custom Data Adaptor
         DataAdaptorRegistrationResult daResult = rr.DataAdaptorService.RegisterDataAdaptor(new BespokeDataAdaptor());
         BespokeClass input = new BespokeClass();
