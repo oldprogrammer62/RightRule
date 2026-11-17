@@ -1,4 +1,5 @@
-﻿
+﻿## Custom Operator Development
+
 Your Operator
 Overrides the ExecuteAsync() method, implementing the required logic on variables Left and Right.
 OptionalData can be passed by the Rule to the Operator Execute process.
