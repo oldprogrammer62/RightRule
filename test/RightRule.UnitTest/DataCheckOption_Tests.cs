@@ -10,7 +10,7 @@ public class DataCheckOption_Tests
     {
         RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = true, DataCheck = false };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -34,7 +34,7 @@ public class DataCheckOption_Tests
             DataCheck = true 
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)

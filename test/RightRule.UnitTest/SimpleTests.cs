@@ -8,7 +8,7 @@ public class SimpleTests
     [Fact]
     public void WithDataCheck()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
         var ds = rr.DataService.RegisterData("a", 100);
 
         string context = "Context";
@@ -30,7 +30,7 @@ public class SimpleTests
     [Fact]
     public void SimpleTest()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
             {"a", 100 }
@@ -56,7 +56,7 @@ public class SimpleTests
     [Fact]
     public void Test1()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")
@@ -74,7 +74,7 @@ public class SimpleTests
     [Fact]
     public void TestWithDefault()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")
@@ -92,7 +92,7 @@ public class SimpleTests
     [Fact]
     public void Test_WithError_Rule()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("TestRule1")

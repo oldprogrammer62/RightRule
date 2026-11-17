@@ -8,7 +8,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Success()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         var r1 = rr.DataService.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);
@@ -39,7 +39,7 @@ public class DataValidatorTests
     [Fact]
     public void ValidatorTest_Fail()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         var r1 = rr.DataService.RegisterData("a", 100);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, r1.Status);

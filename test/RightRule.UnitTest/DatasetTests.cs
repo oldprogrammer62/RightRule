@@ -23,7 +23,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDataset1()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -39,7 +39,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDataset2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -55,7 +55,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDatasets()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -68,7 +68,7 @@ public class DatasetTests
     [Fact]
     public void GetRegisteredDatasets_Indexed()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -84,7 +84,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDataset1()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -111,7 +111,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDataset2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
@@ -138,7 +138,7 @@ public class DatasetTests
     [Fact]
     public void DeregisterDatasets()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data1", Data1);
         rr.DataService.RegisterData("Data2", Data2);
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);

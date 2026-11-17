@@ -107,7 +107,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule1()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         rr.DataService.RegisterData("Step1Data2", _Step1Data2);
@@ -120,7 +120,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         rr.DataService.RegisterData("Step1Data2", _Step1Data2);
@@ -133,7 +133,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep1_Rule3()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         rr.DataService.RegisterData("Step1Data2", _Step1Data2);
@@ -146,7 +146,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RuleService.RegisterRule(_Step1Rule1);
@@ -162,7 +162,7 @@ public class MultiStepTests
     [Fact]
     public void TestWithMultipleStep2_WithDeRegistration()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Step1Data1", _Step1Data1);
         var rule1 = rr.RuleService.RegisterRule(_Step1Rule1);

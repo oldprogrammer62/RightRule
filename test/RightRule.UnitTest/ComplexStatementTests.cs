@@ -31,7 +31,7 @@ public class ComplexStatementTests
         //string statement = "1 = 1 and (2 = 2 or 3 = 3)";
         //string statement = "1 = 1 and 2 = 2 and not 3 = 3";
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
             .Name("Rule1")
@@ -58,7 +58,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "TestDataset.A = 1 and (TestDataset.B = 2 or TestDataset.C = 3)";
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()
@@ -84,7 +84,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "TestDataset.A = 10 or TestDataset.B = 2";
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()
@@ -110,7 +110,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and TestDataset.D = 4)";
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()
@@ -136,7 +136,7 @@ public class ComplexStatementTests
     {
         // Arrange
         var statement = "(TestDataset.A = 1 and TestDataset.B = 2) and (TestDataset.C = 3 and not TestDataset.D = 44)";
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()
@@ -167,7 +167,7 @@ public class ComplexStatementTests
 
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5)";
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()

@@ -10,7 +10,7 @@ public class DataDeregistrationTests
         var d = "Hello";
         var d2 = "World";
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(d), d);
         rr.DataService.RegisterData(nameof(d2), d2);
         var registeredData = rr.DataService.GetRegisteredData();
@@ -34,7 +34,7 @@ public class DataDeregistrationTests
         {
             { "Name", "Harry" }
         };
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("d", d);
         rr.DataService.RegisterData("d2", d2);

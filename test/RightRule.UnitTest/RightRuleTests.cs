@@ -15,9 +15,11 @@ public class RightRuleConstructionTests
             LoadDefaultOperators = false
         };
 
-        using var sut = new RightRule.RightRule(options);
+        using var sut = new RightRule.RightRule(options).CreateSession();
 
-        Assert.Same(options, sut.RightRuleOptions);
+        Assert.Equal(options.LoadCustomOperators, sut.RightRuleOptions.LoadCustomOperators);
+        Assert.Equal(options.LoadDefaultOperators, sut.RightRuleOptions.LoadDefaultOperators);
+
         Assert.NotNull(sut.RuleService);
         Assert.NotNull(sut.DataService);
         Assert.NotNull(sut.OperatorService);
@@ -39,7 +41,7 @@ public class RightRuleConstructionTests
             LoadCustomOperators = false,
             LoadDefaultOperators = false
         };
-        var sut = new RightRule.RightRule(options);
+        var sut = new RightRule.RightRule(options).CreateSession();
 
         sut.Dispose();
         sut.Dispose();
@@ -57,7 +59,7 @@ public class RightRuleConstructionTests
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var sut = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+        var sut = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
 
         Assert.False(sut.RightRuleOptions.LoadCustomOperators);
         Assert.False(sut.RightRuleOptions.LoadDefaultOperators);

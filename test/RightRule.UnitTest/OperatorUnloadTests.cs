@@ -20,7 +20,7 @@ public class OperatorUnloadTests
     public void TestItWorks_UnloadOperator_DoesNotContain()
     {
         // Force RightRule to load all operators
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         // Unload the "Contains" operator
         bool result = rr.OperatorService.UnloadOperator("DoesNotContain");
@@ -31,7 +31,7 @@ public class OperatorUnloadTests
     public void TestItWorks_UnloadOperator_GreaterThanOrEquals()
     {
         // Force RightRule to load all operators
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         // Unload the "GreaterThanOrEquals" operator
         bool result = rr.OperatorService.UnloadOperator("GreaterThanOrEquals");
@@ -52,7 +52,7 @@ public class OperatorUnloadTests
             FalseDecision = "VALUEUNEQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 

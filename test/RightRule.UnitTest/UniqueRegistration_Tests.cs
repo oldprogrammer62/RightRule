@@ -8,7 +8,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterSameData_Dict()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -27,7 +27,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterDiffData_Dict()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -46,7 +46,7 @@ public class UniqueRegistration_Tests
     [Fact]
     public void RegisterSameData_Object()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var data = 100;
 

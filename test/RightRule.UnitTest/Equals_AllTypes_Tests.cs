@@ -26,7 +26,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Int()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData(nameof(intVal), intVal);
 
@@ -67,7 +67,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dec()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
@@ -93,13 +93,13 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dec2()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions()
+        var rr = new RightRule.RightRule(new RightRuleOptions()
         {
             DataCheck = false,
             LoadDefaultOperators = true,
             Diagnostics = true
         }
-        );
+        ).CreateSession();
         rr.DataService.RegisterData(nameof(decVal), decVal);
 
         decimal localVal = 100.01M;
@@ -125,7 +125,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Dbl()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(dblVal), dblVal);
 
         double localVal = dblVal;
@@ -151,7 +151,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Lng()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(lngVal), lngVal);
 
         var localVal = lngVal;
@@ -177,7 +177,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Single()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(sinVal), sinVal);
 
         Single localVal = sinVal;
@@ -203,7 +203,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Float_Dict()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(fltVal), fltVal);
 
         Dictionary<string, object> data = new Dictionary<string, object>()
@@ -232,7 +232,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_String()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(strVal), strVal);
 
         string localVal = strVal;
@@ -258,7 +258,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Char()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(chrVal), chrVal);
 
         char localVal = chrVal;
@@ -284,7 +284,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Bool_Bool()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(boolVal), boolVal);
 
         bool localVal = boolVal;
@@ -310,7 +310,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_Bool_String()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(boolStr), boolStr);
 
         string localVal = boolStr;
@@ -336,7 +336,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_DateOnly()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(dtonlyVal), dtonlyVal);
 
         DateOnly localVal = dtonlyVal;
@@ -362,7 +362,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_TimeOnly()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(tmonlyVal), tmonlyVal);
 
         TimeOnly localVal = tmonlyVal;
@@ -388,7 +388,7 @@ public class Equals_AllTypes_Tests
     [Fact]
     public void Test_DateTime()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData(nameof(dttimeVal), dttimeVal);
 
         DateTime localVal = dttimeVal;

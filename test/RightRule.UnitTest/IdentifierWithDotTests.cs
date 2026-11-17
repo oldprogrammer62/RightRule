@@ -39,7 +39,7 @@ public class IdentifierWithDotTests
             FalseDecision = "NOT EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Data", _Data);
         rr.DataService.RegisterData("Constants", _Constants);
 
@@ -64,7 +64,7 @@ public class IdentifierWithDotTests
             FalseDecision = "NOT EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Data", _Data);
         rr.DataService.RegisterData("Constants", _Constants);

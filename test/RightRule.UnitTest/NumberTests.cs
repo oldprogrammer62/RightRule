@@ -30,7 +30,7 @@ public class NumberTests
             FalseDecision = "LESSTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -53,7 +53,7 @@ public class NumberTests
             FalseDecision = "LESSTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -76,7 +76,7 @@ public class NumberTests
             FalseDecision = "LESSTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -99,7 +99,7 @@ public class NumberTests
             FalseDecision = "LESSTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -122,7 +122,7 @@ public class NumberTests
             FalseDecision = "LESSTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 

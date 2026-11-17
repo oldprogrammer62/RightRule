@@ -14,7 +14,7 @@ public class RuleLoaderFactoryTests
     [InlineData("Json")]
     public void BuildLoader_WhenTypeIsJson_ReturnsJsonLoader(string loaderType)
     {
-        using IRightRule rightRule = new RightRule.RightRule();
+        using var rightRule = new RightRule.RightRule().CreateSession();
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
         var factory = new RuleLoaderFactory(logger);
 
@@ -28,7 +28,7 @@ public class RuleLoaderFactoryTests
     [InlineData("")]
     public void BuildLoader_WhenTypeIsUnsupported_ReturnsNoLoader(string loaderType)
     {
-        using IRightRule rightRule = new RightRule.RightRule();
+        using var rightRule = new RightRule.RightRule().CreateSession();
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
         var factory = new RuleLoaderFactory(logger);
 

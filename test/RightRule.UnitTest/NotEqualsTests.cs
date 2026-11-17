@@ -35,7 +35,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -58,7 +58,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -81,7 +81,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -104,7 +104,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -129,7 +129,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -154,7 +154,7 @@ public class NotEqualsTests
             FalseDecision = "EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -176,7 +176,7 @@ public class NotEqualsTests
             TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -198,7 +198,7 @@ public class NotEqualsTests
             TrueDecision = "NOTEQUALS",
             FalseDecision = "EQUALS"
         };
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Test", _Data);
         rr.RuleService.RegisterRule(rule);
 

@@ -48,7 +48,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
         rr.DataService.RegisterData("Arguments", Arguments);
@@ -78,7 +78,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
         rr.DataService.RegisterData("Arguments", Arguments);
@@ -102,7 +102,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -125,7 +125,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -148,7 +148,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -171,7 +171,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -194,7 +194,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -217,7 +217,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -240,7 +240,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -263,7 +263,7 @@ public class ExistsTests
             FalseDecision = "NOT_EXISTS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 

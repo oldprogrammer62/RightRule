@@ -8,7 +8,7 @@ public class OperatorLoadOptionsTests_Manual
     [Fact]
     public void RightRule_RunManually_WithoutOptions()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Assert.NotNull(rr);
 
@@ -29,7 +29,7 @@ public class OperatorLoadOptionsTests_Manual
     public void RightRule_RunManually_WithOptions_True()
     {
         RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = true };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(rr);
 
@@ -50,7 +50,7 @@ public class OperatorLoadOptionsTests_Manual
     public void RightRule_RunManually_WithOptions_False()
     {
         RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = false };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(rr);
 

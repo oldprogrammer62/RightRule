@@ -42,7 +42,7 @@ public class RegisterRulesAsync_Tests
             rule3 // This rule will fail validation - Missing False Decision
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var registeredRules = rr.RuleService.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
@@ -79,7 +79,7 @@ public class RegisterRulesAsync_Tests
             FalseDecision = "NOT_DONE"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var registeredRule1 = rr.RuleService.RegisterRule(rule1);
         var registeredRule2 = rr.RuleService.RegisterRule(rule2);
         Assert.NotNull(registeredRule1);

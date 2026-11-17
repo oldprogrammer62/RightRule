@@ -10,7 +10,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuilder()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         RuleRegistrationResult? rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -44,7 +44,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_First()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         rr.DataService.RegisterData("a", 100);
         rr.DataService.RegisterData("b", 100);
@@ -87,7 +87,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_Any()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         rr.DataService.RegisterData("a", 100);
         rr.DataService.RegisterData("b", 100);
@@ -131,7 +131,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Success()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         rr.DataService.RegisterData("a", 100);
         rr.DataService.RegisterData("b", 100);
@@ -175,7 +175,7 @@ public class RuleBuilder_Test
     [Fact]
     public void TestBuildAndRegister_All_Fail()
     {
-        IRightRule rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true });
+        var rr = new RightRule.RightRule(new RightRuleOptions() { DataCheck = true }).CreateSession();
 
         rr.DataService.RegisterData("a", 100);
         rr.DataService.RegisterData("b", 100);

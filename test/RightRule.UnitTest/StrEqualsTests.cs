@@ -24,7 +24,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 
@@ -53,7 +53,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.Ordinal
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 
@@ -82,7 +82,7 @@ public class StrEqualsTests
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var dataset = rr.DataService.RegisterData("Data", data);
         var rule = rr.RuleService.RegisterRule(rule1);
 

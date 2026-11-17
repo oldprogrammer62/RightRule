@@ -17,7 +17,7 @@ namespace RightRule_Demo.RuleManager
                 LoadCustomOperators = true,
                 LoadDefaultOperators = true
             };
-            IRightRule rr = new RightRule.RightRule(options);
+            var rr = new RightRule.RightRule(options).CreateSession();
 
             string Context = "Demo";
             var rules = LoadRules(rr, Context);
@@ -34,7 +34,7 @@ namespace RightRule_Demo.RuleManager
             return appliedRules;
         }
 
-        private static List<DefinedRule> LoadRules(IRightRule rightRule, string Context)
+        private static List<DefinedRule> LoadRules(IRightRuleSession rightRule, string Context)
         {
             return RuleLoader.RuleLoader.Load(rightRule, Context);
         }

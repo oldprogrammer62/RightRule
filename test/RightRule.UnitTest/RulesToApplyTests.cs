@@ -49,7 +49,7 @@ public class RulesToApplyTests
     [Fact]
     public void OneRule_First_Unspecified()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -61,7 +61,7 @@ public class RulesToApplyTests
     [Fact]
     public void OneRule_All_Unspecified()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -73,7 +73,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_First_Unspecified()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -86,7 +86,7 @@ public class RulesToApplyTests
     [Fact]
     public void TwoRules_All_Unspecified()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -101,7 +101,7 @@ public class RulesToApplyTests
     {
         var rules = new List<DefinedRule>() { rule1, rule2 };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRules = rr.RuleService.RegisterRules(rules);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -113,7 +113,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data); 
@@ -126,7 +126,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All_None_First()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -140,7 +140,7 @@ public class RulesToApplyTests
     [Fact]
     public void TestItWorks_All_None_Last()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);

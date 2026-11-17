@@ -41,7 +41,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -73,7 +73,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -97,7 +97,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule1);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -129,7 +129,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -162,7 +162,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -195,7 +195,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -228,7 +228,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS102"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -261,7 +261,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS101"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -294,7 +294,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS100_2"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -328,7 +328,7 @@ public class NoRulesMatch
             FalseDecision = "NOT_EQUALS102"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);

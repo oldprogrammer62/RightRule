@@ -30,7 +30,7 @@ public class OperatorConfig_Tests
             OptionalData = OpConfig
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         DataRegistrationResult? data1Registered = rr.DataService.RegisterData("Data", data);
         RuleRegistrationResult? rule1Registered = rr.RuleService.RegisterRule(rule1);
 

@@ -9,7 +9,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_Diff()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -42,7 +42,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_ByNumber()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -75,7 +75,7 @@ public class RuleRegistrationTests
     [Fact]
     public void RegisterRule_ByName()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)

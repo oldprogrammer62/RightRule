@@ -10,7 +10,7 @@ public class ObjectReference_Tests
     [Fact]
     public void NewObjectRefAndData_ShouldBeEqual()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -44,7 +44,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectRefAndData_ShouldBeEqual()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -78,7 +78,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectReference_ShouldBeEqual()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var name1 = "Bob";
         var age1 = 31;
@@ -110,7 +110,7 @@ public class ObjectReference_Tests
     [Fact]
     public void ObjectReference_NotEqual()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var name1 = "Bob";
         var age1 = 30;
@@ -145,7 +145,7 @@ public class ObjectReference_Tests
     {
         int x = 100;
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var added1 = rr.DataService.RegisterData(nameof(x), x);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 
@@ -171,7 +171,7 @@ public class ObjectReference_Tests
         int y = 200;
         string greeting = "Hello";
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var added1 = rr.DataService.RegisterData(nameof(x), x);
         var added2 = rr.DataService.RegisterData(nameof(y), y);
         var added3 = rr.DataService.RegisterData(nameof(greeting), greeting);
@@ -201,7 +201,7 @@ public class ObjectReference_Tests
         int y = 200;
         string greeting = "Hello";
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var added1 = rr.DataService.RegisterData(nameof(x), x);
         var added2 = rr.DataService.RegisterData(nameof(y), y);
         var added3 = rr.DataService.RegisterData(nameof(greeting), greeting);
@@ -236,7 +236,7 @@ public class ObjectReference_Tests
     {
         var obj = new RefObject();
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("obj", obj);
 
         rr.RuleService.BuildRule()

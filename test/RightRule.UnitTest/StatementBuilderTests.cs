@@ -62,7 +62,7 @@ public class StatementBuilderTests
             }
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("OrderData", _OrderData);
         rr.DataService.RegisterData("CustomerData", _CustomerData);

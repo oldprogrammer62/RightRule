@@ -5,11 +5,11 @@ namespace RightRuleTests;
 
 public class RuleGetters_Tests
 {
-    readonly IRightRule rr;
+    readonly IRightRuleSession rr;
 
     public RuleGetters_Tests()
     {
-        rr = new RightRule.RightRule();
+        rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.LoadRules(JsonString());
     }
 

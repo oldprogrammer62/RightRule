@@ -34,7 +34,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -57,7 +57,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -80,7 +80,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -103,7 +103,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -126,7 +126,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -151,7 +151,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -176,7 +176,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -201,7 +201,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -226,7 +226,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -251,7 +251,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_EQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -274,7 +274,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -297,7 +297,7 @@ public class GreaterThanOrEqualsTests
             FalseDecision = "NOT_GREATERTHAN"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 

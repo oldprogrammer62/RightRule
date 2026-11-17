@@ -24,7 +24,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task ValidStatement_ReturnsValid()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("Data.name equals \"John\" and Data.numberoforders equals 10");
 
         Assert.True(result.IsValid);
@@ -34,7 +34,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task ValidStatement_WithArray()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("number in [1,2,3,4,5]");
 
         Assert.True(result.IsValid);
@@ -44,7 +44,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task ValidStatement_WithArrayInvalid()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         CheckStatementResult? result = await rr.StatementSyntaxCheckAsync("number in [1,2,3,4,5");
 
         Assert.False(result.IsValid);
@@ -54,7 +54,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnterminatedString_ReportsDiagnostic_WithSuggestion()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var stmt = "Data.name equals \"John";
         var result = await rr.StatementSyntaxCheckAsync(stmt);
 
@@ -71,7 +71,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnmatchedLeftParenthesis_ReportsDiagnostic_Code()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var stmt = "(Test.numberoforders equals 10";
         var result = await rr.StatementSyntaxCheckAsync(stmt);
 
@@ -87,7 +87,7 @@ public class SyntaxCheckTests
     [Fact]
     public async Task UnexpectedCharacter_ReportsDiagnostic()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var stmt = "Test.name equals #invalid";
         var result = await rr.StatementSyntaxCheckAsync(stmt);
 
@@ -106,7 +106,7 @@ public class SyntaxCheckTests
         // Arrange
         var statement = "(1 = 1 and 2 = 2 and 3 = 3) and not 4 = 44 or not (5 = 5";
 
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         // Rule
         DefinedRule rule = new()

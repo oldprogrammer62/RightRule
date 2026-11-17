@@ -24,7 +24,7 @@ public class DayOfWeekTests
             FalseDecision = "NOT_SAME"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("data", data);
         var parsedRule = rr.RuleService.RegisterRule(rule1);
         var appliedRule = rr.RuleService.ApplyRule("context");

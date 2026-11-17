@@ -35,7 +35,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -58,7 +58,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -82,7 +82,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -106,7 +106,7 @@ public class GrammarTests
             FalseDecision = "NOTOK"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -130,7 +130,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -153,7 +153,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -176,7 +176,7 @@ public class GrammarTests
             FalseDecision = "INCORRECTORDERCOUNT"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -199,7 +199,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -222,7 +222,7 @@ public class GrammarTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -244,7 +244,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -267,7 +267,7 @@ public class GrammarTests
             FalseDecision = "NAMEDIFFERENTFROMFULLNAME"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -290,7 +290,7 @@ public class GrammarTests
             FalseDecision = "NOTGOODPAYER"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -313,7 +313,7 @@ public class GrammarTests
             FalseDecision = "NOTGOODPAYER"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("Test", _Data);
 
@@ -346,7 +346,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND2"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -381,7 +381,7 @@ public class GrammarTests
             FalseDecision = "NAMENOTFOUND2"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);

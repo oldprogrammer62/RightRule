@@ -78,7 +78,7 @@ public class OperatorRegistrationTests
     [Fact]
     public void RegisterOperatorTest()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.OperatorService.Operators);
         Assert.NotNull(rr.OperatorService.OperatorAliases);
@@ -115,7 +115,7 @@ public class OperatorRegistrationTests
     [Fact]
     public void TestIsBiggerThanOperator()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var op = new IsBiggerThan();
         var isRegistered = rr.OperatorService.RegisterOperator(op);
 

@@ -33,7 +33,7 @@ public class DataTests
             FalseDecision = "NOTEQUALS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Test", _Data);
         var newRule = rr.RuleService.RegisterRule(rule);
 

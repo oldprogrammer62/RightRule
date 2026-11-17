@@ -7,7 +7,7 @@ public class DataSerializationTests
     [Fact]
     public void SerializeData_ReturnsAllRegisteredData()
     {
-        using var rightRule = new RightRule.RightRule();
+        using var rightRule = new RightRule.RightRule().CreateSession();
 
         var registration = rightRule.DataService.RegisterData(
             "Customer",
@@ -43,7 +43,7 @@ public class DataSerializationTests
     [Fact]
     public void SerializeData_ReturnsSpecifiedData()
     {
-        using var rightRule = new RightRule.RightRule();
+        using var rightRule = new RightRule.RightRule().CreateSession();
 
         var registration = rightRule.DataService.RegisterData(
             "Customer",

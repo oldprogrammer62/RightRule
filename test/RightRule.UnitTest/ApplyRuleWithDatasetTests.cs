@@ -60,7 +60,7 @@ public class ApplyRuleWithDatasetTests
     [Fact]
     public void OneRule_WithDataSet()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Test", _Data);
         var newRule1 = rr.RuleService.RegisterRule(rule1);
 
@@ -72,7 +72,7 @@ public class ApplyRuleWithDatasetTests
     [Fact]
     public void TwoRules_WithDataSet()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule1 = rr.RuleService.RegisterRule(rule1);
         var newRule2 = rr.RuleService.RegisterRule(rule2);
         rr.DataService.RegisterData("Test", _Data);
@@ -85,7 +85,7 @@ public class ApplyRuleWithDatasetTests
     [Fact]
     public void TwoRules_WithInvalidDataSet()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var newRule3 = rr.RuleService.RegisterRule(rule3);
         rr.DataService.RegisterData("Test", _Data);
 

@@ -61,7 +61,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_A()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
@@ -77,7 +77,7 @@ public class ApplyRuleMultipleDatasetsTests
     [Fact]
     public void ApplyRule_Targets_Correct_Dataset_B()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);

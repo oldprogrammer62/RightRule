@@ -7,7 +7,7 @@ public class GetOperatorTests
     [Fact]
     public void GetOperatorDetails()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var operatorDetails = rr.OperatorService.GetOperators();
         Assert.NotNull(operatorDetails);
     }

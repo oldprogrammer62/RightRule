@@ -8,7 +8,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRule()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef = rr.RuleService.BuildRule()
             .Number(1)
@@ -29,7 +29,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -61,7 +61,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_First()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -93,7 +93,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_Any()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -126,7 +126,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_All_Success()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -159,7 +159,7 @@ public class EvaluateTypeTests
     [Fact]
     public void TestEvaluate_ApplyRules_All_Fail()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)

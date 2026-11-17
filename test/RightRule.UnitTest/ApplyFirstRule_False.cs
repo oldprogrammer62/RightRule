@@ -9,7 +9,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_True_Second_False_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -40,7 +40,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_False_Second_True_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -71,7 +71,7 @@ public class ApplyFirstRule_False
     [Fact]
     public void First_False_Second_False_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)

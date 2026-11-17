@@ -9,7 +9,7 @@ public class ExtensionTests
     [Fact]
     public void GetRules_ShouldReturnParsedRules()
     {
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         var rules = rightRule.RuleService.GetRegisteredRules();
 
@@ -22,7 +22,7 @@ public class ExtensionTests
     {
         string specifiedContext = "TestContext";
 
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
 
         var result = rightRule.RuleService.GetRegisteredRules(specifiedContext);
 
@@ -35,7 +35,7 @@ public class ExtensionTests
     public void RegisterRules()
     {
         // Arrange
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
         var rules = new List<DefinedRule>
         {
         };
@@ -50,7 +50,7 @@ public class ExtensionTests
     [Fact]
     public void RegisterRule()
     {
-        IRightRule rightRule = new RightRule.RightRule();
+        var rightRule = new RightRule.RightRule().CreateSession();
         DefinedRule rule = new DefinedRule()
         {
             Context = "TestContext",

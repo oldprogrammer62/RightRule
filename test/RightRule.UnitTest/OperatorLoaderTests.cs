@@ -18,7 +18,7 @@ public class OperatorLoaderTests
     [Fact]
     public void RegisterAll_StartUp()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Assert.NotNull(rr);
         Assert.NotNull(rr.OperatorService.OperatorAliases);

@@ -192,7 +192,7 @@ public sealed class RuleServiceTests
     [Fact]
     public void RegisterRules_ReturnsAllRegistrationsApplyOnlySuccess()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
 
         var definedRule1 = new DefinedRule

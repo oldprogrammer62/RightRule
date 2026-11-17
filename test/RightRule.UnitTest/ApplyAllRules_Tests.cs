@@ -20,7 +20,7 @@ public class ApplyAllRules_Tests
             LoadDefaultOperators = true,
             Diagnostics = true
         };
-        using var rr = new RightRule.RightRule(options);
+        using var rr = new RightRule.RightRule(options).CreateSession();
         rr.DataService.RegisterData(nameof(x), x);
 
         DefinedRule rule1 = new DefinedRule()

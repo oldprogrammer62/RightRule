@@ -7,7 +7,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         Dictionary<string, object> data = new Dictionary<string, object>()
         {
@@ -33,7 +33,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Tuple()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Data1", 9000);
 
@@ -61,7 +61,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_ListOfTuple()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Data1", 9000);
 
@@ -97,7 +97,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Variable()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         int Value = 100;
 
@@ -121,7 +121,7 @@ public class DataStructures_Test
     [Fact]
     public void Dictionary_Variable2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var dataRegResult = rr.DataService.RegisterData("Variable", "Hello World");
 

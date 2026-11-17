@@ -34,7 +34,7 @@ public class RuleTests
     [Fact]
     public void GetRule1()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -50,7 +50,7 @@ public class RuleTests
     [Fact]
     public void GetRule2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -66,7 +66,7 @@ public class RuleTests
     [Fact]
     public void GetRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -85,7 +85,7 @@ public class RuleTests
     [Fact]
     public void GetRules_Indexed()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -107,7 +107,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByName()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -125,7 +125,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByName2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -143,7 +143,7 @@ public class RuleTests
     [Fact]
     public void GetRule_ByNumber()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -161,7 +161,7 @@ public class RuleTests
     [Fact]
     public void DeregisterRule_ByNumber()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
@@ -174,7 +174,7 @@ public class RuleTests
     [Fact]
     public void DeregisterRule_ByName()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         rr.RuleService.RegisterRule(rule1);
         rr.RuleService.RegisterRule(rule2);
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);

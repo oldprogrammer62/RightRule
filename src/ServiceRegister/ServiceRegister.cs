@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using RightRule.DataAdaptors;
 using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
@@ -17,7 +16,6 @@ using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
 using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.LanguageProcessor.Tokenizer;
-using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
@@ -44,25 +42,7 @@ internal sealed class ServiceRegister
 
         services.AddLogging();
 
-        services.AddScoped<IRightRule>(sp =>
-        {
-            var logger = sp.GetRequiredService<ILogger<RightRule>>();
-            var ruleService = sp.GetRequiredService<IRuleService>();
-            var dataService = sp.GetRequiredService<IDataService>();
-            var dataAdaptorService = sp.GetRequiredService<IDataAdaptorService>();
-            var operatorService = sp.GetRequiredService<IOperatorService>();
-            var rightRuleService = sp.GetRequiredService<IRightRuleService>();
-            var options = sp.GetRequiredService<RightRuleOptions>();
-
-            return new RightRule(
-                ruleService,
-                dataService,
-                dataAdaptorService,
-                operatorService,
-                rightRuleService,
-                logger,
-                options);
-        });
+        services.AddScoped<IRightRuleSession>(sp => new RightRuleSession(sp, ownsServiceProvider: false));
 
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
 

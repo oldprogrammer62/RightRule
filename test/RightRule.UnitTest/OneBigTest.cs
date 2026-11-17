@@ -33,7 +33,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_True()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DataRegistrationResult? data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -66,7 +66,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_StdDefaultRule()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -97,7 +97,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_NewDefaultRule()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -137,7 +137,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_DefaultRuleContext2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);
@@ -195,7 +195,7 @@ public class OneBigTest
     [Fact]
     public void ApplyRuleContext_False_NewDefaultRuleContext2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var data1Registration = rr.DataService.RegisterData("data1", data1);
         Assert.NotNull(data1Registration);

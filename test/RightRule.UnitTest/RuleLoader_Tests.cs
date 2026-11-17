@@ -16,7 +16,7 @@ public class RuleLoader_Tests
     [Fact]
     public void Json_DeserializeRuleJson()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
 
         ILogger<RuleLoaderFactory> logger = new FakeLogger<RuleLoaderFactory>();
@@ -39,7 +39,7 @@ public class RuleLoader_Tests
     [Fact]
     public void Json_LoadRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
 
         var json = Template.JsonString();
@@ -58,7 +58,7 @@ public class RuleLoader_Tests
     [Fact]
     public void Json_LoadRules_OnTopOfExistingRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.RuleService);
 
@@ -95,7 +95,7 @@ public class RuleLoader_Tests
             Diagnostics = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.RuleService);
 

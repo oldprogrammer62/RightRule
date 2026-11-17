@@ -13,7 +13,7 @@ public class ExceptionTests
             { "DataItem1", "Value" }
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         
         Assert.Throws<ArgumentException>(() => rr.DataService.RegisterData("", data));
     }
@@ -25,7 +25,7 @@ public class ExceptionTests
         {
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var dataReg = rr.DataService.RegisterData("DatasetName", data);
         Assert.NotNull(dataReg);
@@ -43,7 +43,7 @@ public class ExceptionTests
             Number = 1,
             Statement = "a.b was c.d"
         };
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleReg = rr.RuleService.RegisterRule(rule);
         Assert.NotNull(ruleReg);

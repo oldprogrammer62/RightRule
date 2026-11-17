@@ -12,7 +12,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Int()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         int a = 100;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -35,7 +35,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Dec()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         double a = 100.001;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -58,7 +58,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_String()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         string a = "100";
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -81,7 +81,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Char()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         char a = 'C';
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -104,7 +104,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_Boolean()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         bool a = true;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -127,7 +127,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_BooleanString()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         bool a = true;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -150,7 +150,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_DateTime()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DateTime a = new DateTime(1970, 01, 01, 12, 12, 12);
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -173,7 +173,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_DateOnly()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DateOnly a = new DateOnly(1970, 01, 01);
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -196,7 +196,7 @@ public class DataTypes_Tests
     [Fact]
     public void Equals_TimeOnly()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         TimeOnly a = new TimeOnly(12, 30, 30);
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -226,7 +226,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         int a = 2;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -257,7 +257,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         double a = 2.2;
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -288,7 +288,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         string a = "2";
         var data1Reg = rr.DataService.RegisterData("a", a);
@@ -333,7 +333,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
@@ -369,7 +369,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
         rr.DataService.RegisterData("numbers", numbers);
@@ -409,7 +409,7 @@ public class DataTypes_Tests
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         string name = "Harry";
         rr.DataService.RegisterData("name", name);

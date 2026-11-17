@@ -16,7 +16,7 @@ public class ApplyRules_Async_Tests
             { "field1", "value1" }
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = new DefinedRule()
         {

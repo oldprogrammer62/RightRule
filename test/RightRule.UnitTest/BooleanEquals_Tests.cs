@@ -8,7 +8,7 @@ namespace RightRuleTests;
 public class BooleanEquals_Tests
 {
     Dictionary<string, object> _data = new Dictionary<string, object>();
-    IRightRule rr = new RightRule.RightRule();
+    IRightRuleSession rr = new RightRule.RightRule().CreateSession();
 
     public BooleanEquals_Tests()
     {

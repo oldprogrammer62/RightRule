@@ -31,7 +31,7 @@ public class DataTypesTests_Array
             LoadDefaultOperators = true
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var newRule = rr.RuleService.RegisterRule(rule);
         rr.DataService.RegisterData("number", number);
@@ -52,7 +52,7 @@ public class DataTypesTests_Array
             Diagnostics = true,
             LoadDefaultOperators = true
         };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         int number1 = 1;
         rr.DataService.RegisterData("number", number1);
@@ -84,7 +84,7 @@ public class DataTypesTests_Array
             Diagnostics = true,
             LoadDefaultOperators = true
         };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         int number1 = 1;
         int number2 = 2;
@@ -121,7 +121,7 @@ public class DataTypesTests_Array
             Diagnostics = true,
             LoadDefaultOperators = true
         };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         string s1 = "my";
         string s2 = "name";

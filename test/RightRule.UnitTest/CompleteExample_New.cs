@@ -50,7 +50,7 @@ public class CompleteExample_New
         using var loggingProvider = services.BuildServiceProvider();
         var loggerFactory = loggingProvider.GetRequiredService<ILoggerFactory>();
 
-        using var rr = new RightRule.RightRule(options, loggerFactory);
+        using var rr = new RightRule.RightRule(options, loggerFactory).CreateSession();
 
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";
@@ -142,7 +142,7 @@ public class CompleteExample_New
             LoadDefaultOperators = true
             // options.CustomOperatorLibraryPath = "Hello/world"; // Use default
         };
-        using var rr = new RightRule.RightRule(options);
+        using var rr = new RightRule.RightRule(options).CreateSession();
 
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";

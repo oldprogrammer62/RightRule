@@ -36,7 +36,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Test", _Data);
         var registeredRule = rr.RuleService.RegisterRule(rule1);
@@ -57,7 +57,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Test", _Data);
         var registeredRule = rr.RuleService.RegisterRule(rule1);
@@ -79,7 +79,7 @@ public class DataRegistrationTests
             FalseDecision = "NOTENOUGHORDERS"
         };
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         rr.DataService.RegisterData("Test", _Data);
         var newRule1 = rr.RuleService.RegisterRule(rule1);
@@ -95,7 +95,7 @@ public class DataRegistrationTests
         int x = 100;
         var r = ("r", x);
 
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         var added1 = rr.DataService.RegisterData("r", r);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
 

@@ -8,7 +8,7 @@ public class RuleSerializerTests
     [Fact]
     public void SerializeRules_ReturnsSerializedRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -29,7 +29,7 @@ public class RuleSerializerTests
     [Fact]
     public void SerializeRules_ReturnsSerializedMultipleRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -62,7 +62,7 @@ public class RuleSerializerTests
     [Fact]
     public void SerializeRules_ReturnsSerializedRulesByContext()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -94,7 +94,7 @@ public class RuleSerializerTests
     [Fact]
     public void SerializeRules_ThenLoadRules()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         DefinedRule rule1 = rr.RuleService.BuildRule()
             .Number(1)

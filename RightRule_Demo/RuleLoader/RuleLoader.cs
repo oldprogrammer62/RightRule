@@ -5,7 +5,7 @@ namespace RightRule_Demo.RuleLoader
 {
     internal class RuleLoader
     {
-        internal static List<DefinedRule> Load(IRightRule rr, string Context)
+        internal static List<DefinedRule> Load(IRightRuleSession rr, string Context)
         {
             return new List<DefinedRule>
             {

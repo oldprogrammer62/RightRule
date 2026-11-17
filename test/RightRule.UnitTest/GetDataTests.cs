@@ -18,7 +18,7 @@ namespace RightRuleTests
         [Fact]
         public void GetDataSets()
         {
-            IRightRule rr = new RightRule.RightRule();
+            var rr = new RightRule.RightRule().CreateSession();
 
             var regData1 = rr.DataService.RegisterData("Data1", dictdata);
             Assert.NotNull(regData1);
@@ -27,7 +27,7 @@ namespace RightRuleTests
         [Fact]
         public void GetDataObjects()
         {
-            IRightRule rr = new RightRule.RightRule();
+            var rr = new RightRule.RightRule().CreateSession();
 
             var regData1 = rr.DataService.RegisterData(nameof(a), a);
             var regData2 = rr.DataService.RegisterData(nameof(b), b);
@@ -38,7 +38,7 @@ namespace RightRuleTests
         [Fact]
         public void GetDatas()
         {
-            IRightRule rr = new RightRule.RightRule();
+            var rr = new RightRule.RightRule().CreateSession();
 
             var regData1 = rr.DataService.RegisterData("Data1", dictdata);
 
@@ -54,7 +54,7 @@ namespace RightRuleTests
         [Fact]
         public void ResolveVariables()
         {
-            IRightRule rr = new RightRule.RightRule();
+            var rr = new RightRule.RightRule().CreateSession();
 
             var regData1 = rr.DataService.RegisterData("Data1", dictdata);
 

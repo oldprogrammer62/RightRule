@@ -7,7 +7,7 @@ using RightRule.RuleServices;
 
 namespace RightRule;
 
-public interface IRightRule : IDisposable
+public interface IRightRule : IDisposable, IAsyncDisposable
 {
     IRuleService RuleService { get; }
     IDataService DataService { get; }

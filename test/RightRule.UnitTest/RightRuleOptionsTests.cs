@@ -15,7 +15,7 @@ public class RightRuleOptionsTests
     [Fact]
     public void No_Options()
     {
-        var rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
 
         var optionsFound = rr.RightRuleOptions;
@@ -53,7 +53,7 @@ public class RightRuleOptionsTests
         Assert.True(options.LoadDefaultOperators);
         Assert.Equal(options.CustomOperatorLibraryPath, path);
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
         Assert.NotNull(rr);
 
         var optionsFound = rr.RightRuleOptions;
@@ -91,7 +91,7 @@ public class RightRuleOptionsTests
             LoadCustomOperators = true
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
         Assert.NotNull(rr);
 
         var optionsFound = rr.RightRuleOptions;
@@ -127,7 +127,7 @@ public class RightRuleOptionsTests
             CustomOperatorLibraryPath = customPath
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);
@@ -169,7 +169,7 @@ public class RightRuleOptionsTests
             CustomOperatorLibraryPath = customPath
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);
@@ -211,7 +211,7 @@ public class RightRuleOptionsTests
             LoadDefaultOperators = true
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);
@@ -253,7 +253,7 @@ public class RightRuleOptionsTests
             LoadDefaultOperators = true
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);
@@ -295,7 +295,7 @@ public class RightRuleOptionsTests
             LoadDefaultOperators = false
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);
@@ -337,7 +337,7 @@ public class RightRuleOptionsTests
             LoadDefaultOperators = false
         };
 
-        var rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         Assert.NotNull(options);
         Assert.False(options.DataCheck);

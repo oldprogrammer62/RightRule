@@ -20,7 +20,7 @@ internal class Program
             LoadDefaultOperators = true,
             LoadCustomOperators = true
         };
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         DoCheckProcessAsync(rr).GetAwaiter().GetResult();
 
@@ -28,7 +28,7 @@ internal class Program
         Console.ReadKey();
     }
 
-    private async static Task DoCheckProcessAsync(IRightRule rightRule)
+    private async static Task DoCheckProcessAsync(IRightRuleSession rightRule)
     {
         var statement = DataManager.StatementManager.GetRuleStatement();
         var result = await rightRule.StatementSyntaxCheckAsync(statement).ConfigureAwait(false);

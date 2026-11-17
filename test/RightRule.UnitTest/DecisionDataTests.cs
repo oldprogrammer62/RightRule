@@ -7,7 +7,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_SameOut()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.RuleService.BuildRule()
@@ -36,7 +36,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_DiffOut()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.RuleService.BuildRule()
@@ -62,7 +62,7 @@ public class DecisionDataTests
     [Fact]
     public void DecisionDataIn_LogStatement()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         string dd = "Hello World from Decision";
 
         var rule1 = rr.RuleService.BuildRule()

@@ -10,7 +10,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRule1_SingleMatch_NoResult()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -28,7 +28,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRule2()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var ruleDef1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -46,7 +46,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultRule()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         string context = "Hello";
 
@@ -72,7 +72,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultRuleAndUseIt()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         string context = "Hello";
 
@@ -110,7 +110,7 @@ public class DefaultRule_Tests
     [Fact]
     public void RegisterNewDefaultMoreThanOnce()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         string context1 = "Hello";
         string context2 = "world";
@@ -173,7 +173,7 @@ public class DefaultRule_Tests
     [Fact]
     public void DefaultRuleBuilder_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         string Context = "ContextFromBuilder";
 

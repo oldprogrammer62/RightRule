@@ -12,7 +12,7 @@ public class LoggerTests
     [Fact]
     public void LogTest_New()
     {
-        using var rr = new RightRule.RightRule();
+        using var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -22,7 +22,7 @@ public class LoggerTests
     {
         RightRuleOptions options = new() { LoadDefaultOperators = false };
 
-        using var rr = new RightRule.RightRule(options);
+        using var rr = new RightRule.RightRule(options).CreateSession();
         rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -35,7 +35,7 @@ public class LoggerTests
         services.AddRightRule(options => options.LoadDefaultOperators = false);
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
         rr.DataService.RegisterData("a", 100);
         Assert.False(rr.RightRuleOptions.LoadDefaultOperators);
         Assert.NotNull(rr);
@@ -49,7 +49,7 @@ public class LoggerTests
         services.AddRightRule();
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
         rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -72,7 +72,7 @@ public class LoggerTests
         
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRule>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
 
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerProvider>();
 

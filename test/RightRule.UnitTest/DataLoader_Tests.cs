@@ -10,7 +10,7 @@ public class DataLoader_Tests
     [Fact]
     public void Json_LoadSingleDataset()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 
@@ -33,7 +33,7 @@ public class DataLoader_Tests
     [Fact]
     public void Json_LoadMultipleDataset()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 
@@ -53,7 +53,7 @@ public class DataLoader_Tests
     [Fact]
     public void SerializeThenLoadData_MultipleDatasets()
     {
-        using var rr = new RightRule.RightRule();
+        using var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 
@@ -98,7 +98,7 @@ public class DataLoader_Tests
     [Fact]
     public void SerializeThenLoadData_SingleDatasets()
     {
-        using var rr = new RightRule.RightRule();
+        using var rr = new RightRule.RightRule().CreateSession();
         Assert.NotNull(rr);
         Assert.NotNull(rr.DataService);
 

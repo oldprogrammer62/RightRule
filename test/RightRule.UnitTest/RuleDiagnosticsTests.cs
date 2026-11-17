@@ -8,7 +8,7 @@ public class RuleDiagnosticsTests
     [Fact]
     public void RuleBuilderTest_NoConfig()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -36,7 +36,7 @@ public class RuleDiagnosticsTests
     {
         RightRuleOptions options = new RightRuleOptions();
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)
@@ -66,7 +66,7 @@ public class RuleDiagnosticsTests
             CustomOperatorLibraryPath = string.Empty
         };
 
-        IRightRule rr = new RightRule.RightRule(options);
+        var rr = new RightRule.RightRule(options).CreateSession();
 
         var rule1 = rr.RuleService.BuildRule()
             .Number(1)

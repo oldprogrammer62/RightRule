@@ -7,7 +7,7 @@ public class HelperTests
     [Fact]
     public void ReadFromSettings_Test()
     {
-        IRightRule rr = new RightRule.RightRule();
+        var rr = new RightRule.RightRule().CreateSession();
 
         var setting = rr.RightRuleOptions.CustomOperatorLibraryPath;
 
