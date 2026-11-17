@@ -1,14 +1,44 @@
 ## RightRule overview
 
-RightRule is a .NET rules engine for externalizing business decisions. A typical session is to create a `RightRule` instance, register data and rules, apply the rules for a context, use the returned decision, then dispose the instance.  
-RightRule can be instantiated directly with new RightRule() (which creates and owns its service provider), or registered as a scoped service in an application’s IServiceCollection using AddRightRule() and resolved from the application’s service provider.
-
+RightRule is a .NET rules engine for externalizing business decisions. 
 The basic steps for using RightRule are:  
 - Register Data(s)
 - Register Rules
 - Apply Rules
 - Obtain result
 - Act on the result
+
+## Creating and disposing a RightRule session
+RightRule is a factory configured with RightRuleOptions and an ILoggerFactory. Call CreateSession() to create an IRightRuleSession.
+Each session has its own registered data and rules.
+For manual construction, dispose the session—not the factory. The session owns its service provider and disposes it when the session is disposed.
+
+```csharp
+var factory = new RightRule(options, loggerFactory);
+await using var session = factory.CreateSession();
+session.DataService.RegisterData("Demo", data);
+session.RuleService.RegisterRules(rules);
+var result = await session.RuleService.ApplyRuleAsync("Demo");
+```
+
+When using host dependency injection, call AddRightRule() and resolve IRightRuleSession from a DI scope.
+The session uses the host’s scoped services and does not own or dispose the host’s service provider.
+Dispose the scope to end the session and release its services.
+
+```csharp
+services.AddRightRule();
+await using var scope = serviceProvider.CreateAsyncScope();
+var session = scope.ServiceProvider.GetRequiredService<IRightRuleSession>();
+session.DataService.RegisterData("Demo", data);
+session.RuleService.RegisterRules(rules);
+var result = await session.RuleService.ApplyRuleAsync("Demo");
+```
+
+AddRightRule() registers the session and its services as scoped. 
+Use one scope per independent session; 
+If you need multiple independent sessions at once, create a separate scope for each. 
+ServiceRegister is an internal implementation detail, not the registration API for host applications.
+
 
 ### Data providers and Data registration
 
@@ -17,7 +47,7 @@ Rules evaluate against data registered with RightRule. A rule can refer to a val
 `RegisterData<T>(datasetName, data)` accepts input through a Data Adaptor. Built-in adaptors handle dictionaries, strings, tuples, lists of tuples, and objects.
   
 For other application-specific data types, the library user can implement and register an `IDataAdaptor<TInput>` that converts the input into RightRule’s dataset-and-items structure. This lets the application decide how its data is shaped for rules.  
-`DataAdaptorRegistrationResult? dataAdaptorResult = rr.RegisterDataAdaptor(dataAdaptor);`
+`DataAdaptorRegistrationResult? dataAdaptorResult = rr.DataAdaptorService.RegisterDataAdaptor(dataAdaptor);`
 
 
 Data can be registered as follows:
@@ -48,7 +78,7 @@ Custom operators extend the operators available in rule statements. An operator 
 
 Custom operators can be loaded automatically from a JSON configuration that lists operator assembly paths. RightRule’s library configuration provides the default configuration path, and `RightRuleOptions` can control whether default or custom operators are loaded and can override the custom-operator path. Alternatively, an application can load or construct an operator itself and register it through the RightRule API. The operator’s aliases then become available for use in rule statements.
 
-`OperatorRegistrationResult? registered = rr.RegisterOperator(op);`
+`OperatorRegistrationResult? registered = rr.OperatorService.RegisterOperator(op);`
 
 ### Applying rules and decisions
 
@@ -60,11 +90,11 @@ Define a rule object:
 `DefinedRule rule = new DefinedRule() {...}`
 
 Register the rule:  
-`RuleRegistrationResult? ruleRegistered = rr.RegisterRule(rule);`
+`RuleRegistrationResult? ruleRegistered = rr.RuleService.RegisterRule(rule);`
 
 Or a fluent builder can be used to build and register the rule.  
 ```plaintext
-RuleRegistrationResult? rule = rr.BuildRule()
+RuleRegistrationResult? rule = rr.RuleService.BuildRule()
      .Number(1)
      .Name("Rule1")
      .Context("ContextWord")
@@ -85,11 +115,11 @@ The caller can also choose how rule results are returned:
 - **ALL** returns all applied rules only when every rule succeeds; otherwise it returns the default rule.
 
 Examples are:  
-`RightRuleResult<IProcessedRule>? result = rr.ApplyRule("ContextWord");`  
+`RightRuleResult<IProcessedRule>? result = rr.RuleService.ApplyRule("ContextWord");`  
   
-`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.FIRST);`  
-`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ANY);`  
-`List<RightRuleResult<IProcessedRule>>? result = rr.ApplyRules("ContextWord", EvaluationTypeEnum.ALL);`
+`List<RightRuleResult<IProcessedRule>>? result = rr.RuleService.ApplyRules("ContextWord", EvaluationTypeEnum.FIRST);`  
+`List<RightRuleResult<IProcessedRule>>? result = rr.RuleService.ApplyRules("ContextWord", EvaluationTypeEnum.ANY);`  
+`List<RightRuleResult<IProcessedRule>>? result = rr.RuleService.ApplyRules("ContextWord", EvaluationTypeEnum.ALL);`
 
 Rules are ordered by rule number, from low to high. A result includes the decision and may include **decision data**.
   

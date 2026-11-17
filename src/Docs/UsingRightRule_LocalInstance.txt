@@ -22,5 +22,5 @@
         // CustomOperatorLibraryPath = ""
     };
 
-    using var rr = new RightRule.RightRule(options, loggerFactory);
+    using var rr = new RightRule.RightRule(options, loggerFactory).CreateSession();
 

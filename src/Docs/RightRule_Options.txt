@@ -37,7 +37,7 @@ RightRuleOptions options = new RightRuleOptions()
     LoadCustomOperators = true,
     CustomOperatorLibraryPath = ""
 };
-var rr = new RightRule.RightRule(options);
+var rr = new RightRule.RightRule(options).CreateSession();
 
 Or...
 

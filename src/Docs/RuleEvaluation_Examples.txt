@@ -1,6 +1,6 @@
 ﻿### Rule Evaluation Methods
 
-RightRuleResult<IProcessedRule> result = rr.ApplyRule("Context");
+RightRuleResult<IProcessedRule> result = rr.RuleService.ApplyRule("Context");
 
 Which registered data will be available? ALL
 Which rules will be applied? All registered rules for the specified "Context".
@@ -10,7 +10,7 @@ A single rule will be returned that is either:
 - Or, the default rule for the Context.
 
 
-List<RightRuleResult<IProcessedRule>> result = rr.ApplyRules("Context", EvaluationTypeEnum.ANY);
+List<RightRuleResult<IProcessedRule>> result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
 Which registered data will be available? ALL
 Which rules will be applied? All registered rules for the specified "Context".

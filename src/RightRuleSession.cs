@@ -21,7 +21,7 @@ internal sealed partial class RightRuleSession : IRightRuleSession
     public IRuleService RuleService { get; }
     public IDataService DataService { get; }
     public IDataAdaptorService DataAdaptorService { get; }
-    public IOperatorService? OperatorService { get; }
+    public IOperatorService OperatorService { get; }
     public RightRuleOptions RightRuleOptions { get; }
 
     private readonly ILogger<RightRuleSession> _logger;

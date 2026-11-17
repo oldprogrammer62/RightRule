@@ -7,7 +7,7 @@ its lifetime; dispose it when the session is finished.
 C# example
 ----------
 
-using var rr = new RightRule.RightRule();
+using var rr = new RightRule.RightRule().CreateSession();
 string json = """
 [
   {

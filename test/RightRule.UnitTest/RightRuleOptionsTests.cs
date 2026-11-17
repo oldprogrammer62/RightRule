@@ -185,11 +185,13 @@ public class RightRuleOptionsTests
         Assert.False(optionsFound.Diagnostics);
         Assert.True(optionsFound.LoadCustomOperators);
         Assert.True(optionsFound.LoadDefaultOperators);
-        Assert.Equal(optionsFound.CustomOperatorLibraryPath, customPath);
 
-        // This confirms the Operators were not loaded
-        // Empty Path to the Operator Library
-        Assert.Equal(7, rr?.OperatorService.Operators.Count ?? 0);
+        // Copnfigured path should be set to the default path, not empty
+        Assert.NotEqual(optionsFound.CustomOperatorLibraryPath, customPath);
+
+        // This confirms the Operators were loaded
+        // Via the default path to the Operator Library
+        Assert.Equal(10, rr.OperatorService.Operators.Count);
     }
 
     [Fact]

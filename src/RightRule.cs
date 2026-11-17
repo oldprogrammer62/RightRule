@@ -1,26 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
 using RightRule.Models;
 
 namespace RightRule;
 
-/// <summary>
-/// Main RightRule class
-/// Provides all public entry points to the RightRule system
-/// </summary>
 public sealed partial class RightRule
 {
     private readonly RightRuleOptions _options;
     private readonly ILoggerFactory _loggerFactory;
 
-    /// <summary>
-    /// Parameterless constructor
-    /// Called by: new RightRule();
-    /// Service Provider DI Container is hosted by RightRule
-    /// Service Provider DI Container will be disposed when RightRule is disposed
-    /// </summary>
     public RightRule() : 
         this(new RightRuleOptions(), NullLoggerFactory.Instance)
     {

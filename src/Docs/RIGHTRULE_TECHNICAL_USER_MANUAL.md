@@ -23,7 +23,7 @@ Important decisions when implementing RightRule in your application:
 
 Implementing RightRule in your application.
 
-1. Initialise RightRule.
+1. Initialise RightRule Session.
 2. Register Data. Data can be registered at any point in the RightRule life. At startup, when the data exists, when the rules are evaluated.
 3. Register Rules. Rules are registered as a RuleDefinition object, returned as a ParsedRule object.
 4. Call RightRule to evaluate Rules for a specified Context.
@@ -52,7 +52,7 @@ Dictionary<string, object> _Data = new Dictionary<string, object>(StringComparer
    { "attribute3", false },
    { "attribute4", 17 }
 };
-IRightRule rr = new RightRule.RightRule();
+var rr = new RightRule.RightRule().CreateSession();
 bool registered = rr.DataService.RegisterData("dataset1", _Data);
 ```
 
@@ -60,13 +60,13 @@ bool registered = rr.DataService.RegisterData("dataset1", _Data);
 
 ```csharp
 int x = 100; // Intrinsic type
-IRightRule rr = new RightRule.RightRule();
+var rr = new RightRule.RightRule().CreateSession();
 var attribute5 = rr.DataService.RegisterData("x", x);
 ```
 
 ```csharp
 var xtype = new xtype(); // Where xtype is a custom type defined with properties for name and a value
-IRightRule rr = new RightRule.RightRule();
+var rr = new RightRule.RightRule().CreateSession();
 var attribute5 = rr.DataService.RegisterData("xtype", x);
 ```
 

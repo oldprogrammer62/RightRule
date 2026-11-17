@@ -1,6 +1,6 @@
 ﻿
 Using a custom Data Adaptor
-        DataAdaptorRegistrationResult daResult = rr.RegisterDataAdaptor(new BespokeDataAdaptor());
+        DataAdaptorRegistrationResult daResult = rr.DataAdaptorService.RegisterDataAdaptor(new BespokeDataAdaptor());
         BespokeClass input = new BespokeClass();
         DataRegistrationResult drResult = rr.DataService.RegisterData("DS_Name", input);
 

@@ -12,7 +12,7 @@ Returns additional, context-specific information that the calling application ca
 
 Initialise a Rule Definition and Register
 -----------------------------------------
-IRightRule rr = new RightRule.RightRule();
+var rr = new RightRule.RightRule().CreateSession();
 
 RuleDefinition rule = new()
 {
@@ -26,13 +26,13 @@ RuleDefinition rule = new()
     FalseDecisionData = null,
     OptionalData = null
 };
-RuleRegistrationResult rule1 = rr.RegisterRule(rule);
+RuleRegistrationResult rule1 = rr.RuleService.RegisterRule(rule);
 
 
 Build a Rule Definition and Register
 ------------------------------------
-IRightRule rr = new RightRule.RightRule();
-RuleDefinition rule = rr.BuildRule()
+var rr = new RightRule.RightRule().CreateSession();
+RuleDefinition rule = rr.RuleService.BuildRule()
    .Number(1)
    .Name("Rule1")
    .Context("Context")
