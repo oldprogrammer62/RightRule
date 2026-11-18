@@ -6,15 +6,19 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
+using System.Diagnostics;
 
 namespace RightRule.RightRuleSession;
 
-internal sealed partial class RightRuleSession : IRightRuleSession
+public sealed partial class RightRuleSession : IRightRuleSession
 {
-    private readonly IServiceProvider _serviceProvider;
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IRightRuleService _rightRuleService;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly bool _ownsServiceProvider;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)] 
     private int _disposeState;
 
     public IRuleService RuleService { get; }
@@ -23,7 +27,13 @@ internal sealed partial class RightRuleSession : IRightRuleSession
     public IOperatorService OperatorService { get; }
     public RightRuleOptions RightRuleOptions { get; }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private readonly IServiceProvider _serviceProvider;
+    public IServiceProvider ServiceProvider => _serviceProvider;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger<RightRuleSession> _logger;
+    public ILogger<RightRuleSession> Logger => _logger;
 
     internal RightRuleSession(IServiceProvider serviceProvider, bool ownsServiceProvider)
     {

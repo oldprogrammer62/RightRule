@@ -1,16 +1,21 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using RightRule.DataAdaptors.DataAdaptors;
 using RightRule.System.Common.DataAdaptor;
+using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace RightRule.DataAdaptors.DataAdaptorLibrary;
 
 internal sealed class DataAdaptorLibraryManager : IDataAdaptorLibraryManager
 {
-    private readonly ConcurrentDictionary<Type, IDataAdaptor> _activeDataMappings = new();
-    public IEnumerable<Type> RegisteredDataAdaptors => [.. _activeDataMappings.Keys];
-
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger<DataAdaptorLibraryManager> _logger;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private readonly ConcurrentDictionary<Type, IDataAdaptor> _activeDataMappings = new();
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    public IEnumerable<Type> RegisteredDataAdaptors => [.. _activeDataMappings.Keys];
 
     /// <summary>
     /// Register the default data providers for Dictionary, String, and Object types.

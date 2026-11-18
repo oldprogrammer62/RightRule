@@ -2,7 +2,7 @@
 
 namespace RightRule.RightRuleSession;
 
-internal sealed partial class RightRuleSession : IRightRuleSession
+public sealed partial class RightRuleSession : IRightRuleSession
 {
     /// <summary>
     /// Syntax check a Rule Statement to ensure it is valid and can be parsed.

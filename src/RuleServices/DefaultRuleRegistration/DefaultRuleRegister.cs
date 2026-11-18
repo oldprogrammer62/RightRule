@@ -1,13 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using RightRule.RuleServices.RuleModels;
+using System.Diagnostics;
 
 namespace RightRule.RuleServices.DefaultRuleRegistration;
 
 internal sealed class DefaultRuleRegister : IDefaultRuleRegister
 {
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger<DefaultRuleRegister> _logger;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private DefaultRule DefaultRule { get; }
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private List<DefaultRulePerContext> DefaultRules {  get; }
 
     public DefaultRuleRegister(ILogger<DefaultRuleRegister> logger)

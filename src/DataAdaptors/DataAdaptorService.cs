@@ -1,10 +1,12 @@
 ﻿using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.System.Common.DataAdaptor;
+using System.Diagnostics;
 
 namespace RightRule.DataAdaptors;
 
 internal sealed class DataAdaptorService : IDataAdaptorService
 {
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataAdaptorLibraryManager _dataProviderLibraryManager;
 
     public IEnumerable<Type> RegisteredDataAdaptors => _dataProviderLibraryManager.RegisteredDataAdaptors;

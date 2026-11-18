@@ -69,10 +69,11 @@ public sealed partial class RightRule : IRightRule
     private static ServiceProvider InitialiseServiceProvider(RightRuleOptions options, ILoggerFactory loggerFactory)
     {
         var services = new ServiceCollection();
+
         services.AddSingleton(options);
         services.AddSingleton<ILoggerFactory>(loggerFactory);
-        ServiceRegister.ServiceRegister.RegisterServices(services);
 
+        ServiceRegister.ServiceRegister.RegisterServices(services);
         return services.BuildServiceProvider();
     }
 }

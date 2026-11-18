@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace RightRuleLogger;
 
+[ProviderAlias("RightRuleLogger")]
 public class RightRuleLoggerProvider : ILoggerProvider
 {
     private readonly IConfiguration? _configuration;

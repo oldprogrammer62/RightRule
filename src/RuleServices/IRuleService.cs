@@ -12,6 +12,7 @@ namespace RightRule.RuleServices;
 public interface IRuleService
 {
     IRegisteredRules RegisteredRules { get; }
+    List<DefaultRulePerContext> DefaultRules { get; }
 
     INumberStep BuildRule();
 

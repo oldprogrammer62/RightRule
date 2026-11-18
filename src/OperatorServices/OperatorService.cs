@@ -3,20 +3,27 @@ using RightRule.OperatorServices.OperatorLoader;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.System.Common.Operator.Models;
+using System.Diagnostics;
 
 namespace RightRule.OperatorServices;
 
 internal sealed partial class OperatorService : IOperatorService, IDisposable
 {
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private List<Operator> _operators;
     public List<Operator> Operators { get { return _operators; } }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private Dictionary<string, Operator> _operatorAliases;
     public Dictionary<string, Operator> OperatorAliases { get { return _operatorAliases; } }
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly RightRuleOptions _options;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDefaultOperatorLoader _defaultOperatorLoader;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ICustomOperatorLoader _customOperatorLoader;
 
     public OperatorService(

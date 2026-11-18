@@ -4,18 +4,29 @@ using RightRule.DataServices.Data;
 using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
+using System.Diagnostics;
 
 namespace RightRule.DataServices;
 
 internal sealed partial class DataService : IDataService
 {
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private List<Dataset> _datasets;
     public List<Dataset> RegisteredDatasets => _datasets;
 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger<DataService> _logger;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataValidatorService _dataValidator;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataSerializerService _dataSerializerService;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataLoaderService _dataLoaderService;
+
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataAdaptorService _dataAdaptorService;
 
     public DataService(IDataValidatorService dataValidator, IDataSerializerService dataSerializerService, IDataLoaderService dataLoaderService, IDataAdaptorService dataAdaptorService, ILogger<DataService> logger)
