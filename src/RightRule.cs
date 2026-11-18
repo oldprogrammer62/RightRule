@@ -5,7 +5,7 @@ using RightRule.Models;
 
 namespace RightRule;
 
-public sealed partial class RightRule
+public sealed partial class RightRule : IRightRule
 {
     private readonly RightRuleOptions _options;
     private readonly ILoggerFactory _loggerFactory;

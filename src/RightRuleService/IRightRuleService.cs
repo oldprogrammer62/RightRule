@@ -2,7 +2,7 @@
 
 namespace RightRule.RightRuleService;
 
-public interface IRightRuleService
+internal interface IRightRuleService
 {
     Task<CheckStatementResult> SyntaxCheckAsync(string Statement);
 }
