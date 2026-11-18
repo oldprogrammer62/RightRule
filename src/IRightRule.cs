@@ -1,4 +1,6 @@
-﻿namespace RightRule;
+﻿using RightRule.RightRuleSession;
+
+namespace RightRule;
 
 internal interface IRightRule
 {

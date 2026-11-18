@@ -35,7 +35,7 @@ public class LoggerTests
         services.AddRightRule(options => options.LoadDefaultOperators = false);
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
         rr.DataService.RegisterData("a", 100);
         Assert.False(rr.RightRuleOptions.LoadDefaultOperators);
         Assert.NotNull(rr);
@@ -49,7 +49,7 @@ public class LoggerTests
         services.AddRightRule();
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
         rr.DataService.RegisterData("a", 100);
         Assert.NotNull(rr);
     }
@@ -72,7 +72,7 @@ public class LoggerTests
         
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerProvider>();
 

@@ -7,7 +7,7 @@ using RightRule.OperatorServices;
 using RightRule.RightRuleService;
 using RightRule.RuleServices;
 
-namespace RightRule;
+namespace RightRule.RightRuleSession;
 
 internal sealed partial class RightRuleSession : IRightRuleSession
 {

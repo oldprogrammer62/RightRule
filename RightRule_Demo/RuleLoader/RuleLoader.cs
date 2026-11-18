@@ -1,4 +1,4 @@
-﻿using RightRule;
+﻿using RightRule.RightRuleSession;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule_Demo.RuleLoader

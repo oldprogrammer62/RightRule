@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RightRule.Models;
+using RightRule.RightRuleSession;
 
 namespace RightRule;
 
@@ -56,7 +57,7 @@ public sealed partial class RightRule : IRightRule
         var provider = InitialiseServiceProvider(sessionOptions, _loggerFactory);
         try
         {
-            return new RightRuleSession(provider, ownsServiceProvider: true);
+            return new RightRuleSession.RightRuleSession(provider, ownsServiceProvider: true);
         }
         catch
         {

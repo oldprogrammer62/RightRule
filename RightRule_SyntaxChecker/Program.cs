@@ -1,6 +1,6 @@
-﻿using RightRule;
-using RightRule.LanguageProcessor.SyntaxChecker;
+﻿using RightRule.LanguageProcessor.SyntaxChecker;
 using RightRule.Models;
+using RightRule.RightRuleSession;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRule_SyntaxChecker;

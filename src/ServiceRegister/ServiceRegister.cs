@@ -20,6 +20,7 @@ using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.RightRuleService;
+using RightRule.RightRuleSession;
 using RightRule.RuleServices;
 using RightRule.RuleServices.DefaultRuleRegistration;
 using RightRule.RuleServices.RuleApplication;
@@ -42,7 +43,7 @@ internal sealed class ServiceRegister
 
         services.AddLogging();
 
-        services.AddScoped<IRightRuleSession>(sp => new RightRuleSession(sp, ownsServiceProvider: false));
+        services.AddScoped<IRightRuleSession>(sp => new RightRuleSession.RightRuleSession(sp, ownsServiceProvider: false));
 
         services.AddScoped<IRightRuleService, RightRuleService.RightRuleService>();
 

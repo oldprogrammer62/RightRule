@@ -14,7 +14,7 @@ public class OperatorLoadOptionsTests_DI
         services.AddRightRule();
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         Assert.NotNull(rr);
 
@@ -52,7 +52,7 @@ public class OperatorLoadOptionsTests_DI
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         Assert.NotNull(rr);
 
@@ -86,7 +86,7 @@ public class OperatorLoadOptionsTests_DI
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         Assert.NotNull(rr);
 

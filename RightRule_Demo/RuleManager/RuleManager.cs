@@ -1,6 +1,7 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
 using RightRule.Models;
+using RightRule.RightRuleSession;
 using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleModels.BaseModels;
 

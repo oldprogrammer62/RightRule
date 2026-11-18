@@ -1,6 +1,6 @@
 ﻿using RightRule.LanguageProcessor.SyntaxChecker;
 
-namespace RightRule;
+namespace RightRule.RightRuleSession;
 
 internal sealed partial class RightRuleSession : IRightRuleSession
 {

@@ -59,7 +59,7 @@ public class RightRuleConstructionTests
 
         using var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var sut = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var sut = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         Assert.False(sut.RightRuleOptions.LoadCustomOperators);
         Assert.False(sut.RightRuleOptions.LoadDefaultOperators);

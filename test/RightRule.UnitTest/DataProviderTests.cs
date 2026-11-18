@@ -27,7 +27,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         var input = new Dictionary<string, object>
         {
@@ -58,7 +58,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         string input = "HelloWorld";
         var result = rr.DataService.RegisterData<string>("DS_Name", input);
@@ -84,7 +84,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         int input = 1023;
         var result = rr.DataService.RegisterData("DS_Name", input);
@@ -110,7 +110,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         var dataAdaptor = new BespokeDataAdaptor();
         DataAdaptorRegistrationResult? dataAdaptorResult = rr.DataAdaptorService.RegisterDataAdaptor(dataAdaptor);
@@ -146,7 +146,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         rr.DataService.RegisterData<Dictionary<string, object>>("DS_Name", input);
     }
@@ -174,7 +174,7 @@ public class DataProviderTests
 
         var serviceProvider = services.BuildServiceProvider();
         using var scope = serviceProvider.CreateScope();
-        var rr = scope.ServiceProvider.GetRequiredService<RightRule.IRightRuleSession>();
+        var rr = scope.ServiceProvider.GetRequiredService<RightRule.RightRuleSession.IRightRuleSession>();
 
         var DataProviderRegResult = rr.DataAdaptorService.RegisterDataAdaptor(new BespokeDataAdaptor());
 

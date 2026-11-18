@@ -5,7 +5,7 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.RuleServices;
 
-namespace RightRule;
+namespace RightRule.RightRuleSession;
 
 public interface IRightRuleSession : IDisposable, IAsyncDisposable
 {

@@ -1,4 +1,4 @@
-﻿using RightRule;
+﻿using RightRule.RightRuleSession;
 using System.Text;
 
 namespace RightRuleTests;
