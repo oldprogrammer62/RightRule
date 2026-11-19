@@ -18,6 +18,8 @@ internal sealed partial class RuleService : IRuleService
     private readonly IRegisteredRules _registeredRules;
     public IRegisteredRules RegisteredRules => _registeredRules;
 
+    public List<string> RuleContexts => GetRuleContexts();
+
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly RightRuleOptions _options;
 

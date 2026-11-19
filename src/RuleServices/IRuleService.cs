@@ -13,6 +13,7 @@ public interface IRuleService
 {
     IRegisteredRules RegisteredRules { get; }
     List<DefaultRulePerContext> DefaultRules { get; }
+    List<string> RuleContexts { get; }
 
     INumberStep BuildRule();
 
@@ -21,9 +22,9 @@ public interface IRuleService
     ParsedRule? GetRegisteredRule(string Context, string RuleName);
     ParsedRule? GetRegisteredRule(string Context, int RuleNumber);
 
-    List<string>? GetRuleContexts();
-    List<(int Number, string Name)>? GetRuleNumbers(string Context);
-    List<string>? GetRuleNames(string Context);
+    List<string> GetRuleContexts();
+    List<(int Number, string Name)> GetRuleNumbers(string Context);
+    List<string> GetRuleNames(string Context);
 
     List<RuleRegistrationResult> RegisterRules(IEnumerable<DefinedRule> Rules);
     RuleRegistrationResult RegisterRule(DefinedRule Rule);

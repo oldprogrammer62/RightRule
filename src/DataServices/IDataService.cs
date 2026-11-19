@@ -8,7 +8,8 @@ public interface IDataService
     DataRegistrationResult RegisterData<T>(string DatasetName, T Data) where T : notnull;
     
     List<Dataset> RegisteredDatasets { get; }
-    
+    List<string> DataSetNames { get; }
+
     List<string> GetDataSetNames();
 
     List<Dataset> GetRegisteredData();
@@ -18,9 +19,10 @@ public interface IDataService
     bool DeRegisterData(string DatasetName);
 
     DataItem? GetDataItem(string DatasetName, string DataItemName);
-    List<string>? GetDataItemNames(string DatasetName);
-    List<string>? GetDataItemNames(Dataset Dataset);
     object? GetDataItemValue(string DatasetName, string DataItemName);
+
+    List<string> GetDataItemNames(string DatasetName);
+    List<string> GetDataItemNames(Dataset Dataset);
 
     string SerializeData();
     string SerializeData(string DatasetName);

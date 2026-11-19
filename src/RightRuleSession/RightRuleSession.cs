@@ -22,9 +22,13 @@ public sealed partial class RightRuleSession : IRightRuleSession
     private int _disposeState;
 
     public IRuleService RuleService { get; }
+
     public IDataService DataService { get; }
+
     public IDataAdaptorService DataAdaptorService { get; }
+
     public IOperatorService OperatorService { get; }
+
     public RightRuleOptions RightRuleOptions { get; }
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -58,9 +62,7 @@ public sealed partial class RightRuleSession : IRightRuleSession
         LogOptions(_logger, RightRuleOptions);
     }
 
-    private static void LogOptions(
-    ILogger<RightRuleSession> logger,
-    RightRuleOptions options)
+    private static void LogOptions(ILogger<RightRuleSession> logger, RightRuleOptions options)
     {
         if (!logger.IsEnabled(LogLevel.Information))
             return;

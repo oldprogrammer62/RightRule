@@ -56,6 +56,38 @@ public class CompleteExample_DI
         Assert.Equal(options.LoadDefaultOperators, loadedOptions.LoadDefaultOperators);
 
         Assert.Equal(options.LoadCustomOperators, loadedOptions.LoadCustomOperators);
+
+        var rule1 = rr.RuleService.BuildRule()
+            .Number(1)
+            .Name("TestRule")
+            .Context("TestContext1")
+            .Statement("a = 50")
+            .TrueDecision("Pass")
+            .FalseDecision("Fail")
+            .Build()
+            .Register(rr.RuleService);
+
+        var rule2 = rr.RuleService.BuildRule()
+            .Number(2)
+            .Name("TestRule2")
+            .Context("TestContext2")
+            .Statement("a = 50")
+            .TrueDecision("Pass")
+            .FalseDecision("Fail")
+            .Build()
+            .Register(rr.RuleService);
+
+        var rule3 = rr.RuleService.BuildRule()
+            .Number(3)
+            .Name("TestRule3")
+            .Context("TestContext3")
+            .Statement("a = 50")
+            .TrueDecision("Pass")
+            .FalseDecision("Fail")
+            .Build()
+            .Register(rr.RuleService);
+
+        Assert.Equal(3, rr.RuleService.GetRegisteredRules().Count);
     }
 
     [Fact]

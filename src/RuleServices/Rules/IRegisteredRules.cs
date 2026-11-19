@@ -18,6 +18,6 @@ public interface IRegisteredRules
     bool RemoveRule(string Context, int RuleNumber);
 
     List<string> GetRuleContexts();
-    List<string>? GetRuleNames(string Context);
-    List<(int Number, string Name)>? GetRuleNumbers(string Context);
+    List<string> GetRuleNames(string Context);
+    List<(int Number, string Name)> GetRuleNumbers(string Context);
 }

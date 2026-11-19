@@ -1,6 +1,5 @@
 ﻿using RightRule.RuleServices.RuleModels;
 using RightRule.RuleServices.RuleRegistration;
-using System.Runtime.CompilerServices;
 
 namespace RightRule.RuleServices.Rules;
 
@@ -113,11 +112,11 @@ internal sealed class RegisteredRules : IRegisteredRules
         }
     }
 
-    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
+    public List<(int Number, string Name)> GetRuleNumbers(string Context)
     {
         if (string.IsNullOrWhiteSpace(Context))
         {
-            return null;
+            return [];
         }
         var query = _rules.Where(r => 
             string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));
@@ -128,11 +127,11 @@ internal sealed class RegisteredRules : IRegisteredRules
             .ToList();
     }
 
-    public List<string>? GetRuleNames(string Context)
+    public List<string> GetRuleNames(string Context)
     {
         if (string.IsNullOrWhiteSpace(Context))
         {
-            return null;
+            return [];
         }
         var query = _rules.Where(r =>
             string.Equals(r.Context, Context, StringComparison.OrdinalIgnoreCase));

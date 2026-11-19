@@ -29,7 +29,7 @@ internal sealed partial class DataService : IDataService
         return null;
     }
 
-    public List<string>? GetDataItemNames(string DatasetName)
+    public List<string> GetDataItemNames(string DatasetName)
     {
         var dataset = GetRegisteredData(DatasetName);
         if (dataset == null)
@@ -39,7 +39,7 @@ internal sealed partial class DataService : IDataService
         return GetDataItemNames(dataset);
     }
 
-    public List<string>? GetDataItemNames(Dataset Dataset)
+    public List<string> GetDataItemNames(Dataset Dataset)
     {
         var names = Dataset.GetDataItemNames();
         if (_logger.IsEnabled(LogLevel.Debug))
@@ -48,7 +48,7 @@ internal sealed partial class DataService : IDataService
                 names?.Count ?? 0,
                 Dataset.DatasetName);
         }
-        return names;
+        return names ?? [];
     }
 
     public List<string> GetDataSetNames()

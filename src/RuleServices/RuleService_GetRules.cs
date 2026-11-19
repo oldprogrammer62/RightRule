@@ -4,18 +4,18 @@ namespace RightRule.RuleServices;
 
 internal sealed partial class RuleService : IRuleService
 {
-    public List<string>? GetRuleContexts()
+    public List<string> GetRuleContexts()
     {
         return RegisteredRules.GetRuleContexts();
     }
 
-    public List<(int Number, string Name)>? GetRuleNumbers(string Context)
+    public List<(int Number, string Name)> GetRuleNumbers(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.GetRuleNumbers(Context);
     }
 
-    public List<string>? GetRuleNames(string Context)
+    public List<string> GetRuleNames(string Context)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(Context, nameof(Context));
         return RegisteredRules.GetRuleNames(Context);

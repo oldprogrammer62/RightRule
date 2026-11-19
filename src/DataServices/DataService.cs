@@ -14,6 +14,8 @@ internal sealed partial class DataService : IDataService
     private List<Dataset> _datasets;
     public List<Dataset> RegisteredDatasets => _datasets;
 
+    public List<string> DataSetNames => GetDataSetNames();
+
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger<DataService> _logger;
 
