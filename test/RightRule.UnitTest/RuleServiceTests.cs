@@ -326,6 +326,19 @@ public sealed class RuleServiceTests
         };
 
         public RuleValidationResult ValidateRule(DefinedRule rule) => Result;
+
+        public bool ValidateRules(RuleService ruleService, List<DefinedRule> rules)
+        {
+            foreach (var rule in rules)
+            {
+                var validationResult = ValidateRule(rule);
+                if (validationResult.Valid != RightRuleStatusEnum.SUCCESS)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     private sealed class StubParseRuleService : IParseRuleService

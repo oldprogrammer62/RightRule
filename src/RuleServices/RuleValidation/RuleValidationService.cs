@@ -4,8 +4,31 @@ using System.Text;
 
 namespace RightRule.RuleServices.RuleValidation;
 
-internal class RuleValidationService : IRuleValidationService
+internal sealed class RuleValidationService : IRuleValidationService
 {
+    public bool ValidateRules(RuleService ruleService, List<DefinedRule> rules)
+    {
+        if (rules == null)
+        {
+            return false;
+        }
+        if (rules.Count == 0)
+        {
+            return true;
+        }
+        bool valid = true;
+        foreach (var rule in rules)
+        {
+            var validationResult = ValidateDefinedRule(rule);
+            if (!validationResult.Valid.Equals(Models.RightRuleStatusEnum.SUCCESS))
+            {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
+    }
+
     public RuleValidationResult ValidateRule(DefinedRule rule)
     {
         return ValidateDefinedRule(rule);
