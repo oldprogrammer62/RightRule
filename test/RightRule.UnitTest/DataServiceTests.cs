@@ -6,25 +6,33 @@ using RightRule.DataServices.DataLoader;
 using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
 using RightRule.Factories.DataLoaderFactory;
+using System.Reflection;
 
 namespace RightRuleTests;
 
 public class DataServiceTests
 {
-    private static DataService CreateService() =>
-        new
-        (
-            new DataValidatorService(), 
-            new DataSerializerService(), 
-            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())), 
+    private static DataService CreateDataService()
+    {
+        IDataService? service = null;
+        var proxy = DispatchProxy.Create<IDataService, ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target = () => service!;
+
+        service = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
             new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
-            new FakeLogger<DataService>()
-        );
+            new FakeLogger<DataService>());
+
+        return (DataService)service;
+    }
 
     [Fact]
     public void AddData_OverloadsAddItemsToTheSameDataset()
     {
-        var service = CreateService();
+        var service = CreateDataService();
 
         var dataset = service.AddData(
             "Customer",
@@ -46,7 +54,7 @@ public class DataServiceTests
     [Fact]
     public void GetDataItem_IsCaseInsensitiveForItemName()
     {
-        var service = CreateService();
+        var service = CreateDataService();
         service.AddData("Customer", "Name", "Ada");
 
         var item = service.GetDataItem("Customer", "NAME");
@@ -59,7 +67,7 @@ public class DataServiceTests
     [Fact]
     public void GetDataItemAndValue_ReturnNullWhenDatasetOrItemIsMissing()
     {
-        var service = CreateService();
+        var service = CreateDataService();
         service.AddData("Customer", "Name", "Ada");
 
         Assert.Null(service.GetDataItem("Missing", "Name"));
@@ -71,7 +79,7 @@ public class DataServiceTests
     [Fact]
     public void GetDataItemNames_ReturnsNamesOrAnEmptyListWhenDatasetIsMissing()
     {
-        var service = CreateService();
+        var service = CreateDataService();
         var dataset = service.AddData(
             "Customer",
             new Dictionary<string, object>
@@ -88,7 +96,7 @@ public class DataServiceTests
     [Fact]
     public void Clear_RemovesAllDatasetsAndCanBeCalledWhenEmpty()
     {
-        var service = CreateService();
+        var service = CreateDataService();
         service.AddData("Customer", "Name", "Ada");
 
         service.DeRegisterData();
@@ -104,12 +112,24 @@ public class DataServiceTests
     [Fact]
     public void IsValidDataIdentifier_ValidatesDottedDatasetAndItemNames()
     {
-        var service = CreateService();
+        var service = CreateDataService();
         service.AddData("Customer", "Name", "Ada");
 
         Assert.True(service.IsValidDataIdentifier("Customer.Name"));
         Assert.False(service.IsValidDataIdentifier("Customer.Missing"));
         Assert.False(service.IsValidDataIdentifier("Missing.Name"));
         Assert.False(service.IsValidDataIdentifier("Customer.Name.Extra"));
+    }
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
     }
 }

@@ -156,6 +156,12 @@ internal sealed partial class DataService : IDataService
     private List<DataRegistrationResult> AddData(List<Dataset> Datasets)
     {
         var results = new List<DataRegistrationResult>();
+
+        if (Datasets == null)
+        {
+            return results;
+        }
+
         foreach (var dataset in Datasets)
         {
             _datasets.Add(dataset);

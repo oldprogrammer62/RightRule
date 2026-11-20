@@ -4,8 +4,51 @@ namespace RightRule.DataServices.DataValidator;
 
 internal sealed class DataValidatorService : IDataValidatorService
 {
-    public DataValidatorService()
+    public bool ValidateData(IDataService DataService, List<Dataset> datasets)
     {
+        if (datasets == null)
+        {
+            return false;
+        }
+        if (datasets.Count == 0)
+        {
+            return true;
+        }
+
+        bool valid = true;
+        foreach (var ds in datasets)
+        {
+            if (!ValidateData(DataService, ds))
+            {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
+    }
+
+    public bool ValidateData(IDataService DataService, Dataset dataset)
+    {
+        if (dataset == null)
+        {
+            return false;
+        }
+        foreach (var dataItem in dataset.DataItems)
+        {
+            if (dataItem == null)
+            {
+                return false;
+            }
+            if (dataItem.Key == null)
+            {
+                return false;
+            }
+            if (dataItem.Value == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public bool IsDataIdentifier(IDataService DataService, string DataIdentifier)

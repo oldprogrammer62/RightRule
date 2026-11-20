@@ -1,6 +1,9 @@
-﻿namespace RightRule.DataServices.DataValidator;
+﻿using RightRule.DataServices.Data;
+
+namespace RightRule.DataServices.DataValidator;
 
 internal interface IDataValidatorService
 {
-    bool IsDataIdentifier(IDataService DataService, string DataIdentifier);
+    bool IsDataIdentifier(IDataService dataService, string DataIdentifier);
+    bool ValidateData(IDataService dataService, List<Dataset> datasets);
 }

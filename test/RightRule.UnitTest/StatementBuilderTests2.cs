@@ -9,11 +9,29 @@ using RightRule.Factories.DataLoaderFactory;
 using RightRule.LanguageProcessor.Parser;
 using RightRule.LanguageProcessor.StatementBuilder;
 using System.Globalization;
+using System.Reflection;
 
 namespace RightRuleTests;
 
 public class StatementBuilderTests2
 {
+    private static DataService CreateDataService()
+    {
+        IDataService? service = null;
+        var proxy = DispatchProxy.Create<IDataService, ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target = () => service!;
+
+        service = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>());
+
+        return (DataService)service;
+    }
+
     [Fact]
     public async Task BuildAppliedStatement_NullNodeReturnsOriginalStatement()
     {
@@ -156,16 +174,6 @@ public class StatementBuilderTests2
     private static StatementBuilder CreateBuilder() =>
         new(CreateDataService());
 
-    private static DataService CreateDataService() =>
-        new
-        (
-            new DataValidatorService(), 
-            new DataSerializerService(), 
-            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
-            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
-            new FakeLogger<DataService>()
-            );
-
     private static ConditionNode Condition(
         OperandKindEnum leftKind,
         string leftRaw,
@@ -180,4 +188,16 @@ public class StatementBuilderTests2
         };
 
     private sealed class UnknownNode : Node;
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
+    }
 }

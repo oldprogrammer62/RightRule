@@ -13,11 +13,29 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
+using System.Reflection;
 
 namespace RightRuleTests;
 
 public sealed class TokenizerTests
 {
+    private static DataService CreateDataService()
+    {
+        IDataService? service = null;
+        var proxy = DispatchProxy.Create<IDataService, ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target = () => service!;
+
+        service = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>());
+
+        return (DataService)service;
+    }
+
     private static CustomOperatorLoader CreateCustomLoader() =>
         new(NullLogger<CustomOperatorLoader>.Instance);
 
@@ -184,6 +202,7 @@ public sealed class TokenizerTests
     [Fact]
     public void NextToken_ValidatesDatasetIdentifiersWhenDataCheckIsEnabled()
     {
+        IDataService dataservice = CreateDataService();
         var validator = new DataValidatorService();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
@@ -206,6 +225,7 @@ public sealed class TokenizerTests
     [Fact]
     public void NextToken_RejectsUnknownDatasetIdentifiersWhenDataCheckIsEnabled()
     {
+        IDataService dataservice = CreateDataService();
         var validator = new DataValidatorService();
         IDataSerializerService dss = new DataSerializerService();
         IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
@@ -244,5 +264,17 @@ public sealed class TokenizerTests
             LoadDefaultOperators = false,
             LoadCustomOperators = false
         });
+    }
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
     }
 }

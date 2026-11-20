@@ -20,7 +20,7 @@ internal sealed partial class DataService : IDataService
     private readonly ILogger<DataService> _logger;
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    private readonly IDataValidatorService _dataValidator;
+    private readonly IDataValidatorService _dataValidatorService;
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly IDataSerializerService _dataSerializerService;
@@ -36,7 +36,7 @@ internal sealed partial class DataService : IDataService
         _logger = logger;
 
         _datasets = new List<Dataset>();
-        _dataValidator = dataValidator;
+        _dataValidatorService = dataValidator;
         _dataSerializerService = dataSerializerService;
         _dataLoaderService = dataLoaderService;
         _dataAdaptorService = dataAdaptorService;
@@ -44,6 +44,6 @@ internal sealed partial class DataService : IDataService
 
     internal bool IsValidDataIdentifier(string DataIdentifier)
     {
-        return _dataValidator.IsDataIdentifier(this, DataIdentifier);
+        return _dataValidatorService.IsDataIdentifier(this, DataIdentifier);
     }
 }

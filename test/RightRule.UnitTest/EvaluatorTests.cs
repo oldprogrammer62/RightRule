@@ -16,6 +16,7 @@ using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
 using RightRule.RuleServices.RuleModels;
 using RightRule.System.Common.Operator.Models;
+using System.Reflection;
 
 namespace RightRuleTests;
 
@@ -151,15 +152,30 @@ public class EvaluatorTests
             bool diagnostics = false,
             IStatementBuilder? statementBuilder = null)
     {
-        var dataService = new DataService
-            (
-            new DataValidatorService(), 
-            new DataSerializerService(), 
+        IDataService? dataService = null;
+        var proxy = System.Reflection.DispatchProxy.Create<
+            IDataService,
+            ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target =
+            () => dataService!;
+
+        dataService = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
             new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
             new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
-            new FakeLogger<DataService>()
-            );
-        
+            new FakeLogger<DataService>());
+
+        //var dataService = new DataService
+        //    (
+        //    new DataValidatorService(), 
+        //    new DataSerializerService(), 
+        //    new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+        //    new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+        //    new FakeLogger<DataService>()
+        //    );
+
         var operatorService = new OperatorService(CreateDefaultLoader(), CreateCustomLoader(), new RightRuleOptions
         {
             LoadDefaultOperators = false,
@@ -244,5 +260,17 @@ public class EvaluatorTests
     {
         public Task<string> BuildAppliedStatement(Node? Node, string Statement) =>
             Task.FromException<string>(new InvalidOperationException(message));
+    }
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
     }
 }

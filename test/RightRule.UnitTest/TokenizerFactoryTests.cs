@@ -14,11 +14,29 @@ using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
 using RightRule.OperatorServices.OperatorLoader.DefaultOperators;
+using System.Reflection;
 
 namespace RightRuleTests;
 
 public sealed class TokenizerFactoryTests
 {
+    private static DataService CreateDataService()
+    {
+        IDataService? service = null;
+        var proxy = DispatchProxy.Create<IDataService, ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target = () => service!;
+
+        service = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>());
+
+        return (DataService)service;
+    }
+
     private static CustomOperatorLoader CreateCustomLoader() =>
         new(NullLogger<CustomOperatorLoader>.Instance);
 
@@ -88,5 +106,17 @@ public sealed class TokenizerFactoryTests
             dataService,
             dataValidator,
             options);
+    }
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
     }
 }

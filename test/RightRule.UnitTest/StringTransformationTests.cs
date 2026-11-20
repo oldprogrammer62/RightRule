@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Testing;
+﻿using Microsoft.Extensions.Logging.Testing;
 using RightRule.DataAdaptors;
 using RightRule.DataAdaptors.DataAdaptorLibrary;
 using RightRule.DataServices;
@@ -8,22 +7,35 @@ using RightRule.DataServices.DataSerializer;
 using RightRule.DataServices.DataValidator;
 using RightRule.DataTransformer;
 using RightRule.Factories.DataLoaderFactory;
+using System.Reflection;
 
 namespace RightRuleTests;
 
 public class StringTransformationTests
 {
+    private static DataService CreateDataService()
+    {
+        IDataService? service = null;
+        var proxy = DispatchProxy.Create<IDataService, ForwardingDataServiceProxy>();
+
+        ((ForwardingDataServiceProxy)(object)proxy).Target = () => service!;
+
+        service = new DataService(
+            new DataValidatorService(),
+            new DataSerializerService(),
+            new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>())),
+            new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>())),
+            new FakeLogger<DataService>());
+
+        return (DataService)service;
+    }
+
     [Fact]
     public void TransformSimpleString_NoChange()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
         var input = "Hello World";
@@ -37,14 +49,9 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_NoChangeNoData()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
         var input = "Hello World from $name thanks";
@@ -58,14 +65,9 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_NoChangeNoData2()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
         var input = "Hello World from $name $what.ever thanks";
@@ -79,17 +81,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_DottedDataInMiddle()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "Hello World from $a.a thanks";
         var output = trans.Interpolate(input).ToString();
@@ -102,17 +99,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_NoDotDataInMiddle()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "Hello World from $a thanks";
         var output = trans.Interpolate(input).ToString();
@@ -125,17 +117,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_NoDotDataStart()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "$a Hello World from thanks";
         var output = trans.Interpolate(input).ToString();
@@ -149,17 +136,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_DottedDataStart()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "$a.a Hello World from thanks";
         var output = trans.Interpolate(input).ToString();
@@ -172,17 +154,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_NoDotDataEnd()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "Hello World from thanks $a";
         var output = trans.Interpolate(input).ToString();
@@ -195,17 +172,12 @@ public class StringTransformationTests
     [Fact]
     public void TransformSimpleString_DottedDataEnd()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
+        dataservice.AddData("a", "a", "FoundA");
 
         var input = "Hello World from thanks $a.a";
         var output = trans.Interpolate(input).ToString();
@@ -218,20 +190,15 @@ public class StringTransformationTests
     [Fact]
     public void TransformComplexString()
     {
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("a", "a", "FoundA");
-        ds.AddData("b", "b", "FoundB");
-        ds.AddData("c", "c", "FoundC");
-        ds.AddData("d", "d", "FoundD");
+        dataservice.AddData("a", "a", "FoundA");
+        dataservice.AddData("b", "b", "FoundB");
+        dataservice.AddData("c", "c", "FoundC");
+        dataservice.AddData("d", "d", "FoundD");
 
         var input = "Hello World from thanks $a.a $b.b $c $d";
         var output = trans.Interpolate(input).ToString();
@@ -246,19 +213,14 @@ public class StringTransformationTests
     {
         var json = "{\"firstname\": \"$firstname\",\"surname\": \"$surname\",\"postcode\": \"$postcode\"}";
 
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("firstname", "firstname", "John");
-        ds.AddData("surname", "surname", "Doe");
-        ds.AddData("postcode", "postcode", "IP6 0NL");
+        dataservice.AddData("firstname", "firstname", "John");
+        dataservice.AddData("surname", "surname", "Doe");
+        dataservice.AddData("postcode", "postcode", "IP6 0NL");
 
         var input = json;
         var output = trans.Interpolate(input).ToString();
@@ -273,19 +235,14 @@ public class StringTransformationTests
     {
         var json = "{\"firstname\": \"$person.firstname\",\"surname\": \"$person.surname\",\"postcode\": \"$person.postcode\"}";
 
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("person", "firstname", "John");
-        ds.AddData("person", "surname", "Doe");
-        ds.AddData("person", "postcode", "IP6 0NL");
+        dataservice.AddData("person", "firstname", "John");
+        dataservice.AddData("person", "surname", "Doe");
+        dataservice.AddData("person", "postcode", "IP6 0NL");
 
         var input = json;
         var output = trans.Interpolate(input).ToString();
@@ -300,20 +257,15 @@ public class StringTransformationTests
     {
         var json = "{\"firstname\": \"$person.firstname\",\"surname\": \"$person.surname\",\"postcode\": \"$person.postcode\",\"discount\": $order.discount}";
 
-        IDataValidatorService dvs = new DataValidatorService();
-        ILogger<DataService> logger = new FakeLogger<DataService>();
-        IDataSerializerService dss = new DataSerializerService();
-        IDataLoaderService dls = new DataLoaderService(new DataLoaderFactory(new FakeLogger<DataLoaderFactory>()));
-        IDataAdaptorService das = new DataAdaptorService(new DataAdaptorLibraryManager(new FakeLogger<DataAdaptorLibraryManager>()));
+        DataService dataservice = CreateDataService();
 
-        DataService ds = new DataService(dvs, dss, dls, das, logger);
-        IInterpolate sInt = new StringInterpolator(ds);
+        IInterpolate sInt = new StringInterpolator(dataservice);
         var trans = new InterpolatorService(sInt);
 
-        ds.AddData("person", "firstname", "John");
-        ds.AddData("person", "surname", "Doe");
-        ds.AddData("person", "postcode", "IP6 0NL");
-        ds.AddData("order", "discount", 15);
+        dataservice.AddData("person", "firstname", "John");
+        dataservice.AddData("person", "surname", "Doe");
+        dataservice.AddData("person", "postcode", "IP6 0NL");
+        dataservice.AddData("order", "discount", 15);
 
         var input = json;
         var output = trans.Interpolate(input).ToString();
@@ -321,5 +273,17 @@ public class StringTransformationTests
         var expected = "{\"firstname\": \"John\",\"surname\": \"Doe\",\"postcode\": \"IP6 0NL\",\"discount\": 15}";
 
         Assert.Equal(expected, output);
+    }
+
+    private class ForwardingDataServiceProxy : DispatchProxy
+    {
+        public Func<IDataService>? Target { get; set; }
+
+        protected override object? Invoke(
+            System.Reflection.MethodInfo? targetMethod,
+            object?[]? args)
+        {
+            return targetMethod!.Invoke(Target!(), args);
+        }
     }
 }

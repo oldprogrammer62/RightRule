@@ -1,4 +1,5 @@
-﻿using RightRule.DataServices.DataRegistration;
+﻿using RightRule.DataServices.Data;
+using RightRule.DataServices.DataRegistration;
 
 namespace RightRule.DataServices;
 
@@ -8,11 +9,20 @@ internal sealed partial class DataService : IDataService
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(JsonData, nameof(JsonData));
 
-        var dataDef = _dataLoaderService.LoadData(JsonData);
-        if (dataDef == null)
+        var datasets = _dataLoaderService.LoadData(JsonData);
+        if (datasets == null)
         {
             return [];
         }
-        return AddData(dataDef);
+        if (ValidateData(datasets))
+        {
+            return AddData(datasets);
+        }
+        return [];
+    }
+
+    private bool ValidateData(List<Dataset> datasets)
+    {
+        return _dataValidatorService.ValidateData(this, datasets);
     }
 }
