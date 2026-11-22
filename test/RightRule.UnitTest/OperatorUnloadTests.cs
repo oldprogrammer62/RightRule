@@ -49,7 +49,6 @@ public class OperatorUnloadTests
             Statement = @"Test.value = 10",
             Context = "Context",
             TrueDecision = "VALUEEQUALS",
-            FalseDecision = "VALUEUNEQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

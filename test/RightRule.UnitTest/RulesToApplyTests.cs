@@ -31,7 +31,6 @@ public class RulesToApplyTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             TrueDecision = "GOODRULE1",
-            FalseDecision = "BADRULE1"
         };
 
         // Rule
@@ -42,7 +41,6 @@ public class RulesToApplyTests
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
             TrueDecision = "GOODRULE2",
-            FalseDecision = "BADRULE2"
         };
     }
 

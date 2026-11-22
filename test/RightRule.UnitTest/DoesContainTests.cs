@@ -32,7 +32,6 @@ public class DoesContainTests
             Statement = @"Test.fullname contains ""Doe""",
             Context = "NameContext",
             TrueDecision = "NAMEDECISION",
-            FalseDecision = "NOTNAMEDECISION"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -55,7 +54,6 @@ public class DoesContainTests
             Statement = @"Test.fullname contains ""XXDoeXX""",
             Context = "NameContext",
             TrueDecision = "NAMEDECISION",
-            FalseDecision = "NOTNAMEDECISION"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

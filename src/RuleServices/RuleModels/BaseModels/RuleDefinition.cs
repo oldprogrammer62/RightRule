@@ -1,6 +1,6 @@
 ﻿namespace RightRule.RuleServices.RuleModels.BaseModels;
 
-public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
+public abstract class RuleDefinition : IRule, IDecideTrue
 {
     /// <summary>
     /// Identifies the Rule by number.
@@ -36,19 +36,6 @@ public abstract class RuleDefinition : IRule, IDecideTrue, IDecideFalse
     /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
     public object? TrueDecisionData { get; init; }
-
-    /// <summary>
-    /// The string returned to the calling application if the rule evaluates false
-    /// </summary>
-    public required string FalseDecision { get; init; }
-
-    /// <summary>
-    /// Optional data returned when the Rule is evaluated to false.
-    /// The FalseDecisionData value is passed to the Operator so it can be returned.
-    /// The Operator can return its own version of FalseDecisionData if appropriate
-    /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
-    /// </summary>
-    public object? FalseDecisionData { get; init; }
 
     /// <summary>
     /// Optional data that will be passed to the Operator when evaluating the Rule.

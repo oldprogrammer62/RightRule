@@ -24,8 +24,7 @@ public class ApplyRules_Async_Tests
             Number = 1,
             Name = "Rule1",
             Statement = "Data.field1 = \"value1\"",
-            TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE"
+            TrueDecision = "DONE"
         };
         RuleRegistrationResult? rule1Registered = rr.RuleService.RegisterRule(rule1);
 
@@ -36,7 +35,6 @@ public class ApplyRules_Async_Tests
             Name = "Rule2",
             Statement = "Data.field1 = \"value1\"",
             TrueDecision = "DONE",
-            FalseDecision = ""
         };
         RuleRegistrationResult? rule2Registered = rr.RuleService.RegisterRule(rule2);
 

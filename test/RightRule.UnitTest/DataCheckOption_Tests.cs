@@ -18,7 +18,6 @@ public class DataCheckOption_Tests
             .Context("Context")
             .Statement("100 = 100")
             .TrueDecision("Same")
-            .FalseDecision("Different")
             .Build()
             .Register(rr.RuleService);
 
@@ -42,7 +41,6 @@ public class DataCheckOption_Tests
             .Context("Context")
             .Statement("a = 100")
             .TrueDecision("Same")
-            .FalseDecision("Different")
             .Build()
             .Register(rr.RuleService);
 

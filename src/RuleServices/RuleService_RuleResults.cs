@@ -49,9 +49,6 @@ internal sealed partial class RuleService : IRuleService
             RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied, decisionData),
 
-            RightRuleStatusEnum.FAILURE =>
-                RightRuleResult<IProcessedRule>.FailureResult(payload, statementApplied, decisionData, message),
-
             RightRuleStatusEnum.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context), message),
 
@@ -78,18 +75,13 @@ internal sealed partial class RuleService : IRuleService
         var result = processedRule.Result switch
         {
             true => RightRuleServiceResult<IProcessedRule>.SuccessResult(processedRule, DecisionData),
-            false => RightRuleServiceResult<IProcessedRule>.FailureResult(processedRule, DecisionData)
+            false => RightRuleServiceResult<IProcessedRule>.ErrorResult(processedRule, processedRule.Message)
         };
         return result;
     }
 
     private object? MakeDecisionData(IProcessedRule rule)
     {
-        var decisionData = rule.Result switch
-        {
-            true => _interpolatorService.Interpolate(rule.TrueDecisionData),
-            false => _interpolatorService.Interpolate(rule.FalseDecisionData)
-        };
-        return decisionData;
+        return _interpolatorService.Interpolate(rule.TrueDecisionData);
     }
 }

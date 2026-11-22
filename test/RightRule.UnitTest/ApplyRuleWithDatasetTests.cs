@@ -31,7 +31,6 @@ public class ApplyRuleWithDatasetTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             TrueDecision = "GOODRULE1",
-            FalseDecision = "BADRULE1"
         };
 
         // Rule 2
@@ -42,7 +41,6 @@ public class ApplyRuleWithDatasetTests
             Statement = @"Test.surname equals ""Doe""",
             Context = "AllContext",
             TrueDecision = "GOODRULE2",
-            FalseDecision = "BADRULE2"
         };
 
         // Rule 3
@@ -53,7 +51,6 @@ public class ApplyRuleWithDatasetTests
             Statement = @"XXTest.surname equals ""Doe""",
             Context = "AllContext",
             TrueDecision = "GOODRULE3",
-            FalseDecision = "BADRULE3"
         };
     }
 

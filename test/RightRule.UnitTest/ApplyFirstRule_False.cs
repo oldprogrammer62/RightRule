@@ -17,7 +17,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 2")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
@@ -27,7 +26,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("1 = 2")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RuleService.RegisterRule(rule2);
 
@@ -48,7 +46,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 1")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
@@ -58,7 +55,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 2")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RuleService.RegisterRule(rule2);
 
@@ -79,7 +75,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 1")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule1 = rr.RuleService.RegisterRule(rule1);
 
@@ -89,7 +84,6 @@ public class ApplyFirstRule_False
             .Context("Context")
             .Statement("2 = 3")
             .TrueDecision("CORRECT")
-            .FalseDecision("INCORRECT")
             .Build();
         var rrule2 = rr.RuleService.RegisterRule(rule2);
 

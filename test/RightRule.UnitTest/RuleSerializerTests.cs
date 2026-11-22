@@ -16,7 +16,6 @@ public class RuleSerializerTests
             .Context("Context1")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
 
         var result1 = rr.RuleService.RegisterRule(rule1);
@@ -37,7 +36,6 @@ public class RuleSerializerTests
             .Context("Context")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
         var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
@@ -48,7 +46,6 @@ public class RuleSerializerTests
             .Context("Context2")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
 
         var result2 = rr.RuleService.RegisterRule(rule2);
@@ -70,7 +67,6 @@ public class RuleSerializerTests
             .Context("Context")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
         var result1 = rr.RuleService.RegisterRule(rule1);
         Assert.NotNull(result1);
@@ -81,7 +77,6 @@ public class RuleSerializerTests
             .Context("Context2")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
 
         var result2 = rr.RuleService.RegisterRule(rule2);
@@ -102,7 +97,6 @@ public class RuleSerializerTests
             .Context("Context1")
             .Statement("a = b")
             .TrueDecision("Decision")
-            .FalseDecision("FalseDecision")
             .Build();
 
         var result1 = rr.RuleService.RegisterRule(rule1);

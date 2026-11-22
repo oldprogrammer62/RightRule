@@ -23,7 +23,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = 100")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -46,7 +45,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = 100.001")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -69,7 +67,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \"100\"")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -92,7 +89,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \'C\'")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -115,7 +111,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = true")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -138,7 +133,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \"true\"")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -161,7 +155,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \"01/01/1970 12:12:12\"")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -184,7 +177,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \"01/01/1970\"")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -207,7 +199,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a = \"12:30:30\"")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -237,7 +228,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a in [1,2,3]")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -268,7 +258,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a in [1.1,2.2,3.3]")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -299,7 +288,6 @@ public class DataTypes_Tests
             .Context("Context")
             .Statement("a in [\"1\",\"2\",\"3\"]")
             .TrueDecision("SAME")
-            .FalseDecision("DIFF")
             .Build()
             .Register(rr.RuleService);
 
@@ -323,7 +311,6 @@ public class DataTypes_Tests
             Statement = @"number in numbers",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         RightRuleOptions options = new RightRuleOptions()
@@ -359,7 +346,6 @@ public class DataTypes_Tests
             Statement = @"number in numbers",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         RightRuleOptions options = new RightRuleOptions()
@@ -398,8 +384,6 @@ public class DataTypes_Tests
             Context = "Context",
             TrueDecision = "EXISTS",
             TrueDecisionData = "Hello $name.name World",
-            FalseDecision = "NOT_EXISTS",
-            FalseDecisionData = "Goodbye Cruel $name.name World"
         };
 
         RightRuleOptions options = new RightRuleOptions()

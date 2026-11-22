@@ -18,7 +18,6 @@ public class SimpleTests
             .Context(context)
             .Statement("a.a = 100")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
 
         rr.RuleService.RegisterRule(rule);
@@ -44,7 +43,6 @@ public class SimpleTests
             .Context(context)
             .Statement("data.a = 100")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
 
         rr.RuleService.RegisterRule(rule);
@@ -63,7 +61,6 @@ public class SimpleTests
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
             .TrueDecision("SAME")
-            .FalseDecision("NOTSAME")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -81,7 +78,6 @@ public class SimpleTests
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 2")
             .TrueDecision("SAME")
-            .FalseDecision("NOTSAME")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -99,7 +95,6 @@ public class SimpleTests
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
             .TrueDecision("GOOD")
-            .FalseDecision("NOTGOOD")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -109,7 +104,6 @@ public class SimpleTests
             .Context("TestContext")
             .Statement("1 <> 1 and 2 <> 3")
             .TrueDecision("GOOD")
-            .FalseDecision("NOTGOOD")
             .Build();
         var rule2Result = rr.RuleService.RegisterRule(rule2);
 
@@ -119,7 +113,6 @@ public class SimpleTests
             .Context("TestContext")
             .Statement("1 <>  and 2 <> 3")
             .TrueDecision("GOOD")
-            .FalseDecision("NOTGOOD")
             .Build();
         var rule3Result = rr.RuleService.RegisterRule(rule3);
 

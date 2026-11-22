@@ -28,7 +28,6 @@ public class BooleanEquals_Tests
             Context = "Context",
             Statement = "Data.IsTrue = \"true\"",
             TrueDecision = "Good",
-            FalseDecision = "NotGood"
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
@@ -49,7 +48,6 @@ public class BooleanEquals_Tests
             Context = "Context",
             Statement = "true = Data.IsTrue",
             TrueDecision = "Good",
-            FalseDecision = "NotGood"
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
@@ -70,7 +68,6 @@ public class BooleanEquals_Tests
             Context = "Context",
             Statement = "true = true",
             TrueDecision = "Good",
-            FalseDecision = "NotGood"
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
@@ -91,7 +88,6 @@ public class BooleanEquals_Tests
             Context = "Context",
             Statement = "false = false",
             TrueDecision = "Good",
-            FalseDecision = "NotGood"
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
@@ -112,7 +108,6 @@ public class BooleanEquals_Tests
             Context = "Context",
             Statement = "False = false",
             TrueDecision = "Good",
-            FalseDecision = "NotGood"
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
@@ -133,7 +128,6 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             TrueDecision = "Good",
-            FalseDecision = "NotGood",
             Statement = "false = \"False\""
         };
 
@@ -157,7 +151,6 @@ public class BooleanEquals_Tests
             Number = 1,
             Context = "Context",
             TrueDecision = "Good",
-            FalseDecision = "NotGood",
             Statement = "false = \"false\""
         };
 

@@ -30,7 +30,6 @@ public class LessThanTests
             Statement = @"Test.intvalue lessthan 1000",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -54,7 +53,6 @@ public class LessThanTests
             Statement = @"Test.intvalue lessthan 1000.00",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -77,7 +75,6 @@ public class LessThanTests
             Statement = @"Test.intvalue lessthan 5",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -100,7 +97,6 @@ public class LessThanTests
             Statement = @"Test.floatvalue lessthan 1000.001",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -125,7 +121,6 @@ public class LessThanTests
             Statement = @$"Test.datevalue lessthan ""{date}""",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -150,7 +145,6 @@ public class LessThanTests
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -175,7 +169,6 @@ public class LessThanTests
             Statement = @$"Test.datetimevalue lessthan ""{date}""",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -198,7 +191,6 @@ public class LessThanTests
             Statement = @"'abc' < 'abcd'",
             Context = "Context",
             TrueDecision = "LESSTHAN",
-            FalseDecision = "NOT_LESSTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

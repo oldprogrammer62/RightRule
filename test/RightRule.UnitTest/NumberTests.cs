@@ -27,7 +27,6 @@ public class NumberTests
             Statement = @"Test.value greaterthanorequals 10",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "LESSTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -50,7 +49,6 @@ public class NumberTests
             Statement = @"Test.value greaterthanorequals 10.1",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "LESSTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -73,7 +71,6 @@ public class NumberTests
             Statement = @"Test.value greaterthanorequals 99.99",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "LESSTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -96,7 +93,6 @@ public class NumberTests
             Statement = @"Test.value greaterthanorequals 100.00001",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "LESSTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -119,7 +115,6 @@ public class NumberTests
             Statement = @"Test.value >= 99.9999 and Test.value < 200.001",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "LESSTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

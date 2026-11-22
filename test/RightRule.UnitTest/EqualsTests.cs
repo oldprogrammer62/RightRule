@@ -43,7 +43,6 @@ public class EqualsTests
             OptionalData = null,
             TrueDecision = "EQUALS",
             TrueDecisionData = null,
-            FalseDecision = "NOT EQUALS"
         };
 
         var newRule = rr.RuleService.RegisterRule(rule);
@@ -65,7 +64,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100.00",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -88,7 +86,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -111,7 +108,6 @@ public class EqualsTests
             Statement = "Test.intvalue equals Test.intvalue",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -134,7 +130,6 @@ public class EqualsTests
             Statement = @"Test.floatvalue equals 100.01",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -157,7 +152,6 @@ public class EqualsTests
             Statement = @"Test.stringvalue equals ""Hello World""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -182,7 +176,6 @@ public class EqualsTests
             Statement = @$"Test.datevalue equals ""{date}""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -207,7 +200,6 @@ public class EqualsTests
             Statement = @$"Test.datetimevalue equals ""{date}""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -236,7 +228,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -246,7 +237,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             TrueDecision = "EQUALS200",
-            FalseDecision = "NOT EQUALS200"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -276,7 +266,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -286,7 +275,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             TrueDecision = "EQUALS200",
-            FalseDecision = "NOT EQUALS200"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -316,7 +304,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT EQUALS100"
         };
         // Rule
         DefinedRule rule2 = new()
@@ -326,7 +313,6 @@ public class EqualsTests
             Statement = @"Test.intvalue equals 200",
             Context = "Context",
             TrueDecision = "EQUALS200",
-            FalseDecision = "NOT EQUALS200"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

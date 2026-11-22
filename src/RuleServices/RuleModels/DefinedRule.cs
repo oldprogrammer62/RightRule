@@ -25,7 +25,7 @@ public sealed class DefinedRule : RuleDefinition
         return ruleRegistrationService.RegisterRule(this);
     }
 
-    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string TrueDecision, object? TrueDecisionData, string FalseDecision, object? FalseDecisionData, object? OptionalData)
+    public static DefinedRule Build(int Number, string Name, string Context, string Statement, string TrueDecision, object? TrueDecisionData, object? OptionalData)
     {
         return new DefinedRule()
         {
@@ -35,8 +35,6 @@ public sealed class DefinedRule : RuleDefinition
             Statement = Statement,
             TrueDecision = TrueDecision,
             TrueDecisionData = TrueDecisionData,
-            FalseDecision = FalseDecision,
-            FalseDecisionData = FalseDecisionData,
             OptionalData = OptionalData
         };
     }
@@ -50,8 +48,6 @@ public sealed class DefinedRule : RuleDefinition
         sb.AppendLine($"Statement: {Statement}");
         sb.AppendLine($"TrueDecision: {TrueDecision}");
         sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
-        sb.AppendLine($"FalseDecision: {FalseDecision}");
-        sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"OptionalData: {OptionalData}");
         return sb.ToString();
     }

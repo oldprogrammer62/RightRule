@@ -18,7 +18,6 @@ public class DefaultRule_Tests
             .Context("Test")
             .Statement("11 >= 19")
             .TrueDecision("true")
-            .FalseDecision("False")
             .Build();
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.RuleService.ApplyRule("Test");
@@ -36,7 +35,6 @@ public class DefaultRule_Tests
             .Context("Test")
             .Statement("11 >= 19")
             .TrueDecision("true")
-            .FalseDecision("False")
             .Build();
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
@@ -100,7 +98,6 @@ public class DefaultRule_Tests
             .Context(context)
             .Statement("11 >= 19")
             .TrueDecision("true")
-            .FalseDecision("False")
             .Build();
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
         var result1 = rr.RuleService.ApplyRule(context);

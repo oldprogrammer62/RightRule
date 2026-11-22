@@ -21,7 +21,6 @@ public class DataTypesTests_Array
             Statement = @"number in numbers",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         RightRuleOptions options = new RightRuleOptions()
@@ -65,7 +64,6 @@ public class DataTypesTests_Array
             Statement = "number in [1,2,3]",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
@@ -102,7 +100,6 @@ public class DataTypesTests_Array
             Statement = statement,
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
@@ -139,7 +136,6 @@ public class DataTypesTests_Array
             Statement = statement,
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 

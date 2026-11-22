@@ -52,7 +52,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "intVal = intVal1 and intVal2 = 102 and intVal3 = 103 and intVal4 = 104 and intVal5 = 105",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
 
         var rrule = rr.RuleService.RegisterRule(ruleDef);
@@ -80,7 +79,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal.localVal = decVal.decVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         rr.RuleService.RegisterRule(rule);
 
@@ -111,7 +109,6 @@ public class Equals_AllTypes_Tests
             .Context("Context")
             .Statement("decVal.decVal = localVal.localVal")
             .TrueDecision("GOOD")
-            .FalseDecision("DIFFERENT")
             .Build();
             
         var prule = rr.RuleService.RegisterRule(rule);
@@ -138,7 +135,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = dblVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -164,7 +160,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal.localVal = lngVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -190,7 +185,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = sinVal.sinVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -219,7 +213,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localData.entry = fltVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -245,7 +238,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = strVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -271,7 +263,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = chrVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -297,7 +288,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = boolVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -323,7 +313,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = boolStr",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -348,7 +337,6 @@ public class Equals_AllTypes_Tests
             Name = "Rule1",
             Context = "Context",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT",
             Statement = "localVal = dtonlyVal"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
@@ -375,7 +363,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = tmonlyVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 
@@ -401,7 +388,6 @@ public class Equals_AllTypes_Tests
             Context = "Context",
             Statement = "localVal = dttimeVal",
             TrueDecision = "SAME",
-            FalseDecision = "DIFFERENT"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
 

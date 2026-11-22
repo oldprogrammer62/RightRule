@@ -68,7 +68,6 @@ public class RuleLoader_Tests
             .Context("NewContext")
             .Statement("x = 100")
             .TrueDecision("SUCCESS")
-            .FalseDecision("FAIL")
             .Build()
             .Register(rr.RuleService);
 
@@ -105,11 +104,9 @@ public class RuleLoader_Tests
         string context = "RuleContext";
         string trueDecision = "SUCCESS";
         object? trueDecisionData = null;
-        string falseDecision = "FAIL";
-        object? falseDecisionData = null;
         object? optionalData = null;
 
-        var json = JsonString(number, name, statement, context, trueDecision, trueDecisionData, falseDecision, falseDecisionData, optionalData);
+        var json = JsonString(number, name, statement, context, trueDecision, trueDecisionData, optionalData);
         Assert.NotNull(json);
 
         List<RuleRegistrationResult>? rules = rr.RuleService.LoadRules(json);
@@ -134,10 +131,6 @@ public class RuleLoader_Tests
         json.Append(',');
         json.Append("'TrueDecisionData': null");
         json.Append(',');
-        json.Append("'FalseDecision': 'SUCCESS'");
-        json.Append(',');
-        json.Append("'FalseDecisionData': null");
-        json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');
 
@@ -158,11 +151,9 @@ public class RuleLoader_Tests
         string context = "RuleContext",
         string trueDecision = "SUCCESS",
         object? trueDecisionData = null,
-        string falseDecision = "FAIL",
-        object? falseDecisionData = null,
         object? optionalData = null)
     {
-        var x = MakeRule(number, name, statement, context, trueDecision, trueDecisionData, falseDecision, falseDecisionData, optionalData);
+        var x = MakeRule(number, name, statement, context, trueDecision, trueDecisionData, optionalData);
         return JsonSerializer.Serialize(x);
     }
 
@@ -173,8 +164,6 @@ public class RuleLoader_Tests
         string context = "RuleContext",
         string trueDecision = "SUCCESS",
         object? trueDecisionData = null,
-        string falseDecision = "FAIL",
-        object? falseDecisionData = null,
         object? optionalData = null)
     {
         return new[]
@@ -187,8 +176,6 @@ public class RuleLoader_Tests
                 Context = context,
                 TrueDecision = trueDecision,
                 TrueDecisionData = trueDecisionData,
-                FalseDecision = falseDecision,
-                FalseDecisionData = falseDecisionData,
                 OptionalData = optionalData
             }
         };

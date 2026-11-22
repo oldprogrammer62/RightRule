@@ -197,21 +197,19 @@ public sealed class RuleServiceTests
 
         var definedRule1 = new DefinedRule
         {
+            Number = 1,
             Context = "Sales",
             Name = "Rule1",
-            Number = 1,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE"
         };
         var definedRule2 = new DefinedRule
         {
+            Number = 1,
             Context = "Sales",
             Name = "Rule2",
-            Number = 2,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "" // Fail registration
         };
         var ruleRegistrations = rr.RuleService.RegisterRules(
         [
@@ -222,9 +220,9 @@ public sealed class RuleServiceTests
         Assert.NotNull(ruleRegistrations);
         Assert.Equal(2, ruleRegistrations.Count);
         Assert.Equal(RightRuleStatusEnum.SUCCESS, ruleRegistrations[0].Status);
-        Assert.Equal(RightRuleStatusEnum.ERROR, ruleRegistrations[1].Status);
+        Assert.Equal(RightRuleStatusEnum.FAILURE, ruleRegistrations[1].Status);
 
-        var outcome = rr.RuleService.ApplyRulesAsync("Sales");
+        var outcome = rr.RuleService.ApplyRules("Sales");
         Assert.NotNull(outcome);
     }
 
@@ -285,7 +283,7 @@ public sealed class RuleServiceTests
     }
 
     private static DefinedRule CreateDefinedRule(int number = 1, string name = "Rule") =>
-        DefinedRule.Build(number, name, "Sales", "true", "Yes", null, "No", null, null);
+        DefinedRule.Build(number, name, "Sales", "true", "Yes", null, null);
 
     private static ParsedRule CreateParsedRule(
         int number,
@@ -302,8 +300,6 @@ public sealed class RuleServiceTests
         SetProperty(rule, nameof(ParsedRule.Statement), "true");
         SetProperty(rule, nameof(ParsedRule.TrueDecision), "Yes");
         SetProperty(rule, nameof(ParsedRule.TrueDecisionData), null);
-        SetProperty(rule, nameof(ParsedRule.FalseDecision), "No");
-        SetProperty(rule, nameof(ParsedRule.FalseDecisionData), null);
         SetProperty(rule, nameof(ParsedRule.Status), status);
         SetProperty(rule, nameof(ParsedRule.Node), null);
         SetProperty(rule, nameof(ParsedRule.StatementPath), string.Empty);

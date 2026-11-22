@@ -45,7 +45,6 @@ public class ExistsTests
             Statement = @"Arguments.number foundin Arguments.numbers",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -75,7 +74,6 @@ public class ExistsTests
             Statement = @"""dd"" foundin Arguments.strings",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -99,7 +97,6 @@ public class ExistsTests
             Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -122,7 +119,6 @@ public class ExistsTests
             Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -145,7 +141,6 @@ public class ExistsTests
             Statement = @"Test.boolvalue exists Test.bools",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -168,7 +163,6 @@ public class ExistsTests
             Statement = @"Test.intvalue exists Test.ints",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -191,7 +185,6 @@ public class ExistsTests
             Statement = @"Test.floatvalue exists Test.floats",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -214,7 +207,6 @@ public class ExistsTests
             Statement = @"Test.stringvalue exists Test.strings",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -237,7 +229,6 @@ public class ExistsTests
             Statement = @"Test.datevalue exists Test.dates",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -260,7 +251,6 @@ public class ExistsTests
             Statement = @"Test.datetimevalue exists Test.datetimes",
             Context = "Context",
             TrueDecision = "EXISTS",
-            FalseDecision = "NOT_EXISTS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

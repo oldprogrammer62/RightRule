@@ -72,10 +72,9 @@ namespace RightRuleTests
                 .Context("Context")
                 .Statement("A = B")
                 .TrueDecision("TRUE")
-                .FalseDecision("FALSE")
                 .Build();
-
             var rule1reg = rr.RuleService.RegisterRule(rule1def);
+
             var result = rr.RuleService.ApplyRule("Context");
             Assert.NotNull(result);
         }

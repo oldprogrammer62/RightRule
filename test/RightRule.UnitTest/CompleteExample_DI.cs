@@ -63,7 +63,6 @@ public class CompleteExample_DI
             .Context("TestContext1")
             .Statement("a = 50")
             .TrueDecision("Pass")
-            .FalseDecision("Fail")
             .Build()
             .Register(rr.RuleService);
 
@@ -73,7 +72,6 @@ public class CompleteExample_DI
             .Context("TestContext2")
             .Statement("a = 50")
             .TrueDecision("Pass")
-            .FalseDecision("Fail")
             .Build()
             .Register(rr.RuleService);
 
@@ -83,7 +81,6 @@ public class CompleteExample_DI
             .Context("TestContext3")
             .Statement("a = 50")
             .TrueDecision("Pass")
-            .FalseDecision("Fail")
             .Build()
             .Register(rr.RuleService);
 

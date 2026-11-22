@@ -3,7 +3,7 @@ using RightRule.Models;
 
 namespace RightRule.RuleServices.RuleModels.BaseModels;
 
-public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
+public abstract class RuleParsed : IRule, IParsed, IDecideTrue
 {
     protected RuleParsed()
     {
@@ -15,8 +15,6 @@ public abstract class RuleParsed : IRule, IParsed, IDecideTrue, IDecideFalse
 
     public required string TrueDecision { get; init; }
     public object? TrueDecisionData { get; init; }
-    public required string FalseDecision { get; init; }
-    public object? FalseDecisionData { get; init; }
 
     public required string Statement { get; init; }
 

@@ -130,7 +130,6 @@ public class OperatorRegistrationTests
            .Context("TestContext")
            .Statement("left IsBiggerThan right")
            .TrueDecision("Success")
-           .FalseDecision("Failure")
            .Build()
            .Register(rr.RuleService);
         Assert.NotNull(rule);

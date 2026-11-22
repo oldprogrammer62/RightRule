@@ -1,4 +1,5 @@
 ﻿using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -15,7 +16,6 @@ public class RegisterRulesAsync_Tests
             Number = 1,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE",
         };
         DefinedRule rule2 = new DefinedRule()
         {
@@ -24,7 +24,6 @@ public class RegisterRulesAsync_Tests
             Number = 2,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE",
         };
         DefinedRule rule3 = new DefinedRule()
         {
@@ -33,16 +32,23 @@ public class RegisterRulesAsync_Tests
             Number = 3,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = ""
         };
         List<DefinedRule> rules = new List<DefinedRule>()
         {
             rule1,
             rule2,
-            rule3 // This rule will fail validation - Missing False Decision
+            rule3
         };
 
-        var rr = new RightRule.RightRule().CreateSession();
+        RightRuleOptions options = new RightRuleOptions()
+        {
+            Diagnostics = true,
+            DataCheck = false,
+            LoadCustomOperators = true,
+            LoadDefaultOperators = true
+        };
+
+        var rr = new RightRule.RightRule(options).CreateSession();
         var registeredRules = rr.RuleService.RegisterRules(rules);
 
         Assert.NotNull(registeredRules);
@@ -50,11 +56,11 @@ public class RegisterRulesAsync_Tests
 
         var success = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.SUCCESS);
         Assert.NotNull(success);
-        Assert.Equal(2, success.Count());
+        Assert.Equal(3, success.Count());
 
         var failed = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.ERROR);
         Assert.NotNull(failed);
-        Assert.Single(failed);
+        Assert.Empty(failed);
     }
 
     [Fact]
@@ -67,7 +73,6 @@ public class RegisterRulesAsync_Tests
             Number = 1,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE"
         };
         DefinedRule rule2 = new DefinedRule()
         {
@@ -76,7 +81,6 @@ public class RegisterRulesAsync_Tests
             Number = 2,
             Statement = "a.b = c.d",
             TrueDecision = "DONE",
-            FalseDecision = "NOT_DONE"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

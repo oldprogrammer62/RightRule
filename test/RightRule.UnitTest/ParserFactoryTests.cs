@@ -33,7 +33,6 @@ public class ParserFactoryTests
             Context = "Customer",
             Statement = statement,
             TrueDecision = "Eligible",
-            FalseDecision = "Not eligible"
         };
         var tokenizerFactory = new RecordingTokenizerFactory();
         var sut = new RightRule.Factories.ParserFactory.ParserFactory(tokenizerFactory);

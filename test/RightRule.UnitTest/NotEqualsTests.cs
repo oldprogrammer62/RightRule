@@ -32,7 +32,6 @@ public class NotEqualsTests
             Statement = @"Test.boolvalue notequals true",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -55,7 +54,6 @@ public class NotEqualsTests
             Statement = @"Test.intvalue notequals 100",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -78,7 +76,6 @@ public class NotEqualsTests
             Statement = @"Test.floatvalue notequals 100.01",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -101,7 +98,6 @@ public class NotEqualsTests
             Statement = @"Test.stringvalue notequals ""Hello World""",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -126,7 +122,6 @@ public class NotEqualsTests
             Statement = @$"Test.datevalue notequals ""{date}""",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -151,7 +146,6 @@ public class NotEqualsTests
             Statement = @$"Test.datetimevalue notequals ""{date}""",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -174,7 +168,6 @@ public class NotEqualsTests
             Statement = @"not Test.boolvalue equals true",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
         var rr = new RightRule.RightRule().CreateSession();
         var newRule = rr.RuleService.RegisterRule(rule);
@@ -196,7 +189,6 @@ public class NotEqualsTests
             Statement = @"Test.boolvalue equals false and not Test.intvalue = 100",
             Context = "Context",
             TrueDecision = "NOTEQUALS",
-            FalseDecision = "EQUALS"
         };
         var rr = new RightRule.RightRule().CreateSession();
         rr.DataService.RegisterData("Test", _Data);

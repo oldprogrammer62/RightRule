@@ -28,7 +28,6 @@ public class LiteralTests
             Statement = @"Test.stringvalue equals ""A_String""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -51,7 +50,6 @@ public class LiteralTests
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -79,7 +77,6 @@ public class LiteralTests
             Statement = @"""A_String"" equals Arguments.string",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -103,7 +100,6 @@ public class LiteralTests
             Statement = @"100 equals 100",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -131,7 +127,6 @@ public class LiteralTests
             Statement = @"Test.stringvalue equals Arguments.string",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

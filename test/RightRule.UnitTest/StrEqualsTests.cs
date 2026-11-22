@@ -19,7 +19,6 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             TrueDecision = "GOOD",
-            FalseDecision = "BAD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
@@ -48,7 +47,6 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             TrueDecision = "GOOD",
-            FalseDecision = "BAD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.Ordinal
         };
@@ -77,7 +75,6 @@ public class StrEqualsTests
             Name = "TestRule",
             Number = 1,
             TrueDecision = "GOOD",
-            FalseDecision = "BAD",
             Statement = "Data.value1 =str \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };

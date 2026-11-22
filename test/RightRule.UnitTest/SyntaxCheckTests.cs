@@ -116,7 +116,6 @@ public class SyntaxCheckTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS",
         };
 
         // Register the data

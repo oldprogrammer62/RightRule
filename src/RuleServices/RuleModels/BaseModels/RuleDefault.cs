@@ -3,7 +3,6 @@
 public abstract class RuleDefault : IProcessedRule
 {
     public const string DECISIONWORD = "NODECISION";
-    public const string FALSEDECISIONWORD = "NODECISION";
     public const string RULENAME = "DefaultRule";
 
     int IRule.Number { get; } = (int)RuleNumberEnum.DEFAULTRULE;
@@ -17,7 +16,4 @@ public abstract class RuleDefault : IProcessedRule
 
     public string TrueDecision { get; init; } = DECISIONWORD;
     public object? TrueDecisionData { get; init; } = null;
-
-    string IDecideFalse.FalseDecision { get; } = FALSEDECISIONWORD;
-    object? IDecideFalse.FalseDecisionData { get; } = null;
 }

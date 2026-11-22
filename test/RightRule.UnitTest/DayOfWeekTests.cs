@@ -21,7 +21,6 @@ public class DayOfWeekTests
             Name = "rule1",
             Statement = "data.date dow \"wednesday\"",
             TrueDecision = "SAME",
-            FalseDecision = "NOT_SAME"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

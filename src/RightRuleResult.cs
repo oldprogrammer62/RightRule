@@ -32,21 +32,6 @@ public sealed class RightRuleResult<T>
         };
     }
 
-    public static RightRuleResult<IProcessedRule> FailureResult(IProcessedRule? Payload, string StatementApplied, object? DecisionData, string Message)
-    {
-        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
-        return new() 
-        { 
-            Result = Payload.Result, 
-            RuleNumber = Payload.Number, 
-            RuleName = Payload.Name, 
-            Decision = Payload.FalseDecision, 
-            DecisionData = DecisionData, 
-            StatementApplied = StatementApplied,
-            Message = Message 
-        };
-    }
-
     public static RightRuleResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload = default)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));

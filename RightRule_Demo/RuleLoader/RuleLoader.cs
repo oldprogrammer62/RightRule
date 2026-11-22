@@ -15,7 +15,6 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .TrueDecision("GOOD")
-                .FalseDecision("BAD")
                 .Build(),
 
                 rr.RuleService.BuildRule()
@@ -24,7 +23,6 @@ namespace RightRule_Demo.RuleLoader
                 .Context("Context")
                 .Statement("a = b")
                 .TrueDecision("GOOD")
-                .FalseDecision("BAD")
                 .Build(),
 
                 new DefinedRule
@@ -35,7 +33,6 @@ namespace RightRule_Demo.RuleLoader
                     Statement = "Demo.NewCust = true and Demo.OrderValue equals 750",
                     TrueDecision = "NEWCUST_EXACT_PRIZEVALUE",
                     TrueDecisionData = "{discount: 50, unit: '%'}",
-                    FalseDecision = "False Decision"
                 },
                 new DefinedRule
                 {
@@ -45,7 +42,6 @@ namespace RightRule_Demo.RuleLoader
                     Statement = "Demo.NewCust = true and Demo.OrderValue >= 0 and Demo.OrderValue < hv.value",
                     TrueDecision = "NEWCUST_LOWVALUE",
                     TrueDecisionData = "{discount: 5, unit: '%'}",
-                    FalseDecision = "False Decision"
                 },
                 new DefinedRule
                 {
@@ -55,7 +51,6 @@ namespace RightRule_Demo.RuleLoader
                     Statement = "Demo.NewCust = true and Demo.OrderValue >= hv.value",
                     TrueDecision = "NEWCUST_HIGHVALUE",
                     TrueDecisionData = "{discount: 20, unit: '%'}",
-                    FalseDecision = "False Decision"
                 },
                 new DefinedRule
                 {
@@ -65,7 +60,6 @@ namespace RightRule_Demo.RuleLoader
                     Statement = "Demo.NewCust = false and Demo.OrderValue >= 0 and Demo.OrderValue < hv.value",
                     TrueDecision = "EXISTINGCUST_LOWVALUE",
                     TrueDecisionData = "{discount: 15, unit: '%'}",
-                    FalseDecision = "False Decision"
                 },
                 new DefinedRule
                 {
@@ -75,7 +69,6 @@ namespace RightRule_Demo.RuleLoader
                     Statement = "Demo.NewCust = false and Demo.OrderValue >= hv.value",
                     TrueDecision = "EXISTINGCUST_HIGHVALUE",
                     TrueDecisionData = "{discount: 25, unit: '%'}",
-                    FalseDecision = "False Decision"
                 }
             };
         }

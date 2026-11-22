@@ -33,7 +33,6 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -54,7 +53,6 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -76,7 +74,6 @@ public class DataRegistrationTests
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

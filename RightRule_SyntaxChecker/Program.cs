@@ -52,7 +52,6 @@ internal class Program
                 Statement = statement,
                 Context = "Default Context",
                 TrueDecision = "Default Decision",
-                FalseDecision = "False Decision"
             };
             _ = rightRule.RuleService.RegisterRule(rule);
 

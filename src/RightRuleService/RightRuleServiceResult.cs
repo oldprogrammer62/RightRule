@@ -33,28 +33,11 @@ public sealed class RightRuleServiceResult<T>
             Decision = Payload.TrueDecision, 
             DecisionData = DecisionData, 
             Payload = Payload,
-            Message = string.Empty
-        };
-    }
-
-    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule? Payload, object? DecisionData)
-    {
-        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
-        return new() 
-        { 
-            Status = RightRuleStatusEnum.FAILURE, 
-            Success = Payload.Success, 
-            Result = Payload.Result, 
-            Context = Payload.Context, 
-            StatementApplied = Payload.StatementApplied, 
-            Decision = Payload.FalseDecision, 
-            DecisionData = DecisionData, 
-            Payload = Payload,
             Message = Payload.Message
         };
     }
 
-    internal static RightRuleServiceResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload)
+    internal static RightRuleServiceResult<IProcessedRule> ErrorResult(IProcessedRule? Payload, Exception ex)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
@@ -69,6 +52,24 @@ public sealed class RightRuleServiceResult<T>
             Payload = Payload,
             Message = ex.Message,
             Exception = ex 
+        };
+    }
+
+    internal static RightRuleServiceResult<IProcessedRule> ErrorResult(IProcessedRule? Payload, string Message)
+    {
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
+        return new()
+        {
+            Status = RightRuleStatusEnum.ERROR,
+            Success = Payload.Success,
+            Result = Payload.Result,
+            Context = Payload.Context,
+            StatementApplied = Payload.StatementApplied,
+            Decision = Payload.TrueDecision,
+            DecisionData = null,
+            Payload = Payload,
+            Message = Message,
+            Exception = null
         };
     }
 

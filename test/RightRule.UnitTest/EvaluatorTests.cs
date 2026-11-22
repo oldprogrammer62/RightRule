@@ -207,8 +207,6 @@ public class EvaluatorTests
             "source statement",
             "True",
             null,
-            "False",
-            null,
             optionalData);
 
         return ParsedRule.SuccessResult(definition, node, "parsed", false)!;

@@ -29,8 +29,7 @@ public class ApplyAllRules_Tests
             Number = 1,
             Name = "Name",
             Statement = "x = 20",
-            TrueDecision = "BAD",
-            FalseDecision = "BAD"
+            TrueDecision = "BAD"
         };
 
         DefinedRule rule2 = new DefinedRule()
@@ -39,8 +38,7 @@ public class ApplyAllRules_Tests
             Number = 2,
             Name = "Name2",
             Statement = "xdata.x = 10",
-            TrueDecision = "GOOD",
-            FalseDecision = "BAD"
+            TrueDecision = "GOOD"
         };
 
         rr.RuleService.RegisterRule(rule1);

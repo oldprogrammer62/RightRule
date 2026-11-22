@@ -29,7 +29,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
         {
@@ -38,7 +37,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -61,7 +59,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
         {
@@ -70,7 +67,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT_EQUALS100"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -94,7 +90,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -117,7 +112,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
         DefinedRule rule2 = new()
         {
@@ -126,7 +120,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -150,7 +143,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
         {
@@ -159,7 +151,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -183,7 +174,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
         {
@@ -192,7 +182,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT_EQUALS100"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -216,7 +205,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
         {
@@ -225,7 +213,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
             TrueDecision = "EQUALS102",
-            FalseDecision = "NOT_EQUALS102"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -249,7 +236,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100",
-            FalseDecision = "NOT_EQUALS100"
         };
         DefinedRule rule2 = new()
         {
@@ -258,7 +244,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -282,7 +267,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100_1",
-            FalseDecision = "NOT_EQUALS100_1"
         };
         DefinedRule rule2 = new()
         {
@@ -291,7 +275,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
             TrueDecision = "EQUALS100_2",
-            FalseDecision = "NOT_EQUALS100_2"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -316,7 +299,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
             TrueDecision = "EQUALS101",
-            FalseDecision = "NOT_EQUALS101"
         };
         DefinedRule rule2 = new()
         {
@@ -325,7 +307,6 @@ public class NoRulesMatch
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
             TrueDecision = "EQUALS102",
-            FalseDecision = "NOT_EQUALS102"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -335,7 +316,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.FalseDecision, appliedRules[0].Decision);
-        Assert.Equal(rule2.FalseDecision, appliedRules[1].Decision);
+        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
+        Assert.Equal(rule2.TrueDecision, appliedRules[1].Decision);
     }
 }

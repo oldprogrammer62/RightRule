@@ -19,8 +19,6 @@ string json = """
     "TrueDecisionData": {
       "message": "Rule matched"
     },
-    "FalseDecision": "FAIL",
-    "FalseDecisionData": null,
     "OptionalData": null
   }
 ]
@@ -45,8 +43,6 @@ Each object defines a rule using these properties:
 - Context: Context in which the rule is registered.
 - TrueDecision: Decision value returned when the statement is true.
 - TrueDecisionData: Optional data associated with the true decision.
-- FalseDecision: Decision value returned when the statement is false.
-- FalseDecisionData: Optional data associated with the false decision.
 - OptionalData: Optional configuration data for the rule.
 
 Decision data and optional data can be JSON objects, arrays, strings, numbers,

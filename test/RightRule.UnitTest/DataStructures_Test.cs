@@ -21,7 +21,6 @@ public class DataStructures_Test
             .Context("Context")
             .Statement("Data.Value = 100")
             .TrueDecision("DONE")
-            .FalseDecision("NOT DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
@@ -49,7 +48,6 @@ public class DataStructures_Test
             .Context("Context")
             .Statement("Data1 = 9000 and Data2.Value = 100 and Data3.Value = 200")
             .TrueDecision("DONE")
-            .FalseDecision("NOT DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
@@ -85,7 +83,6 @@ public class DataStructures_Test
             .Context("Context")
             .Statement("Data1 = 9000 and Data2.Value3 = 1004 and Data3.Value = 200")
             .TrueDecision("DONE")
-            .FalseDecision("NOT DONE")
             .Build()
             .Register(rr.RuleService);
 
@@ -109,7 +106,6 @@ public class DataStructures_Test
             .Context("Context")
             .Statement("Value = 100")
             .TrueDecision("DONE")
-            .FalseDecision("NOT DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
@@ -131,7 +127,6 @@ public class DataStructures_Test
             .Context("Context")
             .Statement("Variable = 'Hello World'")
             .TrueDecision("DONE")
-            .FalseDecision("NOT DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 

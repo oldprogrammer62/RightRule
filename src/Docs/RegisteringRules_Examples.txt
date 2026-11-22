@@ -22,8 +22,6 @@ RuleDefinition rule = new()
     Statement = "Test.boolvalue equals true",
     TrueDecision = "EQUALS",
     TrueDecisionData = null,
-    FalseDecision = "NOTEQUALS",
-    FalseDecisionData = null,
     OptionalData = null
 };
 RuleRegistrationResult rule1 = rr.RuleService.RegisterRule(rule);
@@ -39,8 +37,6 @@ RuleDefinition rule = rr.RuleService.BuildRule()
    .Statement("Test.boolvalue equals true")
    .TrueDecision("EQUALS")
    .TrueDecisionData(null)
-   .FalseDecision("NOTEQUALS")
-   .FalseDecisionData(null)
    .OptionalData(null)
    .Build()
    .Register(rr.RuleService);

@@ -96,7 +96,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders < OrderThresholds.ReturningPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.GoodWill%"}""",
-                FalseDecision = "Ineligible"
             },
             new()
             {
@@ -106,7 +105,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.LoyaltyValue and Order.PreviousOrders >= OrderThresholds.LoyaltyPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.Loyalty%"}""",
-                FalseDecision = "Ineligible"
             },
             new()
             {
@@ -116,7 +114,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders >= OrderThresholds.ReturningPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.Returning%"}""",
-                FalseDecision = "Ineligible"
             }
         });
 
@@ -188,7 +185,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders < OrderThresholds.ReturningPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.GoodWill%"}""",
-                FalseDecision = "Ineligible"
             },
             new()
             {
@@ -198,7 +194,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.LoyaltyValue and Order.PreviousOrders >= OrderThresholds.LoyaltyPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.Loyalty%"}""",
-                FalseDecision = "Ineligible"
             },
             new()
             {
@@ -208,7 +203,6 @@ public class CompleteExample_New
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders >= OrderThresholds.ReturningPreviousOrders",
                 TrueDecision = "Discount",
                 TrueDecisionData = """{"discount":"$Discount.Returning%"}""",
-                FalseDecision = "Ineligible"
             }
         });
 

@@ -18,7 +18,6 @@ public class RuleBuilder_Test
             .Context("Context")
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build()
@@ -30,7 +29,6 @@ public class RuleBuilder_Test
             .Context("Context")
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
         var x2 = rr.RuleService.RegisterRule(rule2);
 
@@ -57,7 +55,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a <> b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
@@ -69,7 +66,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2);
 
@@ -100,7 +96,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a <> b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
@@ -112,7 +107,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2);
 
@@ -124,7 +118,7 @@ public class RuleBuilder_Test
 
         var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.ANY);
         Assert.Equal(2, result.Count);
-        Assert.Equal(result[0].Decision, rule1reg?.RegisteredRule?.FalseDecision);
+        Assert.Equal(result[0].Decision, rule1reg?.RegisteredRule?.TrueDecision);
         Assert.Equal(result[1].Decision, rule2reg?.RegisteredRule?.TrueDecision);
     }
 
@@ -144,7 +138,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
@@ -156,7 +149,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2);
 
@@ -188,7 +180,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a <> b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
             .OptionalData(null)
             .Build();
@@ -200,7 +191,6 @@ public class RuleBuilder_Test
             .Context(context)
             .Statement("a = b")
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2);
 

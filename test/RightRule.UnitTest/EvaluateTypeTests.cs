@@ -16,7 +16,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef);
@@ -37,7 +36,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 0")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.RuleService.BuildRule()
@@ -46,7 +44,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello2")
-            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
@@ -69,7 +66,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 0")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.RuleService.BuildRule()
@@ -78,7 +74,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello2")
-            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
@@ -101,7 +96,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.RuleService.BuildRule()
@@ -110,7 +104,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 0")
             .TrueDecision("Hello2")
-            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
@@ -120,7 +113,6 @@ public class EvaluateTypeTests
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
         Assert.Equal(result[0].Decision, ruleDef1.TrueDecision);
-        Assert.Equal(result[1].Decision, ruleDef2.FalseDecision);
     }
 
     [Fact]
@@ -134,7 +126,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.RuleService.BuildRule()
@@ -143,7 +134,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("9 = 9")
             .TrueDecision("Hello2")
-            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);
@@ -167,7 +157,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("1 = 1")
             .TrueDecision("Hello")
-            .FalseDecision("Goodbye")
             .Build();
 
         var ruleDef2 = rr.RuleService.BuildRule()
@@ -176,7 +165,6 @@ public class EvaluateTypeTests
             .Context("Context")
             .Statement("9 = 999")
             .TrueDecision("Hello2")
-            .FalseDecision("Goodbye2")
             .Build();
 
         var rule1 = rr.RuleService.RegisterRule(ruleDef1);

@@ -30,7 +30,6 @@ public class DataTests
             Statement = @"Test.whatvalue equals 123",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOTEQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

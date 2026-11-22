@@ -49,7 +49,6 @@ public class OneBigTest
             .Context(Context1)
             .Statement("data1.Key1 = 100 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision1")
-            .FalseDecision("NotDecision1")
             .Build();
         RuleRegistrationResult? rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -82,7 +81,6 @@ public class OneBigTest
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision1")
-            .FalseDecision("NotDecision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -113,7 +111,6 @@ public class OneBigTest
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision1")
-            .FalseDecision("NotDecision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -153,7 +150,6 @@ public class OneBigTest
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision1")
-            .FalseDecision("NotDecision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -180,7 +176,6 @@ public class OneBigTest
             .Context(Context2)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision2")
-            .FalseDecision("NotDecision2")
             .Build();
         var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);
@@ -211,7 +206,6 @@ public class OneBigTest
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision1")
-            .FalseDecision("NotDecision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -239,7 +233,6 @@ public class OneBigTest
             .Context(Context2)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
             .TrueDecision("Decision2")
-            .FalseDecision("NotDecision2")
             .Build();
         var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);

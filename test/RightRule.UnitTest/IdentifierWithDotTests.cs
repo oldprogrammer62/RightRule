@@ -36,7 +36,6 @@ public class IdentifierWithDotTests
             Statement = "Data.ordervalue equals Constants.highvalue",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -61,7 +60,6 @@ public class IdentifierWithDotTests
             Statement = @"Data.NewCust = true and Data.ordervalue = Constants.highvalue and ""123"" = Constants.name",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

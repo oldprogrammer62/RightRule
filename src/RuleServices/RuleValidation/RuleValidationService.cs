@@ -51,7 +51,6 @@ internal sealed class RuleValidationService : IRuleValidationService
          * Context - Must be a string
          * Statement - Must be a string
          * TrueDecision - Must be a string
-         * FalseDecision - Must be a string
          */
 
         var number = rule.Number;
@@ -59,14 +58,12 @@ internal sealed class RuleValidationService : IRuleValidationService
         var context = rule.Context;
         var statement = rule.Statement;
         var trueDecision = rule.TrueDecision;
-        var falseDecision = rule.FalseDecision;
 
         var validNumber = number >= 1;
         var validName = !string.IsNullOrWhiteSpace(name);
         var validContext = !string.IsNullOrWhiteSpace(context);
         var validStatement = !string.IsNullOrWhiteSpace(statement);
         var validTrueDecision = !string.IsNullOrWhiteSpace(trueDecision);
-        var validFalseDecision = !string.IsNullOrWhiteSpace(falseDecision);
 
         StringBuilder sb = new StringBuilder();
         sb.Append(!validNumber ? "Rule Number," : "");
@@ -74,9 +71,8 @@ internal sealed class RuleValidationService : IRuleValidationService
         sb.Append(!validContext ? "Context," : "");
         sb.Append(!validStatement ? "Statement," : "");
         sb.Append(!validTrueDecision ? "TrueDecision," : "");
-        sb.Append(!validFalseDecision ? "FalseDecision," : "");
 
-        if (AllOk(validNumber, validName, validContext, validStatement, validTrueDecision, validFalseDecision))
+        if (AllOk(validNumber, validName, validContext, validStatement, validTrueDecision))
         {
             return new RuleValidationResult()
             {
@@ -99,15 +95,13 @@ internal sealed class RuleValidationService : IRuleValidationService
         bool name,
         bool context,
         bool statement,
-        bool trueDecision,
-        bool falseDecision)
+        bool trueDecision)
     {
         if (!number) return false;
         if (!name) return false;
         if (!context) return false;
         if (!statement) return false;
         if (!trueDecision) return false;
-        if (!falseDecision) return false;
         return true;
     }
 }

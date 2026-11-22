@@ -32,7 +32,6 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 11",
             Context = "NumberOfOrdersContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -55,7 +54,6 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10 and Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             TrueDecision = "OK",
-            FalseDecision = "NOTOK"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -79,7 +77,6 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10 or Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
             TrueDecision = "OK",
-            FalseDecision = "NOTOK"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -103,7 +100,6 @@ public class GrammarTests
             Statement = @"(Test.numberoforders equals 10 and Test.goodpayer equals true) or (Test.numberoforders equals 10 and Test.goodpayer equals true)",
             Context = "NumberOfOrdersContext",
             TrueDecision = "OK",
-            FalseDecision = "NOTOK"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -127,7 +123,6 @@ public class GrammarTests
             Statement = @"Test.numberoforders equals 10",
             Context = "NumberOfOrdersContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -150,7 +145,6 @@ public class GrammarTests
             Statement = "Test.numberoforders notequals 11",
             Context = "NumberOfOrdersContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -173,7 +167,6 @@ public class GrammarTests
             Statement = "Test.numberoforders != 18",
             Context = "NumberOfOrdersContext",
             TrueDecision = "CORRECTORDERCOUNT",
-            FalseDecision = "INCORRECTORDERCOUNT"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -196,7 +189,6 @@ public class GrammarTests
             Statement = "Test.numberoforders <> 11",
             Context = "NumberOfOrdersContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -219,7 +211,6 @@ public class GrammarTests
             Statement = "Test.numberoforders = 10",
             Context = "NumberOfOrdersContext",
             TrueDecision = "ENOUGHORDERS",
-            FalseDecision = "NOTENOUGHORDERS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -241,7 +232,6 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NameContext",
             TrueDecision = "NAMEFOUND",
-            FalseDecision = "NAMENOTFOUND"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -264,7 +254,6 @@ public class GrammarTests
             Statement = "Test.name equals Test.fullname",
             Context = "NameContext",
             TrueDecision = "NAMESAMEASFULLNAME",
-            FalseDecision = "NAMEDIFFERENTFROMFULLNAME"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -287,7 +276,6 @@ public class GrammarTests
             Statement = "Test.goodpayer equals true",
             Context = "GoodPayerContext",
             TrueDecision = "GOODPAYER",
-            FalseDecision = "NOTGOODPAYER"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -310,7 +298,6 @@ public class GrammarTests
             Statement = "Test.goodpayer equals false",
             Context = "NotGoodPayerContext",
             TrueDecision = "GOODPAYER",
-            FalseDecision = "NOTGOODPAYER"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -333,7 +320,6 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             TrueDecision = "NAMEFOUND",
-            FalseDecision = "NAMENOTFOUND"
         };
 
         DefinedRule rule2 = new()
@@ -343,7 +329,6 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             TrueDecision = "NAMEFOUND2",
-            FalseDecision = "NAMENOTFOUND2"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -368,7 +353,6 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
             TrueDecision = "NAMEFOUND",
-            FalseDecision = "NAMENOTFOUND"
         };
 
         DefinedRule rule2 = new()
@@ -378,7 +362,6 @@ public class GrammarTests
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
             TrueDecision = "NAMEFOUND2",
-            FalseDecision = "NAMENOTFOUND2"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

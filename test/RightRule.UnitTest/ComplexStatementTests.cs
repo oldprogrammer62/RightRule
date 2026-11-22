@@ -38,9 +38,7 @@ public class ComplexStatementTests
             .Context("Context")
             .Statement(statement)
             .TrueDecision("GOOD")
-            .FalseDecision("BAD")
             .TrueDecisionData(null)
-            .FalseDecisionData(null)
             .OptionalData(null)
             .Build()
             .Register(rr.RuleService);
@@ -68,7 +66,6 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -94,7 +91,6 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -120,7 +116,6 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -146,7 +141,6 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data
@@ -177,7 +171,6 @@ public class ComplexStatementTests
             Statement = statement,
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         // Register the data

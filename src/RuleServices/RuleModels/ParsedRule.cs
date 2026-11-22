@@ -33,8 +33,6 @@ public sealed class ParsedRule : RuleParsed
             Statement = ruleDefinition.Statement,
             TrueDecision = ruleDefinition.TrueDecision,
             TrueDecisionData = ruleDefinition.TrueDecisionData,
-            FalseDecision = ruleDefinition.FalseDecision,
-            FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.SUCCESS,
             Message = message,
             StatementPath = BuildTreeText(node, Diagnostics),
@@ -58,8 +56,6 @@ public sealed class ParsedRule : RuleParsed
             Statement = ruleDefinition.Statement,
             TrueDecision = ruleDefinition.TrueDecision,
             TrueDecisionData = ruleDefinition.TrueDecisionData,
-            FalseDecision = ruleDefinition.FalseDecision,
-            FalseDecisionData = ruleDefinition.FalseDecisionData,
             Status = RightRuleStatusEnum.FAILURE,
             Message = message,
             StatementPath = BuildTreeText(node, Diagnostics),
@@ -83,8 +79,6 @@ public sealed class ParsedRule : RuleParsed
             Statement = ruleDefinition.Statement,
             TrueDecision = ErrorRule.DECISIONWORD,
             TrueDecisionData = null,
-            FalseDecision = ErrorRule.FALSEDECISIONWORD,
-            FalseDecisionData = null,
             Status = RightRuleStatusEnum.ERROR,
             StatementPath = string.Empty,
             Message = message,
@@ -102,8 +96,6 @@ public sealed class ParsedRule : RuleParsed
         sb.AppendLine($"Statement: {Statement}");
         sb.AppendLine($"TrueDecision: {TrueDecision}");
         sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
-        sb.AppendLine($"FalseDecision: {FalseDecision}");
-        sb.AppendLine($"FalseDecisionData: {FalseDecisionData}");
         sb.AppendLine($"Status: {Status}");
         sb.AppendLine($"StatementPath: {StatementPath}");
         sb.AppendLine($"OptionalData: {OptionalData}");

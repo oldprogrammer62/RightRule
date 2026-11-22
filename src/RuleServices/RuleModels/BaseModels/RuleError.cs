@@ -3,7 +3,6 @@
 public abstract class RuleError : IProcessedRule
 {
     public const string DECISIONWORD = "ERROR";
-    public const string FALSEDECISIONWORD = "ERROR";
     public const string RULENAME = "ErrorRule";
 
     public int Number { get; init; } = (int)RuleNumberEnum.ERRORRULE;
@@ -17,7 +16,4 @@ public abstract class RuleError : IProcessedRule
 
     public string TrueDecision { get; } = DECISIONWORD;
     public object? TrueDecisionData { get; }
-
-    public string FalseDecision { get; } = FALSEDECISIONWORD;
-    public object? FalseDecisionData { get; }
 }

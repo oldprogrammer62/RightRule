@@ -31,7 +31,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 10.00",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -54,7 +53,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 10",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -77,7 +75,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 100",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -100,7 +97,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.floatvalue greaterthanorequals 99.9",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -123,7 +119,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.floatvalue greaterthanorequals 100.01",
             Context = "Context",
             TrueDecision = "GREATERTHANOREQUALS",
-            FalseDecision = "NOT_GREATERTHANOREQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -148,7 +143,6 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -173,7 +167,6 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datevalue greaterthanorequals ""{date}""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -198,7 +191,6 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -223,7 +215,6 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -248,7 +239,6 @@ public class GreaterThanOrEqualsTests
             Statement = @$"Test.datetimevalue greaterthanorequals ""{date}""",
             Context = "Context",
             TrueDecision = "EQUALS",
-            FalseDecision = "NOT_EQUALS"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -271,7 +261,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue greaterthanorequals 1010",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -294,7 +283,6 @@ public class GreaterThanOrEqualsTests
             Statement = @"Test.intvalue >== 10",
             Context = "Context",
             TrueDecision = "GREATERTHAN",
-            FalseDecision = "NOT_GREATERTHAN"
         };
 
         var rr = new RightRule.RightRule().CreateSession();

@@ -55,7 +55,6 @@ public class ExtensionTests
         {
             Context = "TestContext",
             TrueDecision = "TestDecision",
-            FalseDecision = "TestFalseDecision",
             Name = "TestRule",
             Number = 1,
             Statement = "Test.hello equals \"hello\""
