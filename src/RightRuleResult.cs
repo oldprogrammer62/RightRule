@@ -1,4 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels.BaseModels;
+﻿using RightRule.Models;
+using RightRule.RuleServices.RuleModels.BaseModels;
 using System.Text;
 
 namespace RightRule;
@@ -6,6 +7,7 @@ namespace RightRule;
 public sealed class RightRuleResult<T>
 {
     public required int RuleNumber { get; init; }
+    public RightRuleStatusEnum Status { get; init; }
     public required string RuleName { get; init; }
     public required bool Result { get; init; }
 
@@ -23,6 +25,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         {
+            Status = RightRuleStatusEnum.SUCCESS,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -32,11 +35,31 @@ public sealed class RightRuleResult<T>
         };
     }
 
+    public static RightRuleResult<IProcessedRule> FailureResult(
+        IProcessedRule? Payload,
+        string Message)
+    {
+        ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
+
+        return new()
+        {
+            Status = RightRuleStatusEnum.FAILURE,
+            Result = Payload.Result,
+            RuleNumber = Payload.Number,
+            RuleName = Payload.Name,
+            Decision = Payload.Decision,
+            DecisionData = Payload.DecisionData,
+            StatementApplied = Payload.StatementApplied,
+            Message = Message
+        };
+    }
+
     public static RightRuleResult<IProcessedRule> ErrorResult(Exception ex, IProcessedRule? Payload = default)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
-        { 
+        {
+            Status = RightRuleStatusEnum.ERROR,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -52,6 +75,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
+            Status = RightRuleStatusEnum.DEFAULT,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -68,6 +92,7 @@ public sealed class RightRuleResult<T>
         sb.AppendLine($"Number: {RuleNumber}");
         sb.AppendLine($"Name: {RuleName}");
         sb.AppendLine($"StatementApplied: {StatementApplied}");
+        sb.AppendLine($"Status: {Status}");
         sb.AppendLine($"Decision: {Decision}");
         sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"Result: {Result}");

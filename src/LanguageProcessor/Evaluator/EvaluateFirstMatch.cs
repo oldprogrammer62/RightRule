@@ -9,7 +9,6 @@ internal static class EvaluateFirstMatch
     internal async static Task<IProcessedRule> EvaluateAsync(IEvaluator Evaluator, string Context, List<ParsedRule> Rules, IDefaultRuleRegister DefaultRuleRegister)
     {
         IProcessedRule appliedRule = DefaultRuleRegister.GetDefaultRule(Context);
-
         bool complete = false;
         bool matched = false;
 
@@ -28,7 +27,7 @@ internal static class EvaluateFirstMatch
                     matched = true;
                     break;
 
-                case (true, false): // Successfully applied and Rule false
+                case (true, false): // Successfully applied but it returned false
                     complete = false;
                     matched = false;
                     continue;
@@ -44,6 +43,7 @@ internal static class EvaluateFirstMatch
                 break;
             }
         }
+
         if (!matched) // appliedRule is default
         {
             appliedRule = DefaultRuleRegister.GetDefaultRule(Context);

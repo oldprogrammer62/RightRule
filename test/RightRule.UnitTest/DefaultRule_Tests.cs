@@ -184,4 +184,46 @@ public class DefaultRule_Tests
         var defaultRule = rr.RuleService.GetDefaultRule(Context);
         Assert.NotNull(defaultRule);
     }
+
+    [Fact]
+    public void ApplyRule_WhenRegisteredRuleEvaluatesFalse_ReturnsConfiguredDefault()
+    {
+        using var session = new RightRule.RightRule().CreateSession();
+        const string context = "Sales";
+
+        var defaultRule = new DefaultRule
+        {
+            Name = "SalesDefault",
+            Context = context,
+            Decision = "NoMatch",
+            DecisionData = "Use the default decision"
+        };
+        var defaultRegistration = session.RuleService.RegisterDefaultRule(defaultRule);
+
+        var dataRegistration = session.DataService.RegisterData(
+            "Orders",
+            new Dictionary<string, object>
+            {
+                ["count"] = 3
+            });
+
+        var rule = session.RuleService.BuildRule()
+            .Number(1)
+            .Name("MinimumOrderCount")
+            .Context(context)
+            .Statement("Orders.count equals 5")
+            .Decision("Eligible")
+            .Build();
+        var ruleRegistration = session.RuleService.RegisterRule(rule);
+
+        var result = session.RuleService.ApplyRule(context);
+
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, defaultRegistration.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, dataRegistration.Status);
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, ruleRegistration.Status);
+        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Status);
+        Assert.Equal("SalesDefault", result.RuleName);
+        Assert.Equal("NoMatch", result.Decision);
+        Assert.Equal("Use the default decision", result.DecisionData);
+    }
 }

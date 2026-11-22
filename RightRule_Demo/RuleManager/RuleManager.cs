@@ -29,8 +29,6 @@ namespace RightRule_Demo.RuleManager
             var hvData = MakeHvData(HighValue);
             rr.DataService.RegisterData("hv", hvData);
 
-            var x = rr.RuleService.ApplyRule(Context);
-
             var appliedRules = rr.RuleService.ApplyRules(Context, EvaluationType);
             return appliedRules;
         }

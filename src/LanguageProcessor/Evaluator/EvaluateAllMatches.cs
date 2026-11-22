@@ -29,23 +29,20 @@ internal static class EvaluateAllMatches
                     continue;
 
                 case (true, false): // Successfully applied and Rule false
-                    appliedRules = new List<IProcessedRule>();
-                    appliedRules.Add(DefaultRuleRegister.GetDefaultRule(Context));
-                    complete = true;
+                    //appliedRules = [DefaultRuleRegister.GetDefaultRule(Context)];
+                    appliedRules.Add(CreateTrueResult(ruleResult, rule));
+                    complete = false;
                     matched = true;
                     break;
 
                 default:
                     appliedRules.Add(CreateErrorResult(ruleResult, rule));
-                    complete = true;
+                    complete = false;
                     matched = true;
                     break;
             }
-            if (complete)
-            {
-                break;
-            }
         }
+
         if (!matched) // appliedRules is empty
         {
             appliedRules.Add(DefaultRuleRegister.GetDefaultRule(Context));

@@ -1,4 +1,5 @@
 using RightRule;
+using RightRule.Models;
 using RightRule.RuleServices.RuleModels;
 
 namespace RightRuleTests;
@@ -89,5 +90,6 @@ public class ApplyRuleWithDatasetTests
         var appliedRule = rr.RuleService.ApplyRule("AllContext");
 
         Assert.Equal(ErrorRule.DECISIONWORD, appliedRule.Decision);
+        Assert.Equal(RightRuleStatusEnum.ERROR, appliedRule.Status);
     }
 }

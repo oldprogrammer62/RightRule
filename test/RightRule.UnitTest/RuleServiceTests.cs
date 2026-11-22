@@ -282,6 +282,153 @@ public sealed class RuleServiceTests
         Assert.Equal(["First", "Second"], _sut.GetRuleNames("Sales"));
     }
 
+    [Fact]
+    public void RegisterRules_WhenValidationReturnsError_ReturnsErrorForEachRuleWithoutParsing()
+    {
+        _validationService.Result = new RuleValidationResult
+        {
+            Valid = RightRuleStatusEnum.ERROR,
+            Message = "Invalid rule"
+        };
+
+        var results = _sut.RegisterRules(
+        [
+            CreateDefinedRule(1, "First"),
+        CreateDefinedRule(2, "Second")
+        ]);
+
+        Assert.Equal(2, results.Count);
+        Assert.All(results, result =>
+        {
+            Assert.Equal(RightRuleStatusEnum.ERROR, result.Status);
+            Assert.Null(result.RegisteredRule);
+            Assert.Equal("Invalid rule", result.Message);
+        });
+        Assert.Equal(0, _parseService.CallCount);
+        Assert.Empty(_registeredRules.Rules);
+    }
+
+    [Fact]
+    public void RegisterRules_WhenParsedRuleIsError_ReportsErrorAndContinuesRegistering()
+    {
+        var errorRule = CreateParsedRule(
+            1, "ErrorRule", "Sales", RightRuleStatusEnum.ERROR, "Parse error");
+        var successfulRule = CreateParsedRule(
+            2, "SuccessfulRule", "Sales", RightRuleStatusEnum.SUCCESS);
+
+        var parseResults = new Queue<ParsedRule?>();
+        parseResults.Enqueue(errorRule);
+        parseResults.Enqueue(successfulRule);
+        _parseService.Results = parseResults;
+
+        var results = _sut.RegisterRules(
+        [
+            CreateDefinedRule(1, "ErrorRule"),
+        CreateDefinedRule(2, "SuccessfulRule")
+        ]);
+
+        Assert.Equal(2, results.Count);
+        Assert.Equal(RightRuleStatusEnum.ERROR, results[0].Status);
+        Assert.Same(errorRule, results[0].RegisteredRule);
+        Assert.Equal("Parse error", results[0].Message);
+
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, results[1].Status);
+        Assert.Same(successfulRule, results[1].RegisteredRule);
+        Assert.Contains(successfulRule, _registeredRules.Rules);
+        Assert.DoesNotContain(errorRule, _registeredRules.Rules);
+        Assert.Equal(2, _parseService.CallCount);
+    }
+
+    [Fact]
+    public void RegisterRule_WhenValidationReturnsError_PreservesExistingRegisteredRules()
+    {
+        var existingRule = CreateParsedRule(
+            99, "ExistingRule", "Sales", RightRuleStatusEnum.SUCCESS);
+        _registeredRules.AddRule(existingRule);
+
+        _validationService.Result = new RuleValidationResult
+        {
+            Valid = RightRuleStatusEnum.ERROR,
+            Message = "Invalid rule"
+        };
+
+        var result = _sut.RegisterRule(CreateDefinedRule());
+
+        Assert.Equal(RightRuleStatusEnum.ERROR, result.Status);
+        Assert.Null(result.RegisteredRule);
+        Assert.Equal("Invalid rule", result.Message);
+        Assert.Equal(0, _parseService.CallCount);
+        Assert.Equal([existingRule], _registeredRules.Rules);
+    }
+
+    [Fact]
+    public void RegisterRule_WhenParsedRuleReturnsError_PreservesExistingRegisteredRules()
+    {
+        var existingRule = CreateParsedRule(
+            99, "ExistingRule", "Sales", RightRuleStatusEnum.SUCCESS);
+        var errorRule = CreateParsedRule(
+            1, "ErrorRule", "Sales", RightRuleStatusEnum.ERROR, "Parse error");
+        _registeredRules.AddRule(existingRule);
+        _parseService.Result = errorRule;
+
+        var result = _sut.RegisterRule(CreateDefinedRule(1, "ErrorRule"));
+
+        Assert.Equal(RightRuleStatusEnum.ERROR, result.Status);
+        Assert.Same(errorRule, result.RegisteredRule);
+        Assert.Equal("Parse error", result.Message);
+        Assert.Equal([existingRule], _registeredRules.Rules);
+    }
+
+    public static TheoryData<RightRuleStatusEnum> AllRightRuleStatuses
+    {
+        get
+        {
+            var data = new TheoryData<RightRuleStatusEnum>();
+            foreach (var status in Enum.GetValues<RightRuleStatusEnum>())
+            {
+                data.Add(status);
+            }
+
+            return data;
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(AllRightRuleStatuses))]
+    public void RegisterRule_HandlesEveryParsedRuleStatus(RightRuleStatusEnum status)
+    {
+        var parsedRule = CreateParsedRule(
+            1, "Rule", "Sales", status, "Status result");
+        _parseService.Result = parsedRule;
+
+        var result = _sut.RegisterRule(CreateDefinedRule());
+
+        switch (status)
+        {
+            case RightRuleStatusEnum.SUCCESS:
+            case RightRuleStatusEnum.DEFAULT:
+                Assert.Equal(status, result.Status);
+                Assert.Same(parsedRule, result.RegisteredRule);
+                Assert.Contains(parsedRule, _registeredRules.Rules);
+                break;
+
+            case RightRuleStatusEnum.FAILURE:
+            case RightRuleStatusEnum.ERROR:
+                Assert.Equal(status, result.Status);
+                Assert.Same(parsedRule, result.RegisteredRule);
+                Assert.Equal("Status result", result.Message);
+                Assert.DoesNotContain(parsedRule, _registeredRules.Rules);
+                break;
+
+            default:
+                Assert.Equal(RightRuleStatusEnum.FAILURE, result.Status);
+                Assert.Null(result.RegisteredRule);
+                Assert.Equal("Rule Failed to register", result.Message);
+                Assert.Empty(_registeredRules.Rules);
+                break;
+        }
+    }
+
     private static DefinedRule CreateDefinedRule(int number = 1, string name = "Rule") =>
         DefinedRule.Build(number, name, "Sales", "true", "Yes", null, null);
 

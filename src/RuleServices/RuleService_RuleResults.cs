@@ -49,6 +49,10 @@ internal sealed partial class RuleService : IRuleService
             RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied, decisionData),
 
+            RightRuleStatusEnum.FAILURE =>
+                RightRuleResult<IProcessedRule>.FailureResult(
+                    payload ?? ErrorRule.ErrorResult(message), message),
+
             RightRuleStatusEnum.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context), message),
 
@@ -72,10 +76,24 @@ internal sealed partial class RuleService : IRuleService
 
     private static RightRuleServiceResult<IProcessedRule> BuildResultObject(IProcessedRule processedRule, object? DecisionData)
     {
+        if (processedRule is RuleDefault)
+        {
+            var defaultResult = RightRuleServiceResult<IProcessedRule>.DefaultResult(processedRule);
+            defaultResult.DecisionData = DecisionData;
+            return defaultResult;
+        }
+
+        if (processedRule is ErrorRule)
+        {
+            var errorResult = RightRuleServiceResult<IProcessedRule>.ErrorResult(processedRule, processedRule.Message);
+            errorResult.DecisionData = null;
+            return errorResult;
+        }
+
         var result = processedRule.Result switch
         {
             true => RightRuleServiceResult<IProcessedRule>.SuccessResult(processedRule, DecisionData),
-            false => RightRuleServiceResult<IProcessedRule>.ErrorResult(processedRule, processedRule.Message)
+            false => RightRuleServiceResult<IProcessedRule>.FailureResult(processedRule, DecisionData)
         };
         return result;
     }

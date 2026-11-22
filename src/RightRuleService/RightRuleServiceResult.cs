@@ -37,6 +37,22 @@ public sealed class RightRuleServiceResult<T>
         };
     }
 
+    public static RightRuleServiceResult<IProcessedRule> FailureResult(IProcessedRule Payload, object? DecisionData)
+    {
+        return new RightRuleServiceResult<IProcessedRule>
+        {
+            Status = RightRuleStatusEnum.FAILURE,
+            Success = Payload.Success,
+            Result = Payload.Result,
+            Context = Payload.Context,
+            StatementApplied = Payload.StatementApplied,
+            Decision = Payload.Decision,
+            DecisionData = DecisionData,
+            Payload = Payload,
+            Message = Payload.Message
+        };
+    }
+
     internal static RightRuleServiceResult<IProcessedRule> ErrorResult(IProcessedRule? Payload, Exception ex)
     {
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));

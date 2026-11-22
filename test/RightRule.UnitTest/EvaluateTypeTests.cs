@@ -1,5 +1,6 @@
 ﻿using RightRule;
 using RightRule.LanguageProcessor.Evaluator;
+using RightRule.Models;
 
 namespace RightRuleTests;
 
@@ -172,7 +173,9 @@ public class EvaluateTypeTests
 
         var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
-        Assert.Single(result);
-        Assert.Equal(result[0].Decision, rr.RuleService.GetDefaultRule("Context").Decision);
+        Assert.Equal(2, result.Count);
+
+        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[0].Status);
+        Assert.Equal(RightRuleStatusEnum.FAILURE, result[1].Status);
     }
 }
