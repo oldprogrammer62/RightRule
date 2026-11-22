@@ -31,8 +31,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            TrueDecision = ruleDefinition.TrueDecision,
-            TrueDecisionData = ruleDefinition.TrueDecisionData,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
             Status = RightRuleStatusEnum.SUCCESS,
             Message = message,
             StatementPath = BuildTreeText(node, Diagnostics),
@@ -54,8 +54,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            TrueDecision = ruleDefinition.TrueDecision,
-            TrueDecisionData = ruleDefinition.TrueDecisionData,
+            Decision = ruleDefinition.Decision,
+            DecisionData = ruleDefinition.DecisionData,
             Status = RightRuleStatusEnum.FAILURE,
             Message = message,
             StatementPath = BuildTreeText(node, Diagnostics),
@@ -77,8 +77,8 @@ public sealed class ParsedRule : RuleParsed
             Name = ruleDefinition.Name,
             Context = ruleDefinition.Context,
             Statement = ruleDefinition.Statement,
-            TrueDecision = ErrorRule.DECISIONWORD,
-            TrueDecisionData = null,
+            Decision = ErrorRule.DECISIONWORD,
+            DecisionData = null,
             Status = RightRuleStatusEnum.ERROR,
             StatementPath = string.Empty,
             Message = message,
@@ -94,8 +94,8 @@ public sealed class ParsedRule : RuleParsed
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
-        sb.AppendLine($"TrueDecision: {TrueDecision}");
-        sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
+        sb.AppendLine($"Decision: {Decision}");
+        sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"Status: {Status}");
         sb.AppendLine($"StatementPath: {StatementPath}");
         sb.AppendLine($"OptionalData: {OptionalData}");

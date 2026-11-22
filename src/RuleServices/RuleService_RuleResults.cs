@@ -82,6 +82,6 @@ internal sealed partial class RuleService : IRuleService
 
     private object? MakeDecisionData(IProcessedRule rule)
     {
-        return _interpolatorService.Interpolate(rule.TrueDecisionData);
+        return _interpolatorService.Interpolate(rule.DecisionData);
     }
 }

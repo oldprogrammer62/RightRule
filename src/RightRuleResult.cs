@@ -26,7 +26,7 @@ public sealed class RightRuleResult<T>
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.TrueDecision, 
+            Decision = Payload.Decision, 
             DecisionData = DecisionData, 
             StatementApplied = StatementApplied 
         };
@@ -40,7 +40,7 @@ public sealed class RightRuleResult<T>
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.TrueDecision, 
+            Decision = Payload.Decision, 
             DecisionData = null, 
             StatementApplied = string.Empty,
             Message = ex.Message
@@ -55,8 +55,8 @@ public sealed class RightRuleResult<T>
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
-            Decision = Payload.TrueDecision, 
-            DecisionData = Payload.TrueDecisionData, 
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData, 
             StatementApplied = string.Empty,
             Message = Message
         };

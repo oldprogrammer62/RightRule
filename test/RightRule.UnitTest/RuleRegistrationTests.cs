@@ -16,7 +16,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         DefinedRule rule2 = rr.RuleService.BuildRule()
@@ -24,7 +24,7 @@ public class RuleRegistrationTests
             .Name("Name2")
             .Context("Context2")
             .Statement("b = c")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         var result1 = rr.RuleService.RegisterRule(rule1);
@@ -47,7 +47,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         DefinedRule rule2 = rr.RuleService.BuildRule()
@@ -55,7 +55,7 @@ public class RuleRegistrationTests
             .Name("Name2")
             .Context("Context2")
             .Statement("a = b")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         var result1 = rr.RuleService.RegisterRule(rule1);
@@ -78,7 +78,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context1")
             .Statement("a = b")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         DefinedRule rule2 = rr.RuleService.BuildRule()
@@ -86,7 +86,7 @@ public class RuleRegistrationTests
             .Name("Name1")
             .Context("Context2")
             .Statement("a = b")
-            .TrueDecision("Decision")
+            .Decision("Decision")
             .Build();
 
         var result1 = rr.RuleService.RegisterRule(rule1);

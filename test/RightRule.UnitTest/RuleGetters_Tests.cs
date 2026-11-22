@@ -47,9 +47,9 @@ public class RuleGetters_Tests
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'TrueDecision': 'SUCCESS'");
+        json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'TrueDecisionData': null");
+        json.Append("'DecisionData': null");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');
@@ -66,9 +66,9 @@ public class RuleGetters_Tests
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'TrueDecision': 'SUCCESS'");
+        json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'TrueDecisionData': null");
+        json.Append("'DecisionData': null");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');
@@ -85,9 +85,9 @@ public class RuleGetters_Tests
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'TrueDecision': 'SUCCESS'");
+        json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'TrueDecisionData': null");
+        json.Append("'DecisionData': null");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');

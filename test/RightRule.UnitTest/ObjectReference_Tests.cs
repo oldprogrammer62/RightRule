@@ -31,13 +31,13 @@ public class ObjectReference_Tests
             Name = "TestRule",
             Context = "Test",
             Statement = "BobsName = \"Bob\" and BobsAge = 31 and OrderData.OrderCount >= 5",
-            TrueDecision = "Approved",
+            Decision = "Approved",
             OptionalData = null
         };
         rr.RuleService.RegisterRule(rd1);
         var result = rr.RuleService.ApplyRule("Test");
         Assert.NotNull(result);
-        Assert.Equal(rd1.TrueDecision, result.Decision);
+        Assert.Equal(rd1.Decision, result.Decision);
     }
 
     [Fact]
@@ -63,14 +63,14 @@ public class ObjectReference_Tests
             Name = "TestRule",
             Context = "Test",
             Statement = "BobsName = \"Bob\" and BobsAge = 31 and Data.OrderCount >= 5",
-            TrueDecision = "Approved",
+            Decision = "Approved",
             OptionalData = null
         };
 
         rr.RuleService.RegisterRule(rd1);
         var result = rr.RuleService.ApplyRule("Test");
         Assert.NotNull(result);
-        Assert.Equal(rd1.TrueDecision, result.Decision);
+        Assert.Equal(rd1.Decision, result.Decision);
     }
 
     [Fact]
@@ -94,14 +94,14 @@ public class ObjectReference_Tests
             Name = "TestRule",
             Context = "Test",
             Statement = "BobsName = \"Bob\" and BobsAge = 31 and HarrysName = \"Harry\" and HarrysAge = 21",
-            TrueDecision = "Approved",
+            Decision = "Approved",
             OptionalData = null
         };
 
         rr.RuleService.RegisterRule(rd1);
         var result = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
-        Assert.Equal(rd1.TrueDecision, result[0].Decision);
+        Assert.Equal(rd1.Decision, result[0].Decision);
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public class ObjectReference_Tests
             Name = "TestRule",
             Context = "Test",
             Statement = "BobsName = \"Bob\" and BobsAge = 31 and HarrysName = \"Harry\" and HarrysAge = 20",
-            TrueDecision = "Approved",
+            Decision = "Approved",
             OptionalData = null
         };
 
@@ -133,7 +133,7 @@ public class ObjectReference_Tests
         var result = rr.RuleService.ApplyRules("Test", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
 
-        Assert.Equal(rd1.TrueDecision, result[0].Decision);
+        Assert.Equal(rd1.Decision, result[0].Decision);
     }
 
     [Fact]
@@ -150,13 +150,13 @@ public class ObjectReference_Tests
             Context = "Context",
             Name = "Name",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "x.x = 100"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -179,13 +179,13 @@ public class ObjectReference_Tests
             Context = "Context",
             Name = "Name",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "x = 100 and y = 200 and greeting = \"Hello\""
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -215,13 +215,13 @@ public class ObjectReference_Tests
             Context = "Context",
             Name = "Name",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "x = 100 and y = 200 and greeting = \"Hello\" and BobsAge = 30"
         };
         var registeredRule = rr.RuleService.RegisterRule(rule);
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -237,7 +237,7 @@ public class ObjectReference_Tests
             .Name("Name1")
             .Context("Context")
             .Statement("obj = 21")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build()
             .Register(rr.RuleService);
 

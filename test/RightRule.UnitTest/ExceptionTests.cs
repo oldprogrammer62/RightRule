@@ -37,7 +37,7 @@ public class ExceptionTests
         var rule = new DefinedRule()
         {
             Context = "Context",
-            TrueDecision = "Done",
+            Decision = "Done",
             Name = "RuleName",
             Number = 1,
             Statement = "a.b was c.d"

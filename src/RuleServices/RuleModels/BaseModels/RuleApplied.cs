@@ -16,7 +16,7 @@ public abstract class RuleApplied : IProcessedRule
     /// <summary>
     /// The string returned to the calling application if the rule evaluates true
     /// </summary>
-    public required string TrueDecision { get; init; }
+    public required string Decision { get; init; }
 
     /// <summary>
     /// Optional data returned when the Rule is evaluated to true.
@@ -24,5 +24,5 @@ public abstract class RuleApplied : IProcessedRule
     /// The Operator can return its own version of DecisionData if appropriate
     /// Note: the calling application should be capable of using this data when taking the appropriate action based on the decision.
     /// </summary>
-    public object? TrueDecisionData { get; init; }
+    public object? DecisionData { get; init; }
 }

@@ -30,7 +30,7 @@ public sealed class RightRuleServiceResult<T>
             Result = Payload.Result, 
             Context = Payload.Context,
             StatementApplied = Payload.StatementApplied, 
-            Decision = Payload.TrueDecision, 
+            Decision = Payload.Decision, 
             DecisionData = DecisionData, 
             Payload = Payload,
             Message = Payload.Message
@@ -47,7 +47,7 @@ public sealed class RightRuleServiceResult<T>
             Result = Payload.Result, 
             Context = Payload.Context,
             StatementApplied = Payload.StatementApplied, 
-            Decision = Payload.TrueDecision, 
+            Decision = Payload.Decision, 
             DecisionData = null, 
             Payload = Payload,
             Message = ex.Message,
@@ -65,7 +65,7 @@ public sealed class RightRuleServiceResult<T>
             Result = Payload.Result,
             Context = Payload.Context,
             StatementApplied = Payload.StatementApplied,
-            Decision = Payload.TrueDecision,
+            Decision = Payload.Decision,
             DecisionData = null,
             Payload = Payload,
             Message = Message,
@@ -83,8 +83,8 @@ public sealed class RightRuleServiceResult<T>
             Result = Payload.Result, 
             Context = Payload.Context,
             StatementApplied = Payload.StatementApplied, 
-            Decision = Payload.TrueDecision, 
-            DecisionData = Payload.TrueDecisionData,
+            Decision = Payload.Decision, 
+            DecisionData = Payload.DecisionData,
             Payload = Payload, 
             Message = Message
         };

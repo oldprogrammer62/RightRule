@@ -50,29 +50,29 @@ internal sealed class RuleValidationService : IRuleValidationService
          * Name - Must be a string
          * Context - Must be a string
          * Statement - Must be a string
-         * TrueDecision - Must be a string
+         * Decision - Must be a string
          */
 
         var number = rule.Number;
         var name = rule.Name;
         var context = rule.Context;
         var statement = rule.Statement;
-        var trueDecision = rule.TrueDecision;
+        var decision = rule.Decision;
 
         var validNumber = number >= 1;
         var validName = !string.IsNullOrWhiteSpace(name);
         var validContext = !string.IsNullOrWhiteSpace(context);
         var validStatement = !string.IsNullOrWhiteSpace(statement);
-        var validTrueDecision = !string.IsNullOrWhiteSpace(trueDecision);
+        var validDecision = !string.IsNullOrWhiteSpace(decision);
 
         StringBuilder sb = new StringBuilder();
         sb.Append(!validNumber ? "Rule Number," : "");
         sb.Append(!validName ? "Rule Name," : "");
         sb.Append(!validContext ? "Context," : "");
         sb.Append(!validStatement ? "Statement," : "");
-        sb.Append(!validTrueDecision ? "TrueDecision," : "");
+        sb.Append(!validDecision ? "Decision," : "");
 
-        if (AllOk(validNumber, validName, validContext, validStatement, validTrueDecision))
+        if (AllOk(validNumber, validName, validContext, validStatement, validDecision))
         {
             return new RuleValidationResult()
             {
@@ -95,13 +95,13 @@ internal sealed class RuleValidationService : IRuleValidationService
         bool name,
         bool context,
         bool statement,
-        bool trueDecision)
+        bool decision)
     {
         if (!number) return false;
         if (!name) return false;
         if (!context) return false;
         if (!statement) return false;
-        if (!trueDecision) return false;
+        if (!decision) return false;
         return true;
     }
 }

@@ -201,7 +201,7 @@ public sealed class RuleServiceTests
             Context = "Sales",
             Name = "Rule1",
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         var definedRule2 = new DefinedRule
         {
@@ -209,7 +209,7 @@ public sealed class RuleServiceTests
             Context = "Sales",
             Name = "Rule2",
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         var ruleRegistrations = rr.RuleService.RegisterRules(
         [
@@ -298,8 +298,8 @@ public sealed class RuleServiceTests
         SetProperty(rule, nameof(ParsedRule.Name), name);
         SetProperty(rule, nameof(ParsedRule.Context), context);
         SetProperty(rule, nameof(ParsedRule.Statement), "true");
-        SetProperty(rule, nameof(ParsedRule.TrueDecision), "Yes");
-        SetProperty(rule, nameof(ParsedRule.TrueDecisionData), null);
+        SetProperty(rule, nameof(ParsedRule.Decision), "Yes");
+        SetProperty(rule, nameof(ParsedRule.DecisionData), null);
         SetProperty(rule, nameof(ParsedRule.Status), status);
         SetProperty(rule, nameof(ParsedRule.Node), null);
         SetProperty(rule, nameof(ParsedRule.StatementPath), string.Empty);

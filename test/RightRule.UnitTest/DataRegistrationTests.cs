@@ -32,7 +32,7 @@ public class DataRegistrationTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -52,7 +52,7 @@ public class DataRegistrationTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -73,7 +73,7 @@ public class DataRegistrationTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "AllContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -83,7 +83,7 @@ public class DataRegistrationTests
 
         var appliedRules = rr.RuleService.ApplyRules("AllContext", EvaluationTypeEnum.FIRST);
         var appliedRule = appliedRules.FirstOrDefault();
-        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
 
     [Fact]

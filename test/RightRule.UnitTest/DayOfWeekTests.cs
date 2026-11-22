@@ -20,7 +20,7 @@ public class DayOfWeekTests
             Number = 1,
             Name = "rule1",
             Statement = "data.date dow \"wednesday\"",
-            TrueDecision = "SAME",
+            Decision = "SAME",
         };
 
         var rr = new RightRule.RightRule().CreateSession();

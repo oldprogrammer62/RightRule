@@ -22,8 +22,8 @@ public sealed class AppliedRule : RuleApplied
             Context = parsedRule.Context,
             Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
-            TrueDecision = parsedRule.TrueDecision,
-            TrueDecisionData = parsedRule.TrueDecisionData,
+            Decision = parsedRule.Decision,
+            DecisionData = parsedRule.DecisionData,
             Success = result.Success,
             Result = result.Result,
             Message = result.Message
@@ -39,8 +39,8 @@ public sealed class AppliedRule : RuleApplied
             Context = parsedRule.Context,
             Statement = parsedRule.Statement,
             StatementApplied = result.StatementApplied,
-            TrueDecision = parsedRule.TrueDecision,
-            TrueDecisionData = parsedRule.TrueDecisionData,
+            Decision = parsedRule.Decision,
+            DecisionData = parsedRule.DecisionData,
             Success = result.Success,
             Result = result.Result,
             Message = result.Message
@@ -57,8 +57,8 @@ public sealed class AppliedRule : RuleApplied
         sb.AppendLine($"Context: {Context}");
         sb.AppendLine($"Statement: {Statement}");
         sb.AppendLine($"StatementApplied: {statementApplied}");
-        sb.AppendLine($"TrueDecision: {TrueDecision}");
-        sb.AppendLine($"TrueDecisionData: {TrueDecisionData}");
+        sb.AppendLine($"Decision: {Decision}");
+        sb.AppendLine($"DecisionData: {DecisionData}");
         sb.AppendLine($"Success: {Success}");
         sb.AppendLine($"Result: {Result}");
         sb.AppendLine($"Message: {Message}");

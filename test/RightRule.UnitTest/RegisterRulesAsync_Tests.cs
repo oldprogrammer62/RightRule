@@ -15,7 +15,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule1",
             Number = 1,
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         DefinedRule rule2 = new DefinedRule()
         {
@@ -23,7 +23,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule2",
             Number = 2,
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         DefinedRule rule3 = new DefinedRule()
         {
@@ -31,7 +31,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule3",
             Number = 3,
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         List<DefinedRule> rules = new List<DefinedRule>()
         {
@@ -72,7 +72,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule1",
             Number = 1,
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         DefinedRule rule2 = new DefinedRule()
         {
@@ -80,7 +80,7 @@ public class RegisterRulesAsync_Tests
             Name = "Rule2",
             Number = 2,
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
 
         var rr = new RightRule.RightRule().CreateSession();

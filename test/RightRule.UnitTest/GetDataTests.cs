@@ -71,7 +71,7 @@ namespace RightRuleTests
                 .Name("Name1")
                 .Context("Context")
                 .Statement("A = B")
-                .TrueDecision("TRUE")
+                .Decision("TRUE")
                 .Build();
             var rule1reg = rr.RuleService.RegisterRule(rule1def);
 

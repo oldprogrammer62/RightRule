@@ -10,8 +10,8 @@ public static class Template
         string name = "RuleName",
         string statement = "a = b",
         string context = "RuleContext",
-        string trueDecision = "SUCCESS",
-        object? trueDecisionData = null,
+        string decision = "SUCCESS",
+        object? decisionData = null,
         object? optionalData = null
         )
     {
@@ -24,8 +24,8 @@ public static class Template
                 Name = name,
                 Statement = statement,
                 Context = context,
-                TrueDecision = trueDecision,
-                TrueDecisionData = trueDecisionData,
+                Decision = decision,
+                DecisionData = decisionData,
                 OptionalData = optionalData
             }
         };
@@ -45,9 +45,9 @@ public static class Template
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'TrueDecision': 'SUCCESS'");
+        json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'TrueDecisionData': '{}'");
+        json.Append("'DecisionData': '{}'");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');

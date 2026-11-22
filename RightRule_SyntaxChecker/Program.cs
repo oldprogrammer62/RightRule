@@ -51,7 +51,7 @@ internal class Program
                 Name = "Rule being Checked",
                 Statement = statement,
                 Context = "Default Context",
-                TrueDecision = "Default Decision",
+                Decision = "Default Decision",
             };
             _ = rightRule.RuleService.RegisterRule(rule);
 

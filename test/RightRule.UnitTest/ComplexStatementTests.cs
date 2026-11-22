@@ -37,8 +37,8 @@ public class ComplexStatementTests
             .Name("Rule1")
             .Context("Context")
             .Statement(statement)
-            .TrueDecision("GOOD")
-            .TrueDecisionData(null)
+            .Decision("GOOD")
+            .DecisionData(null)
             .OptionalData(null)
             .Build()
             .Register(rr.RuleService);
@@ -48,7 +48,7 @@ public class ComplexStatementTests
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule1.RegisteredRule.TrueDecision, result.Decision);
+        Assert.Equal(rule1.RegisteredRule.Decision, result.Decision);
     }
 
     [Fact]
@@ -65,7 +65,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data
@@ -73,7 +73,7 @@ public class ComplexStatementTests
         rightRule.RuleService.RegisterRule(rule);
         var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -90,7 +90,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data
@@ -98,7 +98,7 @@ public class ComplexStatementTests
         rightRule.RuleService.RegisterRule(rule);
         var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -115,7 +115,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data
@@ -123,7 +123,7 @@ public class ComplexStatementTests
         rightRule.RuleService.RegisterRule(rule);
         var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -140,7 +140,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data
@@ -148,7 +148,7 @@ public class ComplexStatementTests
         rightRule.RuleService.RegisterRule(rule);
         var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -170,7 +170,7 @@ public class ComplexStatementTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data
@@ -178,6 +178,6 @@ public class ComplexStatementTests
         rightRule.RuleService.RegisterRule(rule);
         var appliedRule = rightRule.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

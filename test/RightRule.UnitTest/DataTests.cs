@@ -29,7 +29,7 @@ public class DataTests
             Name = "Equals Bool Value Rule",
             Statement = @"Test.whatvalue equals 123",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();

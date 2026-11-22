@@ -115,7 +115,7 @@ public class SyntaxCheckTests
             Name = "Rule 1",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         // Register the data

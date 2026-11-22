@@ -20,7 +20,7 @@ public class DataTypesTests_Array
             Name = "Int In Value Rule",
             Statement = @"number in numbers",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         RightRuleOptions options = new RightRuleOptions()
@@ -39,7 +39,7 @@ public class DataTypesTests_Array
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -63,14 +63,14 @@ public class DataTypesTests_Array
             Name = "Int In Array Rule",
             Statement = "number in [1,2,3]",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -99,14 +99,14 @@ public class DataTypesTests_Array
             Name = "Int In Array Rule",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -135,13 +135,13 @@ public class DataTypesTests_Array
             Name = "String In Array Rule",
             Statement = statement,
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
         var newRule = rr.RuleService.RegisterRule(rule);
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
         Assert.NotNull(appliedRule.StatementApplied);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

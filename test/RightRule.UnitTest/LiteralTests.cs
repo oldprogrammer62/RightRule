@@ -27,7 +27,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"Test.stringvalue equals ""A_String""",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -36,7 +36,7 @@ public class LiteralTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public class LiteralTests
             Name = "Equals Literal Number Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -58,7 +58,7 @@ public class LiteralTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"""A_String"" equals Arguments.string",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -86,7 +86,7 @@ public class LiteralTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class LiteralTests
             Name = "Equals Literal Number Rule",
             Statement = @"100 equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -108,7 +108,7 @@ public class LiteralTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -126,7 +126,7 @@ public class LiteralTests
             Name = "Equals Literal String Rule",
             Statement = @"Test.stringvalue equals Arguments.string",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -136,6 +136,6 @@ public class LiteralTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

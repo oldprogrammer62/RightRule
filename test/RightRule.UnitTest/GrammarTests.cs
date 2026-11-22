@@ -31,7 +31,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 11",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -53,7 +53,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10 and Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "OK",
+            Decision = "OK",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -63,7 +63,7 @@ public class GrammarTests
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -76,7 +76,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10 or Test.goodpayer equals true",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "OK",
+            Decision = "OK",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -86,7 +86,7 @@ public class GrammarTests
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = @"(Test.numberoforders equals 10 and Test.goodpayer equals true) or (Test.numberoforders equals 10 and Test.goodpayer equals true)",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "OK",
+            Decision = "OK",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -109,7 +109,7 @@ public class GrammarTests
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -122,7 +122,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = @"Test.numberoforders equals 10",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -144,7 +144,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders notequals 11",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -153,7 +153,7 @@ public class GrammarTests
 
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
-        Assert.Equal(appliedRule.Decision, rule.TrueDecision);
+        Assert.Equal(appliedRule.Decision, rule.Decision);
     }
 
     [Fact]
@@ -166,7 +166,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders != 18",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "CORRECTORDERCOUNT",
+            Decision = "CORRECTORDERCOUNT",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -175,7 +175,7 @@ public class GrammarTests
 
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
-        Assert.Equal(appliedRule.Decision, rule.TrueDecision);
+        Assert.Equal(appliedRule.Decision, rule.Decision);
     }
 
     [Fact]
@@ -188,7 +188,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders <> 11",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -197,7 +197,7 @@ public class GrammarTests
 
         var appliedRule = rr.RuleService.ApplyRule("NumberOfOrdersContext");
 
-        Assert.Equal(appliedRule.Decision, rule.TrueDecision);
+        Assert.Equal(appliedRule.Decision, rule.Decision);
     }
 
     [Fact]
@@ -210,7 +210,7 @@ public class GrammarTests
             Name = "Number of orders Rule",
             Statement = "Test.numberoforders = 10",
             Context = "NumberOfOrdersContext",
-            TrueDecision = "ENOUGHORDERS",
+            Decision = "ENOUGHORDERS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -231,7 +231,7 @@ public class GrammarTests
             Name = "Name Rule",
             Statement = @"Test.name equals ""John""",
             Context = "NameContext",
-            TrueDecision = "NAMEFOUND",
+            Decision = "NAMEFOUND",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -253,7 +253,7 @@ public class GrammarTests
             Name = "Name Rule",
             Statement = "Test.name equals Test.fullname",
             Context = "NameContext",
-            TrueDecision = "NAMESAMEASFULLNAME",
+            Decision = "NAMESAMEASFULLNAME",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -275,7 +275,7 @@ public class GrammarTests
             Name = "Good Payer Rule",
             Statement = "Test.goodpayer equals true",
             Context = "GoodPayerContext",
-            TrueDecision = "GOODPAYER",
+            Decision = "GOODPAYER",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -284,7 +284,7 @@ public class GrammarTests
 
         var appliedRule = rr.RuleService.ApplyRule("GoodPayerContext");
 
-        Assert.Equal(newRule.RegisteredRule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(newRule.RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -297,7 +297,7 @@ public class GrammarTests
             Name = "Good Payer Rule",
             Statement = "Test.goodpayer equals false",
             Context = "NotGoodPayerContext",
-            TrueDecision = "GOODPAYER",
+            Decision = "GOODPAYER",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -319,7 +319,7 @@ public class GrammarTests
             Name = "Name Rule",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
-            TrueDecision = "NAMEFOUND",
+            Decision = "NAMEFOUND",
         };
 
         DefinedRule rule2 = new()
@@ -328,7 +328,7 @@ public class GrammarTests
             Name = "Name Rule",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
-            TrueDecision = "NAMEFOUND2",
+            Decision = "NAMEFOUND2",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -339,7 +339,7 @@ public class GrammarTests
         var appliedRule = rr.RuleService.ApplyRule("NAMECONTEXT1");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule1.RegisteredRule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(newRule1.RegisteredRule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -352,7 +352,7 @@ public class GrammarTests
             Name = "Name Rule1",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT1",
-            TrueDecision = "NAMEFOUND",
+            Decision = "NAMEFOUND",
         };
 
         DefinedRule rule2 = new()
@@ -361,7 +361,7 @@ public class GrammarTests
             Name = "Name Rule2",
             Statement = @"Test.name equals ""John""",
             Context = "NAMECONTEXT2",
-            TrueDecision = "NAMEFOUND2",
+            Decision = "NAMEFOUND2",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -372,6 +372,6 @@ public class GrammarTests
         var appliedRule = rr.RuleService.ApplyRule("NAMECONTEXT2");
 
         Assert.NotNull(appliedRule);
-        Assert.Equal(newRule2.RegisteredRule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(newRule2.RegisteredRule.Decision, appliedRule.Decision);
     }
 }

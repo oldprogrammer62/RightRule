@@ -26,7 +26,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 10",
             Context = "Context",
-            TrueDecision = "GREATERTHANOREQUALS",
+            Decision = "GREATERTHANOREQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -35,7 +35,7 @@ public class NumberTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -48,7 +48,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 10.1",
             Context = "Context",
-            TrueDecision = "GREATERTHANOREQUALS",
+            Decision = "GREATERTHANOREQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -57,7 +57,7 @@ public class NumberTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 99.99",
             Context = "Context",
-            TrueDecision = "GREATERTHANOREQUALS",
+            Decision = "GREATERTHANOREQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -79,7 +79,7 @@ public class NumberTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -92,7 +92,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value greaterthanorequals 100.00001",
             Context = "Context",
-            TrueDecision = "GREATERTHANOREQUALS",
+            Decision = "GREATERTHANOREQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -114,7 +114,7 @@ public class NumberTests
             Name = "Greater Than Value Rule",
             Statement = @"Test.value >= 99.9999 and Test.value < 200.001",
             Context = "Context",
-            TrueDecision = "GREATERTHANOREQUALS",
+            Decision = "GREATERTHANOREQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -122,6 +122,6 @@ public class NumberTests
         rr.DataService.RegisterData("Test", _Data);
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

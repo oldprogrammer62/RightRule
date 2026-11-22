@@ -29,13 +29,13 @@ public interface IStatementStep
 // Enforces step 5
 public interface IDecisionStep
 {
-    IRuleBuilder TrueDecision(string decision);
+    IRuleBuilder Decision(string decision);
 }
 
 // Unlocks remaining options in any order
 public interface IRuleBuilder
 {
-    IRuleBuilder TrueDecisionData(object? decisionData);
+    IRuleBuilder DecisionData(object? decisionData);
     IRuleBuilder OptionalData(object? optionalData);
     DefinedRule Build();
 }

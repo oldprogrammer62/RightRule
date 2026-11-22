@@ -67,7 +67,7 @@ public class RuleLoader_Tests
             .Name("RuleName")
             .Context("NewContext")
             .Statement("x = 100")
-            .TrueDecision("SUCCESS")
+            .Decision("SUCCESS")
             .Build()
             .Register(rr.RuleService);
 
@@ -102,11 +102,11 @@ public class RuleLoader_Tests
         string name = "RuleName";
         string statement = "a = b";
         string context = "RuleContext";
-        string trueDecision = "SUCCESS";
-        object? trueDecisionData = null;
+        string decision = "SUCCESS";
+        object? decisionData = null;
         object? optionalData = null;
 
-        var json = JsonString(number, name, statement, context, trueDecision, trueDecisionData, optionalData);
+        var json = JsonString(number, name, statement, context, decision, decisionData, optionalData);
         Assert.NotNull(json);
 
         List<RuleRegistrationResult>? rules = rr.RuleService.LoadRules(json);
@@ -127,9 +127,9 @@ public class RuleLoader_Tests
         json.Append(',');
         json.Append("'Context': 'RuleContext'");
         json.Append(',');
-        json.Append("'TrueDecision': 'SUCCESS'");
+        json.Append("'Decision': 'SUCCESS'");
         json.Append(',');
-        json.Append("'TrueDecisionData': null");
+        json.Append("'DecisionData': null");
         json.Append(',');
         json.Append("'OptionalData': null");
         json.Append(',');
@@ -149,11 +149,11 @@ public class RuleLoader_Tests
         string name = "RuleName",
         string statement = "a = b",
         string context = "RuleContext",
-        string trueDecision = "SUCCESS",
-        object? trueDecisionData = null,
+        string decision = "SUCCESS",
+        object? decisionData = null,
         object? optionalData = null)
     {
-        var x = MakeRule(number, name, statement, context, trueDecision, trueDecisionData, optionalData);
+        var x = MakeRule(number, name, statement, context, decision, decisionData, optionalData);
         return JsonSerializer.Serialize(x);
     }
 
@@ -162,8 +162,8 @@ public class RuleLoader_Tests
         string name = "RuleName",
         string statement = "a = b",
         string context = "RuleContext",
-        string trueDecision = "SUCCESS",
-        object? trueDecisionData = null,
+        string decision = "SUCCESS",
+        object? decisionData = null,
         object? optionalData = null)
     {
         return new[]
@@ -174,8 +174,8 @@ public class RuleLoader_Tests
                 Name = name,
                 Statement = statement,
                 Context = context,
-                TrueDecision = trueDecision,
-                TrueDecisionData = trueDecisionData,
+                Decision = decision,
+                DecisionData = decisionData,
                 OptionalData = optionalData
             }
         };

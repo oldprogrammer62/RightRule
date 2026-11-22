@@ -20,13 +20,13 @@ public class DataStructures_Test
             .Name("Name")
             .Context("Context")
             .Statement("Data.Value = 100")
-            .TrueDecision("DONE")
+            .Decision("DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -47,13 +47,13 @@ public class DataStructures_Test
             .Name("Name")
             .Context("Context")
             .Statement("Data1 = 9000 and Data2.Value = 100 and Data3.Value = 200")
-            .TrueDecision("DONE")
+            .Decision("DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -82,13 +82,13 @@ public class DataStructures_Test
             .Name("Name")
             .Context("Context")
             .Statement("Data1 = 9000 and Data2.Value3 = 1004 and Data3.Value = 200")
-            .TrueDecision("DONE")
+            .Decision("DONE")
             .Build()
             .Register(rr.RuleService);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule?.RegisteredRule?.TrueDecision, result.Decision);
+        Assert.Equal(rule?.RegisteredRule?.Decision, result.Decision);
     }
 
     [Fact]
@@ -105,13 +105,13 @@ public class DataStructures_Test
             .Name("Name")
             .Context("Context")
             .Statement("Value = 100")
-            .TrueDecision("DONE")
+            .Decision("DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 
     [Fact]
@@ -126,12 +126,12 @@ public class DataStructures_Test
             .Name("Name")
             .Context("Context")
             .Statement("Variable = 'Hello World'")
-            .TrueDecision("DONE")
+            .Decision("DONE")
             .Build();
         var prule = rr.RuleService.RegisterRule(rule);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
-        Assert.Equal(rule.TrueDecision, result.Decision);
+        Assert.Equal(rule.Decision, result.Decision);
     }
 }

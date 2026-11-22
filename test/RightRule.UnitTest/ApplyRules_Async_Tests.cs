@@ -24,7 +24,7 @@ public class ApplyRules_Async_Tests
             Number = 1,
             Name = "Rule1",
             Statement = "Data.field1 = \"value1\"",
-            TrueDecision = "DONE"
+            Decision = "DONE"
         };
         RuleRegistrationResult? rule1Registered = rr.RuleService.RegisterRule(rule1);
 
@@ -34,7 +34,7 @@ public class ApplyRules_Async_Tests
             Number = 2,
             Name = "Rule2",
             Statement = "Data.field1 = \"value1\"",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
         RuleRegistrationResult? rule2Registered = rr.RuleService.RegisterRule(rule2);
 
@@ -42,6 +42,6 @@ public class ApplyRules_Async_Tests
 
         RightRuleResult<IProcessedRule>? appliedRule = await rr.RuleService.ApplyRuleAsync("Context");
 
-        Assert.Equal(appliedRule.Decision, rule1.TrueDecision);
+        Assert.Equal(appliedRule.Decision, rule1.Decision);
     }
 }

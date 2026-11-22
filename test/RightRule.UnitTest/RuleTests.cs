@@ -16,7 +16,7 @@ public class RuleTests
             Name = "Rule1",
             Context = "Rule1_Context",
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
 
         rule2 = new DefinedRule()
@@ -25,7 +25,7 @@ public class RuleTests
             Name = "Rule2",
             Context = "Rule2_Context",
             Statement = "a.b = c.d",
-            TrueDecision = "DONE",
+            Decision = "DONE",
         };
     }
 

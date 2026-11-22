@@ -18,7 +18,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
 
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
@@ -44,7 +44,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
 
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
@@ -73,7 +73,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -85,7 +85,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -115,7 +115,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -127,7 +127,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -158,7 +158,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context1)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -170,7 +170,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -202,7 +202,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context1)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -214,7 +214,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -245,7 +245,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context1)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -257,7 +257,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -269,7 +269,7 @@ public class RuleDeregistrationTests
             .Name("22")
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule3reg = rr.RuleService.RegisterRule(rule3Def);
 
@@ -297,7 +297,7 @@ public class RuleDeregistrationTests
             .Name(RuleName1)
             .Context(Context1)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule1reg = rr.RuleService.RegisterRule(rule1Def);
 
@@ -309,7 +309,7 @@ public class RuleDeregistrationTests
             .Name(RuleName2)
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule2reg = rr.RuleService.RegisterRule(rule2Def);
 
@@ -321,7 +321,7 @@ public class RuleDeregistrationTests
             .Name("22")
             .Context(Context2)
             .Statement("10 = 10")
-            .TrueDecision("Good")
+            .Decision("Good")
             .Build();
         var rule3reg = rr.RuleService.RegisterRule(rule3Def);
 

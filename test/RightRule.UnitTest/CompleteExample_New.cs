@@ -81,8 +81,8 @@ public class CompleteExample_New
         {
             Name = "DefaultCustomer",
             Context = context,
-            TrueDecision = "NoDiscount",
-            TrueDecisionData = """{"discount":"$Discount.Default%"}"""
+            Decision = "NoDiscount",
+            DecisionData = """{"discount":"$Discount.Default%"}"""
         };
         rr.RuleService.RegisterDefaultRule(newDefaultRule);
 
@@ -94,8 +94,8 @@ public class CompleteExample_New
                 Name = "NewCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders < OrderThresholds.ReturningPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.GoodWill%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.GoodWill%"}""",
             },
             new()
             {
@@ -103,8 +103,8 @@ public class CompleteExample_New
                 Name = "LoyalCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.LoyaltyValue and Order.PreviousOrders >= OrderThresholds.LoyaltyPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.Loyalty%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.Loyalty%"}""",
             },
             new()
             {
@@ -112,8 +112,8 @@ public class CompleteExample_New
                 Name = "ReturningCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders >= OrderThresholds.ReturningPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.Returning%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.Returning%"}""",
             }
         });
 
@@ -170,8 +170,8 @@ public class CompleteExample_New
         {
             Name = "DefaultCustomer",
             Context = context,
-            TrueDecision = "NoDiscount",
-            TrueDecisionData = """{"discount":"$Discount.Default%"}"""
+            Decision = "NoDiscount",
+            DecisionData = """{"discount":"$Discount.Default%"}"""
         };
         rr.RuleService.RegisterDefaultRule(newDefaultRule);
 
@@ -183,8 +183,8 @@ public class CompleteExample_New
                 Name = "NewCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders < OrderThresholds.ReturningPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.GoodWill%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.GoodWill%"}""",
             },
             new()
             {
@@ -192,8 +192,8 @@ public class CompleteExample_New
                 Name = "LoyalCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.LoyaltyValue and Order.PreviousOrders >= OrderThresholds.LoyaltyPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.Loyalty%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.Loyalty%"}""",
             },
             new()
             {
@@ -201,8 +201,8 @@ public class CompleteExample_New
                 Name = "ReturningCustomer",
                 Context = context,
                 Statement = "Order.Value >= OrderThresholds.ReturningValue and Order.PreviousOrders >= OrderThresholds.ReturningPreviousOrders",
-                TrueDecision = "Discount",
-                TrueDecisionData = """{"discount":"$Discount.Returning%"}""",
+                Decision = "Discount",
+                DecisionData = """{"discount":"$Discount.Returning%"}""",
             }
         });
 

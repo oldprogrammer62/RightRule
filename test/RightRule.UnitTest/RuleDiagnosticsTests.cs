@@ -15,7 +15,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .TrueDecision("SAME")
+            .Decision("SAME")
             .Build();
 
         Assert.NotNull(rule1);
@@ -42,7 +42,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .TrueDecision("SAME")
+            .Decision("SAME")
             .Build();
 
         var configurations = rr.RightRuleOptions;
@@ -71,7 +71,7 @@ public class RuleDiagnosticsTests
             .Name("Name1")
             .Context("Context")
             .Statement("100 = 100 and 100 <> 101")
-            .TrueDecision("SAME")
+            .Decision("SAME")
             .Build();
 
         var configurations = rr.RightRuleOptions;

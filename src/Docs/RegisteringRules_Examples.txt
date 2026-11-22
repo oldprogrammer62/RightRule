@@ -20,8 +20,8 @@ RuleDefinition rule = new()
     Name = "Rule1",
     Context = "Context",
     Statement = "Test.boolvalue equals true",
-    TrueDecision = "EQUALS",
-    TrueDecisionData = null,
+    Decision = "EQUALS",
+    DecisionData = null,
     OptionalData = null
 };
 RuleRegistrationResult rule1 = rr.RuleService.RegisterRule(rule);
@@ -35,8 +35,8 @@ RuleDefinition rule = rr.RuleService.BuildRule()
    .Name("Rule1")
    .Context("Context")
    .Statement("Test.boolvalue equals true")
-   .TrueDecision("EQUALS")
-   .TrueDecisionData(null)
+   .Decision("EQUALS")
+   .DecisionData(null)
    .OptionalData(null)
    .Build()
    .Register(rr.RuleService);

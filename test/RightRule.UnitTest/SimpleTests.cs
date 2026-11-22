@@ -17,7 +17,7 @@ public class SimpleTests
             .Name("Name")
             .Context(context)
             .Statement("a.a = 100")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build();
 
         rr.RuleService.RegisterRule(rule);
@@ -42,7 +42,7 @@ public class SimpleTests
             .Name("Name")
             .Context(context)
             .Statement("data.a = 100")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build();
 
         rr.RuleService.RegisterRule(rule);
@@ -60,7 +60,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
-            .TrueDecision("SAME")
+            .Decision("SAME")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -77,7 +77,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 2")
-            .TrueDecision("SAME")
+            .Decision("SAME")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -94,7 +94,7 @@ public class SimpleTests
             .Name("TestRule1")
             .Context("TestContext")
             .Statement("1 = 1 and 2 <> 3")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build();
         var rule1Result = rr.RuleService.RegisterRule(rule1);
 
@@ -103,7 +103,7 @@ public class SimpleTests
             .Name("TestRule2")
             .Context("TestContext")
             .Statement("1 <> 1 and 2 <> 3")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build();
         var rule2Result = rr.RuleService.RegisterRule(rule2);
 
@@ -112,7 +112,7 @@ public class SimpleTests
             .Name("TestRule3")
             .Context("TestContext")
             .Statement("1 <>  and 2 <> 3")
-            .TrueDecision("GOOD")
+            .Decision("GOOD")
             .Build();
         var rule3Result = rr.RuleService.RegisterRule(rule3);
 

@@ -54,8 +54,8 @@ public class StatementBuilderTests
             Name = "DiscountRule",
             Statement = statement.ToString(),
             Context = "DiscountDecision",
-            TrueDecision = "DISCOUNTED",
-            TrueDecisionData = new Dictionary<string, object>
+            Decision = "DISCOUNTED",
+            DecisionData = new Dictionary<string, object>
             {
                 { "Discount", 10 }
             }
@@ -69,6 +69,6 @@ public class StatementBuilderTests
 
         var appliedRule = rr.RuleService.ApplyRule("DiscountDecision");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

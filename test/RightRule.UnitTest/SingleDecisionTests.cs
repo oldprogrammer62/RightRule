@@ -26,7 +26,7 @@ public class SingleDecisionTests
             .Name("rule1")
             .Context("test")
             .Statement("a = b")
-            .TrueDecision("PositivePass")
+            .Decision("PositivePass")
             .Build()
             .Register(rr.RuleService);
 
@@ -35,7 +35,7 @@ public class SingleDecisionTests
             .Name("rule2")
             .Context("test")
             .Statement("a <> b")
-            .TrueDecision("NegativePass")
+            .Decision("NegativePass")
             .Build()
             .Register(rr.RuleService);
 

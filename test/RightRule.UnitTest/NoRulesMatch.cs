@@ -28,7 +28,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100",
+            Decision = "EQUALS100",
         };
         DefinedRule rule2 = new()
         {
@@ -36,7 +36,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -45,7 +45,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule1.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule1.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
         DefinedRule rule2 = new()
         {
@@ -66,7 +66,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100",
+            Decision = "EQUALS100",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -76,7 +76,7 @@ public class NoRulesMatch
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule2.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule2.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -89,7 +89,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -111,7 +111,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 99",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
         DefinedRule rule2 = new()
         {
@@ -119,7 +119,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS",
+            Decision = "EQUALS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -142,7 +142,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100",
+            Decision = "EQUALS100",
         };
         DefinedRule rule2 = new()
         {
@@ -150,7 +150,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -160,7 +160,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
-        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
+        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -173,7 +173,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
         DefinedRule rule2 = new()
         {
@@ -181,7 +181,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100",
+            Decision = "EQUALS100",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -191,7 +191,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.FIRST);
 
-        Assert.Equal(rule2.TrueDecision, appliedRules[0].Decision);
+        Assert.Equal(rule2.Decision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -204,7 +204,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
         DefinedRule rule2 = new()
         {
@@ -212,7 +212,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
-            TrueDecision = "EQUALS102",
+            Decision = "EQUALS102",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -235,7 +235,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100",
+            Decision = "EQUALS100",
         };
         DefinedRule rule2 = new()
         {
@@ -243,7 +243,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -253,7 +253,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
+        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
     }
 
     [Fact]
@@ -266,7 +266,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100_1",
+            Decision = "EQUALS100_1",
         };
         DefinedRule rule2 = new()
         {
@@ -274,7 +274,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 100",
             Context = "Context",
-            TrueDecision = "EQUALS100_2",
+            Decision = "EQUALS100_2",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -284,8 +284,8 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
-        Assert.Equal(rule2.TrueDecision, appliedRules[1].Decision);
+        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
+        Assert.Equal(rule2.Decision, appliedRules[1].Decision);
     }
 
     [Fact]
@@ -298,7 +298,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule1",
             Statement = @"Test.intvalue equals 101",
             Context = "Context",
-            TrueDecision = "EQUALS101",
+            Decision = "EQUALS101",
         };
         DefinedRule rule2 = new()
         {
@@ -306,7 +306,7 @@ public class NoRulesMatch
             Name = "Equals Bool Value Rule2",
             Statement = @"Test.intvalue equals 102",
             Context = "Context",
-            TrueDecision = "EQUALS102",
+            Decision = "EQUALS102",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -316,7 +316,7 @@ public class NoRulesMatch
 
         var appliedRules = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
 
-        Assert.Equal(rule1.TrueDecision, appliedRules[0].Decision);
-        Assert.Equal(rule2.TrueDecision, appliedRules[1].Decision);
+        Assert.Equal(rule1.Decision, appliedRules[0].Decision);
+        Assert.Equal(rule2.Decision, appliedRules[1].Decision);
     }
 }

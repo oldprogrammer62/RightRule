@@ -44,7 +44,7 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Arguments.number foundin Arguments.numbers",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -54,7 +54,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class ExistsTests
             Name = "Exists String Value Rule",
             Statement = @"""dd"" foundin Arguments.strings",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -83,7 +83,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -105,7 +105,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -118,7 +118,7 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue foundin Test.ints",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -127,7 +127,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -140,7 +140,7 @@ public class ExistsTests
             Name = "Exists Bool Value Rule",
             Statement = @"Test.boolvalue exists Test.bools",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -149,7 +149,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -162,7 +162,7 @@ public class ExistsTests
             Name = "Exists Int Value Rule",
             Statement = @"Test.intvalue exists Test.ints",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -171,7 +171,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -184,7 +184,7 @@ public class ExistsTests
             Name = "Exists Float Value Rule",
             Statement = @"Test.floatvalue exists Test.floats",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -193,7 +193,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -206,7 +206,7 @@ public class ExistsTests
             Name = "Exists String Value Rule",
             Statement = @"Test.stringvalue exists Test.strings",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -215,7 +215,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -228,7 +228,7 @@ public class ExistsTests
             Name = "Exists DateOnly Value Rule",
             Statement = @"Test.datevalue exists Test.dates",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -237,7 +237,7 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 
     [Fact]
@@ -250,7 +250,7 @@ public class ExistsTests
             Name = "Exists DateTime Value Rule",
             Statement = @"Test.datetimevalue exists Test.datetimes",
             Context = "Context",
-            TrueDecision = "EXISTS",
+            Decision = "EXISTS",
         };
 
         var rr = new RightRule.RightRule().CreateSession();
@@ -259,6 +259,6 @@ public class ExistsTests
 
         var appliedRule = rr.RuleService.ApplyRule("Context");
 
-        Assert.Equal(rule.TrueDecision, appliedRule.Decision);
+        Assert.Equal(rule.Decision, appliedRule.Decision);
     }
 }

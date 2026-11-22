@@ -14,6 +14,6 @@ public abstract class RuleDefault : IProcessedRule
     string IDecided.StatementApplied { get; } = string.Empty;
     string IDecided.Message {  get; } = string.Empty;
 
-    public string TrueDecision { get; init; } = DECISIONWORD;
-    public object? TrueDecisionData { get; init; } = null;
+    public string Decision { get; init; } = DECISIONWORD;
+    public object? DecisionData { get; init; } = null;
 }

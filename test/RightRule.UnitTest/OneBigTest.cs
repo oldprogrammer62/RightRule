@@ -48,7 +48,7 @@ public class OneBigTest
             .Name("Rule1Name")
             .Context(Context1)
             .Statement("data1.Key1 = 100 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision1")
+            .Decision("Decision1")
             .Build();
         RuleRegistrationResult? rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -59,7 +59,7 @@ public class OneBigTest
         var result = rr.RuleService.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
-        Assert.Equal(result.Decision, rule1Defn.TrueDecision);
+        Assert.Equal(result.Decision, rule1Defn.Decision);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class OneBigTest
             .Name("Rule1Name")
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision1")
+            .Decision("Decision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -89,7 +89,7 @@ public class OneBigTest
         var result = rr.RuleService.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).Decision, result.Decision);
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class OneBigTest
             .Name("Rule1Name")
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision1")
+            .Decision("Decision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -128,7 +128,7 @@ public class OneBigTest
         var result = rr.RuleService.ApplyRule(Context1);
         Assert.NotNull(result);
         Assert.True(result.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).Decision, result.Decision);
     }
 
     [Fact]
@@ -149,7 +149,7 @@ public class OneBigTest
             .Name("Rule1Name")
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision1")
+            .Decision("Decision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -167,7 +167,7 @@ public class OneBigTest
         var result1 = rr.RuleService.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).Decision, result1.Decision);
 
 
         var rule2Defn = rr.RuleService.BuildRule()
@@ -175,7 +175,7 @@ public class OneBigTest
             .Name("Rule2Name")
             .Context(Context2)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision2")
+            .Decision("Decision2")
             .Build();
         var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);
@@ -184,7 +184,7 @@ public class OneBigTest
         var result2 = rr.RuleService.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).TrueDecision, result2.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).Decision, result2.Decision);
     }
 
     [Fact]
@@ -205,7 +205,7 @@ public class OneBigTest
             .Name("Rule1Name")
             .Context(Context1)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision1")
+            .Decision("Decision1")
             .Build();
         var rule1Registration = rr.RuleService.RegisterRule(rule1Defn);
         Assert.NotNull(rule1Registration);
@@ -224,7 +224,7 @@ public class OneBigTest
         var result1 = rr.RuleService.ApplyRule(Context1);
         Assert.NotNull(result1);
         Assert.True(result1.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).TrueDecision, result1.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context1).Decision, result1.Decision);
 
 
         var rule2Defn = rr.RuleService.BuildRule()
@@ -232,7 +232,7 @@ public class OneBigTest
             .Name("Rule2Name")
             .Context(Context2)
             .Statement("data1.Key1 = 101 and data2.Key1 = 'Mark'")
-            .TrueDecision("Decision2")
+            .Decision("Decision2")
             .Build();
         var rule2Registration = rr.RuleService.RegisterRule(rule2Defn);
         Assert.NotNull(rule2Registration);
@@ -251,6 +251,6 @@ public class OneBigTest
         var result2 = rr.RuleService.ApplyRule(Context2);
         Assert.NotNull(result2);
         Assert.True(result2.Result);
-        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).TrueDecision, result2.Decision);
+        Assert.Equal(rr.RuleService.GetDefaultRule(Context2).Decision, result2.Decision);
     }
 }

@@ -62,7 +62,7 @@ public class CompleteExample_DI
             .Name("TestRule")
             .Context("TestContext1")
             .Statement("a = 50")
-            .TrueDecision("Pass")
+            .Decision("Pass")
             .Build()
             .Register(rr.RuleService);
 
@@ -71,7 +71,7 @@ public class CompleteExample_DI
             .Name("TestRule2")
             .Context("TestContext2")
             .Statement("a = 50")
-            .TrueDecision("Pass")
+            .Decision("Pass")
             .Build()
             .Register(rr.RuleService);
 
@@ -80,7 +80,7 @@ public class CompleteExample_DI
             .Name("TestRule3")
             .Context("TestContext3")
             .Statement("a = 50")
-            .TrueDecision("Pass")
+            .Decision("Pass")
             .Build()
             .Register(rr.RuleService);
 

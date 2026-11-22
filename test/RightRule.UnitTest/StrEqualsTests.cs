@@ -18,7 +18,7 @@ public class StrEqualsTests
             Context = "TestContext",
             Name = "TestRule",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
@@ -30,7 +30,7 @@ public class StrEqualsTests
         var result = rr.RuleService.ApplyRule("TestContext");
 
         Assert.NotNull(result);
-        Assert.Equal(rule1.TrueDecision, result.Decision);
+        Assert.Equal(rule1.Decision, result.Decision);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class StrEqualsTests
             Context = "TestContext",
             Name = "TestRule",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "Data.value1 strequals \"HELLO World\"",
             OptionalData = StringComparison.Ordinal
         };
@@ -74,7 +74,7 @@ public class StrEqualsTests
             Context = "TestContext",
             Name = "TestRule",
             Number = 1,
-            TrueDecision = "GOOD",
+            Decision = "GOOD",
             Statement = "Data.value1 =str \"HELLO World\"",
             OptionalData = StringComparison.OrdinalIgnoreCase
         };
@@ -86,6 +86,6 @@ public class StrEqualsTests
         var result = rr.RuleService.ApplyRule("TestContext");
 
         Assert.NotNull(result);
-        Assert.Equal(rule1.TrueDecision, result.Decision);
+        Assert.Equal(rule1.Decision, result.Decision);
     }
 }
