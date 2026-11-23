@@ -19,7 +19,7 @@
 | `RuleService` | Rule operations, including rule registration, loading, retrieval, validation, serialization, and application. |
 | `DataService` | Data operations exposed by RightRule. |
 | `DataAdaptorService` | Registration and use of data adaptors. |
-| `OperatorService` | Access to operator operations and registration. |
+| `OperatorService` | Access to operator operations and registration. The interface annotation is nullable; check it before use in nullable-aware code. |
 | `RightRuleOptions` | Effective options used by this session. |
 | `ServiceProvider` | The provider from which session services were resolved. Use this for advanced integration with the session's service scope. |
 | `Logger` | Logger associated with this session. |
@@ -36,4 +36,4 @@ The services expose their own public interfaces; consult those interface APIs fo
 
 ## Inheritance and overrides
 
-`RightRule` and `RightRuleSession` are sealed classes. They expose no virtual or override methods, so developers cannot customize behavior through subclass overrides. Customize behavior through `RightRuleOptions`, the DI registration and logging configuration, and the services exposed by `IRightRuleSession`.
+`RightRule` and `RightRuleSession` are sealed classes. They expose no virtual or override methods, so developers cannot customize these entry points through subclassing. `RightRuleSession` implements `IDisposable` and `IAsyncDisposable`; these are interface implementations, not overrides. For data conversion, implement an `IDataAdaptor` (or derive from the applicable `DataAdaptorBase<T>` and override `AdaptorName` and `Process`) and register it with `DataAdaptorService`. The built-in adaptors override those members for objects, dictionaries, strings, tuples, and lists of `(string, int)` tuples. `DictionaryDataAdaptor` uses an `Id` value as the output dataset name when present; the other built-ins use the supplied dataset name. Rule result model `ToString()` overrides provide textual representations for parsed, applied, and error rules. These are library implementation details, not hooks for overriding session behavior.

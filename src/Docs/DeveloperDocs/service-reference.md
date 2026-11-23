@@ -88,7 +88,7 @@ The internal `ValidateRule` and `ParseRule` methods validate definitions and par
 
 ### Data implementation helpers (internal)
 
-`IsValidDataIdentifier` delegates identifier validation to the data validator. The internal `AddData` overloads merge dictionary, tuple, tuple-list, or named single-value data into a dataset, creating the dataset when necessary. `AddData(List<Dataset>)` adds loaded datasets and produces registration results; `CreateDataSet` constructs and tracks a dataset. These implementation helpers are not part of `IDataService`.
+`IsValidDataIdentifier` delegates identifier validation to the data validator. The internal `AddData` overloads merge a dictionary, one `(string, object)` tuple, a list of such tuples, or a named value into a dataset, creating the dataset when necessary. `AddData(List<Dataset>)` adds loaded datasets and creates success results; `CreateDataSet` constructs and tracks a dataset. These implementation helpers are not part of `IDataService`.
 
 ## Data adaptor service
 
@@ -115,16 +115,18 @@ The data service calls `ProcessIncomingData` as part of `RegisterData`. Register
 | `RegisterAllOperators(options)` | Loads built-in and/or custom operators according to options; reports registration status. |
 | `RegisterOperator(operator)` | Registers one operator if its name is not already present and its aliases are unique. |
 | `UnloadOperator(name)` | Removes and disposes an operator found through one of its aliases; returns false when not found. |
+| `GetRegisteredAliases()` | Returns the current alias-to-operator map. |
+| `GetRegisteredAliases(operator)` | Returns the cleaned alias map for the specified operator. |
 
 Aliases are normalized and matched without case sensitivity. Duplicate aliases prevent successful registration. Session disposal disposes registered operators.
 
 ### Operator implementation helpers (internal)
 
-`LoadDefaultOperators` and `LoadCustomOperators` call their respective loaders; custom loading returns no operators when the configured file path is blank or missing. `LoadStartUpOperators` combines enabled sources and checks alias uniqueness. `LoadAllOperators` selects sources using the two load flags. `OperatorExists`, `OperatorAliasesUnique`, `MakeOperatorAliases`, `RegisterOperatorAliases`, and `GetCleanAliases` support duplicate checks and normalized alias-map construction. `DeRegisterOperator`, `RemoveOperator`, and `RemoveOperatorAliases` remove an operator and its aliases; removal disposes that operator. These are implementation details.
+`LoadDefaultOperators` and `LoadCustomOperators` call their respective loaders; custom loading returns no operators when the configured path is blank or the file is missing. `LoadStartUpOperators` combines enabled sources and checks alias uniqueness. `LoadAllOperators` selects sources using the two load flags. `RegisterAllOperators(options)` replaces the current operator list and alias map with the selected startup set. `OperatorExists`, both `OperatorAliasesUnique` overloads, `MakeOperatorAliases`, and `RegisterOperatorAliases` support duplicate checks and alias-map construction. `Dispose()` disposes every currently registered operator. These are implementation details; the helper methods are internal or private, not application entry points.
 
 ## Options
 
-`RightRuleOptions` is public and sealed. Its parameterless constructor reads the library's accompanying `.dll.config` boolean settings and uses defaults when settings are absent. `RightRuleOptions(IConfiguration)` starts with those defaults and overlays the `RightRule` section. The configuration keys are `DataCheck`, `Diagnostics`, `LoadCustomOperators`, `LoadDefaultOperators`, and `CustomOperatorLibraryPath`. Invalid boolean text throws during parsing.
+`RightRuleOptions` is public and sealed. Its parameterless constructor reads the library's accompanying `.dll.config` boolean settings and uses defaults when settings are absent. `RightRuleOptions(IConfiguration)` starts with those defaults and overlays the `RightRule` section. The configuration keys are `DataCheck`, `Diagnostics`, `LoadCustomOperators`, `LoadDefaultOperators`, and `CustomOperatorLibraryPath`. A null configuration throws `ArgumentNullException`; invalid boolean text throws during parsing. Empty or whitespace boolean values preserve the existing fallback.
 
 | Property | Default | Effect |
 | --- | --- | --- |
@@ -138,8 +140,8 @@ Aliases are normalized and matched without case sensitivity. Duplicate aliases p
 
 ### Options implementation helpers (internal)
 
-`RightRuleLibraryDefaults.ReadSetting` reads a key from the library assembly's adjacent config file. `ReadConfiguration` opens that file when present. `ReadCustomOperatorLibraryPath` resolves the configured custom operator path relative to the assembly directory. `ReadBoolean` parses a configuration value or preserves its fallback; `ReadLibraryBoolean` parses a library config value or returns null to signal use of the default. These helpers and `RightRuleLibraryDefaults` are internal.
+`RightRuleLibraryDefaults.ReadSetting` reads a key from the library assembly's adjacent config file. `ReadConfiguration` opens that file when present. `ReadCustomOperatorLibraryPath` resolves `CustomOperatorConfigPath` relative to the assembly directory and returns an empty string when it is absent. `ReadBoolean` parses a configuration value or preserves its fallback; `ReadLibraryBoolean` parses a library config value or returns null to signal use of the property default. `RightRule.CheckOptions` fills an empty custom operator path with the library default and rejects the options only if custom loading is enabled and the path remains empty. `RightRule.CreateSession` copies options before validation, so subsequent caller mutations do not affect sessions. These helpers and `RightRuleLibraryDefaults` are internal implementation details.
 
 ## Overrides
 
-The inspected RightRule implementation contains no `override` methods. `RightRule` and `RightRuleSession` are sealed, so applications cannot subclass them to override behavior. Session disposal implements `IDisposable` and `IAsyncDisposable`; these are interface implementations, not overrides. Customize behavior with options, service registration, and registered rules, data adaptors, and operators.
+`RightRule` and `RightRuleSession` are sealed and have no overridable members. Session disposal is an implementation of `IDisposable` and `IAsyncDisposable`, not an override. The library's built-in data adaptors override `AdaptorName` and `Process` from `DataAdaptorBase<T>`: object and string adaptors wrap the input as a single named value; the dictionary adaptor returns its entries and, when an `Id` key exists, uses that value as the resulting dataset name; tuple and tuple-list adaptors map named values into the adaptor result. Applications can provide their own adaptor implementation to transform additional input types before `RegisterData` stores them. The parsed, applied, error, and base rule model types also override `ToString()` to return a useful textual representation of the model; this is for display and diagnostics, not evaluation customization.

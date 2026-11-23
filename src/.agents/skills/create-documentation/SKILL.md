@@ -1,5 +1,5 @@
 ---
-name: csharp-library-docs
+name: create-rightrule-docs
 description: writes technical developer documentation for the RightRule library.
 ---
 
@@ -8,6 +8,10 @@ The Documentation should cover how RightRule can be used in a project. Include c
 Do **not** modify existing C# code.
 Do **not** create any new tests.
 Do **not** create XML comments inside the code base.
+Document names:
+- getting-started.md
+- service-reference.md
+- sessions.md
 
 Cover all public methods available in RightRule.cs and RightRuleSession.cs
 Then cover each public and internal method in:
@@ -18,6 +22,8 @@ OperatorService
 RightRuleOptions
 
 Include all overrides available with details of what each does, and what each override offers the developer.
+
+If the documents already exist, then re-analyse the entire rightrule library and update docs with all necessary changes.
 
 ## 2. Markdown guide
 Create the documents in the docs/developerdocs/ folder.
