@@ -22,7 +22,7 @@ public class DataAdaptorLibraryManagerTests
     {
         var result = _manager.RegisterDataAdaptor(null!);
 
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result.Status);
+        Assert.Equal(RegistrationStatusEnum.FAILURE, result.Status);
         Assert.Equal("Adaptor is null", result.Message);
     }
 
@@ -31,7 +31,7 @@ public class DataAdaptorLibraryManagerTests
     {
         var result = _manager.RegisterDataAdaptor(new NonProviderAdaptor());
 
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result.Status);
+        Assert.Equal(RegistrationStatusEnum.FAILURE, result.Status);
         Assert.Contains("does not implement IDataAdaptor<TInput>", result.Message);
     }
 
@@ -39,8 +39,8 @@ public class DataAdaptorLibraryManagerTests
     public void RegisterDataAdaptor_Provider_ReturnsSuccessAndRegistersInputType()
     {
         var result = _manager.RegisterDataAdaptor(new TestAdaptor<int>());
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
         Assert.Contains(typeof(int), _manager.RegisteredDataAdaptors);
     }
 

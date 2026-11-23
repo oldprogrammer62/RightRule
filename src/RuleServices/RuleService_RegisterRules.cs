@@ -16,7 +16,7 @@ internal sealed partial class RuleService : IRuleService
         foreach (var rule in Rules)
         {
             var ruleRegistration = RegisterRule(rule);
-            if (ruleRegistration.Status == RightRuleStatusEnum.SUCCESS)
+            if (ruleRegistration.Status == RegistrationStatusEnum.SUCCESS)
             {
                 registeredRules.Add(ruleRegistration);
                 continue;
@@ -31,7 +31,7 @@ internal sealed partial class RuleService : IRuleService
         ArgumentNullException.ThrowIfNull(Rule, nameof(Rule));
 
         var ruleValidationResult = ValidateRule(Rule);
-        if (ruleValidationResult.Valid == RightRuleStatusEnum.ERROR)
+        if (ruleValidationResult.Valid == RightRuleResultEnum.ERROR)
         {
             if (_logger.IsEnabled(LogLevel.Error))
             {
@@ -41,7 +41,7 @@ internal sealed partial class RuleService : IRuleService
             {
                 RegisteredRule = null,
                 Message = ruleValidationResult.Message,
-                Status = ruleValidationResult.Valid
+                Status = RegistrationStatusEnum.ERROR
             };
         }
         var parsedRule = ParseRule(Rule);
@@ -51,40 +51,42 @@ internal sealed partial class RuleService : IRuleService
             {
                 RegisteredRule = null,
                 Message = "Error: Rule Failed to be Parsed",
-                Status = RightRuleStatusEnum.ERROR
+                Status = RegistrationStatusEnum.ERROR
             };
         }
-        if (parsedRule.Status == RightRuleStatusEnum.SUCCESS)
+        if (parsedRule.Status == RightRuleResultEnum.SUCCESS)
         {
             return RegisteredRules.AddRule(parsedRule);
         }
-        if (parsedRule.Status == RightRuleStatusEnum.DEFAULT)
+
+        if (parsedRule.Status == RightRuleResultEnum.DEFAULT)
         {
             return RegisteredRules.AddRule(parsedRule);
         }
-        if (parsedRule.Status == RightRuleStatusEnum.FAILURE)
+
+        if (parsedRule.Status == RightRuleResultEnum.FAILURE)
         {
             return new RuleRegistrationResult()
             {
                 RegisteredRule = parsedRule,
                 Message = parsedRule.Message ?? "Registration failed, reason unknown!",
-                Status = parsedRule.Status
+                Status = RegistrationStatusEnum.FAILURE
             };
         }
-        if (parsedRule.Status == RightRuleStatusEnum.ERROR)
+        if (parsedRule.Status == RightRuleResultEnum.ERROR)
         {
             return new RuleRegistrationResult()
             {
                 RegisteredRule = parsedRule,
                 Message = parsedRule.Message ?? "Error: Registration failed, reason unknown!",
-                Status = parsedRule.Status
+                Status = RegistrationStatusEnum.ERROR
             };
         }
         return new RuleRegistrationResult()
         {
             RegisteredRule = null,
             Message = "Rule Failed to register",
-            Status = RightRuleStatusEnum.FAILURE
+            Status = RegistrationStatusEnum.FAILURE
         };
     }
 

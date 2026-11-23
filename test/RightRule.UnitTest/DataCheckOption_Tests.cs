@@ -21,11 +21,11 @@ public class DataCheckOption_Tests
             .Build()
             .Register(rr.RuleService);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
     }
 
     [Fact]
-    public void DataCheck_True()
+    public void DataCheck_True_NoData_Error()
     {
         RightRuleOptions options = new RightRuleOptions 
         { 
@@ -44,6 +44,6 @@ public class DataCheckOption_Tests
             .Build()
             .Register(rr.RuleService);
 
-        Assert.Equal(RightRuleStatusEnum.ERROR, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.ERROR, rule1.Status);
     }
 }

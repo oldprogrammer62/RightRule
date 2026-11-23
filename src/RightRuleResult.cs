@@ -6,8 +6,8 @@ namespace RightRule;
 
 public sealed class RightRuleResult<T>
 {
+    public RightRuleResultEnum Status { get; init; }
     public required int RuleNumber { get; init; }
-    public RightRuleStatusEnum Status { get; init; }
     public required string RuleName { get; init; }
     
     public required bool Result { get; init; }
@@ -26,7 +26,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         {
-            Status = RightRuleStatusEnum.SUCCESS,
+            Status = RightRuleResultEnum.SUCCESS,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -44,7 +44,7 @@ public sealed class RightRuleResult<T>
 
         return new()
         {
-            Status = RightRuleStatusEnum.FAILURE,
+            Status = RightRuleResultEnum.FAILURE,
             Result = Payload.Result,
             RuleNumber = Payload.Number,
             RuleName = Payload.Name,
@@ -60,7 +60,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         {
-            Status = RightRuleStatusEnum.ERROR,
+            Status = RightRuleResultEnum.ERROR,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -76,7 +76,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RightRuleStatusEnum.DEFAULT,
+            Status = RightRuleResultEnum.DEFAULT,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 

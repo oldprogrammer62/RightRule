@@ -65,7 +65,7 @@ public class DataLoader_Tests
                 ["age"] = 30,
                 ["isActive"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
 
         var registration2 = rr.DataService.RegisterData(
             "Order",
@@ -75,7 +75,7 @@ public class DataLoader_Tests
                 ["orderDate"] = "01.10.2026",
                 ["isPaid"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration2.Status);
 
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
 
@@ -110,7 +110,7 @@ public class DataLoader_Tests
                 ["age"] = 30,
                 ["isActive"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
 
         var registration2 = rr.DataService.RegisterData(
             "Order",
@@ -120,7 +120,7 @@ public class DataLoader_Tests
                 ["orderDate"] = "01.10.2026",
                 ["isPaid"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration2.Status);
 
         Assert.Equal(2, rr.DataService.GetRegisteredData().Count);
 

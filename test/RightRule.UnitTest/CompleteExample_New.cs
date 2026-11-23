@@ -55,13 +55,13 @@ public class CompleteExample_New
         // This informs RightRule the event that is being processed.
         const string context = "OrderDiscount";
 
-        rr.DataService.RegisterData("Order", new Dictionary<string, object>
+        var data1 = rr.DataService.RegisterData("Order", new Dictionary<string, object>
         {
             ["Value"] = orderValue,
             ["PreviousOrders"] = previousOrders
         });
 
-        rr.DataService.RegisterData("OrderThresholds", new Dictionary<string, object>
+        var data2 = rr.DataService.RegisterData("OrderThresholds", new Dictionary<string, object>
         {
             ["LoyaltyValue"] = 100m,
             ["ReturningValue"] = 50m,
@@ -69,7 +69,7 @@ public class CompleteExample_New
             ["ReturningPreviousOrders"] = 2
         });
 
-        rr.DataService.RegisterData("Discount", new Dictionary<string, object>
+        var data3 = rr.DataService.RegisterData("Discount", new Dictionary<string, object>
         {
             ["Default"] = 2,
             ["GoodWill"] = 5,
@@ -84,9 +84,9 @@ public class CompleteExample_New
             Decision = "NoDiscount",
             DecisionData = """{"discount":"$Discount.Default%"}"""
         };
-        rr.RuleService.RegisterDefaultRule(newDefaultRule);
+        var defRule1 = rr.RuleService.RegisterDefaultRule(newDefaultRule);
 
-        rr.RuleService.RegisterRules(new List<DefinedRule>
+        var rulesReg = rr.RuleService.RegisterRules(new List<DefinedRule>
         {
             new()
             {

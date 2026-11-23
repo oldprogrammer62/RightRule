@@ -4,7 +4,7 @@ namespace RightRule.OperatorServices;
 
 public sealed class OperatorRegistrationResult
 {
-    public required RightRuleStatusEnum Status { get; init; }
+    public required RegistrationStatusEnum Status { get; init; }
     public required string Message { get; init; }
 
     internal static OperatorRegistrationResult Success(string Message)
@@ -12,7 +12,7 @@ public sealed class OperatorRegistrationResult
         return new OperatorRegistrationResult()
         {
             Message = Message,
-            Status = RightRuleStatusEnum.SUCCESS
+            Status = RegistrationStatusEnum.SUCCESS
         };
     }
 
@@ -21,7 +21,7 @@ public sealed class OperatorRegistrationResult
         return new OperatorRegistrationResult()
         {
             Message = Message,
-            Status = RightRuleStatusEnum.FAILURE
+            Status = RegistrationStatusEnum.FAILURE
         };
     }
 }

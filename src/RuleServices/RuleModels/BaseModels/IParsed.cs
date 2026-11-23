@@ -5,7 +5,7 @@ namespace RightRule.RuleServices.RuleModels.BaseModels;
 
 public interface IParsed
 {
-    RightRuleStatusEnum Status { get; init; }
+    RightRuleResultEnum Status { get; init; }
 
     /// <summary>
     /// The Node property represents the parsed rule statement as an abstract syntax tree (AST).

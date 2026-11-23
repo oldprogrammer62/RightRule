@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
+using RightRule.Models;
 using RightRule.OperatorServices;
 using RightRule.OperatorServices.OperatorLoader;
 using RightRule.OperatorServices.OperatorLoader.CustomOperators;
@@ -89,7 +90,7 @@ public class OperatorRegistrationTests
         Assert.NotNull(op);
 
         OperatorRegistrationResult? isRegistered = rr.OperatorService.RegisterOperator(op);
-        Assert.Equal(RightRule.Models.RightRuleStatusEnum.SUCCESS, isRegistered.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, isRegistered.Status);
         Assert.Equal(11, rr.OperatorService.Operators.Count);
         Assert.Equal(23, rr.OperatorService.OperatorAliases.Count);
 

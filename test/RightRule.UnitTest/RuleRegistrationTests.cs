@@ -33,8 +33,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result1.Status);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result2.Status);
     }
 
     [Fact]
@@ -64,8 +64,8 @@ public class RuleRegistrationTests
         Assert.NotNull(result1);
         Assert.NotNull(result2);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result1.Status);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result2.Status);
     }
 
     [Fact]
@@ -111,7 +111,7 @@ public class RuleRegistrationTests
 
         var result = session.RuleService.RegisterRule(rule);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
         Assert.Same(rule.Decision, result.RegisteredRule.Decision);
     }
 
@@ -139,8 +139,8 @@ public class RuleRegistrationTests
         var firstResult = session.RuleService.RegisterRule(firstRule);
         var duplicateResult = session.RuleService.RegisterRule(duplicateRule);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, firstResult.Status);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, duplicateResult.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, firstResult.Status);
+        Assert.Equal(RegistrationStatusEnum.FAILURE, duplicateResult.Status);
         Assert.Same(duplicateRule.Decision, duplicateResult.RegisteredRule.Decision);
     }
 
@@ -160,7 +160,7 @@ public class RuleRegistrationTests
 
         var result = session.RuleService.RegisterRule(invalidRule);
 
-        Assert.Equal(RightRuleStatusEnum.ERROR, result.Status);
+        Assert.Equal(RegistrationStatusEnum.ERROR, result.Status);
         Assert.Null(result.RegisteredRule);
         Assert.Contains("Statement", result.Message);
     }
@@ -190,8 +190,8 @@ public class RuleRegistrationTests
         var ruleRegistration = session.RuleService.RegisterRule(nonMatchingRule);
         var result = session.RuleService.ApplyRule("Sales");
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, ruleRegistration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, ruleRegistration.Status);
         Assert.Equal("SalesDefault", result.RuleName);
         Assert.Equal("NoMatch", result.Decision);
     }
@@ -212,8 +212,8 @@ public class RuleRegistrationTests
         var registration = session.RuleService.RegisterRule(rule);
         var result = session.RuleService.ApplyRule("Sales");
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result.Status);
         Assert.True(result.Result);
         Assert.Equal("MatchingRule", result.RuleName);
     }

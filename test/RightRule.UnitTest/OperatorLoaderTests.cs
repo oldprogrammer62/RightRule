@@ -31,7 +31,7 @@ public class OperatorLoaderTests
         var x = ops.RegisterAllOperators();
 
         Assert.NotNull(x);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, x.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, x.Status);
 
         Assert.NotNull(ops.Operators);
         Assert.NotNull(ops.OperatorAliases);

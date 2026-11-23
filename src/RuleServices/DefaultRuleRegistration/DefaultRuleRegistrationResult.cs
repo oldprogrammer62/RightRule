@@ -5,11 +5,11 @@ namespace RightRule.RuleServices.DefaultRuleRegistration;
 
 public sealed class DefaultRuleRegistrationResult
 {
-    public RightRuleStatusEnum Status { get; init; }
+    public RegistrationStatusEnum Status { get; init; }
     public DefaultRule? RegisteredRule { get; init; }
     public string Message { get; init; }
 
-    private DefaultRuleRegistrationResult(RightRuleStatusEnum status, string message, DefaultRule? defaultRule)
+    private DefaultRuleRegistrationResult(RegistrationStatusEnum status, string message, DefaultRule? defaultRule)
     {
         Status = status;
         Message = message;
@@ -20,7 +20,7 @@ public sealed class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RightRuleStatusEnum.SUCCESS,
+            RegistrationStatusEnum.SUCCESS,
             message,
             defaultRule
             );
@@ -30,7 +30,7 @@ public sealed class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RightRuleStatusEnum.FAILURE,
+            RegistrationStatusEnum.FAILURE,
             message,
             default
             );
@@ -40,7 +40,7 @@ public sealed class DefaultRuleRegistrationResult
     {
         return new DefaultRuleRegistrationResult
             (
-            RightRuleStatusEnum.FAILURE,
+            RegistrationStatusEnum.FAILURE,
             message,
             defaultRule
             );

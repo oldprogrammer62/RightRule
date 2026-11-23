@@ -28,7 +28,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
 
@@ -60,7 +60,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
@@ -69,7 +69,7 @@ public class ApplyRules_Tests
         Assert.NotNull(defaultRule);
 
         Assert.Equal(defaultRule.Decision, result.Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Status);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var defRule = rr.RuleService.BuildDefaultRule()
             .Name("NewDefaultRule")
@@ -116,7 +116,7 @@ public class ApplyRules_Tests
         Assert.Equal(defaultRule.Decision, defRule.Decision);
 
         Assert.Equal(defaultRule.Decision, result.Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Status);
     }
 
     [Fact]
@@ -143,7 +143,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -155,7 +155,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context");
         Assert.NotNull(result);
@@ -188,7 +188,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -200,7 +200,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context");
         Assert.NotNull(result);
@@ -210,7 +210,7 @@ public class ApplyRules_Tests
         Assert.NotNull(defaultRule);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 
     [Fact]
@@ -237,7 +237,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -249,7 +249,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var defRule = rr.RuleService.BuildDefaultRule()
             .Name("NewDefaultRule")
@@ -270,7 +270,7 @@ public class ApplyRules_Tests
         Assert.Equal(defaultRule.Decision, defRule.Decision);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 
     [Fact]
@@ -297,7 +297,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -309,7 +309,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.FIRST);
         Assert.NotNull(result);
@@ -342,7 +342,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -354,7 +354,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.FIRST);
         Assert.NotNull(result);
@@ -364,7 +364,7 @@ public class ApplyRules_Tests
         Assert.NotNull(defaultRule);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 
     [Fact]
@@ -391,7 +391,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -403,7 +403,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var defRule = rr.RuleService.BuildDefaultRule()
             .Name("NewDefaultRule")
@@ -424,7 +424,7 @@ public class ApplyRules_Tests
         Assert.Equal(defaultRule.Decision, defRule.Decision);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 
     [Fact]
@@ -451,7 +451,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -463,17 +463,17 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
 
         Assert.Equal(rule1.RegisteredRule.Decision, result[0].Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[0].Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result[0].Status);
 
         Assert.Equal(rule2.RegisteredRule.Decision, result[1].Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[1].Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result[1].Status);
     }
 
     [Fact]
@@ -500,7 +500,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -512,17 +512,17 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
 
         Assert.Equal(rule1.RegisteredRule.Decision, result[0].Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[0].Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result[0].Status);
 
         Assert.Equal(rule2.RegisteredRule.Decision, result[1].Decision);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result[1].Status);
+        Assert.Equal(RightRuleResultEnum.FAILURE, result[1].Status);
     }
 
     [Fact]
@@ -549,7 +549,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -561,17 +561,17 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
 
         Assert.Equal(rule1.RegisteredRule.Decision, result[0].Decision);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result[0].Status);
+        Assert.Equal(RightRuleResultEnum.FAILURE, result[0].Status);
 
         Assert.Equal(rule2.RegisteredRule.Decision, result[1].Decision);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result[1].Status);
+        Assert.Equal(RightRuleResultEnum.FAILURE, result[1].Status);
     }
 
     [Fact]
@@ -598,7 +598,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -610,17 +610,17 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
 
         Assert.Equal(rule1.RegisteredRule.Decision, result[0].Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[0].Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result[0].Status);
 
         Assert.Equal(rule2.RegisteredRule.Decision, result[1].Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[1].Status);
+        Assert.Equal(RightRuleResultEnum.SUCCESS, result[1].Status);
     }
 
     [Fact]
@@ -647,7 +647,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -659,7 +659,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var result = rr.RuleService.ApplyRules("Context", RightRule.LanguageProcessor.Evaluator.EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
@@ -669,7 +669,7 @@ public class ApplyRules_Tests
         Assert.NotNull(defaultRule);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 
     [Fact]
@@ -696,7 +696,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var rule2 = rr.RuleService.BuildRule()
             .Number(2)
@@ -708,7 +708,7 @@ public class ApplyRules_Tests
             .Register(rr.RuleService);
         Assert.NotNull(rule2);
         Assert.NotNull(rule2.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule2.Status);
 
         var defRule = rr.RuleService.BuildDefaultRule()
             .Name("NewDefaultRule")
@@ -729,6 +729,6 @@ public class ApplyRules_Tests
         Assert.Equal(defaultRule.Decision, defRule.Decision);
 
         Assert.Equal(defaultRule.Decision, result.Single().Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 }

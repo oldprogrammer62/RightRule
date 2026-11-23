@@ -37,7 +37,7 @@ internal sealed partial class RuleService : IRuleService
 
     private RightRuleResult<IProcessedRule> BuildResult(string Context, RightRuleServiceResult<IProcessedRule> ServiceResult)
     {
-        var status = ServiceResult?.Status ?? RightRuleStatusEnum.DEFAULT;
+        var status = ServiceResult?.Status ?? RightRuleResultEnum.DEFAULT;
 
         var payload = ServiceResult?.Payload ?? null;
         var message = ServiceResult?.Message ?? string.Empty;
@@ -46,17 +46,17 @@ internal sealed partial class RuleService : IRuleService
 
         return status switch
         {
-            RightRuleStatusEnum.SUCCESS when ServiceResult?.Payload != null =>
+            RightRuleResultEnum.SUCCESS when ServiceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied, decisionData),
 
-            RightRuleStatusEnum.FAILURE =>
+            RightRuleResultEnum.FAILURE =>
                 RightRuleResult<IProcessedRule>.FailureResult(
                     payload ?? ErrorRule.ErrorResult(message), message),
 
-            RightRuleStatusEnum.DEFAULT =>
+            RightRuleResultEnum.DEFAULT =>
                 RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context), message),
 
-            RightRuleStatusEnum.ERROR =>
+            RightRuleResultEnum.ERROR =>
                 RightRuleResult<IProcessedRule>.ErrorResult(ServiceResult?.Exception ?? new Exception(message), payload != null ? payload : ErrorRule.ErrorResult(message)),
 
             _ => RightRuleResult<IProcessedRule>.DefaultResult(GetDefaultRule(Context))

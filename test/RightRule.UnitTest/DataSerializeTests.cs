@@ -17,7 +17,7 @@ public class DataSerializationTests
                 ["age"] = 30,
                 ["isActive"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
 
         var registration2 = rightRule.DataService.RegisterData(
             "Order",
@@ -27,7 +27,7 @@ public class DataSerializationTests
                 ["orderDate"] = "01.10.2026",
                 ["isPaid"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration2.Status);
 
         var serializedData = rightRule.DataService.SerializeData();
 
@@ -53,7 +53,7 @@ public class DataSerializationTests
                 ["age"] = 30,
                 ["isActive"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
 
         var registration2 = rightRule.DataService.RegisterData(
             "Order",
@@ -63,7 +63,7 @@ public class DataSerializationTests
                 ["orderDate"] = "01.10.2026",
                 ["isPaid"] = true
             });
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, registration2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, registration2.Status);
 
         var serializedData = rightRule.DataService.SerializeData("Order");
 

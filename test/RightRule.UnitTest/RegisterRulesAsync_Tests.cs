@@ -54,11 +54,11 @@ public class RegisterRulesAsync_Tests
         Assert.NotNull(registeredRules);
         Assert.Equal(3, registeredRules.Count);
 
-        var success = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.SUCCESS);
+        var success = registeredRules.Where(x => x.Status == RegistrationStatusEnum.SUCCESS);
         Assert.NotNull(success);
         Assert.Equal(3, success.Count());
 
-        var failed = registeredRules.Where(x => x.Status == RightRule.Models.RightRuleStatusEnum.ERROR);
+        var failed = registeredRules.Where(x => x.Status == RegistrationStatusEnum.ERROR);
         Assert.NotNull(failed);
         Assert.Empty(failed);
     }

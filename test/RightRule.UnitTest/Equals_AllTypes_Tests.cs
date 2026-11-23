@@ -55,7 +55,9 @@ public class Equals_AllTypes_Tests
         };
 
         var rrule = rr.RuleService.RegisterRule(ruleDef);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rrule.Status);
+        Assert.NotNull(rrule);
+        Assert.NotNull(rrule.RegisteredRule);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rrule.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
 

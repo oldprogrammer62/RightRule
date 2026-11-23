@@ -1,5 +1,6 @@
 ﻿using RightRule.DataAdaptors;
 using RightRule.DataAdaptors.DataAdaptorLibrary;
+using RightRule.Models;
 using RightRule.System.Common.DataAdaptor;
 using Xunit;
 
@@ -26,7 +27,7 @@ public class DataAdaptorServiceTests
         var adaptor = new TestAdaptor();
         var result = new DataAdaptorRegistrationResult
         {
-            Status = RightRule.Models.RightRuleStatusEnum.SUCCESS,
+            Status = RegistrationStatusEnum.SUCCESS,
             Message = "registered"
         };
         var manager = new FakeDataAdaptorLibraryManager

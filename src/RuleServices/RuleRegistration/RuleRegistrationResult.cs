@@ -8,7 +8,7 @@ namespace RightRule.RuleServices.RuleRegistration;
 /// </summary>
 public sealed class RuleRegistrationResult
 {
-    public required RightRuleStatusEnum Status { get; init; }
+    public required RegistrationStatusEnum Status { get; init; }
     public required ParsedRule? RegisteredRule { get; init; }
     public required string Message { get; init; }
 
@@ -18,7 +18,7 @@ public sealed class RuleRegistrationResult
         {
             Message = Message,
             RegisteredRule = ParsedRule,
-            Status = ParsedRule.Status
+            Status = ParsedRule.Status.ParserToRegistrationStatus()
         };
     }
 
@@ -28,7 +28,7 @@ public sealed class RuleRegistrationResult
         {
             Message = Message,
             RegisteredRule = ParsedRule,
-            Status = RightRuleStatusEnum.FAILURE
+            Status = RegistrationStatusEnum.FAILURE
         };
     }
 
@@ -38,7 +38,7 @@ public sealed class RuleRegistrationResult
         {
             Message = Message,
             RegisteredRule = null,
-            Status = RightRuleStatusEnum.FAILURE
+            Status = RegistrationStatusEnum.FAILURE
         };
     }
 }

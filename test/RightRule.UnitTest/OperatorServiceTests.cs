@@ -38,7 +38,7 @@ public class OperatorServiceTests
 
         var result = service.RegisterOperator(op);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
         Assert.Contains(op, service.Operators);
         Assert.Same(op, service.OperatorAliases["first-alias"]);
         Assert.Same(op, service.OperatorAliases["first-alias-alt"]);
@@ -65,7 +65,7 @@ public class OperatorServiceTests
         service.RegisterOperator(first);
         var result = service.RegisterOperator(conflicting);
 
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result.Status);
+        Assert.Equal(RegistrationStatusEnum.FAILURE, result.Status);
         Assert.Same(first, service.OperatorAliases["first-alias"]);
     }
 
@@ -107,7 +107,7 @@ public class OperatorServiceTests
 
         var result = service.RegisterAllOperators(NoOperatorsOptions());
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, result.Status);
         Assert.Empty(service.Operators);
         Assert.Empty(service.OperatorAliases);
     }

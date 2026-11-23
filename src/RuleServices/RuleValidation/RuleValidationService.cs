@@ -20,7 +20,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         foreach (var rule in rules)
         {
             var validationResult = ValidateDefinedRule(rule);
-            if (!validationResult.Valid.Equals(Models.RightRuleStatusEnum.SUCCESS))
+            if (!validationResult.Valid.Equals(Models.RightRuleResultEnum.SUCCESS))
             {
                 valid = false;
                 break;
@@ -40,7 +40,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         {
             return new RuleValidationResult()
             {
-                Valid = Models.RightRuleStatusEnum.ERROR,
+                Valid = Models.RightRuleResultEnum.ERROR,
                 Message = "Rule not defined"
             };
         }
@@ -76,7 +76,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         {
             return new RuleValidationResult()
             {
-                Valid = Models.RightRuleStatusEnum.SUCCESS,
+                Valid = Models.RightRuleResultEnum.SUCCESS,
                 Message = string.Empty
             };
         }
@@ -85,7 +85,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         sb.Remove(sb.Length - 1, 1);
         return new RuleValidationResult()
         {
-            Valid = Models.RightRuleStatusEnum.ERROR,
+            Valid = Models.RightRuleResultEnum.ERROR,
             Message = sb.ToString()
         };
     }

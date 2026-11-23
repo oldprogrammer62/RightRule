@@ -31,7 +31,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ANY);
         Assert.NotNull(result);
@@ -51,7 +51,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
@@ -71,7 +71,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
@@ -91,7 +91,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);
@@ -111,7 +111,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.ERROR, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.ERROR, pr.Status);
     }
 
     [Fact]
@@ -132,7 +132,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
 
@@ -155,7 +155,7 @@ public class BooleanEquals_Tests
         };
 
         var pr = rr.RuleService.RegisterRule(rule1);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, pr.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, pr.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
 

@@ -14,7 +14,7 @@ public sealed class RightRuleServiceResult<T>
 
     public required string StatementApplied { get; init; }
 
-    public RightRuleStatusEnum Status { get; init; }
+    public RightRuleResultEnum Status { get; init; }
     public T? Payload { get; init; }
     public string Message { get; init; } = string.Empty;
     public Exception? Exception { get; init; }
@@ -25,7 +25,7 @@ public sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
-            Status = RightRuleStatusEnum.SUCCESS, 
+            Status = RightRuleResultEnum.SUCCESS, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,
@@ -41,7 +41,7 @@ public sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule>
         {
-            Status = RightRuleStatusEnum.FAILURE,
+            Status = RightRuleResultEnum.FAILURE,
             Success = Payload.Success,
             Result = Payload.Result,
             Context = Payload.Context,
@@ -58,7 +58,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RightRuleStatusEnum.ERROR, 
+            Status = RightRuleResultEnum.ERROR, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,
@@ -76,7 +76,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new()
         {
-            Status = RightRuleStatusEnum.ERROR,
+            Status = RightRuleResultEnum.ERROR,
             Success = Payload.Success,
             Result = Payload.Result,
             Context = Payload.Context,
@@ -94,7 +94,7 @@ public sealed class RightRuleServiceResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         { 
-            Status = RightRuleStatusEnum.DEFAULT, 
+            Status = RightRuleResultEnum.DEFAULT, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,

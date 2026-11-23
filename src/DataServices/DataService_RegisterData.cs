@@ -14,7 +14,7 @@ internal sealed partial class DataService : IDataService
         {
             return new DataRegistrationResult()
             {
-                Status = RightRuleStatusEnum.FAILURE,
+                Status = RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
@@ -25,14 +25,14 @@ internal sealed partial class DataService : IDataService
         {
             return new DataRegistrationResult()
             {
-                Status = RightRuleStatusEnum.FAILURE,
+                Status = RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
         }
         var dataRegistrationResult = RegisterData(DatasetName, dataResult.Data);
 
-        if (dataRegistrationResult.Status == RightRuleStatusEnum.SUCCESS)
+        if (dataRegistrationResult.Status == RegistrationStatusEnum.SUCCESS)
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
@@ -53,14 +53,14 @@ internal sealed partial class DataService : IDataService
         {
             return new DataRegistrationResult()
             {
-                Status = RightRuleStatusEnum.FAILURE,
+                Status = RegistrationStatusEnum.FAILURE,
                 DataType = DataTypes.DATASET,
                 Name = DatasetName
             };
         }
         return new DataRegistrationResult()
         {
-            Status = RightRuleStatusEnum.SUCCESS,
+            Status = RegistrationStatusEnum.SUCCESS,
             DataType = DataTypes.DATASET,
             Name = DatasetName
         };
@@ -167,7 +167,7 @@ internal sealed partial class DataService : IDataService
             _datasets.Add(dataset);
             var result = new DataRegistrationResult()
             {
-                Status = RightRuleStatusEnum.SUCCESS,
+                Status = RegistrationStatusEnum.SUCCESS,
                 DataType = DataTypes.DATASET,
                 Name = dataset.DatasetName
             };

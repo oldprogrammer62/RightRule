@@ -79,7 +79,7 @@ public class RuleLoader_Tests
         var rules = rr.RuleService.LoadRules(json);
         Assert.NotNull(rules);
         Assert.Single(rules);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rules[0].Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rules[0].Status);
 
         Assert.Equal(2, rr.RuleService.GetRegisteredRules().Count);
         Assert.Single(rr.RuleService.GetRegisteredRules("NewContext"));

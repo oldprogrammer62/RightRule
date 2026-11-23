@@ -44,7 +44,7 @@ public class ComplexStatementTests
             .Register(rr.RuleService);
         Assert.NotNull(rule1);
         Assert.NotNull(rule1.RegisteredRule);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, rule1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, rule1.Status);
 
         var result = rr.RuleService.ApplyRule("Context");
         Assert.NotNull(result);

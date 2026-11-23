@@ -94,9 +94,9 @@ public class DataRegistrationTests
 
         var rr = new RightRule.RightRule().CreateSession();
         var added1 = rr.DataService.RegisterData("r", r);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, added1.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added1.Status);
 
         var added2 = rr.DataService.RegisterData("r", r);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, added2.Status);
+        Assert.Equal(RegistrationStatusEnum.SUCCESS, added2.Status);
     }
 }

@@ -175,6 +175,6 @@ public class EvaluateTypeTests
         Assert.NotNull(result);
         Assert.Single(result);
 
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 }

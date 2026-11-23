@@ -207,6 +207,6 @@ public class RuleBuilder_Test
         Assert.NotNull(defRule);
 
         Assert.Equal(result.Single().Decision, defRule.Decision);
-        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
+        Assert.Equal(RightRuleResultEnum.DEFAULT, result.Single().Status);
     }
 }

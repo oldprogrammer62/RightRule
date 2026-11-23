@@ -4,7 +4,7 @@ namespace RightRule.DataAdaptors;
 
 public sealed class DataAdaptorRegistrationResult
 {
-    public required RightRuleStatusEnum Status { get; init; }
+    public required RegistrationStatusEnum Status { get; init; }
     public required string Message { get; init; }
 
     internal static DataAdaptorRegistrationResult Success(string Message)
@@ -12,7 +12,7 @@ public sealed class DataAdaptorRegistrationResult
         return new DataAdaptorRegistrationResult()
         {
             Message = Message,
-            Status = RightRuleStatusEnum.SUCCESS
+            Status = RegistrationStatusEnum.SUCCESS
         };
     }
 
@@ -21,7 +21,7 @@ public sealed class DataAdaptorRegistrationResult
         return new DataAdaptorRegistrationResult()
         {
             Message = Message,
-            Status = RightRuleStatusEnum.FAILURE
+            Status = RegistrationStatusEnum.FAILURE
         };
     }
 }
