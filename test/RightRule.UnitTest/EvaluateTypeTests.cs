@@ -173,9 +173,8 @@ public class EvaluateTypeTests
 
         var result = rr.RuleService.ApplyRules("Context", EvaluationTypeEnum.ALL);
         Assert.NotNull(result);
-        Assert.Equal(2, result.Count);
+        Assert.Single(result);
 
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[0].Status);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result[1].Status);
+        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
     }
 }

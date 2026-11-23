@@ -201,12 +201,12 @@ public class RuleBuilder_Test
         Assert.IsType<RuleRegistrationResult>(rule2reg);
 
         var result = rr.RuleService.ApplyRules(context, EvaluationTypeEnum.ALL);
-        Assert.Equal(2, result.Count);
+        Assert.Single(result);
 
-        Assert.Equal(result[0].Decision, rule1.Decision);
-        Assert.Equal(RightRuleStatusEnum.FAILURE, result[0].Status);
+        var defRule = rr.RuleService.GetDefaultRule(context);
+        Assert.NotNull(defRule);
 
-        Assert.Equal(result[1].Decision, rule2.Decision);
-        Assert.Equal(RightRuleStatusEnum.SUCCESS, result[1].Status);
+        Assert.Equal(result.Single().Decision, defRule.Decision);
+        Assert.Equal(RightRuleStatusEnum.DEFAULT, result.Single().Status);
     }
 }
