@@ -2,8 +2,8 @@
 
 public enum RightRuleResultEnum
 {
-    SUCCESS = 1,
-    FAILURE = 2,
+    APPLICABLE = 1,
+    NOTAPPLICABLE = 2,
     ERROR = 3,
     DEFAULT = 4
 }
@@ -20,8 +20,8 @@ public static class StatusExtensions
     public static RegistrationStatusEnum ParserToRegistrationStatus(
         this RightRuleResultEnum status) => status switch
     { 
-        RightRuleResultEnum.SUCCESS => RegistrationStatusEnum.SUCCESS,
-        RightRuleResultEnum.FAILURE => RegistrationStatusEnum.FAILURE,
+        RightRuleResultEnum.APPLICABLE => RegistrationStatusEnum.SUCCESS,
+        RightRuleResultEnum.NOTAPPLICABLE => RegistrationStatusEnum.FAILURE,
         RightRuleResultEnum.ERROR => RegistrationStatusEnum.ERROR,
         RightRuleResultEnum.DEFAULT => RegistrationStatusEnum.SUCCESS,
         _ => throw new ArgumentOutOfRangeException(nameof(status), status, "Unmapped status value")

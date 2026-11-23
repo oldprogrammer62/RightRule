@@ -20,7 +20,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         foreach (var rule in rules)
         {
             var validationResult = ValidateDefinedRule(rule);
-            if (!validationResult.Valid.Equals(Models.RightRuleResultEnum.SUCCESS))
+            if (!validationResult.Valid.Equals(Models.RightRuleResultEnum.APPLICABLE))
             {
                 valid = false;
                 break;
@@ -76,7 +76,7 @@ internal sealed class RuleValidationService : IRuleValidationService
         {
             return new RuleValidationResult()
             {
-                Valid = Models.RightRuleResultEnum.SUCCESS,
+                Valid = Models.RightRuleResultEnum.APPLICABLE,
                 Message = string.Empty
             };
         }

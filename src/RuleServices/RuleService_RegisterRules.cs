@@ -54,7 +54,7 @@ internal sealed partial class RuleService : IRuleService
                 Status = RegistrationStatusEnum.ERROR
             };
         }
-        if (parsedRule.Status == RightRuleResultEnum.SUCCESS)
+        if (parsedRule.Status == RightRuleResultEnum.APPLICABLE)
         {
             return RegisteredRules.AddRule(parsedRule);
         }
@@ -64,7 +64,7 @@ internal sealed partial class RuleService : IRuleService
             return RegisteredRules.AddRule(parsedRule);
         }
 
-        if (parsedRule.Status == RightRuleResultEnum.FAILURE)
+        if (parsedRule.Status == RightRuleResultEnum.NOTAPPLICABLE)
         {
             return new RuleRegistrationResult()
             {

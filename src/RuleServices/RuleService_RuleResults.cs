@@ -46,10 +46,10 @@ internal sealed partial class RuleService : IRuleService
 
         return status switch
         {
-            RightRuleResultEnum.SUCCESS when ServiceResult?.Payload != null =>
+            RightRuleResultEnum.APPLICABLE when ServiceResult?.Payload != null =>
                 RightRuleResult<IProcessedRule>.SuccessResult(payload, statementApplied, decisionData),
 
-            RightRuleResultEnum.FAILURE =>
+            RightRuleResultEnum.NOTAPPLICABLE =>
                 RightRuleResult<IProcessedRule>.FailureResult(
                     payload ?? ErrorRule.ErrorResult(message), message),
 

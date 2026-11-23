@@ -10,7 +10,7 @@ internal class RuleValidationResult
     public RuleValidationResult()
     {
         Message = string.Empty;
-        Valid = RightRuleResultEnum.FAILURE;
+        Valid = RightRuleResultEnum.NOTAPPLICABLE;
     }
 }
     

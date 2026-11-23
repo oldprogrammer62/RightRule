@@ -25,7 +25,7 @@ public sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule> 
         { 
-            Status = RightRuleResultEnum.SUCCESS, 
+            Status = RightRuleResultEnum.APPLICABLE, 
             Success = Payload.Success, 
             Result = Payload.Result, 
             Context = Payload.Context,
@@ -41,7 +41,7 @@ public sealed class RightRuleServiceResult<T>
     {
         return new RightRuleServiceResult<IProcessedRule>
         {
-            Status = RightRuleResultEnum.FAILURE,
+            Status = RightRuleResultEnum.NOTAPPLICABLE,
             Success = Payload.Success,
             Result = Payload.Result,
             Context = Payload.Context,

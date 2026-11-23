@@ -1,5 +1,5 @@
-﻿using RightRule.RuleServices.RuleModels.BaseModels;
-using System.Text;
+﻿using RightRule.RuleServices.DefaultRuleRegistration;
+using RightRule.RuleServices.RuleModels.BaseModels;
 
 namespace RightRule.RuleServices.RuleModels;
 
@@ -17,7 +17,12 @@ public sealed class DefaultRule : RuleDefault
         return new DefaultRule();
     }
 
-    public static DefaultRule Build(string Name, string Context, string Decision, object? DecisionData)
+    internal DefaultRuleRegistrationResult Register(IRuleService ruleRegistrationService)
+    {
+        return ruleRegistrationService.RegisterDefaultRule(this);
+    }
+
+    internal static DefaultRule Build(string Name, string Context, string Decision, object? DecisionData)
     {
         return new DefaultRule()
         {
@@ -26,16 +31,5 @@ public sealed class DefaultRule : RuleDefault
             Decision = Decision,
             DecisionData = DecisionData
         };
-    }
-
-    public override string ToString()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"Number: {(int)RuleNumberEnum.DEFAULTRULE}");
-        sb.AppendLine($"Name: {Name}");
-        sb.AppendLine($"Context: {Context}");
-        sb.AppendLine($"Decision: {Decision}");
-        sb.AppendLine($"DecisionData: {DecisionData}");
-        return sb.ToString();
     }
 }

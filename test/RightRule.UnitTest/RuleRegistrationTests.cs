@@ -213,7 +213,7 @@ public class RuleRegistrationTests
         var result = session.RuleService.ApplyRule("Sales");
 
         Assert.Equal(RegistrationStatusEnum.SUCCESS, registration.Status);
-        Assert.Equal(RightRuleResultEnum.SUCCESS, result.Status);
+        Assert.Equal(RightRuleResultEnum.APPLICABLE, result.Status);
         Assert.True(result.Result);
         Assert.Equal("MatchingRule", result.RuleName);
     }

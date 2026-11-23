@@ -1,4 +1,6 @@
-﻿namespace RightRule.RuleServices.RuleModels.BaseModels;
+﻿using System.Text;
+
+namespace RightRule.RuleServices.RuleModels.BaseModels;
 
 public abstract class RuleDefault : IProcessedRule
 {
@@ -16,4 +18,15 @@ public abstract class RuleDefault : IProcessedRule
 
     public string Decision { get; init; } = DECISIONWORD;
     public object? DecisionData { get; init; } = null;
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"Number: {(int)RuleNumberEnum.DEFAULTRULE}");
+        sb.AppendLine($"Name: {Name}");
+        sb.AppendLine($"Context: {Context}");
+        sb.AppendLine($"Decision: {Decision}");
+        sb.AppendLine($"DecisionData: {DecisionData}");
+        return sb.ToString();
+    }
 }

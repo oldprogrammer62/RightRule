@@ -56,7 +56,7 @@ public sealed class RuleServiceTests
     [Fact]
     public void GetRules_ReturnsRegisteredRules()
     {
-        var rule = CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.SUCCESS);
+        var rule = CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(rule);
 
         Assert.Same(_registeredRules.Rules, _sut.GetRegisteredRules());
@@ -65,7 +65,7 @@ public sealed class RuleServiceTests
     [Fact]
     public void GetRule_ByName_MatchesContextAndNameCaseInsensitively()
     {
-        var rule = CreateParsedRule(1, "FirstRule", "Sales", RightRuleResultEnum.SUCCESS);
+        var rule = CreateParsedRule(1, "FirstRule", "Sales", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(rule);
 
         Assert.Same(rule, _sut.GetRegisteredRule("sAlEs", "fIrStRuLe"));
@@ -74,7 +74,7 @@ public sealed class RuleServiceTests
     [Fact]
     public void GetRule_ByNumber_MatchesContextCaseInsensitively()
     {
-        var rule = CreateParsedRule(42, "FirstRule", "Sales", RightRuleResultEnum.SUCCESS);
+        var rule = CreateParsedRule(42, "FirstRule", "Sales", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(rule);
 
         Assert.Same(rule, _sut.GetRegisteredRule("SALES", 42));
@@ -92,9 +92,9 @@ public sealed class RuleServiceTests
     [Fact]
     public void GetRules_ByContext_FiltersCaseInsensitively()
     {
-        var salesRule = CreateParsedRule(1, "SalesRule", "Sales", RightRuleResultEnum.SUCCESS);
+        var salesRule = CreateParsedRule(1, "SalesRule", "Sales", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(salesRule);
-        _registeredRules.AddRule(CreateParsedRule(2, "SupportRule", "Support", RightRuleResultEnum.SUCCESS));
+        _registeredRules.AddRule(CreateParsedRule(2, "SupportRule", "Support", RightRuleResultEnum.APPLICABLE));
 
         Assert.Equal([salesRule], _sut.GetRegisteredRules("sAlEs"));
     }
@@ -129,8 +129,8 @@ public sealed class RuleServiceTests
     }
 
     [Theory]
-    [InlineData(RightRuleResultEnum.FAILURE, "Parsing failed", "Parsing failed")]
-    [InlineData(RightRuleResultEnum.FAILURE, null, "Registration failed, reason unknown!")]
+    [InlineData(RightRuleResultEnum.NOTAPPLICABLE, "Parsing failed", "Parsing failed")]
+    [InlineData(RightRuleResultEnum.NOTAPPLICABLE, null, "Registration failed, reason unknown!")]
     [InlineData(RightRuleResultEnum.ERROR, "Parse error", "Parse error")]
     [InlineData(RightRuleResultEnum.ERROR, null, "Error: Registration failed, reason unknown!")]
     public void RegisterRule_WhenParsedRuleIsFailureOrError_ReturnsItsStatusAndMessage(
@@ -150,7 +150,7 @@ public sealed class RuleServiceTests
     }
 
     [Theory]
-    [InlineData(RightRuleResultEnum.SUCCESS)]
+    [InlineData(RightRuleResultEnum.APPLICABLE)]
     [InlineData(RightRuleResultEnum.DEFAULT)]
     public void RegisterRule_WhenParsedRuleIsSuccessOrDefault_AddsItToRegisteredRules(
         RightRuleResultEnum status)
@@ -168,8 +168,8 @@ public sealed class RuleServiceTests
     [Fact]
     public void RegisterRules_ReturnsAllRegistrationsSuccessAndFailures()
     {
-        var successfulRule = CreateParsedRule(1, "Success", "Sales", RightRuleResultEnum.SUCCESS);
-        var failedRule = CreateParsedRule(2, "Failure", "Sales", RightRuleResultEnum.FAILURE);
+        var successfulRule = CreateParsedRule(1, "Success", "Sales", RightRuleResultEnum.APPLICABLE);
+        var failedRule = CreateParsedRule(2, "Failure", "Sales", RightRuleResultEnum.NOTAPPLICABLE);
         _parseService.Results = new Queue<ParsedRule?>(
         [
             successfulRule,
@@ -249,9 +249,9 @@ public sealed class RuleServiceTests
     [Fact]
     public void DeRegisterMethods_RemoveRulesByContextNameAndNumber()
     {
-        var salesByName = CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.SUCCESS);
-        var salesByNumber = CreateParsedRule(2, "Second", "Sales", RightRuleResultEnum.SUCCESS);
-        var supportRule = CreateParsedRule(3, "Third", "Support", RightRuleResultEnum.SUCCESS);
+        var salesByName = CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.APPLICABLE);
+        var salesByNumber = CreateParsedRule(2, "Second", "Sales", RightRuleResultEnum.APPLICABLE);
+        var supportRule = CreateParsedRule(3, "Third", "Support", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(salesByName);
         _registeredRules.AddRule(salesByNumber);
         _registeredRules.AddRule(supportRule);
@@ -265,7 +265,7 @@ public sealed class RuleServiceTests
     [Fact]
     public void DeRegisterRules_WithoutContext_RemovesAllRules()
     {
-        _registeredRules.AddRule(CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.SUCCESS));
+        _registeredRules.AddRule(CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.APPLICABLE));
 
         Assert.True(_sut.DeRegisterRules());
         Assert.Empty(_registeredRules.Rules);
@@ -274,8 +274,8 @@ public sealed class RuleServiceTests
     [Fact]
     public void RuleMetadataMethods_ReturnRegisteredRuleMetadata()
     {
-        _registeredRules.AddRule(CreateParsedRule(2, "Second", "Sales", RightRuleResultEnum.SUCCESS));
-        _registeredRules.AddRule(CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.SUCCESS));
+        _registeredRules.AddRule(CreateParsedRule(2, "Second", "Sales", RightRuleResultEnum.APPLICABLE));
+        _registeredRules.AddRule(CreateParsedRule(1, "First", "Sales", RightRuleResultEnum.APPLICABLE));
 
         Assert.Equal(["Sales"], _sut.GetRuleContexts());
         Assert.Equal([(2, "Second"), (1, "First")], _sut.GetRuleNumbers("Sales"));
@@ -314,7 +314,7 @@ public sealed class RuleServiceTests
         var errorRule = CreateParsedRule(
             1, "ErrorRule", "Sales", RightRuleResultEnum.ERROR, "Parse error");
         var successfulRule = CreateParsedRule(
-            2, "SuccessfulRule", "Sales", RightRuleResultEnum.SUCCESS);
+            2, "SuccessfulRule", "Sales", RightRuleResultEnum.APPLICABLE);
 
         var parseResults = new Queue<ParsedRule?>();
         parseResults.Enqueue(errorRule);
@@ -343,7 +343,7 @@ public sealed class RuleServiceTests
     public void RegisterRule_WhenValidationReturnsError_PreservesExistingRegisteredRules()
     {
         var existingRule = CreateParsedRule(
-            99, "ExistingRule", "Sales", RightRuleResultEnum.SUCCESS);
+            99, "ExistingRule", "Sales", RightRuleResultEnum.APPLICABLE);
         _registeredRules.AddRule(existingRule);
 
         _validationService.Result = new RuleValidationResult
@@ -365,7 +365,7 @@ public sealed class RuleServiceTests
     public void RegisterRule_WhenParsedRuleReturnsError_PreservesExistingRegisteredRules()
     {
         var existingRule = CreateParsedRule(
-            99, "ExistingRule", "Sales", RightRuleResultEnum.SUCCESS);
+            99, "ExistingRule", "Sales", RightRuleResultEnum.APPLICABLE);
         var errorRule = CreateParsedRule(
             1, "ErrorRule", "Sales", RightRuleResultEnum.ERROR, "Parse error");
         _registeredRules.AddRule(existingRule);
@@ -405,14 +405,14 @@ public sealed class RuleServiceTests
 
         switch (status)
         {
-            case RightRuleResultEnum.SUCCESS:
+            case RightRuleResultEnum.APPLICABLE:
             case RightRuleResultEnum.DEFAULT:
                 Assert.Equal(status.ParserToRegistrationStatus(), result.Status);
                 Assert.Same(parsedRule, result.RegisteredRule);
                 Assert.Contains(parsedRule, _registeredRules.Rules);
                 break;
 
-            case RightRuleResultEnum.FAILURE:
+            case RightRuleResultEnum.NOTAPPLICABLE:
             case RightRuleResultEnum.ERROR:
                 Assert.Equal(status.ParserToRegistrationStatus(), result.Status);
                 Assert.Same(parsedRule, result.RegisteredRule);
@@ -464,7 +464,7 @@ public sealed class RuleServiceTests
     {
         public RuleValidationResult Result { get; set; } = new()
         {
-            Valid = RightRuleResultEnum.SUCCESS,
+            Valid = RightRuleResultEnum.APPLICABLE,
             Message = "Valid"
         };
 
@@ -475,7 +475,7 @@ public sealed class RuleServiceTests
             foreach (var rule in rules)
             {
                 var validationResult = ValidateRule(rule);
-                if (validationResult.Valid != RightRuleResultEnum.SUCCESS)
+                if (validationResult.Valid != RightRuleResultEnum.APPLICABLE)
                 {
                     return false;
                 }
@@ -487,7 +487,7 @@ public sealed class RuleServiceTests
     private sealed class StubParseRuleService : IParseRuleService
     {
         public ParsedRule? Result { get; set; } =
-            CreateParsedRule(1, "Rule", "Sales", RightRuleResultEnum.SUCCESS);
+            CreateParsedRule(1, "Rule", "Sales", RightRuleResultEnum.APPLICABLE);
 
         public Queue<ParsedRule?>? Results { get; set; }
         public int CallCount { get; private set; }

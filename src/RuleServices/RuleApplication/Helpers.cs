@@ -15,7 +15,7 @@ internal static class Helpers
                 parsedRule => 
                 parsedRule.Context.Equals(Context, StringComparison.InvariantCultureIgnoreCase)
                 &&
-                parsedRule.Status == RightRuleResultEnum.SUCCESS
+                parsedRule.Status == RightRuleResultEnum.APPLICABLE
                 )
                 .OrderBy(pr => pr.Number)
                 .ToList();

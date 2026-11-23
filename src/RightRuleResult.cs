@@ -26,7 +26,7 @@ public sealed class RightRuleResult<T>
         ArgumentNullException.ThrowIfNull(Payload, nameof(Payload));
         return new() 
         {
-            Status = RightRuleResultEnum.SUCCESS,
+            Status = RightRuleResultEnum.APPLICABLE,
             Result = Payload.Result, 
             RuleNumber = Payload.Number, 
             RuleName = Payload.Name, 
@@ -44,7 +44,7 @@ public sealed class RightRuleResult<T>
 
         return new()
         {
-            Status = RightRuleResultEnum.FAILURE,
+            Status = RightRuleResultEnum.NOTAPPLICABLE,
             Result = Payload.Result,
             RuleNumber = Payload.Number,
             RuleName = Payload.Name,
