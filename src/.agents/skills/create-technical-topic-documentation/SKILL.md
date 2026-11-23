@@ -17,6 +17,7 @@ The Documentation should cover technical details of each topic, with examples wh
     - The decision, include how the decision word can be used to influence the flow of a users code
     - The decisiondata, include how this can return influential details to the calling app along with the decision word
 - Applying rules. Include details of all methods for applying rules, and describe the results from each method.
+- Data transformation using string interpolation, Describe how the decisiondata can include $ items that can be replaced by registered data items. Explain how this can provide context/result specific data returned to the calling application.
 
 Do **not** modify existing C# code.
 Do **not** create any new tests.

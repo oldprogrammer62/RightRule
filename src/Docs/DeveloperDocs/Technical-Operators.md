@@ -1,14 +1,14 @@
 # Operators
 
-Operators implement comparisons used in rule statements. A statement supplies left and right values and selects an operator by one of its aliases. An operator returns a success or failure evaluation; it may also receive the rule's `OptionalData` for operator-specific configuration.
+Operators compare the left and right operands of a rule condition. A statement selects an operator by an alias, such as `equals`, `=`, or a custom word alias. The active aliases are available from `session.OperatorService.GetRegisteredAliases()`; operator names and aliases are resolved case-insensitively. Operators may also receive the rule's `OptionalData` as operator-specific configuration.
 
 ## Built-in operators
 
-The built-in set includes `Contains`, `DoesNotContain`, `Equals`, `GreaterThanOrEquals`, `In`, `LessThan`, and `NotEquals`. Operators can have aliases (for example, a symbolic comparison form); aliases are normalized without case sensitivity. Use `session.OperatorService.GetOperators()` and `GetRegisteredAliases()` to inspect the active set.
+RightRule ships with `Contains`, `DoesNotContain`, `Equals`, `GreaterThanOrEquals`, `In`, `LessThan`, and `NotEquals`. Use aliases reported by the current operator service as the supported statement spellings. Input types and comparison semantics depend on each operator; make sure registered values and literal values are compatible.
 
 ## Implement a custom operator
 
-Derive from `Operator`, provide at least one alias, and implement `ExecuteAsync`. Validate types and optional configuration rather than assuming all input is well-formed. Return an `OperatorResult` that identifies the operator and whether the comparison succeeded.
+Implement the operator contract (commonly by deriving from `Operator`), provide one or more aliases, and implement its asynchronous execution method. Validate operand types and optional configuration, and return an `OperatorResult` that identifies the operator and whether evaluation succeeded.
 
 ```csharp
 public sealed class IsSmallerThan : Operator
@@ -24,13 +24,14 @@ public sealed class IsSmallerThan : Operator
 
         return Task.FromResult(leftValue < rightValue
             ? OperatorResult.SuccessResult("IsSmallerThan", true)
-            : OperatorResult.FailureResult("IsSmallerThan", "Left is not smaller than Right"));
+            : OperatorResult.FailureResult(
+                "IsSmallerThan", "Left is not smaller than Right"));
     }
 }
 ```
 
-Register an instance at runtime with `session.OperatorService.RegisterOperator`. Duplicate operator names or aliases prevent successful registration. A runtime-registered operator applies to that session.
+Register an instance with `session.OperatorService.RegisterOperator` and check the returned `OperatorRegistrationResult`. Operator names and aliases must not conflict with already registered operators. A runtime registration belongs to that session.
 
-## Load operators from an assembly
+## Load custom operators from an assembly
 
-Startup options control built-in and custom loading: `LoadDefaultOperators`, `LoadCustomOperators`, and `CustomOperatorLibraryPath`. Custom operators can be listed in `customoperatorconfig.json` with a name and assembly path. Configure the path through `RightRuleOptions` or the library configuration, then create the session so startup loading can take place. `RegisterAllOperators(options)` can reload the active set; inspect its registration status. Disposing the session disposes registered operators, so operator instances should not be shared across sessions unless their lifecycle supports it.
+Startup loading is controlled by `LoadDefaultOperators`, `LoadCustomOperators`, and `CustomOperatorLibraryPath` in `RightRuleOptions`. Custom operator configuration is stored in `customoperatorconfig.json`, which identifies assemblies to load. Set the options before creating the RightRule instance/session so its startup loader can read them. `RegisterAllOperators(options)` can replace the active operator set; inspect the result. Operator instances registered with a session are disposed when that session is disposed, so avoid sharing disposable instances across sessions.

@@ -1,10 +1,20 @@
 # Data registration and adaptors
 
-## Data model and registration
+## Register data
 
-Data is registered into named datasets through `session.DataService.RegisterData<T>(datasetName, data)`. A statement uses the dataset name and, for structured datasets, item names (for example `Customer.age`). Data and rules are scoped to the session; create/register them in the same session that applies the rules.
+`session.DataService.RegisterData<T>(datasetName, data)` converts the supplied value through the adaptor registered for its compile-time type, then stores the returned named values in the requested dataset. Statements address an item as `DatasetName.ItemName`. Check `DataRegistrationResult.Status` and `Message` before applying rules. Data and adaptors are scoped to the RightRule instance/session.
 
-The built-in adaptor set handles general objects, strings, dictionaries, `(string, int)` tuples, and lists of those tuples. The object and string adaptors expose the input under the dataset name as a value. The dictionary adaptor exposes entries as named items and can use an `Id` entry to set the resulting dataset name. Tuple adaptors expose tuple names and values. Registering a type is not a promise that every property is flattened: inspect the adapted shape and write rule paths against that shape.
+Built-in adaptors cover these input types:
+
+| Input type | Adapted shape |
+|---|---|
+| `Dictionary<string, object>` | Each dictionary entry becomes a named dataset item. |
+| `(string Name, int Value)` | One item using `Name` as its key and `Value` as its value. |
+| `List<(string Name, int Value)>` | One item for each tuple. |
+| `string` | One item whose key is the dataset name and whose value is the string. |
+| `object` | One item whose key is the dataset name and whose value is the object. |
+
+The general `object` adaptor is a fallback for input types without a more specific adaptor. It stores the object as a single value; it does not automatically flatten arbitrary object properties. A dictionary item's key `Id` does not change the dataset name used by `RegisterData`.
 
 ```csharp
 var customer = new Dictionary<string, object>
@@ -13,23 +23,25 @@ var customer = new Dictionary<string, object>
     ["country"] = "GB"
 };
 
-var result = session.DataService.RegisterData("Customer", customer);
-if (result.Status != RegistrationStatusEnum.SUCCESS)
-    throw new InvalidOperationException(result.Message);
+var registration = session.DataService.RegisterData("Customer", customer);
+if (registration.Status != RegistrationStatusEnum.SUCCESS)
+    throw new InvalidOperationException(registration.Message);
+// The rule can now refer to Customer.age and Customer.country.
 ```
 
-Use `RegisteredDatasets`, `GetRegisteredData`, `GetDataSetNames`, and `GetDataItemNames` to inspect registered values. `SerializeData` and `LoadData` support persistence/interchange. Check the registration result before evaluating rules.
+You can register a simple scalar such as a number or boolean through the object adaptor. Its item name is the same as the dataset name, so the statement reference is `age.age` when the dataset name is `age`. Use `GetDataSetNames`, `GetDataItemNames`, `GetRegisteredData`, and `GetDataItemValue` to inspect registered data. JSON loading and serialization are also available through the data service.
 
-## Custom data adaptors
+## Develop and register a custom adaptor
 
-When application input has a shape that the built-in adaptors do not expose suitably, implement `IDataAdaptor` (commonly by deriving from `DataAdaptorBase<TInput>`). Its processing method receives the requested dataset name and typed input, and returns an `AdaptorDataStructure` with the dataset name and named values. Register the adaptor on the session before calling `RegisterData` for that input type.
+Use a custom adaptor when an application type needs a more useful named shape. Implement `IDataAdaptor<TInput>` (often by deriving from `DataAdaptorBase<TInput>` in the adaptor support library). Its `Process` method receives the requested dataset name and input and returns an `AdaptorDataStructure` containing named values.
 
 ```csharp
 public sealed class CustomerAdaptor : DataAdaptorBase<CustomerInput>
 {
     public override string AdaptorName { get; init; } = "CustomerAdaptor";
 
-    public override AdaptorDataStructure Process(string datasetName, CustomerInput input)
+    public override AdaptorDataStructure Process(
+        string datasetName, CustomerInput input)
     {
         var adapted = new AdaptorDataStructure { DatasetName = datasetName };
         adapted.Data.Add("age", input.Age);
@@ -38,12 +50,14 @@ public sealed class CustomerAdaptor : DataAdaptorBase<CustomerInput>
     }
 }
 
-session.DataAdaptorService.RegisterDataAdaptor(new CustomerAdaptor());
-var result = session.DataService.RegisterData("Customer", customerInput);
+var adaptorRegistration = session.DataAdaptorService
+    .RegisterDataAdaptor(new CustomerAdaptor());
+var dataRegistration = session.DataService
+    .RegisterData("Customer", customerInput);
 ```
 
-The adaptor output determines the paths that rules can reference. Keep names stable, avoid duplicate keys, and preserve values in types that operators can compare. Inspect `DataAdaptorRegistrationResult` and `DataRegistrationResult` for failures. `ProcessIncomingData` is also available for explicitly obtaining the adaptor output without registering it.
+Register the adaptor before registering an instance of its input type. The adaptor manager selects by the generic input type; when no exact match exists it uses the `object` fallback. Keep emitted keys stable and unique, and preserve types that the operators in your statements can compare. Check both adaptor and data registration results. `ProcessIncomingData` lets you obtain the adapted structure without storing it in a dataset.
 
-## Available value types
+## Value types and statement access
 
-`RegisterData<T>` accepts any non-null input type for which a registered adaptor can produce the RightRule data structure. The built-ins cover the input categories above; custom adaptors can support application-specific classes and other types. The resulting named values may be primitive or structured objects, but rule access depends on the adaptor output and supported statement paths. RightRule's documented intrinsic checks include primitive values, `string`, `decimal`, `DateTime`, `DateOnly`, and `TimeOnly`. Ensure JSON-loaded values and custom adaptor values have types compatible with the operators and expressions that use them.
+`RegisterData<T>` accepts any non-null input for which an adaptor can produce data. Built-in adaptors cover the categories above; custom adaptors can map application-specific types. The adapted shape, rather than the original CLR object's property layout, determines which paths statements can use. Intrinsic typed-value support includes primitive types, `string`, `decimal`, `DateTime`, `DateOnly`, and `TimeOnly`; operators still determine whether a particular comparison is valid. Ensure JSON-loaded or custom-adaptor values have suitable types for their comparisons.

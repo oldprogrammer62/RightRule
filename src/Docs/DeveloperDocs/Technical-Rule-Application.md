@@ -1,43 +1,62 @@
 # Applying rules and reading results
 
-Apply rules through `session.RuleService`, using the context registered on the rules. The context selects the rule set; dataset names referenced by statements must already have been registered in the same session.
+Before applying rules, register the input data referenced by their statements in the same RightRule instance/session. The context selects the rules to evaluate. Rule numbers determine ascending order for `FIRST` evaluation.
 
-## Evaluation modes
+## Evaluation methods
 
-| Mode | Behavior |
-|---|---|
-| `FIRST` | Evaluates by ascending rule number and returns the first true rule. If none is true, the context default is returned. |
-| `ANY` | Evaluates all rules and returns each result, with each rule's result indicating true or false and the corresponding decision details. |
-| `ALL` | Returns the applied rules when all evaluate true; a false result leads to the context default. |
+| API | Return type | Behavior |
+|---|---|---|
+| `ApplyRule(context)` / `ApplyRuleAsync(context)` | One `RightRuleResult<IProcessedRule>` | First-match (`FIRST`): returns the first true rule, or the context default when none matches. |
+| `ApplyRules(context)` / `ApplyRulesAsync(context)` | List of results | Defaults to `FIRST`; the list contains the single selected outcome. |
+| `ApplyRules(context, EvaluationTypeEnum)` / async equivalent | List of results | Selects `FIRST`, `ANY`, or `ALL` behavior. |
 
-`ApplyRule` and `ApplyRuleAsync` return a single `RightRuleResult<IProcessedRule>` and use first-match behavior. `ApplyRules` and `ApplyRulesAsync` return a list; without an explicit mode they also use `FIRST`. The overloads accepting `EvaluationTypeEnum` allow `FIRST`, `ANY`, or `ALL` behavior. Prefer async methods from asynchronous application code.
+`FIRST` evaluates in number order and returns one applicable rule, or the default. `ANY` evaluates every rule and returns each rule's outcome, including false outcomes. `ALL` evaluates the group and returns the rule outcomes only when all are true; if any is false, the context default is returned. When there are no applicable rules or evaluation fails, the public methods return an error result; configure the required default for fallback paths.
+
+Use the async methods from asynchronous code. The synchronous methods block while invoking the async implementation.
 
 ```csharp
-RightRuleResult<IProcessedRule> one =
+RightRuleResult<IProcessedRule> first =
     await session.RuleService.ApplyRuleAsync("CustomerEligibility");
 
-List<RightRuleResult<IProcessedRule>> allChecks =
+List<RightRuleResult<IProcessedRule>> perRule =
     await session.RuleService.ApplyRulesAsync(
         "CustomerEligibility", EvaluationTypeEnum.ANY);
 ```
 
-## Result fields
+## Reading results
 
-Each result reports `Status`, `Result`, `RuleNumber`, `RuleName`, `Decision`, `DecisionData`, `StatementApplied`, and `Message`. `Status` identifies applicable, not applicable, default, or error outcomes. `Result` is the evaluated boolean for a rule result. `Decision` is the routing word; `DecisionData` carries its optional payload. For an `ANY` result list, inspect every result rather than assuming only true results are present. A default result carries the registered fallback decision and data. An error result has `Status` `ERROR` and a message; the application methods represent evaluation exceptions as error results.
+`RightRuleResult<IProcessedRule>` exposes `Status`, `Result`, `RuleNumber`, `RuleName`, `Decision`, `DecisionData`, `StatementApplied`, and `Message`.
 
-Use a decision dispatch that covers every configured outcome for the context, as well as default and error cases:
+| Status | Meaning |
+|---|---|
+| `APPLICABLE` | The rule evaluated true. Decision data corresponds to the true outcome. |
+| `NOTAPPLICABLE` | A rule evaluated false, primarily visible in `ANY` results. |
+| `DEFAULT` | The context default was selected. |
+| `ERROR` | Evaluation could not produce a normal outcome; inspect `Message`. |
+
+`Result` is the Boolean rule outcome. `Decision` is the application routing word, while `DecisionData` is its optional payload. `StatementApplied` helps identify the evaluated statement. Error results should be handled using `Status`; do not interpret their decision fields as a successful application decision.
 
 ```csharp
-switch (one.Status)
+switch (first.Status)
 {
     case RightRuleResultEnum.APPLICABLE:
     case RightRuleResultEnum.DEFAULT:
-        return HandleDecision(one.Decision, one.DecisionData);
+        return HandleDecision(first.Decision, first.DecisionData);
     case RightRuleResultEnum.ERROR:
-        throw new InvalidOperationException(one.Message);
+        throw new InvalidOperationException(first.Message);
     default:
-        return HandleNonApplicable(one);
+        return HandleNonApplicable(first);
 }
 ```
 
-Choose `ApplyRule` when the caller needs one first-match outcome. Choose `ApplyRules` with `ANY` when the caller needs to inspect each rule outcome, or `ALL` when the set is a combined condition. A list-returning API always returns a list, so handle default/error results by their status rather than treating every list entry as a successful decision.
+For `ANY`, inspect every result and branch on each result's status and boolean value. For `ALL`, account for the returned default when the combined condition fails. A default decision and payload should be handled just like a deliberate application outcome.
+
+## Decision data interpolation
+
+String `DecisionData` values may contain `$` references resolved against registered data at evaluation time. A dotted reference uses `$Dataset.Item`; a bare `$Name` looks up the item whose dataset and item names are both `Name`. For example, register `order.discount` with value `15`, then configure a decision payload string such as:
+
+```json
+{"discount": $order.discount}
+```
+
+The returned payload string contains the registered value in place of `$order.discount`. This lets a rule select a result-specific message or payload while the caller supplies run-time details. Non-string decision data is passed through without string interpolation. Unresolved references are left in the string, so ensure the required data is registered and inspect the returned payload shape.
