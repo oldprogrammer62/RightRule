@@ -9,7 +9,9 @@ namespace RightRule;
 public sealed partial class RightRule : IRightRule
 {
     private readonly RightRuleOptions _options;
+
     public List<string> DefaultOperatorNames { get; set; } = [];
+    public List<string> CustomOperatorNames { get; set; } = [];
 
     private readonly ILoggerFactory _loggerFactory;
 
@@ -37,7 +39,9 @@ public sealed partial class RightRule : IRightRule
         ArgumentNullException.ThrowIfNull(loggerFactory);
 
         _options = options;
+
         DefaultOperatorNames = [.. _options.DefaultOperatorNames];
+        CustomOperatorNames = [.. _options.CustomOperatorNames];
 
         _loggerFactory = loggerFactory;
     }
@@ -49,6 +53,7 @@ public sealed partial class RightRule : IRightRule
             DataCheck = _options.DataCheck,
             Diagnostics = _options.Diagnostics,
             LoadCustomOperators = _options.LoadCustomOperators,
+            CustomOperatorNames = _options.CustomOperatorNames,
             LoadDefaultOperators = _options.LoadDefaultOperators,
             DefaultOperatorNames = _options.DefaultOperatorNames,
             CustomOperatorLibraryPath = _options.CustomOperatorLibraryPath

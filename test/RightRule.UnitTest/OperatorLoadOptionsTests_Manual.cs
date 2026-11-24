@@ -77,8 +77,10 @@ public class OperatorLoadOptionsTests_Manual
     {
         var options = new RightRuleOptions
         {
+            LoadDefaultOperators = true,
+            DefaultOperatorNames = ["EqualsOperator", "InOperator"],
             LoadCustomOperators = false,
-            DefaultOperatorNames = ["EqualsOperator", "InOperator"]
+            CustomOperatorNames = []
         };
 
         var rr = new RightRule.RightRule(options).CreateSession();
@@ -98,9 +100,10 @@ public class OperatorLoadOptionsTests_Manual
     {
         var options = new RightRuleOptions
         {
-            LoadCustomOperators = false,
             LoadDefaultOperators = false,
-            DefaultOperatorNames = ["EqualsOperator", "InOperator"]
+            DefaultOperatorNames = ["EqualsOperator", "InOperator"],
+            LoadCustomOperators = false,
+            CustomOperatorNames = []
         };
 
         var rr = new RightRule.RightRule(options).CreateSession();
@@ -109,5 +112,46 @@ public class OperatorLoadOptionsTests_Manual
 
         var operators = rr.OperatorService.Operators;
         Assert.Empty(operators);
+    }
+
+    [Fact]
+    public void RightRule_LoadSpecificCustomOperators()
+    {
+        var options = new RightRuleOptions
+        {
+            LoadDefaultOperators = false,
+            DefaultOperatorNames = [],
+            LoadCustomOperators = true,
+            CustomOperatorNames = ["Exists"]
+        };
+
+        var rr = new RightRule.RightRule(options).CreateSession();
+        Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
+
+        var operators = rr.OperatorService.Operators;
+        Assert.Single(operators);
+        Assert.Equal("Exists", operators.Single().Name);
+    }
+
+    [Fact]
+    public void RightRule_LoadSpecificCustomAndDefaultOperators()
+    {
+        var options = new RightRuleOptions
+        {
+            LoadDefaultOperators = true,
+            DefaultOperatorNames = ["EqualsOperator"],
+            LoadCustomOperators = true,
+            CustomOperatorNames = ["Exists"]
+        };
+
+        var rr = new RightRule.RightRule(options).CreateSession();
+        Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
+
+        var operators = rr.OperatorService.Operators;
+        Assert.Equal(2, operators.Count);
+        Assert.Equal("EqualsOperator", operators[0].Name);
+        Assert.Equal("Exists", operators[1].Name);
     }
 }

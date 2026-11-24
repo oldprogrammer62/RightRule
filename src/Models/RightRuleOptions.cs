@@ -8,7 +8,10 @@ public sealed class RightRuleOptions
 {
     public bool DataCheck { get; set; } = false;
     public bool Diagnostics { get; set; } = false;
+
     public bool LoadCustomOperators { get; set; } = true;
+    public List<string> CustomOperatorNames { get; set; } = [];
+
     public bool LoadDefaultOperators { get; set; } = true;
     public List<string> DefaultOperatorNames { get; set; } = [];
 
@@ -40,6 +43,14 @@ public sealed class RightRuleOptions
 
         DefaultOperatorNames = section
             .GetSection(nameof(DefaultOperatorNames))
+            .GetChildren()
+            .Select(child => child.Value)
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Select(value => value!.Trim())
+            .ToList();
+
+        CustomOperatorNames = section
+            .GetSection(nameof(CustomOperatorNames))
             .GetChildren()
             .Select(child => child.Value)
             .Where(value => !string.IsNullOrWhiteSpace(value))

@@ -124,7 +124,7 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         {
             return [
                 .. LoadDefaultOperators(options),
-                .. LoadCustomOperators()
+                .. LoadCustomOperators(options)
                 ];
         }
         if (loadDefaultOperators)
@@ -136,7 +136,7 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         if (loadCustomOperators)
         {
             return [
-                .. LoadCustomOperators()
+                .. LoadCustomOperators(options)
                 ];
         }
         return [];
@@ -158,14 +158,25 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
             .ToList();
     }
 
-    internal List<Operator> LoadCustomOperators()
+    internal List<Operator> LoadCustomOperators(RightRuleOptions options)
     {
         string configurationPath = _options.CustomOperatorLibraryPath;
         if (string.IsNullOrEmpty(configurationPath) || !File.Exists(configurationPath))
         {
             return new List<Operator>();
         }
-        return _customOperatorLoader.LoadOperators(configurationPath);
+        var operators = _customOperatorLoader.LoadOperators(configurationPath);
+
+        if (options.CustomOperatorNames.Count == 0)
+            return operators;
+
+        var selectedNames = new HashSet<string>(
+            options.CustomOperatorNames,
+            StringComparer.OrdinalIgnoreCase);
+
+        return operators
+            .Where(op => selectedNames.Contains(op.Name))
+            .ToList();
     }
 
     private bool OperatorExists(Operator Operator)
