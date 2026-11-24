@@ -10,6 +10,7 @@ public sealed class RightRuleOptions
     public bool Diagnostics { get; set; } = false;
     public bool LoadCustomOperators { get; set; } = true;
     public bool LoadDefaultOperators { get; set; } = true;
+    public List<string> DefaultOperatorNames { get; set; } = [];
 
     public string CustomOperatorLibraryPath { get; set; }
 
@@ -36,6 +37,14 @@ public sealed class RightRuleOptions
 
         if (section["CustomOperatorLibraryPath"] is { } path)
             CustomOperatorLibraryPath = path;
+
+        DefaultOperatorNames = section
+            .GetSection(nameof(DefaultOperatorNames))
+            .GetChildren()
+            .Select(child => child.Value)
+            .Where(value => !string.IsNullOrWhiteSpace(value))
+            .Select(value => value!.Trim())
+            .ToList();
     }
 
     private static bool ReadBoolean(string? value, bool fallback) =>

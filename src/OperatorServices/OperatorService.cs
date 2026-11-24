@@ -123,14 +123,14 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         if (loadDefaultOperators && loadCustomOperators)
         {
             return [
-                .. LoadDefaultOperators(),
+                .. LoadDefaultOperators(options),
                 .. LoadCustomOperators()
                 ];
         }
         if (loadDefaultOperators)
         {
             return [
-                .. LoadDefaultOperators()
+                .. LoadDefaultOperators(options)
                 ];
         }
         if (loadCustomOperators)
@@ -142,9 +142,20 @@ internal sealed partial class OperatorService : IOperatorService, IDisposable
         return [];
     }
 
-    internal List<Operator> LoadDefaultOperators()
+    internal List<Operator> LoadDefaultOperators(RightRuleOptions options)
     {
-        return _defaultOperatorLoader.Load();
+        var operators = _defaultOperatorLoader.Load();
+
+        if (options.DefaultOperatorNames.Count == 0)
+            return operators;
+
+        var selectedNames = new HashSet<string>(
+            options.DefaultOperatorNames,
+            StringComparer.OrdinalIgnoreCase);
+
+        return operators
+            .Where(op => selectedNames.Contains(op.Name))
+            .ToList();
     }
 
     internal List<Operator> LoadCustomOperators()

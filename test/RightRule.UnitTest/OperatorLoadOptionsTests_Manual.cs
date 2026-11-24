@@ -1,5 +1,4 @@
-﻿using RightRule;
-using RightRule.Models;
+﻿using RightRule.Models;
 
 namespace RightRuleTests;
 
@@ -9,8 +8,8 @@ public class OperatorLoadOptionsTests_Manual
     public void RightRule_RunManually_WithoutOptions()
     {
         var rr = new RightRule.RightRule().CreateSession();
-
         Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
 
         var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
@@ -28,10 +27,15 @@ public class OperatorLoadOptionsTests_Manual
     [Fact]
     public void RightRule_RunManually_WithOptions_True()
     {
-        RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = true };
-        var rr = new RightRule.RightRule(options).CreateSession();
+        RightRuleOptions options = new RightRuleOptions 
+        { 
+            LoadDefaultOperators = true,
+            LoadCustomOperators = true
+        };
 
+        var rr = new RightRule.RightRule(options).CreateSession();
         Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
 
         var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
@@ -50,9 +54,10 @@ public class OperatorLoadOptionsTests_Manual
     public void RightRule_RunManually_WithOptions_False()
     {
         RightRuleOptions options = new RightRuleOptions { LoadDefaultOperators = false };
-        var rr = new RightRule.RightRule(options).CreateSession();
 
+        var rr = new RightRule.RightRule(options).CreateSession();
         Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
 
         var operators = rr.OperatorService.Operators;
         Assert.NotNull(operators);
@@ -65,5 +70,44 @@ public class OperatorLoadOptionsTests_Manual
         var customOperators = operators.Where(op => op.IsCustom == true).ToList();
         Assert.NotNull(customOperators);
         Assert.Equal(3, customOperators.Count);
+    }
+
+    [Fact]
+    public void RightRule_LoadsOnlySelectedDefaultOperators()
+    {
+        var options = new RightRuleOptions
+        {
+            LoadCustomOperators = false,
+            DefaultOperatorNames = ["EqualsOperator", "InOperator"]
+        };
+
+        var rr = new RightRule.RightRule(options).CreateSession();
+        Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
+
+        var operators = rr.OperatorService.Operators;
+
+        Assert.Equal(2, operators.Count);
+        Assert.Equal(
+            ["EqualsOperator", "InOperator"],
+            operators.Select(op => op.Name).OrderBy(name => name).ToArray());
+    }
+
+    [Fact]
+    public void RightRule_SpecifiesOperatorsButLoadFalse()
+    {
+        var options = new RightRuleOptions
+        {
+            LoadCustomOperators = false,
+            LoadDefaultOperators = false,
+            DefaultOperatorNames = ["EqualsOperator", "InOperator"]
+        };
+
+        var rr = new RightRule.RightRule(options).CreateSession();
+        Assert.NotNull(rr);
+        Assert.NotNull(rr.OperatorService);
+
+        var operators = rr.OperatorService.Operators;
+        Assert.Empty(operators);
     }
 }

@@ -4,7 +4,7 @@ namespace RightRule_Demo.DataLoader
 {
     internal class CustomerLoader
     {
-        internal static Customer? Load(string code)
+        internal static Customer? GetCustomerByCode(string code)
         {
             return LoadCustomers().FirstOrDefault(c => c.Code.Equals(code, StringComparison.CurrentCultureIgnoreCase));
         }

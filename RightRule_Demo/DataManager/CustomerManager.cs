@@ -43,7 +43,7 @@ internal class CustomerManager
             return default;
         }
 
-        var customer = DataLoader.CustomerLoader.Load(customerCode);
+        var customer = DataLoader.CustomerLoader.GetCustomerByCode(customerCode);
         if (customer != null)
         {
             Console.WriteLine($"Customer found: {customerCode.ToUpper()} {customer.Name} (ID: {customer.Id})");
